@@ -52,6 +52,15 @@ class PROCEDURAL_MEMORY:
         - ALWAYS verify code agent results with GUI actions before using agent.done(); NEVER trust code agent output alone. If verification or the code agent fails, use GUI actions to finish the task and only use agent.done() if results match expectations.
         - **CRITICAL**: Files modified by code agent may not show changes in currently open applications - you MUST close and reopen the entire application. Reloading the page/file is insufficient.
 
+        ### Step Retrieval Reference Usage
+        - The user message may include a block titled `STEP RETRIEVAL REFERENCE`.
+        - Treat this block as a high-value historical hint for planning, not as irrelevant background text.
+        - If the reference says `Applicable When`, first compare those conditions against the current screenshot before deciding the next action.
+        - If the current screen appears compatible, prefer reusing the referenced action idea, target pattern, or control/panel workflow.
+        - Use the referenced `Expected Result After Action` as a success signal to judge whether the action is appropriate.
+        - Do NOT copy the reference text verbatim into your final response, but DO let it meaningfully influence your chosen next action when applicable.
+        - If the current screen clearly conflicts with the reference conditions, explain that conflict in your screenshot analysis and choose a different action.
+
         Never assume a task is done based on appearances-always ensure the specific requested action has been performed and verify the modification. If you haven't executed any actions, the task is not complete.
 
         ### END OF GUIDELINES

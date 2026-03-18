@@ -573,7 +573,7 @@ class Worker(BaseModule):
                             self.last_step_retrieval_meta = None
                     elif (not similarity_above_k) and retrieval_content and is_append_to_plan:
                         generator_message += (
-                            "\nSTEP RETRIEVAL REFERENCE (low similarity; for planning agent only).\n"
+                            "\nSTEP RETRIEVAL REFERENCE (for planning agent only).\n"
                             "IMPORTANT: Use it silently for planning, but DO NOT quote/copy it in your final plan output.\n"
                             f"{_STEP_RETRIEVAL_REF_START}\n"
                             + retrieval_content
@@ -621,6 +621,10 @@ class Worker(BaseModule):
             temperature=self.temperature,
             use_thinking=self.use_thinking,
         )
+        print("-" * 20)
+        print("****Generator message:\n", generator_message)
+        print("****Raw plan response:\n", plan)
+        print("-" * 20)
         plan = _strip_step_retrieval_reference_from_text(plan)         #把低相似检索参考块从计划文本里清掉，防止污染后续历史和反思
         self.worker_history.append(plan)
         self.generator_agent.add_message(plan, role="assistant")
