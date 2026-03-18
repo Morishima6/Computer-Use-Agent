@@ -369,8 +369,6 @@ class OSWorldACI(ACI):
     def resize_coordinates(self, coordinates: List[int]) -> List[int]:
         grounding_width = self.engine_params_for_grounding["grounding_width"]
         grounding_height = self.engine_params_for_grounding["grounding_height"]
-        import pyautogui
-        print(f'********************************************************************************Truth size: {pyautogui.size()}')
         print(f'********************************************************************************Grounding size: {grounding_width}x{grounding_height}')
         print(f'********************************************************************************Original screen size: {self.width}x{self.height}')
         return [

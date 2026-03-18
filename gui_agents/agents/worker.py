@@ -95,6 +95,7 @@ class Worker(BaseModule):
         self.step_retrieval = step_retrieval
         self.step_retrieval_threshold = step_retrieval_threshold
         self._screenshot_explainer = None
+        self._step_retrieval_summarizer = None
         self.reset()
 
     def reset(self):
@@ -124,6 +125,7 @@ class Worker(BaseModule):
         self.cost_this_turn = 0
         self.screenshot_inputs = []
         self._screenshot_explainer = None
+        self._step_retrieval_summarizer = None
         self.last_step_retrieval_after_effects = None
         self.last_step_retrieval_meta = None
 
@@ -399,8 +401,9 @@ class Worker(BaseModule):
             # Reset the code agent result after adding it to context
             self.grounding_agent.last_code_agent_result = None
 ##################=================== Step 级 检索的逻辑 ============================
-        # Step retrieval requires `obs["screenshot_explanation"]`. If caller doesn't provide it,
-        # generate a best-effort description from the current screenshot here.
+        # Step retrieval now uses two texts:
+        # - `screenshot_explanation`: fuller screen evidence for precondition checking
+        # - `step_retrieval_summary`: short retrieval-oriented summary for embedding search
         if (
             self.step_retrieval is not None
             and "screenshot_explanation" not in obs
@@ -408,13 +411,41 @@ class Worker(BaseModule):
         ):
             try:
                 if self._screenshot_explainer is None:
-                    # system_prompt = (
-                    #     "You are a UI state describer for step retrieval.\n"
-                    #     "Given a screenshot of a desktop app, describe the current screen state.\n"
-                    #     "Focus on: active app/window, page/view name, visible UI elements (buttons/menus/tabs/dialogs), "
-                    #     "important visible text, and any obvious next-action affordances.\n"
-                    #     "Be concise but specific. Output plain text only."
-                    # )
+                    system_prompt = (
+                        "You are a UI state describer for step retrieval.\n"
+                        "Given a screenshot of a desktop app, describe the current screen state.\n"
+                        "Focus on: active app/window, page/view name, visible UI elements (buttons/menus/tabs/dialogs), "
+                        "important visible text, and any obvious next-action affordances.\n"
+                        "Be concise but specific. Output plain text only."
+                    )
+                    self._screenshot_explainer = LMMAgent(
+                        engine_params=self.engine_params, system_prompt=system_prompt
+                    )
+
+                prompt = (
+                    "Please generate a textual description of the current screen state based on the screenshot (for semantic retrieval)n"
+                    "Requirements: Describe the currently visible interface and key text. Do not output coordinates or code."
+                )
+                self._screenshot_explainer.reset()
+                self._screenshot_explainer.add_message(
+                    text_content=prompt,
+                    image_content=model_obs["screenshot"],
+                    role="user",
+                    put_text_last=True,
+                )
+                obs["screenshot_explanation"] = call_llm_safe(
+                    self._screenshot_explainer, temperature=0.0
+                ).strip()
+            except Exception as e:
+                logger.error(f"SCREENSHOT EXPLANATION GENERATION FAILED: {e}")
+
+        if (
+            self.step_retrieval is not None
+            and "step_retrieval_summary" not in obs
+            and "screenshot" in obs
+        ):
+            try:
+                if self._step_retrieval_summarizer is None:
                     system_prompt = ('''
                         You are a retrieval-oriented UI state summarizer.
 
@@ -442,15 +473,11 @@ class Worker(BaseModule):
                         - emphasize the current actionable state, not the full screenshot
 
                     ''')
-                    self._screenshot_explainer = LMMAgent(
+                    self._step_retrieval_summarizer = LMMAgent(
                         engine_params=self.engine_params, system_prompt=system_prompt
                     )
 
-                # prompt = (
-                #     "Please generate a textual description of the current screen state based on the screenshot (for semantic retrieval)n"
-                #     "Requirements: Describe the currently visible interface and key text. Do not output coordinates or code."
-                # )
-                prompt=('''
+                summary_prompt = ('''
                     Summarize this screenshot for step retrieval.
 
                     Requirements:
@@ -458,22 +485,26 @@ class Worker(BaseModule):
                     - Prefer the currently selected object, focused control, open panel, or actionable region.
                     - Mention at most 3 directly relevant controls or state cues.
                     - Keep it concise and retrieval-friendly.
-                    ''')
-                
-                self._screenshot_explainer.reset()
-                self._screenshot_explainer.add_message(
-                    text_content=prompt,
+                ''')
+                self._step_retrieval_summarizer.reset()
+                self._step_retrieval_summarizer.add_message(
+                    text_content=summary_prompt,
                     image_content=model_obs["screenshot"],
                     role="user",
                     put_text_last=True,
                 )
-                obs["screenshot_explanation"] = call_llm_safe(
-                    self._screenshot_explainer, temperature=0.0
+                obs["step_retrieval_summary"] = call_llm_safe(
+                    self._step_retrieval_summarizer, temperature=0.0
                 ).strip()
             except Exception as e:
-                logger.error(f"SCREENSHOT EXPLANATION GENERATION FAILED: {e}")
+                logger.error(f"STEP RETRIEVAL SUMMARY GENERATION FAILED: {e}")
+                obs["step_retrieval_summary"] = obs.get("screenshot_explanation", "")
 
-        if self.step_retrieval is not None and "screenshot_explanation" in obs:
+        if (
+            self.step_retrieval is not None
+            and "screenshot_explanation" in obs
+            and "step_retrieval_summary" in obs
+        ):
             try:
                 step_data = self.step_retrieval(
                     obs, self.step_retrieval_threshold

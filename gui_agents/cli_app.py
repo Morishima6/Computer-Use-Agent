@@ -212,7 +212,11 @@ def example_step_retrieval(obs: dict, k: float) -> dict:
     输出：dict - 检索到的 step 元数据（包含 similarity/full_step_data 等）
     """
 
-    step_data = find_step_by_similarity(obs["screenshot_explanation"], k=k)
+    step_data = find_step_by_similarity(
+        retrieval_query=obs["step_retrieval_summary"],
+        screen_evidence=obs["screenshot_explanation"],
+        k=k,
+    )
     return step_data
 
 

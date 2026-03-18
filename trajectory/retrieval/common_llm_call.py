@@ -48,7 +48,9 @@ def get_embedding(text: str, model: str = "text-embedding-v4") -> Optional[list[
 
 
 def llm_judge_step_precondition(
-    action_preconditions: List[str], runtime_nl_explanation: str
+    action_preconditions: List[str],
+    runtime_nl_explanation: str,
+    candidate_action_before_state: str = "",
 ) -> bool:
     if not action_preconditions or str(action_preconditions).strip() == "":
         return False
@@ -61,6 +63,9 @@ You are a senior QA Automation Engineer specialized in UI automation validation.
 ## Required Preconditions
 {action_preconditions}
 
+## Historical Step State Reference
+{candidate_action_before_state}
+
 ## Current Screen State (Context)
 {runtime_nl_explanation}
 
@@ -70,15 +75,21 @@ Return "True" only if the Current Screen State logically entails (supports) ever
 1. Logical entailment:
    - If a precondition requires a specific fact (e.g., "Username field is filled"), the Current Screen State must explicitly confirm it or provide a clear equivalent signal.
 
-2. Contradictions:
+2. Historical reference usage:
+   - The Historical Step State Reference is only auxiliary context that shows how this step was described in the past.
+   - You may use it to understand what kind of state is expected or to align synonymous descriptions.
+   - Do NOT treat the historical reference as proof that the current screen satisfies the preconditions.
+   - The final decision must still be grounded in the Current Screen State.
+
+3. Contradictions:
    - If the Current Screen State explicitly contradicts any precondition, return False.
    - Example: Precondition: "Cart is empty" vs. Current: "Cart has 2 items" => False.
 
-3. Missing information (conservative default):
+4. Missing information (conservative default):
    - If the Current Screen State does not mention an element/state needed to verify a precondition, treat it as NOT satisfied and return False.
    - Do not assume facts that are not supported by the provided context.
 
-4. Semantic / implicit confirmation:
+5. Semantic / implicit confirmation:
    - You may infer satisfaction only when the Current Screen State provides strong, unambiguous UI evidence.
    - Example: Precondition: "User is logged in" can be satisfied if the screen shows a "Logout" button, account avatar with user name, or a "My Profile" area that clearly indicates an authenticated session.
    - Weak or ambiguous signals are not sufficient; when in doubt, return False.

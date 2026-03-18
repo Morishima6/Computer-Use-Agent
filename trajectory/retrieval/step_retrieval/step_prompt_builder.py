@@ -52,6 +52,9 @@ def build_prompt_from_step(step_data: Dict[str, Any]) -> str:
         except Exception as e:
             print(f"Judge append-to-plan failed: {e}")
             is_append = False
+            
+        print(f"****LLM judge step append to plan: {is_append}")
+        print("-" * 20)
         response_prompt["isAppend2Plan"] = bool(is_append)
         return response_prompt
 

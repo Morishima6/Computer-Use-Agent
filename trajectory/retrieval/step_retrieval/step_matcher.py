@@ -94,13 +94,19 @@ def cal_step_similarity(step_embedding: List[float], explanation_embedding: List
     return 0.0
 
 
-def find_step_by_similarity(runtime_nl_explain: str, k: float = 0.8):
-    print(f"🔍 正在搜索与 '{runtime_nl_explain}' 相似的步骤...")
-    
-    query_embedding = get_embedding(runtime_nl_explain)
+def find_step_by_similarity(
+    retrieval_query: str,
+    screen_evidence: Optional[str] = None,
+    k: float = 0.8,
+):
+    print(f"🔍 正在搜索与 '{retrieval_query}' 相似的步骤...")
+
+    query_embedding = get_embedding(retrieval_query)
     if not query_embedding:
         print("无法获取查询文本的 embedding。")
         return None
+
+    screen_evidence = screen_evidence or retrieval_query
 
     index = _load_step_index()
     if not index:
@@ -144,7 +150,11 @@ def find_step_by_similarity(runtime_nl_explain: str, k: float = 0.8):
     precondition_satisfied = False
     
     for item in candidates:
-        if llm_judge_step_precondition(item["action_preconditions"], runtime_nl_explain):
+        if llm_judge_step_precondition(
+            item["action_preconditions"],
+            screen_evidence,
+            item.get("action_before_state", "") or "",
+        ):
             if item["similarity"] > best_similarity:
                 best_similarity = item["similarity"]
                 best_step = item
@@ -185,4 +195,4 @@ def find_step_by_similarity(runtime_nl_explain: str, k: float = 0.8):
     }
     
 if __name__ == "__main__":
-    find_step_by_similarity("Table.", k=0.64)
+    find_step_by_similarity("Table.", screen_evidence="Table.", k=0.64)
