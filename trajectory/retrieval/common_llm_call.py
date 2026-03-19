@@ -49,7 +49,7 @@ def get_embedding(text: str, model: str = "text-embedding-v4") -> Optional[list[
 
 def llm_judge_step_precondition(
     action_preconditions: List[str],
-    runtime_nl_explanation: str,
+    screen_evidence: str,
     candidate_action_before_state: str = "",
 ) -> bool:
     if not action_preconditions or str(action_preconditions).strip() == "":
@@ -67,7 +67,7 @@ You are a senior QA Automation Engineer specialized in UI automation validation.
 {candidate_action_before_state}
 
 ## Current Screen State (Context)
-{runtime_nl_explanation}
+{screen_evidence}
 
 # Decision Rules
 Return "True" only if the Current Screen State logically entails (supports) every Required Precondition.

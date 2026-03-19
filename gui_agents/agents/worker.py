@@ -18,6 +18,10 @@ from gui_agents.utils.formatters import (
     SINGLE_ACTION_FORMATTER,
     CODE_VALID_FORMATTER,
 )
+from gui_agents.agents.step_retrieval_summary import (
+    create_step_retrieval_summarizer,
+    generate_step_retrieval_summary,
+)
 from trajectory.retrieval.step_retrieval import build_prompt_from_step
 
 logger = logging.getLogger("desktopenv.agent")
@@ -446,55 +450,14 @@ class Worker(BaseModule):
         ):
             try:
                 if self._step_retrieval_summarizer is None:
-                    system_prompt = ('''
-                        You are a retrieval-oriented UI state summarizer.
-
-                        Your job is to produce a short screen-state summary for semantic step retrieval.
-                        The summary should help match the current UI state to a historical "action_before_state".
-
-                        Focus only on action-relevant information:
-                        1. active application or page/view
-                        2. selected / focused object or field
-                        3. visible controls that are directly relevant to the likely next action
-                        4. critical UI state changes (enabled/disabled, checked/unchecked, expanded/collapsed, dialog opened, object selected, sidebar visible, etc.)
-                        5. short key text only if it helps identify the actionable region
-
-                        Ignore:
-                        - decorative/background content
-                        - repeated layout details
-                        - unrelated text blocks
-                        - global descriptions of the whole page unless necessary
-
-                        Output rules:
-                        - plain text only
-                        - 2 to 4 short sentences
-                        - no coordinates
-                        - no code
-                        - emphasize the current actionable state, not the full screenshot
-
-                    ''')
-                    self._step_retrieval_summarizer = LMMAgent(
-                        engine_params=self.engine_params, system_prompt=system_prompt
+                    self._step_retrieval_summarizer = create_step_retrieval_summarizer(
+                        self.engine_params
                     )
 
-                summary_prompt = ('''
-                    Summarize this screenshot for step retrieval.
-
-                    Requirements:
-                    - Describe only the UI state most relevant to the next action.
-                    - Prefer the currently selected object, focused control, open panel, or actionable region.
-                    - Mention at most 3 directly relevant controls or state cues.
-                    - Keep it concise and retrieval-friendly.
-                ''')
-                self._step_retrieval_summarizer.reset()
-                self._step_retrieval_summarizer.add_message(
-                    text_content=summary_prompt,
-                    image_content=model_obs["screenshot"],
-                    role="user",
-                    put_text_last=True,
-                )
-                obs["step_retrieval_summary"] = call_llm_safe(
-                    self._step_retrieval_summarizer, temperature=0.0
+                obs["step_retrieval_summary"] = generate_step_retrieval_summary(
+                    model_obs["screenshot"],
+                    self.engine_params,
+                    summarizer=self._step_retrieval_summarizer,
                 ).strip()
             except Exception as e:
                 logger.error(f"STEP RETRIEVAL SUMMARY GENERATION FAILED: {e}")
