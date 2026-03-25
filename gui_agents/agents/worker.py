@@ -418,8 +418,7 @@ class Worker(BaseModule):
                     system_prompt = (
                         "You are a UI state describer for step retrieval.\n"
                         "Given a screenshot of a desktop app, describe the current screen state.\n"
-                        "Focus on: active app/window, page/view name, visible UI elements (buttons/menus/tabs/dialogs), "
-                        "important visible text, and any obvious next-action affordances.\n"
+                        "Focus on: active app/window, page/view name, visible UI elements (buttons/menus/tabs/dialogs), and important visible text.\n"
                         "Be concise but specific. Output plain text only."
                     )
                     self._screenshot_explainer = LMMAgent(
@@ -427,7 +426,7 @@ class Worker(BaseModule):
                     )
 
                 prompt = (
-                    "Please generate a textual description of the current screen state based on the screenshot (for semantic retrieval)n"
+                    "Please generate a textual description of the current screen state based on the screenshot (for semantic retrieval).\n"
                     "Requirements: Describe the currently visible interface and key text. Do not output coordinates or code."
                 )
                 self._screenshot_explainer.reset()

@@ -564,11 +564,16 @@ class ActionRecorder:
         self.pending_backspace_action = None
 
         # 操作锁 - 确保一个操作完全结束后才开始下一个操作
-        self.operation_lock = threading.Lock()
+        self.operation_lock = threading.RLock()
 
     def get_next_step_id(self):
         self.step_counter += 1
         return f"s{self.step_counter}"
+
+    def _cancel_pending_click_timer(self):
+        if self.pending_click_timer:
+            self.pending_click_timer.cancel()
+            self.pending_click_timer = None
 
     def start_recording(self):
         self.is_recording = True
@@ -602,8 +607,7 @@ class ActionRecorder:
             pass
         self.scroll_tracker.flush()
         self.flush_backspace_streak()
-        if self.pending_click_timer:
-            self.pending_click_timer.cancel()
+        self._cancel_pending_click_timer()
         print("停止记录，等待所有异步截图完成...")
         self.wait_for_pending_screenshots()
         self.save_report()
@@ -876,8 +880,7 @@ class ActionRecorder:
             now = time.time()
             if pressed:
                 self.is_button_pressed = True
-                if self.pending_click_timer:
-                    self.pending_click_timer.cancel()
+                self._cancel_pending_click_timer()
                 is_double = False
                 if (self.last_click_time is not None and
                         self.last_click_button == button_name and
@@ -894,12 +897,13 @@ class ActionRecorder:
                     self.record_double_click(x, y, button_name)
                     self.pending_click = None
                 else:
-                    self.pending_click = {'x': x, 'y': y, 'button': button_name, 'press_time': now,
-                                          'before_screenshot': None}
+                    pending_click = {'x': x, 'y': y, 'button': button_name, 'press_time': now,
+                                     'before_screenshot': None}
                     step_id = self.get_next_step_id()
                     before = self.take_screenshot(step_id, 'click', 'before', (x, y))
-                    self.pending_click['before_screenshot'] = before
-                    self.pending_click['step_id'] = step_id
+                    pending_click['before_screenshot'] = before
+                    pending_click['step_id'] = step_id
+                    self.pending_click = pending_click
             else:
                 self.is_button_pressed = False
                 if self.drag_tracker.is_dragging:
@@ -911,16 +915,25 @@ class ActionRecorder:
                         self.pending_click = None
                     else:
                         if self.pending_click:
+                            step_id = self.pending_click.get('step_id')
                             self.pending_click_timer = threading.Timer(self.double_click_threshold,
-                                                                       self.confirm_single_click)
+                                                                       self.confirm_single_click,
+                                                                       args=(step_id,))
                             self.pending_click_timer.start()
 
-    def confirm_single_click(self):
-        if self.pending_click:
+    def confirm_single_click(self, expected_step_id=None):
+        with self.operation_lock:
+            if not self.pending_click:
+                return
+            if (expected_step_id is not None and
+                    self.pending_click.get('step_id') != expected_step_id):
+                return
+
             click_data = self.pending_click
+            self.pending_click = None
+            self.pending_click_timer = None
             self.record_click(click_data['x'], click_data['y'], click_data['button'], click_data['before_screenshot'],
                               click_data['step_id'])
-            self.pending_click = None
 
     def flush_pending_after_clicks(self):
         to_process = []
@@ -1138,9 +1151,7 @@ class ActionRecorder:
 
         if self.pending_click:
             try:
-                if self.pending_click_timer:
-                    self.pending_click_timer.cancel()
-                    self.pending_click_timer = None
+                self._cancel_pending_click_timer()
             except:
                 pass
 

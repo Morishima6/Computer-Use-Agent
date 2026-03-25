@@ -10,63 +10,34 @@ def _find_codex_path() -> str:
     return "codex"
 
 
-def _build_codex_command(model: Optional[str], json_mode: bool = True) -> List[str]:
+def _build_codex_command(model: Optional[str]) -> List[str]:
     codex_path = _find_codex_path()
 
-    base = f"{codex_path} exec --skip-git-repo-check -c reasoning_effort=medium"
-    if json_mode:
-        base += " --json"
+    base = f"{codex_path} exec --skip-git-repo-check -c reasoning_effort=medium --json"
 
     if model:
         base += f" --model {shlex.quote(model)}"
+    if os.name == "nt":
+        return ["cmd", "/c", base]
+    return shlex.split(base)
 
 # 静默等待，没有输出，直到Codex完成任务
 def call_codex(model: str, system_prompt: str, user_prompt: str) -> str:
     """发送 prompt 给 Codex，并返回 assistant_message（效果与 codex exec 一致）"""
 
-    import tempfile
-
     prompt = f"{system_prompt.rstrip()}\n\n{user_prompt}".strip()
+    cmd = _build_codex_command(model)
 
-    # 把 prompt 写入临时文件
-    with tempfile.NamedTemporaryFile(mode="w", suffix=".txt", encoding="utf-8", delete=False) as f:
-        prompt_file = f.name
-        f.write(prompt)
-
-    try:
-        codex_path = _find_codex_path()
-        base = f'"{codex_path}" exec --skip-git-repo-check -c reasoning_effort=medium'
-        if model:
-            base += f" --model {shlex.quote(model)}"
-        base += " --json"
-
-        if os.name == "nt":
-            # Windows: 使用 type 命令从文件读取 stdin
-            cmd = f"cmd /c \"{base} < {prompt_file}\""
-            result = subprocess.run(
-                cmd,
-                shell=True,
-                capture_output=True,
-                text=True,
-                encoding="utf-8",
-                errors="replace"
-            )
-        else:
-            cmd = shlex.split(base)
-            result = subprocess.run(
-                cmd,
-                stdin=open(prompt_file),
-                capture_output=True,
-                text=True,
-                encoding="utf-8",
-                errors="replace"
-            )
-    finally:
-        os.unlink(prompt_file)
+    result = subprocess.run(
+        cmd,
+        input=prompt,
+        capture_output=True,
+        text=True,
+        encoding="utf-8"
+    )
 
     if result.returncode != 0:
-        stderr_msg = result.stderr if result.stderr else result.stdout
-        raise RuntimeError(f"Codex error: {stderr_msg}")
+        raise RuntimeError(f"Codex error: {result.stderr}")
 
     # 从 stdout 解析 JSON event 流，取最后一个 assistant_message/agent_message
     last_content: Optional[str] = None
@@ -121,7 +92,7 @@ def call_codex_streaming(model: str, system_prompt: str, user_prompt: str) -> No
 
 # 调用call codex -> 解析返回的数据 -> 填充report.json
 if __name__ == "__main__":
-    model = "gpt-5.4"
+    model = "gpt-5.1"
 
     # 会话文件夹路径（包含 report.json 和截图子文件夹）：
     # 1) 优先使用命令行参数：python call_codex.py /path/to/folder
@@ -148,17 +119,15 @@ if __name__ == "__main__":
         "For each action (step) you must infer a structured description strictly from the JSON metadata and screenshots, "
         "and output a machine-readable JSON array that can be used to fill the empty fields in report.json.\n\n"
         "For each action/step you MUST produce one JSON object with exactly these fields:\n"
-        '- "task_title": A concise title summarizing the overall task (same value for all actions).\n'
-        '- "step_goal": A short phrase describing the immediate goal of this specific action within the overall task.\n'
-        '- "app": The software/application used during the task.\n'
-        '- "url": Any URL relevant to the task or the specific action.\n'
-        '- "action_preconditions": What must be true or present before the action occurs (based on the before screenshot).\n'
-        '- "nl_position": A natural-language description of the mouse location or targeted UI element (based on the red marker in the before screenshot). If the step has no on-screen target (for example, a typing or press action where "action.target" is missing or an empty object in report.json), set this field to null instead of describing any location. If you cannot confidently identify what the element is or what text it contains, instead describe its visual appearance (shape, color, approximate size) and relative location (for example, "a blue rectangular button near the top-right corner").\n'
-        '- "action_before_state": The UI state or condition before the action.\n'
-        '- "action_after_effects": The changes caused by the action (based on the after screenshot). IMPORTANT NOTES:\n'
-        '  * If clicking on empty/blank area but the state barely changes, this could be to CONFIRM whether the previous operation succeeded, or to DESELECT/cancel the current selection.\n'
-        '  * Watch for misclicks or invalid actions - if the click seems to have no purpose or effect, it might be an accidental click, clicking wrong element, or clicking on wrong page. Please identify and note these cases appropriately.\n'
-        '- "nl_explanation": A concise, natural-language explanation of the action and its purpose, written without referring to "the user" (describe the step itself, for example, "Click the Save button to store the changes."). When explaining, consider whether the action might be a confirmation check, deselection, or a misclick.\n\n'
+        '- \"task_title\": A concise title summarizing the overall task (same value for all actions).\n'
+        '- \"step_goal\": A short phrase describing the immediate goal of this specific action within the overall task.\n'
+        '- \"app\": The software/application used during the task.\n'
+        '- \"url\": Any URL relevant to the task or the specific action.\n'
+        '- \"action_preconditions\": What must be true or present before the action occurs (based on the before screenshot).\n'
+        '- \"nl_position\": A natural-language description of the mouse location or targeted UI element (based on the red marker in the before screenshot). If the step has no on-screen target (for example, a typing or press action where \"action.target\" is missing or an empty object in report.json), set this field to null instead of describing any location. If you cannot confidently identify what the element is or what text it contains, instead describe its visual appearance (shape, color, approximate size) and relative location (for example, \"a blue rectangular button near the top-right corner\").\n'
+        '- \"action_before_state\": The UI state or condition before the action.\n'
+        '- \"action_after_effects\": The changes caused by the action (based on the after screenshot).\n'
+        '- \"nl_explanation\": A concise, natural-language explanation of the action and its purpose, written without referring to \"the user\" (describe the step itself, for example, \"Click the Save button to store the changes.\").\n\n'
         "Output format requirements (very important):\n"
         "- The FINAL answer must be a single JSON array (e.g. [ { ... }, { ... }, ... ]) with one object per action.\n"
         "- Do not print any explanations, comments, or non-JSON text in the final answer.\n"
@@ -255,7 +224,7 @@ if __name__ == "__main__":
         if step.get("nl_explanation") in (None, "") and action_info.get("nl_explanation"):
             step["nl_explanation"] = action_info["nl_explanation"]
 
-    # 写回 report.json（只是在空字段上"填空"，不新增其它字段）
+    # 写回 report.json（只是在空字段上“填空”，不新增其它字段）
     with open(report_path, "w", encoding="utf-8") as f:
         json.dump(report, f, indent=2, ensure_ascii=False)
 
