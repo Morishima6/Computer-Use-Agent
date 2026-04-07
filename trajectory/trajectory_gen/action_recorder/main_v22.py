@@ -2,6 +2,7 @@ import json
 import math
 import os
 import platform
+import signal
 import subprocess
 import sys
 import threading
@@ -494,6 +495,14 @@ class ActionRecorder:
         self.pending_click_timer = None  # 点击确认计时器
         self.is_button_pressed = False  # 跟踪按钮是否按下
 
+        # 连点（N击）跟踪
+        self.click_streak = 0  # 当前连点击数
+        self.pending_click_streak = None  # 当前连点的累积数据
+        self.pending_click = None  # 兼容字段，当前指向 pending_click_streak
+        # 第3次 press 时暂存数据，等待 release 时才拍快照（OS 在 release 后才应用 triple-click 效果）
+        self.pending_n_click_pending_release = False
+        self.pending_n_click_data = None
+
         # 特殊键跟踪
         self.special_keys_pressed = set()
 
@@ -564,16 +573,11 @@ class ActionRecorder:
         self.pending_backspace_action = None
 
         # 操作锁 - 确保一个操作完全结束后才开始下一个操作
-        self.operation_lock = threading.RLock()
+        self.operation_lock = threading.Lock()
 
     def get_next_step_id(self):
         self.step_counter += 1
         return f"s{self.step_counter}"
-
-    def _cancel_pending_click_timer(self):
-        if self.pending_click_timer:
-            self.pending_click_timer.cancel()
-            self.pending_click_timer = None
 
     def start_recording(self):
         self.is_recording = True
@@ -595,6 +599,14 @@ class ActionRecorder:
         if not self.is_recording:
             return
         self.is_recording = False
+        previous_sigint_handler = None
+        can_mask_sigint = threading.current_thread() is threading.main_thread()
+        if can_mask_sigint:
+            try:
+                previous_sigint_handler = signal.getsignal(signal.SIGINT)
+                signal.signal(signal.SIGINT, signal.SIG_IGN)
+            except Exception:
+                previous_sigint_handler = None
         try:
             if self.mouse_listener:
                 self.mouse_listener.stop()
@@ -607,11 +619,35 @@ class ActionRecorder:
             pass
         self.scroll_tracker.flush()
         self.flush_backspace_streak()
-        self._cancel_pending_click_timer()
-        print("停止记录，等待所有异步截图完成...")
-        self.wait_for_pending_screenshots()
-        self.save_report()
-        self.executor.shutdown(wait=True)
+        if self.pending_click_timer:
+            self.pending_click_timer.cancel()
+            self.pending_click_timer = None
+        if self.pending_n_click_pending_release:
+            # triple-click press 已发生但 release 尚未到达（录制中途停止），
+            # 立即完成记录，截图取当前画面（不完美但可接受）
+            data = self.pending_n_click_data
+            self.record_n_click(data['x'], data['y'], data['button'],
+                                data['num_click'], data['before_screenshot'], data['step_id'])
+            self.pending_n_click_pending_release = False
+            self.pending_n_click_data = None
+        elif self.pending_click_streak is not None:
+            self._commit_click_streak()
+        try:
+            print("停止记录，等待所有异步截图完成...")
+            self.wait_for_pending_screenshots()
+            self.executor.shutdown(wait=True)
+        except Exception as e:
+            print(f"等待异步截图完成时出错: {e}")
+        try:
+            self.save_report()
+        except Exception as e:
+            print(f"保存报告时出错: {e}")
+        finally:
+            if can_mask_sigint and previous_sigint_handler is not None:
+                try:
+                    signal.signal(signal.SIGINT, previous_sigint_handler)
+                except Exception:
+                    pass
 
     def wait_for_pending_screenshots(self):
         max_wait = 5
@@ -626,7 +662,7 @@ class ActionRecorder:
             time.sleep(0.05)
         with self.pending_lock:
             if self.pending_after_screenshots:
-                print(f"警告: {len(self.pending_after_screenshots)} 个 after 截图仍未完成")
+                print(f"警告: {len(self.pending_after_screenshots)} 个 after 截图仍未完成，将继续等待线程池收尾")
 
     def _record_screenshot_app_title(self, filepath, app_title=None):
         """为指定截图文件记录前台窗口标题。
@@ -878,71 +914,156 @@ class ActionRecorder:
 
             button_name = self.platform_adapter.get_button_name(button)
             now = time.time()
+
             if pressed:
                 self.is_button_pressed = True
-                self._cancel_pending_click_timer()
-                is_double = False
-                if (self.last_click_time is not None and
-                        self.last_click_button == button_name and
-                        now - self.last_click_time < self.double_click_threshold and
-                        self.drag_tracker.calculate_distance(self.last_click_pos or (0, 0),
-                                                             (x, y)) < self.double_click_distance):
-                    is_double = True
-                self.last_click_time = now
-                self.last_click_pos = (x, y)
-                self.last_click_button = button_name
-                if not self.drag_tracker.is_dragging:
-                    self.drag_tracker.start_drag(x, y, button_name)
-                if is_double and self.pending_click:
-                    self.record_double_click(x, y, button_name)
-                    self.pending_click = None
+
+                # 如果有等待中的 Timer，先取消
+                if self.pending_click_timer:
+                    self.pending_click_timer.cancel()
+                    self.pending_click_timer = None
+
+                # 判断当前点击是否与上一次点击构成连续（N击序列）
+                is_continuous = (
+                    self.last_click_time is not None and
+                    self.last_click_button == button_name and
+                    now - self.last_click_time < self.double_click_threshold and
+                    self.drag_tracker.calculate_distance(self.last_click_pos or (0, 0), (x, y))
+                    < self.double_click_distance
+                )
+
+                if is_continuous:
+                    # 仍在连击窗口内，累积次数（不再重新分配 step_id，不再覆盖截图）
+                    self.click_streak += 1
+                    if self.click_streak >= 3:
+                        # 第3次 press 时先不截图：OS 在 release 时才应用 triple-click 效果，
+                        # 必须在 release 时拍快照才能捕获正确画面。暂存状态，在 release 时处理。
+                        self.pending_n_click_pending_release = True
+                        self.pending_n_click_data = {
+                            'x': x, 'y': y, 'button': button_name,
+                            'num_click': self.click_streak,
+                            'before_screenshot': self.pending_click_streak['before_screenshot'],
+                            'step_id': self.pending_click_streak['step_id'],
+                        }
+                        return
                 else:
-                    pending_click = {'x': x, 'y': y, 'button': button_name, 'press_time': now,
-                                     'before_screenshot': None}
+                    # 连击被打断（间隔太久 / 位置变化 / 按钮不同）
+                    # 先将之前的 pending streak 确认为单/双击
+                    if self.pending_click_streak is not None:
+                        self._commit_click_streak()
+                    # 开始新的连点计数（新的 pending streak 需要分配新的 step_id）
+                    self.click_streak = 1
+
+                    # 更新历史记录
+                    self.last_click_time = now
+                    self.last_click_pos = (x, y)
+                    self.last_click_button = button_name
+
+                    # 开始新的 pending streak：分配新的 step_id
                     step_id = self.get_next_step_id()
                     before = self.take_screenshot(step_id, 'click', 'before', (x, y))
-                    pending_click['before_screenshot'] = before
-                    pending_click['step_id'] = step_id
-                    self.pending_click = pending_click
+                    self.pending_click_streak = {
+                        'x': x, 'y': y,
+                        'button': button_name,
+                        'press_time': now,
+                        'before_screenshot': before,
+                        'step_id': step_id,
+                    }
+
+                    if not self.drag_tracker.is_dragging:
+                        self.drag_tracker.start_drag(x, y, button_name)
+
+                    # 启动 Timer，等待后续点击或超时确认
+                    self.pending_click_timer = threading.Timer(
+                        self.double_click_threshold, self._on_click_timer_expire)
+                    self.pending_click_timer.start()
+
+                # 连击中（is_continuous=True）：仅更新 last_click_*，不分配新 step_id，不覆盖截图
+
             else:
+                # 鼠标释放
                 self.is_button_pressed = False
+
+                # 如果第3次点击的 press 已触发 triple-click 确认，release 时拍快照并重置
+                if self.pending_n_click_pending_release:
+                    data = self.pending_n_click_data
+                    self.record_n_click(data['x'], data['y'], data['button'],
+                                        data['num_click'], data['before_screenshot'], data['step_id'])
+                    self.pending_n_click_pending_release = False
+                    self.pending_n_click_data = None
+                    self.click_streak = 0
+                    self.pending_click_streak = None
+                    if self.pending_click_timer:
+                        self.pending_click_timer.cancel()
+                        self.pending_click_timer = None
+                    return
+
                 if self.drag_tracker.is_dragging:
                     drag_data = self.drag_tracker.end_drag(x, y)
                     is_real_drag = self.is_real_drag_operation(drag_data)
 
                     if is_real_drag:
                         self.record_drag(drag_data)
-                        self.pending_click = None
+                        # 拖拽处理完后，重置连点状态
+                        self.click_streak = 0
+                        self.pending_click_streak = None
+                        if self.pending_click_timer:
+                            self.pending_click_timer.cancel()
+                            self.pending_click_timer = None
                     else:
-                        if self.pending_click:
-                            step_id = self.pending_click.get('step_id')
-                            self.pending_click_timer = threading.Timer(self.double_click_threshold,
-                                                                       self.confirm_single_click,
-                                                                       args=(step_id,))
-                            self.pending_click_timer.start()
+                        # 误判为拖拽，退回为普通点击：启动等待确认的 Timer
+                        if self.pending_click_timer:
+                            self.pending_click_timer.cancel()
+                        self.pending_click_timer = threading.Timer(
+                            self.double_click_threshold, self._on_click_timer_expire)
+                        self.pending_click_timer.start()
 
-    def confirm_single_click(self, expected_step_id=None):
+    def _on_click_timer_expire(self):
+        """Timer 超时回调：将 pending 连点确认为单/双击 action。"""
         with self.operation_lock:
-            if not self.pending_click:
-                return
-            if (expected_step_id is not None and
-                    self.pending_click.get('step_id') != expected_step_id):
-                return
-
-            click_data = self.pending_click
-            self.pending_click = None
+            if self.pending_click_streak is not None:
+                self._commit_click_streak()
             self.pending_click_timer = None
-            self.record_click(click_data['x'], click_data['y'], click_data['button'], click_data['before_screenshot'],
-                              click_data['step_id'])
+
+    def _commit_click_streak(self):
+        """根据 click_streak 值将当前连点提交为对应类型的 action。"""
+        if self.pending_click_streak is None:
+            return
+        num = self.click_streak if self.click_streak > 0 else 1
+        if num == 1:
+            self.record_click(
+                self.pending_click_streak['x'], self.pending_click_streak['y'],
+                self.pending_click_streak['button'],
+                self.pending_click_streak['before_screenshot'],
+                self.pending_click_streak['step_id'])
+        elif num == 2:
+            self.record_double_click(
+                self.pending_click_streak['x'], self.pending_click_streak['y'],
+                self.pending_click_streak['button'],
+                self.pending_click_streak['step_id'],
+                self.pending_click_streak['before_screenshot'])
+        else:
+            self.record_n_click(
+                self.pending_click_streak['x'], self.pending_click_streak['y'],
+                self.pending_click_streak['button'],
+                num,
+                self.pending_click_streak['before_screenshot'],
+                self.pending_click_streak['step_id'])
+        self.click_streak = 0
+        self.pending_click_streak = None
 
     def flush_pending_after_clicks(self):
         to_process = []
+        click_action_types = {
+            'click', 'double_click',
+            'triple_click', 'quad_click', 'penta_click'
+        }
         with self.pending_lock:
             for item in list(self.pending_after_screenshots):
-                if item.get('action_type') == 'click':
-                    to_process.append(item.get('step_id'))
-        for sid in to_process:
-            saved = self._save_pending_snapshot_immediately(sid, 'click')
+                if item.get('action_type') in click_action_types:
+                    to_process.append((item.get('step_id'), item.get('action_type')))
+        for sid, action_type in to_process:
+            saved = self._save_pending_snapshot_immediately(sid, action_type)
             if saved:
                 for act in self.actions:
                     if act.get('step_id') == sid:
@@ -966,12 +1087,14 @@ class ActionRecorder:
         snapshot = self._capture_snapshot()
         self._schedule_after_from_snapshot(step_id, 'click', snapshot, action)
 
-    def record_double_click(self, x, y, button_name):
-        if not self.pending_click:
-            return
-        step_id = self.pending_click['step_id']
-        old_before = self.pending_click['before_screenshot']
-        before = self.take_screenshot(step_id, 'double_click', 'before', (x, y), rename_from=old_before)
+    def record_double_click(self, x, y, button_name, step_id=None, before_screenshot=None):
+        """记录双击。step_id 和 before_screenshot 优先使用传入值（来自连击流程），否则从 pending_click_streak 获取。"""
+        ps = self.pending_click_streak
+        if step_id is None:
+            step_id = ps['step_id']
+        if before_screenshot is None:
+            before_screenshot = ps['before_screenshot']
+        before = self.take_screenshot(step_id, 'double_click', 'before', (x, y), rename_from=before_screenshot)
         action = {
             'type': 'double_click',
             'param': {'button': button_name, 'num_click': 2},
@@ -987,6 +1110,89 @@ class ActionRecorder:
         snapshot = self._capture_snapshot()
         self._schedule_after_from_snapshot(step_id, 'double_click', snapshot, action)
 
+    def record_n_click(self, x, y, button_name, num_click, before_screenshot, step_id=None):
+        """记录 N 击（num_click >= 3）。action_type 为 triple_click / quad_click / ...，param.num_click 为实际次数。
+        step_id 若不提供则自动分配（用于独立调用；连击流程中由调用方保证传入）。"""
+        # 动态生成 action_type：triple_click / quad_click / ...
+        click_suffix = {3: 'triple', 4: 'quad', 5: 'penta'}
+        if num_click in click_suffix:
+            action_type = f"{click_suffix[num_click]}_click"
+        else:
+            action_type = f"{num_click}_click"
+        if step_id is None:
+            step_id = self.get_next_step_id()
+        if before_screenshot is None:
+            before = self.take_screenshot(step_id, action_type, 'before', (x, y))
+        else:
+            # 传入的 before_screenshot 来自第一次 click，action_type 为 'click'；
+            # 需要将截图文件（含局部图）重命名为正确的 N-click action_type。
+            before_dir = os.path.dirname(before_screenshot)
+            before_base = os.path.basename(before_screenshot)  # e.g. "s2_before_click.png"
+            # 替换 action_type 部分：s2_before_click.png -> s2_before_triple_click.png
+            before_fixed = before_base.replace('_before_click', f'_before_{action_type}')
+            before_fixed_path = os.path.join(before_dir, before_fixed)
+            if before_fixed != before_base and os.path.exists(before_screenshot):
+                os.rename(before_screenshot, before_fixed_path)
+                print(f"截图重命名(连击): {before_base} -> {before_fixed}")
+                # 同时重命名局部图
+                part_base = before_base.replace('.png', '(part).png')
+                part_fixed = before_fixed.replace('.png', '(part).png')
+                part_old = os.path.join(before_dir, part_base)
+                part_new = os.path.join(before_dir, part_fixed)
+                if os.path.exists(part_old):
+                    os.rename(part_old, part_new)
+                    print(f"截图重命名(连击局部): {part_base} -> {part_fixed}")
+            else:
+                before_fixed_path = before_screenshot
+            before = before_fixed_path
+        action = {
+            'type': action_type,
+            'param': {'button': button_name, 'num_click': num_click},
+            'target': {'position': (x, y)},
+            'before_screenshot': before,
+            'after_screenshot': None,
+            'timestamp': datetime.now().isoformat(),
+            'step_id': step_id
+        }
+        self.actions.append(action)
+        print(f"{num_click}击: ({x}, {y}) - {button_name}")
+
+        snapshot = self._capture_snapshot()
+
+        # N≥3 的连击：立即同步保存 after 截图，不再走 2 秒延迟线程池。
+        # 原因：连击结束后下一个操作（通常是 Ctrl+C/X/V 等）几乎立即触发，
+        # 会生成同路径的截图覆盖 pending 的延迟任务。
+        if num_click >= 3:
+            self._immediate_save_after_snapshot(step_id, action_type, snapshot, action)
+        else:
+            self._schedule_after_from_snapshot(step_id, action_type, snapshot, action)
+
+    def _immediate_save_after_snapshot(self, step_id, action_type, snapshot, action_ref):
+        """立即将 snapshot 保存为 after 截图，不等待延迟（专用于 N≥3 连击）。"""
+        try:
+            snap_img = snapshot.get("image") if isinstance(snapshot, dict) else snapshot
+            snap_title = snapshot.get("app_title") if isinstance(snapshot, dict) else None
+            if snap_img is None:
+                after_path = self.take_screenshot(step_id, action_type, 'after', None)
+            else:
+                filename = f"{step_id}_after_{action_type}.png"
+                filepath = os.path.join(self.screenshot_dir, filename)
+                snap = snap_img
+                if snap.mode != "RGB":
+                    snap = snap.convert("RGB")
+                snap.save(filepath)
+                self.screenshot_count += 1
+                print(f"（立即保存）截图保存: {filename}")
+                self._record_screenshot_app_title(filepath, snap_title)
+                after_path = filepath
+            if action_ref is not None:
+                action_ref['after_screenshot'] = after_path
+        except Exception as e:
+            print(f"立即保存 after 截图失败: {e}")
+            after_path = self.take_screenshot(step_id, action_type, 'after', None)
+            if action_ref is not None:
+                action_ref['after_screenshot'] = after_path
+
     def calculate_drag_direction(self, start_pos, end_pos):
         dx = end_pos[0] - start_pos[0]
         dy = end_pos[1] - start_pos[1]
@@ -996,12 +1202,12 @@ class ActionRecorder:
         return angle
 
     def record_drag(self, drag_data):
-        if not self.pending_click:
+        if not self.pending_click_streak:
             return
         sx, sy = drag_data['start_pos']
         ex, ey = drag_data['end_pos']
-        step_id = self.pending_click['step_id']
-        old_before = self.pending_click['before_screenshot']
+        step_id = self.pending_click_streak['step_id']
+        old_before = self.pending_click_streak['before_screenshot']
         angle = self.calculate_drag_direction((sx, sy), (ex, ey))
         before = self.take_screenshot(step_id, 'drag', 'before', (sx, sy), rename_from=old_before)
         action = {
@@ -1149,13 +1355,15 @@ class ActionRecorder:
             self.flush_pending_after_clicks()
             return
 
-        if self.pending_click:
+        if self.pending_click_streak is not None:
             try:
-                self._cancel_pending_click_timer()
+                if self.pending_click_timer:
+                    self.pending_click_timer.cancel()
+                    self.pending_click_timer = None
             except:
                 pass
 
-            self.confirm_single_click()
+            self._commit_click_streak()
 
         self.input_start_time = time.time()
         self.current_input_session_id = len(self.actions)
@@ -1425,61 +1633,75 @@ class ActionRecorder:
         try:
             ts = os.path.getmtime(filepath)
             return datetime.fromtimestamp(ts).strftime("%Y-%m-%d %H:%M:%S")
+        except KeyboardInterrupt:
+            print(f"警告: 读取截图时间被中断，已跳过: {filepath}")
+            return None
         except Exception:
             return None
+
+    def _safe_relpath(self, filepath):
+        if not filepath:
+            return None
+        try:
+            return os.path.relpath(os.path.abspath(filepath), os.path.abspath(self.session_dir))
+        except Exception:
+            return os.path.basename(filepath)
+
+    def _get_screenshot_report_data(self, filepath):
+        if not filepath:
+            return {'relative_path': None, 'time': None, 'app_title': None}
+
+        abs_path = os.path.abspath(filepath)
+        return {
+            'relative_path': self._safe_relpath(abs_path),
+            'time': self._get_screenshot_time_str(abs_path),
+            'app_title': self.screenshot_app_titles.get(abs_path)
+        }
 
     def save_report(self):
         # 确保将未刷新的 Backspace 连击写入记录
         self.flush_backspace_streak()
         if self.input_start_time is not None:
             self.finish_typing()
-        screen_w, screen_h = pyautogui.size()
+        os.makedirs(self.session_dir, exist_ok=True)
+        try:
+            screen_w, screen_h = pyautogui.size()
+        except Exception:
+            screen_w, screen_h = ("unknown", "unknown")
         env_info = {'os': self.platform, 'screen': f"{screen_w}x{screen_h}", 'url': self.task_info.get('url', ''),
                     'locale': self.task_info.get('locale', 'en_US')}
         steps = []
         for i, action in enumerate(self.actions):
-            before = None
+            before_info = self._get_screenshot_report_data(action.get('before_screenshot'))
+            after_info = self._get_screenshot_report_data(action.get('after_screenshot'))
+
+            before = before_info['relative_path']
             before_part = None
-            after = None
-            screenshot_time_before = None
-            screenshot_time_after = None
-            app_title_before = None
-            app_title_after = None
-            if action.get('before_screenshot'):
-                before = os.path.relpath(action['before_screenshot'], self.session_dir)
-                # 如果存在对应的局部(part)截图，则一并记录
+            if before:
                 before_dir, before_file = os.path.split(before)
                 base_name, ext = os.path.splitext(before_file)
                 part_file = f"{base_name}(part){ext}"
                 part_abs = os.path.join(self.session_dir, before_dir, part_file)
                 if os.path.exists(part_abs):
-                    before_part = os.path.relpath(part_abs, self.session_dir)
-                before_abs = os.path.join(self.session_dir, before)
-                screenshot_time_before = self._get_screenshot_time_str(before_abs)
-                app_title_before = self.screenshot_app_titles.get(os.path.abspath(before_abs))
-            if action.get('after_screenshot'):
-                after = os.path.relpath(action['after_screenshot'], self.session_dir)
-                after_abs = os.path.join(self.session_dir, after)
-                screenshot_time_after = self._get_screenshot_time_str(after_abs)
-                app_title_after = self.screenshot_app_titles.get(os.path.abspath(after_abs))
+                    before_part = self._safe_relpath(part_abs)
 
             # 构造 action 结构，补充 nl_position 等字段（如果有 position）
             target = action.get('target', {}) or {}
             if isinstance(target, dict) and 'position' in target and 'nl_position' not in target:
                 target = dict(target)
                 target['nl_position'] = ""
-            action_struct = {'type': action['type'], 'target': target}
+            action_struct = {'type': action.get('type', 'unknown'), 'target': target}
             if 'param' in action:
                 action_struct['param'] = action['param']
 
             step = {'step_id': action.get('step_id', f"s{i + 1}"), 'step_goal': '',
                     'now_state': {'screenshot_path_before': before,
                                   'screenshot_path_before_part': before_part,
-                                  'screenshot_path_after': after,
-                                  'screenshot_time_before': screenshot_time_before,
-                                  'screeenshot_time_after': screenshot_time_after,
-                                  'app_title_before': app_title_before,
-                                  'app_title_after': app_title_after},
+                                  'screenshot_path_after': after_info['relative_path'],
+                                  'screenshot_time_before': before_info['time'],
+                                  'screeenshot_time_after': after_info['time'],
+                                  'app_title_before': before_info['app_title'],
+                                  'app_title_after': after_info['app_title']},
                     'action_preconditions': [],
                     'action': action_struct,
                     'action_before_state': "",
@@ -1490,23 +1712,43 @@ class ActionRecorder:
                   'task_category': self.task_info.get('task_category', ''), 'task_title': '',
                   'instruction': self.instruction, 'app': '', 'env': env_info, 'steps': steps}
         json_report_path = os.path.join(self.session_dir, 'report.json')
-        with open(json_report_path, 'w', encoding='utf-8') as f:
-            json.dump(report, f, ensure_ascii=False, indent=2)
-        self.save_readable_report(report)
-        print(f"记录已保存: {len(self.actions)} 个操作, {self.screenshot_count} 张截图")
+        json_saved = False
+        txt_saved = False
+
+        try:
+            with open(json_report_path, 'w', encoding='utf-8') as f:
+                json.dump(report, f, ensure_ascii=False, indent=2, default=str)
+            json_saved = True
+        except Exception as e:
+            print(f"保存 report.json 失败: {e}")
+
+        try:
+            self.save_readable_report(report)
+            txt_saved = True
+        except Exception as e:
+            print(f"保存 report.txt 失败: {e}")
+
+        if json_saved and txt_saved:
+            print(f"记录已保存: {len(self.actions)} 个操作, {self.screenshot_count} 张截图")
+        elif json_saved or txt_saved:
+            print(f"记录已部分保存: {len(self.actions)} 个操作, {self.screenshot_count} 张截图")
+        else:
+            print(f"记录保存失败: {len(self.actions)} 个操作, {self.screenshot_count} 张截图")
         print(f"会话目录: {self.session_dir}")
+        print(f"报告状态: report.json={'成功' if json_saved else '失败'}, report.txt={'成功' if txt_saved else '失败'}")
 
     def save_readable_report(self, report):
         txt_report_path = os.path.join(self.session_dir, 'report.txt')
+        os.makedirs(self.session_dir, exist_ok=True)
         with open(txt_report_path, 'w', encoding='utf-8') as f:
             f.write("操作记录报告\n")
             f.write("=" * 50 + "\n")
-            f.write(f"任务ID: {report['task_id']}\n")
-            f.write(f"任务类别: {report['task_category']}\n")
-            f.write(f"任务标题: {report['task_title']}\n")
-            f.write(f"指令: {report['instruction']}\n")
-            f.write(f"应用: {report['app']}\n")
-            f.write(f"环境: {json.dumps(report['env'], ensure_ascii=False)}\n")
+            f.write(f"任务ID: {report.get('task_id', '')}\n")
+            f.write(f"任务类别: {report.get('task_category', '')}\n")
+            f.write(f"任务标题: {report.get('task_title', '')}\n")
+            f.write(f"指令: {report.get('instruction', '')}\n")
+            f.write(f"应用: {report.get('app', '')}\n")
+            f.write(f"环境: {json.dumps(report.get('env', {}), ensure_ascii=False, default=str)}\n")
             f.write(f"会话目录: {self.session_dir}\n")
             f.write(f"总操作数: {len(self.actions)}\n")
             f.write(f"总截图数: {self.screenshot_count}\n")
@@ -1514,10 +1756,10 @@ class ActionRecorder:
 
             f.write("步骤详情:\n")
             f.write("-" * 30 + "\n")
-            for i, step in enumerate(report['steps'], 1):
+            for i, step in enumerate(report.get('steps', []), 1):
                 f.write(f"步骤 #{i}:\n")
-                f.write(f"  步骤ID: {step['step_id']}\n")
-                f.write(f"  步骤目标: {step['step_goal']}\n")
+                f.write(f"  步骤ID: {step.get('step_id', '')}\n")
+                f.write(f"  步骤目标: {step.get('step_goal', '')}\n")
                 f.write(f"  当前状态:\n")
                 now_state = step.get('now_state', {}) or {}
                 before = now_state.get('screenshot_path_before')
@@ -1529,17 +1771,17 @@ class ActionRecorder:
                 else:
                     f.write(f"    操作前截图: {before}\n")
                 f.write(f"    操作后截图: {after}\n")
-                f.write(f"  动作前提条件: {json.dumps(step['action_preconditions'], ensure_ascii=False)}\n")
-                f.write(f"  动作: {json.dumps(step['action'], ensure_ascii=False)}\n")
+                f.write(f"  动作前提条件: {json.dumps(step.get('action_preconditions', []), ensure_ascii=False, default=str)}\n")
+                f.write(f"  动作: {json.dumps(step.get('action', {}), ensure_ascii=False, default=str)}\n")
                 # 可选动作前状态
                 if 'action_before_state' in step:
                     f.write(
-                        f"  动作前状态: {json.dumps(step.get('action_before_state', ''), ensure_ascii=False)}\n"
+                        f"  动作前状态: {json.dumps(step.get('action_before_state', ''), ensure_ascii=False, default=str)}\n"
                     )
                 # 兼容 action_after_effects / action_effects 两种字段名
                 effects = step.get('action_after_effects', step.get('action_effects', []))
-                f.write(f"  动作后效果: {json.dumps(effects, ensure_ascii=False)}\n")
-                f.write(f"  自然语言解释: {step['nl_explanation']}\n")
+                f.write(f"  动作后效果: {json.dumps(effects, ensure_ascii=False, default=str)}\n")
+                f.write(f"  自然语言解释: {step.get('nl_explanation', '')}\n")
                 f.write("\n")
 
 

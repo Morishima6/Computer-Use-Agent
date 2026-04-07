@@ -58,7 +58,8 @@ class AgentS3(UIAgent):
         task_retrieval: Optional[Callable[[str], str]] = None,
         step_retrieval: Optional[Callable[[Dict, float], object]] = None,
         step_retrieval_threshold: float = 0.8,
-        judge_engine_params: Optional[Dict] = None,
+        enable_verify: bool = False,
+        verify_engine_params: Optional[Dict] = None,
     ):
         """Initialize a minimalist AgentS2 without hierarchy
 
@@ -68,6 +69,8 @@ class AgentS3(UIAgent):
             platform: Operating system platform (darwin, linux, windows)
             max_trajectory_length: Maximum number of image turns to keep
             enable_reflection: Creates a reflection agent to assist the worker agent
+            enable_verify: Whether to enable pre-execution plan verification
+            verify_engine_params: Optional separate engine params for the verify agent
         """
 
         super().__init__(worker_engine_params, grounding_agent, platform)
@@ -76,7 +79,8 @@ class AgentS3(UIAgent):
         self.task_retrieval = task_retrieval
         self.step_retrieval = step_retrieval
         self.step_retrieval_threshold = step_retrieval_threshold
-        self.judge_engine_params = judge_engine_params
+        self.enable_verify = enable_verify
+        self.verify_engine_params = verify_engine_params
         self.reset()
 
     def reset(self) -> None:
@@ -90,6 +94,8 @@ class AgentS3(UIAgent):
             task_retrieval=self.task_retrieval,
             step_retrieval=self.step_retrieval,
             step_retrieval_threshold=self.step_retrieval_threshold,
+            enable_verify=self.enable_verify,
+            verify_engine_params=self.verify_engine_params,
         )
 
     def predict(self, instruction: str, observation: Dict) -> Tuple[Dict, List[str]]:

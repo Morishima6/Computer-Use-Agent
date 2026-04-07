@@ -1,4 +1,5 @@
 from functools import partial
+import json
 import logging
 import textwrap
 from typing import Dict, List, Tuple, Callable, Optional
@@ -57,6 +58,121 @@ def _strip_step_retrieval_reference_from_text(text: str) -> str:
     return text
 
 
+def _do_step_retrieval(
+    obs: Dict,
+    threshold: float,
+    step_retrieval: Callable,
+    screenshot_explainer: Optional[LMMAgent],
+    summarizer,
+    engine_params: Dict,
+) -> Tuple[bool, str, Optional[Dict]]:
+    """
+    Shared step retrieval logic used by both pre-planning and post-failure paths.
+
+    Returns:
+        (False, "", None)
+            - No hit, continue normal flow.
+
+        (True, retrieved_content, step_data)
+            - Hit found; caller should inject retrieved_content as a hint
+              into the generator_message and then re-enter the planning loop.
+              step_data may contain full_step_data with after_effects/meta.
+    """
+    # 1. Generate screenshot_explanation if missing
+    if "screenshot_explanation" not in obs and "screenshot" in obs:
+        model_obs = obs
+        try:
+            if screenshot_explainer is None:
+                system_prompt = (
+                    "You are a UI state describer for step retrieval.\n"
+                    "Given a screenshot of a desktop app, describe the current screen state.\n"
+                    "Focus on: active app/window, page/view name, visible UI elements "
+                    "(buttons/menus/tabs/dialogs), and important visible text.\n"
+                    "Be concise but specific. Output plain text only."
+                )
+                screenshot_explainer = LMMAgent(
+                    engine_params=engine_params, system_prompt=system_prompt
+                )
+
+            prompt = (
+                "Please generate a textual description of the current screen state "
+                "based on the screenshot (for semantic retrieval).\n"
+                "Requirements: Describe the currently visible interface and key text. "
+                "Do not output coordinates or code."
+            )
+            screenshot_explainer.reset()
+            screenshot_explainer.add_message(
+                text_content=prompt,
+                image_content=model_obs["screenshot"],
+                role="user",
+                put_text_last=True,
+            )
+            obs["screenshot_explanation"] = call_llm_safe(
+                screenshot_explainer, temperature=0.0
+            ).strip()
+        except Exception as e:
+            logger.error(f"SCREENSHOT EXPLANATION GENERATION FAILED: {e}")
+
+    # 2. Generate step_retrieval_summary if missing
+    if "step_retrieval_summary" not in obs and "screenshot" in obs:
+        try:
+            if summarizer is None:
+                summarizer = create_step_retrieval_summarizer(engine_params)
+
+            obs["step_retrieval_summary"] = generate_step_retrieval_summary(
+                obs["screenshot"],
+                engine_params,
+                summarizer=summarizer,
+            ).strip()
+        except Exception as e:
+            logger.error(f"STEP RETRIEVAL SUMMARY GENERATION FAILED: {e}")
+            obs["step_retrieval_summary"] = obs.get("screenshot_explanation", "")
+
+    # 3. Call step retrieval
+    if "screenshot_explanation" not in obs or "step_retrieval_summary" not in obs:
+        return False, "", None
+
+    try:
+        step_data = step_retrieval(obs, threshold)
+    except Exception as e:
+        logger.error(f"STEP RETRIEVAL FAILED: {e}")
+        return False, "", None
+
+    if not step_data:
+        return False, "", None
+
+    # 4. Build prompt from step data
+    try:
+        response_prompt = build_prompt_from_step(step_data)
+    except Exception as e:
+        logger.error(f"BUILD STEP PROMPT FAILED: {e}")
+        return False, "", None
+
+    if not isinstance(response_prompt, dict):
+        return False, "", None
+
+    similarity_above_k = response_prompt.get("similarity_above_k", False)
+    retrieval_content = response_prompt.get("content", "")
+    is_append_to_plan = response_prompt.get("isAppend2Plan", False)
+
+    # 5. High-similarity hit → inject hint (no direct execution in failure path)
+    hint_block = ""
+    if retrieval_content:
+        hint_block = (
+            f"\n{_STEP_RETRIEVAL_REF_START}\n"
+            + retrieval_content
+            + f"\n{_STEP_RETRIEVAL_REF_END}\n"
+        )
+        logger.info(
+            "STEP RETRIEVAL: Found reference (similarity_above_k=%s), injecting hint "
+            "into generator_message.",
+            similarity_above_k,
+        )
+        return True, hint_block, step_data
+
+    return False, "", None
+
+
 class Worker(BaseModule):
     def __init__(
         self,
@@ -68,6 +184,8 @@ class Worker(BaseModule):
         task_retrieval: Optional[Callable[[str], str]] = None,
         step_retrieval: Optional[Callable[[Dict, float], object]] = None,
         step_retrieval_threshold: float = 0.8,
+        enable_verify: bool = False,
+        verify_engine_params: Optional[Dict] = None,
     ):
         """
         Worker receives the main task and generates actions, without the need of hierarchical planning
@@ -82,6 +200,10 @@ class Worker(BaseModule):
                 The amount of images turns to keep
             enable_reflection: bool
                 Whether to enable reflection
+            enable_verify: bool
+                Whether to enable pre-execution plan verification
+            verify_engine_params: Optional[Dict]
+                Separate engine params for the verify agent (uses worker params if None)
         """
         super().__init__(worker_engine_params, platform)
 
@@ -98,8 +220,11 @@ class Worker(BaseModule):
         self.task_retrieval = task_retrieval
         self.step_retrieval = step_retrieval
         self.step_retrieval_threshold = step_retrieval_threshold
+        self.enable_verify = enable_verify
+        self.verify_engine_params = verify_engine_params
         self._screenshot_explainer = None
         self._step_retrieval_summarizer = None
+        self._verify_agent = None
         self.reset()
 
     def reset(self):
@@ -122,6 +247,7 @@ class Worker(BaseModule):
         self.reflection_agent = self._create_agent(
             PROCEDURAL_MEMORY.REFLECTION_ON_TRAJECTORY
         )
+        self._verify_agent = None
 
         self.turn_count = 0
         self.worker_history = []
@@ -240,384 +366,348 @@ class Worker(BaseModule):
                 self.last_step_retrieval_meta = None
         return reflection, reflection_thoughts
 
+    def _verify_plan(
+        self, plan_text: str, screenshot, engine_params: Optional[Dict] = None
+    ) -> Optional[Dict]:
+        """
+        Verify whether the planner's output is executable on the current screen.
+
+        Args:
+            plan_text: The raw plan text output from the planner.
+            screenshot: The current screenshot image.
+            engine_params: Optional engine params override (for separate judge model).
+
+        Returns:
+            None if verification is disabled.
+            A dict with keys:
+                - check_passed: bool
+                - details: str
+                - failure_summary: str
+        """
+        if not self.enable_verify:
+            return None
+
+        try:
+            verify_engine_params = engine_params or self.engine_params
+            if self._verify_agent is None:
+                self._verify_agent = self._create_agent(
+                    PROCEDURAL_MEMORY.VERIFY_AGENT_SYSTEM_PROMPT,
+                    engine_params=verify_engine_params,
+                )
+            else:
+                self._verify_agent.reset()
+
+            # Extract Screenshot Analysis and Next Action from plan_text
+            analysis_section = ""
+            action_section = ""
+            in_analysis = False
+            in_action = False
+            for line in plan_text.splitlines():
+                stripped = line.strip().lower()
+                if "screenshot analysis" in stripped:
+                    in_analysis = True
+                    in_action = False
+                    continue
+                if "next action" in stripped:
+                    in_action = True
+                    in_analysis = False
+                    continue
+                if in_analysis:
+                    analysis_section += line + "\n"
+                if in_action:
+                    action_section += line + "\n"
+
+            user_prompt = (
+                f"Screenshot Analysis from Planner:\n{analysis_section.strip()}\n\n"
+                f"Next Action from Planner:\n{action_section.strip()}"
+            )
+
+            self._verify_agent.add_message(
+                text_content=user_prompt,
+                image_content=screenshot,
+                role="user",
+            )
+
+            raw_response = self._verify_agent.get_response(temperature=0.0)
+
+            result = json.loads(raw_response.strip())
+            return {
+                "check_passed": bool(result.get("check_passed", False)),
+                "details": str(result.get("details", "")),
+                "failure_summary": str(result.get("failure_summary", "")),
+            }
+
+        except Exception as e:
+            logger.error(f"PLAN VERIFICATION FAILED: {e}")
+            return None
+
     def generate_next_action(self, instruction: str, obs: Dict) -> Tuple[Dict, List]:
         self.grounding_agent.assign_screenshot(obs)
         self.grounding_agent.set_task_instruction(instruction)
         model_obs = self.grounding_agent.get_model_observation()
 
-        generator_message = (
+        # ── Build base generator_message (Reflection + code agent result) ──────
+        base_generator_message = (
             ""
             if self.turn_count > 0
             else "The initial screen is provided. No action has been taken yet."
         )
-
-        # Load the task into the system prompt
         if self.turn_count == 0:
             prompt_with_instructions = self.generator_agent.system_prompt.replace(
                 "TASK_DESCRIPTION", instruction
             )
             self.generator_agent.add_system_prompt(prompt_with_instructions)
 
-        # Get the per-step reflection
+        # Reflection
         reflection, reflection_thoughts = self._generate_reflection(instruction, obs)
         if reflection:
-            generator_message += f"REFLECTION: You may use this reflection on the previous action and overall trajectory:\n{reflection}\n"
-
-        # Get the grounding agent's knowledge base buffer
-        generator_message += (
+            base_generator_message += f"REFLECTION: {reflection}\n"
+        base_generator_message += (
             f"\nCurrent Text Buffer = [{','.join(self.grounding_agent.notes)}]\n"
         )
 
-        step_retrieval_plan = None
-        step_retrieval_exec_code = None
-        step_retrieval_step_data = None
-
-        # Add code agent result from previous step if available (from full task or subtask execution)
+        # Code agent result
+        code_agent_output = None
         if (
             hasattr(self.grounding_agent, "last_code_agent_result")
             and self.grounding_agent.last_code_agent_result is not None
         ):
             code_result = self.grounding_agent.last_code_agent_result
-            generator_message += f"\nCODE AGENT RESULT:\n"
-            generator_message += (
-                f"Task/Subtask Instruction: {code_result['task_instruction']}\n"
-            )
-            generator_message += f"Steps Completed: {code_result['steps_executed']}\n"
-            generator_message += f"Max Steps: {code_result['budget']}\n"
-            generator_message += (
-                f"Completion Reason: {code_result['completion_reason']}\n"
-            )
-            generator_message += f"Summary: {code_result['summary']}\n"
+            code_agent_output = code_result
+            base_generator_message += f"\nCODE AGENT RESULT:\n"
+            base_generator_message += f"Task/Subtask Instruction: {code_result['task_instruction']}\n"
+            base_generator_message += f"Steps Completed: {code_result['steps_executed']}\n"
+            base_generator_message += f"Max Steps: {code_result['budget']}\n"
+            base_generator_message += f"Completion Reason: {code_result['completion_reason']}\n"
+            base_generator_message += f"Summary: {code_result['summary']}\n"
             if code_result["execution_history"]:
-                generator_message += f"Execution History:\n"
+                base_generator_message += "Execution History:\n"
                 for i, step in enumerate(code_result["execution_history"]):
                     action = step["action"]
-                    # Format code snippets with proper backticks
                     if "```python" in action:
-                        # Extract Python code and format it
                         code_start = action.find("```python") + 9
                         code_end = action.find("```", code_start)
-                        if code_end != -1:
-                            python_code = action[code_start:code_end].strip()
-                            generator_message += (
-                                f"Step {i+1}: \n```python\n{python_code}\n```\n"
-                            )
-                        else:
-                            generator_message += f"Step {i+1}: \n{action}\n"
+                        python_code = action[code_start:code_end].strip() if code_end != -1 else action
+                        base_generator_message += f"Step {i+1}: ```python\n{python_code}\n```\n"
                     elif "```bash" in action:
-                        # Extract Bash code and format it
                         code_start = action.find("```bash") + 7
                         code_end = action.find("```", code_start)
-                        if code_end != -1:
-                            bash_code = action[code_start:code_end].strip()
-                            generator_message += (
-                                f"Step {i+1}: \n```bash\n{bash_code}\n```\n"
-                            )
-                        else:
-                            generator_message += f"Step {i+1}: \n{action}\n"
+                        bash_code = action[code_start:code_end].strip() if code_end != -1 else action
+                        base_generator_message += f"Step {i+1}: ```bash\n{bash_code}\n```\n"
                     else:
-                        generator_message += f"Step {i+1}: \n{action}\n"
-            generator_message += "\n"
+                        base_generator_message += f"Step {i+1}: {action}\n"
 
-            # Save code agent result to text file
             try:
                 import os
                 from datetime import datetime
-
-                # Create logs directory if it doesn't exist
                 logs_dir = "logs"
                 if not os.path.exists(logs_dir):
                     os.makedirs(logs_dir)
-
-                # Generate filename with timestamp
                 timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-                filename = (
-                    f"logs/code_agent_result_step_{self.turn_count + 1}_{timestamp}.txt"
-                )
-
+                filename = f"logs/code_agent_result_step_{self.turn_count + 1}_{timestamp}.txt"
                 with open(filename, "w") as f:
                     f.write(f"CODE AGENT RESULT - Step {self.turn_count + 1}\n")
                     f.write(f"Timestamp: {datetime.now().isoformat()}\n")
-                    f.write(
-                        f"Task/Subtask Instruction: {code_result['task_instruction']}\n"
-                    )
+                    f.write(f"Task/Subtask Instruction: {code_result['task_instruction']}\n")
                     f.write(f"Steps Completed: {code_result['steps_executed']}\n")
                     f.write(f"Max Steps: {code_result['budget']}\n")
                     f.write(f"Completion Reason: {code_result['completion_reason']}\n")
                     f.write(f"Summary: {code_result['summary']}\n")
                     if code_result["execution_history"]:
-                        f.write(f"\nExecution History:\n")
+                        f.write("\nExecution History:\n")
                         for i, step in enumerate(code_result["execution_history"]):
                             f.write(f"\nStep {i+1}:\n")
                             f.write(f"Action: {step['action']}\n")
                             if "thoughts" in step:
                                 f.write(f"Thoughts: {step['thoughts']}\n")
-
                 logger.info(f"Code agent result saved to: {filename}")
             except Exception as e:
                 logger.error(f"Failed to save code agent result to file: {e}")
 
-            # Log the code agent result section for debugging (truncated execution history)
-            log_message = f"\nCODE AGENT RESULT:\n"
-            log_message += (
-                f"Task/Subtask Instruction: {code_result['task_instruction']}\n"
-            )
-            log_message += f"Steps Completed: {code_result['steps_executed']}\n"
-            log_message += f"Max Steps: {code_result['budget']}\n"
-            log_message += f"Completion Reason: {code_result['completion_reason']}\n"
-            log_message += f"Summary: {code_result['summary']}\n"
-            if code_result["execution_history"]:
-                log_message += f"Execution History (truncated):\n"
-                # Only log first 3 steps and last 2 steps to keep logs manageable
-                total_steps = len(code_result["execution_history"])
-                for i, step in enumerate(code_result["execution_history"]):
-                    if i < 3 or i >= total_steps - 2:  # First 3 and last 2 steps
-                        action = step["action"]
-                        if "```python" in action:
-                            code_start = action.find("```python") + 9
-                            code_end = action.find("```", code_start)
-                            if code_end != -1:
-                                python_code = action[code_start:code_end].strip()
-                                log_message += (
-                                    f"Step {i+1}: ```python\n{python_code}\n```\n"
-                                )
-                            else:
-                                log_message += f"Step {i+1}: {action}\n"
-                        elif "```bash" in action:
-                            code_start = action.find("```bash") + 7
-                            code_end = action.find("```", code_start)
-                            if code_end != -1:
-                                bash_code = action[code_start:code_end].strip()
-                                log_message += (
-                                    f"Step {i+1}: ```bash\n{bash_code}\n```\n"
-                                )
-                            else:
-                                log_message += f"Step {i+1}: {action}\n"
-                        else:
-                            log_message += f"Step {i+1}: {action}\n"
-                    elif i == 3 and total_steps > 5:
-                        log_message += f"... (truncated {total_steps - 5} steps) ...\n"
-
-            logger.info(
-                f"WORKER_CODE_AGENT_RESULT_SECTION - Step {self.turn_count + 1}: Code agent result added to generator message:\n{log_message}"
-            )
-
-            # Reset the code agent result after adding it to context
             self.grounding_agent.last_code_agent_result = None
-##################=================== Step 级 检索的逻辑 ============================
-        # Step retrieval now uses two texts:
-        # - `screenshot_explanation`: fuller screen evidence for precondition checking
-        # - `step_retrieval_summary`: short retrieval-oriented summary for embedding search
-        if (
-            self.step_retrieval is not None
-            and "screenshot_explanation" not in obs
-            and "screenshot" in obs
-        ):
-            try:
+
+        # ── Reflection Case 1 → step_retrieval (pre-loop hint injection) ───────────
+        # After Reflection, if Case 1 → call step_retrieval BEFORE entering the loop.
+        # The retrieved hint (if hit) gets injected into the first planner attempt.
+        hint_block_for_planner: Optional[str] = None
+        last_step_retrieval_meta = None
+        if reflection and "Case 1" in reflection and self.step_retrieval:
+            hit, hint, step_data = _do_step_retrieval(
+                obs=obs,
+                threshold=self.step_retrieval_threshold,
+                step_retrieval=self.step_retrieval,
+                screenshot_explainer=self._screenshot_explainer,
+                summarizer=self._step_retrieval_summarizer,
+                engine_params=self.engine_params,
+            )
+            if hit:
+                # Initialize explainer/summarizer for future calls
                 if self._screenshot_explainer is None:
-                    system_prompt = (
-                        "You are a UI state describer for step retrieval.\n"
-                        "Given a screenshot of a desktop app, describe the current screen state.\n"
-                        "Focus on: active app/window, page/view name, visible UI elements (buttons/menus/tabs/dialogs), and important visible text.\n"
-                        "Be concise but specific. Output plain text only."
-                    )
                     self._screenshot_explainer = LMMAgent(
-                        engine_params=self.engine_params, system_prompt=system_prompt
+                        engine_params=self.engine_params,
+                        system_prompt=(
+                            "You are a UI state describer for step retrieval.\n"
+                            "Given a screenshot of a desktop app, describe the current screen state.\n"
+                            "Focus on: active app/window, page/view name, visible UI elements.\n"
+                            "Be concise but specific. Output plain text only."
+                        ),
                     )
-
-                prompt = (
-                    "Please generate a textual description of the current screen state based on the screenshot (for semantic retrieval).\n"
-                    "Requirements: Describe the currently visible interface and key text. Do not output coordinates or code."
-                )
-                self._screenshot_explainer.reset()
-                self._screenshot_explainer.add_message(
-                    text_content=prompt,
-                    image_content=model_obs["screenshot"],
-                    role="user",
-                    put_text_last=True,
-                )
-                obs["screenshot_explanation"] = call_llm_safe(
-                    self._screenshot_explainer, temperature=0.0
-                ).strip()
-            except Exception as e:
-                logger.error(f"SCREENSHOT EXPLANATION GENERATION FAILED: {e}")
-
-        if (
-            self.step_retrieval is not None
-            and "step_retrieval_summary" not in obs
-            and "screenshot" in obs
-        ):
-            try:
                 if self._step_retrieval_summarizer is None:
                     self._step_retrieval_summarizer = create_step_retrieval_summarizer(
                         self.engine_params
                     )
-
-                obs["step_retrieval_summary"] = generate_step_retrieval_summary(
-                    model_obs["screenshot"],
-                    self.engine_params,
-                    summarizer=self._step_retrieval_summarizer,
-                ).strip()
-            except Exception as e:
-                logger.error(f"STEP RETRIEVAL SUMMARY GENERATION FAILED: {e}")
-                obs["step_retrieval_summary"] = obs.get("screenshot_explanation", "")
-
-        if (
-            self.step_retrieval is not None
-            and "screenshot_explanation" in obs
-            and "step_retrieval_summary" in obs
-        ):
-            try:
-                step_data = self.step_retrieval(
-                    obs, self.step_retrieval_threshold
+                # Store hint → will be injected into first planner attempt
+                hint_block_for_planner = hint
+                last_step_retrieval_meta = {
+                    "report_path": step_data.get("report_path"),
+                    "task_id": step_data.get("task_id"),
+                    "step_id": step_data.get("step_id"),
+                }
+                logger.info(
+                    "REFLECTION CASE 1: step_retrieval hit → hint will be injected to planner."
                 )
-            except Exception as e:
-                logger.error(f"STEP RETRIEVAL FAILED: {e}")
-                step_data = None
+            else:
+                logger.info(
+                    "REFLECTION CASE 1: step_retrieval miss → planner proceeds without hint."
+                )
+            # hit=True or hit=False → in both cases we fall through to the loop below
+            # (the planner will be invoked with or without the hint)
 
-            if step_data:
-                step_retrieval_step_data = step_data
-                try:
-                    response_prompt = build_prompt_from_step(step_data)
-                except Exception as e:
-                    logger.error(f"BUILD STEP PROMPT FAILED: {e}")
-                    response_prompt = None
+        # ── Planner + Verify retry loop (max 3 rounds) ─────────────────────────
+        max_retries = 3
+        attempt = 0
+        last_verify_failure: Optional[Dict] = None
 
-                if isinstance(response_prompt, dict):
-                    similarity_above_k = response_prompt.get(
-                        "similarity_above_k", False
+        while attempt <= max_retries:
+            attempt += 1
+
+            # Build message for this attempt:
+            # - base: Reflection + code agent result + (optional) step_retrieval hint
+            # - retry: verify failure feedback
+            if attempt == 1:
+                msg = base_generator_message
+                if hint_block_for_planner:
+                    msg += (
+                        "\nSTEP RETRIEVAL REFERENCE (for planning agent only).\n"
+                        "IMPORTANT: Use it silently for planning, but DO NOT quote/copy it in your final plan output.\n"
+                        + hint_block_for_planner
                     )
-                    retrieval_content = response_prompt.get("content", "")
-                    is_append_to_plan = response_prompt.get("isAppend2Plan", False)
+                    hint_block_for_planner = None  # consumed
+            else:
+                msg = (
+                    f"\n[PLAN VERIFICATION FAILED — attempt {attempt}/{max_retries + 1}]\n"
+                    f"Failure reason: {last_verify_failure.get('failure_summary', '')}\n"
+                    f"Details: {last_verify_failure.get('details', '')}\n"
+                    f"IMPORTANT: Re-plan the next action to address the failure above. "
+                    f"Do NOT repeat the same action."
+                )
 
-                    if similarity_above_k and retrieval_content:
-                        step_retrieval_plan = retrieval_content
-                        step_plan_code = parse_code_from_string(
-                            step_retrieval_plan
-                        )
-                        try:
-                            assert (
-                                step_plan_code
-                            ), "Plan code from step retrieval should not be empty"
-                            step_retrieval_exec_code = create_pyautogui_code(
-                                self.grounding_agent,
-                                step_plan_code,
-                                obs,
-                            )
-                            full_step_data = (
-                                (step_retrieval_step_data or {}).get("full_step_data")
-                                or {}
-                            )
-                            self.last_step_retrieval_after_effects = full_step_data.get(
-                                "action_after_effects"
-                            )
-                            self.last_step_retrieval_meta = {
-                                "report_path": (step_retrieval_step_data or {}).get(
-                                    "report_path"
-                                ),
-                                "task_id": (step_retrieval_step_data or {}).get(
-                                    "task_id"
-                                ),
-                                "step_id": (step_retrieval_step_data or {}).get(
-                                    "step_id"
-                                ),
-                            }
-                            logger.info(
-                                "STEP RETRIEVAL: Using high-confidence retrieved action without calling planning agent."
-                            )
-                        except Exception as e:
-                            logger.error(
-                                f"FAILED TO EVALUATE STEP RETRIEVAL PLAN, FALL BACK TO PLANNING AGENT: {e}"
-                            )
-                            step_retrieval_plan = None
-                            step_retrieval_exec_code = None
-                            self.last_step_retrieval_after_effects = None
-                            self.last_step_retrieval_meta = None
-                    elif (not similarity_above_k) and retrieval_content and is_append_to_plan:
-                        generator_message += (
-                            "\nSTEP RETRIEVAL REFERENCE (for planning agent only).\n"
-                            "IMPORTANT: Use it silently for planning, but DO NOT quote/copy it in your final plan output.\n"
-                            f"{_STEP_RETRIEVAL_REF_START}\n"
-                            + retrieval_content
-                            + f"\n{_STEP_RETRIEVAL_REF_END}\n"
-                        )
-
-        if step_retrieval_exec_code is not None:
-            if step_retrieval_plan:
-                self.worker_history.append(step_retrieval_plan)
-            executor_info = {
-                "plan": step_retrieval_plan,
-                "plan_code": parse_code_from_string(step_retrieval_plan)
-                if step_retrieval_plan
-                else "",
-                "exec_code": step_retrieval_exec_code,
-                "step_retrieval_used": True,
-                "step_retrieval_meta": self.last_step_retrieval_meta,
-                "reflection": reflection,
-                "reflection_thoughts": reflection_thoughts,
-                "code_agent_output": (
-                    self.grounding_agent.last_code_agent_result
-                    if hasattr(self.grounding_agent, "last_code_agent_result")
-                    and self.grounding_agent.last_code_agent_result is not None
-                    else None
-                ),
-            }
-            self.turn_count += 1
-            self.screenshot_inputs.append(obs["screenshot"])
-            self.flush_messages()
-            return executor_info, [step_retrieval_exec_code]
-##########################=====================================
-        # Finalize the generator message
-        self.generator_agent.add_message(
-            generator_message, image_content=model_obs["screenshot"], role="user"
-        )
-
-        # Generate the plan and next action
-        format_checkers = [
-            SINGLE_ACTION_FORMATTER,
-            partial(CODE_VALID_FORMATTER, self.grounding_agent, obs),
-        ]
-        plan = call_llm_formatted(
-            self.generator_agent,
-            format_checkers,
-            temperature=self.temperature,
-            use_thinking=self.use_thinking,
-        )
-        print("-" * 20)
-        print("****Generator message:\n", generator_message)
-        print("****Raw plan response:\n", plan)
-        print("-" * 20)
-        plan = _strip_step_retrieval_reference_from_text(plan)         #把低相似检索参考块从计划文本里清掉，防止污染后续历史和反思
-        self.worker_history.append(plan)
-        self.generator_agent.add_message(plan, role="assistant")
-        logger.info("PLAN:\n %s", plan)
-
-        # Extract the next action from the plan
-        plan_code = parse_code_from_string(plan)                       #把 LLM 输出里的代码块提取出来，得到：agent.click(...)
-        try:
-            assert plan_code, "Plan code should not be empty"
-            exec_code = create_pyautogui_code(self.grounding_agent, plan_code, obs)
-        except Exception as e:
-            logger.error(
-                f"Could not evaluate the following plan code:\n{plan_code}\nError: {e}"
+            self.generator_agent.add_message(
+                msg, image_content=model_obs["screenshot"], role="user"
             )
-            exec_code = self.grounding_agent.wait(
-                1.333
-            )  # Skip a turn if the code cannot be evaluated
 
+            # ── Planner ───────────────────────────────────────────────────────
+            plan = call_llm_formatted(
+                self.generator_agent,
+                [SINGLE_ACTION_FORMATTER,
+                 partial(CODE_VALID_FORMATTER, self.grounding_agent, obs)],
+                temperature=self.temperature,
+                use_thinking=self.use_thinking,
+            )
+            print("-" * 20)
+            print(f"****Generator message (attempt={attempt}):\n", msg)
+            print("****Raw plan response:\n", plan)
+            print("-" * 20)
+            plan = _strip_step_retrieval_reference_from_text(plan)
+            self.worker_history.append(plan)
+            self.generator_agent.add_message(plan, role="assistant")
+            logger.info("PLAN:\n %s", plan)
+
+            # Grounding: extract exec_code
+            plan_code = parse_code_from_string(plan)
+            try:
+                assert plan_code, "Plan code should not be empty"
+                exec_code = create_pyautogui_code(self.grounding_agent, plan_code, obs)
+            except Exception as e:
+                logger.error(
+                    f"Could not evaluate the following plan code:\n{plan_code}\nError: {e}"
+                )
+                exec_code = self.grounding_agent.wait(1.333)
+
+            # ── Verify ────────────────────────────────────────────────────────
+            verify_result = self._verify_plan(
+                plan, model_obs["screenshot"], engine_params=self.verify_engine_params
+            )
+            if verify_result is not None:
+                logger.info(
+                    "PLAN VERIFY attempt %d/%d: check_passed=%s  details=%s",
+                    attempt, max_retries + 1,
+                    verify_result.get("check_passed"),
+                    verify_result.get("details"),
+                )
+
+            if verify_result is None or verify_result.get("check_passed", True):
+                # Verify passed → execute
+                break
+
+            # ── Verify failed → step_retrieval ────────────────────────────────
+            last_verify_failure = verify_result
+            if self.step_retrieval:
+                hit, hint, step_data = _do_step_retrieval(
+                    obs=obs,
+                    threshold=self.step_retrieval_threshold,
+                    step_retrieval=self.step_retrieval,
+                    screenshot_explainer=self._screenshot_explainer,
+                    summarizer=self._step_retrieval_summarizer,
+                    engine_params=self.engine_params,
+                )
+                if hit:
+                    # Update instance-level explainer/summarizer
+                    if self._screenshot_explainer is None:
+                        self._screenshot_explainer = LMMAgent(
+                            engine_params=self.engine_params,
+                            system_prompt=(
+                                "You are a UI state describer for step retrieval.\n"
+                                "Given a screenshot of a desktop app, describe the current screen state.\n"
+                                "Focus on: active app/window, page/view name, visible UI elements.\n"
+                                "Be concise but specific. Output plain text only."
+                            ),
+                        )
+                    if self._step_retrieval_summarizer is None:
+                        self._step_retrieval_summarizer = create_step_retrieval_summarizer(
+                            self.engine_params
+                        )
+                    # Store hint for next planner attempt
+                    hint_block_for_planner = hint
+                    last_step_retrieval_meta = {
+                        "report_path": step_data.get("report_path"),
+                        "task_id": step_data.get("task_id"),
+                        "step_id": step_data.get("step_id"),
+                    }
+                    logger.info(
+                        "VERIFY FAILED: step_retrieval hit → injecting hint, re-entering planner."
+                    )
+                    continue  # stay in while loop, next iteration will use the hint
+                # hit=False: no hint, stay in while loop to re-plan
+                logger.info(
+                    "VERIFY FAILED: step_retrieval miss → re-entering planner without hint."
+                )
+            # No step_retrieval or miss: re-enter planner with only verify feedback
+            logger.info("VERIFY FAILED: re-entering planner with failure feedback only.")
+
+        # ── Execute ─────────────────────────────────────────────────────────
         executor_info = {
             "plan": plan,
             "plan_code": plan_code,
             "exec_code": exec_code,
-            "step_retrieval_used": False,
+            "step_retrieval_used": bool(last_step_retrieval_meta),
+            "step_retrieval_meta": last_step_retrieval_meta,
             "reflection": reflection,
             "reflection_thoughts": reflection_thoughts,
-            "code_agent_output": (
-                self.grounding_agent.last_code_agent_result
-                if hasattr(self.grounding_agent, "last_code_agent_result")
-                and self.grounding_agent.last_code_agent_result is not None
-                else None
-            ),
+            "code_agent_output": code_agent_output,
+            "verify_passed": last_verify_failure is None,
+            "verify_attempts": attempt,
+            "verify_failure": last_verify_failure,
         }
         self.turn_count += 1
         self.screenshot_inputs.append(obs["screenshot"])

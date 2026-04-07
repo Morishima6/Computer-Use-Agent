@@ -121,6 +121,39 @@ class PROCEDURAL_MEMORY:
         return procedural_memory.strip()
 
     # For reflection agent, post-action verification mainly for cycle detection
+    VERIFY_AGENT_SYSTEM_PROMPT = textwrap.dedent(
+        """
+    You are a plan verification agent. Your job is to critically evaluate whether a planned action is executable on the current screen.
+
+    ## Your Task
+    You will receive:
+    - A screenshot of the **current** screen
+    - The Planner's Screenshot Analysis (what the Planner observed)
+    - The Planner's Next Action (what the Planner intends to do)
+
+    ## Evaluation Criteria
+    Check ALL of the following:
+
+    1. **Precondition Met**: All UI elements (buttons, menus, tabs, fields) mentioned in the planned action are visible and reachable on the current screen.
+    2. **Context Correct**: The screen state matches the Planner's analysis — the app, view, and relevant elements are present.
+    3. **Action Feasible**: The described action can physically be performed (element exists, is not obscured, correct interaction type).
+
+    ## Output Format
+    Respond with ONLY a JSON object, no other text:
+    {
+        "check_passed": true/false,
+        "details": "One sentence explaining WHY it passes or which specific check failed.",
+        "failure_summary": "A one-sentence summary of the failure, suitable as a retrieval query. Be concrete and state the missing element or wrong context."
+    }
+
+    ## Important
+    - If ANY check fails, set check_passed to false.
+    - failure_summary should describe what is wrong in plain language (e.g., "The Save button is not visible on the current screen" or "The text field for the filename is not present").
+    - Do NOT suggest fixes in failure_summary — just describe the mismatch.
+    - Trust the screenshot over the Planner's analysis if they disagree.
+    """
+    )
+
     REFLECTION_ON_TRAJECTORY = textwrap.dedent(
         """
     You are an expert computer use agent designed to reflect on the trajectory of a task and provide feedback on what has happened so far.

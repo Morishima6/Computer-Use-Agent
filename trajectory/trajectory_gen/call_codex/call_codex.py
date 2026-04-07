@@ -35,7 +35,9 @@ def call_codex(model: str, system_prompt: str, user_prompt: str) -> str:
 
     try:
         codex_path = _find_codex_path()
-        base = f'"{codex_path}" exec --skip-git-repo-check -c reasoning_effort=medium'
+        # base = f'"{codex_path}" exec --skip-git-repo-check -c reasoning_effort=medium'
+        # 使用fast_mode
+        base = f'"{codex_path}" exec --skip-git-repo-check -c features.fast_mode=true -c service_tier=fast -c reasoning_effort=medium'
         if model:
             base += f" --model {shlex.quote(model)}"
         base += " --json"
