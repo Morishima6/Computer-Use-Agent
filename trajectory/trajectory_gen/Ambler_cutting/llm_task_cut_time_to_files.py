@@ -14,11 +14,10 @@ def _find_codex_path() -> str:
 
 
 def call_codex(model: str, system_prompt: str, user_prompt: str) -> str:
-    """发送 prompt 给 Codex，并返回 assistant_message（效果与 codex exec 一致）"""
+    """Send a prompt to Codex and return the final assistant message."""
 
     prompt = f"{system_prompt.rstrip()}\n\n{user_prompt}".strip()
 
-    # 把 prompt 写入临时文件
     with tempfile.NamedTemporaryFile(mode="w", suffix=".txt", encoding="utf-8", delete=False) as f:
         prompt_file = f.name
         f.write(prompt)
@@ -31,7 +30,6 @@ def call_codex(model: str, system_prompt: str, user_prompt: str) -> str:
         base += " --json"
 
         if os.name == "nt":
-            # Windows: 使用 type 命令从文件读取 stdin
             cmd = f"cmd /c \"{base} < {prompt_file}\""
             result = subprocess.run(
                 cmd,
@@ -39,18 +37,19 @@ def call_codex(model: str, system_prompt: str, user_prompt: str) -> str:
                 capture_output=True,
                 text=True,
                 encoding="utf-8",
-                errors="replace"
+                errors="replace",
             )
         else:
             cmd = shlex.split(base)
-            result = subprocess.run(
-                cmd,
-                stdin=open(prompt_file),
-                capture_output=True,
-                text=True,
-                encoding="utf-8",
-                errors="replace"
-            )
+            with open(prompt_file, "r", encoding="utf-8") as stdin_file:
+                result = subprocess.run(
+                    cmd,
+                    stdin=stdin_file,
+                    capture_output=True,
+                    text=True,
+                    encoding="utf-8",
+                    errors="replace",
+                )
     finally:
         os.unlink(prompt_file)
 
@@ -58,7 +57,6 @@ def call_codex(model: str, system_prompt: str, user_prompt: str) -> str:
         stderr_msg = result.stderr if result.stderr else result.stdout
         raise RuntimeError(f"Codex error: {stderr_msg}")
 
-    # 从 stdout 解析 JSON event 流，取最后一个 assistant_message/agent_message
     last_content: Optional[str] = None
     for line in result.stdout.splitlines():
         line = line.strip()
@@ -66,7 +64,7 @@ def call_codex(model: str, system_prompt: str, user_prompt: str) -> str:
             continue
         try:
             event = json.loads(line)
-        except:
+        except Exception:
             continue
 
         if event.get("type") in ("item.started", "item.completed"):
@@ -74,7 +72,6 @@ def call_codex(model: str, system_prompt: str, user_prompt: str) -> str:
             item_type = item.get("type") or item.get("item_type")
             if item_type in ("assistant_message", "agent_message"):
                 content = item.get("text") or item.get("content")
-
                 if isinstance(content, list):
                     content = "".join(
                         c if isinstance(c, str) else c.get("text", "")
@@ -89,15 +86,16 @@ def call_codex(model: str, system_prompt: str, user_prompt: str) -> str:
 
 def build_prompt_for_segment(segment_key: str, steps: List[Dict[str, Any]]) -> str:
     """
-    根据一个 steps_timeX_mix_windowY 段构造给 Codex 的提示词。
-    只包含 step_id、step_goal、action_before_state、action_after_effects、nl_explanation 这几个字段。
+    Build a prompt for one steps_timeX segment.
+    Only uses step_id, step_goal, action_before_state, action_after_effects,
+    and nl_explanation.
     """
     lines: List[str] = []
     lines.append(
         "You are an analyst that groups low-level UI steps into higher-level user tasks."
     )
     lines.append(
-        f"The following steps all belong to one contiguous segment: {segment_key}."
+        f"The following steps all belong to one contiguous time-based segment: {segment_key}."
     )
     lines.append(
         "Your job is to decide how to cut these steps into one or more tasks, "
@@ -151,28 +149,22 @@ def build_prompt_for_segment(segment_key: str, steps: List[Dict[str, Any]]) -> s
         '      "task_goal": "..."\n'
         "    }\n"
         "  ]\n"
-        "}"
+        "}\n"
     )
+
+    lines.append("IMPORTANT: Your output must be in ENGLISH.\n")
 
     return "\n".join(lines)
 
 
 def parse_llm_json(raw_text: str) -> Dict[str, Any]:
-    """
-    尝试从 LLM 返回的文本中解析 JSON。
-
-    - 支持返回被 ```json ... ``` 或 ``` ... ``` 包裹的情况；
-    - 如果前后有自然语言，尝试截取第一个 '{' 到最后一个 '}' 之间的片段再解析。
-    """
     raw_text = raw_text.strip()
 
     if not raw_text:
         raise ValueError("LLM returned empty string, cannot parse JSON")
 
-    # 常见情况：LLM 用 ```json ... ``` 或 ``` ... ``` 包裹
     if raw_text.startswith("```"):
         parts = raw_text.split("```")
-        # 选出包含 '{' 的那一段作为真正的 JSON 内容
         candidate = None
         for part in parts:
             if "{" in part and "}" in part:
@@ -181,67 +173,42 @@ def parse_llm_json(raw_text: str) -> Dict[str, Any]:
         if candidate:
             raw_text = candidate
 
-    # 第一轮：直接整体解析
     try:
         return json.loads(raw_text)
     except Exception:
-        # 第二轮：有些模型会在 JSON 前后加自然语言，尝试截取第一个 { 到最后一个 } 之间
         start = raw_text.find("{")
         end = raw_text.rfind("}")
         if start != -1 and end != -1 and end > start:
             snippet = raw_text[start : end + 1]
             return json.loads(snippet)
-
-        # 仍然失败就抛出异常，由上层去记录 raw_output
         raise
 
 
 def extract_base_meta(data: Dict[str, Any]) -> Dict[str, Any]:
-    """
-    从 LLM 切割后的总 JSON 中抽取通用的元信息，
-    去掉所有 steps_xxx、tasks_steps_xxx、llm_task_segments 这些字段。
-    """
     meta: Dict[str, Any] = {}
-    for k, v in data.items():
-        if k.startswith("steps_time"):
+    for key, value in data.items():
+        if key.startswith("steps_time"):
             continue
-        if k.startswith("tasks_steps_time"):
+        if key.startswith("tasks_steps_time"):
             continue
-        if k == "llm_task_segments":
+        if key == "llm_task_segments":
             continue
-        meta[k] = v
+        meta[key] = value
     return meta
 
 
-def build_task_reports(
-    source: Dict[str, Any],
-) -> List[Dict[str, Any]]:
-    """
-    根据 source 中的 tasks_steps_timeX_mix_windowY / tasks_steps_timeX_windowY 索引，
-    为每一个 task 生成一个独立的 task 报告 JSON 对象。
-
-    返回的列表中，每个元素对应一个任务，结构示例：
-    {
-      ...  // 原始元信息（task_id, env 等）
-      "instruction": <LLM 生成的 instruction>,
-      "task_goal": <LLM 生成的 task_goal>,
-      "source_segment": "steps_time1_mix_window1",
-      "task_index": 1,
-      "step_ids": ["s1", "s2", "s3"],
-      "steps": [ ... 对应的 step 对象 ... ]
-    }
-    """
+def build_task_reports(source: Dict[str, Any]) -> List[Dict[str, Any]]:
     meta = extract_base_meta(source)
-
-    # 找出所有 LLM 任务结果的键：tasks_steps_timeX_*
     task_keys = [
-        k for k in source.keys() if k.startswith("tasks_steps_time") and "window" in k
+        key
+        for key in source.keys()
+        if key.startswith("tasks_steps_time") and "window" not in key
     ]
 
     task_reports: List[Dict[str, Any]] = []
 
     for tasks_key in sorted(task_keys):
-        seg_key = tasks_key.replace("tasks_", "", 1)  # 对应的 steps_timeX_*
+        seg_key = tasks_key.replace("tasks_", "", 1)
         seg_steps = source.get(seg_key, [])
         llm_result = source.get(tasks_key, {})
 
@@ -252,10 +219,8 @@ def build_task_reports(
 
         tasks = llm_result.get("tasks")
         if not isinstance(tasks, list) or not tasks:
-            # 可能解析失败，仅有 error/raw_output
             continue
 
-        # 建立 step_id -> step 对象 的索引，方便按 ID 取 step
         id2step: Dict[str, Dict[str, Any]] = {}
         for step in seg_steps:
             if isinstance(step, dict) and "step_id" in step:
@@ -269,18 +234,16 @@ def build_task_reports(
             if not isinstance(step_ids, list):
                 continue
 
-            # 按 step_ids 的顺序取出完整 step 对象
             task_steps: List[Dict[str, Any]] = []
-            for sid in step_ids:
-                sid_str = str(sid)
-                step_obj = id2step.get(sid_str)
+            for step_id in step_ids:
+                step_obj = id2step.get(str(step_id))
                 if step_obj is not None:
                     task_steps.append(step_obj)
 
             if not task_steps:
                 continue
 
-            report: Dict[str, Any] = dict(meta)  # 复制一份元信息
+            report: Dict[str, Any] = dict(meta)
             report["instruction"] = task.get("instruction", "")
             report["task_goal"] = task.get("task_goal", "")
             report["source_segment"] = seg_key
@@ -293,20 +256,12 @@ def build_task_reports(
     return task_reports
 
 
-def run_codex_cut_and_split_for_mix(
+def run_codex_cut_and_split_for_time(
     input_path: str,
     output_dir: str,
     model: str = "gpt-5.5",
     prefix: str = "report_cutting_llm_task_",
 ) -> None:
-    """
-    读取 demo_report_cutting_window_mix.json，针对 steps_timeX_mix_windowY 段：
-      1）把每个段内的所有 step 拼接成 prompt，交给 Codex 进行 task 切割；
-      2）根据 Codex 输出的任务边界，生成独立的 task 级别 JSON 文件：
-         report_cutting_llm_task_1.json, report_cutting_llm_task_2.json, ...
-
-    注意：这里不再使用原始的 steps_timeX_windowY，而是使用 steps_timeX_mix_windowY。
-    """
     in_path = Path(input_path)
     if not in_path.is_file():
         raise FileNotFoundError(f"Input file not found: {in_path}")
@@ -314,16 +269,16 @@ def run_codex_cut_and_split_for_mix(
     with in_path.open("r", encoding="utf-8") as f:
         data: Dict[str, Any] = json.load(f)
 
-    # 在原始数据上追加 Codex 结果（tasks_steps_timeX_mix_windowY）
     source: Dict[str, Any] = dict(data)
 
-    # 找到所有 mix 段：steps_timeX_mix_windowY
     segment_keys = [
-        k for k in data.keys() if k.startswith("steps_time") and "mix_window" in k
+        key
+        for key in data.keys()
+        if key.startswith("steps_time") and "window" not in key
     ]
 
     if not segment_keys:
-        print("No steps_timeX_mix_windowY segments found; nothing to cut.")
+        print("No steps_timeX segments found; nothing to cut.")
         return
 
     for seg_key in sorted(segment_keys):
@@ -331,31 +286,28 @@ def run_codex_cut_and_split_for_mix(
         if not isinstance(steps, list) or not steps:
             continue
 
-        print(f"Processing segment (mix): {seg_key} (steps: {len(steps)})")
+        print(f"Processing segment (time): {seg_key} (steps: {len(steps)})")
 
         prompt = build_prompt_for_segment(seg_key, steps)
 
         try:
             raw_output = call_codex(model, "", prompt)
-        except Exception as e:
-            print(f"Codex call failed for segment {seg_key}: {e}")
+        except Exception as exc:
+            print(f"Codex call failed for segment {seg_key}: {exc}")
             raw_output = ""
 
         try:
             parsed = parse_llm_json(raw_output)
-        except Exception as e:
-            print(f"Failed to parse JSON for segment {seg_key}: {e}")
+        except Exception as exc:
+            print(f"Failed to parse JSON for segment {seg_key}: {exc}")
             parsed = {
                 "segment_id": seg_key,
-                "error": str(e),
+                "error": str(exc),
                 "raw_output": raw_output,
             }
 
-        # 写入 tasks_steps_timeX_mix_windowY
-        tasks_key = f"tasks_{seg_key}"
-        source[tasks_key] = parsed
+        source[f"tasks_{seg_key}"] = parsed
 
-    # 利用已有的 build_task_reports，将 tasks_* + steps_* 结构转为独立 task 报告
     task_reports = build_task_reports(source)
     if not task_reports:
         print("No task reports generated (check Codex outputs).")
@@ -370,19 +322,25 @@ def run_codex_cut_and_split_for_mix(
             json.dump(report, f, indent=2, ensure_ascii=False)
         print(f"Saved task {idx} to: {out_path}")
 
-    print(f"\nTotal tasks exported from mix segments: {len(task_reports)}")
+    print(f"\nTotal tasks exported from time-based segments: {len(task_reports)}")
+
+
+def default_output_dir_for_input(input_path: Path) -> Path:
+    if input_path.parent.name == "splits":
+        return input_path.parent / "tasks"
+    return input_path.parent / "splits" / "tasks"
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Use Codex to split mixed window segments into task files."
+        description="Use Codex to split time-based segments into task files."
     )
-    parser.add_argument("input_path", help="Path to the report_cutting_window_mix.json file.")
+    parser.add_argument("input_path", help="Path to the report_cutting_time.json file.")
     parser.add_argument(
         "-o",
         "--output-dir",
         default=None,
-        help="Directory to write task JSON files into. Defaults to the input file's directory.",
+        help="Directory to write task JSON files into. Defaults to splits/tasks beside the input file.",
     )
     parser.add_argument(
         "-m",
@@ -398,9 +356,9 @@ def main() -> None:
     args = parser.parse_args()
 
     input_path = Path(args.input_path)
-    output_dir = Path(args.output_dir) if args.output_dir else input_path.parent
+    output_dir = Path(args.output_dir) if args.output_dir else default_output_dir_for_input(input_path)
 
-    run_codex_cut_and_split_for_mix(
+    run_codex_cut_and_split_for_time(
         input_path=str(input_path),
         output_dir=str(output_dir),
         model=args.model,

@@ -74,6 +74,7 @@ def cut_steps_by_window(report_path: str, output_path: str):
     
     # 保存结果
     output = Path(output_path)
+    output.parent.mkdir(parents=True, exist_ok=True)
     with output.open("w", encoding="utf-8") as f:
         json.dump(result, f, indent=2, ensure_ascii=False)
     

@@ -726,6 +726,7 @@ class ActionRecorder:
                 bottom = min(top + REGION_HEIGHT, height)
 
                 region = screenshot.crop((left, top, right, bottom))
+
                 part_filename = f"{step_id}_{timing}_{action_type}(part).png"
                 part_filepath = os.path.join(self.screenshot_dir, part_filename)
                 region.save(part_filepath)

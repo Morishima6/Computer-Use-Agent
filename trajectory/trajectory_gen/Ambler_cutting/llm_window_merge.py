@@ -252,7 +252,7 @@ def build_merge_prompt(
 
 def check_window_merges_with_codex(
     input_path: str,
-    model: str = "gpt-5.4",
+    model: str = "gpt-5.5",
 ) -> Dict[str, Any]:
     """
     读取 demo_report_cutting_window.json，
@@ -414,8 +414,8 @@ def main() -> None:
     parser.add_argument(
         "-m",
         "--model",
-        default="gpt-5.4",
-        help="Model name for the Codex call. Default: gpt-5.4.",
+        default="gpt-5.5",
+        help="Model name for the Codex call. Default: gpt-5.5.",
     )
     args = parser.parse_args()
 

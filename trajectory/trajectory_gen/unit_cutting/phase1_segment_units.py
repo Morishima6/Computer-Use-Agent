@@ -64,7 +64,10 @@ Important constraints:
 - unit_before_state and unit_after_state must be concrete, screen-grounded natural language descriptions.
 - unit_precondition must be actionable and verifiable.
 - unit_effect must describe observable results or verification signals, not vague statements.
-- Return only valid JSON, Do NOT output markdown, Do NOT output explanations outside the JSON."""
+- Return only valid JSON, Do NOT output markdown, Do NOT output explanations outside the JSON.
+
+IMPORTANT: Your output must be in ENGLISH.
+"""
 
 
 USER_PROMPT_TEMPLATE = """Please analyze the following segment and output only the segmented and concretely annotated units.
@@ -185,19 +188,33 @@ def natural_sort_key(path: Path) -> Tuple[int, str]:
     return (10**9, path.name.lower())
 
 
-def resolve_session_paths(input_path: Path) -> Tuple[Path, Path]:
-    if input_path.is_dir() and input_path.name == "tasks_abs":
-        return input_path.parent, input_path
-    if input_path.is_dir() and (input_path / "tasks_abs").is_dir():
-        return input_path, input_path / "tasks_abs"
+def normalize_tasks_subdir(tasks_subdir: str) -> Path:
+    normalized = Path(tasks_subdir.strip().strip("/\\"))
+    if not normalized.parts:
+        raise ValueError("--tasks-subdir must not be empty")
+    if normalized.is_absolute():
+        raise ValueError("--tasks-subdir must be a relative subdirectory path")
+    return normalized
+
+
+def resolve_session_paths(input_path: Path, tasks_subdir: Path) -> Tuple[Path, Path]:
+    if input_path.is_dir() and input_path.name == tasks_subdir.name:
+        session_dir = input_path
+        for _ in tasks_subdir.parts:
+            session_dir = session_dir.parent
+        candidate_dir = session_dir / tasks_subdir
+        if candidate_dir == input_path:
+            return session_dir, candidate_dir
+    if input_path.is_dir() and (input_path / tasks_subdir).is_dir():
+        return input_path, input_path / tasks_subdir
     raise FileNotFoundError(
-        f"Could not find a session directory with tasks_abs under: {input_path}"
+        f"Could not find a session directory with {tasks_subdir.as_posix()} under: {input_path}"
     )
 
 
-def discover_session_dirs(input_path: Path) -> List[Path]:
+def discover_session_dirs(input_path: Path, tasks_subdir: Path) -> List[Path]:
     try:
-        session_dir, _ = resolve_session_paths(input_path)
+        session_dir, _ = resolve_session_paths(input_path, tasks_subdir)
         return [session_dir]
     except FileNotFoundError:
         pass
@@ -208,12 +225,12 @@ def discover_session_dirs(input_path: Path) -> List[Path]:
         )
 
     session_dirs = sorted(
-        {tasks_abs_dir.parent for tasks_abs_dir in input_path.rglob("tasks_abs")},
+        {task_json_dir.parent for task_json_dir in input_path.rglob(tasks_subdir.name) if task_json_dir.is_dir() and task_json_dir.relative_to(input_path).parts[-len(tasks_subdir.parts):] == tasks_subdir.parts},
         key=lambda path: str(path).lower(),
     )
     if not session_dirs:
         raise FileNotFoundError(
-            f"No session directories containing tasks_abs were found under: {input_path}"
+            f"No session directories containing {tasks_subdir.as_posix()} were found under: {input_path}"
         )
     return session_dirs
 
@@ -1086,7 +1103,7 @@ def resolve_default_model(backend: str, explicit_model: str) -> str:
     if explicit_model:
         return explicit_model
     if backend == "codex":
-        return "gpt-5.4"
+        return "gpt-5.5"
     return "qwen-vl-plus"
 
 
@@ -1154,7 +1171,12 @@ def main() -> int:
     )
     parser.add_argument(
         "input_path",
-        help="Session directory path, tasks_abs directory path, or a batch root containing multiple session directories.",
+        help="Session directory path, task-JSON directory path, or a batch root containing multiple session directories.",
+    )
+    parser.add_argument(
+        "--tasks-subdir",
+        default="tasks_abs",
+        help="Relative subdirectory under each session that contains the segment JSON files. Default: tasks_abs. Example: splits/tasks",
     )
     parser.add_argument(
         "--backend",
@@ -1169,8 +1191,8 @@ def main() -> int:
     )
     parser.add_argument(
         "--model",
-        default="",
-        help="Model name. Default: gpt-5.4 for codex, qwen-vl-plus for qwen.",
+        default="gpt-5.5",
+        help="Model name. Default: gpt-5.5 for codex, qwen-vl-plus for qwen.",
     )
     parser.add_argument(
         "--api-key",
@@ -1243,7 +1265,8 @@ def main() -> int:
     load_env_file(repo_root / ".env")
 
     input_path = Path(args.input_path).resolve()
-    session_dirs = discover_session_dirs(input_path)
+    tasks_subdir = normalize_tasks_subdir(args.tasks_subdir)
+    session_dirs = discover_session_dirs(input_path, tasks_subdir)
     batch_mode = len(session_dirs) > 1 or (
         input_path.is_dir() and input_path not in session_dirs
     )
@@ -1263,7 +1286,7 @@ def main() -> int:
 
     log_with_timestamp(
         f"Run start: backend={args.backend}, model={model}, trajectories={len(session_dirs)}, "
-        f"batch_mode={batch_mode}"
+        f"batch_mode={batch_mode}, tasks_subdir={tasks_subdir.as_posix()}"
     )
 
     trajectory_failures: List[Tuple[str, str]] = []
@@ -1271,7 +1294,7 @@ def main() -> int:
     skipped_sessions = 0
 
     for session_index, session_dir in enumerate(session_dirs, start=1):
-        _, tasks_abs_dir = resolve_session_paths(session_dir)
+        _, tasks_abs_dir = resolve_session_paths(session_dir, tasks_subdir)
         output_dir = resolve_output_dir_for_session(
             session_dir=session_dir,
             explicit_output_dir=args.output_dir,
@@ -1297,6 +1320,7 @@ def main() -> int:
                 "status": "in_progress",
                 "session_dir": str(session_dir),
                 "tasks_abs_dir": str(tasks_abs_dir),
+                "tasks_subdir": tasks_subdir.as_posix(),
                 "output_dir": str(output_dir),
                 "backend": args.backend,
                 "model": model,
@@ -1351,6 +1375,7 @@ def main() -> int:
                 "status": "done" if ok else "failed",
                 "session_dir": str(session_dir),
                 "tasks_abs_dir": str(tasks_abs_dir),
+                "tasks_subdir": tasks_subdir.as_posix(),
                 "output_dir": str(output_dir),
                 "backend": args.backend,
                 "model": model,
