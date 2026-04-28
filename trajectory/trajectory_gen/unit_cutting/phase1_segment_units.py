@@ -723,6 +723,88 @@ def build_output_payload(
     return payload
 
 
+def is_completed_segment_output(output_path: Path, segment_id: str, source_path: Path) -> bool:
+    if not output_path.is_file():
+        return False
+
+    payload = read_json_file(output_path)
+    if not payload or payload.get("phase1_error"):
+        return False
+    if str(payload.get("segment_id", "")).strip() != segment_id:
+        return False
+
+    source_data = read_json_file(source_path)
+    source_steps = source_data.get("steps") or []
+    if payload.get("steps") != source_steps:
+        return False
+
+    units = payload.get("units")
+    if not isinstance(units, list):
+        return False
+
+    expected_step_indices = list(range(1, len(source_steps) + 1))
+    return not validate_units(units, expected_step_indices=expected_step_indices)
+
+
+def window_cache_path(debug_dir: Path, debug_prefix: str) -> Path:
+    return debug_dir / f"{debug_prefix}_units.json"
+
+
+def has_window_cache_outputs(debug_dir: Path, segment_id: str) -> bool:
+    return any(debug_dir.glob(f"{segment_id}_window_*_units.json"))
+
+
+def read_valid_window_cache(
+    cache_path: Path,
+    segment_id: str,
+    source_data: Dict[str, Any],
+    expected_step_indices: Sequence[int],
+) -> Optional[List[Dict[str, Any]]]:
+    payload = read_json_file(cache_path)
+    if not payload or payload.get("phase1_error"):
+        return None
+    if str(payload.get("segment_id", "")).strip() != segment_id:
+        return None
+    if payload.get("expected_step_indices") != list(expected_step_indices):
+        return None
+    if payload.get("steps") != (source_data.get("steps") or []):
+        return None
+
+    units = payload.get("units")
+    if not isinstance(units, list):
+        return None
+    if validate_units(units, expected_step_indices=expected_step_indices):
+        return None
+    return units
+
+
+def write_window_cache(
+    cache_path: Path,
+    segment_id: str,
+    window_index: int,
+    start: int,
+    end: int,
+    source_data: Dict[str, Any],
+    expected_step_indices: Sequence[int],
+    units: List[Dict[str, Any]],
+) -> None:
+    payload = {
+        "cache_kind": "phase1_window_units",
+        "segment_id": segment_id,
+        "window_id": f"{segment_id}_window_{window_index:02d}",
+        "step_start": start,
+        "step_end": end,
+        "expected_step_indices": list(expected_step_indices),
+        "steps": source_data.get("steps") or [],
+        "units": units,
+        "cached_at": format_timestamp(datetime.now()),
+    }
+    cache_path.write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+
+
 def ensure_phase1_status(units: List[Dict[str, Any]], status: str) -> List[Dict[str, Any]]:
     updated: List[Dict[str, Any]] = []
     for unit in units:
@@ -889,6 +971,7 @@ def generate_units_with_windows(
     retry_delay: float,
     window_size: int,
     overlap: int,
+    force: bool,
 ) -> Tuple[bool, List[Dict[str, Any]], str]:
     all_steps = source_data.get("steps") or []
     step_count = len(all_steps)
@@ -907,27 +990,58 @@ def generate_units_with_windows(
         expected_indices = list(range(start, end + 1))
         window_source = build_source_slice(source_data, expected_indices)
         debug_prefix = f"{segment_id}_window_{window_index:02d}_{start:03d}_{end:03d}"
+        cache_path = window_cache_path(debug_dir, debug_prefix)
         window_start = time.perf_counter()
         log_with_timestamp(
             f"{segment_id}: window {window_index} start "
             f"(steps {start}-{end}, size={len(expected_indices)})"
         )
-        success, window_units, error = generate_validated_units(
-            source_data=window_source,
-            source_path=source_path,
-            segment_id=segment_id,
-            session_dir=session_dir,
-            debug_dir=debug_dir,
-            debug_prefix=debug_prefix,
-            backend=backend,
-            client=client,
-            codex_call=codex_call,
-            model=model,
-            max_images=max_images,
-            max_retries=max_retries,
-            retry_delay=retry_delay,
-            expected_step_indices=expected_indices,
-        )
+
+        cached_units = None
+        if not force:
+            cached_units = read_valid_window_cache(
+                cache_path=cache_path,
+                segment_id=segment_id,
+                source_data=window_source,
+                expected_step_indices=expected_indices,
+            )
+
+        if cached_units is not None:
+            success = True
+            window_units = cached_units
+            error = ""
+            log_with_timestamp(
+                f"{segment_id}: window {window_index} cache hit ({cache_path.name})"
+            )
+        else:
+            success, window_units, error = generate_validated_units(
+                source_data=window_source,
+                source_path=source_path,
+                segment_id=segment_id,
+                session_dir=session_dir,
+                debug_dir=debug_dir,
+                debug_prefix=debug_prefix,
+                backend=backend,
+                client=client,
+                codex_call=codex_call,
+                model=model,
+                max_images=max_images,
+                max_retries=max_retries,
+                retry_delay=retry_delay,
+                expected_step_indices=expected_indices,
+            )
+            if success:
+                write_window_cache(
+                    cache_path=cache_path,
+                    segment_id=segment_id,
+                    window_index=window_index,
+                    start=start,
+                    end=end,
+                    source_data=window_source,
+                    expected_step_indices=expected_indices,
+                    units=window_units,
+                )
+
         if not success:
             log_with_timestamp(
                 f"{segment_id}: window {window_index} failed after "
@@ -973,6 +1087,7 @@ def segment_one_file(
     window_fallback_threshold: int,
     window_size: int,
     window_overlap: int,
+    force: bool,
 ) -> Tuple[bool, str]:
     segment_wall_start = datetime.now()
     segment_perf_start = time.perf_counter()
@@ -999,22 +1114,37 @@ def segment_one_file(
         )
         return False, "Source JSON has no steps."
 
-    success, units, last_error = generate_validated_units(
-        source_data=source_data,
-        source_path=source_path,
-        segment_id=segment_id,
-        session_dir=session_dir,
-        debug_dir=debug_dir,
-        debug_prefix=segment_id,
-        backend=backend,
-        client=client,
-        codex_call=codex_call,
-        model=model,
-        max_images=max_images,
-        max_retries=max_retries,
-        retry_delay=retry_delay,
-        expected_step_indices=list(range(1, len(steps) + 1)),
+    has_window_cache = (
+        not force
+        and len(steps) >= window_fallback_threshold
+        and has_window_cache_outputs(debug_dir, segment_id)
     )
+    if has_window_cache:
+        success = False
+        units: List[Dict[str, Any]] = []
+        last_error = "Existing window cache found; resume with sliding windows."
+        log_with_timestamp(
+            f"{segment_id}: window cache detected, resuming sliding windows "
+            f"(window_size={window_size}, overlap={window_overlap})"
+        )
+    else:
+        success, units, last_error = generate_validated_units(
+            source_data=source_data,
+            source_path=source_path,
+            segment_id=segment_id,
+            session_dir=session_dir,
+            debug_dir=debug_dir,
+            debug_prefix=segment_id,
+            backend=backend,
+            client=client,
+            codex_call=codex_call,
+            model=model,
+            max_images=max_images,
+            max_retries=max_retries,
+            retry_delay=retry_delay,
+            expected_step_indices=list(range(1, len(steps) + 1)),
+        )
+
     if (not success) and len(steps) >= window_fallback_threshold:
         log_with_timestamp(
             f"{segment_id}: full-segment generation failed, falling back to sliding windows "
@@ -1035,6 +1165,7 @@ def segment_one_file(
             retry_delay=retry_delay,
             window_size=window_size,
             overlap=window_overlap,
+            force=force,
         )
 
     if success:
@@ -1122,6 +1253,7 @@ def process_session(
     window_size: int,
     window_overlap: int,
     segment_limit: int,
+    force: bool,
 ) -> Tuple[bool, List[Tuple[str, str]], int]:
     debug_dir = output_dir / "_debug"
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -1141,6 +1273,14 @@ def process_session(
     failures: List[Tuple[str, str]] = []
     for file_index, source_path in enumerate(task_files, start=1):
         segment_id = f"seg_{file_index:03d}"
+        output_path = output_dir / f"{segment_id}.json"
+        if not force and is_completed_segment_output(output_path, segment_id, source_path):
+            log_with_timestamp(
+                f"{session_dir.name}: skip {source_path.name} -> {segment_id} "
+                f"(completed output exists)"
+            )
+            continue
+
         log_with_timestamp(f"{session_dir.name}: queue {source_path.name} -> {segment_id}")
         ok, error = segment_one_file(
             source_path=source_path,
@@ -1158,6 +1298,7 @@ def process_session(
             window_fallback_threshold=window_fallback_threshold,
             window_size=window_size,
             window_overlap=window_overlap,
+            force=force,
         )
         if not ok:
             failures.append((segment_id, error))
@@ -1358,6 +1499,7 @@ def main() -> int:
                 window_size=args.window_size,
                 window_overlap=args.window_overlap,
                 segment_limit=args.limit,
+                force=args.force,
             )
         except Exception as exc:
             error_message = f"{type(exc).__name__}: {exc}"

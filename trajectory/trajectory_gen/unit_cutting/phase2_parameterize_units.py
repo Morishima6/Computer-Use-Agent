@@ -260,19 +260,33 @@ def natural_sort_key(path: Path) -> Tuple[int, str]:
     return (10**9, path.name.lower())
 
 
-def resolve_session_paths(input_path: Path) -> Tuple[Path, Path]:
-    if input_path.is_dir() and input_path.name == "segments_units_denoised":
-        return input_path.parent, input_path
-    if input_path.is_dir() and (input_path / "segments_units_denoised").is_dir():
-        return input_path, input_path / "segments_units_denoised"
+def normalize_units_subdir(units_subdir: str) -> Path:
+    normalized = Path(units_subdir.strip().strip("/\\"))
+    if not normalized.parts:
+        raise ValueError("--units-subdir must not be empty")
+    if normalized.is_absolute():
+        raise ValueError("--units-subdir must be a relative subdirectory path")
+    return normalized
+
+
+def resolve_session_paths(input_path: Path, units_subdir: Path) -> Tuple[Path, Path]:
+    if input_path.is_dir() and input_path.name == units_subdir.name:
+        session_dir = input_path
+        for _ in units_subdir.parts:
+            session_dir = session_dir.parent
+        candidate_dir = session_dir / units_subdir
+        if candidate_dir == input_path:
+            return session_dir, candidate_dir
+    if input_path.is_dir() and (input_path / units_subdir).is_dir():
+        return input_path, input_path / units_subdir
     raise FileNotFoundError(
-        f"Could not find a session directory with segments_units_denoised under: {input_path}"
+        f"Could not find a session directory with {units_subdir.as_posix()} under: {input_path}"
     )
 
 
-def discover_session_dirs(input_path: Path) -> List[Path]:
+def discover_session_dirs(input_path: Path, units_subdir: Path) -> List[Path]:
     try:
-        session_dir, _ = resolve_session_paths(input_path)
+        session_dir, _ = resolve_session_paths(input_path, units_subdir)
         return [session_dir]
     except FileNotFoundError:
         pass
@@ -282,14 +296,21 @@ def discover_session_dirs(input_path: Path) -> List[Path]:
             f"Could not find a session directory or batch root under: {input_path}"
         )
 
-    session_dirs = sorted(
-        # {segments_dir.parent for segments_dir in input_path.rglob("segments_units")},
-        {segments_dir.parent for segments_dir in input_path.rglob("segments_units_denoised")},
-        key=lambda path: str(path).lower(),
-    )
+    session_dirs = []
+    for units_dir in input_path.rglob(units_subdir.name):
+        if not units_dir.is_dir():
+            continue
+        relative_parts = units_dir.relative_to(input_path).parts
+        if relative_parts[-len(units_subdir.parts):] != units_subdir.parts:
+            continue
+        session_dir = units_dir
+        for _ in units_subdir.parts:
+            session_dir = session_dir.parent
+        session_dirs.append(session_dir)
+    session_dirs = sorted(set(session_dirs), key=lambda path: str(path).lower())
     if not session_dirs:
         raise FileNotFoundError(
-            f"No session directories containing segments_units were found under: {input_path}"
+            f"No session directories containing {units_subdir.as_posix()} were found under: {input_path}"
         )
     return session_dirs
 
@@ -1336,7 +1357,12 @@ def main() -> int:
     )
     parser.add_argument(
         "input_path",
-        help="Session directory path, segments_units directory path, or a batch root containing multiple session directories.",
+        help="Session directory path, unit JSON directory path, or a batch root containing multiple session directories.",
+    )
+    parser.add_argument(
+        "--units-subdir",
+        default="segments_units_denoised",
+        help="Relative subdirectory under each session that contains Phase-1 unit JSON files. Default: segments_units_denoised. Example: segments_units",
     )
     parser.add_argument(
         "--output-dir",
@@ -1391,7 +1417,8 @@ def main() -> int:
         load_env_file(candidate)
 
     input_path = Path(args.input_path).resolve()
-    session_dirs = discover_session_dirs(input_path)
+    units_subdir = normalize_units_subdir(args.units_subdir)
+    session_dirs = discover_session_dirs(input_path, units_subdir)
     batch_mode = len(session_dirs) > 1 or (
         input_path.is_dir() and input_path not in session_dirs
     )
@@ -1401,7 +1428,8 @@ def main() -> int:
     model = resolve_default_model(args.model)
 
     log_with_timestamp(
-        f"Run start: model={model}, trajectories={len(session_dirs)}, batch_mode={batch_mode}"
+        f"Run start: model={model}, trajectories={len(session_dirs)}, "
+        f"batch_mode={batch_mode}, units_subdir={units_subdir.as_posix()}"
     )
 
     trajectory_failures: List[Tuple[str, str]] = []
@@ -1409,7 +1437,7 @@ def main() -> int:
     skipped_sessions = 0
 
     for session_index, session_dir in enumerate(session_dirs, start=1):
-        _, segments_units_dir = resolve_session_paths(session_dir)
+        _, segments_units_dir = resolve_session_paths(session_dir, units_subdir)
         output_dir = resolve_output_dir_for_session(
             session_dir=session_dir,
             explicit_output_dir=args.output_dir,
@@ -1435,6 +1463,7 @@ def main() -> int:
                 "status": "in_progress",
                 "session_dir": str(session_dir),
                 "segments_units_dir": str(segments_units_dir),
+                "units_subdir": units_subdir.as_posix(),
                 "output_dir": str(output_dir),
                 "model": model,
                 "started_at": format_timestamp(session_wall_start),
@@ -1488,6 +1517,7 @@ def main() -> int:
                 "status": "done" if ok else "failed",
                 "session_dir": str(session_dir),
                 "segments_units_dir": str(segments_units_dir),
+                "units_subdir": units_subdir.as_posix(),
                 "output_dir": str(output_dir),
                 "model": model,
                 "started_at": format_timestamp(session_wall_start),

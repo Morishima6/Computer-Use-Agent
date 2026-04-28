@@ -2,8 +2,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import os
-import sys
 import time
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Sequence, Tuple
@@ -11,15 +9,11 @@ from typing import Any, Dict, List, Optional, Sequence, Tuple
 from call_codex_0413 import (
     DEFAULT_CODEX_MODEL,
     DEFAULT_CODEX_RETRIES,
-    DEFAULT_MINIMAX_MODEL,
-    apply_minimax_revisions,
-    build_minimax_review_payload,
     build_step_diagnostics,
     call_codex,
     extract_json_payload,
     infer_primary_app,
     load_report,
-    maybe_run_minimax_review,
     normalize_text_list,
     resolve_artifact_path,
     resolve_report_path,
@@ -46,10 +40,10 @@ def parse_args() -> argparse.Namespace:
         description="Fill trajectory annotations one step at a time with Codex."
     )
     parser.add_argument(
-        "conversation_folder",
+        "conversation_path",
         nargs="?",
         default=None,
-        help="Folder containing the target JSON file and screenshots.",
+        help="Folder containing the target JSON file and screenshots, or a direct path to report*.json.",
     )
     parser.add_argument(
         "--json-file",
@@ -67,20 +61,9 @@ def parse_args() -> argparse.Namespace:
         help="Codex model used for each step.",
     )
     parser.add_argument(
-        "--minimax-model",
-        default=DEFAULT_MINIMAX_MODEL,
-        help="MiniMax model used for optional review of anomalous steps.",
-    )
-    parser.add_argument(
-        "--minimax-review-mode",
-        choices=["auto", "on", "off"],
-        default="auto",
-        help="Whether to run MiniMax review after all step calls.",
-    )
-    parser.add_argument(
         "--save-raw",
         action="store_true",
-        help="Save raw per-step Codex responses and optional MiniMax response.",
+        help="Save raw per-step Codex responses.",
     )
     parser.add_argument(
         "--codex-retries",
@@ -119,7 +102,7 @@ def parse_args() -> argparse.Namespace:
 
 def prompt_for_folder() -> str:
     return input(
-        "Please input the conversation folder path (where the JSON file and screenshots are located): "
+        "Please input the conversation folder path or target report JSON path: "
     ).strip()
 
 
@@ -157,6 +140,17 @@ def load_working_report(report_path: Path, output_path: Path, *, force: bool) ->
     if output_path != report_path and output_path.is_file() and not force:
         return load_report(output_path)
     return load_report(report_path)
+
+
+def resolve_input_paths(conversation_path: str, json_file: str) -> Tuple[Path, Path]:
+    input_path = Path(conversation_path).expanduser().resolve()
+    if input_path.is_file():
+        return input_path.parent, input_path
+    if input_path.is_dir():
+        return input_path, resolve_report_path(input_path, json_file)
+    if input_path.suffix.lower() == ".json":
+        raise FileNotFoundError(f"JSON file does not exist: {input_path}")
+    raise NotADirectoryError(f"Conversation folder does not exist: {input_path}")
 
 
 def extract_nl_position(step: Dict[str, Any]) -> Optional[str]:
@@ -314,11 +308,11 @@ Output requirements:
 
 def build_user_prompt(
     *,
-    conversation_folder: Path,
+    source_folder: Path,
     step_payload: Dict[str, Any],
 ) -> str:
-    return f"""Conversation folder:
-{conversation_folder}
+    return f"""Source folder:
+{source_folder}
 
 Read only the current step payload below and the referenced screenshot files.
 Do not process the full trajectory JSON as one batch.
@@ -411,19 +405,6 @@ def apply_annotation_to_step(
         step["nl_explanation"] = annotation["nl_explanation"]
 
 
-def annotation_from_step(report: Dict[str, Any], step: Dict[str, Any]) -> Dict[str, Any]:
-    return {
-        "step_id": step.get("step_id"),
-        "step_goal": step.get("step_goal"),
-        "app": step.get("app") or report.get("app"),
-        "action_preconditions": step.get("action_preconditions"),
-        "nl_position": extract_nl_position(step),
-        "action_before_state": step.get("action_before_state"),
-        "action_after_effects": step.get("action_after_effects"),
-        "nl_explanation": step.get("nl_explanation"),
-    }
-
-
 def is_step_done(status: Dict[str, Any], source_json: str, step_id: Any) -> bool:
     if status.get("source_json_file") != source_json:
         return False
@@ -433,15 +414,11 @@ def is_step_done(status: Dict[str, Any], source_json: str, step_id: Any) -> bool
 
 def main() -> None:
     args = parse_args()
-    conversation_folder = args.conversation_folder.strip() if args.conversation_folder else prompt_for_folder()
-    if not conversation_folder:
-        conversation_folder = os.getcwd()
+    conversation_path = args.conversation_path.strip() if args.conversation_path else prompt_for_folder()
+    if not conversation_path:
+        conversation_path = str(Path.cwd())
 
-    folder_path = Path(conversation_folder).expanduser().resolve()
-    if not folder_path.is_dir():
-        raise NotADirectoryError(f"Conversation folder does not exist: {folder_path}")
-
-    report_path = resolve_report_path(folder_path, args.json_file)
+    folder_path, report_path = resolve_input_paths(conversation_path, args.json_file)
     output_path = resolve_output_path(report_path, args.output_json)
     report = load_working_report(report_path, output_path, force=args.force)
     steps = report.get("steps")
@@ -497,7 +474,7 @@ def main() -> None:
         log(f"[{step_index + 1}/{len(steps)}] fill {step_id}; screenshots: {image_labels}")
 
         user_prompt = build_user_prompt(
-            conversation_folder=folder_path,
+            source_folder=folder_path,
             step_payload=step_payload,
         )
         raw_text = call_codex(args.model, system_prompt, user_prompt, retries=args.codex_retries)
@@ -519,37 +496,11 @@ def main() -> None:
     if args.start_step and not start_reached:
         raise ValueError(f"--start-step {args.start_step} was not found in {report_path}")
 
-    ai_data = [annotation_from_step(report, step) for step in steps]
-    review_payload = build_minimax_review_payload(
-        report=report,
-        diagnostics=diagnostics,
-        ai_data=ai_data,
-    )
-    minimax_review = maybe_run_minimax_review(
-        review_mode=args.minimax_review_mode,
-        review_payload=review_payload,
-        model=args.minimax_model,
-        raw_output_path=(
-            output_path.with_suffix(output_path.suffix + ".minimax_step.raw.txt") if args.save_raw else None
-        ),
-    )
-    minimax_review, review_sanitized_count = sanitize_text_artifacts(minimax_review)
-    if review_sanitized_count:
-        print(
-            f"[warn] Sanitized {review_sanitized_count} suspicious text value(s) in MiniMax review output.",
-            file=sys.stderr,
-        )
-    apply_minimax_revisions(ai_data, minimax_review)
-    for step, annotation in zip(steps, ai_data):
-        apply_annotation_to_step(report, step, annotation, overwrite=True)
-
     report["fill_meta_step"] = {
         "source_json_file": report_path.name,
         "codex_model": args.model,
         "stepwise": True,
         "overwrite": args.overwrite,
-        "minimax_review_mode": args.minimax_review_mode,
-        "minimax_model": args.minimax_model if minimax_review is not None else None,
         "processed_steps_this_run": processed_count,
     }
     save_report(output_path, report)
