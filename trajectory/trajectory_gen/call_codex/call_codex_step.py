@@ -34,6 +34,16 @@ TARGET_FIELDS = (
     "nl_explanation",
 )
 
+MOUSE_ACTION_TYPES = {
+    "click",
+    "double_click",
+    "drag",
+    "drag_to",
+    "mouse_move",
+    "move",
+    "scroll",
+}
+
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
@@ -181,6 +191,25 @@ def compact_neighbor_step(step: Optional[Dict[str, Any]]) -> Optional[Dict[str, 
     }
 
 
+def get_action_type(step: Dict[str, Any]) -> str:
+    action = step.get("action") if isinstance(step, dict) else {}
+    if not isinstance(action, dict):
+        return ""
+    return str(action.get("type") or "").strip().lower()
+
+
+def select_before_screenshot_path(step: Dict[str, Any]) -> Any:
+    now_state = step.get("now_state") if isinstance(step, dict) else {}
+    if not isinstance(now_state, dict):
+        return None
+    field_name = (
+        "screenshot_path_before"
+        if get_action_type(step) in MOUSE_ACTION_TYPES
+        else "screenshot_path_before_raw"
+    )
+    return now_state.get(field_name)
+
+
 def collect_step_screenshot_paths(
     *,
     report_path: Path,
@@ -193,14 +222,15 @@ def collect_step_screenshot_paths(
         now_state = {}
 
     image_specs: List[Tuple[str, Any]] = [
-        ("before", now_state.get("screenshot_path_before")),
+        ("before", select_before_screenshot_path(step)),
         ("before_part", now_state.get("screenshot_path_before_part")),
         ("after", now_state.get("screenshot_path_after")),
     ]
     if step_index + 1 < len(steps):
-        next_now_state = steps[step_index + 1].get("now_state")
+        next_step = steps[step_index + 1]
+        next_now_state = next_step.get("now_state")
         if isinstance(next_now_state, dict):
-            image_specs.append(("next_before", next_now_state.get("screenshot_path_before")))
+            image_specs.append(("next_before", select_before_screenshot_path(next_step)))
 
     screenshots: List[Dict[str, Any]] = []
     seen: set[Path] = set()

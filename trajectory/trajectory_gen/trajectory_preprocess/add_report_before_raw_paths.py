@@ -32,7 +32,16 @@ def parse_args() -> argparse.Namespace:
         type=Path,
         help=(
             "Trajectory path. It can be a JSON file, a result directory containing the input JSON, "
-            "or a trajectory directory containing result/<input-json-name>."
+            "a trajectory directory containing result/<input-json-name>, "
+            "or a batch root when --batch is enabled."
+        ),
+    )
+    parser.add_argument(
+        "--batch",
+        action="store_true",
+        help=(
+            "Process every result/<input-json-name> found under trace_path. "
+            "This intentionally ignores report.json directly under each session directory."
         ),
     )
     parser.add_argument(
@@ -79,15 +88,30 @@ def resolve_input_json(trace_path: Path, input_json_name: str) -> Path:
             raise ValueError(f"Input file must be a JSON file: {path}")
         return path
 
-    direct_json = path / input_json_name
-    if direct_json.is_file():
-        return direct_json
-
     result_json = path / "result" / input_json_name
     if result_json.is_file():
         return result_json
 
+    direct_json = path / input_json_name
+    if direct_json.is_file():
+        return direct_json
+
     raise FileNotFoundError(f"Input JSON not found: {path} / {input_json_name}")
+
+
+def find_batch_input_jsons(trace_path: Path, input_json_name: str) -> list[Path]:
+    path = trace_path.resolve()
+    if path.is_file():
+        return [resolve_input_json(path, input_json_name)]
+    if not path.is_dir():
+        raise FileNotFoundError(f"Trace path not found: {path}")
+
+    input_jsons = [
+        candidate.resolve()
+        for candidate in path.rglob(input_json_name)
+        if candidate.parent.name == "result" and candidate.is_file()
+    ]
+    return sorted(set(input_jsons), key=lambda item: str(item).lower())
 
 
 def load_json(path: Path) -> Any:
@@ -242,25 +266,29 @@ def process_report(
     return stats
 
 
-def main() -> None:
-    args = parse_args()
-    input_json = resolve_input_json(args.trace_path, args.input_json_name)
+def process_input_json(
+    input_json: Path,
+    output: Path | None,
+    screenshots_dir: Path | None,
+    no_resume: bool,
+    save_every: int,
+    indent: int,
+) -> dict[str, int]:
+    input_json = input_json.resolve()
     input_dir = input_json.parent
-    screenshots_dir = (args.screenshots_dir or input_dir / "screenshots").resolve()
-    output_path = (args.output or input_json).resolve()
+    resolved_screenshots_dir = (screenshots_dir or input_dir / "screenshots").resolve()
+    output_path = (output or input_json).resolve()
     progress_path = build_progress_path(output_path)
 
-    if not screenshots_dir.is_dir():
-        raise FileNotFoundError(f"Screenshots directory not found: {screenshots_dir}")
-    if args.save_every < 0:
-        raise ValueError("--save-every cannot be less than 0")
+    if not resolved_screenshots_dir.is_dir():
+        raise FileNotFoundError(f"Screenshots directory not found: {resolved_screenshots_dir}")
 
     log(f"Read input JSON: {input_json}")
-    log(f"Screenshots dir: {screenshots_dir}")
+    log(f"Screenshots dir: {resolved_screenshots_dir}")
     log(f"Output path: {output_path}")
     log(f"Progress file: {progress_path}")
 
-    completed_step_ids = set() if args.no_resume else load_progress(progress_path)
+    completed_step_ids = set() if no_resume else load_progress(progress_path)
     load_path = output_path if completed_step_ids and output_path.is_file() else input_json
     report_data = load_json(load_path)
     if load_path != input_json:
@@ -270,12 +298,12 @@ def main() -> None:
 
     stats = process_report(
         report_data=report_data,
-        screenshots_dir=screenshots_dir,
+        screenshots_dir=resolved_screenshots_dir,
         output_path=output_path,
         progress_path=progress_path,
         completed_step_ids=completed_step_ids,
-        save_every=args.save_every,
-        indent=args.indent,
+        save_every=save_every,
+        indent=indent,
     )
 
     log("Done")
@@ -288,7 +316,84 @@ def main() -> None:
         f"raw_missing={stats['raw_missing']}, "
         f"invalid_step={stats['invalid_step']}"
     )
+    return stats
+
+
+def main() -> int:
+    args = parse_args()
+    if args.save_every < 0:
+        raise ValueError("--save-every cannot be less than 0")
+    if args.batch and args.output:
+        raise ValueError("--output cannot be used with --batch because each report is overwritten in place")
+
+    if not args.batch:
+        input_json = resolve_input_json(args.trace_path, args.input_json_name)
+        process_input_json(
+            input_json=input_json,
+            output=args.output,
+            screenshots_dir=args.screenshots_dir,
+            no_resume=args.no_resume,
+            save_every=args.save_every,
+            indent=args.indent,
+        )
+        return 0
+
+    input_jsons = find_batch_input_jsons(args.trace_path, args.input_json_name)
+    if not input_jsons:
+        raise FileNotFoundError(
+            f"No result/{args.input_json_name} found under: {args.trace_path.resolve()}"
+        )
+
+    log(f"Batch mode: found {len(input_jsons)} report(s)")
+    total_stats = {
+        "total": 0,
+        "processed": 0,
+        "resumed_skipped": 0,
+        "raw_exists": 0,
+        "raw_missing": 0,
+        "invalid_step": 0,
+    }
+    failed: list[tuple[Path, str]] = []
+
+    for index, input_json in enumerate(input_jsons, start=1):
+        log(f"Batch item {index}/{len(input_jsons)}: {input_json}")
+        try:
+            stats = process_input_json(
+                input_json=input_json,
+                output=None,
+                screenshots_dir=args.screenshots_dir,
+                no_resume=args.no_resume,
+                save_every=args.save_every,
+                indent=args.indent,
+            )
+        except Exception as exc:
+            failed.append((input_json, str(exc)))
+            log(f"Failed: {input_json} | {exc}")
+            continue
+
+        for key in total_stats:
+            total_stats[key] += stats[key]
+
+    log("Batch done")
+    log(
+        "Batch stats: "
+        f"reports={len(input_jsons)}, "
+        f"failed={len(failed)}, "
+        f"total={total_stats['total']}, "
+        f"processed={total_stats['processed']}, "
+        f"resumed_skipped={total_stats['resumed_skipped']}, "
+        f"raw_exists={total_stats['raw_exists']}, "
+        f"raw_missing={total_stats['raw_missing']}, "
+        f"invalid_step={total_stats['invalid_step']}"
+    )
+    if failed:
+        log("Failed reports:")
+        for input_json, error in failed:
+            log(f"- {input_json}: {error}")
+        return 1
+
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

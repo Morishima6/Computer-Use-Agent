@@ -58,11 +58,15 @@ Output Formate (JSON):
 IMPORTANT: Your output must be in ENGLISH.
 """
 
-SCREENSHOT_PATH_KEYS = (
-    "screenshot_path_before",
-    "screenshot_path_after",
-    "screenshot_path_before_part",
-)
+MOUSE_ACTION_TYPES = {
+    "click",
+    "double_click",
+    "drag",
+    "drag_to",
+    "mouse_move",
+    "move",
+    "scroll",
+}
 
 
 def parse_env_bool(name: str, default: bool = False) -> bool:
@@ -249,6 +253,26 @@ def get_prompt_steps(unit_prompt_payload: Dict[str, Any]) -> List[Dict[str, Any]
     return raw_steps if isinstance(raw_steps, list) else []
 
 
+def get_action_type(step: Dict[str, Any]) -> str:
+    action = step.get("action") if isinstance(step, dict) else {}
+    if not isinstance(action, dict):
+        return ""
+    return str(action.get("type") or "").strip().lower()
+
+
+def iter_screenshot_path_keys_for_step(step: Dict[str, Any]) -> Tuple[str, ...]:
+    before_key = (
+        "screenshot_path_before"
+        if get_action_type(step) in MOUSE_ACTION_TYPES
+        else "screenshot_path_before_raw"
+    )
+    return (
+        before_key,
+        "screenshot_path_after",
+        "screenshot_path_before_part",
+    )
+
+
 def build_unit_source_name(segment_file: Path, unit_payload: Dict[str, Any]) -> str:
     unit_id = str(unit_payload.get("unit_id", "")).strip() or "unknown_unit"
     return f"{segment_file.name}::{unit_id}"
@@ -260,7 +284,7 @@ def collect_unit_screenshots(unit_prompt_payload: Dict[str, Any], segment_file: 
     for step in get_prompt_steps(unit_prompt_payload):
         step_id = str(step.get("step_id", "")).strip() or "unknown_step"
         now_state = step.get("now_state", {})
-        for field_name in SCREENSHOT_PATH_KEYS:
+        for field_name in iter_screenshot_path_keys_for_step(step):
             rel_path = now_state.get(field_name)
             if not rel_path:
                 continue

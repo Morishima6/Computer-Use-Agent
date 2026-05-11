@@ -5,6 +5,7 @@ import copy
 import json
 import math
 import os
+import time
 from collections import Counter
 from dataclasses import dataclass, field
 from datetime import datetime
@@ -32,6 +33,7 @@ DEFAULT_QWEN_MODEL = "qwen3.6-plus"
 DEFAULT_VLM_VERIFICATION_REPEATS = 3
 
 MODIFIER_KEYS = {"shift", "ctrl", "alt", "meta", "command", "cmd", "super"}
+CLICK_LIKE_ACTION_TYPES = {"click", "double_click", "triple_click"}
 POTENTIALLY_INEFFECTIVE_PRESS_KEYS = {
     "backspace",
     "delete",
@@ -46,6 +48,17 @@ POTENTIALLY_INEFFECTIVE_PRESS_KEYS = {
     "pagedown",
     "page_up",
     "page_down",
+}
+EDITING_OR_SELECTION_PRESS_KEYS = {
+    "a",
+    "backspace",
+    "delete",
+    "del",
+    "enter",
+    "return",
+    "escape",
+    "esc",
+    "tab",
 }
 GENERIC_APP_TITLES = {"gnome shell", "desktop", "unknown", ""}
 TERMINAL_KEYWORDS = {
@@ -101,13 +114,46 @@ def load_env_file(env_path: Path) -> None:
 load_env_file(ENV_PATH)
 
 
+def current_timestamp() -> str:
+    return datetime.now().astimezone().isoformat(timespec="seconds")
+
+
+def log_progress(event: str, **payload: Any) -> None:
+    print(
+        json.dumps(
+            {
+                "timestamp": current_timestamp(),
+                "event": event,
+                **payload,
+            },
+            ensure_ascii=False,
+        ),
+        flush=True,
+    )
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Denoise GUI trajectory steps with screenshot similarity rules."
     )
     parser.add_argument(
         "input_path",
-        help="Path to a report.json file or a result directory that contains report.json",
+        help=(
+            "Path to a report.json file, a session directory, or a batch root when --batch is enabled."
+        ),
+    )
+    parser.add_argument(
+        "--batch",
+        action="store_true",
+        help="Process all session directories under input_path.",
+    )
+    parser.add_argument(
+        "--report-subdir",
+        default="",
+        help=(
+            "Subdirectory under each session directory that contains report.json. "
+            "Default is empty, meaning <session>/report.json. For SCUBA extracted results, use: result."
+        ),
     )
     parser.add_argument(
         "--output-json",
@@ -120,6 +166,17 @@ def parse_args() -> argparse.Namespace:
         type=str,
         default=None,
         help="Output path for the denoise audit. Defaults to report_denoise_audit.json beside report.json.",
+    )
+    parser.add_argument(
+        "--save-every",
+        type=int,
+        default=10,
+        help="Save resume audit after every N newly processed steps. Default: 10.",
+    )
+    parser.add_argument(
+        "--no-resume",
+        action="store_true",
+        help="Ignore existing denoise audit and process reports from scratch.",
     )
     parser.add_argument(
         "--vlm-verify-backend",
@@ -141,22 +198,45 @@ def parse_args() -> argparse.Namespace:
         ark_api_key=os.environ.get("ARK_API_KEY", ""),
         ark_base_url=os.environ.get("ARK_BASE_URL", DEFAULT_ARK_BASE_URL),
         ark_model=os.environ.get("ARK_MODEL", DEFAULT_ARK_MODEL),
-        qwen_api_key=os.environ.get("QWEN_API_KEY", "sk-4d920336c17e438f8c70e10c02f2ad83"),
+        qwen_api_key=os.environ.get("QWEN_API_KEY", ""),
         qwen_base_url=os.environ.get("QWEN_BASE_URL", DEFAULT_QWEN_BASE_URL),
         qwen_model=os.environ.get("QWEN_MODEL", DEFAULT_QWEN_MODEL),
     )
     return parser.parse_args()
 
 
-def resolve_report_path(input_path: str) -> Path:
+def resolve_report_path(input_path: str, report_subdir: str = "") -> Path:
     path = Path(input_path)
     if path.is_dir():
-        report_path = path / "report.json"
+        report_dir = path / report_subdir if report_subdir else path
+        report_path = report_dir / "report.json"
     else:
         report_path = path
     if not report_path.exists():
         raise FileNotFoundError(f"Cannot find report.json at: {report_path}")
     return report_path.resolve()
+
+
+def find_batch_report_paths(input_path: str, report_subdir: str) -> List[Path]:
+    root = Path(input_path).resolve()
+    if root.is_file():
+        return [resolve_report_path(str(root), report_subdir)]
+    if not root.is_dir():
+        raise FileNotFoundError(f"Cannot find input directory: {root}")
+
+    report_paths: List[Path] = []
+    root_report_dir = root / report_subdir if report_subdir else root
+    root_report_path = root_report_dir / "report.json"
+    if root_report_path.is_file():
+        report_paths.append(root_report_path.resolve())
+
+    for session_dir in sorted((item for item in root.iterdir() if item.is_dir()), key=lambda item: item.name.lower()):
+        report_dir = session_dir / report_subdir if report_subdir else session_dir
+        report_path = report_dir / "report.json"
+        if report_path.is_file():
+            report_paths.append(report_path.resolve())
+
+    return report_paths
 
 
 def load_json(path: Path) -> Dict[str, Any]:
@@ -165,6 +245,13 @@ def load_json(path: Path) -> Dict[str, Any]:
 
 def dump_json(path: Path, payload: Dict[str, Any]) -> None:
     path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
+def atomic_dump_json(path: Path, payload: Dict[str, Any]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp_path = path.with_name(f"{path.name}.tmp")
+    dump_json(tmp_path, payload)
+    os.replace(tmp_path, path)
 
 
 def parse_time(value: Optional[str]) -> Optional[datetime]:
@@ -224,6 +311,22 @@ def is_potentially_ineffective_press(step: Dict[str, Any]) -> bool:
     return non_modifiers[0] in POTENTIALLY_INEFFECTIVE_PRESS_KEYS
 
 
+def is_editing_or_selection_step(step: Dict[str, Any]) -> bool:
+    action_type = get_action_type(step)
+    if action_type in {"typing", "drag_to", "double_click", "triple_click"}:
+        return True
+    if action_type != "press":
+        return False
+
+    press_list = normalize_press_list(step.get("action", {}).get("param", {}).get("press_list", []))
+    if not press_list:
+        return False
+    non_modifiers = [key for key in press_list if key not in MODIFIER_KEYS]
+    if len(non_modifiers) != 1:
+        return False
+    return non_modifiers[0] in EDITING_OR_SELECTION_PRESS_KEYS
+
+
 def get_click_count(step: Dict[str, Any]) -> int:
     action = step.get("action", {})
     return int(action.get("param", {}).get("num_click", 1) or 1)
@@ -231,6 +334,18 @@ def get_click_count(step: Dict[str, Any]) -> int:
 
 def get_action_type(step: Dict[str, Any]) -> str:
     return str(step.get("action", {}).get("type", "")).lower()
+
+
+def is_click_like_mouse_action(step: Dict[str, Any]) -> bool:
+    return get_action_type(step) in CLICK_LIKE_ACTION_TYPES
+
+
+def get_model_before_rel(step: Dict[str, Any]) -> Optional[str]:
+    now_state = step.get("now_state", {})
+    if not isinstance(now_state, dict):
+        return None
+    raw_rel = now_state.get("screenshot_path_before_raw")
+    return str(raw_rel) if raw_rel else None
 
 
 def get_target_position(step: Dict[str, Any]) -> Optional[Tuple[float, float]]:
@@ -430,8 +545,87 @@ class StepFeatures:
     global_similarity: Optional[SimilarityMetrics] = None
     unchanged_global: bool = False
     protected_focus_click: bool = False
+    protected_blur_deselect_click: bool = False
     notes: List[str] = field(default_factory=list)
     vlm_verifications: List[Dict[str, Any]] = field(default_factory=list)
+
+
+def serialize_feature(feature: StepFeatures) -> Dict[str, Any]:
+    return {
+        "global_similarity": feature.global_similarity.as_dict if feature.global_similarity else None,
+        "unchanged_global": feature.unchanged_global,
+        "protected_focus_click": feature.protected_focus_click,
+        "protected_blur_deselect_click": feature.protected_blur_deselect_click,
+        "notes": list(feature.notes),
+        "vlm_verifications": list(feature.vlm_verifications),
+    }
+
+
+def deserialize_feature(payload: Dict[str, Any]) -> StepFeatures:
+    similarity_payload = payload.get("global_similarity")
+    global_similarity = None
+    if isinstance(similarity_payload, dict):
+        global_similarity = SimilarityMetrics(
+            similarity=float(similarity_payload.get("similarity", 0.0)),
+            method=str(similarity_payload.get("method", "")),
+        )
+    return StepFeatures(
+        global_similarity=global_similarity,
+        unchanged_global=bool(payload.get("unchanged_global", False)),
+        protected_focus_click=bool(payload.get("protected_focus_click", False)),
+        protected_blur_deselect_click=bool(payload.get("protected_blur_deselect_click", False)),
+        notes=list(payload.get("notes", [])),
+        vlm_verifications=list(payload.get("vlm_verifications", [])),
+    )
+
+
+def default_feature_progress(total_steps: int) -> Dict[str, Any]:
+    return {
+        "completed_step_indices": [],
+        "features": [None for _ in range(total_steps)],
+    }
+
+
+def load_resume_audit(audit_path: Path, total_steps: int) -> Optional[Dict[str, Any]]:
+    if not audit_path.is_file():
+        return None
+
+    audit = load_json(audit_path)
+    summary = audit.get("summary", {})
+    if int(summary.get("original_step_count", -1)) != total_steps:
+        return None
+    return audit
+
+
+def is_completed_audit(audit: Dict[str, Any]) -> bool:
+    summary = audit.get("summary", {})
+    if summary.get("status") == "completed":
+        return True
+    return "kept_step_count" in summary and "dropped_step_count" in summary
+
+
+def build_resume_audit(
+    report_path: Path,
+    total_steps: int,
+    feature_progress: Dict[str, Any],
+    phase: str,
+    processing_started_at: str,
+) -> Dict[str, Any]:
+    completed_count = len(feature_progress.get("completed_step_indices", []))
+    return {
+        "summary": {
+            "status": "in_progress",
+            "phase": phase,
+            "report_path": str(report_path.resolve()),
+            "original_step_count": total_steps,
+            "completed_feature_step_count": completed_count,
+            "processing_started_at": processing_started_at,
+            "updated_at": current_timestamp(),
+        },
+        "feature_progress": feature_progress,
+        "dropped_steps": [],
+        "kept_steps": [],
+    }
 
 
 class ImageComparator:
@@ -453,6 +647,14 @@ class ImageComparator:
             return rel.resolve()
         raise FileNotFoundError(f"Cannot resolve screenshot path: {rel_path}")
 
+    def try_resolve_screenshot(self, rel_path: Optional[str]) -> Optional[Path]:
+        if not rel_path:
+            return None
+        try:
+            return self.resolve_screenshot(rel_path)
+        except FileNotFoundError:
+            return None
+
     def compare_full(self, before_path: Path, after_path: Path) -> SimilarityMetrics:
         return SimilarityMetrics(
             similarity=compare_screenshot_similarity(before_path, after_path),
@@ -464,21 +666,130 @@ def collect_features(
     steps: Sequence[Dict[str, Any]],
     comparator: ImageComparator,
     args: argparse.Namespace,
+    audit_path: Path,
+    report_path: Path,
+    processing_started_at: str,
+    resume_audit: Optional[Dict[str, Any]] = None,
 ) -> List[StepFeatures]:
+    feature_progress = default_feature_progress(len(steps))
+    if resume_audit:
+        saved_progress = resume_audit.get("feature_progress", {})
+        saved_features = saved_progress.get("features", [])
+        if isinstance(saved_features, list) and len(saved_features) == len(steps):
+            feature_progress["features"] = saved_features
+            feature_progress["completed_step_indices"] = list(
+                saved_progress.get("completed_step_indices", [])
+            )
+
+    completed_indices = {
+        int(index)
+        for index in feature_progress.get("completed_step_indices", [])
+        if isinstance(index, int) or str(index).isdigit()
+    }
     features: List[StepFeatures] = []
-    for step in steps:
+    processed_since_save = 0
+
+    for index, step in enumerate(steps):
+        saved_feature = feature_progress["features"][index]
+        if index in completed_indices and isinstance(saved_feature, dict):
+            features.append(deserialize_feature(saved_feature))
+            continue
+
         now_state = step.get("now_state", {})
         before_rel = now_state.get("screenshot_path_before")
         after_rel = now_state.get("screenshot_path_after")
         feature = StepFeatures()
         if before_rel and after_rel:
-            before_path = comparator.resolve_screenshot(before_rel)
-            after_path = comparator.resolve_screenshot(after_rel)
-            feature.global_similarity = comparator.compare_full(before_path, after_path)
-            feature.unchanged_global = feature.global_similarity.similarity >= args.full_similarity_threshold
+            before_path = comparator.try_resolve_screenshot(before_rel)
+            after_path = comparator.try_resolve_screenshot(after_rel)
+            if before_path is None or after_path is None:
+                missing_paths = []
+                if before_path is None:
+                    missing_paths.append(before_rel)
+                if after_path is None:
+                    missing_paths.append(after_rel)
+                feature.notes.append(
+                    "Skipped global similarity because screenshot file is missing: "
+                    + ", ".join(str(path) for path in missing_paths)
+                )
+            else:
+                feature.global_similarity = comparator.compare_full(before_path, after_path)
+                feature.unchanged_global = feature.global_similarity.similarity >= args.full_similarity_threshold
         features.append(feature)
+        completed_indices.add(index)
+        feature_progress["completed_step_indices"] = sorted(completed_indices)
+        feature_progress["features"][index] = serialize_feature(feature)
+        processed_since_save += 1
+
+        if args.save_every > 0 and processed_since_save % args.save_every == 0:
+            atomic_dump_json(
+                audit_path,
+                build_resume_audit(
+                    report_path=report_path,
+                    total_steps=len(steps),
+                    feature_progress=feature_progress,
+                    phase="collect_features",
+                    processing_started_at=processing_started_at,
+                ),
+            )
+            log_progress(
+                "denoise_feature_checkpoint_saved",
+                report_path=str(report_path),
+                completed_step_count=len(completed_indices),
+                total_step_count=len(steps),
+            )
+
+    atomic_dump_json(
+        audit_path,
+        build_resume_audit(
+            report_path=report_path,
+            total_steps=len(steps),
+            feature_progress=feature_progress,
+            phase="collect_features_done",
+            processing_started_at=processing_started_at,
+        ),
+    )
     mark_focus_click_protection(steps, features, args)
+    mark_blur_deselect_click_protection(steps, features, args)
     return features
+
+
+def is_click_outside_previous_target(
+    step: Dict[str, Any],
+    previous_step: Dict[str, Any],
+    radius: float,
+) -> bool:
+    pos = get_target_position(step)
+    previous_pos = get_target_position(previous_step)
+    if pos is None:
+        return False
+    if previous_pos is None:
+        return True
+    return euclidean(pos, previous_pos) > radius
+
+
+def mark_blur_deselect_click_protection(
+    steps: Sequence[Dict[str, Any]],
+    features: List[StepFeatures],
+    args: argparse.Namespace,
+) -> None:
+    for i in range(1, len(steps)):
+        if not is_click_like_mouse_action(steps[i]):
+            continue
+        if not features[i].unchanged_global:
+            continue
+
+        previous_step = steps[i - 1]
+        if not is_editing_or_selection_step(previous_step):
+            continue
+        if not is_click_outside_previous_target(steps[i], previous_step, args.same_region_radius * 1.5):
+            continue
+
+        # 保护编辑或选中状态后的外部点击：这类点击常用于失焦、提交 blur 或取消选中，整屏变化通常很小。
+        features[i].protected_blur_deselect_click = True
+        features[i].notes.append(
+            f"Protected as an outside click after {get_action_type(previous_step)} that may blur, commit, or deselect."
+        )
 
 
 def mark_focus_click_protection(
@@ -489,13 +800,13 @@ def mark_focus_click_protection(
     n = len(steps)
     i = 0
     while i < n:
-        if get_action_type(steps[i]) != "click":
+        if not is_click_like_mouse_action(steps[i]):
             i += 1
             continue
         cluster = [i]
         anchor = get_target_position(steps[i])
         j = i + 1
-        while j < n and get_action_type(steps[j]) == "click":
+        while j < n and is_click_like_mouse_action(steps[j]):
             pos = get_target_position(steps[j])
             if anchor is None or pos is None or euclidean(anchor, pos) > args.same_region_radius:
                 break
@@ -519,7 +830,7 @@ def mark_focus_click_protection(
         ):
             features[cluster[0]].protected_focus_click = True
             features[cluster[0]].notes.append(
-                "Protected as the first focus-establishing click before nearby typing."
+                "Protected as the first focus or selection-establishing mouse action before nearby typing."
             )
         i = j
 
@@ -540,6 +851,7 @@ def drop_step(
         "reason": reason,
         "global_similarity": features.global_similarity.as_dict if features.global_similarity else None,
         "protected_focus_click": features.protected_focus_click,
+        "protected_blur_deselect_click": features.protected_blur_deselect_click,
     }
     if extra:
         payload.update(extra)
@@ -631,10 +943,13 @@ def maybe_drop_step(
     if verifier is not None and rule_id in RISKY_DROP_RULE_IDS:
         step = steps[idx]
         now_state = step.get("now_state", {})
-        before_rel = now_state.get("screenshot_path_before")
+        before_raw_rel = now_state.get("screenshot_path_before_raw")
         after_rel = now_state.get("screenshot_path_after")
-        before_path = comparator.resolve_screenshot(before_rel) if before_rel else None
-        after_path = comparator.resolve_screenshot(after_rel) if after_rel else None
+        before_path = (
+            comparator.try_resolve_screenshot(before_raw_rel)
+            or comparator.try_resolve_screenshot(now_state.get("screenshot_path_before"))
+        )
+        after_path = comparator.try_resolve_screenshot(after_rel)
         if before_path is None or after_path is None:
             feature.notes.append(
                 f"Similarity gate skipped for {rule_id}: missing before/after screenshots."
@@ -642,7 +957,13 @@ def maybe_drop_step(
             return
         try:
             numeric_similarity = compare_screenshot_similarity(before_path, after_path)
-            print(f"before_after_similarity for {idx}: {numeric_similarity}")
+            log_progress(
+                "before_after_similarity",
+                step_index=idx,
+                step_id=step.get("step_id"),
+                rule_id=rule_id,
+                similarity=round(numeric_similarity, 6),
+            )
         except Exception as exc:
             feature.notes.append(
                 f"Similarity gate skipped for {rule_id}: {type(exc).__name__}: {exc}"
@@ -681,7 +1002,14 @@ def maybe_drop_step(
 
         try:
             next_similarity = compare_screenshot_similarity(after_path, next_before_path)
-            print(f"after_next_before_similarity for {idx}: {next_similarity}")
+            log_progress(
+                "after_next_before_similarity",
+                step_index=idx,
+                step_id=step.get("step_id"),
+                next_step_id=steps[next_idx].get("step_id"),
+                rule_id=rule_id,
+                similarity=round(next_similarity, 6),
+            )
         except Exception as exc:
             feature.notes.append(
                 f"Similarity gate skipped next-step check for {rule_id}: {type(exc).__name__}: {exc}"
@@ -701,16 +1029,36 @@ def maybe_drop_step(
 
         vlm_attempts: List[Dict[str, Any]] = []
         yes_count = 0
+        model_before_rel = get_model_before_rel(step)
+        model_next_before_rel = get_model_before_rel(steps[next_idx])
+        model_before_path = comparator.resolve_screenshot(model_before_rel) if model_before_rel else None
+        model_next_before_path = (
+            comparator.resolve_screenshot(model_next_before_rel)
+            if model_next_before_rel
+            else None
+        )
+        if model_before_path is None or model_next_before_path is None:
+            feature.notes.append(
+                f"VLM similarity verification skipped for {rule_id}: missing raw before screenshot."
+            )
+            return
         for attempt_idx in range(DEFAULT_VLM_VERIFICATION_REPEATS):
             try:
                 vlm_result = judge_action(
                     get_action_type(step),
-                    before_path,
+                    model_before_path,
                     after_path,
-                    next_before_path,
+                    model_next_before_path,
                     **verifier["judge_kwargs"],
                 )
-                print(f"VLM judgment for {idx} attempt {attempt_idx + 1}: {vlm_result}")
+                log_progress(
+                    "vlm_judgment",
+                    step_index=idx,
+                    step_id=step.get("step_id"),
+                    rule_id=rule_id,
+                    attempt=attempt_idx + 1,
+                    result=vlm_result,
+                )
             except Exception as exc:
                 if verifier.get("strict", False):
                     raise
@@ -1033,13 +1381,15 @@ def apply_rules(
                 verifier=verifier,
             )
 
-    # Rule 1: invalid click with almost no visible change.
+    # Rule 1: invalid click-like mouse action with almost no visible change.
     # The similarity gate first checks current before/after, then current after/next before.
     # Only when both are above 0.98 does it ask the VLM whether the action is redundant.
     for i, step in enumerate(steps):
-        if not keep[i] or get_action_type(step) != "click":
+        if not keep[i] or not is_click_like_mouse_action(step):
             continue
         if features[i].protected_focus_click:
+            continue
+        if features[i].protected_blur_deselect_click:
             continue
         maybe_drop_step(
             keep=keep,
@@ -1047,7 +1397,7 @@ def apply_rules(
             idx=i,
             rule_id="rule1_invalid_click_drop",
             reason=(
-                "Click dropped because compare_screenshot_similarity exceeded "
+                "Click-like mouse action dropped because compare_screenshot_similarity exceeded "
                 f"{VLM_PREFILTER_SIMILARITY_THRESHOLD:.4f} and VLM confirmed high similarity."
             ),
             features=features,
@@ -1102,6 +1452,7 @@ def build_outputs(
         None,
     )
     denoised_report["denoise_meta"] = {
+        "status": "completed",
         "original_step_count": len(steps),
         "kept_step_count": len(kept_steps),
         "dropped_step_count": len(steps) - len(kept_steps),
@@ -1130,6 +1481,7 @@ def build_outputs(
                 "original_step_id": steps[idx].get("step_id"),
                 "action_type": get_action_type(steps[idx]),
                 "protected_focus_click": features[idx].protected_focus_click,
+                "protected_blur_deselect_click": features[idx].protected_blur_deselect_click,
                 "global_similarity": features[idx].global_similarity.as_dict
                 if features[idx].global_similarity
                 else None,
@@ -1176,15 +1528,38 @@ def build_vlm_verifier(args: argparse.Namespace) -> Optional[Dict[str, Any]]:
     }
 
 
-def main() -> None:
-    args = parse_args()
-    report_path = resolve_report_path(args.input_path)
+def process_report(report_path: Path, args: argparse.Namespace) -> Dict[str, Any]:
+    processing_started_at = current_timestamp()
+    processing_started_perf = time.perf_counter()
+    log_progress("denoise_started", report_path=str(report_path))
+    output_json = Path(args.output_json) if args.output_json else report_path.with_name("report_denoised.json")
+    output_audit = Path(args.output_audit) if args.output_audit else report_path.with_name("report_denoise_audit.json")
     report = load_json(report_path)
     steps = copy.deepcopy(report.get("steps", []))
+    resume_audit = None if args.no_resume else load_resume_audit(output_audit, len(steps))
+
+    if resume_audit and is_completed_audit(resume_audit) and output_json.is_file():
+        summary = dict(resume_audit.get("summary", {}))
+        summary["resume_skipped"] = True
+        log_progress(
+            "denoise_resume_skipped_completed",
+            report_path=str(report_path),
+            output_json=str(output_json.resolve()),
+            output_audit=str(output_audit.resolve()),
+        )
+        return summary
 
     comparator = ImageComparator(report_path)
     verifier = build_vlm_verifier(args)
-    features = collect_features(steps, comparator, args)
+    features = collect_features(
+        steps,
+        comparator,
+        args,
+        audit_path=output_audit,
+        report_path=report_path,
+        processing_started_at=processing_started_at,
+        resume_audit=resume_audit,
+    )
     inferred_target_keywords = infer_target_app_keywords(report_path, report, steps)
     keep, audit, mutations = apply_rules(steps, features, args, comparator, verifier, inferred_target_keywords)
     denoised_report, audit_report = build_outputs(
@@ -1198,10 +1573,25 @@ def main() -> None:
         inferred_target_keywords,
     )
 
-    output_json = Path(args.output_json) if args.output_json else report_path.with_name("report_denoised.json")
-    output_audit = Path(args.output_audit) if args.output_audit else report_path.with_name("report_denoise_audit.json")
-    dump_json(output_json, denoised_report)
-    dump_json(output_audit, audit_report)
+    processing_finished_at = current_timestamp()
+    processing_elapsed_seconds = round(time.perf_counter() - processing_started_perf, 3)
+    processing_meta = {
+        "processing_started_at": processing_started_at,
+        "processing_finished_at": processing_finished_at,
+        "processing_elapsed_seconds": processing_elapsed_seconds,
+    }
+    denoised_report["denoise_meta"].update(processing_meta)
+    audit_report["summary"].update(processing_meta)
+
+    atomic_dump_json(output_json, denoised_report)
+    atomic_dump_json(output_audit, audit_report)
+    log_progress(
+        "denoise_finished",
+        report_path=str(report_path),
+        output_json=str(output_json.resolve()),
+        output_audit=str(output_audit.resolve()),
+        elapsed_seconds=processing_elapsed_seconds,
+    )
 
     print(
         json.dumps(
@@ -1215,7 +1605,92 @@ def main() -> None:
             indent=2,
         )
     )
+    return denoised_report["denoise_meta"]
+
+
+def main() -> int:
+    args = parse_args()
+    if args.save_every < 0:
+        raise ValueError("--save-every cannot be less than 0")
+    if args.batch and (args.output_json or args.output_audit):
+        raise ValueError("--output-json and --output-audit cannot be used with --batch")
+
+    if not args.batch:
+        report_path = resolve_report_path(args.input_path, args.report_subdir)
+        process_report(report_path, args)
+        return 0
+
+    report_paths = find_batch_report_paths(args.input_path, args.report_subdir)
+    if not report_paths:
+        raise FileNotFoundError(
+            f"No report.json found under {Path(args.input_path).resolve()} "
+            f"with report_subdir={args.report_subdir!r}"
+        )
+
+    log_progress(
+        "batch_denoise_started",
+        input_path=str(Path(args.input_path).resolve()),
+        report_subdir=args.report_subdir,
+        report_count=len(report_paths),
+    )
+    failed: List[Dict[str, str]] = []
+    total_original_steps = 0
+    total_kept_steps = 0
+    total_dropped_steps = 0
+    skipped_completed_count = 0
+
+    for index, report_path in enumerate(report_paths, start=1):
+        log_progress(
+            "batch_denoise_item_started",
+            index=index,
+            total=len(report_paths),
+            report_path=str(report_path),
+        )
+        try:
+            meta = process_report(report_path, args)
+        except Exception as exc:
+            failed.append({"report_path": str(report_path), "error": str(exc)})
+            log_progress(
+                "batch_denoise_item_failed",
+                index=index,
+                total=len(report_paths),
+                report_path=str(report_path),
+                error=str(exc),
+            )
+            continue
+
+        if meta.get("resume_skipped"):
+            skipped_completed_count += 1
+        total_original_steps += int(meta.get("original_step_count", 0))
+        total_kept_steps += int(meta.get("kept_step_count", 0))
+        total_dropped_steps += int(meta.get("dropped_step_count", 0))
+
+    log_progress(
+        "batch_denoise_finished",
+        report_count=len(report_paths),
+        failed_count=len(failed),
+        skipped_completed_count=skipped_completed_count,
+        total_original_steps=total_original_steps,
+        total_kept_steps=total_kept_steps,
+        total_dropped_steps=total_dropped_steps,
+    )
+    print(
+        json.dumps(
+            {
+                "report_count": len(report_paths),
+                "failed_count": len(failed),
+                "skipped_completed_count": skipped_completed_count,
+                "total_original_steps": total_original_steps,
+                "total_kept_steps": total_kept_steps,
+                "total_dropped_steps": total_dropped_steps,
+                "failed": failed,
+            },
+            ensure_ascii=False,
+            indent=2,
+        )
+    )
+    return 1 if failed else 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

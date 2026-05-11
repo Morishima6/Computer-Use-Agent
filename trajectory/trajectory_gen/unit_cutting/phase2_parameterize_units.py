@@ -10,6 +10,19 @@ from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
 
 
+LOG_FILE_PATH: Optional[Path] = None
+
+IGNORED_SESSION_DIR_NAMES = {
+    "bak",
+    "backup",
+    "backups",
+    "splits",
+    "_debug",
+    "__pycache__",
+    "segments_units_phase2",
+}
+
+
 SYSTEM_PROMPT = """You are an expert at abstracting concrete GUI interaction units into reusable parameterized units.
 
 Your task is to transform one already-segmented concrete unit into one parameterized unit.
@@ -235,7 +248,17 @@ def format_duration(seconds: float) -> str:
 
 
 def log_with_timestamp(message: str) -> None:
-    print(f"[{format_timestamp(datetime.now())}] {message}")
+    line = f"[{format_timestamp(datetime.now())}] {message}"
+    print(line, flush=True)
+    if LOG_FILE_PATH is not None:
+        LOG_FILE_PATH.parent.mkdir(parents=True, exist_ok=True)
+        with LOG_FILE_PATH.open("a", encoding="utf-8") as f:
+            f.write(line + "\n")
+
+
+def configure_log_file(log_file: str) -> None:
+    global LOG_FILE_PATH
+    LOG_FILE_PATH = Path(log_file).resolve() if log_file else None
 
 
 def load_env_file(env_path: Path) -> None:
@@ -311,6 +334,45 @@ def discover_session_dirs(input_path: Path, units_subdir: Path) -> List[Path]:
     if not session_dirs:
         raise FileNotFoundError(
             f"No session directories containing {units_subdir.as_posix()} were found under: {input_path}"
+        )
+    return session_dirs
+
+
+def discover_batch_session_dirs(input_path: Path, units_subdir: Path, recursive: bool) -> List[Path]:
+    if not input_path.is_dir():
+        raise FileNotFoundError(f"Batch root is not a directory: {input_path}")
+
+    if recursive:
+        session_dirs = []
+        for units_dir in input_path.rglob(units_subdir.name):
+            if not units_dir.is_dir():
+                continue
+            relative_parts = units_dir.relative_to(input_path).parts
+            if relative_parts[-len(units_subdir.parts):] != units_subdir.parts:
+                continue
+            session_dir = units_dir
+            for _ in units_subdir.parts:
+                session_dir = session_dir.parent
+            if session_dir.name.lower() in IGNORED_SESSION_DIR_NAMES:
+                continue
+            session_dirs.append(session_dir)
+        session_dirs = sorted(set(session_dirs), key=lambda path: str(path).lower())
+    else:
+        session_dirs = sorted(
+            [
+                child
+                for child in input_path.iterdir()
+                if child.is_dir()
+                and child.name.lower() not in IGNORED_SESSION_DIR_NAMES
+                and (child / units_subdir).is_dir()
+            ],
+            key=lambda path: str(path).lower(),
+        )
+
+    if not session_dirs:
+        search_mode = "recursively" if recursive else "under direct children"
+        raise FileNotFoundError(
+            f"No session directories containing {units_subdir.as_posix()} were found {search_mode}: {input_path}"
         )
     return session_dirs
 
@@ -1188,7 +1250,40 @@ def segment_file_success(payload: Dict[str, Any]) -> bool:
     parameterized_units = payload.get("parameterized units")
     if not isinstance(parameterized_units, list) or not parameterized_units:
         return False
-    return all(parameterized_unit_success(unit) for unit in parameterized_units if isinstance(unit, dict))
+    return all(
+        isinstance(unit, dict) and parameterized_unit_success(unit)
+        for unit in parameterized_units
+    )
+
+
+def count_completed_segment_outputs(
+    segments_units_dir: Path,
+    output_dir: Path,
+    segment_limit: int,
+) -> Tuple[int, int]:
+    segment_files = list(iter_segment_files(segments_units_dir))
+    if segment_limit > 0:
+        segment_files = segment_files[:segment_limit]
+
+    completed_count = 0
+    for source_path in segment_files:
+        output_path = output_dir / source_path.name
+        if segment_file_success(read_json_file(output_path)):
+            completed_count += 1
+    return completed_count, len(segment_files)
+
+
+def session_outputs_completed(
+    segments_units_dir: Path,
+    output_dir: Path,
+    segment_limit: int,
+) -> bool:
+    completed_count, total_count = count_completed_segment_outputs(
+        segments_units_dir=segments_units_dir,
+        output_dir=output_dir,
+        segment_limit=segment_limit,
+    )
+    return total_count > 0 and completed_count == total_count
 
 
 def process_segment_file(
@@ -1306,6 +1401,7 @@ def process_session(
     session_dir: Path,
     segments_units_dir: Path,
     output_dir: Path,
+    status_path: Optional[Path],
     model: str,
     max_retries: int,
     retry_delay: float,
@@ -1330,9 +1426,66 @@ def process_session(
     failures: List[Tuple[str, str]] = []
     total_units = 0
     total_unit_failures = 0
-    for source_path in segment_files:
+    completed_segments = 0
+    skipped_segments = 0
+    failed_segments = 0
+    total_segments = len(segment_files)
+    for file_index, source_path in enumerate(segment_files, start=1):
         segment_data = read_json_file(source_path)
         segment_id = str(segment_data.get("segment_id") or source_path.stem)
+        output_path = output_dir / source_path.name
+        if not force and segment_file_success(read_json_file(output_path)):
+            parameterized_units = read_json_file(output_path).get("parameterized units") or []
+            unit_success_count = sum(
+                1 for unit in parameterized_units if isinstance(unit, dict) and parameterized_unit_success(unit)
+            )
+            total_units += unit_success_count
+            completed_segments += 1
+            skipped_segments += 1
+            log_with_timestamp(
+                f"{session_dir.name} [{file_index}/{total_segments}]: skip {source_path.name} -> {segment_id} "
+                f"(completed output exists)"
+            )
+            if status_path is not None:
+                status_data = read_json_file(status_path)
+                status_data.update(
+                    {
+                        "current_segment_index": file_index,
+                        "current_segment_id": segment_id,
+                        "current_source": str(source_path),
+                        "segments_total": total_segments,
+                        "segments_completed_so_far": completed_segments,
+                        "segments_skipped_so_far": skipped_segments,
+                        "segments_failed_so_far": failed_segments,
+                        "units_processed_so_far": total_units,
+                        "units_failed_so_far": total_unit_failures,
+                        "last_progress_at": format_timestamp(datetime.now()),
+                    }
+                )
+                write_status_file(status_path, status_data)
+            continue
+
+        log_with_timestamp(
+            f"{session_dir.name} [{file_index}/{total_segments}]: processing {source_path.name} -> {segment_id}"
+        )
+        if status_path is not None:
+            status_data = read_json_file(status_path)
+            status_data.update(
+                {
+                    "current_segment_index": file_index,
+                    "current_segment_id": segment_id,
+                    "current_source": str(source_path),
+                    "segments_total": total_segments,
+                    "segments_completed_so_far": completed_segments,
+                    "segments_skipped_so_far": skipped_segments,
+                    "segments_failed_so_far": failed_segments,
+                    "units_processed_so_far": total_units,
+                    "units_failed_so_far": total_unit_failures,
+                    "last_progress_at": format_timestamp(datetime.now()),
+                }
+            )
+            write_status_file(status_path, status_data)
+
         ok, error, unit_success_count, unit_failure_count = process_segment_file(
             source_path=source_path,
             session_dir=session_dir,
@@ -1346,7 +1499,28 @@ def process_session(
         total_units += unit_success_count + unit_failure_count
         total_unit_failures += unit_failure_count
         if not ok:
+            failed_segments += 1
             failures.append((segment_id, error))
+        else:
+            completed_segments += 1
+
+        if status_path is not None:
+            status_data = read_json_file(status_path)
+            status_data.update(
+                {
+                    "current_segment_index": file_index,
+                    "current_segment_id": segment_id,
+                    "current_source": str(source_path),
+                    "segments_total": total_segments,
+                    "segments_completed_so_far": completed_segments,
+                    "segments_skipped_so_far": skipped_segments,
+                    "segments_failed_so_far": failed_segments,
+                    "units_processed_so_far": total_units,
+                    "units_failed_so_far": total_unit_failures,
+                    "last_progress_at": format_timestamp(datetime.now()),
+                }
+            )
+            write_status_file(status_path, status_data)
 
     return not failures, failures, len(segment_files), total_units, total_unit_failures
 
@@ -1399,6 +1573,26 @@ def main() -> int:
         help="Optional maximum number of trajectory directories to process in batch mode. 0 means no limit.",
     )
     parser.add_argument(
+        "--batch",
+        action="store_true",
+        help="Treat input_path as a batch root and process trajectory directories under it.",
+    )
+    parser.add_argument(
+        "--recursive",
+        action="store_true",
+        help="When --batch is used, recursively search for trajectory directories. Without it, only direct children are scanned.",
+    )
+    parser.add_argument(
+        "--stop-on-error",
+        action="store_true",
+        help="Stop immediately when one trajectory fails. By default, batch mode continues with the next trajectory.",
+    )
+    parser.add_argument(
+        "--log-file",
+        default="",
+        help="Optional file path for timestamped runtime logs. Console output is still printed.",
+    )
+    parser.add_argument(
         "--force",
         action="store_true",
         help="Reprocess trajectories and segments even if successful Phase-2 outputs already exist.",
@@ -1415,13 +1609,22 @@ def main() -> int:
         script_path.parents[3] / ".env",
     ):
         load_env_file(candidate)
+    configure_log_file(args.log_file)
 
     input_path = Path(args.input_path).resolve()
     units_subdir = normalize_units_subdir(args.units_subdir)
-    session_dirs = discover_session_dirs(input_path, units_subdir)
-    batch_mode = len(session_dirs) > 1 or (
-        input_path.is_dir() and input_path not in session_dirs
-    )
+    if args.batch:
+        session_dirs = discover_batch_session_dirs(
+            input_path=input_path,
+            units_subdir=units_subdir,
+            recursive=args.recursive,
+        )
+        batch_mode = True
+    else:
+        session_dirs = discover_session_dirs(input_path, units_subdir)
+        batch_mode = len(session_dirs) > 1 or (
+            input_path.is_dir() and input_path not in session_dirs
+        )
     if args.trajectory_limit > 0:
         session_dirs = session_dirs[: args.trajectory_limit]
 
@@ -1429,8 +1632,10 @@ def main() -> int:
 
     log_with_timestamp(
         f"Run start: model={model}, trajectories={len(session_dirs)}, "
-        f"batch_mode={batch_mode}, units_subdir={units_subdir.as_posix()}"
+        f"batch_mode={batch_mode}, recursive={args.recursive}, units_subdir={units_subdir.as_posix()}"
     )
+    if LOG_FILE_PATH is not None:
+        log_with_timestamp(f"Runtime log file: {LOG_FILE_PATH}")
 
     trajectory_failures: List[Tuple[str, str]] = []
     processed_sessions = 0
@@ -1447,13 +1652,24 @@ def main() -> int:
         status_data = read_json_file(status_path)
         previous_status = str(status_data.get("status", "")).strip().lower()
 
-        if previous_status == "done" and not args.force:
+        outputs_are_complete = session_outputs_completed(
+            segments_units_dir=segments_units_dir,
+            output_dir=output_dir,
+            segment_limit=args.limit,
+        )
+
+        if previous_status == "done" and outputs_are_complete and not args.force:
             skipped_sessions += 1
             log_with_timestamp(
                 f"[{session_index}/{len(session_dirs)}] skip {session_dir.name}: already marked done at "
                 f"{status_data.get('finished_at', 'unknown time')}"
             )
             continue
+        if previous_status == "done" and not outputs_are_complete and not args.force:
+            log_with_timestamp(
+                f"[{session_index}/{len(session_dirs)}] resume {session_dir.name}: status is done but "
+                f"some Phase-2 outputs are missing or invalid"
+            )
 
         session_wall_start = datetime.now()
         session_perf_start = time.perf_counter()
@@ -1494,6 +1710,7 @@ def main() -> int:
                 session_dir=session_dir,
                 segments_units_dir=segments_units_dir,
                 output_dir=output_dir,
+                status_path=status_path,
                 model=model,
                 max_retries=args.max_retries,
                 retry_delay=args.retry_delay,
@@ -1548,6 +1765,9 @@ def main() -> int:
             log_with_timestamp(
                 f"Trajectory {session_dir.name} failed in {format_duration(duration_seconds)}"
             )
+            if args.stop_on_error:
+                log_with_timestamp("Stop on error is enabled; aborting remaining trajectories.")
+                break
 
     log_with_timestamp(
         f"Run finished in {format_duration(time.perf_counter() - run_perf_start)} "
