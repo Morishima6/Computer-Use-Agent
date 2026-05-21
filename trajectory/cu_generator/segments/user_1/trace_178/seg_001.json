@@ -1,0 +1,753 @@
+{
+  "segment_id": "seg_001",
+  "app": "libreoffice_calc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Select the empty header cell for the total column",
+      "action_before_state": "A grocery table is visible in Calc with headers in row 1 and data in rows 2 through 7. Columns A to C are filled, while cell D1 is empty.",
+      "action_preconditions": [
+        "The spreadsheet is open in LibreOffice Calc.",
+        "The grocery table is visible near the top-left of the sheet.",
+        "Column D is empty and ready for a new header."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell D1 in the header row, immediately to the right of Unit Price"
+        }
+      },
+      "action_after_effects": "Cell D1 becomes the active cell with a visible selection border.",
+      "nl_explanation": "When the grocery table is visible and column D is blank, click cell D1 so the new total-cost header can be entered there."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Name the new total column",
+      "action_before_state": "Cell D1 is selected and ready for text entry.",
+      "action_preconditions": [
+        "Cell D1 is active.",
+        "The header row is visible."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Total Cost"
+      },
+      "action_after_effects": "The header text Total Cost appears in cell D1.",
+      "nl_explanation": "With D1 selected, type Total Cost to label the new calculated column."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Select the first empty result cell",
+      "action_before_state": "The header row now includes Total Cost, and the first item row is still visible.",
+      "action_preconditions": [
+        "Cell D1 contains the new header.",
+        "Row 2 contains the first grocery item."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell D2, the first empty cell under the Total Cost header"
+        }
+      },
+      "action_after_effects": "Cell D2 becomes active for formula entry.",
+      "nl_explanation": "Click cell D2 under the new header so the first line-total formula can be entered."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Enter the multiplication formula for the first item",
+      "action_before_state": "Cell D2 is selected, and the corresponding quantity and unit price are visible in B2 and C2.",
+      "action_preconditions": [
+        "Cell D2 is active.",
+        "The first data row has values in columns B and C."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "=B2*C2"
+      },
+      "action_after_effects": "The formula is entered into D2 and is ready to be confirmed.",
+      "nl_explanation": "With D2 active and the first row's quantity and price visible, type =B2*C2 to calculate the first item total."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Apply the first line-total formula",
+      "action_before_state": "The formula =B2*C2 is present in the active cell D2.",
+      "action_preconditions": [
+        "Cell D2 contains the formula text.",
+        "The formula has not yet been confirmed."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "Calc evaluates the formula and displays the numeric total in D2.",
+      "nl_explanation": "Press Enter to confirm the formula so D2 shows the calculated total for the first grocery item."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Copy the formula down the rest of the total column",
+      "action_before_state": "Cell D2 shows the first calculated total, and the remaining rows in D3 through D7 are still empty.",
+      "action_preconditions": [
+        "D2 contains a calculated result.",
+        "Rows 3 through 7 contain more grocery items.",
+        "The fill handle is visible on the selected cell."
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the fill handle at the bottom-right corner of cell D2"
+        },
+        "end": {
+          "text": "the matching fill-handle position at the bottom-right corner of cell D7"
+        },
+        "target": {
+          "begin": {
+            "text": "cell D2"
+          },
+          "end": {
+            "text": "cell D7"
+          }
+        }
+      },
+      "action_after_effects": "The formula is autofilled from D2 down to D7, and each item row now shows its total cost.",
+      "nl_explanation": "Drag the fill handle from D2 down to D7 to copy the total-cost formula to every remaining grocery row."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Select both money columns together",
+      "action_before_state": "Columns C and D contain price values, and both column headers are visible.",
+      "action_preconditions": [
+        "The Unit Price column is in C.",
+        "The Total Cost column is in D.",
+        "Both column headers are visible on screen."
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the C column header above Unit Price"
+        },
+        "end": {
+          "text": "the D column header above Total Cost"
+        },
+        "target": {
+          "begin": {
+            "text": "column C header"
+          },
+          "end": {
+            "text": "column D header"
+          }
+        }
+      },
+      "action_after_effects": "Columns C and D are selected together.",
+      "nl_explanation": "Drag across the C and D column headers so both money-related columns are selected for formatting."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Format the selected columns as currency",
+      "action_before_state": "Columns C and D are highlighted as the current selection.",
+      "action_preconditions": [
+        "Columns C and D are selected.",
+        "The standard Calc formatting toolbar is visible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the currency format button in the toolbar"
+        }
+      },
+      "action_after_effects": "The values in Unit Price and Total Cost are displayed using currency formatting.",
+      "nl_explanation": "With columns C and D selected, click the currency button so both price columns show money formatting."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Select the header row",
+      "action_before_state": "The sheet now shows currency formatting in columns C and D, and the first row contains the table headers.",
+      "action_preconditions": [
+        "The header row is visible.",
+        "Row 1 contains the table labels."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the row header labeled 1 on the far left"
+        }
+      },
+      "action_after_effects": "The entire first row becomes selected.",
+      "nl_explanation": "Click the row header for row 1 to select the entire header row before changing its text style."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Make the header row bold",
+      "action_before_state": "Row 1 is selected across the table headers.",
+      "action_preconditions": [
+        "The first row is selected.",
+        "LibreOffice Calc is focused."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "b"
+        ]
+      },
+      "action_after_effects": "The header labels in row 1 become bold, making the table easier to read.",
+      "nl_explanation": "With the full header row selected, press Ctrl+B to bold the labels and improve readability."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Select the cell for the grand-total label",
+      "action_before_state": "The table is complete through row 7, and row 8 is still blank.",
+      "action_preconditions": [
+        "There is an empty row directly below the grocery data.",
+        "Cell C8 is visible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell C8, the blank cell below the Unit Price column"
+        }
+      },
+      "action_after_effects": "Cell C8 becomes active for text entry.",
+      "nl_explanation": "Click the blank cell C8 below the data so the summary label can be added there."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Add the grand-total label",
+      "action_before_state": "Cell C8 is active and ready for input.",
+      "action_preconditions": [
+        "Cell C8 is selected.",
+        "Row 8 is empty."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Grand Total"
+      },
+      "action_after_effects": "The text Grand Total appears in C8.",
+      "nl_explanation": "With C8 selected, type Grand Total to label the summary row."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Move to the summary value cell",
+      "action_before_state": "C8 contains the summary label, and D8 is blank.",
+      "action_preconditions": [
+        "The label has been entered in C8.",
+        "D8 is the adjacent empty cell for the final formula."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "tab"
+        ]
+      },
+      "action_after_effects": "The active selection moves from C8 to D8.",
+      "nl_explanation": "Press Tab after entering the label so the cursor moves into D8 for the grand-total formula."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Enter the grand-total formula",
+      "action_before_state": "D8 is selected, and the item totals in D2 through D7 are visible above it.",
+      "action_preconditions": [
+        "Cell D8 is active.",
+        "Cells D2 through D7 contain the line totals."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "=SUM(D2:D7)"
+      },
+      "action_after_effects": "The sum formula is entered into D8 and is waiting to be confirmed.",
+      "nl_explanation": "With D8 selected and the line totals above it, type =SUM(D2:D7) to prepare the grand total."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Calculate the grand total",
+      "action_before_state": "The formula =SUM(D2:D7) is present in the active cell D8.",
+      "action_preconditions": [
+        "D8 contains the sum formula.",
+        "The formula has not yet been applied."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "Calc computes the formula and shows the overall grocery total in D8.",
+      "nl_explanation": "Press Enter to confirm the sum formula so D8 displays the full total cost of the shopping list."
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Save the finished spreadsheet",
+      "action_before_state": "The table now has a total-cost column, currency formatting, bold headers, and a grand total row.",
+      "action_preconditions": [
+        "All edits are complete.",
+        "LibreOffice Calc is still the active window."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "s"
+        ]
+      },
+      "action_after_effects": "The spreadsheet is saved with the completed grocery budget calculations and formatting.",
+      "nl_explanation": "After the totals and formatting are finished, press Ctrl+S to save the completed grocery budget sheet."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Add a header for the new per-item total column.",
+      "unit_type": "ADD_COLUMN_HEADER",
+      "unit_before_state": "LibreOffice Calc shows the grocery table near the top-left of the sheet. Row 1 contains headers for columns A through C, and cell D1 is blank to the right of Unit Price.",
+      "unit_after_state": "Cell D1 contains the text Total Cost as the header for column D, creating a labeled total-cost column next to Unit Price.",
+      "unit_precondition": [
+        "The spreadsheet is open in LibreOffice Calc.",
+        "The grocery table with headers in row 1 is visible.",
+        "Cell D1 is empty and available for a new column label."
+      ],
+      "unit_effect": [
+        "Cell D1 becomes selected and then displays the text Total Cost.",
+        "The table now visibly has a fourth header labeled Total Cost in row 1."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Calculate total cost for every grocery item in the new column.",
+      "unit_type": "CREATE_AND_FILL_FORMULA_COLUMN",
+      "unit_before_state": "The table already includes the Total Cost header in D1, but cells D2 through D7 are still empty while rows 2 through 7 contain quantities in column B and unit prices in column C.",
+      "unit_after_state": "Cells D2 through D7 show calculated line totals for each grocery item, derived from quantity multiplied by unit price.",
+      "unit_precondition": [
+        "Cell D1 already contains the Total Cost header.",
+        "Rows 2 through 7 contain grocery items with numeric values in columns B and C.",
+        "Cell D2 can be selected and its fill handle can be used to copy the formula downward."
+      ],
+      "unit_effect": [
+        "Cell D2 briefly contains the formula =B2*C2 and then shows a numeric result after confirmation.",
+        "Dragging the fill handle extends the formula through D7.",
+        "Each row from 2 to 7 now has a visible total cost in column D."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Format both money-related columns so prices and totals display as currency.",
+      "unit_type": "FORMAT_COLUMNS_AS_CURRENCY",
+      "unit_before_state": "Columns C and D are visible with numeric price values, but they are not yet formatted as currency. The user can see the Unit Price and Total Cost column headers.",
+      "unit_after_state": "Values in both the Unit Price column and the Total Cost column are displayed using currency formatting across the visible grocery table.",
+      "unit_precondition": [
+        "Columns C and D are visible on screen.",
+        "Both columns can be selected together from their column headers.",
+        "The Calc toolbar includes the currency format control."
+      ],
+      "unit_effect": [
+        "Columns C and D become selected together.",
+        "The numbers in columns C and D change to a currency display format with monetary symbols and decimal formatting."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Emphasize the table headers so the sheet is easier to read.",
+      "unit_type": "FORMAT_HEADER_ROW",
+      "unit_before_state": "The grocery table is fully visible with row 1 containing the headers, including the new Total Cost label. Row 1 text is still in normal weight.",
+      "unit_after_state": "The entire header row is bold, making the table labels stand out from the data rows below.",
+      "unit_precondition": [
+        "Row 1 is visible and contains the table headers.",
+        "The row header for row 1 can be selected.",
+        "LibreOffice Calc remains the focused application so Ctrl+B applies formatting."
+      ],
+      "unit_effect": [
+        "Row 1 becomes selected from the row header.",
+        "The header labels in row 1 visibly change to bold text."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        11,
+        12
+      ],
+      "unit_intent": "Label the summary row for the overall grocery total.",
+      "unit_type": "ADD_SUMMARY_LABEL",
+      "unit_before_state": "The grocery data occupies rows 1 through 7, and row 8 is blank. Cell C8 below the Unit Price column is empty and visible.",
+      "unit_after_state": "Cell C8 contains the text Grand Total, marking row 8 as the summary row for the sheet.",
+      "unit_precondition": [
+        "There is an empty row directly below the grocery data.",
+        "Cell C8 is visible and empty.",
+        "The completed item totals remain visible above row 8."
+      ],
+      "unit_effect": [
+        "Cell C8 becomes active for typing.",
+        "The text Grand Total appears in C8 as a visible summary label."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        13,
+        14,
+        15
+      ],
+      "unit_intent": "Compute the overall total of all item totals in the summary row.",
+      "unit_type": "CALCULATE_GRAND_TOTAL",
+      "unit_before_state": "Cell C8 already shows Grand Total, cell D8 is blank, and cells D2 through D7 contain the individual line totals.",
+      "unit_after_state": "Cell D8 displays the computed sum of D2 through D7 as the overall grocery total for the sheet.",
+      "unit_precondition": [
+        "Cell C8 already contains the summary label Grand Total.",
+        "Cell D8 is the empty adjacent value cell for the summary row.",
+        "Cells D2 through D7 contain the line-total values to be summed."
+      ],
+      "unit_effect": [
+        "Pressing Tab moves the active cell from C8 to D8.",
+        "Cell D8 briefly contains the formula =SUM(D2:D7) before confirmation.",
+        "After Enter, D8 shows the calculated overall total as a visible numeric result."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        16
+      ],
+      "unit_intent": "Persist the completed budget sheet with all calculations and formatting.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The spreadsheet now includes the Total Cost column, currency formatting in columns C and D, bold headers, and a Grand Total row with a computed value in D8.",
+      "unit_after_state": "The spreadsheet remains open in LibreOffice Calc with the completed grocery budget sheet saved to disk.",
+      "unit_precondition": [
+        "All intended edits and formatting changes are already visible in the sheet.",
+        "LibreOffice Calc is still the active window.",
+        "The document is in a state that can be saved."
+      ],
+      "unit_effect": [
+        "The save command is executed with Ctrl+S.",
+        "The completed spreadsheet is stored with the newly added totals and formatting."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Add a header for the new per-item total column.",
+      "unit_type": "ADD_COLUMN_HEADER",
+      "unit_before_state": "LibreOffice Calc shows the grocery table near the top-left of the sheet. Row 1 contains headers for columns A through C, and cell D1 is blank to the right of Unit Price.",
+      "unit_after_state": "Cell D1 contains the text Total Cost as the header for column D, creating a labeled total-cost column next to Unit Price.",
+      "unit_precondition": [
+        "The spreadsheet is open in LibreOffice Calc.",
+        "The grocery table with headers in row 1 is visible.",
+        "Cell D1 is empty and available for a new column label."
+      ],
+      "unit_effect": [
+        "Cell D1 becomes selected and then displays the text Total Cost.",
+        "The table now visibly has a fourth header labeled Total Cost in row 1."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Add a specified header label to an empty column header cell in a spreadsheet table.",
+      "parameters": {
+        "target_header_cell": "cell D1 in the header row, immediately to the right of Unit Price",
+        "header_text": "Total Cost"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell D1 in the header row, immediately to the right of Unit Price'}}",
+          "action_template": "When the spreadsheet table is visible and the target header cell is blank, click {{target_header_cell}} so the new column header can be entered there. This makes the target cell active with a visible selection border."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Total Cost'}",
+          "action_template": "With {{target_header_cell}} selected and the header row visible, type {{header_text}} to label the new column. The text {{header_text}} then appears in the target header cell."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Calculate total cost for every grocery item in the new column.",
+      "unit_type": "CREATE_AND_FILL_FORMULA_COLUMN",
+      "unit_before_state": "The table already includes the Total Cost header in D1, but cells D2 through D7 are still empty while rows 2 through 7 contain quantities in column B and unit prices in column C.",
+      "unit_after_state": "Cells D2 through D7 show calculated line totals for each grocery item, derived from quantity multiplied by unit price.",
+      "unit_precondition": [
+        "Cell D1 already contains the Total Cost header.",
+        "Rows 2 through 7 contain grocery items with numeric values in columns B and C.",
+        "Cell D2 can be selected and its fill handle can be used to copy the formula downward."
+      ],
+      "unit_effect": [
+        "Cell D2 briefly contains the formula =B2*C2 and then shows a numeric result after confirmation.",
+        "Dragging the fill handle extends the formula through D7.",
+        "Each row from 2 to 7 now has a visible total cost in column D."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Populate a calculated result column by entering a row formula in the first result cell and autofilling it down the remaining rows.",
+      "parameters": {
+        "result_column_header": "Total Cost",
+        "first_result_cell": "cell D2",
+        "initial_formula": "=B2*C2",
+        "fill_start_cell": "cell D2",
+        "fill_end_cell": "cell D7"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell D2, the first empty cell under the Total Cost header'}}",
+          "action_template": "Click {{first_result_cell}} under the {{result_column_header}} header so the first row formula can be entered. This requires the header to already exist and the first data row to be available. After the click, {{first_result_cell}} becomes active for formula entry."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '=B2*C2'}",
+          "action_template": "With {{first_result_cell}} active and the first data row's source values visible, type {{initial_formula}} to calculate the first row total. The formula is entered into {{first_result_cell}} and is ready to be confirmed."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter to confirm {{initial_formula}} in {{first_result_cell}} after the formula text has been entered. The spreadsheet evaluates the formula and displays the numeric result in {{first_result_cell}}."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the fill handle at the bottom-right corner of cell D2'}, 'end': {'text': 'the matching fill-handle position at the bottom-right corner of cell D7'}, 'target': {'begin': {'text': 'cell D2'}, 'end': {'text': 'cell D7'}}}",
+          "action_template": "Drag the fill handle from {{fill_start_cell}} down to {{fill_end_cell}} to copy the calculated formula through the remaining result cells. This requires {{fill_start_cell}} to already show a calculated result and the fill handle to be visible. After the drag, the formula is autofilled from {{fill_start_cell}} to {{fill_end_cell}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Format both money-related columns so prices and totals display as currency.",
+      "unit_type": "FORMAT_COLUMNS_AS_CURRENCY",
+      "unit_before_state": "Columns C and D are visible with numeric price values, but they are not yet formatted as currency. The user can see the Unit Price and Total Cost column headers.",
+      "unit_after_state": "Values in both the Unit Price column and the Total Cost column are displayed using currency formatting across the visible grocery table.",
+      "unit_precondition": [
+        "Columns C and D are visible on screen.",
+        "Both columns can be selected together from their column headers.",
+        "The Calc toolbar includes the currency format control."
+      ],
+      "unit_effect": [
+        "Columns C and D become selected together.",
+        "The numbers in columns C and D change to a currency display format with monetary symbols and decimal formatting."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Apply currency formatting to specified monetary columns in a spreadsheet.",
+      "parameters": {
+        "first_column_header": "the C column header above Unit Price",
+        "second_column_header": "the D column header above Total Cost",
+        "first_column_label": "Unit Price",
+        "second_column_label": "Total Cost"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the C column header above Unit Price'}, 'end': {'text': 'the D column header above Total Cost'}, 'target': {'begin': {'text': 'column C header'}, 'end': {'text': 'column D header'}}}",
+          "action_template": "Drag from {{first_column_header}} to {{second_column_header}} while both column headers are visible so both monetary columns are selected together for formatting."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the currency format button in the toolbar'}}",
+          "action_template": "With the columns for {{first_column_label}} and {{second_column_label}} selected, click the currency format button in the toolbar so both columns display currency formatting."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Emphasize the table headers so the sheet is easier to read.",
+      "unit_type": "FORMAT_HEADER_ROW",
+      "unit_before_state": "The grocery table is fully visible with row 1 containing the headers, including the new Total Cost label. Row 1 text is still in normal weight.",
+      "unit_after_state": "The entire header row is bold, making the table labels stand out from the data rows below.",
+      "unit_precondition": [
+        "Row 1 is visible and contains the table headers.",
+        "The row header for row 1 can be selected.",
+        "LibreOffice Calc remains the focused application so Ctrl+B applies formatting."
+      ],
+      "unit_effect": [
+        "Row 1 becomes selected from the row header.",
+        "The header labels in row 1 visibly change to bold text."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Apply bold formatting to a specified header row so the table labels stand out from the data rows.",
+      "parameters": {
+        "target_row": "row 1"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the row header labeled 1 on the far left'}}",
+          "action_template": "Click the row header for {{target_row}} to select the entire header row before changing its text style. This requires that the header row is visible and that {{target_row}} contains the table labels. After the click, the entire row becomes selected."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'b']}",
+          "action_template": "With {{target_row}} selected, press Ctrl+B to bold the header labels and improve readability. This requires that {{target_row}} is selected and LibreOffice Calc is focused. After the shortcut, the header labels in {{target_row}} become bold."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        11,
+        12
+      ],
+      "unit_intent": "Label the summary row for the overall grocery total.",
+      "unit_type": "ADD_SUMMARY_LABEL",
+      "unit_before_state": "The grocery data occupies rows 1 through 7, and row 8 is blank. Cell C8 below the Unit Price column is empty and visible.",
+      "unit_after_state": "Cell C8 contains the text Grand Total, marking row 8 as the summary row for the sheet.",
+      "unit_precondition": [
+        "There is an empty row directly below the grocery data.",
+        "Cell C8 is visible and empty.",
+        "The completed item totals remain visible above row 8."
+      ],
+      "unit_effect": [
+        "Cell C8 becomes active for typing.",
+        "The text Grand Total appears in C8 as a visible summary label."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Insert a specified summary label into the designated summary cell below the populated data table.",
+      "parameters": {
+        "target_cell": "cell C8, the blank cell below the Unit Price column",
+        "summary_label_text": "Grand Total"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell C8, the blank cell below the Unit Price column'}}",
+          "action_template": "Click {{target_cell}} when the empty summary row below the data table is visible to activate that cell for text entry."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Grand Total'}",
+          "action_template": "With {{target_cell}} selected and the summary row still empty, type {{summary_label_text}} so the summary row is labeled in that cell."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        13,
+        14,
+        15
+      ],
+      "unit_intent": "Compute the overall total of all item totals in the summary row.",
+      "unit_type": "CALCULATE_GRAND_TOTAL",
+      "unit_before_state": "Cell C8 already shows Grand Total, cell D8 is blank, and cells D2 through D7 contain the individual line totals.",
+      "unit_after_state": "Cell D8 displays the computed sum of D2 through D7 as the overall grocery total for the sheet.",
+      "unit_precondition": [
+        "Cell C8 already contains the summary label Grand Total.",
+        "Cell D8 is the empty adjacent value cell for the summary row.",
+        "Cells D2 through D7 contain the line-total values to be summed."
+      ],
+      "unit_effect": [
+        "Pressing Tab moves the active cell from C8 to D8.",
+        "Cell D8 briefly contains the formula =SUM(D2:D7) before confirmation.",
+        "After Enter, D8 shows the calculated overall total as a visible numeric result."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Compute the final summary total by moving to the summary value cell, entering a sum formula over the line-item total range, and confirming the formula.",
+      "parameters": {
+        "label_cell": "C8",
+        "target_total_cell": "D8",
+        "sum_range": "D2:D7",
+        "sum_formula": "=SUM(D2:D7)"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['tab']}",
+          "action_template": "Press Tab after entering the summary label in {{label_cell}} so the cursor moves into the adjacent summary value cell {{target_total_cell}} for the total formula, assuming {{target_total_cell}} is the adjacent empty cell. The active selection moves from {{label_cell}} to {{target_total_cell}}."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '=SUM(D2:D7)'}",
+          "action_template": "With {{target_total_cell}} active and {{sum_range}} containing the line totals, type {{sum_formula}} to prepare the summary total. The sum formula is entered into {{target_total_cell}} and is waiting to be confirmed."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter when {{target_total_cell}} contains {{sum_formula}} and the formula has not yet been applied so Calc computes it and shows the overall total in {{target_total_cell}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_07",
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        16
+      ],
+      "unit_intent": "Persist the completed budget sheet with all calculations and formatting.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The spreadsheet now includes the Total Cost column, currency formatting in columns C and D, bold headers, and a Grand Total row with a computed value in D8.",
+      "unit_after_state": "The spreadsheet remains open in LibreOffice Calc with the completed grocery budget sheet saved to disk.",
+      "unit_precondition": [
+        "All intended edits and formatting changes are already visible in the sheet.",
+        "LibreOffice Calc is still the active window.",
+        "The document is in a state that can be saved."
+      ],
+      "unit_effect": [
+        "The save command is executed with Ctrl+S.",
+        "The completed spreadsheet is stored with the newly added totals and formatting."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the completed spreadsheet to disk.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 's']}",
+          "action_template": "After all edits are complete and LibreOffice Calc is still the active window, press Ctrl+S to save the completed spreadsheet so its calculations and formatting are stored to disk."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

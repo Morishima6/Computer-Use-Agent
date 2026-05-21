@@ -1,0 +1,402 @@
+{
+  "segment_id": "seg_001",
+  "app": "Chrome",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Focus the browser's address bar so a new search can be entered",
+      "action_before_state": "Chrome is already open on an arbitrary page, and the webpage content currently has focus.",
+      "action_preconditions": [
+        "The Chrome window is visible and active.",
+        "The keyboard can send shortcuts to the browser."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "l"
+        ]
+      },
+      "action_after_effects": "The address bar becomes focused and its current contents are selected, ready to be replaced.",
+      "nl_explanation": "When Chrome is active, press Ctrl+L to move focus to the address bar. The current URL should become selected so the next search can be typed immediately."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Enter a search for tomorrow's weather",
+      "action_before_state": "The address bar is focused with the current text highlighted.",
+      "action_preconditions": [
+        "The address bar is active.",
+        "Any previous address text is selected or can be overwritten."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "weather April 3 2026 morning"
+      },
+      "action_after_effects": "The weather query for April 3, 2026 appears in the address bar.",
+      "nl_explanation": "With the address bar already focused, type the query for the target date's weather. The explicit date ensures the correct day is searched regardless of when the trajectory is executed."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Run the weather search",
+      "action_before_state": "The address bar contains the query for April 3, 2026 weather.",
+      "action_preconditions": [
+        "A valid query is visible in the address bar.",
+        "Chrome is ready to navigate."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "Chrome loads the search results page, typically showing a weather module near the top.",
+      "nl_explanation": "Press Enter after typing the weather query. The browser should navigate to the search results page and display forecast information."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Bring the morning forecast for April 3 into view",
+      "action_before_state": "A search results page is open, and weather information is visible near the top or just below the fold.",
+      "action_preconditions": [
+        "The search results page has finished loading.",
+        "Weather information is present on the page."
+      ],
+      "action": {
+        "type": "SCROLL",
+        "direction": "down",
+        "target": {
+          "text": "weather forecast section"
+        },
+        "stop_condition": "The morning forecast details for April 3 are fully visible and readable."
+      },
+      "action_after_effects": "The forecast area for the specified morning is visible, making it possible to review the expected conditions.",
+      "nl_explanation": "If the detailed forecast is not fully visible yet, scroll down on the results page until the morning weather section can be read clearly."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Open a fresh tab for the cafe search without losing the weather tab",
+      "action_before_state": "The weather search results are visible in the current tab.",
+      "action_preconditions": [
+        "The current Chrome tab remains open.",
+        "The browser supports standard tab shortcuts."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "t"
+        ]
+      },
+      "action_after_effects": "A new blank tab opens and becomes the active tab.",
+      "nl_explanation": "Press Ctrl+T to create a new tab so the weather results stay available in the previous tab while starting the cafe search separately."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Enter a search for nearby cafes with visible hours",
+      "action_before_state": "A new blank tab is open, with the omnibox focused by default.",
+      "action_preconditions": [
+        "The new tab is active.",
+        "The text cursor is in the omnibox."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "coffee shop near me hours"
+      },
+      "action_after_effects": "The local cafe search query appears in the omnibox.",
+      "nl_explanation": "In the new tab, type a search that is likely to surface nearby coffee shops together with their business hours so you can identify one that opens before 8 AM."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Run the local cafe search",
+      "action_before_state": "The cafe search query is visible in the omnibox.",
+      "action_preconditions": [
+        "The search text is fully entered.",
+        "Chrome is ready to navigate to search results."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "Chrome loads local search results, often including a map panel and business cards with hours.",
+      "nl_explanation": "Press Enter to submit the cafe query. The results page should load local businesses and show each place's basic details, including opening times when available."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Scroll until cafe results with opening hours are clearly visible",
+      "action_before_state": "The cafe search results page is open, but the full local business section may not yet be centered on screen.",
+      "action_preconditions": [
+        "The page has loaded successfully.",
+        "Local business results are present somewhere on the page."
+      ],
+      "action": {
+        "type": "SCROLL",
+        "direction": "down",
+        "target": {
+          "text": "local business results panel"
+        },
+        "stop_condition": "At least one nearby cafe card is visible with opening-hour information shown."
+      },
+      "action_after_effects": "The list or panel of nearby cafes is positioned clearly on screen, and their hours can be compared.",
+      "nl_explanation": "Scroll down until the nearby cafe results are easy to inspect. Stop when the local listings panel shows opening hours for at least one nearby option."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Open the details of a cafe that opens before 8:00 AM",
+      "action_before_state": "Nearby cafe results are visible, and at least one listing shows an opening time earlier than 8:00 AM.",
+      "action_preconditions": [
+        "A cafe result with suitable opening hours is visible.",
+        "The result is clickable."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "a nearby cafe result that shows it opens before 8:00 AM"
+        }
+      },
+      "action_after_effects": "The selected cafe's detail page or side panel opens, showing richer business information.",
+      "nl_explanation": "Once a suitable early-opening cafe is visible in the results, click that result. Chrome should open its business details so the location can be reviewed more carefully."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Show the selected cafe's key contact details",
+      "action_before_state": "The chosen cafe's details page or side panel is open, but not all business information may be visible yet.",
+      "action_preconditions": [
+        "The cafe details have loaded.",
+        "Additional information such as address or phone is available further down the page or panel."
+      ],
+      "action": {
+        "type": "SCROLL",
+        "direction": "down",
+        "target": {
+          "text": "cafe details panel"
+        },
+        "stop_condition": "The address and at least one additional detail such as phone number, website, or full hours are visible."
+      },
+      "action_after_effects": "The selected cafe's practical details are visible, completing the task of finding an early-opening option after checking the weather.",
+      "nl_explanation": "Scroll within the cafe details until practical information like the address and other contact details are visible. This leaves the browser in a useful end state for deciding where to go."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Check the April 3, 2026 morning weather forecast and bring the relevant forecast details into view.",
+      "unit_type": "SEARCH_AND_REVIEW_WEATHER_FORECAST",
+      "unit_before_state": "Chrome is open on an existing page, and the webpage content rather than the address bar currently has focus.",
+      "unit_after_state": "A search results page for the April 3, 2026 morning weather is open, and the morning forecast section is visible and readable on screen.",
+      "unit_precondition": [
+        "Chrome is the active window.",
+        "The browser can accept keyboard input and navigate to a new search.",
+        "Internet search results with weather information are available."
+      ],
+      "unit_effect": [
+        "The address bar becomes focused with its previous contents selected.",
+        "The query \"weather April 3 2026 morning\" is submitted.",
+        "A weather results page loads.",
+        "The morning forecast area for April 3 is scrolled into view."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Open a separate search context and surface nearby cafe listings with visible opening hours.",
+      "unit_type": "SEARCH_NEARBY_CAFES_WITH_HOURS",
+      "unit_before_state": "The weather search results tab is open, with the April 3 morning forecast visible in the current tab.",
+      "unit_after_state": "A new tab is showing local cafe search results, and the nearby business listings are positioned on screen with opening-hour information visible for comparison.",
+      "unit_precondition": [
+        "The weather tab remains open in Chrome.",
+        "Chrome supports opening a new tab and focusing the omnibox by default.",
+        "Local business search results for nearby cafes can be loaded."
+      ],
+      "unit_effect": [
+        "A new blank tab opens and becomes active.",
+        "The query \"coffee shop near me hours\" is entered and submitted.",
+        "Local cafe results load, typically with listing cards or a results panel.",
+        "At least one nearby cafe entry with hours is visible on screen."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Open one nearby cafe that starts service before 8:00 AM and leave its practical details visible for decision-making.",
+      "unit_type": "OPEN_EARLY_OPENING_CAFE_DETAILS",
+      "unit_before_state": "The cafe search results page is open, and a nearby cafe listing that shows an opening time earlier than 8:00 AM is visible among the results.",
+      "unit_after_state": "The selected cafe's detail page or side panel is open, with the address and at least one additional practical detail such as phone number, website, or full hours visible on screen.",
+      "unit_precondition": [
+        "A clickable cafe listing that opens before 8:00 AM is visible.",
+        "The listing can open a details page or side panel.",
+        "Additional business details are available within the details view."
+      ],
+      "unit_effect": [
+        "The chosen cafe's detailed business view opens.",
+        "The page or panel is scrolled until the address and other key contact information are visible.",
+        "The browser ends with one qualifying cafe's details left on screen for review."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Check the April 3, 2026 morning weather forecast and bring the relevant forecast details into view.",
+      "unit_type": "SEARCH_AND_REVIEW_WEATHER_FORECAST",
+      "unit_before_state": "Chrome is open on an existing page, and the webpage content rather than the address bar currently has focus.",
+      "unit_after_state": "A search results page for the April 3, 2026 morning weather is open, and the morning forecast section is visible and readable on screen.",
+      "unit_precondition": [
+        "Chrome is the active window.",
+        "The browser can accept keyboard input and navigate to a new search.",
+        "Internet search results with weather information are available."
+      ],
+      "unit_effect": [
+        "The address bar becomes focused with its previous contents selected.",
+        "The query \"weather April 3 2026 morning\" is submitted.",
+        "A weather results page loads.",
+        "The morning forecast area for April 3 is scrolled into view."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Check a specified date and time-of-day weather forecast and bring the relevant forecast details into view.",
+      "parameters": {
+        "search_query": "weather April 3 2026 morning",
+        "target_date": "April 3, 2026",
+        "target_time_period": "morning"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'l']}",
+          "action_template": "When Chrome is visible and active and the keyboard can send shortcuts to the browser, press Ctrl+L to focus the address bar. The current URL becomes selected so the next search can be typed immediately."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'weather April 3 2026 morning'}",
+          "action_template": "With the address bar active and any previous address text selected or overwritable, type {{search_query}}. The weather query for {{target_date}} {{target_time_period}} appears in the address bar."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter after a valid query for {{target_date}} {{target_time_period}} is visible in the address bar and Chrome is ready to navigate. The browser loads the search results page and displays forecast information."
+        },
+        {
+          "action": "{'type': 'SCROLL', 'direction': 'down', 'target': {'text': 'weather forecast section'}, 'stop_condition': 'The morning forecast details for April 3 are fully visible and readable.'}",
+          "action_template": "If the search results page has finished loading and weather information is present, scroll down until the {{target_time_period}} forecast details for {{target_date}} are fully visible and readable in the weather forecast section."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Open a separate search context and surface nearby cafe listings with visible opening hours.",
+      "unit_type": "SEARCH_NEARBY_CAFES_WITH_HOURS",
+      "unit_before_state": "The weather search results tab is open, with the April 3 morning forecast visible in the current tab.",
+      "unit_after_state": "A new tab is showing local cafe search results, and the nearby business listings are positioned on screen with opening-hour information visible for comparison.",
+      "unit_precondition": [
+        "The weather tab remains open in Chrome.",
+        "Chrome supports opening a new tab and focusing the omnibox by default.",
+        "Local business search results for nearby cafes can be loaded."
+      ],
+      "unit_effect": [
+        "A new blank tab opens and becomes active.",
+        "The query \"coffee shop near me hours\" is entered and submitted.",
+        "Local cafe results load, typically with listing cards or a results panel.",
+        "At least one nearby cafe entry with hours is visible on screen."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a separate search tab and bring nearby business listings with visible operating hours into view.",
+      "parameters": {
+        "search_query": "coffee shop near me hours",
+        "target_results_panel": "local business results panel"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 't']}",
+          "action_template": "Press Ctrl+T to create a new tab so the previous results stay available while starting the nearby-business search separately. Preconditions: the current Chrome tab remains open and the browser supports standard tab shortcuts. Effect: a new blank tab opens and becomes the active tab."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'coffee shop near me hours'}",
+          "action_template": "Type {{search_query}} in the omnibox of the active new tab to search for nearby businesses with visible hours. Preconditions: the new tab is active and the text cursor is in the omnibox. Effect: {{search_query}} appears in the omnibox."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter to submit {{search_query}}. Preconditions: the search text is fully entered and Chrome is ready to navigate to search results. Effect: Chrome loads local search results, often including a map panel and business cards with hours."
+        },
+        {
+          "action": "{'type': 'SCROLL', 'direction': 'down', 'target': {'text': 'local business results panel'}, 'stop_condition': 'At least one nearby cafe card is visible with opening-hour information shown.'}",
+          "action_template": "Scroll down until {{target_results_panel}} is easy to inspect and at least one nearby listing shows opening-hour information. Preconditions: the page has loaded successfully and local business results are present somewhere on the page. Effect: the nearby business list or panel is positioned clearly on screen for comparing hours."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Open one nearby cafe that starts service before 8:00 AM and leave its practical details visible for decision-making.",
+      "unit_type": "OPEN_EARLY_OPENING_CAFE_DETAILS",
+      "unit_before_state": "The cafe search results page is open, and a nearby cafe listing that shows an opening time earlier than 8:00 AM is visible among the results.",
+      "unit_after_state": "The selected cafe's detail page or side panel is open, with the address and at least one additional practical detail such as phone number, website, or full hours visible on screen.",
+      "unit_precondition": [
+        "A clickable cafe listing that opens before 8:00 AM is visible.",
+        "The listing can open a details page or side panel.",
+        "Additional business details are available within the details view."
+      ],
+      "unit_effect": [
+        "The chosen cafe's detailed business view opens.",
+        "The page or panel is scrolled until the address and other key contact information are visible.",
+        "The browser ends with one qualifying cafe's details left on screen for review."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a cafe listing that satisfies a required opening-time condition and leave its practical details visible for review.",
+      "parameters": {
+        "target_cafe_result": "a nearby cafe result that shows it opens before 8:00 AM",
+        "opening_time_requirement": "opens before 8:00 AM"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'a nearby cafe result that shows it opens before 8:00 AM'}}",
+          "action_template": "Once {{target_cafe_result}} meeting {{opening_time_requirement}} is visible and clickable, click it to open the selected cafe's detail page or side panel with richer business information for closer review."
+        },
+        {
+          "action": "{'type': 'SCROLL', 'direction': 'down', 'target': {'text': 'cafe details panel'}, 'stop_condition': 'The address and at least one additional detail such as phone number, website, or full hours are visible.'}",
+          "action_template": "After the cafe details have loaded, scroll down within the cafe details panel until the address and at least one additional detail such as phone number, website, or full hours are visible, leaving the browser in a useful decision-ready state."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

@@ -1,0 +1,589 @@
+{
+  "segment_id": "seg_001",
+  "app": "libreoffice_calc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Move the active cell to the start of the sheet",
+      "action_before_state": "LibreOffice Calc is open with a blank worksheet visible on the screen.",
+      "action_preconditions": [
+        "The spreadsheet window is active",
+        "A worksheet grid is visible"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "home"
+        ]
+      },
+      "action_after_effects": "Cell A1 becomes the active cell, so the table can be entered from the top-left corner.",
+      "nl_explanation": "When the blank worksheet is visible and Calc is focused, press Ctrl+Home to place the cursor in A1. This ensures the table starts at the top-left of the sheet."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Enter the weekly tracker headers and sample daily data",
+      "action_before_state": "A1 is selected in an empty worksheet.",
+      "action_preconditions": [
+        "Cell A1 is active",
+        "The cells needed for the table are empty"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Day\tBudget\tSpent\tRemaining\nMonday\t25\t22.40\nTuesday\t18\t21.90\nWednesday\t20\t16.50\nThursday\t15\t14.00\nFriday\t30\t34.60\nSaturday\t28\t24.75\nSunday\t22\t19.10"
+      },
+      "action_after_effects": "The pasted values fill row 1 with headers and rows 2 through 8 with daily records in columns A to C, with column D ready for Remaining formulas.",
+      "nl_explanation": "With A1 selected and the sheet still empty, paste the tab-separated block of headers and weekly values into the grid. Calc places the pasted text into separate columns and rows, creating the base table in one action."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Select the first empty Remaining cell",
+      "action_before_state": "The weekly table is visible, and column D has the Remaining header with empty cells below it.",
+      "action_preconditions": [
+        "The data table has been entered",
+        "Cell D2 is visible and empty"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the empty cell D2 directly below the Remaining header"
+        }
+      },
+      "action_after_effects": "Cell D2 becomes active and is ready for a formula.",
+      "nl_explanation": "After the table appears on the sheet, click cell D2 under Remaining so the first daily balance formula can be entered in the correct position."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Calculate the remaining budget for the first day",
+      "action_before_state": "Cell D2 is selected and the first row of budget and spent values is in row 2.",
+      "action_preconditions": [
+        "Cell D2 is active",
+        "Cells B2 and C2 contain numeric values"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "=B2-C2"
+      },
+      "action_after_effects": "D2 shows the calculated remaining amount for Monday.",
+      "nl_explanation": "When D2 is selected and the Monday values are present in B2 and C2, type =B2-C2 to subtract spent from budget and display the remaining amount."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Fill the remaining-budget formula down for the rest of the week",
+      "action_before_state": "D2 contains the correct formula, and D3 through D8 are empty.",
+      "action_preconditions": [
+        "Cell D2 contains the formula result",
+        "The fill handle on D2 is visible",
+        "Rows 3 through 8 contain daily data"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the small fill handle at the bottom-right corner of cell D2"
+        },
+        "end": {
+          "text": "the bottom-right corner of cell D8"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "The formula is copied from D2 through D8, and each day now has a remaining value.",
+      "nl_explanation": "Once D2 already contains the balance formula and the rest of the week is listed below, drag the fill handle from D2 down to D8 so Calc applies the same calculation to every row."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Select all money values for formatting",
+      "action_before_state": "Columns B, C, and D contain numeric budget, spent, and remaining amounts.",
+      "action_preconditions": [
+        "The table spans rows 2 to 8",
+        "The money columns B through D are visible"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell B2 at the top-left of the money area"
+        },
+        "end": {
+          "text": "cell D8 at the bottom-right of the money area"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "The full numeric range B2:D8 is highlighted.",
+      "nl_explanation": "With all daily values visible, drag from B2 to D8 to highlight the budget, spent, and remaining cells that need consistent currency formatting."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Open the cell formatting dialog",
+      "action_before_state": "The money range B2:D8 is selected.",
+      "action_preconditions": [
+        "Cells B2 through D8 are highlighted",
+        "LibreOffice Calc is still focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "1"
+        ]
+      },
+      "action_after_effects": "The Format Cells dialog opens on top of the spreadsheet.",
+      "nl_explanation": "After selecting the money cells, press Ctrl+1 to open the formatting dialog so the numeric display can be changed in a precise way."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Choose currency formatting for the selected cells",
+      "action_before_state": "The Format Cells dialog is open, showing number format options.",
+      "action_preconditions": [
+        "The Format Cells dialog is visible",
+        "The Category list can be clicked"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Currency category in the number format list"
+        }
+      },
+      "action_after_effects": "Currency formatting is selected, typically showing two decimal places by default.",
+      "nl_explanation": "When the Format Cells dialog is open, click Currency in the category list so the selected money cells will use a currency display with cents."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Apply the currency format",
+      "action_before_state": "Currency is selected in the Format Cells dialog.",
+      "action_preconditions": [
+        "The dialog is still open",
+        "Currency is the active number category"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the OK button in the Format Cells dialog"
+        }
+      },
+      "action_after_effects": "The dialog closes, and the selected cells display currency values with two decimal places.",
+      "nl_explanation": "After selecting the currency category, click OK to confirm the format. The spreadsheet updates so the money columns display as currency."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Add a totals row below the weekly data",
+      "action_before_state": "The weekly table ends at row 8, and row 10 is empty with row 9 left blank.",
+      "action_preconditions": [
+        "Rows 2 through 8 contain the daily entries",
+        "Cell A10 is visible and empty"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell A10 below the blank separator row"
+        }
+      },
+      "action_after_effects": "Cell A10 becomes active for entering the totals row.",
+      "nl_explanation": "Once the weekly table is complete, click A10 so the summary row is placed below a blank separator row and stays outside the sortable data block."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Enter formulas for the total budget, spent, and remaining amounts",
+      "action_before_state": "A10 is selected and row 10 is empty.",
+      "action_preconditions": [
+        "Cell A10 is active",
+        "The daily data occupies rows 2 through 8"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Total\t=SUM(B2:B8)\t=SUM(C2:C8)\t=SUM(D2:D8)"
+      },
+      "action_after_effects": "Row 10 now shows a Total label and the summed values for Budget, Spent, and Remaining.",
+      "nl_explanation": "With A10 selected and the weekly values already filled in, type the tab-separated total row so Calc places the label and the three SUM formulas across row 10."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Prepare to sort the daily entries by spending",
+      "action_before_state": "The totals row is finished, and the daily data remains in rows 2 through 8.",
+      "action_preconditions": [
+        "Column C contains the Spent values",
+        "The daily entries are separated from the total row by a blank row"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "any filled cell in the Spent column, such as C2"
+        }
+      },
+      "action_after_effects": "A cell in the Spent column becomes active, allowing Calc to use that column as the sort key.",
+      "nl_explanation": "When the spending data is visible and separated from the total row, click inside the Spent column so the next sort action uses spending amounts to reorder the daily records."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Sort the week so the highest spending day appears first",
+      "action_before_state": "A cell in the Spent column is active inside the daily data block.",
+      "action_preconditions": [
+        "The active cell is within the daily table"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Sort Descending toolbar button"
+        }
+      },
+      "action_after_effects": "The daily rows are reordered from highest to lowest Spent value, while the total row remains below the blank separator row.",
+      "nl_explanation": "With a spending cell selected inside the weekly data block, click the Sort Descending button. Calc sorts the daily entries by the Spent column so the largest expense appears first."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Create the weekly grocery tracker table structure and populate it with one week of sample day, budget, and spending data starting at the top of the sheet.",
+      "unit_type": "CREATE_TABLE_WITH_SAMPLE_DATA",
+      "unit_before_state": "LibreOffice Calc shows a blank worksheet grid, and no tracker data is entered yet.",
+      "unit_after_state": "Cells A1:D8 contain the tracker scaffold: row 1 has the headers Day, Budget, Spent, and Remaining, rows 2 through 8 list Monday through Sunday with Budget and Spent values filled in, and the Remaining cells in D2:D8 are still empty.",
+      "unit_precondition": [
+        "LibreOffice Calc is the active window.",
+        "A worksheet grid is visible and the target area at the top-left of the sheet is empty."
+      ],
+      "unit_effect": [
+        "The active position is set to A1 before entry begins.",
+        "The pasted tab-separated block expands into separate rows and columns, creating the base weekly table in the sheet."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4,
+        5
+      ],
+      "unit_intent": "Calculate the remaining budget for each day by entering one formula and propagating it through the whole week.",
+      "unit_type": "FILL_CALCULATED_COLUMN",
+      "unit_before_state": "The weekly table is visible with headers in row 1 and daily records in rows 2 through 8, while cells D2:D8 under Remaining are empty.",
+      "unit_after_state": "Column D now contains computed remaining amounts for every day from D2 through D8, based on Budget minus Spent for each corresponding row.",
+      "unit_precondition": [
+        "The weekly data table has already been entered in rows 1 through 8.",
+        "Cell D2 is visible and empty.",
+        "Budget values are present in B2:B8 and Spent values are present in C2:C8."
+      ],
+      "unit_effect": [
+        "D2 first shows the result of the formula =B2-C2 for Monday.",
+        "Dragging the fill handle copies the formula down so every row from D2 to D8 displays a remaining value."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "unit_intent": "Apply consistent currency formatting with two decimal places to all daily money values in the Budget, Spent, and Remaining columns.",
+      "unit_type": "FORMAT_RANGE_AS_CURRENCY",
+      "unit_before_state": "The daily table is complete, and the numeric values in B2:D8 are visible in unformatted or plain numeric form on the worksheet.",
+      "unit_after_state": "The worksheet returns to the main grid view with cells B2:D8 displayed as currency values with two decimal places.",
+      "unit_precondition": [
+        "The daily money range B2:D8 is visible on the sheet.",
+        "Cells B2:D8 can be selected together.",
+        "LibreOffice Calc is focused so the Format Cells shortcut opens the dialog for the selected range."
+      ],
+      "unit_effect": [
+        "The range B2:D8 becomes highlighted before formatting.",
+        "The Format Cells dialog opens, Currency is selected in the category list, and after confirmation the selected cells show currency-formatted values."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        10,
+        11
+      ],
+      "unit_intent": "Add a summary row below the weekly entries so the tracker includes totals for budget, spending, and remaining balance without becoming part of the sortable daily table.",
+      "unit_type": "ADD_TOTAL_ROW",
+      "unit_before_state": "Rows 2 through 8 contain the daily tracker data, row 9 is blank as a separator, and row 10 is empty.",
+      "unit_after_state": "Row 10 contains a Total label in A10 and SUM formulas across B10, C10, and D10 that calculate the combined Budget, Spent, and Remaining values for rows 2 through 8.",
+      "unit_precondition": [
+        "The daily entries already occupy rows 2 through 8.",
+        "Row 10 is visible and empty.",
+        "The blank separator row above the total row remains unused so the summary stays outside the sortable block."
+      ],
+      "unit_effect": [
+        "Cell A10 is activated as the insertion point for the summary row.",
+        "After the tab-separated entry is committed, row 10 visibly shows Total and three aggregate formula results."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        12,
+        13
+      ],
+      "unit_intent": "Reorder the daily records by spending so the highest-spending day appears first while leaving the summary row below the table untouched.",
+      "unit_type": "SORT_TABLE_DESCENDING_BY_SPENT",
+      "unit_before_state": "The daily records remain in rows 2 through 8, the Total row is isolated at row 10 below a blank row, and a Spent value cell such as C2 can be selected as the sort key context.",
+      "unit_after_state": "The daily rows are sorted in descending order by the Spent column, with the highest spending day at the top of the list and the Total row still below the blank separator row.",
+      "unit_precondition": [
+        "The daily table and Spent column are visible.",
+        "There is a blank separator row between the daily entries and the Total row.",
+        "The active cell is inside the daily data block in column C so Calc uses Spent as the sort context."
+      ],
+      "unit_effect": [
+        "A filled cell in the Spent column becomes the active cell.",
+        "After Sort Descending is triggered, the order of rows changes and Friday, with the highest Spent value of 34.60, appears first among the daily entries."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Create the weekly grocery tracker table structure and populate it with one week of sample day, budget, and spending data starting at the top of the sheet.",
+      "unit_type": "CREATE_TABLE_WITH_SAMPLE_DATA",
+      "unit_before_state": "LibreOffice Calc shows a blank worksheet grid, and no tracker data is entered yet.",
+      "unit_after_state": "Cells A1:D8 contain the tracker scaffold: row 1 has the headers Day, Budget, Spent, and Remaining, rows 2 through 8 list Monday through Sunday with Budget and Spent values filled in, and the Remaining cells in D2:D8 are still empty.",
+      "unit_precondition": [
+        "LibreOffice Calc is the active window.",
+        "A worksheet grid is visible and the target area at the top-left of the sheet is empty."
+      ],
+      "unit_effect": [
+        "The active position is set to A1 before entry begins.",
+        "The pasted tab-separated block expands into separate rows and columns, creating the base weekly table in the sheet."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a weekly spending tracker table by moving to a specified starting cell and pasting a tab-separated block of headers and sample row data.",
+      "parameters": {
+        "target_start_cell": "A1",
+        "tab_separated_table_data": "Day\tBudget\tSpent\tRemaining\nMonday\t25\t22.40\nTuesday\t18\t21.90\nWednesday\t20\t16.50\nThursday\t15\t14.00\nFriday\t30\t34.60\nSaturday\t28\t24.75\nSunday\t22\t19.10"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'home']}",
+          "action_template": "When the spreadsheet window is active and a worksheet grid is visible, press Ctrl+Home to place the cursor in {{target_start_cell}}. This makes {{target_start_cell}} the active cell so the table can start from the specified location."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Day\\tBudget\\tSpent\\tRemaining\\nMonday\\t25\\t22.40\\nTuesday\\t18\\t21.90\\nWednesday\\t20\\t16.50\\nThursday\\t15\\t14.00\\nFriday\\t30\\t34.60\\nSaturday\\t28\\t24.75\\nSunday\\t22\\t19.10'}",
+          "action_template": "With {{target_start_cell}} selected and the required cells empty, paste the tab-separated block {{tab_separated_table_data}} into the grid. Calc places the pasted text into separate columns and rows, creating the base table in one action."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4,
+        5
+      ],
+      "unit_intent": "Calculate the remaining budget for each day by entering one formula and propagating it through the whole week.",
+      "unit_type": "FILL_CALCULATED_COLUMN",
+      "unit_before_state": "The weekly table is visible with headers in row 1 and daily records in rows 2 through 8, while cells D2:D8 under Remaining are empty.",
+      "unit_after_state": "Column D now contains computed remaining amounts for every day from D2 through D8, based on Budget minus Spent for each corresponding row.",
+      "unit_precondition": [
+        "The weekly data table has already been entered in rows 1 through 8.",
+        "Cell D2 is visible and empty.",
+        "Budget values are present in B2:B8 and Spent values are present in C2:C8."
+      ],
+      "unit_effect": [
+        "D2 first shows the result of the formula =B2-C2 for Monday.",
+        "Dragging the fill handle copies the formula down so every row from D2 to D8 displays a remaining value."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Calculate values for a derived column by entering a formula in the first empty result cell and filling it down the populated rows.",
+      "parameters": {
+        "target_start_cell": "the empty cell D2 directly below the Remaining header",
+        "formula_text": "=B2-C2",
+        "fill_handle": "the small fill handle at the bottom-right corner of cell D2",
+        "fill_end_cell": "the bottom-right corner of cell D8"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the empty cell D2 directly below the Remaining header'}}",
+          "action_template": "Click {{target_start_cell}} after the data table has been entered and the cell is visible and empty so the first row formula can be entered in the correct position. Effect: {{target_start_cell}} becomes active and is ready for a formula."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '=B2-C2'}",
+          "action_template": "Type {{formula_text}} in {{target_start_cell}} when that cell is active and the referenced source cells contain numeric values to compute the first row's remaining amount. Effect: the first target cell shows the calculated remaining amount."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the small fill handle at the bottom-right corner of cell D2'}, 'end': {'text': 'the bottom-right corner of cell D8'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "Drag from {{fill_handle}} to {{fill_end_cell}} once the first target cell contains the formula result, the fill handle is visible, and the lower rows contain data so Calc applies the same calculation to every row in the range. Effect: the formula is copied through the destination cell and each row shows a remaining value."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "unit_intent": "Apply consistent currency formatting with two decimal places to all daily money values in the Budget, Spent, and Remaining columns.",
+      "unit_type": "FORMAT_RANGE_AS_CURRENCY",
+      "unit_before_state": "The daily table is complete, and the numeric values in B2:D8 are visible in unformatted or plain numeric form on the worksheet.",
+      "unit_after_state": "The worksheet returns to the main grid view with cells B2:D8 displayed as currency values with two decimal places.",
+      "unit_precondition": [
+        "The daily money range B2:D8 is visible on the sheet.",
+        "Cells B2:D8 can be selected together.",
+        "LibreOffice Calc is focused so the Format Cells shortcut opens the dialog for the selected range."
+      ],
+      "unit_effect": [
+        "The range B2:D8 becomes highlighted before formatting.",
+        "The Format Cells dialog opens, Currency is selected in the category list, and after confirmation the selected cells show currency-formatted values."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Apply currency formatting with two decimal places to a target money-value cell range.",
+      "parameters": {
+        "target_range": "B2:D8",
+        "range_start_cell": "B2",
+        "range_end_cell": "D8"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'cell B2 at the top-left of the money area'}, 'end': {'text': 'cell D8 at the bottom-right of the money area'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "With the relevant money columns visible, drag from {{range_start_cell}} to {{range_end_cell}} to highlight the target money-value range for consistent currency formatting; the full range becomes highlighted."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', '1']}",
+          "action_template": "After {{target_range}} is highlighted and LibreOffice Calc remains focused, press Ctrl+1 to open the Format Cells dialog for the selected range."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Currency category in the number format list'}}",
+          "action_template": "When the Format Cells dialog is visible, click the Currency category in the number format list so {{target_range}} will use a currency display with cents."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the OK button in the Format Cells dialog'}}",
+          "action_template": "After Currency is the active number category, click the OK button to apply the format to {{target_range}}; the dialog closes and the selected cells display currency values with two decimal places."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        10,
+        11
+      ],
+      "unit_intent": "Add a summary row below the weekly entries so the tracker includes totals for budget, spending, and remaining balance without becoming part of the sortable daily table.",
+      "unit_type": "ADD_TOTAL_ROW",
+      "unit_before_state": "Rows 2 through 8 contain the daily tracker data, row 9 is blank as a separator, and row 10 is empty.",
+      "unit_after_state": "Row 10 contains a Total label in A10 and SUM formulas across B10, C10, and D10 that calculate the combined Budget, Spent, and Remaining values for rows 2 through 8.",
+      "unit_precondition": [
+        "The daily entries already occupy rows 2 through 8.",
+        "Row 10 is visible and empty.",
+        "The blank separator row above the total row remains unused so the summary stays outside the sortable block."
+      ],
+      "unit_effect": [
+        "Cell A10 is activated as the insertion point for the summary row.",
+        "After the tab-separated entry is committed, row 10 visibly shows Total and three aggregate formula results."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Insert a summary row below a blank separator row so it stays outside the sortable data table, then populate it with a label and aggregate formulas across adjacent columns.",
+      "parameters": {
+        "summary_start_cell": "A10",
+        "summary_label": "Total",
+        "first_total_formula": "=SUM(B2:B8)",
+        "second_total_formula": "=SUM(C2:C8)",
+        "third_total_formula": "=SUM(D2:D8)"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "CLICK",
+          "action_template": "Click {{summary_start_cell}} when the source data is complete and the cell is visible and empty, so the summary row is placed below the blank separator row, stays outside the sortable data block, and {{summary_start_cell}} becomes active for entry."
+        },
+        {
+          "action": "TYPING",
+          "action_template": "With {{summary_start_cell}} active and the source data already filled in, type {{summary_label}}\\t{{first_total_formula}}\\t{{second_total_formula}}\\t{{third_total_formula}} so the label and aggregate formulas populate the summary row."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        12,
+        13
+      ],
+      "unit_intent": "Reorder the daily records by spending so the highest-spending day appears first while leaving the summary row below the table untouched.",
+      "unit_type": "SORT_TABLE_DESCENDING_BY_SPENT",
+      "unit_before_state": "The daily records remain in rows 2 through 8, the Total row is isolated at row 10 below a blank row, and a Spent value cell such as C2 can be selected as the sort key context.",
+      "unit_after_state": "The daily rows are sorted in descending order by the Spent column, with the highest spending day at the top of the list and the Total row still below the blank separator row.",
+      "unit_precondition": [
+        "The daily table and Spent column are visible.",
+        "There is a blank separator row between the daily entries and the Total row.",
+        "The active cell is inside the daily data block in column C so Calc uses Spent as the sort context."
+      ],
+      "unit_effect": [
+        "A filled cell in the Spent column becomes the active cell.",
+        "After Sort Descending is triggered, the order of rows changes and Friday, with the highest Spent value of 34.60, appears first among the daily entries."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Sort a table's data rows in descending order by a specified numeric column while keeping a separated summary row outside the sorted range.",
+      "parameters": {
+        "target_sort_cell": "any filled cell in the Spent column, such as C2",
+        "sort_key_column": "Spent column",
+        "sort_button": "the Sort Descending toolbar button",
+        "data_scope": "daily records",
+        "summary_row": "Total row"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'any filled cell in the Spent column, such as C2'}}",
+          "action_template": "Click {{target_sort_cell}} when {{sort_key_column}} values are visible and separated from {{summary_row}} by a blank row so Calc uses {{sort_key_column}} as the sort key for {{data_scope}}."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Sort Descending toolbar button'}}",
+          "action_template": "Click {{sort_button}} with a {{sort_key_column}} cell selected inside the data block to reorder {{data_scope}} from highest to lowest {{sort_key_column}} value while leaving {{summary_row}} below the blank separator row."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

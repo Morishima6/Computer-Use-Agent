@@ -1,0 +1,435 @@
+from __future__ import annotations
+
+import base64
+import json
+import os
+from io import BytesIO
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Union
+
+import httpx
+from PIL import Image
+
+try:
+    from .compare_screenshot_similarity import normalize_path
+except ImportError:
+    from utils.compare_screenshot_similarity import normalize_path
+
+
+DEFAULT_KIMI_BASE_URL = "https://api.kimi.com/coding/"
+DEFAULT_KIMI_MODEL = "kimi-2.5"
+
+DEFAULT_ARK_BASE_URL = "https://ark.cn-beijing.volces.com/api/coding/v3"
+DEFAULT_ARK_MODEL = "Kimi-K2.5"
+KNOWN_ARK_TEXT_ONLY_MODELS = {
+    "kimi-k2.5",
+}
+
+ENV_PATH = Path(r"E:\Postgraduate\nju\sci\computer_use_agent\.env")
+
+SYSTEM_PROMPT = """You compare two GUI screenshots captured immediately before and after one action.
+Your job is only to judge whether the after screenshot is highly similar to the before screenshot without any state changes. Analyze visible UI elements, layout, focus, selection, content, and page state.
+Note: If there is a red marker in the before screenshot, it is only used to indicate the mouse position; please IGNORE the red marker.
+Answer yes only when there is no meaningful UI/content/state change, or the only change is negligible, such as mouse cursor movement, caret blink.
+Answer no when there is some big meaningful change, including typing, scrolling, focus transfer that changes the active control, selection changes, button/menu/dialog/popup open or close, page navigation, window/app switching, layout changes, or any new/removed/changed UI element that matters for the task.
+If unsure, answer no.
+Each conclusion must be accompanied by a corresponding rationale and confidence score. Return only JSON."""
+
+SIMILARITY_PROMPT_PAYLOAD: Dict[str, Any] = {
+    "task": "Decide whether the UI before and after one GUI action is highly similar.",
+    "required_output_schema": {
+        "similar": "yes or no",
+        "confidence": 0.0,
+        "reason": "short explanation",
+    },
+    "decision_policy": [
+        "You are judging screenshot similarity only, not whether the step should be kept or deleted.",
+        "Answer yes when the screenshots are visually almost the same and any differences are negligible.",
+        "Cursor-only movement, caret blinking, tiny animation flicker, compression noise, or small local hover/focus feedback should still be treated as high similarity.",
+        "Answer no only when there is clear task-relevant UI change, such as text/content changes, scrolling, navigation, popup or dialog changes, or meaningful focus/selection changes.",
+        "If you are uncertain whether the change matters, answer no.",
+    ],
+}
+
+
+if ENV_PATH.is_file():
+    for raw_line in ENV_PATH.read_text(encoding="utf-8").splitlines():
+        line = raw_line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, value = line.split("=", 1)
+        key = key.strip()
+        value = value.strip().strip("'").strip('"')
+        if key and key not in os.environ:
+            os.environ[key] = value
+
+
+_VLM_HTTP_TRUST_ENV = os.environ.get("VLM_HTTP_TRUST_ENV")
+DEFAULT_VLM_HTTP_TRUST_ENV = (
+    False
+    if _VLM_HTTP_TRUST_ENV is None
+    else _VLM_HTTP_TRUST_ENV.strip().lower() in {"1", "true", "yes", "on"}
+)
+
+
+def build_vlm_http_client(trust_env: bool) -> httpx.Client:
+    def env_float(name: str, default: float) -> float:
+        raw = os.environ.get(name)
+        if raw is None:
+            return default
+        try:
+            return float(raw.strip())
+        except Exception:
+            return default
+
+    timeout = httpx.Timeout(
+        connect=env_float("VLM_HTTP_CONNECT_TIMEOUT", 20.0),
+        read=env_float("VLM_HTTP_READ_TIMEOUT", 180.0),
+        write=env_float("VLM_HTTP_WRITE_TIMEOUT", 60.0),
+        pool=env_float("VLM_HTTP_POOL_TIMEOUT", 180.0),
+    )
+    return httpx.Client(
+        http2=False,
+        timeout=timeout,
+        transport=httpx.HTTPTransport(retries=2),
+        trust_env=trust_env,
+    )
+
+
+def _extract_json_object(text: str) -> Dict[str, Any]:
+    stripped = text.strip()
+    start = stripped.find("{")
+    end = stripped.rfind("}")
+    if start == -1 or end == -1 or end <= start:
+        raise ValueError(f"Could not find JSON object in verifier response: {text}")
+    return json.loads(stripped[start : end + 1])
+
+
+def _encode_image(path: Path, *, image_url: bool = False, compact: bool = False) -> Dict[str, Any]:
+    suffix = path.suffix.lower()
+    media_type = {
+        ".png": "image/png",
+        ".jpg": "image/jpeg",
+        ".jpeg": "image/jpeg",
+        ".webp": "image/webp",
+    }.get(suffix, "image/png")
+
+    if compact:
+        with Image.open(path) as img:
+            image = img.convert("RGB")
+            image.thumbnail((1280, 1280), Image.Resampling.LANCZOS)
+        buffer = BytesIO()
+        image.save(buffer, format="JPEG", quality=80, optimize=True)
+        media_type = "image/jpeg"
+        data = base64.b64encode(buffer.getvalue()).decode("ascii")
+    else:
+        data = base64.b64encode(path.read_bytes()).decode("ascii")
+
+    if image_url:
+        return {
+            "type": "image_url",
+            "image_url": {
+                "url": f"data:{media_type};base64,{data}",
+            },
+        }
+    return {
+        "type": "image",
+        "source": {
+            "type": "base64",
+            "media_type": media_type,
+            "data": data,
+        },
+    }
+
+
+def build_vlm_similarity_verifier(
+    *,
+    backend: str = "auto",
+    http_trust_env: bool = DEFAULT_VLM_HTTP_TRUST_ENV,
+    kimi_api_key: Optional[str] = None,
+    kimi_base_url: Optional[str] = None,
+    kimi_model: Optional[str] = None,
+    kimi_max_tokens: int = 512,
+    kimi_thinking_budget: int = 256,
+    ark_api_key: Optional[str] = None,
+    ark_base_url: Optional[str] = None,
+    ark_model: Optional[str] = None,
+) -> Optional[Dict[str, Any]]:
+    if backend == "none":
+        return None
+
+    providers = ["kimi", "ark"] if backend == "auto" else [backend]
+    last_error: Optional[Exception] = None
+    for provider in providers:
+        http_client = build_vlm_http_client(http_trust_env)
+        try:
+            if provider == "kimi":
+                import anthropic
+
+                api_key = (kimi_api_key or os.environ.get("KIMI_API_KEY", "")).strip()
+                if not api_key:
+                    raise RuntimeError(
+                        "Kimi screenshot similarity verification requires kimi_api_key or env KIMI_API_KEY."
+                    )
+
+                model = kimi_model or os.environ.get("KIMI_MODEL", DEFAULT_KIMI_MODEL)
+                client = anthropic.Anthropic(
+                    base_url=(kimi_base_url or os.environ.get("KIMI_BASE_URL", DEFAULT_KIMI_BASE_URL)),
+                    api_key=api_key,
+                    http_client=http_client,
+                )
+            elif provider == "ark":
+                from openai import OpenAI
+
+                api_key = (ark_api_key or os.environ.get("ARK_API_KEY", "")).strip()
+                if not api_key:
+                    raise RuntimeError(
+                        "Ark screenshot similarity verification requires ark_api_key or env ARK_API_KEY."
+                    )
+
+                model = ark_model or os.environ.get("ARK_MODEL", DEFAULT_ARK_MODEL)
+                if model.strip().lower() in KNOWN_ARK_TEXT_ONLY_MODELS:
+                    raise RuntimeError(
+                        "Ark screenshot similarity verification requires a vision-capable model, "
+                        f"but the current model '{model}' does not support image input. "
+                        "Please set ARK_MODEL to a multimodal model that accepts image_url."
+                    )
+                client = OpenAI(
+                    api_key=api_key,
+                    base_url=(ark_base_url or os.environ.get("ARK_BASE_URL", DEFAULT_ARK_BASE_URL)),
+                    http_client=http_client,
+                )
+            else:
+                raise RuntimeError(f"Unsupported VLM verification provider: {provider}")
+
+            return {
+                "provider": provider,
+                "strict": backend in {"kimi", "ark"},
+                "model": model,
+                "max_tokens": kimi_max_tokens,
+                "thinking_budget": kimi_thinking_budget,
+                "client": client,
+                "http_client": http_client,
+            }
+        except Exception as exc:
+            last_error = exc
+            continue
+
+    if backend in {"kimi", "ark"} and last_error is not None:
+        raise last_error
+    return None
+
+
+def compare_vlm_screenshot_similarity(
+    verifier: Dict[str, Any],
+    before_path: Union[str, Path],
+    after_path: Union[str, Path],
+) -> Dict[str, Any]:
+    before = normalize_path(before_path)
+    after = normalize_path(after_path)
+    if not before.is_file():
+        raise FileNotFoundError(f"Before screenshot not found: {before}")
+    if not after.is_file():
+        raise FileNotFoundError(f"After screenshot not found: {after}")
+
+    provider = verifier["provider"]
+    if provider == "ark":
+        parsed = _verify_similarity_ark(verifier, before_path=before, after_path=after)
+    else:
+        parsed = _verify_similarity_kimi(verifier, before_path=before, after_path=after)
+
+    raw_answer = parsed.get("similar", "no")
+    if isinstance(raw_answer, bool):
+        is_high_similarity = raw_answer
+        answer = "yes" if raw_answer else "no"
+    else:
+        answer = str(raw_answer).strip().lower()
+        is_high_similarity = answer in {"yes", "true", "similar", "high"}
+        answer = "yes" if is_high_similarity else "no"
+
+    return {
+        "is_high_similarity": is_high_similarity,
+        "answer": answer,
+        "confidence": round(float(parsed.get("confidence", 0.0) or 0.0), 4),
+        "reason": str(parsed.get("reason", "")).strip() or "No reason provided by the VLM.",
+        "model": f"{provider}:{verifier['model']}",
+    }
+
+
+def compare_screenshot_similarity_with_vlm(
+    before_path: Union[str, Path],
+    after_path: Union[str, Path],
+    *,
+    backend: str = "auto",
+    http_trust_env: bool = DEFAULT_VLM_HTTP_TRUST_ENV,
+    kimi_api_key: Optional[str] = None,
+    kimi_base_url: Optional[str] = None,
+    kimi_model: Optional[str] = None,
+    kimi_max_tokens: int = 512,
+    kimi_thinking_budget: int = 256,
+    ark_api_key: Optional[str] = None,
+    ark_base_url: Optional[str] = None,
+    ark_model: Optional[str] = None,
+) -> Optional[Dict[str, Any]]:
+    verifier = build_vlm_similarity_verifier(
+        backend=backend,
+        http_trust_env=http_trust_env,
+        kimi_api_key=kimi_api_key,
+        kimi_base_url=kimi_base_url,
+        kimi_model=kimi_model,
+        kimi_max_tokens=kimi_max_tokens,
+        kimi_thinking_budget=kimi_thinking_budget,
+        ark_api_key=ark_api_key,
+        ark_base_url=ark_base_url,
+        ark_model=ark_model,
+    )
+    if verifier is None:
+        return None
+    return compare_vlm_screenshot_similarity(verifier, before_path, after_path)
+
+
+def _verify_similarity_kimi(
+    verifier: Dict[str, Any],
+    *,
+    before_path: Path,
+    after_path: Path,
+) -> Dict[str, Any]:
+    content: List[Dict[str, Any]] = [
+        {
+            "type": "text",
+            "text": (
+                "Inspect the action's before and after screenshots and judge whether the after screenshot is highly similar to the before without any state changes. "
+                "Return only a JSON object with keys similar (yes / no), confidence, and reason.\n\n"
+                + json.dumps(SIMILARITY_PROMPT_PAYLOAD, ensure_ascii=False, indent=2)
+            ),
+        },
+        {"type": "text", "text": "Screenshot before the action:"},
+        _encode_image(before_path),
+        {"type": "text", "text": "Screenshot after the action:"},
+        _encode_image(after_path),
+    ]
+
+    def collect_text(response: Any) -> str:
+        text_blocks: List[str] = []
+        for block in response.content:
+            if getattr(block, "type", "") == "text":
+                text_blocks.append(block.text)
+        return "\n".join(text_blocks).strip()
+
+    def request(enable_thinking: bool, max_tokens: Optional[int] = None) -> Any:
+        active_max_tokens = max_tokens if max_tokens is not None else verifier["max_tokens"]
+        kwargs: Dict[str, Any] = {
+            "model": verifier["model"],
+            "max_tokens": active_max_tokens,
+            "system": SYSTEM_PROMPT,
+            "messages": [{"role": "user", "content": content}],
+        }
+        if enable_thinking:
+            answer_reserve = 128
+            budget_tokens = min(verifier["thinking_budget"], max(active_max_tokens - answer_reserve, 0))
+            if budget_tokens >= 32:
+                kwargs["thinking"] = {"type": "enabled", "budget_tokens": budget_tokens}
+        return verifier["client"].messages.create(**kwargs)
+
+    def should_retry_for_incomplete_json(response: Any, text: str, exc: Exception) -> bool:
+        if getattr(response, "stop_reason", None) == "max_tokens":
+            return True
+        stripped = text.strip()
+        if stripped.startswith("```json") or stripped.startswith("{"):
+            if "}" not in stripped:
+                return True
+        return isinstance(exc, ValueError)
+
+    def parse_or_raise(response: Any, text: str) -> Dict[str, Any]:
+        if not text:
+            raise ValueError(
+                "Could not find JSON object in verifier response. "
+                f"provider={verifier['provider']}, stop_reason={getattr(response, 'stop_reason', None)}, "
+                f"content_types={[getattr(block, 'type', None) for block in response.content]}"
+            )
+        return _extract_json_object(text)
+
+    attempts = [
+        {"enable_thinking": True, "max_tokens": verifier["max_tokens"]},
+        {"enable_thinking": False, "max_tokens": max(verifier["max_tokens"], 1024)},
+    ]
+    last_error: Optional[Exception] = None
+    last_response: Any = None
+    last_text = ""
+    for attempt in attempts:
+        response = request(
+            enable_thinking=attempt["enable_thinking"],
+            max_tokens=attempt["max_tokens"],
+        )
+        text = collect_text(response)
+        last_response = response
+        last_text = text
+        try:
+            return parse_or_raise(response, text)
+        except Exception as exc:
+            last_error = exc
+            if not should_retry_for_incomplete_json(response, text, exc):
+                raise
+            continue
+
+    raise ValueError(
+        "Could not parse JSON object in verifier response after retries. "
+        f"provider={verifier['provider']}, stop_reason={getattr(last_response, 'stop_reason', None)}, "
+        f"content_types={[getattr(block, 'type', None) for block in getattr(last_response, 'content', [])]}, "
+        f"text_preview={last_text[:200]!r}"
+    ) from last_error
+
+
+def _verify_similarity_ark(
+    verifier: Dict[str, Any],
+    *,
+    before_path: Path,
+    after_path: Path,
+) -> Dict[str, Any]:
+    def request(*, compact_images: bool, enable_thinking: bool) -> Dict[str, Any]:
+        content: List[Dict[str, Any]] = [
+            {
+                "type": "text",
+                "text": (
+                    f"{SYSTEM_PROMPT}\n\n"
+                    "Inspect the before/after screenshots and judge whether the UI is highly similar. "
+                    "Return only a JSON object with keys similar, confidence, and reason.\n\n"
+                    + json.dumps(SIMILARITY_PROMPT_PAYLOAD, ensure_ascii=False, indent=2)
+                ),
+            },
+            {"type": "text", "text": "Screenshot before the action:"},
+            _encode_image(before_path, image_url=True, compact=compact_images),
+            {"type": "text", "text": "Screenshot after the action:"},
+            _encode_image(after_path, image_url=True, compact=compact_images),
+        ]
+        kwargs: Dict[str, Any] = {
+            "model": verifier["model"],
+            "messages": [{"role": "user", "content": content}],
+            "max_tokens": verifier["max_tokens"],
+        }
+        if enable_thinking:
+            kwargs["extra_body"] = {"thinking": {"type": "enabled"}}
+        try:
+            response = verifier["client"].chat.completions.create(**kwargs)
+        except Exception as exc:
+            error_text = str(exc)
+            if "Model do not support image input" in error_text:
+                raise RuntimeError(
+                    "Ark screenshot similarity verification requires a vision-capable model, "
+                    f"but the current model '{verifier['model']}' does not support image input. "
+                    "Please set ARK_MODEL to a multimodal model that accepts image_url."
+                ) from exc
+            raise
+        message = response.choices[0].message
+        return _extract_json_object(message.content or "")
+
+    try:
+        return request(compact_images=False, enable_thinking=True)
+    except Exception as exc:
+        is_timeout = isinstance(exc, httpx.TimeoutException) or type(exc).__name__ in {
+            "APITimeoutError",
+            "ReadTimeout",
+        }
+        if not is_timeout:
+            raise
+        return request(compact_images=True, enable_thinking=False)

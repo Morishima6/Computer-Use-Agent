@@ -1,0 +1,700 @@
+{
+  "segment_id": "seg_001",
+  "app": "libreoffice_calc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Select all editable cells in the Status column",
+      "action_before_state": "LibreOffice Calc is already open on GNOME, and a chore-tracking sheet is visible with headers in row 1. The `Status` header is in column C, and the chore entries run from row 2 through row 20.",
+      "action_preconditions": [
+        "The LibreOffice Calc window is focused.",
+        "The `Status` column is visible on screen.",
+        "The cells from `C2` to `C20` are available for editing."
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell `C2`, the first status cell directly under the `Status` header"
+        },
+        "end": {
+          "text": "cell `C20`, the last filled status cell in the list"
+        },
+        "target": {
+          "begin": {
+            "text": "cell `C2`"
+          },
+          "end": {
+            "text": "cell `C20`"
+          }
+        }
+      },
+      "action_after_effects": "The full status input range is highlighted, ready for one validation rule to be applied to all selected cells.",
+      "nl_explanation": "When the status column is visible and the task list spans rows 2 to 20, drag from the first status cell under the header down to the last status cell. The whole status range should stay selected so the next command applies to every chore row at once."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Open the validation settings for the selected status cells",
+      "action_before_state": "The status cells are selected in column C.",
+      "action_preconditions": [
+        "The range `C2:C20` remains selected.",
+        "The top Calc menu bar is visible.",
+        "No dialog window is currently blocking the sheet."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the `Validity...` option inside the `Data` menu on the top menu bar"
+        }
+      },
+      "action_after_effects": "The Validity dialog opens for the selected cells.",
+      "nl_explanation": "With the status cells still selected, click `Data` and choose `Validity...`. Calc should open the validation dialog so the allowed status values can be configured."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Change the validation type to a list",
+      "action_before_state": "The Validity dialog is open, typically on the Criteria tab.",
+      "action_preconditions": [
+        "The Validity dialog is in focus.",
+        "The Criteria tab is visible.",
+        "The `Allow` control can be changed."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the `List` option in the `Allow` drop-down on the Criteria tab"
+        }
+      },
+      "action_after_effects": "The dialog is set to accept a predefined list of entries, and the entries input area becomes relevant for the next step.",
+      "nl_explanation": "When the Validity dialog is open on the Criteria tab, choose `List` from the `Allow` setting. This switches the rule from generic input to a fixed drop-down list."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Place the cursor in the list entries box",
+      "action_before_state": "The Validity dialog is configured to use a list, and the entries area is visible.",
+      "action_preconditions": [
+        "The Validity dialog is still open.",
+        "The list entries field is visible and empty or ready to edit."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the entries box where the allowed list values can be typed"
+        }
+      },
+      "action_after_effects": "The text cursor appears in the entries box so the status options can be entered.",
+      "nl_explanation": "After setting the validation type to a list, click inside the entries field. The insertion cursor should appear there so the allowed status values can be typed one per line."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Enter the three allowed status values",
+      "action_before_state": "The entries box in the Validity dialog is focused.",
+      "action_preconditions": [
+        "The text cursor is active in the entries box.",
+        "The field is ready to receive multiple list items."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Not Started\nIn Progress\nDone"
+      },
+      "action_after_effects": "The entries field now contains the three allowed status choices, each on its own line.",
+      "nl_explanation": "With the entries field focused, type `Not Started`, `In Progress`, and `Done` on separate lines. These values become the options that will appear in the status drop-down."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Apply the validation rule to the selected status cells",
+      "action_before_state": "The Validity dialog contains the intended list values.",
+      "action_preconditions": [
+        "The list entries are visible and correct.",
+        "The dialog buttons are accessible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the `OK` button at the bottom of the Validity dialog"
+        }
+      },
+      "action_after_effects": "The dialog closes, and the selected status cells now use a drop-down list with the three specified options.",
+      "nl_explanation": "Once the three status values are entered correctly, click `OK` to apply the rule. The dialog should close and the status column should now support drop-down selection."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Move the active cell below the header row before freezing it",
+      "action_before_state": "The sheet is visible again and the validation rule has been applied.",
+      "action_preconditions": [
+        "The spreadsheet is editable.",
+        "A cell below the header row is visible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell `A2`, directly below the header row"
+        }
+      },
+      "action_after_effects": "Cell `A2` becomes the active cell, positioning the sheet for freezing the top row.",
+      "nl_explanation": "After returning to the sheet, click cell `A2` so the active position is below row 1. This sets up the sheet for freezing the top header row while leaving the rest scrollable."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Freeze the top header row",
+      "action_before_state": "Cell `A2` is active and the worksheet header row is visible.",
+      "action_preconditions": [
+        "The worksheet is focused.",
+        "The View menu is available.",
+        "The header row is currently unfrozen."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the `Freeze First Row` command in the `View` > `Freeze Cells` menu"
+        }
+      },
+      "action_after_effects": "The first row becomes frozen and will remain visible while the sheet is scrolled.",
+      "nl_explanation": "With a cell in row 2 selected, use the `View` menu and choose `Freeze First Row` from `Freeze Cells`. The header row should now stay fixed at the top of the sheet."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Place the cursor at the top-left cell of the summary area",
+      "action_before_state": "The main task table remains on the left, and empty space is available to the right for a small summary.",
+      "action_preconditions": [
+        "Columns `F` and `G` are visible and unused.",
+        "Cell `F1` can be edited."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell `F1` in the empty area to the right of the chore table"
+        }
+      },
+      "action_after_effects": "Cell `F1` becomes active, ready for the summary table content.",
+      "nl_explanation": "When there is blank space to the right of the main table, click cell `F1`. This sets the starting point for a compact status summary block."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Create the summary labels and status names",
+      "action_before_state": "Cell `F1` is active and the summary area is blank.",
+      "action_preconditions": [
+        "Cell `F1` is selected.",
+        "The cells from `F1` to `G4` are empty."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Status\tCount\nNot Started\t\nIn Progress\t\nDone\t"
+      },
+      "action_after_effects": "A small summary table appears in `F1:G4`, with the status names in column F and empty count cells in column G.",
+      "nl_explanation": "With `F1` active and the summary area empty, type the header row and three status labels using tabs and line breaks so they fill the small table on the right. The labels should appear in place, leaving the count cells ready for formulas."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Start the counting formula for the first status row",
+      "action_before_state": "The summary labels are visible in `F1:G4`, and `G2` is still empty.",
+      "action_preconditions": [
+        "The summary table exists in columns `F` and `G`.",
+        "Cell `G2` is available for a formula."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell `G2`, next to `Not Started`"
+        }
+      },
+      "action_after_effects": "Cell `G2` becomes active and ready for formula entry.",
+      "nl_explanation": "After the summary labels are in place, click the first empty count cell in `G2`. This is where the counting formula for `Not Started` will go."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Type a COUNTIF formula that counts matching statuses",
+      "action_before_state": "Cell `G2` is active in the summary table.",
+      "action_preconditions": [
+        "Cell `G2` is selected.",
+        "The original status data is in `C2:C20`.",
+        "The label `Not Started` is present in `F2`."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "=COUNTIF($C$2:$C$20,F2)"
+      },
+      "action_after_effects": "The COUNTIF formula appears in the active cell input, ready to be committed.",
+      "nl_explanation": "With `G2` selected, type `=COUNTIF($C$2:$C$20,F2)`. This formula counts how many entries in the status column match the label shown in `F2`."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Confirm the first count formula",
+      "action_before_state": "The COUNTIF formula has been typed into `G2`.",
+      "action_preconditions": [
+        "The formula text is visible and correct.",
+        "Cell `G2` is still being edited."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The formula is committed, and `G2` now shows the count for `Not Started`.",
+      "nl_explanation": "Once the COUNTIF formula is typed into `G2`, press Enter to apply it. The cell should stop editing mode and display the calculated total for the first status."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Fill the same formula down for the other two status rows",
+      "action_before_state": "Cell `G2` contains the working COUNTIF formula, while `G3` and `G4` are still blank.",
+      "action_preconditions": [
+        "The formula result is visible in `G2`.",
+        "The fill handle on the selected cell can be dragged downward."
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the fill handle at the bottom-right corner of cell `G2`"
+        },
+        "end": {
+          "text": "cell `G4` at the bottom of the summary count column"
+        },
+        "target": {
+          "begin": {
+            "text": "the fill handle in cell `G2`"
+          },
+          "end": {
+            "text": "cell `G4`"
+          }
+        }
+      },
+      "action_after_effects": "The formula is copied into `G3` and `G4`, and all three statuses now show counts.",
+      "nl_explanation": "When the first count formula is already working in `G2`, drag its fill handle down to `G4`. Calc should copy the formula and adjust the label reference so each status row gets its own count."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Save the updated worksheet",
+      "action_before_state": "The status drop-down, frozen header row, and summary counts are all visible in the spreadsheet.",
+      "action_preconditions": [
+        "LibreOffice Calc is still focused.",
+        "The sheet changes are complete and ready to keep."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "s"
+        ]
+      },
+      "action_after_effects": "The spreadsheet is saved with the new validation rule, frozen header, and status summary.",
+      "nl_explanation": "After confirming the sheet has the drop-down status column, the frozen top row, and the count summary on the right, press Ctrl+S. The workbook should save the completed daily-tracker improvements."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Add a reusable status drop-down rule to every chore row in the Status column.",
+      "unit_type": "CONFIGURE_DATA_VALIDATION_LIST",
+      "unit_before_state": "LibreOffice Calc shows the chore tracker with headers in row 1 and the Status column in column C. The editable status cells from C2 through C20 are visible in the main sheet.",
+      "unit_after_state": "The sheet is visible again after the Validity dialog closes, and cells C2:C20 are configured with a drop-down list containing Not Started, In Progress, and Done.",
+      "unit_precondition": [
+        "The worksheet is open and editable in LibreOffice Calc.",
+        "The Status column and cells C2 through C20 are visible on screen.",
+        "No other dialog is blocking access before opening the Data > Validity settings."
+      ],
+      "unit_effect": [
+        "Range C2:C20 becomes selected, then the Validity dialog opens for that range.",
+        "The Criteria tab is set to allow a List and the entries field shows three lines: Not Started, In Progress, and Done.",
+        "After confirming with OK, the dialog closes and the selected status cells use the new validation list."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Keep the header row visible while scrolling through the chore list.",
+      "unit_type": "FREEZE_HEADER_ROW",
+      "unit_before_state": "The worksheet is back in the main grid view with the updated Status column, and row 1 is still unfrozen. Cell A2 is visible below the header row.",
+      "unit_after_state": "The first row is frozen at the top of the sheet, with cell A2 having been used as the active position before the freeze command.",
+      "unit_precondition": [
+        "The spreadsheet grid is focused and editable.",
+        "A cell in row 2 such as A2 is visible and can be selected.",
+        "The first row is not already frozen."
+      ],
+      "unit_effect": [
+        "Cell A2 becomes the active cell below the header.",
+        "The View > Freeze Cells > Freeze First Row command is applied.",
+        "Row 1 remains fixed as the sheet scrolls."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Create the structure of a status summary table to the right of the main chore list.",
+      "unit_type": "CREATE_SUMMARY_TABLE",
+      "unit_before_state": "The main chore table remains on the left side of the sheet, and the area around columns F and G is empty and available for a summary block.",
+      "unit_after_state": "A compact summary table occupies F1:G4, with Status and Count in row 1 and the labels Not Started, In Progress, and Done listed in cells F2:F4.",
+      "unit_precondition": [
+        "Columns F and G are visible and unused.",
+        "Cell F1 can be selected and edited.",
+        "The target summary range F1:G4 is empty."
+      ],
+      "unit_effect": [
+        "Cell F1 becomes active in the blank area to the right of the tracker.",
+        "Typing with tabs and line breaks fills F1:G4 as a two-column summary layout.",
+        "Column F now contains the three status names and column G is ready for count formulas."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        11,
+        12,
+        13
+      ],
+      "unit_intent": "Create the first summary formula that counts chores marked as Not Started.",
+      "unit_type": "ENTER_COUNT_FORMULA",
+      "unit_before_state": "The summary table is visible in F1:G4, with Not Started in F2 and the adjacent count cell G2 still empty.",
+      "unit_after_state": "Cell G2 contains a committed COUNTIF formula result that counts how many cells in C2:C20 match the label in F2.",
+      "unit_precondition": [
+        "The summary labels already exist in F1:G4.",
+        "Cell G2 is empty and available for formula entry.",
+        "The status data to be counted is in C2:C20 and the label Not Started is in F2."
+      ],
+      "unit_effect": [
+        "Cell G2 becomes active for editing.",
+        "The formula =COUNTIF($C$2:$C$20,F2) is entered into G2.",
+        "Pressing Enter commits the formula and G2 displays the calculated count value."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        14
+      ],
+      "unit_intent": "Reuse the first count formula for the remaining status rows in the summary.",
+      "unit_type": "FILL_FORMULA_DOWN",
+      "unit_before_state": "Cell G2 already shows the working COUNTIF result, while G3 and G4 are still blank next to In Progress and Done.",
+      "unit_after_state": "Cells G2:G4 all contain count formulas, and each status row in the summary now shows its own count.",
+      "unit_precondition": [
+        "G2 contains a correct COUNTIF formula and its fill handle is available.",
+        "Cells G3 and G4 are empty and directly below G2.",
+        "The corresponding status labels exist in F3 and F4."
+      ],
+      "unit_effect": [
+        "Dragging the fill handle from G2 down to G4 copies the formula into the cells below.",
+        "The row reference in the label argument updates from F2 to F3 and F4.",
+        "Counts become visible for In Progress and Done in G3 and G4."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        15
+      ],
+      "unit_intent": "Persist the completed worksheet improvements to disk.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The worksheet shows the Status drop-down setup, the frozen header row, and the completed summary counts on the right.",
+      "unit_after_state": "The workbook remains open in LibreOffice Calc with the changes saved.",
+      "unit_precondition": [
+        "LibreOffice Calc is focused.",
+        "All intended edits are complete and visible in the sheet."
+      ],
+      "unit_effect": [
+        "Ctrl+S triggers a save for the current spreadsheet.",
+        "The file is stored with the validation list, frozen first row, and summary table changes preserved."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Add a reusable status drop-down rule to every chore row in the Status column.",
+      "unit_type": "CONFIGURE_DATA_VALIDATION_LIST",
+      "unit_before_state": "LibreOffice Calc shows the chore tracker with headers in row 1 and the Status column in column C. The editable status cells from C2 through C20 are visible in the main sheet.",
+      "unit_after_state": "The sheet is visible again after the Validity dialog closes, and cells C2:C20 are configured with a drop-down list containing Not Started, In Progress, and Done.",
+      "unit_precondition": [
+        "The worksheet is open and editable in LibreOffice Calc.",
+        "The Status column and cells C2 through C20 are visible on screen.",
+        "No other dialog is blocking access before opening the Data > Validity settings."
+      ],
+      "unit_effect": [
+        "Range C2:C20 becomes selected, then the Validity dialog opens for that range.",
+        "The Criteria tab is set to allow a List and the entries field shows three lines: Not Started, In Progress, and Done.",
+        "After confirming with OK, the dialog closes and the selected status cells use the new validation list."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Apply a specified list-based drop-down validation rule to a target worksheet cell range.",
+      "parameters": {
+        "target_range": "C2:C20",
+        "range_start_cell": "C2",
+        "range_end_cell": "C20",
+        "allowed_values_text": "Not Started\nIn Progress\nDone"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'cell `C2`, the first status cell directly under the `Status` header'}, 'end': {'text': 'cell `C20`, the last filled status cell in the list'}, 'target': {'begin': {'text': 'cell `C2`'}, 'end': {'text': 'cell `C20`'}}}",
+          "action_template": "When LibreOffice Calc is focused and the target cells are visible and editable, drag from cell {{range_start_cell}} to cell {{range_end_cell}} to select {{target_range}} so one validation rule can be applied to all selected cells at once."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the `Validity...` option inside the `Data` menu on the top menu bar'}}",
+          "action_template": "With {{target_range}} still selected, the top menu bar visible, and no dialog blocking the sheet, click `Data` and choose `Validity...` to open the validation settings for the selected cells."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the `List` option in the `Allow` drop-down on the Criteria tab'}}",
+          "action_template": "When the Validity dialog is open on the Criteria tab and the `Allow` control can be changed, choose `List` so the rule accepts a predefined drop-down list and the entries area becomes ready for input."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the entries box where the allowed list values can be typed'}}",
+          "action_template": "After setting the validation type to `List`, click inside the entries field to place the text cursor where the allowed values for the drop-down will be entered."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Not Started\\nIn Progress\\nDone'}",
+          "action_template": "With the entries field focused and ready for multiple items, type {{allowed_values_text}} on separate lines so each line becomes an allowed option in the validation list."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the `OK` button at the bottom of the Validity dialog'}}",
+          "action_template": "Once {{allowed_values_text}} is visible and correct in the dialog, click `OK` to apply the list validation to {{target_range}} and close the Validity dialog."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Keep the header row visible while scrolling through the chore list.",
+      "unit_type": "FREEZE_HEADER_ROW",
+      "unit_before_state": "The worksheet is back in the main grid view with the updated Status column, and row 1 is still unfrozen. Cell A2 is visible below the header row.",
+      "unit_after_state": "The first row is frozen at the top of the sheet, with cell A2 having been used as the active position before the freeze command.",
+      "unit_precondition": [
+        "The spreadsheet grid is focused and editable.",
+        "A cell in row 2 such as A2 is visible and can be selected.",
+        "The first row is not already frozen."
+      ],
+      "unit_effect": [
+        "Cell A2 becomes the active cell below the header.",
+        "The View > Freeze Cells > Freeze First Row command is applied.",
+        "Row 1 remains fixed as the sheet scrolls."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Freeze the first row of the worksheet so the header remains visible while scrolling.",
+      "parameters": {
+        "target_cell": "cell `A2`, directly below the header row"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell `A2`, directly below the header row'}}",
+          "action_template": "When the spreadsheet is editable and a cell below the header row is visible, click {{target_cell}} to make it the active cell below row 1 and position the sheet for freezing the top header row."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the `Freeze First Row` command in the `View` > `Freeze Cells` menu'}}",
+          "action_template": "With {{target_cell}} selected and the worksheet focused, use `View` > `Freeze Cells` > `Freeze First Row` to freeze the first row so it remains visible while the sheet is scrolled."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Create the structure of a status summary table to the right of the main chore list.",
+      "unit_type": "CREATE_SUMMARY_TABLE",
+      "unit_before_state": "The main chore table remains on the left side of the sheet, and the area around columns F and G is empty and available for a summary block.",
+      "unit_after_state": "A compact summary table occupies F1:G4, with Status and Count in row 1 and the labels Not Started, In Progress, and Done listed in cells F2:F4.",
+      "unit_precondition": [
+        "Columns F and G are visible and unused.",
+        "Cell F1 can be selected and edited.",
+        "The target summary range F1:G4 is empty."
+      ],
+      "unit_effect": [
+        "Cell F1 becomes active in the blank area to the right of the tracker.",
+        "Typing with tabs and line breaks fills F1:G4 as a two-column summary layout.",
+        "Column F now contains the three status names and column G is ready for count formulas."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a compact two-column status summary table in a specified empty sheet range.",
+      "parameters": {
+        "target_start_cell": "F1",
+        "target_summary_range": "F1:G4",
+        "summary_header_left": "Status",
+        "summary_header_right": "Count",
+        "status_labels": [
+          "Not Started",
+          "In Progress",
+          "Done"
+        ],
+        "input_text": "Status\tCount\nNot Started\t\nIn Progress\t\nDone\t"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell `F1` in the empty area to the right of the chore table'}}",
+          "action_template": "When the destination area is blank and editable, click cell {{target_start_cell}} to set the starting point for the compact status summary block. This makes {{target_start_cell}} active and ready for the summary table content."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Status\\tCount\\nNot Started\\t\\nIn Progress\\t\\nDone\\t'}",
+          "action_template": "With {{target_start_cell}} selected and {{target_summary_range}} empty, type {{input_text}} using tabs and line breaks to create the two-column summary table. This places {{summary_header_left}} and {{summary_header_right}} in the header row, fills the status rows with {{status_labels}}, and leaves the count cells ready for formulas."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        11,
+        12,
+        13
+      ],
+      "unit_intent": "Create the first summary formula that counts chores marked as Not Started.",
+      "unit_type": "ENTER_COUNT_FORMULA",
+      "unit_before_state": "The summary table is visible in F1:G4, with Not Started in F2 and the adjacent count cell G2 still empty.",
+      "unit_after_state": "Cell G2 contains a committed COUNTIF formula result that counts how many cells in C2:C20 match the label in F2.",
+      "unit_precondition": [
+        "The summary labels already exist in F1:G4.",
+        "Cell G2 is empty and available for formula entry.",
+        "The status data to be counted is in C2:C20 and the label Not Started is in F2."
+      ],
+      "unit_effect": [
+        "Cell G2 becomes active for editing.",
+        "The formula =COUNTIF($C$2:$C$20,F2) is entered into G2.",
+        "Pressing Enter commits the formula and G2 displays the calculated count value."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Enter and commit a COUNTIF formula in a specified summary count cell so it counts entries in a source range that match the corresponding summary label cell.",
+      "parameters": {
+        "target_formula_cell": "cell `G2`, next to `Not Started`",
+        "source_data_range": "`C2:C20`",
+        "criteria_label_cell": "`F2`",
+        "formula_text": "=COUNTIF($C$2:$C$20,F2)"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell `G2`, next to `Not Started`'}}",
+          "action_template": "After the summary labels are in place and {{target_formula_cell}} is available for a formula, click {{target_formula_cell}} so it becomes active and ready for formula entry."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '=COUNTIF($C$2:$C$20,F2)'}",
+          "action_template": "With {{target_formula_cell}} selected, type {{formula_text}} so the active cell contains a COUNTIF formula that counts how many entries in {{source_data_range}} match the label shown in {{criteria_label_cell}} and is ready to be committed."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Once {{formula_text}} is visible and {{target_formula_cell}} is still being edited, press Enter to commit the formula so {{target_formula_cell}} displays the calculated count result."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        14
+      ],
+      "unit_intent": "Reuse the first count formula for the remaining status rows in the summary.",
+      "unit_type": "FILL_FORMULA_DOWN",
+      "unit_before_state": "Cell G2 already shows the working COUNTIF result, while G3 and G4 are still blank next to In Progress and Done.",
+      "unit_after_state": "Cells G2:G4 all contain count formulas, and each status row in the summary now shows its own count.",
+      "unit_precondition": [
+        "G2 contains a correct COUNTIF formula and its fill handle is available.",
+        "Cells G3 and G4 are empty and directly below G2.",
+        "The corresponding status labels exist in F3 and F4."
+      ],
+      "unit_effect": [
+        "Dragging the fill handle from G2 down to G4 copies the formula into the cells below.",
+        "The row reference in the label argument updates from F2 to F3 and F4.",
+        "Counts become visible for In Progress and Done in G3 and G4."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Copy an existing summary formula downward to adjacent rows so each corresponding row computes its own result.",
+      "parameters": {
+        "source_formula_cell": "G2",
+        "fill_target_cell": "G4"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the fill handle at the bottom-right corner of cell `G2`'}, 'end': {'text': 'cell `G4` at the bottom of the summary count column'}, 'target': {'begin': {'text': 'the fill handle in cell `G2`'}, 'end': {'text': 'cell `G4`'}}}",
+          "action_template": "When the formula result is visible in {{source_formula_cell}} and its fill handle can be dragged downward, drag from the fill handle at the bottom-right corner of cell {{source_formula_cell}} to cell {{fill_target_cell}} to copy the formula into the cells below. The copied formulas should populate the cells down to {{fill_target_cell}} and adjust row references so each corresponding summary row shows its own result."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        15
+      ],
+      "unit_intent": "Persist the completed worksheet improvements to disk.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The worksheet shows the Status drop-down setup, the frozen header row, and the completed summary counts on the right.",
+      "unit_after_state": "The workbook remains open in LibreOffice Calc with the changes saved.",
+      "unit_precondition": [
+        "LibreOffice Calc is focused.",
+        "All intended edits are complete and visible in the sheet."
+      ],
+      "unit_effect": [
+        "Ctrl+S triggers a save for the current spreadsheet.",
+        "The file is stored with the validation list, frozen first row, and summary table changes preserved."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the current spreadsheet to persist the completed worksheet changes.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 's']}",
+          "action_template": "Press Ctrl+S in LibreOffice Calc after confirming the sheet changes are complete and ready to keep, so the current spreadsheet is saved with the completed worksheet updates preserved."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

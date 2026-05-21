@@ -1,0 +1,468 @@
+{
+  "segment_id": "seg_001",
+  "app": "multi_apps",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Create destination directory for recent documents",
+      "action_before_state": "The terminal window is open and active, showing a command prompt ready for input. The Desktop currently does not have a Recent_Documents folder.",
+      "action_preconditions": [
+        "Terminal window is focused and active",
+        "User has write permissions to the Desktop directory",
+        "The command prompt is visible"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "mkdir -p ~/Desktop/Recent_Documents"
+      },
+      "action_after_effects": "The command 'mkdir -p ~/Desktop/Recent_Documents' appears typed in the terminal, and upon execution the Recent_Documents folder is created on the Desktop without any error messages.",
+      "nl_explanation": "With the terminal already open and focused, type the mkdir command to create a new directory called Recent_Documents on the Desktop where the recently modified .docx files will be stored."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Find and copy recent .docx files to destination",
+      "action_before_state": "The terminal shows the previous mkdir command has been executed successfully, returning to the command prompt. The Recent_Documents folder now exists.",
+      "action_preconditions": [
+        "The Recent_Documents directory exists on Desktop",
+        "Terminal is ready for the next command",
+        "The home directory contains .docx files modified within the last week"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "find ~ -name \"*.docx\" -mtime -7 -type f -exec cp {} ~/Desktop/Recent_Documents/ \\;"
+      },
+      "action_after_effects": "The find command executes, searching the home directory for .docx files modified less than 7 days ago, and copies each found file into the Recent_Documents folder. The terminal returns to prompt when complete.",
+      "nl_explanation": "Type the find command to search recursively through the home directory for all .docx files modified in the last 7 days, and copy each one found to the Recently_Documents folder on the Desktop."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Generate audit report with file details",
+      "action_before_state": "The terminal shows the find command completed and returned to prompt. Files have been copied to the Recent_Documents folder.",
+      "action_preconditions": [
+        "Files exist in the Recent_Documents folder",
+        "Terminal is active and ready for commands",
+        "The user has write permissions to Desktop"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "ls -lh ~/Desktop/Recent_Documents/ > ~/Desktop/document_audit.txt"
+      },
+      "action_after_effects": "The ls command lists all files in the Recent_Documents directory with human-readable sizes and timestamps, redirecting the output to create a new file document_audit.txt on the Desktop. The terminal shows no output (as it was redirected) and returns to prompt.",
+      "nl_explanation": "Type the ls command with long format and human-readable options to list all files in the Recent_Documents directory, and redirect the output to create a text file named document_audit.txt on the Desktop containing the audit report."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Open file manager to verify copied files",
+      "action_before_state": "The terminal shows the command completed. The Desktop now contains both the Recent_Documents folder and the document_audit.txt file, but they are not currently visible on screen.",
+      "action_preconditions": [
+        "GNOME desktop environment is active",
+        "Files application is installed",
+        "No other application is currently blocking the desktop"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "super",
+          "e"
+        ]
+      },
+      "action_after_effects": "The GNOME Files application (Nautilus) window opens, displaying the Home directory with various folders including Desktop, Documents, Downloads, etc.",
+      "nl_explanation": "Press the Super+E keyboard shortcut to launch the GNOME Files file manager so I can visually verify the copied documents in the Recent_Documents folder."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Navigate to Recent_Documents folder",
+      "action_before_state": "The Files application is open showing the Home directory. The left sidebar shows Places including Desktop, and the main area shows folders like Desktop, Documents, Downloads, etc.",
+      "action_preconditions": [
+        "Files application is active and focused",
+        "The Desktop item is visible in the left sidebar or main content area",
+        "The Recent_Documents folder exists on Desktop"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 2,
+        "target": "Desktop folder in the main content area"
+      },
+      "action_after_effects": "The file manager navigates into the Desktop directory, showing the contents including the Recent_Documents folder and the document_audit.txt file.",
+      "nl_explanation": "Double-click the Desktop folder in the main content area to open it and view its contents, where I should see the newly created Recent_Documents folder and document_audit.txt file."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Open the Recent_Documents folder to view copied files",
+      "action_before_state": "The Files application is now displaying the Desktop directory contents. I can see the Recent_Documents folder and document_audit.txt file in the main area.",
+      "action_preconditions": [
+        "The Recent_Documents folder is visible in the file manager",
+        "The file manager is showing the Desktop directory",
+        "The folder contains the copied .docx files"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 2,
+        "target": "Recent_Documents folder icon"
+      },
+      "action_after_effects": "The file manager opens the Recent_Documents folder, displaying a list view or icon view of all the .docx files that were copied from the home directory, showing file names, sizes, and modification dates.",
+      "nl_explanation": "Double-click the Recent_Documents folder to open it and verify that all the recently modified .docx files have been successfully copied into it."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Scroll to view all files if list is long",
+      "action_before_state": "The Recent_Documents folder is open showing the copied .docx files. If there are many files, some may be below the visible area of the window.",
+      "action_preconditions": [
+        "The file manager is displaying the contents of Recent_Documents",
+        "There may be more files than fit in the current viewport",
+        "The file list area is focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "down"
+        ]
+      },
+      "action_after_effects": "The view scrolls down (or moves selection down), revealing any additional .docx files that were copied but were initially below the visible area of the window, allowing verification of all copied files.",
+      "nl_explanation": "Press the Down arrow key repeatedly to scroll through the file list and check if there are more copied files below the currently visible area, ensuring I can see all the documents that were found and copied."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Navigate back to Desktop to access the report",
+      "action_before_state": "I have verified the contents of the Recent_Documents folder by scrolling through the list of copied files. Now I need to go back to access the audit report text file.",
+      "action_preconditions": [
+        "The file manager is showing the Recent_Documents folder",
+        "The back button is visible in the top-left of the file manager window",
+        "The document_audit.txt file exists on Desktop"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": "Back button in the top-left corner of the Files window"
+      },
+      "action_after_effects": "The file manager navigates back to the parent directory (Desktop), once again showing the Recent_Documents folder and document_audit.txt file.",
+      "nl_explanation": "Click the back button in the top-left corner of the Files window to return to the Desktop directory so I can access the document_audit.txt file."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Open the audit report in text editor",
+      "action_before_state": "The file manager is back to showing the Desktop directory. Both the Recent_Documents folder and document_audit.txt file are visible in the main content area.",
+      "action_preconditions": [
+        "document_audit.txt is visible in the file manager",
+        "The file manager has focus",
+        "The default text editor (gedit) is installed"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 2,
+        "target": "document_audit.txt file icon"
+      },
+      "action_after_effects": "The default text editor application (gedit) opens in a new window, displaying the contents of document_audit.txt which shows a detailed list of all the copied .docx files with their permissions, sizes, modification dates, and filenames.",
+      "nl_explanation": "Double-click the document_audit.txt file to open it in the default GNOME text editor, allowing me to review the complete audit report showing all the recently modified documents that were found and archived."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Create a dedicated Desktop folder to hold the recently modified document copies.",
+      "unit_type": "CREATE_FOLDER",
+      "unit_before_state": "A terminal window is open at a shell prompt, and there is not yet a visible ~/Desktop/Recent_Documents folder created for this task.",
+      "unit_after_state": "The terminal returns to the prompt after running the mkdir command, and the ~/Desktop/Recent_Documents directory now exists even though the Desktop is not yet being viewed graphically.",
+      "unit_precondition": [
+        "The terminal window is focused and ready to accept a command.",
+        "The user has write permission to ~/Desktop.",
+        "The shell prompt is visible with no blocking process running."
+      ],
+      "unit_effect": [
+        "The command completes without an error message.",
+        "A new directory named Recent_Documents is created under ~/Desktop."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2
+      ],
+      "unit_intent": "Collect all recently modified .docx files from the home directory into the audit folder.",
+      "unit_type": "COPY_FILTERED_FILES",
+      "unit_before_state": "The terminal is back at the prompt after folder creation, and the Recent_Documents directory exists but may still be empty.",
+      "unit_after_state": "The terminal returns to the prompt after the find-and-copy command finishes, and matching .docx files from the home directory have been copied into ~/Desktop/Recent_Documents.",
+      "unit_precondition": [
+        "~/Desktop/Recent_Documents already exists.",
+        "The terminal is focused and idle at a prompt.",
+        "There are accessible .docx files under the home directory that can be searched and copied."
+      ],
+      "unit_effect": [
+        "The search-and-copy command finishes without interactive prompts.",
+        "Matching .docx files are now present in ~/Desktop/Recent_Documents."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        3
+      ],
+      "unit_intent": "Produce a text audit report summarizing the copied documents from the destination folder.",
+      "unit_type": "GENERATE_REPORT",
+      "unit_before_state": "The terminal prompt is visible again after copying files, and the Recent_Documents folder contains the copied documents.",
+      "unit_after_state": "The terminal prompt returns with no printed listing because output was redirected, and a new file named document_audit.txt has been created on the Desktop from the Recent_Documents listing.",
+      "unit_precondition": [
+        "The copied files are already present in ~/Desktop/Recent_Documents.",
+        "The terminal is active and ready for another command.",
+        "The user can create files under ~/Desktop."
+      ],
+      "unit_effect": [
+        "A file named ~/Desktop/document_audit.txt is created or overwritten.",
+        "The report contains a long-format directory listing for the files inside ~/Desktop/Recent_Documents."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Visually verify that the recent .docx files were copied into the Desktop archive folder.",
+      "unit_type": "VERIFY_COPIED_FILES",
+      "unit_before_state": "The terminal window is still the current working context, and the Desktop items exist but are not yet visible in a file manager window.",
+      "unit_after_state": "GNOME Files is open inside the Recent_Documents folder, showing the copied .docx files, and the view has been moved downward as needed to inspect additional items in the folder.",
+      "unit_precondition": [
+        "GNOME Files can be launched from the desktop session.",
+        "The Desktop folder is reachable from the Files home view.",
+        "~/Desktop/Recent_Documents exists and contains copied documents to inspect."
+      ],
+      "unit_effect": [
+        "A Files window opens from the Home directory.",
+        "Navigation proceeds into Desktop and then into Recent_Documents.",
+        "The copied .docx files are visible in the folder view, with additional items revealed by the downward navigation if needed."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        8,
+        9
+      ],
+      "unit_intent": "Return to the Desktop and open the generated audit report for review.",
+      "unit_type": "OPEN_AUDIT_REPORT",
+      "unit_before_state": "GNOME Files is currently displaying the Recent_Documents folder after the copied files have been checked.",
+      "unit_after_state": "The Files window navigates back to Desktop, and the document_audit.txt file is opened in the default text editor, where its contents are visible for review.",
+      "unit_precondition": [
+        "The Files window is focused on the Recent_Documents folder.",
+        "The Back button is available to return to Desktop.",
+        "document_audit.txt exists on the Desktop and is visible there once back on the parent directory."
+      ],
+      "unit_effect": [
+        "The Desktop view reappears in Files with Recent_Documents and document_audit.txt visible.",
+        "A text editor window opens showing the contents of document_audit.txt."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Create a dedicated Desktop folder to hold the recently modified document copies.",
+      "unit_type": "CREATE_FOLDER",
+      "unit_before_state": "A terminal window is open at a shell prompt, and there is not yet a visible ~/Desktop/Recent_Documents folder created for this task.",
+      "unit_after_state": "The terminal returns to the prompt after running the mkdir command, and the ~/Desktop/Recent_Documents directory now exists even though the Desktop is not yet being viewed graphically.",
+      "unit_precondition": [
+        "The terminal window is focused and ready to accept a command.",
+        "The user has write permission to ~/Desktop.",
+        "The shell prompt is visible with no blocking process running."
+      ],
+      "unit_effect": [
+        "The command completes without an error message.",
+        "A new directory named Recent_Documents is created under ~/Desktop."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a dedicated destination folder under a specified parent directory for storing target document copies.",
+      "parameters": {
+        "parent_directory": "~/Desktop",
+        "folder_name": "Recent_Documents",
+        "stored_items_description": "recently modified .docx files"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'mkdir -p ~/Desktop/Recent_Documents'}",
+          "action_template": "With the terminal already open and focused, type the mkdir command `mkdir -p {{parent_directory}}/{{folder_name}}` to create a new directory named {{folder_name}} under {{parent_directory}} where the {{stored_items_description}} will be stored. After execution, the folder is created without errors and the terminal returns to the prompt."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2
+      ],
+      "unit_intent": "Collect all recently modified .docx files from the home directory into the audit folder.",
+      "unit_type": "COPY_FILTERED_FILES",
+      "unit_before_state": "The terminal is back at the prompt after folder creation, and the Recent_Documents directory exists but may still be empty.",
+      "unit_after_state": "The terminal returns to the prompt after the find-and-copy command finishes, and matching .docx files from the home directory have been copied into ~/Desktop/Recent_Documents.",
+      "unit_precondition": [
+        "~/Desktop/Recent_Documents already exists.",
+        "The terminal is focused and idle at a prompt.",
+        "There are accessible .docx files under the home directory that can be searched and copied."
+      ],
+      "unit_effect": [
+        "The search-and-copy command finishes without interactive prompts.",
+        "Matching .docx files are now present in ~/Desktop/Recent_Documents."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Copy files matching a specified pattern and recent modification window from a search directory into a destination folder.",
+      "parameters": {
+        "search_root": "~",
+        "file_pattern": "*.docx",
+        "modified_within_days": "7",
+        "destination_folder": "~/Desktop/Recent_Documents"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'find ~ -name \"*.docx\" -mtime -7 -type f -exec cp {} ~/Desktop/Recent_Documents/ \\\\;'}",
+          "action_template": "Type a find command to search recursively through {{search_root}} for files matching {{file_pattern}} modified within the last {{modified_within_days}} days, and copy each matching file into {{destination_folder}}. This requires that {{destination_folder}} already exists, the terminal is ready for the next command, and matching files are available under {{search_root}}. After execution, the terminal returns to the prompt with the matching files copied into {{destination_folder}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        3
+      ],
+      "unit_intent": "Produce a text audit report summarizing the copied documents from the destination folder.",
+      "unit_type": "GENERATE_REPORT",
+      "unit_before_state": "The terminal prompt is visible again after copying files, and the Recent_Documents folder contains the copied documents.",
+      "unit_after_state": "The terminal prompt returns with no printed listing because output was redirected, and a new file named document_audit.txt has been created on the Desktop from the Recent_Documents listing.",
+      "unit_precondition": [
+        "The copied files are already present in ~/Desktop/Recent_Documents.",
+        "The terminal is active and ready for another command.",
+        "The user can create files under ~/Desktop."
+      ],
+      "unit_effect": [
+        "A file named ~/Desktop/document_audit.txt is created or overwritten.",
+        "The report contains a long-format directory listing for the files inside ~/Desktop/Recent_Documents."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Generate a text audit report by saving a detailed directory listing from {{source_folder}} into {{report_file}}.",
+      "parameters": {
+        "source_folder": "~/Desktop/Recent_Documents/",
+        "report_file": "~/Desktop/document_audit.txt"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'ls -lh ~/Desktop/Recent_Documents/ > ~/Desktop/document_audit.txt'}",
+          "action_template": "Type the `ls -lh {{source_folder}} > {{report_file}}` command to list all files in {{source_folder}} in long format with human-readable sizes and timestamps, and redirect the output to create the audit report at {{report_file}}. Preconditions: files exist in {{source_folder}}, the terminal is active and ready for commands, and the user has write permission to the output location. After execution, the directory listing is saved to {{report_file}}, no output is printed in the terminal, and the prompt returns."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Visually verify that the recent .docx files were copied into the Desktop archive folder.",
+      "unit_type": "VERIFY_COPIED_FILES",
+      "unit_before_state": "The terminal window is still the current working context, and the Desktop items exist but are not yet visible in a file manager window.",
+      "unit_after_state": "GNOME Files is open inside the Recent_Documents folder, showing the copied .docx files, and the view has been moved downward as needed to inspect additional items in the folder.",
+      "unit_precondition": [
+        "GNOME Files can be launched from the desktop session.",
+        "The Desktop folder is reachable from the Files home view.",
+        "~/Desktop/Recent_Documents exists and contains copied documents to inspect."
+      ],
+      "unit_effect": [
+        "A Files window opens from the Home directory.",
+        "Navigation proceeds into Desktop and then into Recent_Documents.",
+        "The copied .docx files are visible in the folder view, with additional items revealed by the downward navigation if needed."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Visually verify that copied files of a specified type are present in a specified folder by opening the file manager, navigating to the folder, and revealing additional items if needed.",
+      "parameters": {
+        "parent_folder": "Desktop",
+        "target_folder": "Recent_Documents",
+        "file_type": ".docx"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['super', 'e']}",
+          "action_template": "Press Super+E when the GNOME desktop environment is active and the Files application is available to open the file manager and begin verifying copied {{file_type}} files in {{parent_folder}}/{{target_folder}}."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 2, 'target': 'Desktop folder in the main content area'}",
+          "action_template": "Double-click the {{parent_folder}} folder in the main content area when Files is focused and the folder is visible to open it and display its contents, including {{target_folder}}."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 2, 'target': 'Recent_Documents folder icon'}",
+          "action_template": "Double-click the {{target_folder}} folder icon when it is visible in the file manager to open it and display the copied {{file_type}} files for visual verification."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['down']}",
+          "action_template": "Press Down when the file list area is focused and additional items may be below the current viewport to reveal more copied {{file_type}} files for verification."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        8,
+        9
+      ],
+      "unit_intent": "Return to the Desktop and open the generated audit report for review.",
+      "unit_type": "OPEN_AUDIT_REPORT",
+      "unit_before_state": "GNOME Files is currently displaying the Recent_Documents folder after the copied files have been checked.",
+      "unit_after_state": "The Files window navigates back to Desktop, and the document_audit.txt file is opened in the default text editor, where its contents are visible for review.",
+      "unit_precondition": [
+        "The Files window is focused on the Recent_Documents folder.",
+        "The Back button is available to return to Desktop.",
+        "document_audit.txt exists on the Desktop and is visible there once back on the parent directory."
+      ],
+      "unit_effect": [
+        "The Desktop view reappears in Files with Recent_Documents and document_audit.txt visible.",
+        "A text editor window opens showing the contents of document_audit.txt."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Return to {{report_location}} and open {{report_file_name}} for review.",
+      "parameters": {
+        "report_location": "Desktop",
+        "report_file_name": "document_audit.txt"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': 'Back button in the top-left corner of the Files window'}",
+          "action_template": "Click the Back button in the top-left corner of the Files window when the file manager is showing the current folder and {{report_file_name}} exists in {{report_location}}, so the file manager returns to {{report_location}} with {{report_file_name}} visible and ready to open."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 2, 'target': 'document_audit.txt file icon'}",
+          "action_template": "Double-click {{report_file_name}} when it is visible in the file manager and the file manager has focus to open it in the default text editor, where the report contents become visible for review."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

@@ -1,0 +1,742 @@
+{
+  "segment_id": "seg_001",
+  "app": "gimp",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Reset the foreground and background colors to GIMP's defaults",
+      "action_before_state": "The GIMP main window is open and visible, and no modal dialog is blocking the canvas.",
+      "action_preconditions": [
+        "GIMP is the active window",
+        "The keyboard focus is not inside a text entry box"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "d"
+        ]
+      },
+      "action_after_effects": "The foreground color becomes black and the background color becomes white, giving a predictable color setup for the next steps.",
+      "nl_explanation": "When the main GIMP window is active, press D to reset the paint colors. This ensures the footer fill will use black and the canvas background will use white."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Open the New Image dialog",
+      "action_before_state": "GIMP is idle on its main workspace with the toolbox and menu bar visible.",
+      "action_preconditions": [
+        "No other dialog is open",
+        "The main workspace is ready for keyboard shortcuts"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "n"
+        ]
+      },
+      "action_after_effects": "The New Image dialog opens and the dimension fields are available for editing.",
+      "nl_explanation": "With the main workspace ready, press Ctrl+N to create a new image. GIMP opens the New Image dialog so the canvas size can be entered."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Set the new canvas dimensions to a square format",
+      "action_before_state": "The New Image dialog is open and the Width field is focused or ready to receive input.",
+      "action_preconditions": [
+        "The New Image dialog is visible",
+        "The width and height fields are editable"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "1080\t1080"
+      },
+      "action_after_effects": "The width and height fields are both set to 1080 pixels.",
+      "nl_explanation": "When the New Image dialog is open, type 1080 in the Width field, press Tab once to move to the Height field, and type 1080 so both dimensions are 1080 pixels."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Create the blank canvas",
+      "action_before_state": "The New Image dialog shows 1080 by 1080 as the image size.",
+      "action_preconditions": [
+        "The size values are correct",
+        "The dialog is ready to be confirmed"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "A new square canvas appears in the main editing area.",
+      "nl_explanation": "After confirming the size fields are correct, press Enter to create the new square image and return to the main canvas."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Choose the Rectangle Select tool for the footer area",
+      "action_before_state": "A blank square canvas is visible in GIMP.",
+      "action_preconditions": [
+        "The canvas is visible",
+        "The toolbox is visible on screen"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Rectangle Select tool icon in the toolbox"
+        }
+      },
+      "action_after_effects": "Rectangle selection becomes the active tool.",
+      "nl_explanation": "On the blank canvas view, click the Rectangle Select tool in the toolbox so the next drag creates the footer area selection."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Select the bottom band where the footer will go",
+      "action_before_state": "The Rectangle Select tool is active and the full square canvas is visible.",
+      "action_preconditions": [
+        "The Rectangle Select tool is active",
+        "The lower portion of the canvas is unobstructed"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the left edge of the canvas about three quarters of the way down"
+        },
+        "end": {
+          "text": "the right edge of the canvas near the bottom edge"
+        },
+        "target": {
+          "begin": {
+            "text": "the left edge of the footer area on the canvas"
+          },
+          "end": {
+            "text": "the bottom-right corner of the footer area on the canvas"
+          }
+        }
+      },
+      "action_after_effects": "A horizontal rectangular selection appears across the bottom part of the canvas.",
+      "nl_explanation": "With the selection tool active, drag across the lower portion of the square canvas to mark out a footer strip that spans the full width."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Switch to the Bucket Fill tool",
+      "action_before_state": "The bottom footer area is selected with marching ants visible.",
+      "action_preconditions": [
+        "A rectangular selection is active",
+        "The toolbox remains visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Bucket Fill tool icon in the toolbox"
+        }
+      },
+      "action_after_effects": "Bucket Fill becomes the active tool while keeping the footer selection in place.",
+      "nl_explanation": "After the footer strip is selected, click the Bucket Fill tool so the selected area can be filled with the current foreground color."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Fill the footer strip with black",
+      "action_before_state": "The Bucket Fill tool is active, the footer strip is selected, and the foreground color is black.",
+      "action_preconditions": [
+        "The footer selection is still visible",
+        "The Bucket Fill tool is active",
+        "The foreground color is black"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "inside the selected bottom strip on the canvas"
+        }
+      },
+      "action_after_effects": "The selected bottom strip turns black, forming the footer bar.",
+      "nl_explanation": "With the footer strip selected and the fill tool active, click inside that strip to fill it with black and create the dark footer area."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Remove the active selection so the canvas is easier to work with",
+      "action_before_state": "The black footer bar is visible and the marching ants selection is still around it.",
+      "action_preconditions": [
+        "A selection is active",
+        "The main canvas is focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "a"
+        ]
+      },
+      "action_after_effects": "The selection outline disappears, leaving the black footer bar in place.",
+      "nl_explanation": "Once the footer has been filled, press Ctrl+Shift+A to clear the selection so it does not interfere with text placement."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Activate the Text tool for the main headline",
+      "action_before_state": "The canvas shows a white upper area and a black footer bar at the bottom.",
+      "action_preconditions": [
+        "No modal dialog is open",
+        "The toolbox is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Text tool icon in the toolbox"
+        }
+      },
+      "action_after_effects": "The Text tool becomes active and the cursor is ready to create a text box.",
+      "nl_explanation": "With the footer complete, click the Text tool so you can place the large headline in the white area of the design."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Create a text box for the headline in the top portion of the image",
+      "action_before_state": "The Text tool is active and the upper white area of the canvas is empty.",
+      "action_preconditions": [
+        "The Text tool is selected",
+        "There is clear space in the upper portion of the canvas"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the upper-left area of the white part of the canvas"
+        },
+        "end": {
+          "text": "the upper-right area of the white part of the canvas"
+        },
+        "target": {
+          "begin": {
+            "text": "the upper-left area where the headline text box should start"
+          },
+          "end": {
+            "text": "the upper-right area where the headline text box should end"
+          }
+        }
+      },
+      "action_after_effects": "A text box appears in the upper area and a text cursor is placed inside it.",
+      "nl_explanation": "With the Text tool active, drag out a wide text box across the upper white area so there is room for the main promotional headline."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Enter the main promotion headline",
+      "action_before_state": "A text box is active in the upper part of the canvas with a blinking text cursor inside it.",
+      "action_preconditions": [
+        "The headline text box is active",
+        "Text input is ready"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "WEEKEND\nCOFFEE SALE"
+      },
+      "action_after_effects": "The headline appears in black text across two lines in the upper section of the design.",
+      "nl_explanation": "When the upper text box is active, enter the headline on two lines with WEEKEND on the first line and COFFEE SALE on the second so the main message appears prominently in the white part of the poster."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Swap to white as the active text color for the footer message",
+      "action_before_state": "The headline is visible in black, and the foreground color is still black while the background color is white.",
+      "action_preconditions": [
+        "The main GIMP window is active",
+        "No input field outside the canvas is consuming key presses"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "x"
+        ]
+      },
+      "action_after_effects": "The foreground color becomes white, which is suitable for text on the black footer.",
+      "nl_explanation": "After placing the black headline, press X to swap foreground and background colors so the next text will be white and readable on the dark footer."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Create a text box inside the footer bar",
+      "action_before_state": "The black footer bar is visible and white is now the active foreground color.",
+      "action_preconditions": [
+        "The Text tool is still active",
+        "There is room inside the black footer bar"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the left side of the black footer bar"
+        },
+        "end": {
+          "text": "the right side of the black footer bar"
+        },
+        "target": {
+          "begin": {
+            "text": "the left side of the footer bar where the offer text should start"
+          },
+          "end": {
+            "text": "the right side of the footer bar where the offer text should end"
+          }
+        }
+      },
+      "action_after_effects": "A new text box appears inside the footer and the text cursor is ready there.",
+      "nl_explanation": "With white set as the active text color, drag a text box across the black footer so the offer line can be placed inside it."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Add the offer text to the footer",
+      "action_before_state": "A footer text box is active inside the black bar with the text cursor ready.",
+      "action_preconditions": [
+        "The footer text box is active",
+        "The foreground color is white"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Buy 1 Get 1"
+      },
+      "action_after_effects": "The offer message appears in white text inside the black footer bar.",
+      "nl_explanation": "Once the footer text box is active, type the short offer message so it stands out clearly in white against the black bar."
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Open the export dialog",
+      "action_before_state": "The square promo graphic is complete on the canvas.",
+      "action_preconditions": [
+        "The design content is visible on the canvas",
+        "The main GIMP window is active"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "shift",
+          "ctrl",
+          "e"
+        ]
+      },
+      "action_after_effects": "The Export Image dialog opens so the file can be named and saved.",
+      "nl_explanation": "After the graphic looks complete, press Ctrl+Shift+E to open GIMP's export dialog and prepare the finished design for saving."
+    },
+    {
+      "step_id": "s17",
+      "step_goal": "Name the exported file",
+      "action_before_state": "The Export Image dialog is open and the filename field is ready for input.",
+      "action_preconditions": [
+        "The Export Image dialog is visible",
+        "The filename field is editable"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "coffee_sale_square.png"
+      },
+      "action_after_effects": "The export filename is set to coffee_sale_square.png.",
+      "nl_explanation": "When the export dialog is open, type coffee_sale_square.png into the filename field so the output file has the requested name."
+    },
+    {
+      "step_id": "s18",
+      "step_goal": "Confirm the export location and move to PNG export settings",
+      "action_before_state": "The Export Image dialog shows the desired filename.",
+      "action_preconditions": [
+        "The export filename is correct",
+        "The dialog is ready to be confirmed"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The file export proceeds to the PNG options dialog or the final export confirmation stage.",
+      "nl_explanation": "After entering the filename, press Enter to confirm the export action and advance to GIMP's PNG export options."
+    },
+    {
+      "step_id": "s19",
+      "step_goal": "Finish exporting the PNG with default settings",
+      "action_before_state": "The PNG export options dialog is visible with the default settings already selected.",
+      "action_preconditions": [
+        "The PNG export settings dialog is open",
+        "The default export options are acceptable"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "GIMP exports the image as coffee_sale_square.png and returns focus to the main workspace.",
+      "nl_explanation": "When the PNG export settings dialog appears, press Enter to accept the defaults and complete the export of the finished coffee shop promo graphic."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Create a new white 1080 by 1080 working canvas with a predictable black-and-white color setup.",
+      "unit_type": "CREATE_NEW_SQUARE_CANVAS",
+      "unit_before_state": "GIMP is open on its main workspace with the toolbox and menus visible, and no modal dialog is blocking the interface.",
+      "unit_after_state": "A new 1080 by 1080 square image is open in the main editing area with a white canvas visible, and GIMP's colors are reset to black foreground and white background.",
+      "unit_precondition": [
+        "GIMP is the active window.",
+        "No other modal dialog is open.",
+        "Keyboard shortcuts can be used from the main workspace."
+      ],
+      "unit_effect": [
+        "The New Image dialog opens and accepts 1080 for both Width and Height.",
+        "After confirmation, a blank square canvas appears in the editor.",
+        "The color swatches show black as foreground and white as background."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "unit_intent": "Add a solid black footer band across the bottom of the square graphic and leave the canvas in a clean editing state.",
+      "unit_type": "CREATE_FOOTER_BAR",
+      "unit_before_state": "A blank white square canvas is visible in GIMP, with the toolbox available and no footer shape drawn yet.",
+      "unit_after_state": "A black horizontal bar spans the bottom portion of the image, and the selection outline has been cleared so the canvas is ready for text placement.",
+      "unit_precondition": [
+        "The new square canvas is open and fully visible.",
+        "The toolbox is visible so the Rectangle Select and Bucket Fill tools can be chosen.",
+        "The foreground color is black."
+      ],
+      "unit_effect": [
+        "A rectangular selection appears across the bottom of the canvas.",
+        "The selected strip is filled solid black.",
+        "The marching-ants selection outline disappears while the black footer remains visible."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        10,
+        11,
+        12
+      ],
+      "unit_intent": "Place the main promotional headline in the upper white area of the graphic.",
+      "unit_type": "ADD_HEADLINE_TEXT",
+      "unit_before_state": "The canvas shows a white upper area and a black footer bar at the bottom, with no headline text box yet in the upper portion.",
+      "unit_after_state": "A text box in the upper area contains the two-line black headline 'WEEKEND' and 'COFFEE SALE'.",
+      "unit_precondition": [
+        "The main canvas is visible and not blocked by any dialog.",
+        "There is empty space in the upper white area for a headline.",
+        "The Text tool can be selected from the toolbox."
+      ],
+      "unit_effect": [
+        "The Text tool becomes active.",
+        "A text box is created in the upper portion of the canvas.",
+        "The headline appears across two lines in black text."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        13,
+        14,
+        15
+      ],
+      "unit_intent": "Add a white promotional offer message inside the black footer bar.",
+      "unit_type": "ADD_FOOTER_TEXT",
+      "unit_before_state": "The headline is already visible in black in the upper area, the footer bar is black, and no offer text is yet placed inside the footer.",
+      "unit_after_state": "A text box inside the black footer contains the white offer text 'Buy 1 Get 1'.",
+      "unit_precondition": [
+        "The footer bar is already present on the canvas.",
+        "The Text tool remains available for creating another text box.",
+        "The foreground and background colors can be swapped so white becomes the active text color."
+      ],
+      "unit_effect": [
+        "The active foreground color changes from black to white.",
+        "A new text box is created inside the footer bar.",
+        "The offer message appears in white text against the black footer."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "unit_intent": "Export the finished coffee sale graphic as a PNG file with the requested filename.",
+      "unit_type": "EXPORT_IMAGE_AS_PNG",
+      "unit_before_state": "The completed square promo graphic is visible on the GIMP canvas with the headline in the upper area and the white offer text inside the black footer.",
+      "unit_after_state": "The export workflow is completed, the file is saved as coffee_sale_square.png, and focus returns to the main GIMP workspace.",
+      "unit_precondition": [
+        "The design is complete and visible on the canvas.",
+        "The main GIMP window is active so the export shortcut works.",
+        "The Export Image dialog and PNG options can be accepted with the desired filename."
+      ],
+      "unit_effect": [
+        "The Export Image dialog opens.",
+        "The filename field is set to coffee_sale_square.png.",
+        "The export advances through the PNG confirmation step.",
+        "GIMP finishes exporting the image and returns to the editor."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Create a new white 1080 by 1080 working canvas with a predictable black-and-white color setup.",
+      "unit_type": "CREATE_NEW_SQUARE_CANVAS",
+      "unit_before_state": "GIMP is open on its main workspace with the toolbox and menus visible, and no modal dialog is blocking the interface.",
+      "unit_after_state": "A new 1080 by 1080 square image is open in the main editing area with a white canvas visible, and GIMP's colors are reset to black foreground and white background.",
+      "unit_precondition": [
+        "GIMP is the active window.",
+        "No other modal dialog is open.",
+        "Keyboard shortcuts can be used from the main workspace."
+      ],
+      "unit_effect": [
+        "The New Image dialog opens and accepts 1080 for both Width and Height.",
+        "After confirmation, a blank square canvas appears in the editor.",
+        "The color swatches show black as foreground and white as background."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a new white square working canvas of the specified size with GIMP's default black-and-white color setup.",
+      "parameters": {
+        "square_size_px": "1080"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['d']}",
+          "action_template": "When GIMP is the active window and the keyboard focus is not inside a text entry box, press D to reset the paint colors so the foreground becomes black and the background becomes white, giving a predictable color setup for the next steps."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'n']}",
+          "action_template": "When no other dialog is open and the main workspace is ready for keyboard shortcuts, press Ctrl+N to open the New Image dialog so the canvas dimensions can be entered."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '1080\\t1080'}",
+          "action_template": "When the New Image dialog is visible and the width and height fields are editable, type {{square_size_px}} in the Width field, press Tab once to move to the Height field, and type {{square_size_px}} so both dimensions are set to the specified square size."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "When the size values are correct and the dialog is ready to be confirmed, press Enter to create the new square image and return to the main canvas."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "unit_intent": "Add a solid black footer band across the bottom of the square graphic and leave the canvas in a clean editing state.",
+      "unit_type": "CREATE_FOOTER_BAR",
+      "unit_before_state": "A blank white square canvas is visible in GIMP, with the toolbox available and no footer shape drawn yet.",
+      "unit_after_state": "A black horizontal bar spans the bottom portion of the image, and the selection outline has been cleared so the canvas is ready for text placement.",
+      "unit_precondition": [
+        "The new square canvas is open and fully visible.",
+        "The toolbox is visible so the Rectangle Select and Bucket Fill tools can be chosen.",
+        "The foreground color is black."
+      ],
+      "unit_effect": [
+        "A rectangular selection appears across the bottom of the canvas.",
+        "The selected strip is filled solid black.",
+        "The marching-ants selection outline disappears while the black footer remains visible."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a solid {{fill_color}} footer band across the bottom of the canvas and clear the selection afterward.",
+      "parameters": {
+        "fill_color": "black"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Rectangle Select tool icon in the toolbox'}}",
+          "action_template": "With the canvas visible and the toolbox visible on screen, click the Rectangle Select tool icon in the toolbox so the next drag creates the footer area selection and Rectangle selection becomes the active tool."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the left edge of the canvas about three quarters of the way down'}, 'end': {'text': 'the right edge of the canvas near the bottom edge'}, 'target': {'begin': {'text': 'the left edge of the footer area on the canvas'}, 'end': {'text': 'the bottom-right corner of the footer area on the canvas'}}}",
+          "action_template": "With the Rectangle Select tool active and the lower portion of the canvas unobstructed, drag across the lower portion of the square canvas to mark out a footer strip that spans the full width, causing a horizontal rectangular selection to appear across the bottom part of the canvas."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Bucket Fill tool icon in the toolbox'}}",
+          "action_template": "With a rectangular selection active and the toolbox still visible, click the Bucket Fill tool icon in the toolbox so the selected area can be filled with the current foreground color and Bucket Fill becomes the active tool while keeping the footer selection in place."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'inside the selected bottom strip on the canvas'}}",
+          "action_template": "With the footer selection still visible, the Bucket Fill tool active, and the foreground color set to {{fill_color}}, click inside the selected bottom strip on the canvas to fill it with {{fill_color}} and create the footer bar."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'a']}",
+          "action_template": "With a selection active and the main canvas focused, press Ctrl+Shift+A to clear the selection so it does not interfere with text placement, leaving the filled footer bar in place."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        10,
+        11,
+        12
+      ],
+      "unit_intent": "Place the main promotional headline in the upper white area of the graphic.",
+      "unit_type": "ADD_HEADLINE_TEXT",
+      "unit_before_state": "The canvas shows a white upper area and a black footer bar at the bottom, with no headline text box yet in the upper portion.",
+      "unit_after_state": "A text box in the upper area contains the two-line black headline 'WEEKEND' and 'COFFEE SALE'.",
+      "unit_precondition": [
+        "The main canvas is visible and not blocked by any dialog.",
+        "There is empty space in the upper white area for a headline.",
+        "The Text tool can be selected from the toolbox."
+      ],
+      "unit_effect": [
+        "The Text tool becomes active.",
+        "A text box is created in the upper portion of the canvas.",
+        "The headline appears across two lines in black text."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Insert a multi-line promotional headline into a text box spanning a specified canvas region.",
+      "parameters": {
+        "headline_region": "the upper white area of the graphic",
+        "text_box_start_area": "the upper-left area where the headline text box should start",
+        "text_box_end_area": "the upper-right area where the headline text box should end",
+        "headline_text": "WEEKEND\nCOFFEE SALE"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Text tool icon in the toolbox'}}",
+          "action_template": "Click the Text tool icon in the toolbox to prepare for placing the headline in {{headline_region}} when no modal dialog is open and the toolbox is visible, so the text cursor is ready to create a text box."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the upper-left area of the white part of the canvas'}, 'end': {'text': 'the upper-right area of the white part of the canvas'}, 'target': {'begin': {'text': 'the upper-left area where the headline text box should start'}, 'end': {'text': 'the upper-right area where the headline text box should end'}}}",
+          "action_template": "Drag from {{text_box_start_area}} to {{text_box_end_area}} to create a wide text box across {{headline_region}} after the Text tool is selected and there is clear space there, so a text box appears with the cursor inside it."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'WEEKEND\\nCOFFEE SALE'}",
+          "action_template": "Type {{headline_text}} into the active headline text box when text input is ready, so the headline appears in black text across two lines in {{headline_region}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        13,
+        14,
+        15
+      ],
+      "unit_intent": "Add a white promotional offer message inside the black footer bar.",
+      "unit_type": "ADD_FOOTER_TEXT",
+      "unit_before_state": "The headline is already visible in black in the upper area, the footer bar is black, and no offer text is yet placed inside the footer.",
+      "unit_after_state": "A text box inside the black footer contains the white offer text 'Buy 1 Get 1'.",
+      "unit_precondition": [
+        "The footer bar is already present on the canvas.",
+        "The Text tool remains available for creating another text box.",
+        "The foreground and background colors can be swapped so white becomes the active text color."
+      ],
+      "unit_effect": [
+        "The active foreground color changes from black to white.",
+        "A new text box is created inside the footer bar.",
+        "The offer message appears in white text against the black footer."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Add a specified promotional message inside the footer bar using a contrasting text color.",
+      "parameters": {
+        "target_region": "the black footer bar",
+        "text_color": "white",
+        "message_text": "Buy 1 Get 1"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['x']}",
+          "action_template": "With the main GIMP window active and no input field outside the canvas consuming key presses, press X to swap foreground and background colors so {{text_color}} becomes the active text color for text placed in {{target_region}}."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the left side of the black footer bar'}, 'end': {'text': 'the right side of the black footer bar'}, 'target': {'begin': {'text': 'the left side of the footer bar where the offer text should start'}, 'end': {'text': 'the right side of the footer bar where the offer text should end'}}}",
+          "action_template": "With the Text tool still active and room available inside {{target_region}}, drag across {{target_region}} to create a new text box there; after the drag, the text cursor is ready for entering the message."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Buy 1 Get 1'}",
+          "action_template": "With the text box in {{target_region}} active and {{text_color}} set as the foreground color, type {{message_text}} so the message appears in {{text_color}} inside {{target_region}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "unit_intent": "Export the finished coffee sale graphic as a PNG file with the requested filename.",
+      "unit_type": "EXPORT_IMAGE_AS_PNG",
+      "unit_before_state": "The completed square promo graphic is visible on the GIMP canvas with the headline in the upper area and the white offer text inside the black footer.",
+      "unit_after_state": "The export workflow is completed, the file is saved as coffee_sale_square.png, and focus returns to the main GIMP workspace.",
+      "unit_precondition": [
+        "The design is complete and visible on the canvas.",
+        "The main GIMP window is active so the export shortcut works.",
+        "The Export Image dialog and PNG options can be accepted with the desired filename."
+      ],
+      "unit_effect": [
+        "The Export Image dialog opens.",
+        "The filename field is set to coffee_sale_square.png.",
+        "The export advances through the PNG confirmation step.",
+        "GIMP finishes exporting the image and returns to the editor."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Export the completed design as a PNG file using a specified filename.",
+      "parameters": {
+        "output_filename": "coffee_sale_square.png"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['shift', 'ctrl', 'e']}",
+          "action_template": "Press Ctrl+Shift+E to open GIMP's export dialog and prepare the completed design for saving as a PNG file."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'coffee_sale_square.png'}",
+          "action_template": "Type {{output_filename}} into the filename field in the Export Image dialog so the output file uses the specified name."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter to confirm {{output_filename}} in the Export Image dialog and advance to GIMP's PNG export options."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter in the PNG export settings dialog to accept the default options and complete the export of {{output_filename}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

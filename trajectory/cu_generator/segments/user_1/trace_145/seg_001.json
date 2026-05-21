@@ -1,0 +1,784 @@
+{
+  "segment_id": "seg_001",
+  "app": "gimp",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the image selection dialog",
+      "action_before_state": "GIMP is already open on an empty workspace or a neutral start screen, and the main window is active.",
+      "action_preconditions": [
+        "The GIMP window is focused",
+        "No modal dialog is blocking keyboard input"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "o"
+        ]
+      },
+      "action_after_effects": "An Open Image dialog appears in front of the main GIMP window.",
+      "nl_explanation": "When GIMP is focused and no other dialog is in the way, press Ctrl+O to open the image picker. The expected result is that the Open Image dialog becomes visible."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Switch the file chooser to the Desktop folder",
+      "action_before_state": "The Open Image dialog is visible with the usual GNOME file chooser sidebar on the left.",
+      "action_preconditions": [
+        "The Open Image dialog is active",
+        "The left sidebar contains a Desktop shortcut"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Desktop entry in the left sidebar of the file chooser"
+        }
+      },
+      "action_after_effects": "The file list updates to show the contents of the Desktop folder.",
+      "nl_explanation": "With the Open Image dialog open and the Desktop shortcut visible, click the Desktop entry in the sidebar. This should change the file list so it shows files stored on the Desktop."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Open the source photo in GIMP",
+      "action_before_state": "The file chooser is showing Desktop files, including coffee_corner.jpg.",
+      "action_preconditions": [
+        "The Desktop folder contents are displayed",
+        "The file coffee_corner.jpg is visible in the file list"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 2,
+        "target": {
+          "text": "the coffee_corner.jpg file in the file list"
+        }
+      },
+      "action_after_effects": "The dialog closes and the photo opens on the GIMP canvas.",
+      "nl_explanation": "Once the Desktop folder is open and coffee_corner.jpg is visible, double-click that file. GIMP should load the image into the main editing area."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Activate the Crop tool",
+      "action_before_state": "The coffee photo is displayed on the canvas inside the main GIMP window.",
+      "action_preconditions": [
+        "The image has finished loading",
+        "The main canvas is visible and ready for editing"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "shift",
+          "c"
+        ]
+      },
+      "action_after_effects": "The Crop tool becomes active, ready for a crop region to be drawn on the image.",
+      "nl_explanation": "After the photo is visible on the canvas, press Shift+C to switch to the Crop tool. The expected result is that GIMP is ready for you to draw a crop box."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Draw a square crop around the main drink area",
+      "action_before_state": "The Crop tool is active and the image is fully visible on the canvas.",
+      "action_preconditions": [
+        "The Crop tool is selected",
+        "The drink and main subject area are visible in the image"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "slightly above and to the left of the main cup on the canvas"
+        },
+        "end": {
+          "text": "down and to the right until a square crop covers the cup and nearby table details"
+        },
+        "target": {
+          "begin": {
+            "text": "an area slightly above and left of the coffee cup"
+          },
+          "end": {
+            "text": "an area below and right of the cup, sized so the crop is square"
+          }
+        }
+      },
+      "action_after_effects": "A square crop rectangle appears, and the outside area is dimmed to preview what will be removed.",
+      "nl_explanation": "With the Crop tool active and the subject clearly visible, drag from the upper-left side of the drink area to the lower-right side so the crop box is square. GIMP should show a crop preview with the selected square composition."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Apply the crop",
+      "action_before_state": "A square crop box is visible over the image and the composition looks correct.",
+      "action_preconditions": [
+        "A crop rectangle has already been drawn",
+        "The selected crop area frames the intended subject"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The image is cropped to the selected square region.",
+      "nl_explanation": "Once the square crop is placed correctly, press Enter to confirm it. The canvas should update so only the chosen square area remains."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Open the Image menu",
+      "action_before_state": "The cropped square image is visible in the main editing window.",
+      "action_preconditions": [
+        "The crop has been applied",
+        "The top menu bar is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Image menu in the top menu bar"
+        }
+      },
+      "action_after_effects": "The Image menu opens and its commands are displayed.",
+      "nl_explanation": "After cropping is complete and the top menu is available, click Image in the menu bar. A dropdown of image-related commands should appear."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Open the Scale Image dialog",
+      "action_before_state": "The Image menu dropdown is open.",
+      "action_preconditions": [
+        "The Image menu is expanded",
+        "The Scale Image command is visible in the menu"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Scale Image menu item"
+        }
+      },
+      "action_after_effects": "A Scale Image dialog opens with editable width and height fields.",
+      "nl_explanation": "When the Image menu is open and Scale Image is visible, click that option. GIMP should open a dialog for setting the new image dimensions."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Focus the width field in the Scale Image dialog",
+      "action_before_state": "The Scale Image dialog is open, showing the current width and height.",
+      "action_preconditions": [
+        "The Scale Image dialog is active",
+        "The width entry box is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Width value field in the Scale Image dialog"
+        }
+      },
+      "action_after_effects": "The text cursor appears in the width field, making it ready for editing.",
+      "nl_explanation": "With the Scale Image dialog open, click inside the Width field so it becomes editable. The expected result is that the width value is ready to be replaced."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Select the current width value",
+      "action_before_state": "The cursor is active inside the width field.",
+      "action_preconditions": [
+        "The width input field is focused",
+        "The existing number is visible in that field"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "a"
+        ]
+      },
+      "action_after_effects": "The current width number is highlighted for replacement.",
+      "nl_explanation": "After placing the cursor in the Width field, press Ctrl+A to select the existing value. This prepares the field so the new size can replace the old number directly."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Enter the new square size",
+      "action_before_state": "The width value is selected in the Scale Image dialog.",
+      "action_preconditions": [
+        "The width field is focused",
+        "The current width value is highlighted"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "1080"
+      },
+      "action_after_effects": "The width changes to 1080, and the linked height updates accordingly to 1080 because the image is already square.",
+      "nl_explanation": "With the width value selected, type 1080 to set the image size. Since the image is already square and the dimensions remain linked, the height should also update to 1080."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Apply the new image size",
+      "action_before_state": "The Scale Image dialog shows 1080 by 1080 as the target size.",
+      "action_preconditions": [
+        "The Scale Image dialog is still open",
+        "The width and height values are set correctly"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Scale button in the lower part of the Scale Image dialog"
+        }
+      },
+      "action_after_effects": "The dialog closes and the image is resampled to 1080 by 1080 pixels.",
+      "nl_explanation": "When the Scale Image dialog shows the correct 1080 by 1080 size, click the Scale button. GIMP should resize the image and return to the main canvas."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Open the Colors menu",
+      "action_before_state": "The resized square image is visible on the canvas.",
+      "action_preconditions": [
+        "The Scale Image dialog has closed",
+        "The menu bar is visible at the top of GIMP"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Colors menu in the top menu bar"
+        }
+      },
+      "action_after_effects": "The Colors menu dropdown opens.",
+      "nl_explanation": "After resizing is complete and the canvas is visible again, click the Colors menu in the top bar. This should reveal color-adjustment options."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Open the Brightness-Contrast adjustment dialog",
+      "action_before_state": "The Colors menu is expanded with adjustment options listed.",
+      "action_preconditions": [
+        "The Colors menu is open",
+        "The Brightness-Contrast option is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Brightness-Contrast menu item"
+        }
+      },
+      "action_after_effects": "A Brightness-Contrast dialog opens with sliders and a live preview.",
+      "nl_explanation": "With the Colors menu open and Brightness-Contrast visible, click that menu item. GIMP should open a small dialog for tonal adjustment."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Increase brightness slightly",
+      "action_before_state": "The Brightness-Contrast dialog is open and the brightness slider is visible.",
+      "action_preconditions": [
+        "The Brightness-Contrast dialog is active",
+        "The brightness slider handle is visible and draggable"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the current handle position on the Brightness slider"
+        },
+        "end": {
+          "text": "a little to the right on the Brightness slider to make the image slightly brighter"
+        },
+        "target": {
+          "begin": {
+            "text": "the handle on the Brightness slider at its current position"
+          },
+          "end": {
+            "text": "a point slightly to the right on the Brightness slider"
+          }
+        }
+      },
+      "action_after_effects": "The preview image updates and looks a bit brighter without drastically changing the scene.",
+      "nl_explanation": "When the Brightness-Contrast dialog is open, drag the Brightness slider slightly to the right. The image preview should become a little brighter while keeping the photo natural."
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Confirm the brightness adjustment",
+      "action_before_state": "The brightness preview looks correct in the Brightness-Contrast dialog.",
+      "action_preconditions": [
+        "The Brightness-Contrast dialog remains open",
+        "The preview already reflects the desired slight brightening"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the OK button in the Brightness-Contrast dialog"
+        }
+      },
+      "action_after_effects": "The dialog closes and the brighter look is applied to the image.",
+      "nl_explanation": "After adjusting the slider and confirming that the preview looks right, click OK. The tonal change should be committed to the image on the canvas."
+    },
+    {
+      "step_id": "s17",
+      "step_goal": "Open the export dialog",
+      "action_before_state": "The edited image is visible and ready to be saved as a new file.",
+      "action_preconditions": [
+        "The image edits are complete",
+        "No other dialog is blocking input"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "shift",
+          "ctrl",
+          "e"
+        ]
+      },
+      "action_after_effects": "An Export Image dialog appears, typically in the last used folder, with a filename field ready to edit.",
+      "nl_explanation": "Once the image is finished, press Shift+Ctrl+E to open the export dialog. GIMP should show a window for naming and saving the output file."
+    },
+    {
+      "step_id": "s18",
+      "step_goal": "Navigate to the Desktop folder in the export dialog",
+      "action_before_state": "The Export Image dialog is open, showing the last used folder.",
+      "action_preconditions": [
+        "The Export Image dialog is visible",
+        "The file browser sidebar with location shortcuts is available"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Desktop entry in the left sidebar of the export dialog"
+        }
+      },
+      "action_after_effects": "The file list updates to show the Desktop folder contents.",
+      "nl_explanation": "Since the export dialog may not open directly to Desktop, click the Desktop shortcut in the sidebar to navigate to the Desktop folder."
+    },
+    {
+      "step_id": "s19",
+      "step_goal": "Enter the export filename",
+      "action_before_state": "The Export dialog is open in the Desktop folder.",
+      "action_preconditions": [
+        "The Desktop folder is displayed in the export dialog",
+        "The filename field is ready to receive text"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "morning_brew_post.png"
+      },
+      "action_after_effects": "The export name is set to morning_brew_post.png.",
+      "nl_explanation": "With the export dialog showing the Desktop folder and the filename field ready, type morning_brew_post.png. The file name in the dialog should update to the new export name."
+    },
+    {
+      "step_id": "s20",
+      "step_goal": "Proceed to the PNG export options",
+      "action_before_state": "The Export dialog shows the filename morning_brew_post.png in the Desktop folder.",
+      "action_preconditions": [
+        "The export dialog is still open",
+        "The filename has been set to morning_brew_post.png",
+        "The current folder is the Desktop"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Export button in the lower-right area of the Export Image dialog"
+        }
+      },
+      "action_after_effects": "The file chooser closes and a PNG export options dialog appears.",
+      "nl_explanation": "After confirming the export name and Desktop location, click the Export button in the file chooser. GIMP should then open the PNG export settings dialog."
+    },
+    {
+      "step_id": "s21",
+      "step_goal": "Confirm the PNG export settings",
+      "action_before_state": "The PNG export options dialog is visible with default settings selected.",
+      "action_preconditions": [
+        "The PNG export options dialog is open",
+        "The export format is PNG"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Export button in the PNG export options dialog"
+        }
+      },
+      "action_after_effects": "GIMP writes the edited file to the Desktop as morning_brew_post.png and returns focus to the main canvas.",
+      "nl_explanation": "With the PNG export settings dialog open, click Export to accept the default PNG options. The final PNG file should then be saved to the Desktop and the task is complete."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Open the source coffee photo from the Desktop so it can be edited in GIMP.",
+      "unit_type": "OPEN_IMAGE_FROM_DESKTOP",
+      "unit_before_state": "GIMP is open on an empty workspace or neutral start screen, with no image loaded and the main window active.",
+      "unit_after_state": "The Open Image dialog has been dismissed and coffee_corner.jpg is displayed on the GIMP canvas as the active image.",
+      "unit_precondition": [
+        "The GIMP main window is focused and not blocked by another modal dialog.",
+        "The file coffee_corner.jpg exists on the Desktop and can be reached from the file chooser sidebar."
+      ],
+      "unit_effect": [
+        "An Open Image file chooser appears after the shortcut is pressed.",
+        "The file chooser switches to the Desktop folder and shows coffee_corner.jpg.",
+        "After the file is activated, the dialog closes and the coffee photo appears on the canvas."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Create a square composition centered on the drink by cropping away the surrounding excess area.",
+      "unit_type": "CROP_TO_SQUARE",
+      "unit_before_state": "The original coffee photo is open on the GIMP canvas at its full size, with the drink visible and no crop box drawn yet.",
+      "unit_after_state": "The canvas shows only the selected square region around the drink, and the rest of the original image has been removed.",
+      "unit_precondition": [
+        "The image has finished loading and the main canvas is ready for editing.",
+        "The drink area is visible enough to place a square crop around it."
+      ],
+      "unit_effect": [
+        "The Crop tool becomes active and allows a crop region to be drawn.",
+        "A square crop rectangle appears with the outside area dimmed as a preview.",
+        "Pressing Enter commits the crop and the canvas updates to the square image."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "unit_intent": "Resize the square image to the required social-post dimensions of 1080 by 1080 pixels.",
+      "unit_type": "SCALE_IMAGE_TO_TARGET_SIZE",
+      "unit_before_state": "A cropped square coffee image is visible on the GIMP canvas, and no scaling dialog is open.",
+      "unit_after_state": "The Scale Image dialog has closed and the active image has been resampled to 1080 by 1080 pixels on the canvas.",
+      "unit_precondition": [
+        "The crop has already been applied so the image is square before resizing.",
+        "The top menu bar is visible and the Scale Image command can be opened."
+      ],
+      "unit_effect": [
+        "The Image menu opens and then the Scale Image dialog appears with width and height fields.",
+        "The width field is focused, its current value is replaced with 1080, and the linked height updates to 1080.",
+        "Clicking Scale closes the dialog and the image size becomes 1080 by 1080 pixels."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        13,
+        14,
+        15,
+        16
+      ],
+      "unit_intent": "Brighten the edited square photo slightly while keeping the scene natural.",
+      "unit_type": "ADJUST_BRIGHTNESS",
+      "unit_before_state": "The 1080 by 1080 coffee image is visible on the GIMP canvas with its current tones unchanged and no color adjustment dialog open.",
+      "unit_after_state": "The Brightness-Contrast dialog is closed and the canvas shows the same image with a slightly brighter overall appearance.",
+      "unit_precondition": [
+        "The resize operation is complete and the main canvas is visible again.",
+        "The Colors menu and Brightness-Contrast command are available from the menu bar."
+      ],
+      "unit_effect": [
+        "The Colors menu opens and the Brightness-Contrast dialog appears with a live preview.",
+        "Dragging the Brightness slider slightly to the right makes the preview visibly brighter.",
+        "Clicking OK commits the brighter appearance to the canvas."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        17,
+        18,
+        19,
+        20,
+        21
+      ],
+      "unit_intent": "Export the finished image to the Desktop as a PNG file named morning_brew_post.png.",
+      "unit_type": "EXPORT_AS_NAMED_PNG",
+      "unit_before_state": "The edited square coffee image is visible on the GIMP canvas, and no export dialog is open.",
+      "unit_after_state": "All export dialogs are closed, focus returns to the main canvas, and the finished file morning_brew_post.png has been written to the Desktop.",
+      "unit_precondition": [
+        "The image edits are complete and no other modal dialog is blocking input.",
+        "The Desktop location is available in the export dialog sidebar and the desired output name is known."
+      ],
+      "unit_effect": [
+        "The Export Image file chooser opens, then switches to the Desktop folder.",
+        "The filename field is set to morning_brew_post.png and the first Export action advances to PNG options.",
+        "The final Export confirmation saves the PNG to the Desktop and returns GIMP to the canvas."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Open the source coffee photo from the Desktop so it can be edited in GIMP.",
+      "unit_type": "OPEN_IMAGE_FROM_DESKTOP",
+      "unit_before_state": "GIMP is open on an empty workspace or neutral start screen, with no image loaded and the main window active.",
+      "unit_after_state": "The Open Image dialog has been dismissed and coffee_corner.jpg is displayed on the GIMP canvas as the active image.",
+      "unit_precondition": [
+        "The GIMP main window is focused and not blocked by another modal dialog.",
+        "The file coffee_corner.jpg exists on the Desktop and can be reached from the file chooser sidebar."
+      ],
+      "unit_effect": [
+        "An Open Image file chooser appears after the shortcut is pressed.",
+        "The file chooser switches to the Desktop folder and shows coffee_corner.jpg.",
+        "After the file is activated, the dialog closes and the coffee photo appears on the canvas."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a specified image file from a specified folder into GIMP for editing.",
+      "parameters": {
+        "folder_name": "Desktop",
+        "file_name": "coffee_corner.jpg"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'o']}",
+          "action_template": "Press Ctrl+O in GIMP when the main window is focused and no modal dialog is blocking keyboard input to open the image picker. The expected result is that the Open Image dialog becomes visible."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Desktop entry in the left sidebar of the file chooser'}}",
+          "action_template": "Click the {{folder_name}} entry in the left sidebar of the file chooser when the Open Image dialog is active and the shortcut is visible. This switches the file list to show the contents of the {{folder_name}} folder."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 2, 'target': {'text': 'the coffee_corner.jpg file in the file list'}}",
+          "action_template": "Double-click {{file_name}} in the file list once the {{folder_name}} folder contents are displayed and {{file_name}} is visible. This closes the dialog and opens the image on the GIMP canvas."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Create a square composition centered on the drink by cropping away the surrounding excess area.",
+      "unit_type": "CROP_TO_SQUARE",
+      "unit_before_state": "The original coffee photo is open on the GIMP canvas at its full size, with the drink visible and no crop box drawn yet.",
+      "unit_after_state": "The canvas shows only the selected square region around the drink, and the rest of the original image has been removed.",
+      "unit_precondition": [
+        "The image has finished loading and the main canvas is ready for editing.",
+        "The drink area is visible enough to place a square crop around it."
+      ],
+      "unit_effect": [
+        "The Crop tool becomes active and allows a crop region to be drawn.",
+        "A square crop rectangle appears with the outside area dimmed as a preview.",
+        "Pressing Enter commits the crop and the canvas updates to the square image."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Crop an image to a square composition around the main subject.",
+      "parameters": {
+        "crop_start_area": "an area slightly above and left of the coffee cup",
+        "crop_end_area": "an area below and right of the cup, sized so the crop is square"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['shift', 'c']}",
+          "action_template": "After the photo is visible on the canvas, press Shift+C to switch to the Crop tool. This requires that the image has finished loading and the main canvas is visible and ready for editing, and the expected result is that the Crop tool becomes active and is ready for a crop region to be drawn on the image."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'slightly above and to the left of the main cup on the canvas'}, 'end': {'text': 'down and to the right until a square crop covers the cup and nearby table details'}, 'target': {'begin': {'text': 'an area slightly above and left of the coffee cup'}, 'end': {'text': 'an area below and right of the cup, sized so the crop is square'}}}",
+          "action_template": "With the Crop tool active and the subject clearly visible, drag from {{crop_start_area}} to {{crop_end_area}} so the crop box is square. This requires that the Crop tool is selected and the drink and main subject area are visible in the image, and the expected result is that a square crop rectangle appears and the outside area is dimmed to preview what will be removed."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Once the square crop is placed correctly, press Enter to confirm it. This requires that a crop rectangle has already been drawn and that the selected crop area frames the intended subject, and the expected result is that the image is cropped to the selected square region."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "unit_intent": "Resize the square image to the required social-post dimensions of 1080 by 1080 pixels.",
+      "unit_type": "SCALE_IMAGE_TO_TARGET_SIZE",
+      "unit_before_state": "A cropped square coffee image is visible on the GIMP canvas, and no scaling dialog is open.",
+      "unit_after_state": "The Scale Image dialog has closed and the active image has been resampled to 1080 by 1080 pixels on the canvas.",
+      "unit_precondition": [
+        "The crop has already been applied so the image is square before resizing.",
+        "The top menu bar is visible and the Scale Image command can be opened."
+      ],
+      "unit_effect": [
+        "The Image menu opens and then the Scale Image dialog appears with width and height fields.",
+        "The width field is focused, its current value is replaced with 1080, and the linked height updates to 1080.",
+        "Clicking Scale closes the dialog and the image size becomes 1080 by 1080 pixels."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Resize a square image to a specified pixel dimension using the Scale Image dialog.",
+      "parameters": {
+        "target_size_px": "1080"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Image menu in the top menu bar'}}",
+          "action_template": "When the crop has been applied and the top menu bar is visible, click the Image menu in the menu bar to open the image-related commands dropdown."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Scale Image menu item'}}",
+          "action_template": "When the Image menu is expanded and the Scale Image command is visible, click the Scale Image menu item to open a dialog with editable width and height fields."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Width value field in the Scale Image dialog'}}",
+          "action_template": "With the Scale Image dialog active and the width entry box visible, click the Width value field so the text cursor appears and the field becomes ready for editing."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'a']}",
+          "action_template": "After the width input field is focused and the existing number is visible, press Ctrl+A to highlight the current width value for replacement."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '1080'}",
+          "action_template": "With the width field focused and the current width value highlighted, type {{target_size_px}} to set the new square size; the linked height updates accordingly to {{target_size_px}}."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Scale button in the lower part of the Scale Image dialog'}}",
+          "action_template": "When the Scale Image dialog is still open and the width and height values are set correctly, click the Scale button to close the dialog and resample the image to {{target_size_px}} by {{target_size_px}} pixels."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        13,
+        14,
+        15,
+        16
+      ],
+      "unit_intent": "Brighten the edited square photo slightly while keeping the scene natural.",
+      "unit_type": "ADJUST_BRIGHTNESS",
+      "unit_before_state": "The 1080 by 1080 coffee image is visible on the GIMP canvas with its current tones unchanged and no color adjustment dialog open.",
+      "unit_after_state": "The Brightness-Contrast dialog is closed and the canvas shows the same image with a slightly brighter overall appearance.",
+      "unit_precondition": [
+        "The resize operation is complete and the main canvas is visible again.",
+        "The Colors menu and Brightness-Contrast command are available from the menu bar."
+      ],
+      "unit_effect": [
+        "The Colors menu opens and the Brightness-Contrast dialog appears with a live preview.",
+        "Dragging the Brightness slider slightly to the right makes the preview visibly brighter.",
+        "Clicking OK commits the brighter appearance to the canvas."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Increase the current image brightness by a specified small amount using the Brightness-Contrast adjustment.",
+      "parameters": {
+        "brightness_adjustment": "slightly to the right on the Brightness slider",
+        "preview_result": "a bit brighter without drastically changing the scene",
+        "confirmation_button": "the OK button in the Brightness-Contrast dialog"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Colors menu in the top menu bar'}}",
+          "action_template": "After resizing is complete, the canvas is visible again, and the menu bar is available at the top of GIMP, click the Colors menu in the top bar to reveal color-adjustment options. The Colors menu dropdown opens."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Brightness-Contrast menu item'}}",
+          "action_template": "With the Colors menu open and the Brightness-Contrast option visible, click the Brightness-Contrast menu item to open a tonal adjustment dialog. A Brightness-Contrast dialog opens with sliders and a live preview."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the current handle position on the Brightness slider'}, 'end': {'text': 'a little to the right on the Brightness slider to make the image slightly brighter'}, 'target': {'begin': {'text': 'the handle on the Brightness slider at its current position'}, 'end': {'text': 'a point slightly to the right on the Brightness slider'}}}",
+          "action_template": "When the Brightness-Contrast dialog is active and the brightness slider handle is visible and draggable, drag the Brightness slider {{brightness_adjustment}}. The preview image updates and looks {{preview_result}}."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the OK button in the Brightness-Contrast dialog'}}",
+          "action_template": "After the preview already reflects {{preview_result}} and the Brightness-Contrast dialog remains open, click {{confirmation_button}} to commit the tonal change. The dialog closes and the brighter look is applied to the image."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        17,
+        18,
+        19,
+        20,
+        21
+      ],
+      "unit_intent": "Export the finished image to the Desktop as a PNG file named morning_brew_post.png.",
+      "unit_type": "EXPORT_AS_NAMED_PNG",
+      "unit_before_state": "The edited square coffee image is visible on the GIMP canvas, and no export dialog is open.",
+      "unit_after_state": "All export dialogs are closed, focus returns to the main canvas, and the finished file morning_brew_post.png has been written to the Desktop.",
+      "unit_precondition": [
+        "The image edits are complete and no other modal dialog is blocking input.",
+        "The Desktop location is available in the export dialog sidebar and the desired output name is known."
+      ],
+      "unit_effect": [
+        "The Export Image file chooser opens, then switches to the Desktop folder.",
+        "The filename field is set to morning_brew_post.png and the first Export action advances to PNG options.",
+        "The final Export confirmation saves the PNG to the Desktop and returns GIMP to the canvas."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Export the finished image as a PNG file with a specified name to a specified destination folder.",
+      "parameters": {
+        "destination_folder": "Desktop",
+        "file_name": "morning_brew_post.png"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['shift', 'ctrl', 'e']}",
+          "action_template": "Press Shift+Ctrl+E when the image edits are complete and no other dialog is blocking input to open the Export Image dialog, which appears with a filename field ready to edit."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Desktop entry in the left sidebar of the export dialog'}}",
+          "action_template": "Click the {{destination_folder}} entry in the left sidebar of the Export Image dialog when the location shortcuts are available to switch the file browser to the {{destination_folder}} folder."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'morning_brew_post.png'}",
+          "action_template": "Type {{file_name}} into the filename field while the Export Image dialog is showing the {{destination_folder}} folder so the export name is set to {{file_name}}."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Export button in the lower-right area of the Export Image dialog'}}",
+          "action_template": "Click the Export button in the file chooser after confirming {{file_name}} in the {{destination_folder}} folder to proceed to the PNG export options dialog."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Export button in the PNG export options dialog'}}",
+          "action_template": "Click the Export button in the PNG export options dialog when PNG export settings are open to save {{file_name}} to {{destination_folder}} and return focus to the main canvas."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

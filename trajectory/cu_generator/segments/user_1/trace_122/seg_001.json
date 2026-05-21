@@ -1,0 +1,619 @@
+{
+  "segment_id": "seg_001",
+  "app": "gimp",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the image selection dialog",
+      "action_before_state": "GIMP is already open on the desktop, and the main editing window is focused.",
+      "action_preconditions": [
+        "The GIMP window is active.",
+        "No other modal dialog is covering the main window."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "o"
+        ]
+      },
+      "action_after_effects": "The Open Image dialog appears on top of GIMP.",
+      "nl_explanation": "When the GIMP window is focused and no other dialog is blocking it, press Ctrl+O to open the image chooser. The expected result is that the Open Image dialog becomes visible."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Navigate to the Pictures folder",
+      "action_before_state": "The Open Image dialog is visible, with the file list in the center and common folders in the left sidebar.",
+      "action_preconditions": [
+        "The Open Image dialog is open.",
+        "The left sidebar contains a Pictures shortcut."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Pictures folder in the file chooser sidebar"
+        }
+      },
+      "action_after_effects": "The file chooser switches to the Pictures directory and shows its contents.",
+      "nl_explanation": "Once the Open Image dialog is open and the Pictures shortcut is available in the sidebar, click Pictures. The file list should update to show files inside that folder."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Open the source photo",
+      "action_before_state": "The file chooser is showing files from the Pictures folder.",
+      "action_preconditions": [
+        "The Pictures folder contents are visible.",
+        "The file `farmers_market.jpg` is listed in the dialog."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 2,
+        "target": {
+          "text": "the file named `farmers_market.jpg` in the file list"
+        }
+      },
+      "action_after_effects": "The dialog closes and the selected image opens in the GIMP canvas.",
+      "nl_explanation": "When the Pictures folder is open and `farmers_market.jpg` is visible, double-click that file. GIMP should load the photo into the main canvas."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Activate the Crop tool",
+      "action_before_state": "The photo is visible on the GIMP canvas and the toolbox is available.",
+      "action_preconditions": [
+        "An image is open in GIMP.",
+        "The canvas is ready for editing."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "shift",
+          "c"
+        ]
+      },
+      "action_after_effects": "The Crop tool becomes active and the pointer is ready to define a crop area.",
+      "nl_explanation": "With the image open and the canvas ready, press Shift+C to switch to the Crop tool. The next expected state is a crop-ready cursor."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Draw a square crop around the fruit stand",
+      "action_before_state": "The Crop tool is active, and the full photo is visible in the canvas.",
+      "action_preconditions": [
+        "The Crop tool is selected.",
+        "The fruit stand area is visible in the image."
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "a point slightly above and to the left of the fruit stand"
+        },
+        "end": {
+          "text": "a point down and to the right so the crop frame becomes roughly square around the stand"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "A crop rectangle appears over the image, framing the fruit stand in a square composition.",
+      "nl_explanation": "After enabling the Crop tool and locating the fruit stand, drag from the upper-left side of the subject toward the lower-right until a square crop surrounds the stand. The result should be a visible crop box positioned around the intended area."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Apply the crop",
+      "action_before_state": "A crop rectangle is visible over the image and positioned around the subject.",
+      "action_preconditions": [
+        "The crop rectangle is already defined.",
+        "The crop area looks correct."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The image is cropped to the selected square region.",
+      "nl_explanation": "When the crop frame is already placed correctly, press Enter to confirm it. GIMP should trim the image to that selected square area."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Activate the Text tool",
+      "action_before_state": "The cropped square image is visible in the canvas.",
+      "action_preconditions": [
+        "The image has already been cropped.",
+        "The canvas is active for further editing."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "t"
+        ]
+      },
+      "action_after_effects": "The Text tool becomes active, ready to place a text box on the image.",
+      "nl_explanation": "Once the cropped image is visible and ready for editing, press T to switch to the Text tool. The expected result is that GIMP prepares to insert text onto the canvas."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Create a text box near the bottom of the image",
+      "action_before_state": "The Text tool is active and the cropped image is still visible.",
+      "action_preconditions": [
+        "The Text tool is selected.",
+        "There is open space near the bottom of the image for a caption."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the lower-center area of the image, slightly above the bottom edge"
+        }
+      },
+      "action_after_effects": "A text box appears at the clicked location and is ready for typing.",
+      "nl_explanation": "With the Text tool active and enough room near the bottom of the photo, click the lower-center part of the image. GIMP should place a text cursor and create a new text layer there."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Enter the caption text",
+      "action_before_state": "A text box is active on the image and the caret is visible inside it.",
+      "action_preconditions": [
+        "The text box is active.",
+        "Keyboard input will go into the text box."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Fresh Produce Today"
+      },
+      "action_after_effects": "The caption text appears inside the text box on the image.",
+      "nl_explanation": "When the text box is active and ready to accept input, type `Fresh Produce Today`. The caption should immediately appear on the image."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Switch to the Move tool",
+      "action_before_state": "The caption has been added, but its position may not yet be ideal.",
+      "action_preconditions": [
+        "A text layer exists on the canvas.",
+        "The user wants to reposition the caption."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "m"
+        ]
+      },
+      "action_after_effects": "The Move tool becomes active and can be used to reposition the text layer.",
+      "nl_explanation": "After the text has been created and needs repositioning, press M to activate the Move tool. The expected result is that the text layer can now be dragged to a better location."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Center the caption near the bottom",
+      "action_before_state": "The Move tool is active and the caption is visible on the image.",
+      "action_preconditions": [
+        "The Move tool is selected.",
+        "The text layer is visible and draggable."
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the caption text layer on the image"
+        },
+        "end": {
+          "text": "the lower-center area of the image, leaving a small margin above the bottom edge"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "The caption is repositioned to a centered location near the bottom of the square image.",
+      "nl_explanation": "With the Move tool active and the caption visible, drag the text layer until it sits centered near the bottom of the image. The expected result is a cleaner, poster-like layout."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Open the export dialog",
+      "action_before_state": "The edited square image with the caption is visible in GIMP.",
+      "action_preconditions": [
+        "The image edits are complete.",
+        "The GIMP canvas is still the active window."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "e"
+        ]
+      },
+      "action_after_effects": "The Export Image dialog opens.",
+      "nl_explanation": "When the image is finished and ready to save out, press Ctrl+Shift+E to open the export dialog. GIMP should show the Export Image window."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Set the export file name",
+      "action_before_state": "The Export Image dialog is open and the filename entry is editable.",
+      "action_preconditions": [
+        "The Export Image dialog is visible.",
+        "The filename field is active or ready to be edited."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "farmers_market_post.jpg"
+      },
+      "action_after_effects": "The export filename is set to `farmers_market_post.jpg`.",
+      "nl_explanation": "Once the Export Image dialog is open and the filename field is ready, type `farmers_market_post.jpg`. The dialog should now show the desired output file name."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Export the finished image",
+      "action_before_state": "The Export Image dialog is open with the correct filename entered.",
+      "action_preconditions": [
+        "The export filename has been entered.",
+        "The Export button is visible in the dialog."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Export button in the export dialog"
+        }
+      },
+      "action_after_effects": "GIMP exports the edited image as `farmers_market_post.jpg`, completing the task.",
+      "nl_explanation": "After the export dialog shows the correct filename and the Export button is available, click Export. The expected result is that GIMP saves the finished image as `farmers_market_post.jpg`."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Load the source market photo from the Pictures folder into GIMP so editing can begin.",
+      "unit_type": "OPEN_IMAGE_FROM_FOLDER",
+      "unit_before_state": "GIMP's main window is focused on the desktop with no modal dialog open, and no source image from this task is yet loaded on the canvas.",
+      "unit_after_state": "The Open Image dialog has closed, and farmers_market.jpg is displayed in the GIMP canvas as the active image ready for editing.",
+      "unit_precondition": [
+        "GIMP is the active application.",
+        "No modal dialog is blocking keyboard input.",
+        "The Pictures shortcut is available in the file chooser sidebar.",
+        "The file farmers_market.jpg exists in the Pictures folder and is visible after opening that folder."
+      ],
+      "unit_effect": [
+        "The Open Image dialog appears after Ctrl+O, then switches to the Pictures directory.",
+        "Double-clicking farmers_market.jpg closes the dialog.",
+        "The selected photo becomes visible on the GIMP canvas as the current image."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Crop the opened photo into a square composition centered on the fruit stand.",
+      "unit_type": "CROP_IMAGE_TO_SQUARE",
+      "unit_before_state": "The full farmers_market.jpg photo is visible in the GIMP canvas, and no crop has yet been committed.",
+      "unit_after_state": "The canvas shows a cropped square version of the image focused on the fruit stand, with the crop rectangle no longer active.",
+      "unit_precondition": [
+        "An image is already open in GIMP.",
+        "The fruit stand area is visible in the current canvas view.",
+        "The user can access the Crop tool and define a crop box on the image."
+      ],
+      "unit_effect": [
+        "The Crop tool becomes active and a crop-ready cursor is available.",
+        "A square crop rectangle appears around the fruit stand while dragging.",
+        "Pressing Enter removes the outside area and leaves only the selected square region visible."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8,
+        9
+      ],
+      "unit_intent": "Add the requested caption text onto the lower part of the square image.",
+      "unit_type": "INSERT_TEXT_CAPTION",
+      "unit_before_state": "The square-cropped image is visible in GIMP, and there is not yet a text box containing the requested caption near the bottom of the image.",
+      "unit_after_state": "A text box is active on the image near the lower center, showing the caption Fresh Produce Today on a new text layer.",
+      "unit_precondition": [
+        "The crop has already been completed.",
+        "The canvas is active for editing.",
+        "The Text tool can be selected.",
+        "There is enough visible space near the bottom of the image to place a caption."
+      ],
+      "unit_effect": [
+        "The Text tool becomes active.",
+        "Clicking near the bottom creates a text box with a visible insertion caret.",
+        "Typing Fresh Produce Today makes that exact caption appear on the image."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        10,
+        11
+      ],
+      "unit_intent": "Refine the caption placement so it is centered near the bottom of the post.",
+      "unit_type": "POSITION_TEXT_LAYER",
+      "unit_before_state": "The caption Fresh Produce Today exists on the image, but its placement may still be unrefined after text entry.",
+      "unit_after_state": "The caption text layer is visibly repositioned to the lower-center area of the square image with a small margin above the bottom edge.",
+      "unit_precondition": [
+        "A caption text layer already exists on the canvas.",
+        "The caption is visible and can be selected or dragged.",
+        "The Move tool is available."
+      ],
+      "unit_effect": [
+        "The Move tool becomes active.",
+        "Dragging the caption changes its on-canvas position.",
+        "The caption ends up centered near the bottom of the image in a poster-like layout."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        12,
+        13,
+        14
+      ],
+      "unit_intent": "Export the finished edited image as the requested JPEG output file.",
+      "unit_type": "EXPORT_IMAGE_AS_FILE",
+      "unit_before_state": "The edited square image with the bottom caption is visible in GIMP, and no export dialog is currently open for this save operation.",
+      "unit_after_state": "The Export Image dialog is dismissed after saving, and the finished image has been exported as farmers_market_post.jpg.",
+      "unit_precondition": [
+        "All desired edits are complete on the active image.",
+        "The GIMP canvas window is focused.",
+        "The Export Image dialog can accept a filename.",
+        "The Export button is available once the filename is entered."
+      ],
+      "unit_effect": [
+        "Ctrl+Shift+E opens the Export Image dialog.",
+        "The filename field shows farmers_market_post.jpg after typing.",
+        "Clicking Export triggers GIMP to save the edited image as farmers_market_post.jpg."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Load the source market photo from the Pictures folder into GIMP so editing can begin.",
+      "unit_type": "OPEN_IMAGE_FROM_FOLDER",
+      "unit_before_state": "GIMP's main window is focused on the desktop with no modal dialog open, and no source image from this task is yet loaded on the canvas.",
+      "unit_after_state": "The Open Image dialog has closed, and farmers_market.jpg is displayed in the GIMP canvas as the active image ready for editing.",
+      "unit_precondition": [
+        "GIMP is the active application.",
+        "No modal dialog is blocking keyboard input.",
+        "The Pictures shortcut is available in the file chooser sidebar.",
+        "The file farmers_market.jpg exists in the Pictures folder and is visible after opening that folder."
+      ],
+      "unit_effect": [
+        "The Open Image dialog appears after Ctrl+O, then switches to the Pictures directory.",
+        "Double-clicking farmers_market.jpg closes the dialog.",
+        "The selected photo becomes visible on the GIMP canvas as the current image."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a specified image file from a chosen folder into GIMP so it becomes the active canvas image for editing.",
+      "parameters": {
+        "folder_name": "Pictures",
+        "file_name": "farmers_market.jpg"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'o']}",
+          "action_template": "When the GIMP window is focused and no other dialog is blocking it, press Ctrl+O to open the image chooser. The expected result is that the Open Image dialog becomes visible."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Pictures folder in the file chooser sidebar'}}",
+          "action_template": "Once the Open Image dialog is open and the {{folder_name}} shortcut is available in the sidebar, click {{folder_name}}. The file chooser should switch to the {{folder_name}} directory and show its contents."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 2, 'target': {'text': 'the file named `farmers_market.jpg` in the file list'}}",
+          "action_template": "When the {{folder_name}} folder is open and {{file_name}} is visible, double-click {{file_name}}. The dialog should close and GIMP should load the selected image into the main canvas."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Crop the opened photo into a square composition centered on the fruit stand.",
+      "unit_type": "CROP_IMAGE_TO_SQUARE",
+      "unit_before_state": "The full farmers_market.jpg photo is visible in the GIMP canvas, and no crop has yet been committed.",
+      "unit_after_state": "The canvas shows a cropped square version of the image focused on the fruit stand, with the crop rectangle no longer active.",
+      "unit_precondition": [
+        "An image is already open in GIMP.",
+        "The fruit stand area is visible in the current canvas view.",
+        "The user can access the Crop tool and define a crop box on the image."
+      ],
+      "unit_effect": [
+        "The Crop tool becomes active and a crop-ready cursor is available.",
+        "A square crop rectangle appears around the fruit stand while dragging.",
+        "Pressing Enter removes the outside area and leaves only the selected square region visible."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Crop the opened image into a square composition centered on a specified subject area.",
+      "parameters": {
+        "target_subject": "fruit stand"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['shift', 'c']}",
+          "action_template": "With an image open in GIMP and the canvas ready for editing, press Shift+C to switch to the Crop tool. The Crop tool becomes active and the pointer is ready to define a crop area."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'a point slightly above and to the left of the fruit stand'}, 'end': {'text': 'a point down and to the right so the crop frame becomes roughly square around the stand'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "After enabling the Crop tool and ensuring {{target_subject}} is visible in the image, drag from the upper-left side of {{target_subject}} toward the lower-right until a square crop surrounds {{target_subject}}. A crop rectangle appears over the image, framing {{target_subject}} in a square composition."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "When the crop rectangle around {{target_subject}} is already defined and looks correct, press Enter to confirm it. GIMP crops the image to the selected square region."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8,
+        9
+      ],
+      "unit_intent": "Add the requested caption text onto the lower part of the square image.",
+      "unit_type": "INSERT_TEXT_CAPTION",
+      "unit_before_state": "The square-cropped image is visible in GIMP, and there is not yet a text box containing the requested caption near the bottom of the image.",
+      "unit_after_state": "A text box is active on the image near the lower center, showing the caption Fresh Produce Today on a new text layer.",
+      "unit_precondition": [
+        "The crop has already been completed.",
+        "The canvas is active for editing.",
+        "The Text tool can be selected.",
+        "There is enough visible space near the bottom of the image to place a caption."
+      ],
+      "unit_effect": [
+        "The Text tool becomes active.",
+        "Clicking near the bottom creates a text box with a visible insertion caret.",
+        "Typing Fresh Produce Today makes that exact caption appear on the image."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Insert a specified caption text into a new text box at a designated position on the image.",
+      "parameters": {
+        "caption_position": "the lower-center area of the image, slightly above the bottom edge",
+        "caption_text": "Fresh Produce Today"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['t']}",
+          "action_template": "Once the image is visible and ready for editing, press T to switch to the Text tool so GIMP is ready to insert text onto the canvas."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the lower-center area of the image, slightly above the bottom edge'}}",
+          "action_template": "With the Text tool selected and enough open space available, click {{caption_position}} to create a text box there and place a text cursor on a new text layer."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Fresh Produce Today'}",
+          "action_template": "When the text box is active and keyboard input will go into it, type {{caption_text}} so the caption appears inside the text box on the image."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        10,
+        11
+      ],
+      "unit_intent": "Refine the caption placement so it is centered near the bottom of the post.",
+      "unit_type": "POSITION_TEXT_LAYER",
+      "unit_before_state": "The caption Fresh Produce Today exists on the image, but its placement may still be unrefined after text entry.",
+      "unit_after_state": "The caption text layer is visibly repositioned to the lower-center area of the square image with a small margin above the bottom edge.",
+      "unit_precondition": [
+        "A caption text layer already exists on the canvas.",
+        "The caption is visible and can be selected or dragged.",
+        "The Move tool is available."
+      ],
+      "unit_effect": [
+        "The Move tool becomes active.",
+        "Dragging the caption changes its on-canvas position.",
+        "The caption ends up centered near the bottom of the image in a poster-like layout."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Reposition an existing text layer so it is centered near the bottom of the image.",
+      "parameters": {
+        "target_text_layer": "the caption text layer on the image",
+        "target_position": "the lower-center area of the image, leaving a small margin above the bottom edge"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['m']}",
+          "action_template": "When a text layer needs repositioning, press M to activate the Move tool so {{target_text_layer}} can be dragged to a better location."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the caption text layer on the image'}, 'end': {'text': 'the lower-center area of the image, leaving a small margin above the bottom edge'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "With the Move tool active and {{target_text_layer}} visible, drag {{target_text_layer}} to {{target_position}} so the text layer is repositioned to a centered location near the bottom of the image."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        12,
+        13,
+        14
+      ],
+      "unit_intent": "Export the finished edited image as the requested JPEG output file.",
+      "unit_type": "EXPORT_IMAGE_AS_FILE",
+      "unit_before_state": "The edited square image with the bottom caption is visible in GIMP, and no export dialog is currently open for this save operation.",
+      "unit_after_state": "The Export Image dialog is dismissed after saving, and the finished image has been exported as farmers_market_post.jpg.",
+      "unit_precondition": [
+        "All desired edits are complete on the active image.",
+        "The GIMP canvas window is focused.",
+        "The Export Image dialog can accept a filename.",
+        "The Export button is available once the filename is entered."
+      ],
+      "unit_effect": [
+        "Ctrl+Shift+E opens the Export Image dialog.",
+        "The filename field shows farmers_market_post.jpg after typing.",
+        "Clicking Export triggers GIMP to save the edited image as farmers_market_post.jpg."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Export the finished edited image as a specified JPEG output file.",
+      "parameters": {
+        "output_file_name": "farmers_market_post.jpg"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'e']}",
+          "action_template": "When the image edits are complete and the GIMP canvas is still the active window, press Ctrl+Shift+E to open the Export Image dialog. The expected result is that the Export Image window opens."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'farmers_market_post.jpg'}",
+          "action_template": "Once the Export Image dialog is visible and the filename field is active or ready to be edited, type {{output_file_name}}. The dialog should then show the specified output file name."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Export button in the export dialog'}}",
+          "action_template": "After the export dialog shows {{output_file_name}} and the Export button is visible, click the Export button in the dialog. GIMP should export the edited image as {{output_file_name}}, completing the task."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

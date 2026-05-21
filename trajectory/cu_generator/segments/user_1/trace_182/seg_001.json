@@ -1,0 +1,734 @@
+{
+  "segment_id": "seg_001",
+  "app": "libreoffice_calc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Move to the top-left cell so the table can be entered from a clean starting point",
+      "action_before_state": "LibreOffice Calc is already open on a spreadsheet, and some cell may currently be selected somewhere in the grid.",
+      "action_preconditions": [
+        "The Calc window is focused",
+        "A worksheet grid is visible"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "home"
+        ]
+      },
+      "action_after_effects": "The active cell moves to A1 at the top-left of the current sheet.",
+      "nl_explanation": "When the spreadsheet is visible and focused, press Ctrl+Home to jump to cell A1 so the expense table starts in a predictable place."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Enter the weekly expense table on the first sheet",
+      "action_before_state": "Cell A1 is selected on the first sheet, and the grid is empty or ready for input.",
+      "action_preconditions": [
+        "Cell A1 is the active cell",
+        "The first sheet is still open"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Day\tCategory\tItem\tCost\nMon\tFood\tGroceries\t48\nTue\tTransport\tBus pass\t20\nWed\tHome\tDetergent\t12\nThu\tFood\tLunch\t15\nFri\tTransport\tTaxi\t18\nSat\tHome\tLight bulbs\t14\nSun\tFood\tCoffee beans\t16"
+      },
+      "action_after_effects": "A 4-column table with headers and 7 daily expense rows appears from A1 to D8.",
+      "nl_explanation": "With A1 active, type the tab-and-line-break separated block so Calc fills the weekly expense table across columns A to D and rows 1 to 8."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Position the cursor below the expense list for the total row",
+      "action_before_state": "The weekly expense table is visible on Sheet1.",
+      "action_preconditions": [
+        "Rows 1 through 8 contain the expense data",
+        "Cell A9 is empty"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the empty cell A9 directly below the expense table"
+        }
+      },
+      "action_after_effects": "Cell A9 becomes the active cell, ready for the total row.",
+      "nl_explanation": "Once the first table has been entered, click the empty cell just under it at A9 so the total row can be added in one line."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Add a total row that sums all costs",
+      "action_before_state": "Cell A9 is selected under the filled expense table.",
+      "action_preconditions": [
+        "Cell A9 is active",
+        "The cost values are in D2 through D8"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Total\t\t\t=SUM(D2:D8)"
+      },
+      "action_after_effects": "The label Total appears in A9, and D9 shows the sum of all weekly expenses.",
+      "nl_explanation": "With A9 selected, type a tab-separated row so the word Total is placed at the left and the sum formula is inserted into D9."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Insert a new sheet for the category summary",
+      "action_before_state": "Sheet1 contains the completed expense table and total row.",
+      "action_preconditions": [
+        "LibreOffice Calc is still focused",
+        "The current workbook can accept a new sheet"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "shift",
+          "f11"
+        ]
+      },
+      "action_after_effects": "A new worksheet is inserted, usually named Sheet2, and it becomes active.",
+      "nl_explanation": "After finishing the raw data sheet, press Shift+F11 to create a second sheet where the summary section will be built."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Lay out the summary sheet structure with categories and budget",
+      "action_before_state": "A blank second sheet is open, typically with A1 selected.",
+      "action_preconditions": [
+        "The new sheet is active",
+        "Cell A1 is available for data entry"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Category\tTotal\nFood\nTransport\nHome\nWeekly Budget\t300\nRemaining"
+      },
+      "action_after_effects": "Sheet2 now contains a summary layout in A1:B6 with category names and a budget value of 300.",
+      "nl_explanation": "On the new sheet, type the summary block starting at A1 so the category list, budget row, and remaining row are prepared for formulas."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Select the first total cell for the category formula",
+      "action_before_state": "The summary table is visible on Sheet2, with category names in A2 through A4.",
+      "action_preconditions": [
+        "Sheet2 contains the layout entered in the previous step",
+        "Cell B2 is empty"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the empty Total cell next to Food, which is B2"
+        }
+      },
+      "action_after_effects": "Cell B2 becomes active and is ready for a formula.",
+      "nl_explanation": "When the summary layout is in place, click B2 beside Food so the first category total formula can be entered there."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Calculate the Food total from the first sheet",
+      "action_before_state": "Cell B2 is selected on Sheet2.",
+      "action_preconditions": [
+        "B2 is active",
+        "Sheet1 contains categories in column B and costs in column D"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "=SUMIF(Sheet1.$B$2:$B$8;A2;Sheet1.$D$2:$D$8)"
+      },
+      "action_after_effects": "B2 shows the total cost for all Food entries from Sheet1.",
+      "nl_explanation": "With B2 selected, type a SUMIF formula with fixed source ranges so it matches the category name in A2 against Sheet1 and adds the corresponding costs."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Fill the same category-total formula down for the remaining categories",
+      "action_before_state": "B2 contains a working formula, and B3:B4 are still empty.",
+      "action_preconditions": [
+        "The formula in B2 returns a value",
+        "Cells A3 and A4 contain Transport and Home"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the small fill handle at the bottom-right corner of cell B2"
+        },
+        "end": {
+          "text": "the bottom-right corner of cell B4"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "The formula is copied into B3 and B4, producing totals for Transport and Home.",
+      "nl_explanation": "Once B2 has the correct category formula, drag its fill handle down to B4 so Calc copies the formula for the other category rows."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Select the Remaining cell for the final budget formula",
+      "action_before_state": "The summary table now has category totals in B2 through B4, and the Remaining row is visible.",
+      "action_preconditions": [
+        "Cell B6 is empty",
+        "The Weekly Budget value is already in B5"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the empty cell B6 next to Remaining"
+        }
+      },
+      "action_after_effects": "Cell B6 becomes active.",
+      "nl_explanation": "After the category totals are filled, click B6 beside Remaining so the balance formula can be entered there."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Compute the remaining weekly budget",
+      "action_before_state": "Cell B6 is selected in the summary table.",
+      "action_preconditions": [
+        "B6 is active",
+        "B2:B4 contain the category totals",
+        "B5 contains the weekly budget"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "=B5-SUM(B2:B4)"
+      },
+      "action_after_effects": "B6 displays the remaining amount after subtracting all summarized expenses from the budget.",
+      "nl_explanation": "With B6 selected, type a formula that subtracts the sum of the category totals from the weekly budget shown in B5."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Select the category summary range for chart creation",
+      "action_before_state": "The summary table is complete, and the category labels with totals occupy A1:B4.",
+      "action_preconditions": [
+        "Cells A1:B4 contain the chart source data",
+        "The chart should include only the category rows, not the budget rows"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell A1 containing the Category header"
+        },
+        "end": {
+          "text": "cell B4 containing the Home total"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "The range A1:B4 is highlighted as the selected data source.",
+      "nl_explanation": "When the summary is complete, drag from A1 to B4 to highlight just the category names and totals that should appear in the chart."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Start inserting a chart from the selected summary data",
+      "action_before_state": "The range A1:B4 is selected on Sheet2.",
+      "action_preconditions": [
+        "The summary range is highlighted",
+        "The standard Calc toolbar is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Insert Chart button on the toolbar"
+        }
+      },
+      "action_after_effects": "The Chart Wizard opens using the selected range as the data source.",
+      "nl_explanation": "With the summary range selected, click the Insert Chart toolbar button so LibreOffice starts the chart creation wizard with that data."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Accept the chart wizard and place the chart on the summary sheet",
+      "action_before_state": "The Chart Wizard dialog is open and previewing a chart based on A1:B4.",
+      "action_preconditions": [
+        "The Chart Wizard is visible",
+        "The selected data preview looks correct enough to finish"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Finish button in the Chart Wizard"
+        }
+      },
+      "action_after_effects": "A chart is inserted onto Sheet2 based on the category totals.",
+      "nl_explanation": "Once the chart wizard opens with the correct range, click Finish to insert the chart onto the summary sheet."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Save the completed workbook",
+      "action_before_state": "Sheet2 contains the completed summary table and the inserted chart.",
+      "action_preconditions": [
+        "The workbook changes are complete",
+        "LibreOffice Calc remains the active window"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "s"
+        ]
+      },
+      "action_after_effects": "The spreadsheet is saved with the new expense table, summary, and chart.",
+      "nl_explanation": "After the table, formulas, and chart are finished, press Ctrl+S to save the workbook and preserve the completed task."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Create the weekly expense entry table on the first sheet from a known starting cell.",
+      "unit_type": "CREATE_EXPENSE_TABLE",
+      "unit_before_state": "LibreOffice Calc is open on the first worksheet, the grid is visible, and an arbitrary cell may currently be selected.",
+      "unit_after_state": "Sheet1 shows a filled expense table in A1:D8 with headers Day, Category, Item, and Cost plus seven daily rows from Monday through Sunday.",
+      "unit_precondition": [
+        "LibreOffice Calc is the active window.",
+        "A worksheet grid is visible and editable.",
+        "The first sheet is available for data entry."
+      ],
+      "unit_effect": [
+        "The active cell jumps to A1.",
+        "A tabular block appears from A1 to D8 with the weekly expense records populated."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4
+      ],
+      "unit_intent": "Add a total row that sums all weekly expenses beneath the raw expense table.",
+      "unit_type": "ADD_TOTAL_ROW",
+      "unit_before_state": "Sheet1 already contains the expense entries in A1:D8, and the empty row immediately below the table is visible.",
+      "unit_after_state": "A9 contains the label Total and D9 displays the formula result summing D2:D8.",
+      "unit_precondition": [
+        "The weekly expense table is already present in A1:D8.",
+        "Cell A9 is empty and available.",
+        "The cost values are in D2 through D8."
+      ],
+      "unit_effect": [
+        "Cell A9 becomes the insertion point for the total row.",
+        "A total row is added, and D9 shows the computed sum of the expense amounts."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Create a separate summary worksheet and lay out the category and budget structure needed for calculations.",
+      "unit_type": "CREATE_SUMMARY_SHEET",
+      "unit_before_state": "Sheet1 is active and contains the completed expense table and total row.",
+      "unit_after_state": "A new second worksheet is active and contains a summary layout in A1:B6 with Category and Total headers, Food, Transport, Home, Weekly Budget with value 300, and Remaining.",
+      "unit_precondition": [
+        "The workbook is open and can accept a new sheet.",
+        "LibreOffice Calc remains focused.",
+        "The new sheet will open with A1 available for typing."
+      ],
+      "unit_effect": [
+        "A new worksheet, typically Sheet2, is inserted and becomes active.",
+        "The summary template appears in A1:B6 with category labels and the weekly budget value 300 entered."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7,
+        8,
+        9
+      ],
+      "unit_intent": "Populate category totals on the summary sheet using the expense data from Sheet1.",
+      "unit_type": "POPULATE_CATEGORY_TOTALS",
+      "unit_before_state": "Sheet2 shows the summary layout with Food, Transport, and Home listed in A2:A4, and B2:B4 are not yet fully populated.",
+      "unit_after_state": "B2:B4 contain calculated totals for Food, Transport, and Home based on the category and cost columns in Sheet1.",
+      "unit_precondition": [
+        "Sheet2 is active with the summary layout already entered.",
+        "Sheet1 contains categories in B2:B8 and costs in D2:D8.",
+        "Cell B2 is empty or ready for the first formula, and A2:A4 contain the category names."
+      ],
+      "unit_effect": [
+        "B2 displays the SUMIF result for Food.",
+        "The formula is filled down through B4, and visible totals appear for Transport and Home as well."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        10,
+        11
+      ],
+      "unit_intent": "Calculate how much of the weekly budget remains after all category spending is deducted.",
+      "unit_type": "CALCULATE_REMAINING_BUDGET",
+      "unit_before_state": "The summary sheet already shows category totals in B2:B4 and the Weekly Budget value 300 in B5, while B6 next to Remaining is empty.",
+      "unit_after_state": "B6 shows the remaining budget computed from the weekly budget minus the sum of the category totals.",
+      "unit_precondition": [
+        "Sheet2 is active and the summary table is visible.",
+        "B2:B4 already contain category totals.",
+        "B5 contains the weekly budget value.",
+        "Cell B6 is available for the balance formula."
+      ],
+      "unit_effect": [
+        "Cell B6 becomes active for formula entry.",
+        "A computed remaining amount appears in B6 after subtracting total spending from the budget."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        12,
+        13,
+        14
+      ],
+      "unit_intent": "Insert a chart on the summary sheet based on the category totals table.",
+      "unit_type": "INSERT_SUMMARY_CHART",
+      "unit_before_state": "The completed summary sheet is visible, with chart source data in A1:B4 and no chart yet inserted on the sheet.",
+      "unit_after_state": "A chart based on the category summary table is inserted onto Sheet2.",
+      "unit_precondition": [
+        "The summary data in A1:B4 is present and should be used as the chart source.",
+        "The Calc toolbar is visible so chart insertion can be started.",
+        "The Chart Wizard can be completed with the default or current preview."
+      ],
+      "unit_effect": [
+        "The range A1:B4 becomes highlighted as the selected chart data.",
+        "The Chart Wizard opens using that range.",
+        "After finishing the wizard, a chart object appears on Sheet2."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        15
+      ],
+      "unit_intent": "Persist the completed expense tracker workbook to disk.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "Sheet2 contains the finished summary table, remaining budget formula, and inserted chart, and the workbook has unsaved changes.",
+      "unit_after_state": "The workbook remains open in Calc with the current expense tracker changes saved.",
+      "unit_precondition": [
+        "All required spreadsheet edits are complete.",
+        "LibreOffice Calc is the active window.",
+        "The document is in a savable state."
+      ],
+      "unit_effect": [
+        "The save command is triggered with Ctrl+S.",
+        "The workbook is saved with the expense table, summary calculations, and chart preserved."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Create the weekly expense entry table on the first sheet from a known starting cell.",
+      "unit_type": "CREATE_EXPENSE_TABLE",
+      "unit_before_state": "LibreOffice Calc is open on the first worksheet, the grid is visible, and an arbitrary cell may currently be selected.",
+      "unit_after_state": "Sheet1 shows a filled expense table in A1:D8 with headers Day, Category, Item, and Cost plus seven daily rows from Monday through Sunday.",
+      "unit_precondition": [
+        "LibreOffice Calc is the active window.",
+        "A worksheet grid is visible and editable.",
+        "The first sheet is available for data entry."
+      ],
+      "unit_effect": [
+        "The active cell jumps to A1.",
+        "A tabular block appears from A1 to D8 with the weekly expense records populated."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Populate the current worksheet with a specified multi-row table starting from cell A1.",
+      "parameters": {
+        "table_content": "Day\tCategory\tItem\tCost\nMon\tFood\tGroceries\t48\nTue\tTransport\tBus pass\t20\nWed\tHome\tDetergent\t12\nThu\tFood\tLunch\t15\nFri\tTransport\tTaxi\t18\nSat\tHome\tLight bulbs\t14\nSun\tFood\tCoffee beans\t16",
+        "table_range": "A1:D8"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'home']}",
+          "action_template": "When the Calc window is focused and a worksheet grid is visible, press Ctrl+Home to jump to cell A1 so the specified table can be entered from a predictable starting point."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Day\\tCategory\\tItem\\tCost\\nMon\\tFood\\tGroceries\\t48\\nTue\\tTransport\\tBus pass\\t20\\nWed\\tHome\\tDetergent\\t12\\nThu\\tFood\\tLunch\\t15\\nFri\\tTransport\\tTaxi\\t18\\nSat\\tHome\\tLight bulbs\\t14\\nSun\\tFood\\tCoffee beans\\t16'}",
+          "action_template": "With cell A1 active on the current sheet, type {{table_content}} so Calc populates the specified table across {{table_range}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4
+      ],
+      "unit_intent": "Add a total row that sums all weekly expenses beneath the raw expense table.",
+      "unit_type": "ADD_TOTAL_ROW",
+      "unit_before_state": "Sheet1 already contains the expense entries in A1:D8, and the empty row immediately below the table is visible.",
+      "unit_after_state": "A9 contains the label Total and D9 displays the formula result summing D2:D8.",
+      "unit_precondition": [
+        "The weekly expense table is already present in A1:D8.",
+        "Cell A9 is empty and available.",
+        "The cost values are in D2 through D8."
+      ],
+      "unit_effect": [
+        "Cell A9 becomes the insertion point for the total row.",
+        "A total row is added, and D9 shows the computed sum of the expense amounts."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Insert a labeled summary row below an existing table and calculate the sum for a specified value range.",
+      "parameters": {
+        "target_element": "the empty cell A9 directly below the expense table",
+        "target_insertion_cell": "A9",
+        "total_label": "Total",
+        "sum_formula": "=SUM(D2:D8)",
+        "value_range": "D2:D8",
+        "sum_result_cell": "D9"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the empty cell A9 directly below the expense table'}}",
+          "action_template": "Click {{target_element}} once when the table data already exists above and the cell is empty, so {{target_insertion_cell}} becomes the active cell for the summary row."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Total\\t\\t\\t=SUM(D2:D8)'}",
+          "action_template": "Type a tab-separated row containing {{total_label}} and {{sum_formula}} with {{target_insertion_cell}} active so {{total_label}} appears in the leftmost cell of the new row and {{sum_result_cell}} shows the sum of {{value_range}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Create a separate summary worksheet and lay out the category and budget structure needed for calculations.",
+      "unit_type": "CREATE_SUMMARY_SHEET",
+      "unit_before_state": "Sheet1 is active and contains the completed expense table and total row.",
+      "unit_after_state": "A new second worksheet is active and contains a summary layout in A1:B6 with Category and Total headers, Food, Transport, Home, Weekly Budget with value 300, and Remaining.",
+      "unit_precondition": [
+        "The workbook is open and can accept a new sheet.",
+        "LibreOffice Calc remains focused.",
+        "The new sheet will open with A1 available for typing."
+      ],
+      "unit_effect": [
+        "A new worksheet, typically Sheet2, is inserted and becomes active.",
+        "The summary template appears in A1:B6 with category labels and the weekly budget value 300 entered."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a new summary worksheet and populate it with the specified summary table structure for later calculations.",
+      "parameters": {
+        "start_cell": "A1",
+        "summary_layout_text": "Category\tTotal\nFood\nTransport\nHome\nWeekly Budget\t300\nRemaining"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['shift', 'f11']}",
+          "action_template": "With LibreOffice Calc focused and the workbook able to accept a new sheet, press Shift+F11 to insert a new worksheet and make it active for building the summary section."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Category\\tTotal\\nFood\\nTransport\\nHome\\nWeekly Budget\\t300\\nRemaining'}",
+          "action_template": "When the new sheet is active and cell {{start_cell}} is available for data entry, type {{summary_layout_text}} starting at {{start_cell}} to create the summary block needed for formulas."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7,
+        8,
+        9
+      ],
+      "unit_intent": "Populate category totals on the summary sheet using the expense data from Sheet1.",
+      "unit_type": "POPULATE_CATEGORY_TOTALS",
+      "unit_before_state": "Sheet2 shows the summary layout with Food, Transport, and Home listed in A2:A4, and B2:B4 are not yet fully populated.",
+      "unit_after_state": "B2:B4 contain calculated totals for Food, Transport, and Home based on the category and cost columns in Sheet1.",
+      "unit_precondition": [
+        "Sheet2 is active with the summary layout already entered.",
+        "Sheet1 contains categories in B2:B8 and costs in D2:D8.",
+        "Cell B2 is empty or ready for the first formula, and A2:A4 contain the category names."
+      ],
+      "unit_effect": [
+        "B2 displays the SUMIF result for Food.",
+        "The formula is filled down through B4, and visible totals appear for Transport and Home as well."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Populate category totals in a summary table by entering a category-matching aggregation formula in the first total cell and filling it down to the remaining category rows.",
+      "parameters": {
+        "first_total_cell": "B2",
+        "criteria_cell": "A2",
+        "category_range": "Sheet1.$B$2:$B$8",
+        "value_range": "Sheet1.$D$2:$D$8",
+        "fill_destination_cell": "B4"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the empty Total cell next to Food, which is B2'}}",
+          "action_template": "When the summary layout is in place and {{first_total_cell}} is empty, click the first total cell {{first_total_cell}} so it becomes active and ready for a formula."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '=SUMIF(Sheet1.$B$2:$B$8;A2;Sheet1.$D$2:$D$8)'}",
+          "action_template": "With {{first_total_cell}} active and the source data available, type =SUMIF({{category_range}};{{criteria_cell}};{{value_range}}) so {{first_total_cell}} calculates the total for the category named in {{criteria_cell}}."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the small fill handle at the bottom-right corner of cell B2'}, 'end': {'text': 'the bottom-right corner of cell B4'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "Once {{first_total_cell}} contains a working formula, drag its fill handle down to {{fill_destination_cell}} so the same formula is copied to the remaining category rows and their totals are produced."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        10,
+        11
+      ],
+      "unit_intent": "Calculate how much of the weekly budget remains after all category spending is deducted.",
+      "unit_type": "CALCULATE_REMAINING_BUDGET",
+      "unit_before_state": "The summary sheet already shows category totals in B2:B4 and the Weekly Budget value 300 in B5, while B6 next to Remaining is empty.",
+      "unit_after_state": "B6 shows the remaining budget computed from the weekly budget minus the sum of the category totals.",
+      "unit_precondition": [
+        "Sheet2 is active and the summary table is visible.",
+        "B2:B4 already contain category totals.",
+        "B5 contains the weekly budget value.",
+        "Cell B6 is available for the balance formula."
+      ],
+      "unit_effect": [
+        "Cell B6 becomes active for formula entry.",
+        "A computed remaining amount appears in B6 after subtracting total spending from the budget."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Calculate the remaining budget in a designated result cell by subtracting the sum of category totals from the budget value.",
+      "parameters": {
+        "result_cell_target": "the empty cell B6 next to Remaining",
+        "result_cell": "B6",
+        "budget_cell": "B5",
+        "category_total_range": "B2:B4",
+        "formula_text": "=B5-SUM(B2:B4)"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the empty cell B6 next to Remaining'}}",
+          "action_template": "Click {{result_cell_target}} so the balance formula can be entered there. Preconditions: {{result_cell}} is empty and {{budget_cell}} already contains the budget value. Effect: {{result_cell}} becomes active."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '=B5-SUM(B2:B4)'}",
+          "action_template": "Type {{formula_text}} in {{result_cell}} to subtract the sum of category totals in {{category_total_range}} from the budget in {{budget_cell}}. Preconditions: {{result_cell}} is active, {{category_total_range}} contain the category totals, and {{budget_cell}} contains the weekly budget. Effect: {{result_cell}} displays the remaining amount after subtracting all summarized expenses from the budget."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        12,
+        13,
+        14
+      ],
+      "unit_intent": "Insert a chart on the summary sheet based on the category totals table.",
+      "unit_type": "INSERT_SUMMARY_CHART",
+      "unit_before_state": "The completed summary sheet is visible, with chart source data in A1:B4 and no chart yet inserted on the sheet.",
+      "unit_after_state": "A chart based on the category summary table is inserted onto Sheet2.",
+      "unit_precondition": [
+        "The summary data in A1:B4 is present and should be used as the chart source.",
+        "The Calc toolbar is visible so chart insertion can be started.",
+        "The Chart Wizard can be completed with the default or current preview."
+      ],
+      "unit_effect": [
+        "The range A1:B4 becomes highlighted as the selected chart data.",
+        "The Chart Wizard opens using that range.",
+        "After finishing the wizard, a chart object appears on Sheet2."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Insert a chart on a worksheet using a specified summary data range.",
+      "parameters": {
+        "data_range": "A1:B4",
+        "range_start_cell": "cell A1 containing the Category header",
+        "range_end_cell": "cell B4 containing the Home total",
+        "source_data_description": "category names and totals",
+        "target_sheet": "Sheet2"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'cell A1 containing the Category header'}, 'end': {'text': 'cell B4 containing the Home total'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "When the summary is complete, drag from {{range_start_cell}} to {{range_end_cell}} to highlight {{source_data_description}} in {{data_range}}. Preconditions: {{data_range}} contains the chart source data and the chart should include only the intended summary rows. Afterward, {{data_range}} is highlighted as the selected data source."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Insert Chart button on the toolbar'}}",
+          "action_template": "With {{data_range}} selected, click the Insert Chart button on the toolbar to start chart creation using the selected summary data. Preconditions: the summary range is highlighted and the standard Calc toolbar is visible. Afterward, the Chart Wizard opens using {{data_range}} as the data source."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Finish button in the Chart Wizard'}}",
+          "action_template": "Once the Chart Wizard opens with the correct preview for {{data_range}}, click the Finish button to insert the chart onto {{target_sheet}}. Preconditions: the Chart Wizard is visible and the selected data preview looks correct enough to finish. Afterward, a chart based on {{source_data_description}} is inserted onto {{target_sheet}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_07",
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        15
+      ],
+      "unit_intent": "Persist the completed expense tracker workbook to disk.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "Sheet2 contains the finished summary table, remaining budget formula, and inserted chart, and the workbook has unsaved changes.",
+      "unit_after_state": "The workbook remains open in Calc with the current expense tracker changes saved.",
+      "unit_precondition": [
+        "All required spreadsheet edits are complete.",
+        "LibreOffice Calc is the active window.",
+        "The document is in a savable state."
+      ],
+      "unit_effect": [
+        "The save command is triggered with Ctrl+S.",
+        "The workbook is saved with the expense table, summary calculations, and chart preserved."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the active spreadsheet document to persist completed changes.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 's']}",
+          "action_template": "Press Ctrl+S to save the active spreadsheet document after the workbook changes are complete while LibreOffice Calc remains the active window, resulting in the spreadsheet being saved with the completed edits preserved."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

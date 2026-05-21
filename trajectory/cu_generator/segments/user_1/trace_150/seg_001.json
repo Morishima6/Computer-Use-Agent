@@ -1,0 +1,680 @@
+{
+  "segment_id": "seg_001",
+  "app": "gimp",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Activate the Rotate tool",
+      "action_before_state": "The GIMP window is open, the receipt photo is visible on the canvas, and no transform operation is currently in progress.",
+      "action_preconditions": [
+        "GIMP is the focused window",
+        "The full receipt photo is visible on the canvas"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "shift",
+          "r"
+        ]
+      },
+      "action_after_effects": "The Rotate tool becomes active, so the image can be straightened interactively.",
+      "nl_explanation": "With the tilted receipt photo visible, press Shift+R to switch to the Rotate tool and prepare for straightening the document."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Rotate the image until the receipt looks upright",
+      "action_before_state": "The Rotate tool is active and the receipt edges are still slightly slanted on the canvas.",
+      "action_preconditions": [
+        "The Rotate tool is active",
+        "The receipt edges are visible enough to judge vertical alignment"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the middle area of the receipt image on the canvas"
+        },
+        "end": {
+          "text": "a point that makes the receipt appear vertical and level"
+        },
+        "target": {
+          "begin": {
+            "text": "the receipt image on the canvas"
+          },
+          "end": {
+            "text": "the dragged position that sets the preview rotation angle"
+          }
+        }
+      },
+      "action_after_effects": "A rotation preview is shown and a small Rotate dialog appears with the chosen angle ready to apply.",
+      "nl_explanation": "When the Rotate tool is active, drag on the image until the receipt looks upright; GIMP will preview the new angle and open the rotate confirmation dialog."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Apply the rotation",
+      "action_before_state": "The rotation preview looks correct and the Rotate dialog is visible on top of the canvas.",
+      "action_preconditions": [
+        "The Rotate dialog is open",
+        "The previewed angle makes the receipt look straight"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Rotate button in the small rotate dialog"
+        }
+      },
+      "action_after_effects": "The image is redrawn at the new angle and the receipt now appears straightened.",
+      "nl_explanation": "Once the preview looks right, click the Rotate button to commit the change and permanently straighten the receipt photo."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Activate the Crop tool",
+      "action_before_state": "The straightened receipt is shown on the canvas, with extra table space still visible around it.",
+      "action_preconditions": [
+        "The rotation has already been applied",
+        "The receipt and surrounding background are both visible"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "shift",
+          "c"
+        ]
+      },
+      "action_after_effects": "The Crop tool becomes active, allowing a tighter frame to be selected around the receipt.",
+      "nl_explanation": "After straightening the image, press Shift+C to switch to the Crop tool so the unnecessary background can be removed."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Draw a crop box tightly around the receipt",
+      "action_before_state": "The Crop tool is active and the receipt occupies the center of the canvas with spare background around it.",
+      "action_preconditions": [
+        "The Crop tool is active",
+        "All four sides of the receipt are visible"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "just outside the upper-left corner of the receipt"
+        },
+        "end": {
+          "text": "just outside the lower-right corner of the receipt"
+        },
+        "target": {
+          "begin": {
+            "text": "the canvas near the receipt's upper-left corner"
+          },
+          "end": {
+            "text": "the opposite corner of the crop rectangle"
+          }
+        }
+      },
+      "action_after_effects": "A crop rectangle appears that isolates the receipt and excludes most of the table around it.",
+      "nl_explanation": "With the Crop tool active, drag from near the receipt's upper-left corner to its lower-right corner so the crop box closely follows the document."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Apply the crop",
+      "action_before_state": "A crop box is visible around the receipt and the unwanted outer background has been excluded.",
+      "action_preconditions": [
+        "A crop rectangle has already been drawn",
+        "The crop area includes the full receipt"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The canvas is trimmed to the crop box, leaving a tighter image focused on the receipt only.",
+      "nl_explanation": "Once the crop frame is positioned correctly, press Enter to apply it and remove the extra table area."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Convert the receipt image to grayscale",
+      "action_before_state": "The cropped receipt fills most of the canvas and the top menu bar is visible.",
+      "action_preconditions": [
+        "The crop has been applied",
+        "The canvas is active and ready for menu actions"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Grayscale option under Image > Mode in the top menu"
+        }
+      },
+      "action_after_effects": "The image switches from color to grayscale, removing color casts from the photographed paper.",
+      "nl_explanation": "With the cropped receipt selected, choose Image > Mode > Grayscale so the document becomes a black-and-white image that is easier to clean up."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Improve readability with automatic contrast",
+      "action_before_state": "The receipt is now grayscale, but the text may still look a little flat or washed out.",
+      "action_preconditions": [
+        "The image is already in grayscale mode",
+        "The top menu bar is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Stretch Contrast option under Colors > Auto in the top menu"
+        }
+      },
+      "action_after_effects": "The darkest and lightest tones are spread out automatically, making the receipt text stand out more clearly.",
+      "nl_explanation": "After converting to grayscale, use Colors > Auto > Stretch Contrast to strengthen the text and make the receipt easier to read."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Open the export dialog",
+      "action_before_state": "The cleaned-up receipt is visible on the canvas and no modal dialog is currently blocking the window.",
+      "action_preconditions": [
+        "Editing is complete",
+        "The main GIMP window is focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "shift",
+          "ctrl",
+          "e"
+        ]
+      },
+      "action_after_effects": "The Export Image dialog opens so a filename and format can be chosen.",
+      "nl_explanation": "When the receipt looks correct, press Shift+Ctrl+E to open the Export Image dialog and start saving the final result."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Place the cursor in the export filename field",
+      "action_before_state": "The Export Image dialog is open and shows a filename entry area.",
+      "action_preconditions": [
+        "The Export Image dialog is visible",
+        "The filename field can be selected"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the filename text field in the Export Image dialog"
+        }
+      },
+      "action_after_effects": "The text cursor is placed in the filename field, ready for typing the output name.",
+      "nl_explanation": "With the export dialog open, click inside the filename field so the final name can be entered directly."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Enter the output filename",
+      "action_before_state": "The filename field in the Export Image dialog is active and ready for input.",
+      "action_preconditions": [
+        "The filename field is focused",
+        "The export dialog is still open"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "receipt_clean.png"
+      },
+      "action_after_effects": "The export name is set to receipt_clean.png, which also makes the output format PNG.",
+      "nl_explanation": "After focusing the filename box, type receipt_clean.png so the cleaned receipt will be saved with the requested name."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Confirm the export filename and move to PNG export options",
+      "action_before_state": "The export dialog shows the filename receipt_clean.png and the main Export button is available.",
+      "action_preconditions": [
+        "A valid PNG filename has been entered",
+        "The Export button is enabled"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Export button in the Export Image dialog"
+        }
+      },
+      "action_after_effects": "The main export dialog closes and the PNG export options dialog appears.",
+      "nl_explanation": "Once the filename is entered, click Export to confirm the save name and continue to the PNG-specific export settings."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Finish exporting the cleaned receipt image",
+      "action_before_state": "The PNG export options dialog is visible with the default settings ready to use.",
+      "action_preconditions": [
+        "The PNG export options dialog is open",
+        "No additional setting changes are required"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Export button in the PNG export options dialog"
+        }
+      },
+      "action_after_effects": "GIMP saves the final cleaned image as receipt_clean.png and returns to the canvas.",
+      "nl_explanation": "When the PNG options window appears, click Export again to save the finished grayscale receipt image as receipt_clean.png."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Straighten the tilted receipt so it appears upright before further cleanup.",
+      "unit_type": "STRAIGHTEN_IMAGE",
+      "unit_before_state": "GIMP is focused with the original receipt photo open on the canvas. The receipt is visibly tilted, the full page is still visible, and no transform dialog is open.",
+      "unit_after_state": "The receipt image has been rotated and redrawn on the canvas so the page looks upright. The temporary Rotate dialog is gone and the straightened image remains visible for the next edit.",
+      "unit_precondition": [
+        "GIMP is the active window.",
+        "The full tilted receipt photo is visible on the canvas.",
+        "No other modal operation is blocking image editing."
+      ],
+      "unit_effect": [
+        "The Rotate tool becomes active and shows a rotation preview while dragging.",
+        "A small Rotate confirmation dialog appears during the adjustment.",
+        "After confirming, the image is permanently redrawn with the receipt visually straightened."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Trim away the surrounding table so only the receipt remains in frame.",
+      "unit_type": "CROP_TO_RECEIPT",
+      "unit_before_state": "The straightened receipt is shown on the canvas with extra table/background visible around all sides.",
+      "unit_after_state": "The canvas has been cropped down to a tight view of the receipt, with most of the surrounding table removed.",
+      "unit_precondition": [
+        "The rotation has already been applied and the receipt is upright.",
+        "The full receipt boundaries are visible so a tight crop can be drawn.",
+        "The main canvas is ready for tool-based editing."
+      ],
+      "unit_effect": [
+        "The Crop tool becomes active.",
+        "A crop rectangle appears around the receipt during the drag.",
+        "After pressing Enter, the canvas shrinks to the selected crop area and shows only the tighter receipt image."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7
+      ],
+      "unit_intent": "Remove color information so the receipt becomes a clean black-and-white document image.",
+      "unit_type": "CONVERT_TO_GRAYSCALE",
+      "unit_before_state": "The cropped receipt fills most of the canvas, and the image is still in color with the menu bar available.",
+      "unit_after_state": "The same cropped receipt remains on the canvas, but it is now displayed in grayscale with color casts removed.",
+      "unit_precondition": [
+        "The crop has already been applied.",
+        "The canvas is active and the top menu can be used.",
+        "The image has not yet been converted to grayscale."
+      ],
+      "unit_effect": [
+        "The receipt immediately switches from color to grayscale on the canvas.",
+        "The paper and text are shown as shades of gray rather than colored tones."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8
+      ],
+      "unit_intent": "Increase tonal separation so the receipt text is easier to read.",
+      "unit_type": "AUTO_STRETCH_CONTRAST",
+      "unit_before_state": "The cropped receipt is already grayscale on the canvas, but the text and paper tones still look somewhat flat.",
+      "unit_after_state": "The grayscale receipt remains on the canvas with stronger contrast, making dark text and light background more distinct.",
+      "unit_precondition": [
+        "The image is already in grayscale mode.",
+        "The main GIMP window and top menu are accessible.",
+        "No modal dialog is blocking automatic color adjustments."
+      ],
+      "unit_effect": [
+        "Stretch Contrast is applied immediately without opening a new dialog.",
+        "The darkest and lightest tones become more separated, and the receipt text looks clearer."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        9
+      ],
+      "unit_intent": "Enter the export workflow to save the cleaned receipt as a new file.",
+      "unit_type": "OPEN_EXPORT_DIALOG",
+      "unit_before_state": "The cleaned grayscale receipt is visible on the GIMP canvas, and no modal dialog is currently open.",
+      "unit_after_state": "The Export Image dialog is open in front of the canvas, ready for the output filename and format to be set.",
+      "unit_precondition": [
+        "Editing of the receipt image is complete.",
+        "The main GIMP window is focused.",
+        "No other modal window is blocking export commands."
+      ],
+      "unit_effect": [
+        "The Export Image dialog appears and takes focus.",
+        "A filename field and export controls become available."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        10,
+        11,
+        12
+      ],
+      "unit_intent": "Set the output file name to receipt_clean.png and advance to the PNG export confirmation step.",
+      "unit_type": "SET_EXPORT_FILENAME",
+      "unit_before_state": "The Export Image dialog is open and shows a selectable filename entry field.",
+      "unit_after_state": "The main Export Image dialog has closed, and the PNG export options dialog is now open with receipt_clean.png selected as the output file.",
+      "unit_precondition": [
+        "The Export Image dialog is visible.",
+        "The filename field can be focused for editing.",
+        "The user is ready to export as a PNG file with the requested name."
+      ],
+      "unit_effect": [
+        "The text cursor appears in the filename field after it is clicked.",
+        "The filename field shows receipt_clean.png after typing.",
+        "Clicking Export closes the first dialog and opens the PNG export options dialog."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        13
+      ],
+      "unit_intent": "Complete the PNG export and save the cleaned receipt image to disk.",
+      "unit_type": "CONFIRM_PNG_EXPORT",
+      "unit_before_state": "The PNG export options dialog is visible with default settings ready to use, and receipt_clean.png has already been chosen as the file name.",
+      "unit_after_state": "The export dialog closes and GIMP returns to the canvas, with the cleaned receipt saved as receipt_clean.png.",
+      "unit_precondition": [
+        "The PNG export options dialog is open.",
+        "The target filename has already been set to receipt_clean.png.",
+        "No additional PNG setting changes are required before saving."
+      ],
+      "unit_effect": [
+        "The PNG export options dialog closes after confirmation.",
+        "GIMP returns to the main canvas.",
+        "The file receipt_clean.png is written as the exported cleaned receipt image."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Straighten the tilted receipt so it appears upright before further cleanup.",
+      "unit_type": "STRAIGHTEN_IMAGE",
+      "unit_before_state": "GIMP is focused with the original receipt photo open on the canvas. The receipt is visibly tilted, the full page is still visible, and no transform dialog is open.",
+      "unit_after_state": "The receipt image has been rotated and redrawn on the canvas so the page looks upright. The temporary Rotate dialog is gone and the straightened image remains visible for the next edit.",
+      "unit_precondition": [
+        "GIMP is the active window.",
+        "The full tilted receipt photo is visible on the canvas.",
+        "No other modal operation is blocking image editing."
+      ],
+      "unit_effect": [
+        "The Rotate tool becomes active and shows a rotation preview while dragging.",
+        "A small Rotate confirmation dialog appears during the adjustment.",
+        "After confirming, the image is permanently redrawn with the receipt visually straightened."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Straighten a tilted document image so it appears upright before further editing.",
+      "parameters": {
+        "target_image": "receipt photo"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['shift', 'r']}",
+          "action_template": "With the tilted {{target_image}} visible on the canvas and no transform operation in progress, press Shift+R to switch to the Rotate tool and prepare for straightening the document; the Rotate tool becomes active so the image can be straightened interactively."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the middle area of the receipt image on the canvas'}, 'end': {'text': 'a point that makes the receipt appear vertical and level'}, 'target': {'begin': {'text': 'the receipt image on the canvas'}, 'end': {'text': 'the dragged position that sets the preview rotation angle'}}}",
+          "action_template": "When the Rotate tool is active and the edges of {{target_image}} are visible enough to judge vertical alignment, drag on the image until it looks upright; GIMP will preview the new angle and open the Rotate confirmation dialog with the chosen angle ready to apply."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Rotate button in the small rotate dialog'}}",
+          "action_template": "Once the previewed angle makes the {{target_image}} look straight and the Rotate dialog is open, click the Rotate button to commit the change; the image is redrawn at the new angle and now appears straightened."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Trim away the surrounding table so only the receipt remains in frame.",
+      "unit_type": "CROP_TO_RECEIPT",
+      "unit_before_state": "The straightened receipt is shown on the canvas with extra table/background visible around all sides.",
+      "unit_after_state": "The canvas has been cropped down to a tight view of the receipt, with most of the surrounding table removed.",
+      "unit_precondition": [
+        "The rotation has already been applied and the receipt is upright.",
+        "The full receipt boundaries are visible so a tight crop can be drawn.",
+        "The main canvas is ready for tool-based editing."
+      ],
+      "unit_effect": [
+        "The Crop tool becomes active.",
+        "A crop rectangle appears around the receipt during the drag.",
+        "After pressing Enter, the canvas shrinks to the selected crop area and shows only the tighter receipt image."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Crop the canvas tightly around the {{target_subject}} to remove the surrounding {{background_region}}.",
+      "parameters": {
+        "target_subject": "receipt",
+        "background_region": "table/background"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['shift', 'c']}",
+          "action_template": "After the image has already been straightened and the {{target_subject}} and surrounding {{background_region}} are visible, press Shift+C to switch to the Crop tool so a tighter frame can be selected around the {{target_subject}}. This requires that the rotation has already been applied and both the {{target_subject}} and surrounding {{background_region}} are visible. The Crop tool then becomes active, allowing a tighter frame to be selected around the {{target_subject}}."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'just outside the upper-left corner of the receipt'}, 'end': {'text': 'just outside the lower-right corner of the receipt'}, 'target': {'begin': {'text': \"the canvas near the receipt's upper-left corner\"}, 'end': {'text': 'the opposite corner of the crop rectangle'}}}",
+          "action_template": "With the Crop tool active and all four sides of the {{target_subject}} visible, drag from just outside the {{target_subject}}'s upper-left corner to just outside its lower-right corner so the crop box closely follows the {{target_subject}}. This requires that the Crop tool is active and all four sides of the {{target_subject}} are visible. A crop rectangle then appears that isolates the {{target_subject}} and excludes most of the surrounding {{background_region}}."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Once the crop frame around the {{target_subject}} is positioned correctly, press Enter to apply it and remove the extra {{background_region}}. This requires that a crop rectangle has already been drawn and that the crop area includes the full {{target_subject}}. The canvas is then trimmed to the crop box, leaving a tighter image focused on the {{target_subject}} only."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7
+      ],
+      "unit_intent": "Remove color information so the receipt becomes a clean black-and-white document image.",
+      "unit_type": "CONVERT_TO_GRAYSCALE",
+      "unit_before_state": "The cropped receipt fills most of the canvas, and the image is still in color with the menu bar available.",
+      "unit_after_state": "The same cropped receipt remains on the canvas, but it is now displayed in grayscale with color casts removed.",
+      "unit_precondition": [
+        "The crop has already been applied.",
+        "The canvas is active and the top menu can be used.",
+        "The image has not yet been converted to grayscale."
+      ],
+      "unit_effect": [
+        "The receipt immediately switches from color to grayscale on the canvas.",
+        "The paper and text are shown as shades of gray rather than colored tones."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Convert the active cropped image to grayscale so color information is removed and the image becomes a clean black-and-white version.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Grayscale option under Image > Mode in the top menu'}}",
+          "action_template": "With the cropped image active and the canvas ready for menu actions, click the Grayscale option under Image > Mode in the top menu to convert the image from color to grayscale and remove color casts."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8
+      ],
+      "unit_intent": "Increase tonal separation so the receipt text is easier to read.",
+      "unit_type": "AUTO_STRETCH_CONTRAST",
+      "unit_before_state": "The cropped receipt is already grayscale on the canvas, but the text and paper tones still look somewhat flat.",
+      "unit_after_state": "The grayscale receipt remains on the canvas with stronger contrast, making dark text and light background more distinct.",
+      "unit_precondition": [
+        "The image is already in grayscale mode.",
+        "The main GIMP window and top menu are accessible.",
+        "No modal dialog is blocking automatic color adjustments."
+      ],
+      "unit_effect": [
+        "Stretch Contrast is applied immediately without opening a new dialog.",
+        "The darkest and lightest tones become more separated, and the receipt text looks clearer."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Apply automatic stretch contrast to the current grayscale image to increase tonal separation and improve readability.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "CLICK",
+          "action_template": "Click the Stretch Contrast option under Colors > Auto in the top menu when the image is already in grayscale mode and the top menu bar is visible, to automatically spread out the darkest and lightest tones and make text stand out more clearly."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        9
+      ],
+      "unit_intent": "Enter the export workflow to save the cleaned receipt as a new file.",
+      "unit_type": "OPEN_EXPORT_DIALOG",
+      "unit_before_state": "The cleaned grayscale receipt is visible on the GIMP canvas, and no modal dialog is currently open.",
+      "unit_after_state": "The Export Image dialog is open in front of the canvas, ready for the output filename and format to be set.",
+      "unit_precondition": [
+        "Editing of the receipt image is complete.",
+        "The main GIMP window is focused.",
+        "No other modal window is blocking export commands."
+      ],
+      "unit_effect": [
+        "The Export Image dialog appears and takes focus.",
+        "A filename field and export controls become available."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open the export dialog to save the completed image as a new file.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['shift', 'ctrl', 'e']}",
+          "action_template": "With editing complete and the main GIMP window focused, press Shift+Ctrl+E to open the Export Image dialog so a filename and format can be chosen."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        10,
+        11,
+        12
+      ],
+      "unit_intent": "Set the output file name to receipt_clean.png and advance to the PNG export confirmation step.",
+      "unit_type": "SET_EXPORT_FILENAME",
+      "unit_before_state": "The Export Image dialog is open and shows a selectable filename entry field.",
+      "unit_after_state": "The main Export Image dialog has closed, and the PNG export options dialog is now open with receipt_clean.png selected as the output file.",
+      "unit_precondition": [
+        "The Export Image dialog is visible.",
+        "The filename field can be focused for editing.",
+        "The user is ready to export as a PNG file with the requested name."
+      ],
+      "unit_effect": [
+        "The text cursor appears in the filename field after it is clicked.",
+        "The filename field shows receipt_clean.png after typing.",
+        "Clicking Export closes the first dialog and opens the PNG export options dialog."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Enter a specified export filename and proceed to the format-specific export options dialog.",
+      "parameters": {
+        "output_filename": "receipt_clean.png"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the filename text field in the Export Image dialog'}}",
+          "action_template": "Click the filename text field in the Export Image dialog while the dialog is visible and the field can be selected, placing the text cursor there so {{output_filename}} can be entered directly."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'receipt_clean.png'}",
+          "action_template": "Type {{output_filename}} into the focused filename field while the export dialog remains open to set the output name and corresponding file format."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Export button in the Export Image dialog'}}",
+          "action_template": "Click the Export button after a valid filename has been entered and the button is enabled to confirm {{output_filename}}, close the main Export Image dialog, and open the format-specific export options dialog."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_07",
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        13
+      ],
+      "unit_intent": "Complete the PNG export and save the cleaned receipt image to disk.",
+      "unit_type": "CONFIRM_PNG_EXPORT",
+      "unit_before_state": "The PNG export options dialog is visible with default settings ready to use, and receipt_clean.png has already been chosen as the file name.",
+      "unit_after_state": "The export dialog closes and GIMP returns to the canvas, with the cleaned receipt saved as receipt_clean.png.",
+      "unit_precondition": [
+        "The PNG export options dialog is open.",
+        "The target filename has already been set to receipt_clean.png.",
+        "No additional PNG setting changes are required before saving."
+      ],
+      "unit_effect": [
+        "The PNG export options dialog closes after confirmation.",
+        "GIMP returns to the main canvas.",
+        "The file receipt_clean.png is written as the exported cleaned receipt image."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Confirm the PNG export to save the prepared image to the specified file.",
+      "parameters": {
+        "file_name": "receipt_clean.png"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Export button in the PNG export options dialog'}}",
+          "action_template": "Click the Export button in the PNG export options dialog to save the prepared image as {{file_name}} once the PNG export options dialog is open and no additional setting changes are required; GIMP then returns to the canvas."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

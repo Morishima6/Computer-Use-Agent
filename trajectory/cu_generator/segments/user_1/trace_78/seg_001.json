@@ -1,0 +1,599 @@
+{
+  "segment_id": "seg_001",
+  "app": "Chrome",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Focus the Chrome address bar so a new search can be entered",
+      "action_before_state": "Chrome is already open on the screen in GNOME, and the current tab may show any webpage or a new tab page.",
+      "action_preconditions": [
+        "Chrome is the active window",
+        "The browser window is visible on screen",
+        "Keyboard input can be sent to Chrome"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "l"
+        ]
+      },
+      "action_after_effects": "The omnibox/address bar becomes focused and its current contents are selected, ready to be replaced.",
+      "nl_explanation": "When Chrome is visible and active, press Ctrl+L to move focus to the address bar. The current URL or text should become selected so the next typing action starts a fresh search."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Enter a search query for a fast vegetarian pasta recipe",
+      "action_before_state": "The address bar is focused and any previous text in it is highlighted.",
+      "action_preconditions": [
+        "The address bar is active",
+        "Any existing URL or search text is selected or can be overwritten"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "quick vegetarian pasta recipe 30 minutes"
+      },
+      "action_after_effects": "The search query appears in the omnibox.",
+      "nl_explanation": "With the address bar already focused, type the recipe search query. The typed text should replace whatever was there before."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Run the search",
+      "action_before_state": "The typed query is visible in the Chrome address bar.",
+      "action_preconditions": [
+        "A full search query is present in the omnibox",
+        "Chrome is ready to navigate"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "Chrome loads a search results page for quick vegetarian pasta recipes.",
+      "nl_explanation": "After the query is entered, press Enter to submit it. A results page should load with recipe links and snippets."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Bring a promising result into view",
+      "action_before_state": "A search results page is visible, likely showing several recipe links near the top of the page.",
+      "action_preconditions": [
+        "The search results page has finished loading enough to interact with",
+        "There are recipe results on the page",
+        "A promising result may not yet be fully visible"
+      ],
+      "action": {
+        "type": "SCROLL",
+        "direction": "down",
+        "target": {
+          "text": "the middle of the search results page"
+        }
+      },
+      "action_after_effects": "More recipe results come into view, and scrolling stops once a result for a vegetarian pasta recipe with a short total time is clearly visible.",
+      "nl_explanation": "If the best-looking recipe is not already visible, scroll down through the search results. Stop when a result that mentions vegetarian pasta and a short cooking time is on screen and easy to click."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Open a suitable recipe result",
+      "action_before_state": "A visible search result mentions a vegetarian pasta recipe and suggests it is quick to make.",
+      "action_preconditions": [
+        "At least one relevant recipe result is visible",
+        "The result title is clickable",
+        "The page is not still loading over the result area"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the title of a vegetarian pasta recipe result that looks suitable for a 30-minute dinner"
+        }
+      },
+      "action_after_effects": "Chrome opens the recipe page.",
+      "nl_explanation": "Once a relevant quick vegetarian pasta recipe result is visible, left-click its title. The browser should navigate from the search page to that recipe webpage."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Move to the part of the recipe page that shows the key details",
+      "action_before_state": "The selected recipe page is open, usually starting near the top with the recipe title, image, or introduction.",
+      "action_preconditions": [
+        "The recipe page has loaded",
+        "The ingredient list and time details are likely lower on the page",
+        "The page can be scrolled"
+      ],
+      "action": {
+        "type": "SCROLL",
+        "direction": "down",
+        "target": {
+          "text": "the center of the recipe page"
+        }
+      },
+      "action_after_effects": "The page moves downward until the ingredient list and a total time or prep/cook time section are visible.",
+      "nl_explanation": "From the top of the recipe page, scroll down to the section where the ingredients and time information are shown. Stop once both details are visible so the recipe meets the task requirement."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Open Chrome's bookmark dialog for the current recipe page",
+      "action_before_state": "The recipe page is open and the relevant content has been located.",
+      "action_preconditions": [
+        "The correct recipe page is still the active tab",
+        "Chrome is focused",
+        "The page is ready to be bookmarked"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "d"
+        ]
+      },
+      "action_after_effects": "Chrome shows the bookmark bubble for the current page, with controls to edit the bookmark name and folder.",
+      "nl_explanation": "When the desired recipe page is active, press Ctrl+D. Chrome should open its bookmark interface so the page can be saved."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Open the bookmark editing controls so a new folder can be created",
+      "action_before_state": "The bookmark bubble is visible, showing the current page details and current folder.",
+      "action_preconditions": [
+        "The bookmark dialog is open",
+        "A control such as Edit, More, or the folder selector is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the control in the bookmark dialog that opens folder editing options, such as Edit, More, or the folder selector"
+        }
+      },
+      "action_after_effects": "Chrome opens folder selection controls or the fuller bookmark editor, where a parent folder can be chosen and a new folder can be created.",
+      "nl_explanation": "Use the bookmark dialog control that exposes folder management. Depending on the Chrome version, this may be an Edit or More control, or the folder selector itself."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Choose the bookmarks bar as the parent location for the new folder",
+      "action_before_state": "Folder management controls are visible in the bookmark editor.",
+      "action_preconditions": [
+        "The bookmark editor or folder selector is open",
+        "A Bookmarks bar option is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Bookmarks bar option in the folder selector or folder list"
+        }
+      },
+      "action_after_effects": "Bookmarks bar becomes the selected parent location for the bookmark or for a new subfolder.",
+      "nl_explanation": "Select Bookmarks bar so the new Dinner Ideas folder will be created there rather than in another bookmarks location."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Start creating the new bookmarks bar folder",
+      "action_before_state": "Bookmarks bar is selected in the bookmark editor or folder chooser.",
+      "action_preconditions": [
+        "Bookmarks bar is the current parent location",
+        "A New Folder or Add folder control is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the New Folder or Add folder control"
+        }
+      },
+      "action_after_effects": "A new folder entry appears in editable mode under Bookmarks bar and is ready to be named.",
+      "nl_explanation": "Create a new subfolder while Bookmarks bar is selected so the folder is placed on the bookmarks bar."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Name the new bookmark folder",
+      "action_before_state": "The new folder name field is active and ready for text input.",
+      "action_preconditions": [
+        "A new folder has just been created",
+        "Typing will replace the temporary folder name"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Dinner Ideas"
+      },
+      "action_after_effects": "The new folder is named Dinner Ideas and remains the selected destination for the bookmark.",
+      "nl_explanation": "Type Dinner Ideas as the folder name. The newly created folder should stay selected as the bookmark destination."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Save the bookmark in the new folder",
+      "action_before_state": "The bookmark editor is open and Dinner Ideas is the selected folder under Bookmarks bar.",
+      "action_preconditions": [
+        "The correct page is being bookmarked",
+        "Dinner Ideas exists and is selected as the destination",
+        "A Save or Done button is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Save or Done button in the bookmark dialog"
+        }
+      },
+      "action_after_effects": "The bookmark dialog closes and the current recipe page is saved in the Dinner Ideas folder on the bookmarks bar.",
+      "nl_explanation": "Confirm the bookmark once Dinner Ideas is selected. Chrome should close the dialog and keep the recipe saved in that new bookmarks bar folder."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Run a web search for quick vegetarian pasta recipes that could satisfy the dinner-time constraint.",
+      "unit_type": "SUBMIT_RECIPE_SEARCH",
+      "unit_before_state": "Chrome is open on an arbitrary page or new tab, with the omnibox not yet prepared for a fresh query.",
+      "unit_after_state": "Chrome shows a search results page for \"quick vegetarian pasta recipe 30 minutes\".",
+      "unit_precondition": [
+        "Chrome is the active window and can receive keyboard input.",
+        "The omnibox can be focused and its current contents can be replaced."
+      ],
+      "unit_effect": [
+        "The omnibox becomes focused with its previous contents selected.",
+        "The query text appears in the omnibox and is submitted.",
+        "A search results page for the entered recipe query loads."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Open a promising quick vegetarian pasta recipe from the search results.",
+      "unit_type": "OPEN_SEARCH_RESULT",
+      "unit_before_state": "A search results page for quick vegetarian pasta recipes is visible, with one or more recipe links on screen or reachable by a short scroll.",
+      "unit_after_state": "A selected vegetarian pasta recipe webpage is open in the current Chrome tab.",
+      "unit_precondition": [
+        "The search results page has loaded enough to scroll and click.",
+        "At least one relevant recipe result is available on the page.",
+        "A suitable result can be brought into view and activated."
+      ],
+      "unit_effect": [
+        "Scrolling reveals a result that appears relevant to a quick vegetarian pasta dinner.",
+        "Clicking the result title navigates away from the search results page to the recipe page."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6
+      ],
+      "unit_intent": "Bring the recipe evidence section into view so the ingredient list and timing can be checked.",
+      "unit_type": "LOCATE_RECIPE_DETAILS",
+      "unit_before_state": "The recipe page is open near its top section, typically showing the recipe title, hero image, or introduction rather than the detailed recipe metadata.",
+      "unit_after_state": "The recipe page is positioned where the ingredient list and a total-time or prep/cook-time section are visible on screen.",
+      "unit_precondition": [
+        "The desired recipe page has loaded.",
+        "The page can be scrolled.",
+        "The ingredients and time details are located farther down the page."
+      ],
+      "unit_effect": [
+        "The page scroll position changes downward.",
+        "The ingredient list is visible.",
+        "A time field for the recipe is visible and readable on the page."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7
+      ],
+      "unit_intent": "Open Chrome's bookmark workflow for the currently selected recipe page.",
+      "unit_type": "OPEN_BOOKMARK_DIALOG",
+      "unit_before_state": "The recipe page is displayed with the relevant ingredients and time details already located.",
+      "unit_after_state": "Chrome's bookmark bubble or bookmark editor is open for the current recipe page, showing bookmark details and folder controls.",
+      "unit_precondition": [
+        "The correct recipe tab is active.",
+        "Chrome is focused.",
+        "The current page is ready to be bookmarked."
+      ],
+      "unit_effect": [
+        "A bookmark dialog appears for the current page.",
+        "The dialog exposes controls for editing the bookmark destination folder."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "unit_intent": "Create and select a new bookmarks bar folder named Dinner Ideas as the bookmark destination.",
+      "unit_type": "CREATE_BOOKMARKS_BAR_FOLDER",
+      "unit_before_state": "The bookmark dialog is open for the recipe page, showing the current bookmark folder and controls that can expand folder management.",
+      "unit_after_state": "Within the bookmark editor, Bookmarks bar is the parent location and a new folder named Dinner Ideas exists and is selected as the destination.",
+      "unit_precondition": [
+        "The bookmark dialog is already open.",
+        "Folder editing or folder selection controls are available.",
+        "The Bookmarks bar option is visible.",
+        "A New Folder or Add folder control is available."
+      ],
+      "unit_effect": [
+        "Folder management controls open inside the bookmark UI.",
+        "Bookmarks bar becomes the selected parent location.",
+        "A new editable folder entry is created.",
+        "The folder name field is filled with \"Dinner Ideas\" and that folder remains selected."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        12
+      ],
+      "unit_intent": "Finish saving the recipe page into the new Dinner Ideas bookmarks bar folder.",
+      "unit_type": "SAVE_BOOKMARK",
+      "unit_before_state": "The bookmark editor is still open, and Dinner Ideas is selected as the destination folder under Bookmarks bar.",
+      "unit_after_state": "The bookmark dialog is closed and the current recipe page is saved as a bookmark inside the Dinner Ideas folder.",
+      "unit_precondition": [
+        "The correct recipe page is still being bookmarked.",
+        "The Dinner Ideas folder exists and is selected.",
+        "A visible Save or Done control can be activated."
+      ],
+      "unit_effect": [
+        "The bookmark dialog closes after confirmation.",
+        "Chrome shows the page as bookmarked, indicating the save completed."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Run a web search for quick vegetarian pasta recipes that could satisfy the dinner-time constraint.",
+      "unit_type": "SUBMIT_RECIPE_SEARCH",
+      "unit_before_state": "Chrome is open on an arbitrary page or new tab, with the omnibox not yet prepared for a fresh query.",
+      "unit_after_state": "Chrome shows a search results page for \"quick vegetarian pasta recipe 30 minutes\".",
+      "unit_precondition": [
+        "Chrome is the active window and can receive keyboard input.",
+        "The omnibox can be focused and its current contents can be replaced."
+      ],
+      "unit_effect": [
+        "The omnibox becomes focused with its previous contents selected.",
+        "The query text appears in the omnibox and is submitted.",
+        "A search results page for the entered recipe query loads."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Submit a specified web search query from the browser address bar.",
+      "parameters": {
+        "search_query": "quick vegetarian pasta recipe 30 minutes"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'l']}",
+          "action_template": "When Chrome is visible and active, press Ctrl+L to focus the address bar and select its current contents so {{search_query}} can replace the existing text."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'quick vegetarian pasta recipe 30 minutes'}",
+          "action_template": "With the address bar already focused, type {{search_query}} to replace whatever text is currently in the omnibox."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After {{search_query}} is entered in the omnibox, press Enter to submit it and load the corresponding search results page."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Open a promising quick vegetarian pasta recipe from the search results.",
+      "unit_type": "OPEN_SEARCH_RESULT",
+      "unit_before_state": "A search results page for quick vegetarian pasta recipes is visible, with one or more recipe links on screen or reachable by a short scroll.",
+      "unit_after_state": "A selected vegetarian pasta recipe webpage is open in the current Chrome tab.",
+      "unit_precondition": [
+        "The search results page has loaded enough to scroll and click.",
+        "At least one relevant recipe result is available on the page.",
+        "A suitable result can be brought into view and activated."
+      ],
+      "unit_effect": [
+        "Scrolling reveals a result that appears relevant to a quick vegetarian pasta dinner.",
+        "Clicking the result title navigates away from the search results page to the recipe page."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a recipe search result that matches the desired recipe criteria.",
+      "parameters": {
+        "result_criteria": "a vegetarian pasta recipe result that looks suitable for a 30-minute dinner"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'SCROLL', 'direction': 'down', 'target': {'text': 'the middle of the search results page'}}",
+          "action_template": "If a result matching {{result_criteria}} is not already visible, scroll down through the search results page. Do this only after the search results page has loaded enough to interact with and recipe results are present. Stop when a result matching {{result_criteria}} is clearly visible and easy to click."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the title of a vegetarian pasta recipe result that looks suitable for a 30-minute dinner'}}",
+          "action_template": "Once a visible search result matches {{result_criteria}}, left-click its title. Do this when at least one relevant result is visible, the result title is clickable, and the page is not still loading over the result area. Chrome should then open the recipe page."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6
+      ],
+      "unit_intent": "Bring the recipe evidence section into view so the ingredient list and timing can be checked.",
+      "unit_type": "LOCATE_RECIPE_DETAILS",
+      "unit_before_state": "The recipe page is open near its top section, typically showing the recipe title, hero image, or introduction rather than the detailed recipe metadata.",
+      "unit_after_state": "The recipe page is positioned where the ingredient list and a total-time or prep/cook-time section are visible on screen.",
+      "unit_precondition": [
+        "The desired recipe page has loaded.",
+        "The page can be scrolled.",
+        "The ingredients and time details are located farther down the page."
+      ],
+      "unit_effect": [
+        "The page scroll position changes downward.",
+        "The ingredient list is visible.",
+        "A time field for the recipe is visible and readable on the page."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Position the current recipe page so the ingredient list and timing details are visible for review.",
+      "parameters": {
+        "scroll_target": "the center of the recipe page",
+        "target_details": "the ingredient list and a total time or prep/cook time section"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'SCROLL', 'direction': 'down', 'target': {'text': 'the center of the recipe page'}}",
+          "action_template": "From near the top of the recipe page, scroll down through {{scroll_target}} once the page has loaded and can be scrolled, until {{target_details}} are visible. Stop when those details are visible and readable on screen."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7
+      ],
+      "unit_intent": "Open Chrome's bookmark workflow for the currently selected recipe page.",
+      "unit_type": "OPEN_BOOKMARK_DIALOG",
+      "unit_before_state": "The recipe page is displayed with the relevant ingredients and time details already located.",
+      "unit_after_state": "Chrome's bookmark bubble or bookmark editor is open for the current recipe page, showing bookmark details and folder controls.",
+      "unit_precondition": [
+        "The correct recipe tab is active.",
+        "Chrome is focused.",
+        "The current page is ready to be bookmarked."
+      ],
+      "unit_effect": [
+        "A bookmark dialog appears for the current page.",
+        "The dialog exposes controls for editing the bookmark destination folder."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open Chrome's bookmark dialog for the currently active page.",
+      "parameters": {
+        "target_page": "current recipe page"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'd']}",
+          "action_template": "When {{target_page}} is the active tab, Chrome is focused, and the page is ready to be bookmarked, press Ctrl+D to open Chrome's bookmark interface; Chrome then shows the bookmark dialog for the current page with controls to edit the bookmark name and folder."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "unit_intent": "Create and select a new bookmarks bar folder named Dinner Ideas as the bookmark destination.",
+      "unit_type": "CREATE_BOOKMARKS_BAR_FOLDER",
+      "unit_before_state": "The bookmark dialog is open for the recipe page, showing the current bookmark folder and controls that can expand folder management.",
+      "unit_after_state": "Within the bookmark editor, Bookmarks bar is the parent location and a new folder named Dinner Ideas exists and is selected as the destination.",
+      "unit_precondition": [
+        "The bookmark dialog is already open.",
+        "Folder editing or folder selection controls are available.",
+        "The Bookmarks bar option is visible.",
+        "A New Folder or Add folder control is available."
+      ],
+      "unit_effect": [
+        "Folder management controls open inside the bookmark UI.",
+        "Bookmarks bar becomes the selected parent location.",
+        "A new editable folder entry is created.",
+        "The folder name field is filled with \"Dinner Ideas\" and that folder remains selected."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create and select a new bookmark folder under a specified parent bookmark location as the destination for the current bookmark.",
+      "parameters": {
+        "folder_management_control": "the control in the bookmark dialog that opens folder editing options, such as Edit, More, or the folder selector",
+        "parent_bookmark_location": "Bookmarks bar",
+        "new_folder_control": "the New Folder or Add folder control",
+        "folder_name": "Dinner Ideas"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the control in the bookmark dialog that opens folder editing options, such as Edit, More, or the folder selector'}}",
+          "action_template": "When the bookmark dialog is open and {{folder_management_control}} is visible, click {{folder_management_control}} to expose folder management in the bookmark UI so a parent folder can be chosen and a new folder can be created."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Bookmarks bar option in the folder selector or folder list'}}",
+          "action_template": "With the bookmark editor or folder selector open and the {{parent_bookmark_location}} option visible, click the {{parent_bookmark_location}} option in the folder selector or folder list so {{parent_bookmark_location}} becomes the selected parent location for the bookmark or new subfolder."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the New Folder or Add folder control'}}",
+          "action_template": "After {{parent_bookmark_location}} is the current parent location and {{new_folder_control}} is visible, click {{new_folder_control}} to create a new editable subfolder entry under {{parent_bookmark_location}} that is ready to be named."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Dinner Ideas'}",
+          "action_template": "When the new folder name field is active and typing will replace the temporary folder name, type {{folder_name}} so the new folder is named {{folder_name}} and remains selected as the bookmark destination."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        12
+      ],
+      "unit_intent": "Finish saving the recipe page into the new Dinner Ideas bookmarks bar folder.",
+      "unit_type": "SAVE_BOOKMARK",
+      "unit_before_state": "The bookmark editor is still open, and Dinner Ideas is selected as the destination folder under Bookmarks bar.",
+      "unit_after_state": "The bookmark dialog is closed and the current recipe page is saved as a bookmark inside the Dinner Ideas folder.",
+      "unit_precondition": [
+        "The correct recipe page is still being bookmarked.",
+        "The Dinner Ideas folder exists and is selected.",
+        "A visible Save or Done control can be activated."
+      ],
+      "unit_effect": [
+        "The bookmark dialog closes after confirmation.",
+        "Chrome shows the page as bookmarked, indicating the save completed."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Confirm saving the current page as a bookmark in the selected destination folder.",
+      "parameters": {
+        "destination_folder": "Dinner Ideas",
+        "bookmark_location": "Bookmarks bar",
+        "confirm_button": "the Save or Done button in the bookmark dialog"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Save or Done button in the bookmark dialog'}}",
+          "action_template": "Click {{confirm_button}} once the correct page is being bookmarked and {{destination_folder}} is selected as the destination under {{bookmark_location}}. This confirms the bookmark, closes the dialog, and saves the current page in the {{destination_folder}} folder."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

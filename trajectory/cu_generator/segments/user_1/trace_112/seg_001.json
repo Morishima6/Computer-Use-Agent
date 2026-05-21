@@ -1,0 +1,792 @@
+{
+  "segment_id": "seg_001",
+  "app": "gimp",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the image selection dialog",
+      "action_before_state": "GIMP is already open on the GNOME desktop, and the main editing window is visible with no other modal dialog covering it.",
+      "action_preconditions": [
+        "The GIMP window is focused",
+        "No dialog is blocking keyboard shortcuts"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "o"
+        ]
+      },
+      "action_after_effects": "An Open Image dialog appears in front of the main GIMP window.",
+      "nl_explanation": "When the main GIMP window is active and no other dialog is open, press Ctrl+O to open the file chooser. The expected result is that the Open Image dialog appears."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Switch the file chooser to the Pictures folder",
+      "action_before_state": "The Open Image dialog is visible, with a left sidebar showing common folders and a main file area.",
+      "action_preconditions": [
+        "The Open Image dialog is open",
+        "The sidebar contains a Pictures shortcut"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "Pictures in the left sidebar of the Open Image dialog"
+        }
+      },
+      "action_after_effects": "The file list updates to show the contents of the Pictures folder.",
+      "nl_explanation": "Once the file chooser is open and the Pictures shortcut is visible, click Pictures in the sidebar. The main pane should switch to that folder."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Open the receipt image in GIMP",
+      "action_before_state": "The file chooser is showing files in the Pictures folder.",
+      "action_preconditions": [
+        "The Pictures folder is open",
+        "The receipt image file is visible in the main file area"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 2,
+        "target": {
+          "text": "the receipt image file in the main file list"
+        }
+      },
+      "action_after_effects": "The file chooser closes and the receipt image loads onto the GIMP canvas.",
+      "nl_explanation": "When the Pictures folder is displayed and the receipt image is visible, double-click the file to open it directly in GIMP. The dialog should close and the image should appear on the canvas."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Activate the Crop tool",
+      "action_before_state": "The receipt image is visible on the canvas, including extra empty margin around the useful content.",
+      "action_preconditions": [
+        "The receipt image has finished loading",
+        "Keyboard shortcuts are going to GIMP"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "shift",
+          "c"
+        ]
+      },
+      "action_after_effects": "The Crop tool becomes active and the cursor changes to a crop cursor.",
+      "nl_explanation": "After the receipt image is open and GIMP is focused, press Shift+C to switch to the Crop tool. The next drag on the canvas will define a crop area."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Draw a crop box around the useful receipt content",
+      "action_before_state": "The Crop tool is active, and the full receipt with extra outer margin is visible on the canvas.",
+      "action_preconditions": [
+        "The Crop tool is selected",
+        "The visible receipt content can be framed without including the unwanted outer margin"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "a point just inside the upper-left edge of the actual receipt content"
+        },
+        "end": {
+          "text": "a point just inside the lower-right edge of the actual receipt content"
+        },
+        "target": {
+          "begin": {
+            "text": "the canvas at upper-left crop corner"
+          },
+          "end": {
+            "text": "the canvas at lower-right crop corner"
+          }
+        }
+      },
+      "action_after_effects": "A crop rectangle appears, tightly framing the receipt content and excluding most of the empty border area.",
+      "nl_explanation": "With the Crop tool active and the receipt visible, drag from the upper-left inner edge of the real receipt area to the lower-right inner edge. A crop box should appear around the important content."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Apply the crop",
+      "action_before_state": "A crop rectangle is already visible around the useful part of the receipt.",
+      "action_preconditions": [
+        "A crop area has been drawn",
+        "The crop rectangle is positioned correctly"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The canvas updates so only the cropped receipt area remains visible.",
+      "nl_explanation": "After the crop box is set correctly around the receipt, press Enter to apply it. The image should immediately be trimmed to the selected area."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Activate the rectangle selection tool",
+      "action_before_state": "The cropped receipt is visible on the canvas, and the sensitive card number area is still readable.",
+      "action_preconditions": [
+        "The crop has been applied",
+        "The sensitive text area is visible on the receipt"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "r"
+        ]
+      },
+      "action_after_effects": "The Rectangle Select tool becomes active and is ready to mark a specific region on the image.",
+      "nl_explanation": "When the cropped receipt is visible and the sensitive area can be seen, press R to activate the Rectangle Select tool. The next drag will create a selection around the private text."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Select the payment card number area",
+      "action_before_state": "The Rectangle Select tool is active, and the private payment number area is visible on the receipt.",
+      "action_preconditions": [
+        "The Rectangle Select tool is selected",
+        "The card number or other private payment field can be clearly located on the receipt"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the upper-left corner of the payment card number area"
+        },
+        "end": {
+          "text": "the lower-right corner of the payment card number area"
+        },
+        "target": {
+          "begin": {
+            "text": "the canvas at upper-left of card number area"
+          },
+          "end": {
+            "text": "the canvas at lower-right of card number area"
+          }
+        }
+      },
+      "action_after_effects": "A rectangular selection border appears around the sensitive payment details.",
+      "nl_explanation": "With the selection tool active and the private payment field visible, drag from the upper-left corner of that field to its lower-right corner. A rectangular marquee should outline the sensitive area."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Open the Filters menu",
+      "action_before_state": "The sensitive payment area is selected on the receipt, and the top menu bar is visible.",
+      "action_preconditions": [
+        "A rectangular selection is active",
+        "The menu bar is accessible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "Filters in the top menu bar"
+        }
+      },
+      "action_after_effects": "The Filters menu opens and shows available image effects.",
+      "nl_explanation": "Once the private area is selected and the menu bar is visible, click Filters. The menu should expand and show effect categories."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Open the Gaussian Blur dialog",
+      "action_before_state": "The Filters menu is open with blur-related options available.",
+      "action_preconditions": [
+        "The Filters menu is expanded",
+        "The Blur submenu and Gaussian Blur option are available"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "Blur > Gaussian Blur... in the Filters menu"
+        }
+      },
+      "action_after_effects": "A Gaussian Blur dialog appears, showing blur size controls and a live preview.",
+      "nl_explanation": "When the Filters menu is open and the blur options are available, click the Gaussian Blur... option under Blur. The blur settings dialog should appear for the selected region."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Focus the blur size input field",
+      "action_before_state": "The Gaussian Blur dialog is open, with numeric blur size controls visible.",
+      "action_preconditions": [
+        "The Gaussian Blur dialog is open",
+        "A numeric blur size field is visible and editable"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the first blur size input box in the Gaussian Blur dialog"
+        }
+      },
+      "action_after_effects": "The chosen blur size field becomes active and ready for typing.",
+      "nl_explanation": "With the Gaussian Blur dialog open and its numeric controls visible, click the first blur size input box to place the text cursor there. The field should become ready for editing."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Increase the blur amount enough to hide the private digits",
+      "action_before_state": "The blur size field is focused in the Gaussian Blur dialog.",
+      "action_preconditions": [
+        "The blur size field is active",
+        "Keyboard input is going to the Gaussian Blur dialog"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "25"
+      },
+      "action_after_effects": "The blur preview becomes much softer, making the selected payment number area unreadable.",
+      "nl_explanation": "After focusing the blur size field, type 25 to raise the blur strength. The live preview should update so the selected digits look obscured."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Apply the blur to the selected area",
+      "action_before_state": "The Gaussian Blur dialog is still open, and the preview already shows the private text blurred.",
+      "action_preconditions": [
+        "The blur amount is strong enough to hide the sensitive text",
+        "The OK button is visible in the dialog"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the OK button in the Gaussian Blur dialog"
+        }
+      },
+      "action_after_effects": "The dialog closes and the selected payment details remain blurred on the receipt image.",
+      "nl_explanation": "Once the preview shows the private area blurred enough, click OK in the Gaussian Blur dialog. The effect should be applied to the selected part of the image."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Open the export dialog",
+      "action_before_state": "The cleaned receipt is visible on the canvas, with empty margins removed and the payment number blurred.",
+      "action_preconditions": [
+        "The editing steps are complete",
+        "No modal dialog is blocking shortcuts"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "e"
+        ]
+      },
+      "action_after_effects": "An Export Image dialog opens so the edited receipt can be saved as a new file.",
+      "nl_explanation": "After finishing the crop and blur edits, press Ctrl+Shift+E to open the Export Image dialog. This prepares the edited receipt to be saved as a separate copy."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Choose the Desktop as the destination folder",
+      "action_before_state": "The Export Image dialog is open, with folder shortcuts listed in the left sidebar.",
+      "action_preconditions": [
+        "The Export Image dialog is visible",
+        "The Desktop shortcut is shown in the sidebar"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "Desktop in the left sidebar of the Export Image dialog"
+        }
+      },
+      "action_after_effects": "The export dialog switches to the Desktop folder.",
+      "nl_explanation": "When the export dialog is open and the Desktop shortcut is visible, click Desktop in the sidebar. The save destination should change to the Desktop folder."
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Focus the filename field",
+      "action_before_state": "The export dialog is now pointed at the Desktop folder, and the name field is visible near the bottom.",
+      "action_preconditions": [
+        "The export location is Desktop",
+        "The filename field is visible and editable"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Name field in the Export Image dialog"
+        }
+      },
+      "action_after_effects": "The text cursor appears inside the filename field.",
+      "nl_explanation": "After switching the export destination to Desktop and confirming the name field is visible, click inside the Name field. The cursor should appear there for editing."
+    },
+    {
+      "step_id": "s17",
+      "step_goal": "Replace the export filename",
+      "action_before_state": "The filename field is active in the export dialog.",
+      "action_preconditions": [
+        "The filename field has keyboard focus"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "shared_receipt.png"
+      },
+      "action_after_effects": "The export filename updates to shared_receipt.png.",
+      "nl_explanation": "With the filename field focused and ready for input, type shared_receipt.png. The dialog should now show the new output name."
+    },
+    {
+      "step_id": "s18",
+      "step_goal": "Start exporting the cleaned receipt",
+      "action_before_state": "The Export Image dialog shows Desktop as the destination and shared_receipt.png as the filename.",
+      "action_preconditions": [
+        "A valid output filename is present",
+        "The Export button is visible and enabled"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Export button in the Export Image dialog"
+        }
+      },
+      "action_after_effects": "The Export Image dialog advances to show format-specific PNG export options.",
+      "nl_explanation": "After confirming the Desktop destination and the new filename, click Export. GIMP should proceed to the PNG-specific export configuration options."
+    },
+    {
+      "step_id": "s19",
+      "step_goal": "Confirm the PNG export settings",
+      "action_before_state": "The Export Image dialog displays PNG format options with a final Export button.",
+      "action_preconditions": [
+        "The PNG export options are displayed",
+        "The final Export button is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Export button in the Export Image dialog"
+        }
+      },
+      "action_after_effects": "The dialog closes and the cleaned receipt is saved to the Desktop as shared_receipt.png.",
+      "nl_explanation": "When the PNG export options are displayed and the final Export button is available, click Export to accept the current settings. The edited receipt should then be saved to the Desktop."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Open the receipt image from the Pictures folder so it can be edited in GIMP.",
+      "unit_type": "OPEN_IMAGE_FROM_PICTURES",
+      "unit_before_state": "The main GIMP editing window is open on the desktop with no modal dialog shown, and no image-opening dialog is currently visible.",
+      "unit_after_state": "The Open Image dialog has closed, and the receipt image from the Pictures folder is displayed on the GIMP canvas.",
+      "unit_precondition": [
+        "GIMP is the focused application window.",
+        "No modal dialog is blocking keyboard shortcuts.",
+        "The receipt image file exists in the Pictures folder and is visible after switching to that folder."
+      ],
+      "unit_effect": [
+        "An Open Image file chooser appears.",
+        "The file chooser switches to the Pictures folder and shows its contents.",
+        "After the file is activated, the dialog closes and the receipt image loads onto the canvas."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Trim away the empty outer margins so only the useful receipt area remains.",
+      "unit_type": "CROP_IMAGE_CONTENT",
+      "unit_before_state": "The full receipt image is visible on the GIMP canvas, including extra empty border space around the actual receipt content.",
+      "unit_after_state": "The canvas shows a cropped version of the receipt with the unnecessary outer margins removed.",
+      "unit_precondition": [
+        "The receipt image has finished loading on the canvas.",
+        "GIMP is receiving keyboard and mouse input.",
+        "The actual receipt content is clearly visible so a tight crop can be drawn around it."
+      ],
+      "unit_effect": [
+        "The Crop tool becomes active.",
+        "A crop rectangle appears around the receipt content.",
+        "Pressing Enter applies the crop and the canvas redraws to the trimmed image size."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Mark the sensitive payment card number region that needs to be obscured.",
+      "unit_type": "SELECT_SENSITIVE_REGION",
+      "unit_before_state": "The cropped receipt is visible on the canvas, and the payment card number area is still readable.",
+      "unit_after_state": "A rectangular selection marquee outlines the payment card number area on the receipt.",
+      "unit_precondition": [
+        "The crop has already been applied.",
+        "The sensitive payment number area is visible on the receipt.",
+        "The Rectangle Select tool can be activated in GIMP."
+      ],
+      "unit_effect": [
+        "The Rectangle Select tool becomes active.",
+        "A visible rectangular selection border appears around the private payment details."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "unit_intent": "Blur the selected payment card number area strongly enough that the digits cannot be read.",
+      "unit_type": "APPLY_GAUSSIAN_BLUR",
+      "unit_before_state": "The payment card number region is selected on the receipt, and the selected text is still readable on the canvas.",
+      "unit_after_state": "The Gaussian Blur dialog is closed, and the selected payment details remain visibly blurred on the receipt image.",
+      "unit_precondition": [
+        "A rectangular selection is active around the sensitive payment area.",
+        "The GIMP top menu bar is visible and usable.",
+        "Gaussian Blur is available from Filters > Blur.",
+        "A blur strength can be entered and previewed in the dialog."
+      ],
+      "unit_effect": [
+        "The Filters menu opens and the Gaussian Blur dialog appears.",
+        "The blur size field is focused and updated to 25.",
+        "The preview shows the selected digits becoming unreadable.",
+        "Clicking OK closes the dialog and leaves the selected area blurred on the canvas."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        14,
+        15,
+        16,
+        17
+      ],
+      "unit_intent": "Prepare a clean export of the edited receipt to the Desktop with the requested filename.",
+      "unit_type": "CONFIGURE_EXPORT_DESTINATION",
+      "unit_before_state": "The edited receipt is visible on the GIMP canvas with margins removed and the payment card number blurred, and no export dialog is open yet.",
+      "unit_after_state": "The Export Image dialog is open on the Desktop folder, and the filename field contains shared_receipt.png.",
+      "unit_precondition": [
+        "The image edits are complete and visible on the canvas.",
+        "No modal dialog is blocking the export shortcut.",
+        "The Export Image dialog includes a Desktop shortcut and an editable Name field."
+      ],
+      "unit_effect": [
+        "The Export Image dialog opens.",
+        "The destination switches to the Desktop folder.",
+        "The filename field receives focus.",
+        "The filename shown in the dialog becomes shared_receipt.png."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        18,
+        19
+      ],
+      "unit_intent": "Complete the PNG export and save the cleaned receipt copy to disk.",
+      "unit_type": "EXPORT_IMAGE_AS_PNG",
+      "unit_before_state": "The Export Image dialog shows Desktop as the destination and shared_receipt.png as the output filename.",
+      "unit_after_state": "All export dialogs are closed, and the cleaned receipt has been saved to the Desktop as shared_receipt.png.",
+      "unit_precondition": [
+        "The Export Image dialog shows a valid destination and filename.",
+        "The initial Export button is enabled.",
+        "The PNG options dialog can be accepted with the current settings."
+      ],
+      "unit_effect": [
+        "The first Export click advances from the file chooser to PNG-specific export options.",
+        "The final Export click closes the dialog.",
+        "A new file named shared_receipt.png is saved on the Desktop."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Open the receipt image from the Pictures folder so it can be edited in GIMP.",
+      "unit_type": "OPEN_IMAGE_FROM_PICTURES",
+      "unit_before_state": "The main GIMP editing window is open on the desktop with no modal dialog shown, and no image-opening dialog is currently visible.",
+      "unit_after_state": "The Open Image dialog has closed, and the receipt image from the Pictures folder is displayed on the GIMP canvas.",
+      "unit_precondition": [
+        "GIMP is the focused application window.",
+        "No modal dialog is blocking keyboard shortcuts.",
+        "The receipt image file exists in the Pictures folder and is visible after switching to that folder."
+      ],
+      "unit_effect": [
+        "An Open Image file chooser appears.",
+        "The file chooser switches to the Pictures folder and shows its contents.",
+        "After the file is activated, the dialog closes and the receipt image loads onto the canvas."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a specified image file from a specified folder into GIMP for editing.",
+      "parameters": {
+        "folder_name": "Pictures",
+        "image_file": "receipt image file"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'o']}",
+          "action_template": "When the main GIMP window is focused and no dialog is blocking keyboard shortcuts, press Ctrl+O to open the file chooser. The expected result is that the Open Image dialog appears."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'Pictures in the left sidebar of the Open Image dialog'}}",
+          "action_template": "Once the Open Image dialog is open and the {{folder_name}} shortcut is visible in the sidebar, click {{folder_name}} to switch the main file pane to that folder. The file list should update to show the contents of {{folder_name}}."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 2, 'target': {'text': 'the receipt image file in the main file list'}}",
+          "action_template": "When the {{folder_name}} folder is displayed and {{image_file}} is visible in the main file area, double-click {{image_file}} to open it directly in GIMP. The dialog should close and the image should appear on the canvas."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Trim away the empty outer margins so only the useful receipt area remains.",
+      "unit_type": "CROP_IMAGE_CONTENT",
+      "unit_before_state": "The full receipt image is visible on the GIMP canvas, including extra empty border space around the actual receipt content.",
+      "unit_after_state": "The canvas shows a cropped version of the receipt with the unnecessary outer margins removed.",
+      "unit_precondition": [
+        "The receipt image has finished loading on the canvas.",
+        "GIMP is receiving keyboard and mouse input.",
+        "The actual receipt content is clearly visible so a tight crop can be drawn around it."
+      ],
+      "unit_effect": [
+        "The Crop tool becomes active.",
+        "A crop rectangle appears around the receipt content.",
+        "Pressing Enter applies the crop and the canvas redraws to the trimmed image size."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Crop an image to a specified content region so only the relevant area remains.",
+      "parameters": {
+        "target_content_region": "the actual receipt content"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['shift', 'c']}",
+          "action_template": "After the image is open and GIMP is focused, press Shift+C to activate the Crop tool so the next drag can define a crop area around {{target_content_region}}."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'a point just inside the upper-left edge of the actual receipt content'}, 'end': {'text': 'a point just inside the lower-right edge of the actual receipt content'}, 'target': {'begin': {'text': 'the canvas at upper-left crop corner'}, 'end': {'text': 'the canvas at lower-right crop corner'}}}",
+          "action_template": "With the Crop tool active and {{target_content_region}} visible, drag from a point just inside the upper-left edge of {{target_content_region}} to a point just inside the lower-right edge of {{target_content_region}} to create a crop rectangle tightly framing it."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After a crop area has been drawn and correctly positioned around {{target_content_region}}, press Enter to apply the crop so only the selected area remains visible."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Mark the sensitive payment card number region that needs to be obscured.",
+      "unit_type": "SELECT_SENSITIVE_REGION",
+      "unit_before_state": "The cropped receipt is visible on the canvas, and the payment card number area is still readable.",
+      "unit_after_state": "A rectangular selection marquee outlines the payment card number area on the receipt.",
+      "unit_precondition": [
+        "The crop has already been applied.",
+        "The sensitive payment number area is visible on the receipt.",
+        "The Rectangle Select tool can be activated in GIMP."
+      ],
+      "unit_effect": [
+        "The Rectangle Select tool becomes active.",
+        "A visible rectangular selection border appears around the private payment details."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Select a rectangular region containing sensitive information that needs to be obscured.",
+      "parameters": {
+        "target_region": "payment card number area"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['r']}",
+          "action_template": "When the cropped receipt is visible and {{target_region}} can be seen, press R to activate the Rectangle Select tool. The next drag will create a selection around {{target_region}}."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the upper-left corner of the payment card number area'}, 'end': {'text': 'the lower-right corner of the payment card number area'}, 'target': {'begin': {'text': 'the canvas at upper-left of card number area'}, 'end': {'text': 'the canvas at lower-right of card number area'}}}",
+          "action_template": "With the Rectangle Select tool active and {{target_region}} visible, drag from the upper-left corner of {{target_region}} to the lower-right corner of {{target_region}}. A rectangular marquee should outline {{target_region}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "unit_intent": "Blur the selected payment card number area strongly enough that the digits cannot be read.",
+      "unit_type": "APPLY_GAUSSIAN_BLUR",
+      "unit_before_state": "The payment card number region is selected on the receipt, and the selected text is still readable on the canvas.",
+      "unit_after_state": "The Gaussian Blur dialog is closed, and the selected payment details remain visibly blurred on the receipt image.",
+      "unit_precondition": [
+        "A rectangular selection is active around the sensitive payment area.",
+        "The GIMP top menu bar is visible and usable.",
+        "Gaussian Blur is available from Filters > Blur.",
+        "A blur strength can be entered and previewed in the dialog."
+      ],
+      "unit_effect": [
+        "The Filters menu opens and the Gaussian Blur dialog appears.",
+        "The blur size field is focused and updated to 25.",
+        "The preview shows the selected digits becoming unreadable.",
+        "Clicking OK closes the dialog and leaves the selected area blurred on the canvas."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Apply Gaussian blur with a specified strength to a selected sensitive image region so its contents become unreadable.",
+      "parameters": {
+        "blur_value": "25"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'Filters in the top menu bar'}}",
+          "action_template": "Click Filters in the top menu bar once a rectangular selection is active and the menu bar is accessible to open the Filters menu and show available image effects."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'Blur > Gaussian Blur... in the Filters menu'}}",
+          "action_template": "Click Blur > Gaussian Blur... in the expanded Filters menu when the Blur submenu and Gaussian Blur option are available to open the Gaussian Blur dialog with blur size controls and a live preview."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the first blur size input box in the Gaussian Blur dialog'}}",
+          "action_template": "Click the first blur size input box in the Gaussian Blur dialog when a numeric blur size field is visible and editable to make that field active and ready for typing."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '25'}",
+          "action_template": "Type {{blur_value}} into the active blur size field while keyboard input is going to the Gaussian Blur dialog to increase the blur strength and update the preview so the selected content becomes unreadable."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the OK button in the Gaussian Blur dialog'}}",
+          "action_template": "Click the OK button in the Gaussian Blur dialog once the blur amount is strong enough to hide the sensitive text to apply the effect, close the dialog, and leave the selected area blurred on the canvas."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        14,
+        15,
+        16,
+        17
+      ],
+      "unit_intent": "Prepare a clean export of the edited receipt to the Desktop with the requested filename.",
+      "unit_type": "CONFIGURE_EXPORT_DESTINATION",
+      "unit_before_state": "The edited receipt is visible on the GIMP canvas with margins removed and the payment card number blurred, and no export dialog is open yet.",
+      "unit_after_state": "The Export Image dialog is open on the Desktop folder, and the filename field contains shared_receipt.png.",
+      "unit_precondition": [
+        "The image edits are complete and visible on the canvas.",
+        "No modal dialog is blocking the export shortcut.",
+        "The Export Image dialog includes a Desktop shortcut and an editable Name field."
+      ],
+      "unit_effect": [
+        "The Export Image dialog opens.",
+        "The destination switches to the Desktop folder.",
+        "The filename field receives focus.",
+        "The filename shown in the dialog becomes shared_receipt.png."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Configure the export dialog to save the edited image to a specified destination folder with a specified filename.",
+      "parameters": {
+        "destination_folder": "Desktop",
+        "output_filename": "shared_receipt.png"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'e']}",
+          "action_template": "After the editing steps are complete and no modal dialog is blocking shortcuts, press Ctrl+Shift+E to open the Export Image dialog so the edited image can be saved as a new file."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'Desktop in the left sidebar of the Export Image dialog'}}",
+          "action_template": "When the Export Image dialog is visible and the {{destination_folder}} shortcut is shown in the sidebar, click {{destination_folder}} in the left sidebar of the Export Image dialog to switch the save destination to the {{destination_folder}} folder."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Name field in the Export Image dialog'}}",
+          "action_template": "After the export location is set to {{destination_folder}} and the filename field is visible and editable, click the Name field in the Export Image dialog so the text cursor appears there for editing."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'shared_receipt.png'}",
+          "action_template": "With the filename field focused and ready for input, type {{output_filename}} so the export filename updates to {{output_filename}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        18,
+        19
+      ],
+      "unit_intent": "Complete the PNG export and save the cleaned receipt copy to disk.",
+      "unit_type": "EXPORT_IMAGE_AS_PNG",
+      "unit_before_state": "The Export Image dialog shows Desktop as the destination and shared_receipt.png as the output filename.",
+      "unit_after_state": "All export dialogs are closed, and the cleaned receipt has been saved to the Desktop as shared_receipt.png.",
+      "unit_precondition": [
+        "The Export Image dialog shows a valid destination and filename.",
+        "The initial Export button is enabled.",
+        "The PNG options dialog can be accepted with the current settings."
+      ],
+      "unit_effect": [
+        "The first Export click advances from the file chooser to PNG-specific export options.",
+        "The final Export click closes the dialog.",
+        "A new file named shared_receipt.png is saved on the Desktop."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Complete a PNG export and save the edited image to the chosen destination with the specified filename.",
+      "parameters": {
+        "save_location": "Desktop",
+        "output_file_name": "shared_receipt.png"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Export button in the Export Image dialog'}}",
+          "action_template": "Click the Export button in the Export Image dialog to start exporting the image after confirming that {{save_location}} is the destination and {{output_file_name}} is the filename. This requires a valid output filename and a visible enabled Export button, and it advances the dialog to PNG-specific export options."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Export button in the Export Image dialog'}}",
+          "action_template": "Click the final Export button when the PNG export options are displayed to accept the current settings and finish saving {{output_file_name}} to {{save_location}}. This requires the PNG export options to be displayed and the final Export button to be visible, and it closes the dialog after saving the file."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

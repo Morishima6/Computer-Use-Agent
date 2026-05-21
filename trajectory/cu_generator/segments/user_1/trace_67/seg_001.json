@@ -1,0 +1,420 @@
+{
+  "segment_id": "seg_001",
+  "app": "Chrome",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Focus the browser address bar",
+      "action_before_state": "Chrome is already open on some page, and the main browser window is visible.",
+      "action_preconditions": [
+        "Chrome is the active window",
+        "The browser is ready to receive keyboard input"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "l"
+        ]
+      },
+      "action_after_effects": "The address bar becomes focused and the current URL is highlighted.",
+      "nl_explanation": "When Chrome is active and ready for input, press Ctrl+L to move focus to the address bar so a new website address can be entered."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Enter the Google Maps website address",
+      "action_before_state": "The address bar is focused and its current contents are selected.",
+      "action_preconditions": [
+        "The address bar caret is active",
+        "Any previous URL text is selected or can be replaced"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "https://maps.google.com"
+      },
+      "action_after_effects": "The Google Maps URL appears in the address bar, ready to be opened.",
+      "nl_explanation": "With the address bar focused, type the Google Maps URL so the browser is prepared to navigate directly to Maps."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Open Google Maps",
+      "action_before_state": "The Google Maps URL is visible in the address bar.",
+      "action_preconditions": [
+        "A valid URL has been typed into the address bar"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "Google Maps loads in the current tab.",
+      "nl_explanation": "Once the Google Maps address has been entered, press Enter to load the site and wait until the map interface appears."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Open the directions panel",
+      "action_before_state": "The Google Maps home screen is visible with the search area and map canvas.",
+      "action_preconditions": [
+        "Google Maps has finished loading",
+        "The Directions control is visible near the search interface"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Directions button next to the search box"
+        }
+      },
+      "action_after_effects": "The directions sidebar opens with separate fields for the starting point and destination.",
+      "nl_explanation": "After the Maps interface is visible, click the Directions button to open the route-planning panel with origin and destination inputs."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Place the cursor in the starting-point field",
+      "action_before_state": "The directions panel is open with an empty first field for the origin.",
+      "action_preconditions": [
+        "The directions sidebar is open",
+        "The starting-point input box is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the first input box labeled Choose starting point"
+        }
+      },
+      "action_after_effects": "The cursor is placed in the origin field and it is ready for typing.",
+      "nl_explanation": "When the directions panel is open, click the starting-point box so the route origin can be entered."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Enter the route origin",
+      "action_before_state": "The starting-point field is active and ready for text input.",
+      "action_preconditions": [
+        "The origin input box is focused"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Nanjing South Railway Station"
+      },
+      "action_after_effects": "The origin text appears in the first field, and Google Maps may begin showing matching suggestions.",
+      "nl_explanation": "With the starting-point field active, type Nanjing South Railway Station so Maps can use it as the route origin."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Place the cursor in the destination field",
+      "action_before_state": "The starting-point field contains the origin text, and the destination field is still empty.",
+      "action_preconditions": [
+        "The directions panel remains open",
+        "The destination input box is visible below the origin field"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the second input box labeled Choose destination"
+        }
+      },
+      "action_after_effects": "The cursor moves into the destination field.",
+      "nl_explanation": "After entering the origin, click the destination box so the endpoint of the route can be typed next."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Enter the route destination",
+      "action_before_state": "The destination field is active and empty.",
+      "action_preconditions": [
+        "The destination input box is focused"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Confucius Temple, Nanjing"
+      },
+      "action_after_effects": "The destination text appears in the second field, and Maps may show suggested matches.",
+      "nl_explanation": "With the destination field focused, type Confucius Temple, Nanjing so Maps knows where the route should end."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Ask Google Maps to generate the route",
+      "action_before_state": "Both the origin and destination fields contain place names.",
+      "action_preconditions": [
+        "The origin and destination fields are both filled in"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "Google Maps resolves the two places and displays route options, usually defaulting to a travel mode such as driving.",
+      "nl_explanation": "Once both route fields are filled, press Enter to let Maps calculate directions between the two locations."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Switch the route to public transit mode",
+      "action_before_state": "Route results are visible in the directions panel, along with travel-mode icons such as driving and transit.",
+      "action_preconditions": [
+        "Google Maps has already generated directions",
+        "The Transit mode icon is visible among the route mode choices"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Transit mode icon in the route options bar"
+        }
+      },
+      "action_after_effects": "The directions update to public transit results, and the transit route choices remain visible for review.",
+      "nl_explanation": "After the route options appear, click the Transit icon to change the directions to public transportation and leave those route details open."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Open Google Maps in the current Chrome tab so route planning can begin.",
+      "unit_type": "OPEN_MAPS_SITE",
+      "unit_before_state": "Chrome is the active window showing some already-open webpage, and the main browser UI including the address bar is visible.",
+      "unit_after_state": "Google Maps is loaded in the current tab, showing the map canvas and the main search interface.",
+      "unit_precondition": [
+        "Chrome is the foreground window and accepts keyboard input.",
+        "The browser address bar is available and can replace the current URL."
+      ],
+      "unit_effect": [
+        "The address bar becomes selected, the text https://maps.google.com is entered, and the tab navigates to Google Maps.",
+        "The Google Maps home interface appears, confirming the site has loaded."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4
+      ],
+      "unit_intent": "Enter route-planning mode so origin and destination can be provided.",
+      "unit_type": "OPEN_DIRECTIONS_PANEL",
+      "unit_before_state": "Google Maps is open on its main map view with the search box and a visible Directions button near the top-left controls.",
+      "unit_after_state": "The left directions sidebar is open and shows separate input fields for the starting point and destination.",
+      "unit_precondition": [
+        "Google Maps has finished loading.",
+        "The Directions button is visible and clickable in the Maps interface."
+      ],
+      "unit_effect": [
+        "The directions sidebar replaces the simple search state.",
+        "Two route fields appear, indicating Maps is ready for route entry."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "unit_intent": "Specify the trip endpoints and generate directions from Nanjing South Railway Station to the Confucius Temple area.",
+      "unit_type": "SET_ROUTE_ENDPOINTS",
+      "unit_before_state": "The directions sidebar is open with an empty starting-point field and an empty destination field.",
+      "unit_after_state": "The directions panel shows Nanjing South Railway Station as the origin and Confucius Temple, Nanjing as the destination, and route results have been generated for the trip.",
+      "unit_precondition": [
+        "The directions sidebar is already open.",
+        "The origin and destination input boxes are visible and editable."
+      ],
+      "unit_effect": [
+        "The origin field displays Nanjing South Railway Station.",
+        "The destination field displays Confucius Temple, Nanjing.",
+        "After pressing Enter, route results appear in the panel, confirming that Maps resolved both places and calculated directions."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        10
+      ],
+      "unit_intent": "Change the displayed directions to public transit while keeping the route choices visible for inspection.",
+      "unit_type": "SWITCH_TO_TRANSIT_MODE",
+      "unit_before_state": "Google Maps is showing route results in the directions panel, and the travel-mode row includes icons such as driving and transit.",
+      "unit_after_state": "The directions panel is updated to public transit results, with transit route options visible in the sidebar.",
+      "unit_precondition": [
+        "Route results are already displayed between the selected origin and destination.",
+        "The Transit mode icon is visible among the available route modes."
+      ],
+      "unit_effect": [
+        "The Transit icon becomes the active travel mode.",
+        "The route list refreshes to show public transit options, which remain visible on screen."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Open Google Maps in the current Chrome tab so route planning can begin.",
+      "unit_type": "OPEN_MAPS_SITE",
+      "unit_before_state": "Chrome is the active window showing some already-open webpage, and the main browser UI including the address bar is visible.",
+      "unit_after_state": "Google Maps is loaded in the current tab, showing the map canvas and the main search interface.",
+      "unit_precondition": [
+        "Chrome is the foreground window and accepts keyboard input.",
+        "The browser address bar is available and can replace the current URL."
+      ],
+      "unit_effect": [
+        "The address bar becomes selected, the text https://maps.google.com is entered, and the tab navigates to Google Maps.",
+        "The Google Maps home interface appears, confirming the site has loaded."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a specified website in the current Chrome tab so its main interface becomes available.",
+      "parameters": {
+        "target_site_name": "Google Maps",
+        "target_url": "https://maps.google.com"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'l']}",
+          "action_template": "When Chrome is active and ready to receive keyboard input, press Ctrl+L to focus the address bar and highlight the current URL so {{target_url}} can be entered."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'https://maps.google.com'}",
+          "action_template": "With the address bar caret active and any previous URL selected or replaceable, type {{target_url}} so the browser is prepared to navigate directly to {{target_site_name}}."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After a valid URL has been typed into the address bar, press Enter to load {{target_site_name}} and wait until its main interface appears."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4
+      ],
+      "unit_intent": "Enter route-planning mode so origin and destination can be provided.",
+      "unit_type": "OPEN_DIRECTIONS_PANEL",
+      "unit_before_state": "Google Maps is open on its main map view with the search box and a visible Directions button near the top-left controls.",
+      "unit_after_state": "The left directions sidebar is open and shows separate input fields for the starting point and destination.",
+      "unit_precondition": [
+        "Google Maps has finished loading.",
+        "The Directions button is visible and clickable in the Maps interface."
+      ],
+      "unit_effect": [
+        "The directions sidebar replaces the simple search state.",
+        "Two route fields appear, indicating Maps is ready for route entry."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open the directions panel so route start and destination fields are available for input.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Directions button next to the search box'}}",
+          "action_template": "After the Maps interface is visible, click the Directions button to open the route-planning panel with origin and destination inputs."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "unit_intent": "Specify the trip endpoints and generate directions from Nanjing South Railway Station to the Confucius Temple area.",
+      "unit_type": "SET_ROUTE_ENDPOINTS",
+      "unit_before_state": "The directions sidebar is open with an empty starting-point field and an empty destination field.",
+      "unit_after_state": "The directions panel shows Nanjing South Railway Station as the origin and Confucius Temple, Nanjing as the destination, and route results have been generated for the trip.",
+      "unit_precondition": [
+        "The directions sidebar is already open.",
+        "The origin and destination input boxes are visible and editable."
+      ],
+      "unit_effect": [
+        "The origin field displays Nanjing South Railway Station.",
+        "The destination field displays Confucius Temple, Nanjing.",
+        "After pressing Enter, route results appear in the panel, confirming that Maps resolved both places and calculated directions."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Specify an origin and destination in the directions sidebar and generate route results.",
+      "parameters": {
+        "origin_location": "Nanjing South Railway Station",
+        "destination_location": "Confucius Temple, Nanjing"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the first input box labeled Choose starting point'}}",
+          "action_template": "Click the starting-point input box when the directions sidebar is open and the origin field is visible so the route origin field becomes focused and ready for typing."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Nanjing South Railway Station'}",
+          "action_template": "Type {{origin_location}} into the focused origin input box so Maps can use it as the route origin; the origin text appears in the first field and matching suggestions may appear."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the second input box labeled Choose destination'}}",
+          "action_template": "Click the destination input box after entering the origin so the destination field becomes focused for the next route endpoint."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Confucius Temple, Nanjing'}",
+          "action_template": "Type {{destination_location}} into the focused destination input box so Maps knows where the route should end; the destination text appears in the second field and suggested matches may appear."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter once both route fields are filled to let Maps calculate directions between {{origin_location}} and {{destination_location}}; route options then appear in the panel."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        10
+      ],
+      "unit_intent": "Change the displayed directions to public transit while keeping the route choices visible for inspection.",
+      "unit_type": "SWITCH_TO_TRANSIT_MODE",
+      "unit_before_state": "Google Maps is showing route results in the directions panel, and the travel-mode row includes icons such as driving and transit.",
+      "unit_after_state": "The directions panel is updated to public transit results, with transit route options visible in the sidebar.",
+      "unit_precondition": [
+        "Route results are already displayed between the selected origin and destination.",
+        "The Transit mode icon is visible among the available route modes."
+      ],
+      "unit_effect": [
+        "The Transit icon becomes the active travel mode.",
+        "The route list refreshes to show public transit options, which remain visible on screen."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Switch the displayed directions to public transit mode so the transit route options are shown for review.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Transit mode icon in the route options bar'}}",
+          "action_template": "When Google Maps has already generated directions and the Transit mode icon is visible among the route mode choices, click the Transit mode icon in the route options bar to change the directions to public transportation and keep the transit route choices visible for review."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

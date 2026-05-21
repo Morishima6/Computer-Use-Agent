@@ -1,0 +1,356 @@
+{
+  "segment_id": "seg_001",
+  "app": "Chrome",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open Chrome's main menu",
+      "action_before_state": "Chrome is already open on a normal webpage, and the top toolbar with the three-dot menu button is visible.",
+      "action_preconditions": [
+        "The Chrome window is active.",
+        "The browser toolbar is visible.",
+        "No Chrome menu is currently open."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the three-dot Customize and control Chrome button in the top-right corner"
+        }
+      },
+      "action_after_effects": "Chrome opens its main drop-down menu under the three-dot button.",
+      "nl_explanation": "When Chrome is focused and the top toolbar is visible, click the three-dot menu button in the upper-right corner. The expected result is that Chrome's main menu opens."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Open the Chrome Settings page",
+      "action_before_state": "The Chrome main menu is open, and the Settings option is visible in the menu list.",
+      "action_preconditions": [
+        "The Chrome drop-down menu is open.",
+        "The Settings entry is visible and clickable."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Settings option in the Chrome menu"
+        }
+      },
+      "action_after_effects": "Chrome opens the Settings page in the current tab.",
+      "nl_explanation": "With the Chrome menu open and the Settings item visible, click Settings once. Chrome should navigate to the browser settings page."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Open the Search engine settings section",
+      "action_before_state": "The Chrome Settings page is loaded, with the left sidebar showing the available settings categories.",
+      "action_preconditions": [
+        "The Settings page has finished loading.",
+        "The left settings sidebar is visible.",
+        "The Search engine category is present in the sidebar."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Search engine item in the left Settings sidebar"
+        }
+      },
+      "action_after_effects": "The main Settings panel switches to the Search engine section.",
+      "nl_explanation": "Once the Settings page is open and the left sidebar is visible, click Search engine to show the browser's search provider controls."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Open the default search engine selector",
+      "action_before_state": "The Search engine settings section is visible, including a control labeled Search engine used in the address bar.",
+      "action_preconditions": [
+        "The Search engine settings section is open.",
+        "The search engine selector dropdown is visible.",
+        "The page is ready for interaction."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Search engine used in the address bar dropdown"
+        }
+      },
+      "action_after_effects": "The dropdown expands and shows the available search engine options.",
+      "nl_explanation": "When the Search engine section is visible, click the dropdown for the address-bar search engine. The available search engine choices should appear."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Set DuckDuckGo as the default search engine",
+      "action_before_state": "The search engine dropdown is expanded, and DuckDuckGo appears as one of the selectable options.",
+      "action_preconditions": [
+        "The search engine options list is open.",
+        "DuckDuckGo is visible and selectable in the list."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the DuckDuckGo option in the search engine list"
+        }
+      },
+      "action_after_effects": "The dropdown closes, and DuckDuckGo becomes the default search engine for address-bar searches.",
+      "nl_explanation": "With the search engine list open and DuckDuckGo visible, click DuckDuckGo once. Chrome should apply it as the new default search engine."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Focus the address bar for a verification search",
+      "action_before_state": "The Settings page remains open in Chrome after the new default search engine has been selected.",
+      "action_preconditions": [
+        "Chrome is still the active window.",
+        "No modal dialog is blocking keyboard input.",
+        "The browser toolbar and address bar are visible."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "l"
+        ]
+      },
+      "action_after_effects": "The address bar gains focus and its current contents are highlighted, ready to be replaced.",
+      "nl_explanation": "After changing the search engine, press Ctrl+L to place the cursor in the address bar so a test search can be entered directly."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Type a daily search query to verify the new search engine",
+      "action_before_state": "The address bar is focused and any existing text is selected.",
+      "action_preconditions": [
+        "The address bar has keyboard focus.",
+        "Typing will replace the selected text.",
+        "Chrome is ready to accept text input."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "tomorrow weather"
+      },
+      "action_after_effects": "The words tomorrow weather appear in the address bar.",
+      "nl_explanation": "With the address bar selected, type tomorrow weather so Chrome can run a simple everyday search to verify the new default engine."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Run the verification search",
+      "action_before_state": "The query tomorrow weather is visible in the address bar.",
+      "action_preconditions": [
+        "The full search query has been entered.",
+        "The address bar is still focused.",
+        "The browser is ready to submit the search."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "Chrome opens a DuckDuckGo search results page for tomorrow weather, confirming that DuckDuckGo is now the default search engine.",
+      "nl_explanation": "Once the query is typed in the address bar, press Enter to submit it. The expected result is that a DuckDuckGo results page opens, confirming the search engine change worked."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Reach Chrome's search engine settings so the default provider can be changed.",
+      "unit_type": "OPEN_SEARCH_ENGINE_SETTINGS",
+      "unit_before_state": "Chrome is open on a regular webpage with the browser toolbar visible and no Chrome menu open.",
+      "unit_after_state": "The Chrome Settings tab is open with the Search engine section selected in the settings interface, and the default search engine controls are visible in the main panel.",
+      "unit_precondition": [
+        "Chrome is the active window.",
+        "The top browser toolbar is visible and usable.",
+        "The Settings page and its left sidebar can be opened from the main menu."
+      ],
+      "unit_effect": [
+        "The Chrome main menu opens from the three-dot button.",
+        "The browser navigates to the Settings page.",
+        "The Search engine category becomes the active settings section in the main panel."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Change Chrome's default address-bar search provider to DuckDuckGo.",
+      "unit_type": "SET_DEFAULT_SEARCH_ENGINE",
+      "unit_before_state": "The Search engine section of Chrome Settings is open, and the control labeled Search engine used in the address bar is visible with its current provider shown.",
+      "unit_after_state": "The search engine dropdown is closed, and DuckDuckGo is shown as the selected default search engine for address-bar searches.",
+      "unit_precondition": [
+        "The Search engine settings section is already open.",
+        "The Search engine used in the address bar dropdown is visible and enabled.",
+        "DuckDuckGo appears as an available option in the dropdown list."
+      ],
+      "unit_effect": [
+        "The dropdown opens and displays the available search engine options.",
+        "After selection, DuckDuckGo appears as the chosen default provider in the settings control."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Verify that address-bar searches now use DuckDuckGo by running a test weather query.",
+      "unit_type": "VERIFY_DEFAULT_SEARCH_ENGINE",
+      "unit_before_state": "Chrome remains on the Settings page after DuckDuckGo has been selected as the default search engine, and the address bar is available at the top of the window.",
+      "unit_after_state": "A search results page for tomorrow weather is loaded in Chrome using DuckDuckGo, with DuckDuckGo search results visible in the tab.",
+      "unit_precondition": [
+        "Chrome is still the active window.",
+        "No modal or dialog is blocking keyboard input.",
+        "The address bar is visible and can receive focus."
+      ],
+      "unit_effect": [
+        "Ctrl+L focuses the address bar and highlights its current contents.",
+        "The query tomorrow weather appears in the address bar.",
+        "Pressing Enter loads a DuckDuckGo search results page, confirming the default search engine change worked."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Reach Chrome's search engine settings so the default provider can be changed.",
+      "unit_type": "OPEN_SEARCH_ENGINE_SETTINGS",
+      "unit_before_state": "Chrome is open on a regular webpage with the browser toolbar visible and no Chrome menu open.",
+      "unit_after_state": "The Chrome Settings tab is open with the Search engine section selected in the settings interface, and the default search engine controls are visible in the main panel.",
+      "unit_precondition": [
+        "Chrome is the active window.",
+        "The top browser toolbar is visible and usable.",
+        "The Settings page and its left sidebar can be opened from the main menu."
+      ],
+      "unit_effect": [
+        "The Chrome main menu opens from the three-dot button.",
+        "The browser navigates to the Settings page.",
+        "The Search engine category becomes the active settings section in the main panel."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open Chrome Settings and navigate to a specified settings category so its controls are visible.",
+      "parameters": {
+        "target_settings_category": "Search engine"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the three-dot Customize and control Chrome button in the top-right corner'}}",
+          "action_template": "Click the three-dot Customize and control Chrome button in the top-right corner to open Chrome's main menu when the Chrome window is active, the browser toolbar is visible, and no Chrome menu is currently open."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Settings option in the Chrome menu'}}",
+          "action_template": "Click the Settings option in the Chrome menu to open the Chrome Settings page when the Chrome drop-down menu is open and the Settings entry is visible and clickable."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Search engine item in the left Settings sidebar'}}",
+          "action_template": "Click the {{target_settings_category}} item in the left Settings sidebar to show that settings section when the Settings page has finished loading, the left settings sidebar is visible, and the {{target_settings_category}} category is present in the sidebar."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Change Chrome's default address-bar search provider to DuckDuckGo.",
+      "unit_type": "SET_DEFAULT_SEARCH_ENGINE",
+      "unit_before_state": "The Search engine section of Chrome Settings is open, and the control labeled Search engine used in the address bar is visible with its current provider shown.",
+      "unit_after_state": "The search engine dropdown is closed, and DuckDuckGo is shown as the selected default search engine for address-bar searches.",
+      "unit_precondition": [
+        "The Search engine settings section is already open.",
+        "The Search engine used in the address bar dropdown is visible and enabled.",
+        "DuckDuckGo appears as an available option in the dropdown list."
+      ],
+      "unit_effect": [
+        "The dropdown opens and displays the available search engine options.",
+        "After selection, DuckDuckGo appears as the chosen default provider in the settings control."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Set a specified search engine as Chrome's default provider for address-bar searches.",
+      "parameters": {
+        "search_engine_option": "DuckDuckGo"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Search engine used in the address bar dropdown'}}",
+          "action_template": "When the Search engine section is visible and the page is ready for interaction, click the Search engine used in the address bar dropdown to expand the available search engine options."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the DuckDuckGo option in the search engine list'}}",
+          "action_template": "With the search engine options list open and {{search_engine_option}} visible, click {{search_engine_option}} once to make it the default search engine for address-bar searches."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Verify that address-bar searches now use DuckDuckGo by running a test weather query.",
+      "unit_type": "VERIFY_DEFAULT_SEARCH_ENGINE",
+      "unit_before_state": "Chrome remains on the Settings page after DuckDuckGo has been selected as the default search engine, and the address bar is available at the top of the window.",
+      "unit_after_state": "A search results page for tomorrow weather is loaded in Chrome using DuckDuckGo, with DuckDuckGo search results visible in the tab.",
+      "unit_precondition": [
+        "Chrome is still the active window.",
+        "No modal or dialog is blocking keyboard input.",
+        "The address bar is visible and can receive focus."
+      ],
+      "unit_effect": [
+        "Ctrl+L focuses the address bar and highlights its current contents.",
+        "The query tomorrow weather appears in the address bar.",
+        "Pressing Enter loads a DuckDuckGo search results page, confirming the default search engine change worked."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Verify that address-bar searches use the expected default search engine by submitting a test query from the address bar.",
+      "parameters": {
+        "verification_query": "tomorrow weather",
+        "expected_search_engine": "DuckDuckGo"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'l']}",
+          "action_template": "Press Ctrl+L to focus the address bar while Chrome is active, no modal dialog is blocking keyboard input, and the browser toolbar and address bar are visible, so the current contents are highlighted and ready to be replaced for a verification search."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'tomorrow weather'}",
+          "action_template": "Type {{verification_query}} into the focused address bar while the existing text is selected and Chrome is ready to accept text input, so the verification query appears in the address bar."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter after {{verification_query}} has been entered and the address bar is still focused, so Chrome submits the search and opens a {{expected_search_engine}} results page for {{verification_query}} to confirm the default search engine setting."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

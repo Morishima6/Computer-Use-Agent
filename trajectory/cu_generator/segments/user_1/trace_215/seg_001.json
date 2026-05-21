@@ -1,0 +1,593 @@
+{
+  "segment_id": "seg_001",
+  "app": "libreoffice_calc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Rename the current sheet to match the budgeting task",
+      "action_before_state": "LibreOffice Calc is already open on a blank spreadsheet, and the default sheet tab such as Sheet1 is visible at the bottom.",
+      "action_preconditions": [
+        "A spreadsheet is open in Calc",
+        "The sheet tab bar is visible",
+        "The current sheet still has its default name"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "right",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Sheet1 tab at the bottom of the window"
+        }
+      },
+      "action_after_effects": "A context menu for the sheet tab opens, making sheet management options available.",
+      "nl_explanation": "When the default sheet tab is visible at the bottom, right-click the Sheet1 tab so the sheet options appear and you can rename it for the expense tracker."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Open the sheet rename dialog and set the sheet name",
+      "action_before_state": "The sheet tab context menu is open.",
+      "action_preconditions": [
+        "The sheet tab context menu is visible",
+        "A Rename Sheet style option is available in that menu"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Rename Sheet option in the sheet tab context menu"
+        }
+      },
+      "action_after_effects": "A rename dialog opens or the tab enters rename mode so the sheet name can be edited.",
+      "nl_explanation": "Once the sheet menu is open, click the rename option to switch the current sheet from its default name to a task-specific name."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Name the sheet Weekly Expenses",
+      "action_before_state": "The rename field for the sheet is active.",
+      "action_preconditions": [
+        "The sheet name input is focused",
+        "Any old sheet name can be replaced"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Weekly Expenses"
+      },
+      "action_after_effects": "The new sheet name is entered into the rename field.",
+      "nl_explanation": "With the rename input focused, type Weekly Expenses so the workbook has a clear sheet name for this tracking task."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Confirm the new sheet name",
+      "action_before_state": "The new sheet name has been typed into the rename field or dialog.",
+      "action_preconditions": [
+        "The rename control is still active",
+        "The text Weekly Expenses is visible in the input"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The sheet is renamed to Weekly Expenses.",
+      "nl_explanation": "After entering the new sheet name, press Enter to apply it and return to the worksheet."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Enter the column headers for the expense table",
+      "action_before_state": "The worksheet is active and cell A1 is available for input.",
+      "action_preconditions": [
+        "The main grid is editable",
+        "The starting area near A1 is empty",
+        "No modal dialog is blocking the sheet"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Date\tItem\tCategory\tPlanned Cost\tActual Cost\tDifference"
+      },
+      "action_after_effects": "Cells A1 through F1 are filled with table headers across the first row.",
+      "nl_explanation": "When the blank grid is ready, type the header row separated by tabs so Calc places each label into its own column from A1 to F1."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Add seven rows of sample household expense data",
+      "action_before_state": "The header row is present in row 1, and the next empty row begins at A2.",
+      "action_preconditions": [
+        "The table headers already exist",
+        "Cell A2 is selected or ready to receive pasted tabular data",
+        "Rows 2 through 8 are empty"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Mon\tGroceries\tFood\t45\t52\nTue\tBus Card\tTransport\t20\t20\nWed\tCoffee Beans\tFood\t18\t16\nThu\tLaundry\tHome\t12\t14\nFri\tTakeout\tFood\t25\t31\nSat\tCleaning Spray\tHome\t9\t8\nSun\tPharmacy\tHealth\t15\t19"
+      },
+      "action_after_effects": "Rows 2 through 8 are populated with seven expense entries under the correct columns.",
+      "nl_explanation": "After the headers are in place, enter the seven expense records starting in A2 so the tracker has realistic weekly data to work with."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Create the difference formula for the first expense row",
+      "action_before_state": "The data table is filled through row 8, and column F is still empty.",
+      "action_preconditions": [
+        "Row 2 contains numbers in Planned Cost and Actual Cost",
+        "Cell F2 is available for a formula"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell F2 in the Difference column for the first data row"
+        }
+      },
+      "action_after_effects": "Cell F2 becomes the active cell, ready for formula entry.",
+      "nl_explanation": "With the weekly data already entered, click cell F2 so you can calculate the spending difference for the first purchase."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Enter the difference formula and apply it to the remaining rows",
+      "action_before_state": "Cell F2 is selected.",
+      "action_preconditions": [
+        "Cell F2 is active",
+        "Rows 2 through 8 contain planned and actual amounts in columns D and E"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "=E2-D2"
+      },
+      "action_after_effects": "The first difference formula is entered into F2.",
+      "nl_explanation": "Once F2 is selected, type =E2-D2 so the sheet calculates how much actual spending differs from the plan for the first row."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Copy the difference formula down to the rest of the expense rows",
+      "action_before_state": "Cell F2 contains the completed formula, and the fill handle is visible on the active cell.",
+      "action_preconditions": [
+        "The formula in F2 evaluates correctly",
+        "Rows F3 through F8 are empty",
+        "The small fill handle on the selected cell can be dragged"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the fill handle at the bottom-right corner of cell F2"
+        },
+        "end": {
+          "text": "the bottom-right corner area of cell F8"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "The formula is copied from F2 down through F8, and each row now shows its own difference value.",
+      "nl_explanation": "After confirming the first formula works, drag the fill handle from F2 down to F8 so Calc repeats the formula for the remaining expense rows automatically."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Add a total row label beneath the data",
+      "action_before_state": "The table ends at row 8, and row 9 is empty.",
+      "action_preconditions": [
+        "Rows 2 through 8 contain the full dataset",
+        "Cell C9 is empty and visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell C9 just below the Category column entries"
+        }
+      },
+      "action_after_effects": "Cell C9 is selected for entering the summary row label.",
+      "nl_explanation": "When the data rows are complete, click cell C9 so the total row can be labeled directly beneath the existing table."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Enter labels and total formulas for the summary row",
+      "action_before_state": "Cell C9 is active and the row is empty.",
+      "action_preconditions": [
+        "The total row is empty",
+        "The data range from rows 2 to 8 is complete"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Total\t=SUM(D2:D8)\t=SUM(E2:E8)\t=SUM(F2:F8)"
+      },
+      "action_after_effects": "Cells C9 through F9 display the Total label and summary formulas for planned cost, actual cost, and difference.",
+      "nl_explanation": "With C9 selected, type the total row using tab-separated entries so Calc fills the label and all three summary formulas across the bottom of the table."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Make the total row stand out visually",
+      "action_before_state": "The summary row exists in row 9.",
+      "action_preconditions": [
+        "Cells C9 through F9 contain the total row",
+        "The formatting toolbar is visible",
+        "The row can be selected directly from the sheet"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell C9 in the total row"
+        },
+        "end": {
+          "text": "cell F9 at the end of the total row"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "The total row range C9:F9 is highlighted and ready for formatting.",
+      "nl_explanation": "After the totals are calculated, drag across C9 to F9 so the whole summary row is selected for emphasis formatting."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Apply bold formatting to the total row",
+      "action_before_state": "Cells C9:F9 are selected.",
+      "action_preconditions": [
+        "The total row cells are selected",
+        "The standard keyboard shortcut for bold formatting is available in GNOME LibreOffice Calc"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "b"
+        ]
+      },
+      "action_after_effects": "The total row text becomes bold, making the summary easier to spot.",
+      "nl_explanation": "When the summary cells are selected, press Ctrl+B to emphasize the totals and make the important numbers easier to identify at a glance."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Rename the worksheet so the workbook reflects the weekly expense-tracking task.",
+      "unit_type": "RENAME_SHEET",
+      "unit_before_state": "LibreOffice Calc shows a blank spreadsheet with the default sheet tab such as Sheet1 visible at the bottom, and no sheet-management menu is open.",
+      "unit_after_state": "The worksheet returns to the main grid view and the sheet tab now reads Weekly Expenses.",
+      "unit_precondition": [
+        "A Calc spreadsheet is open and editable.",
+        "The sheet tab bar is visible.",
+        "The current sheet still has its default name and can be renamed."
+      ],
+      "unit_effect": [
+        "A sheet-tab context menu appears after right-clicking the tab.",
+        "A rename field or dialog opens for the sheet name.",
+        "The tab label changes from the default sheet name to Weekly Expenses."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Build the main weekly expense table with headers and seven purchase rows.",
+      "unit_type": "ENTER_TABLE_CONTENT",
+      "unit_before_state": "The renamed Weekly Expenses sheet is active, the worksheet grid is empty, and cell A1 is ready for entry.",
+      "unit_after_state": "Row 1 contains the headers Date, Item, Category, Planned Cost, Actual Cost, and Difference, and rows 2 through 8 contain seven household expense records aligned under those columns.",
+      "unit_precondition": [
+        "The worksheet grid is active with no modal dialog blocking input.",
+        "The area starting at A1 is empty.",
+        "Cell A1 is the current insertion point or ready to receive tabular typing."
+      ],
+      "unit_effect": [
+        "Cells A1:F1 display the expense table headers.",
+        "Rows 2:8 are populated with seven purchase entries spanning columns A:E.",
+        "The sheet now shows a complete weekly expense table structure ready for calculations."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8,
+        9
+      ],
+      "unit_intent": "Calculate planned-versus-actual spending differences for all seven purchases.",
+      "unit_type": "FILL_DIFFERENCE_FORMULAS",
+      "unit_before_state": "The expense table is filled through row 8, columns D and E contain planned and actual amounts, and the Difference column F is still empty.",
+      "unit_after_state": "Cells F2 through F8 display calculated difference values for each purchase row, derived from actual cost minus planned cost.",
+      "unit_precondition": [
+        "Rows 2 through 8 already contain numeric values in Planned Cost and Actual Cost.",
+        "Cell F2 is visible and available for formula entry.",
+        "The fill handle can be used to copy the first formula down the remaining rows."
+      ],
+      "unit_effect": [
+        "Cell F2 becomes active for formula entry.",
+        "The formula =E2-D2 is entered in F2 and evaluates.",
+        "Dragging the fill handle copies the formula through F8, producing row-level difference results."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        10,
+        11
+      ],
+      "unit_intent": "Add a summary row that totals the planned, actual, and difference columns.",
+      "unit_type": "ADD_TOTAL_ROW",
+      "unit_before_state": "The expense table ends at row 8, row 9 is empty, and the calculated differences already appear in column F for rows 2 through 8.",
+      "unit_after_state": "Cell C9 shows Total, and cells D9, E9, and F9 contain SUM formulas totaling the planned cost, actual cost, and difference columns.",
+      "unit_precondition": [
+        "The full dataset occupies rows 1 through 8.",
+        "Cell C9 is empty and visible below the table.",
+        "The ranges D2:D8, E2:E8, and F2:F8 contain the values to summarize."
+      ],
+      "unit_effect": [
+        "Cell C9 is selected as the starting point for the summary row.",
+        "The label Total appears in C9.",
+        "Summary formulas appear in D9, E9, and F9 for the three numeric columns."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        12,
+        13
+      ],
+      "unit_intent": "Visually emphasize the totals so the summary row is easy to spot.",
+      "unit_type": "FORMAT_TOTAL_ROW",
+      "unit_before_state": "The total row is present in cells C9:F9 with the label and formulas visible, but it is not yet specially formatted.",
+      "unit_after_state": "Cells C9:F9 remain selected and their text is bold, making the total row stand out from the rows above.",
+      "unit_precondition": [
+        "The total row already exists in cells C9:F9.",
+        "Those cells are visible in the worksheet.",
+        "Bold formatting can be applied with the standard keyboard shortcut."
+      ],
+      "unit_effect": [
+        "Dragging across C9:F9 highlights the full total row range.",
+        "Pressing Ctrl+B changes the selected cells' text to bold.",
+        "The summary row becomes visually more prominent than the regular data rows."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Rename the worksheet so the workbook reflects the weekly expense-tracking task.",
+      "unit_type": "RENAME_SHEET",
+      "unit_before_state": "LibreOffice Calc shows a blank spreadsheet with the default sheet tab such as Sheet1 visible at the bottom, and no sheet-management menu is open.",
+      "unit_after_state": "The worksheet returns to the main grid view and the sheet tab now reads Weekly Expenses.",
+      "unit_precondition": [
+        "A Calc spreadsheet is open and editable.",
+        "The sheet tab bar is visible.",
+        "The current sheet still has its default name and can be renamed."
+      ],
+      "unit_effect": [
+        "A sheet-tab context menu appears after right-clicking the tab.",
+        "A rename field or dialog opens for the sheet name.",
+        "The tab label changes from the default sheet name to Weekly Expenses."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Rename the current worksheet to a specified sheet name.",
+      "parameters": {
+        "target_sheet_tab": "the Sheet1 tab at the bottom of the window",
+        "new_sheet_name": "Weekly Expenses"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'right', 'num_clicks': 1, 'target': {'text': 'the Sheet1 tab at the bottom of the window'}}",
+          "action_template": "When {{target_sheet_tab}} is visible and the sheet tab bar is available, right-click {{target_sheet_tab}} so the sheet options appear and a context menu for the sheet tab opens."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Rename Sheet option in the sheet tab context menu'}}",
+          "action_template": "Once the sheet tab context menu is open, click the Rename Sheet option to open the sheet rename dialog or enter rename mode for the current sheet."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Weekly Expenses'}",
+          "action_template": "With the sheet name input focused and the old name ready to be replaced, type {{new_sheet_name}} so the worksheet has the intended name."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After {{new_sheet_name}} is visible in the active rename control, press Enter to apply the name and return to the worksheet."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Build the main weekly expense table with headers and seven purchase rows.",
+      "unit_type": "ENTER_TABLE_CONTENT",
+      "unit_before_state": "The renamed Weekly Expenses sheet is active, the worksheet grid is empty, and cell A1 is ready for entry.",
+      "unit_after_state": "Row 1 contains the headers Date, Item, Category, Planned Cost, Actual Cost, and Difference, and rows 2 through 8 contain seven household expense records aligned under those columns.",
+      "unit_precondition": [
+        "The worksheet grid is active with no modal dialog blocking input.",
+        "The area starting at A1 is empty.",
+        "Cell A1 is the current insertion point or ready to receive tabular typing."
+      ],
+      "unit_effect": [
+        "Cells A1:F1 display the expense table headers.",
+        "Rows 2:8 are populated with seven purchase entries spanning columns A:E.",
+        "The sheet now shows a complete weekly expense table structure ready for calculations."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Populate a worksheet with specified table headers and tab-delimited data rows starting at designated cells.",
+      "parameters": {
+        "header_start_cell": "A1",
+        "header_row_text": "Date\tItem\tCategory\tPlanned Cost\tActual Cost\tDifference",
+        "data_start_cell": "A2",
+        "data_rows_text": "Mon\tGroceries\tFood\t45\t52\nTue\tBus Card\tTransport\t20\t20\nWed\tCoffee Beans\tFood\t18\t16\nThu\tLaundry\tHome\t12\t14\nFri\tTakeout\tFood\t25\t31\nSat\tCleaning Spray\tHome\t9\t8\nSun\tPharmacy\tHealth\t15\t19"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'Date\\tItem\\tCategory\\tPlanned Cost\\tActual Cost\\tDifference'}",
+          "action_template": "When the main grid is editable, the starting area near {{header_start_cell}} is empty, and no modal dialog is blocking the sheet, type {{header_row_text}} so Calc places each label into its own column and fills the header row across the first row."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Mon\\tGroceries\\tFood\\t45\\t52\\nTue\\tBus Card\\tTransport\\t20\\t20\\nWed\\tCoffee Beans\\tFood\\t18\\t16\\nThu\\tLaundry\\tHome\\t12\\t14\\nFri\\tTakeout\\tFood\\t25\\t31\\nSat\\tCleaning Spray\\tHome\\t9\\t8\\nSun\\tPharmacy\\tHealth\\t15\\t19'}",
+          "action_template": "After the table headers already exist, {{data_start_cell}} is selected or ready to receive tabular data, and the destination rows are empty, type {{data_rows_text}} starting at {{data_start_cell}} so the table rows are populated under the correct columns."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8,
+        9
+      ],
+      "unit_intent": "Calculate planned-versus-actual spending differences for all seven purchases.",
+      "unit_type": "FILL_DIFFERENCE_FORMULAS",
+      "unit_before_state": "The expense table is filled through row 8, columns D and E contain planned and actual amounts, and the Difference column F is still empty.",
+      "unit_after_state": "Cells F2 through F8 display calculated difference values for each purchase row, derived from actual cost minus planned cost.",
+      "unit_precondition": [
+        "Rows 2 through 8 already contain numeric values in Planned Cost and Actual Cost.",
+        "Cell F2 is visible and available for formula entry.",
+        "The fill handle can be used to copy the first formula down the remaining rows."
+      ],
+      "unit_effect": [
+        "Cell F2 becomes active for formula entry.",
+        "The formula =E2-D2 is entered in F2 and evaluates.",
+        "Dragging the fill handle copies the formula through F8, producing row-level difference results."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Populate a difference column by entering a subtraction formula in the first result cell and filling it down the remaining rows.",
+      "parameters": {
+        "first_result_cell": "cell F2 in the Difference column for the first data row",
+        "formula_text": "=E2-D2",
+        "fill_end_position": "the bottom-right corner area of cell F8"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell F2 in the Difference column for the first data row'}}",
+          "action_template": "Click {{first_result_cell}} to activate the first result cell for formula entry once the source row already contains the needed numeric values."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '=E2-D2'}",
+          "action_template": "Type {{formula_text}} in the active first result cell to calculate the row-level difference from the existing source values."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the fill handle at the bottom-right corner of cell F2'}, 'end': {'text': 'the bottom-right corner area of cell F8'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "Drag the fill handle from the active first result cell down to {{fill_end_position}} to copy the evaluated formula through the remaining empty result rows."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        10,
+        11
+      ],
+      "unit_intent": "Add a summary row that totals the planned, actual, and difference columns.",
+      "unit_type": "ADD_TOTAL_ROW",
+      "unit_before_state": "The expense table ends at row 8, row 9 is empty, and the calculated differences already appear in column F for rows 2 through 8.",
+      "unit_after_state": "Cell C9 shows Total, and cells D9, E9, and F9 contain SUM formulas totaling the planned cost, actual cost, and difference columns.",
+      "unit_precondition": [
+        "The full dataset occupies rows 1 through 8.",
+        "Cell C9 is empty and visible below the table.",
+        "The ranges D2:D8, E2:E8, and F2:F8 contain the values to summarize."
+      ],
+      "unit_effect": [
+        "Cell C9 is selected as the starting point for the summary row.",
+        "The label Total appears in C9.",
+        "Summary formulas appear in D9, E9, and F9 for the three numeric columns."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Insert a summary row beneath a completed table by labeling the row and entering total formulas across adjacent summary columns.",
+      "parameters": {
+        "summary_start_cell": "cell C9 just below the Category column entries",
+        "summary_label": "Total",
+        "first_total_formula": "=SUM(D2:D8)",
+        "second_total_formula": "=SUM(E2:E8)",
+        "third_total_formula": "=SUM(F2:F8)"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell C9 just below the Category column entries'}}",
+          "action_template": "When the data rows are complete, click {{summary_start_cell}} so the summary row can be labeled directly beneath the existing table. Preconditions: the dataset is complete and the cell is empty and visible. Afterward, the summary start cell is selected for entry."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Total\\t=SUM(D2:D8)\\t=SUM(E2:E8)\\t=SUM(F2:F8)'}",
+          "action_template": "With {{summary_start_cell}} selected, type {{summary_label}}, then use tab-separated entry to fill {{first_total_formula}}, {{second_total_formula}}, and {{third_total_formula}} across the summary row. Preconditions: the total row is empty and the data range is complete. Afterward, the label and summary formulas appear across the bottom row."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        12,
+        13
+      ],
+      "unit_intent": "Visually emphasize the totals so the summary row is easy to spot.",
+      "unit_type": "FORMAT_TOTAL_ROW",
+      "unit_before_state": "The total row is present in cells C9:F9 with the label and formulas visible, but it is not yet specially formatted.",
+      "unit_after_state": "Cells C9:F9 remain selected and their text is bold, making the total row stand out from the rows above.",
+      "unit_precondition": [
+        "The total row already exists in cells C9:F9.",
+        "Those cells are visible in the worksheet.",
+        "Bold formatting can be applied with the standard keyboard shortcut."
+      ],
+      "unit_effect": [
+        "Dragging across C9:F9 highlights the full total row range.",
+        "Pressing Ctrl+B changes the selected cells' text to bold.",
+        "The summary row becomes visually more prominent than the regular data rows."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Apply bold emphasis formatting to a summary row so it stands out from surrounding data.",
+      "parameters": {
+        "target_range": "C9:F9"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'cell C9 in the total row'}, 'end': {'text': 'cell F9 at the end of the total row'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "Drag across {{target_range}} to select the full summary row for emphasis formatting once the row is visible and can be selected directly from the sheet; after the drag, {{target_range}} is highlighted and ready for formatting."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'b']}",
+          "action_template": "Press Ctrl+B while {{target_range}} is selected to apply bold formatting; afterward, the summary row text becomes bold and easier to spot."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

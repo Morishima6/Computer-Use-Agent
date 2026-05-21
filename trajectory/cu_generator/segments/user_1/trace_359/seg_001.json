@@ -1,0 +1,434 @@
+{
+  "segment_id": "seg_001",
+  "app": "os",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Prepare the backup destination folder",
+      "action_before_state": "A GNOME Terminal window is already open and focused, with a shell prompt visible.",
+      "action_preconditions": [
+        "The terminal cursor is active at a command prompt.",
+        "The user can write to `~/Documents`.",
+        "The source folder `~/Documents/Notes_April` is expected to exist for the later archive step."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "mkdir -p ~/Documents/MonthlyBackups"
+      },
+      "action_after_effects": "The command to create the backup folder appears in the terminal input line and is ready to run.",
+      "nl_explanation": "When the terminal prompt is visible and writable, type the command to create `~/Documents/MonthlyBackups`; this prepares the destination folder for the backup files."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Run the folder creation command",
+      "action_before_state": "The terminal contains the typed `mkdir -p ~/Documents/MonthlyBackups` command.",
+      "action_preconditions": [
+        "The full command is already present in the terminal input line.",
+        "The terminal window is still focused."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The shell executes the command and returns to a new prompt, with the backup directory now available.",
+      "nl_explanation": "Once the directory creation command is typed and the terminal is focused, press Enter to create the backup folder and move to the next shell prompt."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Enter the archive creation command",
+      "action_before_state": "The terminal shows a fresh prompt after creating the destination folder.",
+      "action_preconditions": [
+        "A new terminal prompt is visible.",
+        "The folder `~/Documents/Notes_April` exists and is readable.",
+        "The destination folder `~/Documents/MonthlyBackups` now exists."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "tar -czf ~/Documents/MonthlyBackups/notes_april_backup.tar.gz -C ~/Documents Notes_April"
+      },
+      "action_after_effects": "The tar command for creating the compressed backup appears in the terminal and is waiting to be executed.",
+      "nl_explanation": "With the backup folder ready and the source folder available, type the tar command that will compress `Notes_April` into `notes_april_backup.tar.gz` inside `MonthlyBackups`."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Create the compressed archive",
+      "action_before_state": "The terminal input line contains the tar command for the backup archive.",
+      "action_preconditions": [
+        "The complete tar command is visible in the terminal.",
+        "The terminal window remains focused."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The terminal runs the tar command and returns to a prompt after creating `notes_april_backup.tar.gz` in `~/Documents/MonthlyBackups`.",
+      "nl_explanation": "After confirming the tar command is typed correctly, press Enter so GNOME Terminal creates the compressed backup archive in the destination folder."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Enter the checksum command for the archive",
+      "action_before_state": "The archive has been created and the terminal shows another ready prompt.",
+      "action_preconditions": [
+        "The archive file `~/Documents/MonthlyBackups/notes_april_backup.tar.gz` now exists.",
+        "The terminal cursor is active at a new prompt."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "sha256sum ~/Documents/MonthlyBackups/notes_april_backup.tar.gz > ~/Documents/MonthlyBackups/notes_april_backup.tar.gz.sha256"
+      },
+      "action_after_effects": "The checksum generation command appears in the terminal input line and is ready to run.",
+      "nl_explanation": "Once the archive exists and the terminal is ready, type the `sha256sum` command to save a checksum file next to the backup archive."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Generate and save the checksum file",
+      "action_before_state": "The checksum command is fully typed in the terminal.",
+      "action_preconditions": [
+        "The `sha256sum` command is visible in the input line.",
+        "The archive file path in the command matches the file created earlier."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The checksum command runs and creates `notes_april_backup.tar.gz.sha256` in the same backup folder, then the prompt returns.",
+      "nl_explanation": "When the checksum command is ready and the archive file exists, press Enter to generate the `.sha256` file and save it beside the archive."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Switch to the file manager to visually verify the results",
+      "action_before_state": "The terminal window is visible, and the GNOME dock is available on screen.",
+      "action_preconditions": [
+        "The terminal work is complete.",
+        "The Files app icon is visible in the GNOME dock."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Files icon in the GNOME dock"
+        }
+      },
+      "action_after_effects": "The Files window opens or comes to the front, making it possible to navigate directly to the backup folder.",
+      "nl_explanation": "After creating the archive and checksum in Terminal, click the Files icon in the dock so you can verify the backup files through the GNOME file manager."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Focus the location bar in Files",
+      "action_before_state": "A GNOME Files window is visible and active.",
+      "action_preconditions": [
+        "The Files window is focused.",
+        "The folder view is visible."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "l"
+        ]
+      },
+      "action_after_effects": "The location bar becomes active, ready for a full path to be typed.",
+      "nl_explanation": "With Files focused, press Ctrl+L to activate the location bar so you can jump directly to the backup directory instead of browsing manually."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Enter the backup folder path",
+      "action_before_state": "The Files location bar is focused and waiting for input.",
+      "action_preconditions": [
+        "The location bar is active.",
+        "The path `~/Documents/MonthlyBackups` is valid."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "~/Documents/MonthlyBackups"
+      },
+      "action_after_effects": "The destination path appears in the Files location field and is ready to open.",
+      "nl_explanation": "When the location field is focused, type `~/Documents/MonthlyBackups` so Files can jump straight to the folder containing the new backup files."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Open the backup folder and confirm the backup artifacts are present",
+      "action_before_state": "The path `~/Documents/MonthlyBackups` is typed in the Files location bar.",
+      "action_preconditions": [
+        "The correct folder path is fully entered.",
+        "Files is still focused and ready to navigate."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "Files opens `~/Documents/MonthlyBackups`, where `notes_april_backup.tar.gz` and `notes_april_backup.tar.gz.sha256` are visible in the folder view.",
+      "nl_explanation": "After the folder path is entered in the Files location bar, press Enter to open the backup directory; the expected result is that both the archive and its checksum file are visible for confirmation."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Ensure the backup destination folder exists before creating backup artifacts.",
+      "unit_type": "CREATE_DESTINATION_FOLDER",
+      "unit_before_state": "A GNOME Terminal window is open and focused at a shell prompt, with no command running and the backup destination not yet confirmed on screen.",
+      "unit_after_state": "The terminal has returned to a fresh shell prompt after running `mkdir -p ~/Documents/MonthlyBackups`, and the destination folder `~/Documents/MonthlyBackups` is now available for subsequent backup commands.",
+      "unit_precondition": [
+        "A writable shell prompt is active in GNOME Terminal.",
+        "The user has permission to create folders under `~/Documents`.",
+        "The intended backup location is `~/Documents/MonthlyBackups`."
+      ],
+      "unit_effect": [
+        "The command `mkdir -p ~/Documents/MonthlyBackups` is executed successfully.",
+        "The terminal returns to a new prompt without an error message, indicating the destination directory is ready."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4
+      ],
+      "unit_intent": "Create a compressed archive of the `Notes_April` folder inside the backup directory.",
+      "unit_type": "CREATE_COMPRESSED_ARCHIVE",
+      "unit_before_state": "GNOME Terminal shows a fresh prompt after the backup destination has been prepared, and the source folder `~/Documents/Notes_April` is expected to be present.",
+      "unit_after_state": "The terminal has finished running the tar command and returned to a prompt, with `notes_april_backup.tar.gz` created in `~/Documents/MonthlyBackups`.",
+      "unit_precondition": [
+        "`~/Documents/MonthlyBackups` already exists.",
+        "`~/Documents/Notes_April` exists and is readable.",
+        "A shell prompt is active in GNOME Terminal."
+      ],
+      "unit_effect": [
+        "The tar command is submitted and completes.",
+        "`notes_april_backup.tar.gz` is created in the backup folder, with the terminal returning to the prompt as the visible completion signal."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Generate and save a SHA256 checksum file for the new archive.",
+      "unit_type": "GENERATE_CHECKSUM_FILE",
+      "unit_before_state": "GNOME Terminal is focused at a fresh prompt after the archive has been created, and `notes_april_backup.tar.gz` already exists in `~/Documents/MonthlyBackups`.",
+      "unit_after_state": "The terminal returns to a prompt after running `sha256sum`, and a checksum file named `notes_april_backup.tar.gz.sha256` now exists beside the archive in `~/Documents/MonthlyBackups`.",
+      "unit_precondition": [
+        "`~/Documents/MonthlyBackups/notes_april_backup.tar.gz` already exists.",
+        "A writable shell prompt is active in GNOME Terminal.",
+        "The destination folder remains accessible for writing the checksum file."
+      ],
+      "unit_effect": [
+        "The checksum command runs successfully.",
+        "A new file `notes_april_backup.tar.gz.sha256` is created in the same backup folder, and the prompt reappears without an error."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7,
+        8,
+        9,
+        10
+      ],
+      "unit_intent": "Open the backup folder in the file manager and visually confirm that both the archive and checksum file are present.",
+      "unit_type": "OPEN_FOLDER_AND_VERIFY_BACKUP_FILES",
+      "unit_before_state": "The terminal window is visible after all shell commands are complete, and the GNOME dock with the Files app icon is available.",
+      "unit_after_state": "GNOME Files is open to `~/Documents/MonthlyBackups`, and the folder view visibly shows both `notes_april_backup.tar.gz` and `notes_april_backup.tar.gz.sha256`.",
+      "unit_precondition": [
+        "The archive and checksum creation steps have already completed.",
+        "The Files app can be opened from the GNOME dock.",
+        "The path `~/Documents/MonthlyBackups` is valid and accessible."
+      ],
+      "unit_effect": [
+        "The Files window opens or comes to the foreground.",
+        "The location bar is used to navigate directly to `~/Documents/MonthlyBackups`.",
+        "The folder view displays both expected backup artifacts, providing visual verification."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Ensure the backup destination folder exists before creating backup artifacts.",
+      "unit_type": "CREATE_DESTINATION_FOLDER",
+      "unit_before_state": "A GNOME Terminal window is open and focused at a shell prompt, with no command running and the backup destination not yet confirmed on screen.",
+      "unit_after_state": "The terminal has returned to a fresh shell prompt after running `mkdir -p ~/Documents/MonthlyBackups`, and the destination folder `~/Documents/MonthlyBackups` is now available for subsequent backup commands.",
+      "unit_precondition": [
+        "A writable shell prompt is active in GNOME Terminal.",
+        "The user has permission to create folders under `~/Documents`.",
+        "The intended backup location is `~/Documents/MonthlyBackups`."
+      ],
+      "unit_effect": [
+        "The command `mkdir -p ~/Documents/MonthlyBackups` is executed successfully.",
+        "The terminal returns to a new prompt without an error message, indicating the destination directory is ready."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a specified backup destination folder from the terminal so it is available for later backup commands.",
+      "parameters": {
+        "destination_folder": "~/Documents/MonthlyBackups"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'mkdir -p ~/Documents/MonthlyBackups'}",
+          "action_template": "When the terminal prompt is visible and writable, type the command `mkdir -p {{destination_folder}}` to prepare the destination folder for the backup files; this requires an active command prompt with write access to the target location, and leaves the command ready to run in the terminal input line."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Once the directory creation command for {{destination_folder}} is typed and the terminal is still focused, press Enter to execute it; this creates the folder and returns the shell to a new prompt with the destination directory available."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4
+      ],
+      "unit_intent": "Create a compressed archive of the `Notes_April` folder inside the backup directory.",
+      "unit_type": "CREATE_COMPRESSED_ARCHIVE",
+      "unit_before_state": "GNOME Terminal shows a fresh prompt after the backup destination has been prepared, and the source folder `~/Documents/Notes_April` is expected to be present.",
+      "unit_after_state": "The terminal has finished running the tar command and returned to a prompt, with `notes_april_backup.tar.gz` created in `~/Documents/MonthlyBackups`.",
+      "unit_precondition": [
+        "`~/Documents/MonthlyBackups` already exists.",
+        "`~/Documents/Notes_April` exists and is readable.",
+        "A shell prompt is active in GNOME Terminal."
+      ],
+      "unit_effect": [
+        "The tar command is submitted and completes.",
+        "`notes_april_backup.tar.gz` is created in the backup folder, with the terminal returning to the prompt as the visible completion signal."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a compressed archive of a specified source folder in a specified backup directory.",
+      "parameters": {
+        "source_parent_directory": "~/Documents",
+        "source_folder_name": "Notes_April",
+        "destination_directory": "~/Documents/MonthlyBackups",
+        "archive_file_name": "notes_april_backup.tar.gz"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'tar -czf ~/Documents/MonthlyBackups/notes_april_backup.tar.gz -C ~/Documents Notes_April'}",
+          "action_template": "Type the tar command `tar -czf {{destination_directory}}/{{archive_file_name}} -C {{source_parent_directory}} {{source_folder_name}}` at a fresh terminal prompt when `{{source_parent_directory}}/{{source_folder_name}}` exists and is readable and `{{destination_directory}}` already exists, so the archive creation command is ready to be executed."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter while the complete tar command for `{{archive_file_name}}` is visible in the focused terminal to run it and create the compressed archive in `{{destination_directory}}`, then wait for the prompt to return."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Generate and save a SHA256 checksum file for the new archive.",
+      "unit_type": "GENERATE_CHECKSUM_FILE",
+      "unit_before_state": "GNOME Terminal is focused at a fresh prompt after the archive has been created, and `notes_april_backup.tar.gz` already exists in `~/Documents/MonthlyBackups`.",
+      "unit_after_state": "The terminal returns to a prompt after running `sha256sum`, and a checksum file named `notes_april_backup.tar.gz.sha256` now exists beside the archive in `~/Documents/MonthlyBackups`.",
+      "unit_precondition": [
+        "`~/Documents/MonthlyBackups/notes_april_backup.tar.gz` already exists.",
+        "A writable shell prompt is active in GNOME Terminal.",
+        "The destination folder remains accessible for writing the checksum file."
+      ],
+      "unit_effect": [
+        "The checksum command runs successfully.",
+        "A new file `notes_april_backup.tar.gz.sha256` is created in the same backup folder, and the prompt reappears without an error."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Generate and save a SHA256 checksum file for a specified archive file.",
+      "parameters": {
+        "archive_path": "~/Documents/MonthlyBackups/notes_april_backup.tar.gz",
+        "checksum_file_path": "~/Documents/MonthlyBackups/notes_april_backup.tar.gz.sha256"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'sha256sum ~/Documents/MonthlyBackups/notes_april_backup.tar.gz > ~/Documents/MonthlyBackups/notes_april_backup.tar.gz.sha256'}",
+          "action_template": "Type `sha256sum {{archive_path}} > {{checksum_file_path}}` at the terminal prompt when {{archive_path}} exists and the terminal cursor is active at a new prompt, so the checksum generation command appears in the terminal input line and is ready to run."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter when the `sha256sum` command for {{archive_path}} is visible in the input line and the archive path matches the file created earlier, so the command runs, creates {{checksum_file_path}} in the same folder, and returns the terminal to a prompt."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7,
+        8,
+        9,
+        10
+      ],
+      "unit_intent": "Open the backup folder in the file manager and visually confirm that both the archive and checksum file are present.",
+      "unit_type": "OPEN_FOLDER_AND_VERIFY_BACKUP_FILES",
+      "unit_before_state": "The terminal window is visible after all shell commands are complete, and the GNOME dock with the Files app icon is available.",
+      "unit_after_state": "GNOME Files is open to `~/Documents/MonthlyBackups`, and the folder view visibly shows both `notes_april_backup.tar.gz` and `notes_april_backup.tar.gz.sha256`.",
+      "unit_precondition": [
+        "The archive and checksum creation steps have already completed.",
+        "The Files app can be opened from the GNOME dock.",
+        "The path `~/Documents/MonthlyBackups` is valid and accessible."
+      ],
+      "unit_effect": [
+        "The Files window opens or comes to the foreground.",
+        "The location bar is used to navigate directly to `~/Documents/MonthlyBackups`.",
+        "The folder view displays both expected backup artifacts, providing visual verification."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a specified folder in the file manager and visually confirm that the expected backup artifacts are present.",
+      "parameters": {
+        "target_folder_path": "~/Documents/MonthlyBackups",
+        "expected_archive_file": "notes_april_backup.tar.gz",
+        "expected_checksum_file": "notes_april_backup.tar.gz.sha256"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Files icon in the GNOME dock'}}",
+          "action_template": "Click the Files icon in the GNOME dock after the terminal work is complete so you can verify the backup files through the file manager; this opens or brings the Files window to the front, making it possible to navigate directly to {{target_folder_path}}."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'l']}",
+          "action_template": "Press Ctrl+L with the Files window focused and the folder view visible to activate the location bar so you can jump directly to {{target_folder_path}}; the location bar becomes active, ready for the full path to be typed."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '~/Documents/MonthlyBackups'}",
+          "action_template": "Type {{target_folder_path}} when the location bar is active and the path is valid so the file manager can jump straight to the folder containing the backup files; the destination path appears in the location field and is ready to open."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter after {{target_folder_path}} is fully entered and the file manager remains focused to open the folder; the expected result is that both {{expected_archive_file}} and {{expected_checksum_file}} are visible in the folder view for confirmation."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

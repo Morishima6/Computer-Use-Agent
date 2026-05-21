@@ -1,0 +1,737 @@
+{
+  "segment_id": "seg_001",
+  "app": "multi_apps",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open a terminal window to begin executing organization commands",
+      "action_before_state": "GNOME Desktop is visible with the Vacation_Photos folder on the desktop",
+      "action_preconditions": [
+        "Desktop environment is active and responsive",
+        "Keyboard shortcuts are enabled"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "alt",
+          "t"
+        ]
+      },
+      "action_after_effects": "A new terminal window opens with a command prompt at the home directory",
+      "nl_explanation": "When the desktop is visible, press Ctrl+Alt+T to open a terminal window for running the necessary organization commands"
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Navigate to the Vacation_Photos directory",
+      "action_before_state": "Terminal is open showing the home directory prompt (~)",
+      "action_preconditions": [
+        "Terminal window has focus",
+        "Prompt is ready for input"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "cd ~/Desktop/Vacation_Photos"
+      },
+      "action_after_effects": "The command appears typed in the terminal after the prompt",
+      "nl_explanation": "Type the change directory command to navigate to the Vacation_Photos folder on the Desktop"
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Execute the navigation command",
+      "action_before_state": "The cd command has been typed in the terminal",
+      "action_preconditions": [
+        "Command is fully typed in terminal",
+        "Cursor is at the end of the line"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "return"
+        ]
+      },
+      "action_after_effects": "The terminal prompt changes to show the current directory is now ~/Desktop/Vacation_Photos",
+      "nl_explanation": "Press Enter to execute the cd command and navigate into the photo directory"
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Organize photos into date-based folders using EXIF data",
+      "action_before_state": "Terminal is in the Vacation_Photos directory with multiple JPG files present",
+      "action_preconditions": [
+        "Current directory contains JPG files",
+        "exiftool is available in the system",
+        "Photos contain DateTimeOriginal EXIF metadata"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "exiftool -r -d %Y-%m '-Directory<DateTimeOriginal' ."
+      },
+      "action_after_effects": "The exiftool command appears typed in the terminal, ready to recursively read EXIF dates and move files to year-month folders",
+      "nl_explanation": "Type the exiftool command with recursive flag to extract the DateTimeOriginal EXIF tag from each photo and automatically create folders named by year-month (e.g., 2023-07) and move each photo into its corresponding date folder"
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Execute the photo organization command",
+      "action_before_state": "The exiftool command has been typed in the terminal",
+      "action_preconditions": [
+        "exiftool command is fully typed",
+        "JPG files are present in the directory"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "return"
+        ]
+      },
+      "action_after_effects": "The terminal displays output showing each file being moved to its respective date folder (e.g., '1 directories created', '10 image files updated'), and subdirectories are created for each date",
+      "nl_explanation": "Press Enter to execute the exiftool command, which will create date-based subfolders and move each photo into the appropriate folder based on its EXIF date data"
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Create a contact sheet using ImageMagick's montage command",
+      "action_before_state": "Photos have been organized into date subfolders, terminal is ready for next command",
+      "action_preconditions": [
+        "Subdirectories contain JPG files",
+        "ImageMagick is installed (montage command available)",
+        "Terminal is at ~/Desktop/Vacation_Photos"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "montage */*.jpg -mode concatenate -tile 4x -geometry 200x150+5+5 ~/Desktop/Vacation_ContactSheet.jpg"
+      },
+      "action_after_effects": "The montage command appears typed in terminal, specifying a 4-column grid with 200x150 pixel thumbnails and 5px spacing, outputting to the Desktop",
+      "nl_explanation": "Type the ImageMagick montage command to create a contact sheet by finding all JPG files in the date subdirectories, arranging them in a grid with 4 columns, each thumbnail sized 200x150 pixels with 5-pixel spacing, and save the result as Vacation_ContactSheet.jpg on the Desktop"
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Execute the contact sheet creation command",
+      "action_before_state": "The montage command has been typed in the terminal",
+      "action_preconditions": [
+        "montage command is fully typed",
+        "Image files exist in subdirectories"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "return"
+        ]
+      },
+      "action_after_effects": "ImageMagick processes the images (showing progress or taking a moment), and the contact sheet file is created at ~/Desktop/Vacation_ContactSheet.jpg",
+      "nl_explanation": "Press Enter to execute the montage command, which will process all the photos and generate a contact sheet image on the Desktop containing thumbnails of all vacation photos"
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Create a summary text file with photo counts per folder",
+      "action_before_state": "Contact sheet has been created, terminal is ready at the Vacation_Photos directory",
+      "action_preconditions": [
+        "Date-based subdirectories exist",
+        "Terminal has bash shell available"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "echo \"Photo Organization Summary\" > ~/Desktop/Photo_Summary.txt && echo \"=========================\" >> ~/Desktop/Photo_Summary.txt && for dir in */; do count=$(ls \"$dir\"*.jpg 2>/dev/null | wc -l); echo \"${dir%/}: $count photos\" >> ~/Desktop/Photo_Summary.txt; done"
+      },
+      "action_after_effects": "A complex command is typed that will create a summary file, loop through directories, count JPG files in each, and append the results to Photo_Summary.txt on the Desktop",
+      "nl_explanation": "Type a shell command that creates a Photo_Summary.txt file on the Desktop with a header, then loops through each date folder, counts the number of JPG files inside, and appends a line showing the folder name and photo count to the summary file"
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Execute the summary generation command",
+      "action_before_state": "The summary generation command has been typed in the terminal",
+      "action_preconditions": [
+        "Command is fully typed in terminal",
+        "Subdirectories with photos exist"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "return"
+        ]
+      },
+      "action_after_effects": "The terminal displays the loop execution (though output is redirected to file), and the Photo_Summary.txt file is created on the Desktop containing the count of photos in each date folder",
+      "nl_explanation": "Press Enter to execute the command, which will generate the Photo_Summary.txt file on the Desktop listing each date folder and the number of photos it contains"
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Open the file manager to verify the organized files",
+      "action_before_state": "All commands have been executed, files have been created on Desktop and photos organized",
+      "action_preconditions": [
+        "Photo_Summary.txt exists",
+        "Vacation_ContactSheet.jpg exists",
+        "Date subdirectories exist with photos"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "super",
+          "e"
+        ]
+      },
+      "action_after_effects": "The Files application (Nautilus) opens, showing the Home directory",
+      "nl_explanation": "Press Super+E to open the file manager to visually verify that the photos have been organized into date folders, and that the contact sheet and summary files have been created on the Desktop"
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Navigate to the Desktop in the file manager",
+      "action_before_state": "File manager is open showing Home directory",
+      "action_preconditions": [
+        "File manager window is active",
+        "Desktop folder exists and is accessible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 2,
+        "target": {
+          "text": "Desktop folder in the file manager sidebar or main area"
+        }
+      },
+      "action_after_effects": "File manager navigates to the Desktop directory, showing the Vacation_Photos folder, Vacation_ContactSheet.jpg, and Photo_Summary.txt",
+      "nl_explanation": "Double-click the Desktop folder in the file manager to navigate to the Desktop where the Vacation_Photos folder, contact sheet, and summary file should be visible"
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Verify the contact sheet file exists on the Desktop",
+      "action_before_state": "File manager is showing the Desktop contents with Vacation_ContactSheet.jpg visible",
+      "action_preconditions": [
+        "Vacation_ContactSheet.jpg exists on Desktop"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "Vacation_ContactSheet.jpg file icon"
+        }
+      },
+      "action_after_effects": "The contact sheet file is highlighted/selected in the file manager, confirming it exists on the Desktop alongside the other files",
+      "nl_explanation": "Click on the Vacation_ContactSheet.jpg file to verify it has been created on the Desktop"
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Verify the summary report file exists on the Desktop",
+      "action_before_state": "File manager is showing the Desktop with Photo_Summary.txt visible",
+      "action_preconditions": [
+        "Photo_Summary.txt exists on Desktop"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "Photo_Summary.txt file icon"
+        }
+      },
+      "action_after_effects": "The summary file is highlighted/selected in the file manager, confirming it exists on the Desktop",
+      "nl_explanation": "Click on the Photo_Summary.txt file to verify the summary report has been created on the Desktop"
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Open the Vacation_Photos folder to verify organization",
+      "action_before_state": "File manager is showing the Desktop with the Vacation_Photos folder visible",
+      "action_preconditions": [
+        "Desktop folder is open in file manager",
+        "Vacation_Photos folder is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 2,
+        "target": {
+          "text": "Vacation_Photos folder icon"
+        }
+      },
+      "action_after_effects": "File manager opens the Vacation_Photos folder, displaying the date-organized subfolders (e.g., 2023-07, 2023-08, 2024-01) instead of individual JPG files",
+      "nl_explanation": "Double-click the Vacation_Photos folder to open it and verify that the photos have been successfully organized into date-based subfolders"
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Set up a terminal session in the Vacation_Photos working directory so file-organization commands can be run in the correct location.",
+      "unit_type": "OPEN_TERMINAL_IN_WORKING_DIRECTORY",
+      "unit_before_state": "The GNOME desktop is visible, and the Vacation_Photos folder is present on the desktop. No terminal command session for this task is open yet.",
+      "unit_after_state": "A terminal window is open and focused, with the prompt showing the current directory as ~/Desktop/Vacation_Photos.",
+      "unit_precondition": [
+        "The desktop session is active and responsive.",
+        "The keyboard shortcut Ctrl+Alt+T opens a terminal.",
+        "The folder ~/Desktop/Vacation_Photos exists and is accessible."
+      ],
+      "unit_effect": [
+        "A terminal window appears on screen.",
+        "The typed cd command is executed.",
+        "The prompt updates to the Vacation_Photos directory, confirming the shell is positioned in the target folder."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Reorganize the vacation photos into folders named by capture month using EXIF capture dates.",
+      "unit_type": "ORGANIZE_PHOTOS_BY_EXIF_DATE",
+      "unit_before_state": "The terminal is open in ~/Desktop/Vacation_Photos, and the folder contains photo files that still need to be sorted by date.",
+      "unit_after_state": "The Vacation_Photos directory now contains year-month subfolders such as 2023-07 or 2024-01, and the JPG files have been moved into those folders based on their DateTimeOriginal metadata.",
+      "unit_precondition": [
+        "The terminal prompt is currently at ~/Desktop/Vacation_Photos.",
+        "JPG files are present in the directory tree.",
+        "exiftool is installed and available.",
+        "The photos contain usable DateTimeOriginal EXIF metadata."
+      ],
+      "unit_effect": [
+        "The exiftool command is entered and executed.",
+        "Terminal output reports directory creation and image updates or moves.",
+        "New date-based subfolders appear as the photos are sorted into them."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7
+      ],
+      "unit_intent": "Generate a single visual contact sheet that shows thumbnails for all organized vacation photos.",
+      "unit_type": "CREATE_CONTACT_SHEET",
+      "unit_before_state": "The photos have already been sorted into date-based subfolders inside ~/Desktop/Vacation_Photos, and the terminal is ready for the next command.",
+      "unit_after_state": "A file named Vacation_ContactSheet.jpg has been created on the Desktop, containing a thumbnail grid of the photos from the date subfolders.",
+      "unit_precondition": [
+        "The photo subfolders already exist and contain JPG files.",
+        "The terminal is still in ~/Desktop/Vacation_Photos.",
+        "ImageMagick's montage command is installed and available."
+      ],
+      "unit_effect": [
+        "The montage command is typed into the terminal and executed.",
+        "Image processing runs in the terminal.",
+        "The Desktop gains a new file named Vacation_ContactSheet.jpg."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8,
+        9
+      ],
+      "unit_intent": "Produce a summary report listing how many photos are stored in each date-based folder.",
+      "unit_type": "GENERATE_SUMMARY_REPORT",
+      "unit_before_state": "The terminal remains in ~/Desktop/Vacation_Photos after the contact sheet has been created, and the date-based photo folders are available for counting.",
+      "unit_after_state": "A text file named Photo_Summary.txt exists on the Desktop with a header and one line per date folder showing the number of JPG files in that folder.",
+      "unit_precondition": [
+        "Date-based subfolders already exist inside ~/Desktop/Vacation_Photos.",
+        "The terminal prompt is ready for another command.",
+        "The shell supports the loop and redirection syntax used in the command."
+      ],
+      "unit_effect": [
+        "A shell command that writes the report and counts photos per folder is entered and executed.",
+        "The Desktop gains a new file named Photo_Summary.txt.",
+        "The report contents summarize folder names and photo counts."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        10,
+        11
+      ],
+      "unit_intent": "Open the file manager and navigate to the Desktop so the generated outputs can be visually checked.",
+      "unit_type": "OPEN_DESKTOP_IN_FILE_MANAGER",
+      "unit_before_state": "All terminal-based processing is complete. The contact sheet and summary report should already exist on the Desktop, and the Vacation_Photos folder should contain organized subfolders.",
+      "unit_after_state": "The Files application is open to the Desktop view, showing Vacation_Photos, Vacation_ContactSheet.jpg, and Photo_Summary.txt together.",
+      "unit_precondition": [
+        "The generated files and organized photo folder already exist.",
+        "The desktop environment can launch the Files application with Super+E.",
+        "The Desktop folder is available in the file manager."
+      ],
+      "unit_effect": [
+        "The Files application opens from the desktop session.",
+        "Navigation changes from Home to Desktop.",
+        "The expected output files and the Vacation_Photos folder become visible in one view."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        12
+      ],
+      "unit_intent": "Confirm that the contact sheet image was successfully created on the Desktop.",
+      "unit_type": "VERIFY_CONTACT_SHEET_FILE",
+      "unit_before_state": "The Files application is showing the Desktop contents, including the Vacation_ContactSheet.jpg file icon.",
+      "unit_after_state": "Vacation_ContactSheet.jpg is selected in the Desktop view, indicating that the file is present and visible.",
+      "unit_precondition": [
+        "The Files application is open on the Desktop view.",
+        "Vacation_ContactSheet.jpg is visible in the file list or icon grid."
+      ],
+      "unit_effect": [
+        "The contact sheet file becomes highlighted when clicked.",
+        "Its visible presence on the Desktop confirms the contact sheet output was created."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        13
+      ],
+      "unit_intent": "Confirm that the summary text report was successfully created on the Desktop.",
+      "unit_type": "VERIFY_SUMMARY_REPORT_FILE",
+      "unit_before_state": "The Files application is still showing the Desktop, and Photo_Summary.txt is visible among the Desktop items.",
+      "unit_after_state": "Photo_Summary.txt is selected in the Desktop view, indicating that the report file is present and visible.",
+      "unit_precondition": [
+        "The Files application remains open on the Desktop view.",
+        "Photo_Summary.txt is visible in the current file manager window."
+      ],
+      "unit_effect": [
+        "The summary file becomes highlighted when clicked.",
+        "Its visible presence on the Desktop confirms the report output was created."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_08",
+      "step_indices": [
+        14
+      ],
+      "unit_intent": "Open the organized photo folder to verify that the photos were actually sorted into date-based subfolders rather than left as a flat list.",
+      "unit_type": "VERIFY_DATE_FOLDER_ORGANIZATION",
+      "unit_before_state": "The Files application is showing the Desktop contents with the Vacation_Photos folder visible.",
+      "unit_after_state": "The Vacation_Photos folder is open in the Files application, and date-based subfolders such as 2023-07, 2023-08, or 2024-01 are visible instead of unsorted individual JPG files.",
+      "unit_precondition": [
+        "The Files application is open on the Desktop.",
+        "The Vacation_Photos folder is visible and accessible.",
+        "The earlier EXIF-based organization step has already completed."
+      ],
+      "unit_effect": [
+        "The file manager enters the Vacation_Photos folder after the double-click.",
+        "Date-named subfolders are displayed, providing visible confirmation that the photos were organized by capture date."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Set up a terminal session in the Vacation_Photos working directory so file-organization commands can be run in the correct location.",
+      "unit_type": "OPEN_TERMINAL_IN_WORKING_DIRECTORY",
+      "unit_before_state": "The GNOME desktop is visible, and the Vacation_Photos folder is present on the desktop. No terminal command session for this task is open yet.",
+      "unit_after_state": "A terminal window is open and focused, with the prompt showing the current directory as ~/Desktop/Vacation_Photos.",
+      "unit_precondition": [
+        "The desktop session is active and responsive.",
+        "The keyboard shortcut Ctrl+Alt+T opens a terminal.",
+        "The folder ~/Desktop/Vacation_Photos exists and is accessible."
+      ],
+      "unit_effect": [
+        "A terminal window appears on screen.",
+        "The typed cd command is executed.",
+        "The prompt updates to the Vacation_Photos directory, confirming the shell is positioned in the target folder."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a terminal and navigate it to {{working_directory_path}} so subsequent shell commands run in the correct location.",
+      "parameters": {
+        "working_directory_path": "~/Desktop/Vacation_Photos"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'alt', 't']}",
+          "action_template": "Press Ctrl+Alt+T while the desktop environment is active and keyboard shortcuts are enabled to open a terminal window with a command prompt at the home directory for running the needed commands."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'cd ~/Desktop/Vacation_Photos'}",
+          "action_template": "Type cd {{working_directory_path}} in the focused terminal when the prompt is ready for input so the directory-change command appears after the prompt."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['return']}",
+          "action_template": "Press Enter after cd {{working_directory_path}} is fully typed and the cursor is at the end of the line to execute the command and update the prompt to {{working_directory_path}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Reorganize the vacation photos into folders named by capture month using EXIF capture dates.",
+      "unit_type": "ORGANIZE_PHOTOS_BY_EXIF_DATE",
+      "unit_before_state": "The terminal is open in ~/Desktop/Vacation_Photos, and the folder contains photo files that still need to be sorted by date.",
+      "unit_after_state": "The Vacation_Photos directory now contains year-month subfolders such as 2023-07 or 2024-01, and the JPG files have been moved into those folders based on their DateTimeOriginal metadata.",
+      "unit_precondition": [
+        "The terminal prompt is currently at ~/Desktop/Vacation_Photos.",
+        "JPG files are present in the directory tree.",
+        "exiftool is installed and available.",
+        "The photos contain usable DateTimeOriginal EXIF metadata."
+      ],
+      "unit_effect": [
+        "The exiftool command is entered and executed.",
+        "Terminal output reports directory creation and image updates or moves.",
+        "New date-based subfolders appear as the photos are sorted into them."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Organize photo files into year-month folders based on their EXIF capture date metadata.",
+      "parameters": {
+        "exif_date_field": "DateTimeOriginal",
+        "folder_name_format": "%Y-%m",
+        "organize_command": "exiftool -r -d %Y-%m '-Directory<DateTimeOriginal' .",
+        "file_type": "JPG files"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': \"exiftool -r -d %Y-%m '-Directory<DateTimeOriginal' .\"}",
+          "action_template": "Type {{organize_command}} in the terminal to recursively extract the {{exif_date_field}} EXIF tag from each photo and create folders named by {{folder_name_format}} so each photo can be moved into its corresponding date folder. Preconditions: Current directory contains {{file_type}}, exiftool is available in the system, and photos contain {{exif_date_field}} EXIF metadata. After this step, the command is visible in the terminal and ready to move files into {{folder_name_format}} folders."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['return']}",
+          "action_template": "Press Enter to execute {{organize_command}} after it has been fully typed. Preconditions: {{organize_command}} is fully typed and {{file_type}} are present in the directory. After execution, the terminal displays output showing files being moved and date-based subdirectories named by {{folder_name_format}} are created."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7
+      ],
+      "unit_intent": "Generate a single visual contact sheet that shows thumbnails for all organized vacation photos.",
+      "unit_type": "CREATE_CONTACT_SHEET",
+      "unit_before_state": "The photos have already been sorted into date-based subfolders inside ~/Desktop/Vacation_Photos, and the terminal is ready for the next command.",
+      "unit_after_state": "A file named Vacation_ContactSheet.jpg has been created on the Desktop, containing a thumbnail grid of the photos from the date subfolders.",
+      "unit_precondition": [
+        "The photo subfolders already exist and contain JPG files.",
+        "The terminal is still in ~/Desktop/Vacation_Photos.",
+        "ImageMagick's montage command is installed and available."
+      ],
+      "unit_effect": [
+        "The montage command is typed into the terminal and executed.",
+        "Image processing runs in the terminal.",
+        "The Desktop gains a new file named Vacation_ContactSheet.jpg."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Generate a contact sheet image from photos in subfolders using ImageMagick with a specified input pattern, layout, and output path.",
+      "parameters": {
+        "source_directory": "~/Desktop/Vacation_Photos",
+        "input_image_pattern": "*/*.jpg",
+        "tile_layout": "4x",
+        "thumbnail_geometry": "200x150+5+5",
+        "output_file_path": "~/Desktop/Vacation_ContactSheet.jpg"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'montage */*.jpg -mode concatenate -tile 4x -geometry 200x150+5+5 ~/Desktop/Vacation_ContactSheet.jpg'}",
+          "action_template": "Type the ImageMagick montage command in the terminal while it is at {{source_directory}}, using {{input_image_pattern}} as the image source pattern, {{tile_layout}} as the tile layout, {{thumbnail_geometry}} as the thumbnail geometry, and {{output_file_path}} as the output path so the contact sheet command is fully prepared."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['return']}",
+          "action_template": "Press Enter to execute the typed montage command after confirming the matching image files exist under {{source_directory}}, causing ImageMagick to process them and create the contact sheet at {{output_file_path}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8,
+        9
+      ],
+      "unit_intent": "Produce a summary report listing how many photos are stored in each date-based folder.",
+      "unit_type": "GENERATE_SUMMARY_REPORT",
+      "unit_before_state": "The terminal remains in ~/Desktop/Vacation_Photos after the contact sheet has been created, and the date-based photo folders are available for counting.",
+      "unit_after_state": "A text file named Photo_Summary.txt exists on the Desktop with a header and one line per date folder showing the number of JPG files in that folder.",
+      "unit_precondition": [
+        "Date-based subfolders already exist inside ~/Desktop/Vacation_Photos.",
+        "The terminal prompt is ready for another command.",
+        "The shell supports the loop and redirection syntax used in the command."
+      ],
+      "unit_effect": [
+        "A shell command that writes the report and counts photos per folder is entered and executed.",
+        "The Desktop gains a new file named Photo_Summary.txt.",
+        "The report contents summarize folder names and photo counts."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Generate a text summary report that counts matching files in each subfolder and saves the results to a specified output file.",
+      "parameters": {
+        "source_directory": "~/Desktop/Vacation_Photos",
+        "output_file_path": "~/Desktop/Photo_Summary.txt",
+        "report_header": "Photo Organization Summary",
+        "file_pattern": "*.jpg"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'echo \"Photo Organization Summary\" > ~/Desktop/Photo_Summary.txt && echo \"=========================\" >> ~/Desktop/Photo_Summary.txt && for dir in */; do count=$(ls \"$dir\"*.jpg 2>/dev/null | wc -l); echo \"${dir%/}: $count photos\" >> ~/Desktop/Photo_Summary.txt; done'}",
+          "action_template": "With subdirectories available and a bash-compatible terminal open in {{source_directory}}, type a shell command that creates {{output_file_path}} with the header {{report_header}}, then loops through each subfolder, counts {{file_pattern}} files, and appends one folder-count line per subfolder to the summary file."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['return']}",
+          "action_template": "Press Enter after the summary command is fully typed to execute it and create {{output_file_path}}, which lists each subfolder and the number of {{file_pattern}} files it contains."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        10,
+        11
+      ],
+      "unit_intent": "Open the file manager and navigate to the Desktop so the generated outputs can be visually checked.",
+      "unit_type": "OPEN_DESKTOP_IN_FILE_MANAGER",
+      "unit_before_state": "All terminal-based processing is complete. The contact sheet and summary report should already exist on the Desktop, and the Vacation_Photos folder should contain organized subfolders.",
+      "unit_after_state": "The Files application is open to the Desktop view, showing Vacation_Photos, Vacation_ContactSheet.jpg, and Photo_Summary.txt together.",
+      "unit_precondition": [
+        "The generated files and organized photo folder already exist.",
+        "The desktop environment can launch the Files application with Super+E.",
+        "The Desktop folder is available in the file manager."
+      ],
+      "unit_effect": [
+        "The Files application opens from the desktop session.",
+        "Navigation changes from Home to Desktop.",
+        "The expected output files and the Vacation_Photos folder become visible in one view."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open the file manager and navigate to {{target_directory}} so the expected generated outputs can be visually verified together.",
+      "parameters": {
+        "target_directory": "Desktop",
+        "organized_folder": "Vacation_Photos",
+        "contact_sheet_file": "Vacation_ContactSheet.jpg",
+        "summary_file": "Photo_Summary.txt"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['super', 'e']}",
+          "action_template": "Press Super+E to open the file manager to visually verify that the photos have been organized into date folders and that {{contact_sheet_file}} and {{summary_file}} have been created, after {{summary_file}}, {{contact_sheet_file}}, and the date subdirectories inside {{organized_folder}} already exist; the Files application opens showing the Home directory."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 2, 'target': {'text': 'Desktop folder in the file manager sidebar or main area'}}",
+          "action_template": "Double-click the {{target_directory}} folder in the file manager to navigate from Home to {{target_directory}} once the file manager window is active and the folder is accessible; {{organized_folder}}, {{contact_sheet_file}}, and {{summary_file}} become visible there."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        12
+      ],
+      "unit_intent": "Confirm that the contact sheet image was successfully created on the Desktop.",
+      "unit_type": "VERIFY_CONTACT_SHEET_FILE",
+      "unit_before_state": "The Files application is showing the Desktop contents, including the Vacation_ContactSheet.jpg file icon.",
+      "unit_after_state": "Vacation_ContactSheet.jpg is selected in the Desktop view, indicating that the file is present and visible.",
+      "unit_precondition": [
+        "The Files application is open on the Desktop view.",
+        "Vacation_ContactSheet.jpg is visible in the file list or icon grid."
+      ],
+      "unit_effect": [
+        "The contact sheet file becomes highlighted when clicked.",
+        "Its visible presence on the Desktop confirms the contact sheet output was created."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Confirm that a specified output image file has been successfully created and is visible in {{target_location}}.",
+      "parameters": {
+        "file_name": "Vacation_ContactSheet.jpg",
+        "target_location": "Desktop"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'Vacation_ContactSheet.jpg file icon'}}",
+          "action_template": "Click the {{file_name}} file icon to verify it has been created in {{target_location}}. Preconditions: {{file_name}} exists in {{target_location}}. Afterward, the file is highlighted or selected in the file manager, confirming it exists in {{target_location}} alongside the other files."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_07",
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        13
+      ],
+      "unit_intent": "Confirm that the summary text report was successfully created on the Desktop.",
+      "unit_type": "VERIFY_SUMMARY_REPORT_FILE",
+      "unit_before_state": "The Files application is still showing the Desktop, and Photo_Summary.txt is visible among the Desktop items.",
+      "unit_after_state": "Photo_Summary.txt is selected in the Desktop view, indicating that the report file is present and visible.",
+      "unit_precondition": [
+        "The Files application remains open on the Desktop view.",
+        "Photo_Summary.txt is visible in the current file manager window."
+      ],
+      "unit_effect": [
+        "The summary file becomes highlighted when clicked.",
+        "Its visible presence on the Desktop confirms the report output was created."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Verify that {{target_file}} has been created and is present in {{target_location}}.",
+      "parameters": {
+        "target_file": "Photo_Summary.txt",
+        "target_location": "Desktop",
+        "target_element": "Photo_Summary.txt file icon"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'Photo_Summary.txt file icon'}}",
+          "action_template": "Click the {{target_element}} to verify that {{target_file}} has been created in {{target_location}}. This assumes {{target_file}} exists in the current file manager view. After the click, the file is highlighted/selected, confirming it exists in {{target_location}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_08",
+      "unit_id": "u_seg_001_08",
+      "step_indices": [
+        14
+      ],
+      "unit_intent": "Open the organized photo folder to verify that the photos were actually sorted into date-based subfolders rather than left as a flat list.",
+      "unit_type": "VERIFY_DATE_FOLDER_ORGANIZATION",
+      "unit_before_state": "The Files application is showing the Desktop contents with the Vacation_Photos folder visible.",
+      "unit_after_state": "The Vacation_Photos folder is open in the Files application, and date-based subfolders such as 2023-07, 2023-08, or 2024-01 are visible instead of unsorted individual JPG files.",
+      "unit_precondition": [
+        "The Files application is open on the Desktop.",
+        "The Vacation_Photos folder is visible and accessible.",
+        "The earlier EXIF-based organization step has already completed."
+      ],
+      "unit_effect": [
+        "The file manager enters the Vacation_Photos folder after the double-click.",
+        "Date-named subfolders are displayed, providing visible confirmation that the photos were organized by capture date."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open {{target_folder}} to verify that its contents were organized into date-based subfolders.",
+      "parameters": {
+        "target_folder": "Vacation_Photos folder icon"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 2, 'target': {'text': 'Vacation_Photos folder icon'}}",
+          "action_template": "When the file manager is open to the containing location and {{target_folder}} is visible, double-click {{target_folder}} to open it and verify that date-organized subfolders are displayed instead of individual photo files."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

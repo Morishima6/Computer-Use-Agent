@@ -1,0 +1,486 @@
+{
+  "segment_id": "seg_001",
+  "app": "vs_code",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the integrated terminal in VS Code",
+      "action_before_state": "VS Code is already open on the screen, with the main editor area visible.",
+      "action_preconditions": [
+        "The VS Code window is focused.",
+        "The keyboard can be used inside VS Code."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "`"
+        ]
+      },
+      "action_after_effects": "The integrated terminal panel opens at the bottom of the VS Code window and shows a shell prompt.",
+      "nl_explanation": "When VS Code is focused and ready for keyboard input, press Ctrl+` to open the integrated terminal. The expected result is that a terminal panel appears at the bottom with a prompt waiting for a command."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Prepare a command to create the notes folder and reopen VS Code in it",
+      "action_before_state": "The terminal panel is open and the text cursor is at an empty shell prompt.",
+      "action_preconditions": [
+        "The integrated terminal is visible.",
+        "The shell prompt is active and ready to accept text."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "mkdir -p ~/Documents/daily-notes && code -r ~/Documents/daily-notes"
+      },
+      "action_after_effects": "The full shell command appears in the integrated terminal input line.",
+      "nl_explanation": "When the terminal prompt is ready, type the command to create the daily-notes folder in Documents and reopen the current VS Code window in that folder. The command should now be visible in the terminal."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Run the terminal command",
+      "action_before_state": "The terminal contains the typed command to create the folder and reopen the workspace.",
+      "action_preconditions": [
+        "The command text is fully entered in the terminal.",
+        "The terminal prompt is still active."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The command executes, the folder is created if needed, and VS Code reloads with ~/Documents/daily-notes opened as the current workspace folder.",
+      "nl_explanation": "Once the terminal command is ready, press Enter to execute it. VS Code should switch to the daily-notes folder, which becomes the current workspace in the Explorer."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Start creating a new Markdown file in the opened folder",
+      "action_before_state": "The Explorer shows the daily-notes folder in the left sidebar.",
+      "action_preconditions": [
+        "The daily-notes folder is visible in the Explorer.",
+        "The Explorer sidebar is available and not hidden."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the New File icon in the Explorer title area"
+        }
+      },
+      "action_after_effects": "An inline filename input box appears in the Explorer so a new file name can be entered.",
+      "nl_explanation": "When the daily-notes folder is visible in the Explorer, click the New File icon near the top of the sidebar. VS Code should open a small filename field for creating a new file."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Enter the Markdown filename",
+      "action_before_state": "The Explorer is showing a filename input box for the new file.",
+      "action_preconditions": [
+        "The inline filename box is active.",
+        "The cursor is blinking inside the filename field."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "standup-update.md"
+      },
+      "action_after_effects": "The filename standup-update.md is filled into the new file input field.",
+      "nl_explanation": "With the new-file name box active in the Explorer, type standup-update.md. The typed filename should appear in the input field, ready to be confirmed."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Confirm creation of the new Markdown file",
+      "action_before_state": "The filename standup-update.md is typed into the Explorer input box.",
+      "action_preconditions": [
+        "The filename has been entered completely.",
+        "The inline input field is still selected."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The new file is created, opens in the editor, and the cursor is placed in the empty document.",
+      "nl_explanation": "After the filename is entered, press Enter to create the file. VS Code should add the new Markdown file to the folder and open it in the main editor with an empty editing area."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Write the daily standup content into the Markdown file",
+      "action_before_state": "The standup-update.md editor tab is open and the document is empty.",
+      "action_preconditions": [
+        "The new Markdown file is open in the editor.",
+        "The text cursor is inside the empty file."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "# Daily Standup\n\n## Today's Priorities\n- Finish the draft report\n- Review open pull requests\n- Reply to urgent messages\n\n## Blockers\n- Waiting for the latest dataset export\n\n## Follow-ups\n- Confirm tomorrow's meeting time\n- Send the updated status note\n"
+      },
+      "action_after_effects": "The editor now contains a formatted Markdown note with headings and bullet points for the standup update.",
+      "nl_explanation": "When the new Markdown file is open and empty, type the standup note content with headings and bullet lists. The result should be a complete daily standup draft in Markdown format."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Save the Markdown file",
+      "action_before_state": "The standup-update.md tab contains text and may show an unsaved indicator.",
+      "action_preconditions": [
+        "The Markdown content has been entered.",
+        "The editor is still focused on standup-update.md."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "s"
+        ]
+      },
+      "action_after_effects": "The file is saved to the daily-notes folder and the unsaved indicator disappears from the tab.",
+      "nl_explanation": "After the standup note has been typed, press Ctrl+S to save it. The file should be written to disk and the editor tab should no longer show it as unsaved."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Open the Markdown preview",
+      "action_before_state": "The saved standup-update.md file is open in the editor.",
+      "action_preconditions": [
+        "The current active tab is the Markdown file.",
+        "The file has already been saved."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "v"
+        ]
+      },
+      "action_after_effects": "VS Code switches to a rendered Markdown preview of the note, showing formatted headings and bullet lists.",
+      "nl_explanation": "When the saved Markdown file is the active editor tab, press Ctrl+Shift+V to open the Markdown preview. The expected result is a rendered version of the note instead of plain Markdown text."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Review the lower part of the preview",
+      "action_before_state": "The Markdown preview is open and the top of the note is visible.",
+      "action_preconditions": [
+        "The Markdown preview pane is active.",
+        "The Follow-ups section is not fully visible yet."
+      ],
+      "action": {
+        "type": "SCROLL",
+        "scroll_type": "down",
+        "target": {
+          "text": "the Markdown preview area in the main editor"
+        },
+        "direction": "down"
+      },
+      "action_after_effects": "The preview moves downward until the Blockers and Follow-ups sections are visible for review.",
+      "nl_explanation": "With the Markdown preview open, scroll down inside the preview area until the lower sections come into view. The expected result is that the Blockers and Follow-ups content becomes visible, confirming the note is formatted correctly from top to bottom."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Create the daily-notes folder in Documents and switch the current VS Code workspace to that folder.",
+      "unit_type": "OPEN_WORKSPACE_IN_FOLDER",
+      "unit_before_state": "VS Code is open with the main editor visible, and the integrated terminal is not yet open.",
+      "unit_after_state": "The integrated terminal command has run, and VS Code is reloaded with the daily-notes folder from Documents shown as the current workspace in the Explorer.",
+      "unit_precondition": [
+        "VS Code is the focused application.",
+        "The integrated terminal can be opened and accepts shell commands.",
+        "The user has permission to create a folder under Documents and reopen the current VS Code window in that location."
+      ],
+      "unit_effect": [
+        "A terminal panel appears at the bottom with the typed shell command.",
+        "After execution, the Explorer shows daily-notes as the opened workspace folder."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Create a new Markdown note file inside the daily-notes workspace.",
+      "unit_type": "CREATE_FILE",
+      "unit_before_state": "The Explorer sidebar is visible and shows the daily-notes folder as the active workspace.",
+      "unit_after_state": "A new file named standup-update.md exists in the daily-notes folder and is opened as an empty editor tab with the text cursor inside it.",
+      "unit_precondition": [
+        "The daily-notes folder is visible in the Explorer.",
+        "The Explorer sidebar is available.",
+        "The New File control can be used to add a file in the current folder."
+      ],
+      "unit_effect": [
+        "An inline filename field appears in the Explorer.",
+        "The filename standup-update.md is accepted.",
+        "The new Markdown file opens in the editor."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7
+      ],
+      "unit_intent": "Draft the standup note content with the required sections and bullet points.",
+      "unit_type": "REPLACE_CONTENT",
+      "unit_before_state": "The standup-update.md tab is open in the editor and the document is empty.",
+      "unit_after_state": "The editor contains a Markdown note titled Daily Standup with sections for Today's Priorities, Blockers, and Follow-ups, each populated with list items.",
+      "unit_precondition": [
+        "standup-update.md is the active editor tab.",
+        "The text cursor is inside the file and ready for typing.",
+        "The document is still empty or ready to receive the full note content."
+      ],
+      "unit_effect": [
+        "Markdown headings and bullet lists appear in the editor.",
+        "The full standup note text is visible in the file buffer."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8
+      ],
+      "unit_intent": "Persist the drafted standup note to disk.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The standup-update.md tab contains the drafted Markdown content and may still show an unsaved change indicator.",
+      "unit_after_state": "The Markdown file is saved in the daily-notes folder, and the editor tab no longer shows unsaved changes.",
+      "unit_precondition": [
+        "standup-update.md is the active editor tab.",
+        "The required note content has already been entered.",
+        "The editor is ready to receive the save shortcut."
+      ],
+      "unit_effect": [
+        "The unsaved indicator on the standup-update.md tab disappears.",
+        "The file is stored on disk in the current workspace folder."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Open the rendered Markdown view and inspect the lower sections to verify the note formatting.",
+      "unit_type": "OPEN_AND_REVIEW_MARKDOWN_PREVIEW",
+      "unit_before_state": "The saved standup-update.md file is open in the editor as plain Markdown text.",
+      "unit_after_state": "A rendered Markdown preview is open, and the view has been scrolled so the Blockers and Follow-ups sections are visible for inspection.",
+      "unit_precondition": [
+        "standup-update.md is the active editor tab.",
+        "The file has already been saved.",
+        "Markdown preview is available in VS Code."
+      ],
+      "unit_effect": [
+        "A rendered preview replaces or opens alongside the raw Markdown editor.",
+        "Formatted headings and bullet lists are displayed.",
+        "After scrolling, the Blockers and Follow-ups sections are visible in the preview."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Create the daily-notes folder in Documents and switch the current VS Code workspace to that folder.",
+      "unit_type": "OPEN_WORKSPACE_IN_FOLDER",
+      "unit_before_state": "VS Code is open with the main editor visible, and the integrated terminal is not yet open.",
+      "unit_after_state": "The integrated terminal command has run, and VS Code is reloaded with the daily-notes folder from Documents shown as the current workspace in the Explorer.",
+      "unit_precondition": [
+        "VS Code is the focused application.",
+        "The integrated terminal can be opened and accepts shell commands.",
+        "The user has permission to create a folder under Documents and reopen the current VS Code window in that location."
+      ],
+      "unit_effect": [
+        "A terminal panel appears at the bottom with the typed shell command.",
+        "After execution, the Explorer shows daily-notes as the opened workspace folder."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a specified folder from the VS Code integrated terminal and reopen the current VS Code window with that folder as the active workspace.",
+      "parameters": {
+        "target_folder_path": "~/Documents/daily-notes"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', '`']}",
+          "action_template": "When VS Code is focused and ready for keyboard input, press Ctrl+` to open the integrated terminal. The expected result is that a terminal panel appears at the bottom with a prompt waiting for a command."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'mkdir -p ~/Documents/daily-notes && code -r ~/Documents/daily-notes'}",
+          "action_template": "When the integrated terminal is visible and the shell prompt is active, type \"mkdir -p {{target_folder_path}} && code -r {{target_folder_path}}\" to create the target folder and prepare reopening the current VS Code window in it. The full command should now be visible in the terminal input line."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Once the terminal command is fully entered and the prompt is still active, press Enter to execute it. VS Code should reopen with {{target_folder_path}} as the current workspace folder in the Explorer."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Create a new Markdown note file inside the daily-notes workspace.",
+      "unit_type": "CREATE_FILE",
+      "unit_before_state": "The Explorer sidebar is visible and shows the daily-notes folder as the active workspace.",
+      "unit_after_state": "A new file named standup-update.md exists in the daily-notes folder and is opened as an empty editor tab with the text cursor inside it.",
+      "unit_precondition": [
+        "The daily-notes folder is visible in the Explorer.",
+        "The Explorer sidebar is available.",
+        "The New File control can be used to add a file in the current folder."
+      ],
+      "unit_effect": [
+        "An inline filename field appears in the Explorer.",
+        "The filename standup-update.md is accepted.",
+        "The new Markdown file opens in the editor."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a new Markdown file with a specified name inside a specified Explorer folder and open it in the editor.",
+      "parameters": {
+        "target_folder": "daily-notes",
+        "file_name": "standup-update.md"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the New File icon in the Explorer title area'}}",
+          "action_template": "When {{target_folder}} is visible in the Explorer and the sidebar is available, click the New File icon in the Explorer title area to open an inline filename input box for creating a new file."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'standup-update.md'}",
+          "action_template": "With the inline filename box active and the cursor blinking inside it, type {{file_name}} so the filename appears in the new file input field, ready to be confirmed."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After {{file_name}} has been entered completely and the inline input field is still selected, press Enter to create the file so it is added to {{target_folder}} and opened in the editor with the cursor in the empty document."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7
+      ],
+      "unit_intent": "Draft the standup note content with the required sections and bullet points.",
+      "unit_type": "REPLACE_CONTENT",
+      "unit_before_state": "The standup-update.md tab is open in the editor and the document is empty.",
+      "unit_after_state": "The editor contains a Markdown note titled Daily Standup with sections for Today's Priorities, Blockers, and Follow-ups, each populated with list items.",
+      "unit_precondition": [
+        "standup-update.md is the active editor tab.",
+        "The text cursor is inside the file and ready for typing.",
+        "The document is still empty or ready to receive the full note content."
+      ],
+      "unit_effect": [
+        "Markdown headings and bullet lists appear in the editor.",
+        "The full standup note text is visible in the file buffer."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Populate an empty Markdown note with a complete structured standup update.",
+      "parameters": {
+        "target_document": "standup-update.md",
+        "standup_note_markdown": "# Daily Standup\n\n## Today's Priorities\n- Finish the draft report\n- Review open pull requests\n- Reply to urgent messages\n\n## Blockers\n- Waiting for the latest dataset export\n\n## Follow-ups\n- Confirm tomorrow's meeting time\n- Send the updated status note\n"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': \"# Daily Standup\\n\\n## Today's Priorities\\n- Finish the draft report\\n- Review open pull requests\\n- Reply to urgent messages\\n\\n## Blockers\\n- Waiting for the latest dataset export\\n\\n## Follow-ups\\n- Confirm tomorrow's meeting time\\n- Send the updated status note\\n\"}",
+          "action_template": "When {{target_document}} is open in the editor and the text cursor is inside the empty file, type {{standup_note_markdown}} to create a complete Markdown standup draft with headings and bullet lists. The editor then contains a formatted standup update."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8
+      ],
+      "unit_intent": "Persist the drafted standup note to disk.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The standup-update.md tab contains the drafted Markdown content and may still show an unsaved change indicator.",
+      "unit_after_state": "The Markdown file is saved in the daily-notes folder, and the editor tab no longer shows unsaved changes.",
+      "unit_precondition": [
+        "standup-update.md is the active editor tab.",
+        "The required note content has already been entered.",
+        "The editor is ready to receive the save shortcut."
+      ],
+      "unit_effect": [
+        "The unsaved indicator on the standup-update.md tab disappears.",
+        "The file is stored on disk in the current workspace folder."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the active drafted document to disk so its unsaved changes are persisted.",
+      "parameters": {
+        "file_name": "standup-update.md",
+        "destination_folder": "daily-notes"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 's']}",
+          "action_template": "Press Ctrl+S to save {{file_name}} after its content has been entered while the editor remains focused on {{file_name}}. This saves the file to the {{destination_folder}} folder and clears the unsaved indicator from the tab."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Open the rendered Markdown view and inspect the lower sections to verify the note formatting.",
+      "unit_type": "OPEN_AND_REVIEW_MARKDOWN_PREVIEW",
+      "unit_before_state": "The saved standup-update.md file is open in the editor as plain Markdown text.",
+      "unit_after_state": "A rendered Markdown preview is open, and the view has been scrolled so the Blockers and Follow-ups sections are visible for inspection.",
+      "unit_precondition": [
+        "standup-update.md is the active editor tab.",
+        "The file has already been saved.",
+        "Markdown preview is available in VS Code."
+      ],
+      "unit_effect": [
+        "A rendered preview replaces or opens alongside the raw Markdown editor.",
+        "Formatted headings and bullet lists are displayed.",
+        "After scrolling, the Blockers and Follow-ups sections are visible in the preview."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open the rendered preview for the active Markdown file and inspect specified lower sections to verify formatting.",
+      "parameters": {
+        "target_file": "standup-update.md",
+        "review_sections": "Blockers and Follow-ups sections"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'v']}",
+          "action_template": "When the saved {{target_file}} is the active editor tab, press Ctrl+Shift+V to open the Markdown preview. Preconditions: the current active tab is the Markdown file and the file has already been saved. Expected result: VS Code switches to a rendered Markdown preview of the note, showing formatted headings and bullet lists instead of plain Markdown text."
+        },
+        {
+          "action": "{'type': 'SCROLL', 'scroll_type': 'down', 'target': {'text': 'the Markdown preview area in the main editor'}, 'direction': 'down'}",
+          "action_template": "With the Markdown preview open, scroll down inside the preview area until {{review_sections}} come into view. Preconditions: the Markdown preview pane is active and the target sections are not fully visible yet. Expected result: the preview moves downward until {{review_sections}} are visible for review."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

@@ -1,0 +1,712 @@
+{
+  "segment_id": "seg_001",
+  "app": "libreoffice_calc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Move the active selection to the top-left starting cell",
+      "action_before_state": "LibreOffice Calc is already open on screen, and the current active cell could be anywhere in the sheet.",
+      "action_preconditions": [
+        "The workbook window is focused",
+        "No dialog box is blocking the sheet"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "home"
+        ]
+      },
+      "action_after_effects": "The active cell moves to A1, which is ready to receive the table data.",
+      "nl_explanation": "When the spreadsheet is active and no popup is open, press Ctrl+Home to jump directly to cell A1 so the expense table can start in the top-left corner."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Enter the weekly expense table with headers and sample rows",
+      "action_before_state": "Cell A1 is selected in a blank or mostly empty worksheet.",
+      "action_preconditions": [
+        "Cell A1 is active",
+        "The range A1:E8 is empty enough to place the table"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Date\tCategory\tDescription\tPayment Method\tAmount\n2026-04-07\tFood\tBreakfast\tCash\t6.50\n2026-04-07\tTransport\tMetro card\tTransit card\t3.00\n2026-04-08\tGroceries\tWeekly vegetables\tDebit card\t24.80\n2026-04-09\tUtilities\tPhone top-up\tMobile pay\t15.00\n2026-04-10\tFood\tLunch\tCredit card\t12.40\n2026-04-11\tHousehold\tLaundry detergent\tDebit card\t8.90\n2026-04-12\tEntertainment\tMovie ticket\tCredit card\t11.00"
+      },
+      "action_after_effects": "The sheet now contains a populated expense table from A1 through E8.",
+      "nl_explanation": "With A1 selected, type or paste the tab-separated table so the headers fill row 1 and the seven expense records populate the rows below."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Select the header row for formatting",
+      "action_before_state": "The expense table is visible in A1:E8, with the headers in row 1.",
+      "action_preconditions": [
+        "The table data has been entered",
+        "Cells A1 through E1 are visible on screen"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell A1"
+        },
+        "end": {
+          "text": "cell E1"
+        },
+        "target": {
+          "begin": {
+            "text": "cell A1"
+          },
+          "end": {
+            "text": "cell E1"
+          }
+        }
+      },
+      "action_after_effects": "The header cells A1:E1 become selected and are ready for a formatting command.",
+      "nl_explanation": "After the table appears, drag from A1 to E1 to highlight the full header row so it can be formatted separately from the data rows."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Make the headers stand out",
+      "action_before_state": "Cells A1:E1 are selected.",
+      "action_preconditions": [
+        "The header row is highlighted",
+        "The sheet still has keyboard focus"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "b"
+        ]
+      },
+      "action_after_effects": "The headers become bold, making the table structure clearer.",
+      "nl_explanation": "When the header row is selected, press Ctrl+B to apply bold formatting so the column names are visually distinct."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Select the date cells for date formatting",
+      "action_before_state": "The table is present and the first column contains raw date entries from A2 to A8.",
+      "action_preconditions": [
+        "Cells A2 through A8 are visible",
+        "The date values are already entered"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell A2"
+        },
+        "end": {
+          "text": "cell A8"
+        },
+        "target": {
+          "begin": {
+            "text": "cell A2"
+          },
+          "end": {
+            "text": "cell A8"
+          }
+        }
+      },
+      "action_after_effects": "The range A2:A8 is selected for number-format changes.",
+      "nl_explanation": "Once the data rows are available, drag from A2 to A8 to select only the date values before applying a date format."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Apply a date format to the date column",
+      "action_before_state": "Cells A2:A8 are selected, and the formatting toolbar is visible above the sheet.",
+      "action_preconditions": [
+        "The date cells are highlighted",
+        "A date-format button is available in the toolbar"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Date format button in the number-format section of the top formatting toolbar"
+        }
+      },
+      "action_after_effects": "The values in A2:A8 display using a consistent date format.",
+      "nl_explanation": "With the date cells selected, click the Date format button on the toolbar so the entries show as proper dates instead of plain text or generic numbers."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Select the amount cells for currency formatting",
+      "action_before_state": "The table is still visible, and the Amount values are in column E from E2 to E8.",
+      "action_preconditions": [
+        "The amount values have been entered",
+        "Cells E2 through E8 are visible on screen"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell E2"
+        },
+        "end": {
+          "text": "cell E8"
+        },
+        "target": {
+          "begin": {
+            "text": "cell E2"
+          },
+          "end": {
+            "text": "cell E8"
+          }
+        }
+      },
+      "action_after_effects": "The amount range E2:E8 is selected and ready for currency formatting.",
+      "nl_explanation": "After the data table is in place, drag down the Amount column from E2 to E8 so only the spending values are selected."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Format the spending values as currency",
+      "action_before_state": "Cells E2:E8 are selected in the Amount column.",
+      "action_preconditions": [
+        "The amount cells are highlighted",
+        "The currency-format button is visible in the toolbar"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Currency format button in the number-format section of the top formatting toolbar"
+        }
+      },
+      "action_after_effects": "The values in E2:E8 display as currency amounts.",
+      "nl_explanation": "When the Amount column is selected, click the Currency format button so the expense values are shown with a money format."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Place the cursor where the summary section will begin",
+      "action_before_state": "The main expense table fills the left side of the sheet in columns A through E, while columns G through K are currently empty.",
+      "action_preconditions": [
+        "Cell G1 is visible",
+        "The area to the right of the main table is empty"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell G1 in the empty area to the right of the table"
+        }
+      },
+      "action_after_effects": "Cell G1 becomes active and ready for the summary block.",
+      "nl_explanation": "Click G1 in the empty space to the right of the expense table so the summary metrics and category totals can be entered without disturbing the original data."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Enter the summary metrics and category total formulas",
+      "action_before_state": "Cell G1 is active, and the space from G1 to K7 is available for the summary sections.",
+      "action_preconditions": [
+        "Cell G1 is selected",
+        "The summary area is empty"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Metric\tValue\t\tCategory\tTotal\nTotal Spent\t=SUM(E2:E8)\t\tFood\t=SUMIF(B2:B8;J2;E2:E8)\nAverage Expense\t=AVERAGE(E2:E8)\t\tTransport\t=SUMIF(B2:B8;J3;E2:E8)\nHighest Expense\t=MAX(E2:E8)\t\tGroceries\t=SUMIF(B2:B8;J4;E2:E8)\nPurchase Count\t=COUNTA(A2:A8)\t\tUtilities\t=SUMIF(B2:B8;J5;E2:E8)\n\t\t\tHousehold\t=SUMIF(B2:B8;J6;E2:E8)\n\t\t\tEntertainment\t=SUMIF(B2:B8;J7;E2:E8)"
+      },
+      "action_after_effects": "A metrics table appears in G1:H5 with labels in column G and formulas in column H, and a category totals table appears in J1:K7 with category names in column J and totals in column K.",
+      "nl_explanation": "With G1 selected, type or paste the tab-separated summary block so Calc fills in the metric labels, formulas, category names, and category-total formulas on the right side of the sheet."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Select the category totals table for chart creation",
+      "action_before_state": "The category summary is visible in J1:K7, with category names in column J and totals in column K.",
+      "action_preconditions": [
+        "The summary block has been entered",
+        "Cells J1 through K7 are visible"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell J1"
+        },
+        "end": {
+          "text": "cell K7"
+        },
+        "target": {
+          "begin": {
+            "text": "cell J1"
+          },
+          "end": {
+            "text": "cell K7"
+          }
+        }
+      },
+      "action_after_effects": "The full category totals table is selected for insertion into a chart.",
+      "nl_explanation": "After the totals are calculated, drag from J1 to K7 so both the category labels and their totals are selected before inserting a chart."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Open the chart insertion menu",
+      "action_before_state": "The range J1:K7 is selected, and the top menu bar is visible.",
+      "action_preconditions": [
+        "The category totals table is highlighted",
+        "The Insert menu is available in the menu bar"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Insert menu in the top menu bar"
+        }
+      },
+      "action_after_effects": "The Insert menu opens and displays options including chart insertion.",
+      "nl_explanation": "With the summary table selected, click the Insert menu so you can access the chart creation option based on the selected data."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Launch the chart wizard",
+      "action_before_state": "The Insert menu is expanded over the sheet.",
+      "action_preconditions": [
+        "The Insert menu is open",
+        "The Chart option is visible in the menu"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Chart menu item"
+        }
+      },
+      "action_after_effects": "The Chart Wizard opens, using the selected category totals range as the data source.",
+      "nl_explanation": "When the Insert menu is open, click Chart to start the Chart Wizard with the currently selected category totals."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Choose a pie chart for the category breakdown",
+      "action_before_state": "The Chart Wizard dialog is open and showing chart type options.",
+      "action_preconditions": [
+        "The Chart Wizard is open",
+        "The list of chart types is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Pie chart type in the Chart Wizard"
+        }
+      },
+      "action_after_effects": "The wizard preview changes to a pie chart showing spending by category.",
+      "nl_explanation": "Inside the Chart Wizard, click the Pie chart type so the category totals will be displayed as a proportional spending breakdown."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Insert the finished chart into the sheet",
+      "action_before_state": "The Chart Wizard is open with Pie selected and the preview looks correct.",
+      "action_preconditions": [
+        "The desired chart type has been selected",
+        "The Finish button is available"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Finish button in the Chart Wizard"
+        }
+      },
+      "action_after_effects": "A pie chart is inserted into the worksheet, completing the expense tracker with a visual summary.",
+      "nl_explanation": "Once the pie chart preview is set up correctly, click Finish to place the chart on the sheet and complete the weekly expense tracker task."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Create the main weekly expense table in the top-left area of the sheet.",
+      "unit_type": "ENTER_EXPENSE_TABLE",
+      "unit_before_state": "LibreOffice Calc is open on a worksheet, and the active cell may be somewhere else on the sheet. The top-left area starting at A1 is available for new data entry.",
+      "unit_after_state": "The worksheet shows a filled expense table in A1:E8 with the headers Date, Category, Description, Payment Method, and Amount in row 1 and seven purchase rows beneath them.",
+      "unit_precondition": [
+        "The Calc workbook window is focused.",
+        "No dialog or menu is blocking the worksheet.",
+        "The area A1:E8 is empty enough to receive the pasted table."
+      ],
+      "unit_effect": [
+        "The active selection is moved to A1 before entry.",
+        "Cells A1:E8 become populated with the weekly expense tracker data."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4
+      ],
+      "unit_intent": "Visually distinguish the table headers from the expense rows.",
+      "unit_type": "FORMAT_HEADER_ROW",
+      "unit_before_state": "The expense table is visible in A1:E8, and the header labels in A1:E1 are present but not yet emphasized.",
+      "unit_after_state": "Cells A1:E1 remain selected and the header labels are shown in bold, making the column names stand out from the data rows.",
+      "unit_precondition": [
+        "The expense table has already been entered into A1:E8.",
+        "Cells A1 through E1 are visible and can be selected.",
+        "The sheet still has input focus for the bold shortcut."
+      ],
+      "unit_effect": [
+        "The range A1:E1 becomes highlighted.",
+        "The header text visibly changes to bold formatting."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Make the date entries easier to read by applying a date display format.",
+      "unit_type": "FORMAT_DATE_COLUMN",
+      "unit_before_state": "The first data column contains raw date values in A2:A8, and the formatting toolbar is available above the sheet.",
+      "unit_after_state": "The cells A2:A8 are formatted as dates and display consistently as date values instead of generic raw entries.",
+      "unit_precondition": [
+        "The expense table is already present.",
+        "Cells A2 through A8 are visible on screen.",
+        "The toolbar contains the Date format control."
+      ],
+      "unit_effect": [
+        "The range A2:A8 is selected for formatting.",
+        "The values in A2:A8 visibly switch to a date-formatted display."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Present the spending amounts in a recognizable money format.",
+      "unit_type": "FORMAT_CURRENCY_COLUMN",
+      "unit_before_state": "The amount values are visible in E2:E8 as plain numeric entries, and the number-format toolbar controls are accessible.",
+      "unit_after_state": "The cells E2:E8 are formatted as currency values, so the spending column is shown with monetary formatting.",
+      "unit_precondition": [
+        "The main expense table has been entered.",
+        "Cells E2 through E8 are visible and selectable.",
+        "The toolbar contains the Currency format control."
+      ],
+      "unit_effect": [
+        "The range E2:E8 is selected.",
+        "The values in E2:E8 visibly change to currency-formatted amounts."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Add a summary block with overall spending metrics and category totals to the right of the main table.",
+      "unit_type": "CREATE_SUMMARY_SECTION",
+      "unit_before_state": "The expense tracker table occupies columns A through E, while the area beginning at G1 on the right side of the sheet is empty.",
+      "unit_after_state": "A summary block appears on the right side of the sheet: G1:H5 contains metric labels and formulas, and J1:K7 contains category names with corresponding total formulas.",
+      "unit_precondition": [
+        "Cell G1 is visible and the area G1:K7 is empty enough for the summary content.",
+        "The expense data in A1:E8 already exists so the formulas can reference it."
+      ],
+      "unit_effect": [
+        "Cell G1 becomes the active starting point for the summary block.",
+        "Metric formulas appear in column H and category total formulas appear in column K.",
+        "The right side of the worksheet now shows both overall metrics and per-category totals."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "unit_intent": "Create and insert a pie chart that visualizes spending by category from the summary totals.",
+      "unit_type": "INSERT_PIE_CHART",
+      "unit_before_state": "The category totals table is visible in J1:K7 on the worksheet, but no chart has been inserted yet.",
+      "unit_after_state": "A pie chart based on the category totals is inserted into the worksheet, providing a visual breakdown of spending by category.",
+      "unit_precondition": [
+        "The category summary table in J1:K7 exists and contains labels in column J and totals in column K.",
+        "Cells J1:K7 are visible and can be selected.",
+        "The Insert menu and Chart Wizard are available in LibreOffice Calc."
+      ],
+      "unit_effect": [
+        "The range J1:K7 is highlighted as the chart data source.",
+        "The Insert menu opens and the Chart Wizard launches using the selected data.",
+        "The wizard preview changes to a pie chart after Pie is selected.",
+        "After Finish is clicked, a pie chart object appears on the sheet."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Create the main weekly expense table in the top-left area of the sheet.",
+      "unit_type": "ENTER_EXPENSE_TABLE",
+      "unit_before_state": "LibreOffice Calc is open on a worksheet, and the active cell may be somewhere else on the sheet. The top-left area starting at A1 is available for new data entry.",
+      "unit_after_state": "The worksheet shows a filled expense table in A1:E8 with the headers Date, Category, Description, Payment Method, and Amount in row 1 and seven purchase rows beneath them.",
+      "unit_precondition": [
+        "The Calc workbook window is focused.",
+        "No dialog or menu is blocking the worksheet.",
+        "The area A1:E8 is empty enough to receive the pasted table."
+      ],
+      "unit_effect": [
+        "The active selection is moved to A1 before entry.",
+        "Cells A1:E8 become populated with the weekly expense tracker data."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Populate the worksheet's top-left table region with a specified tab-separated expense table.",
+      "parameters": {
+        "table_content": "Date\tCategory\tDescription\tPayment Method\tAmount\n2026-04-07\tFood\tBreakfast\tCash\t6.50\n2026-04-07\tTransport\tMetro card\tTransit card\t3.00\n2026-04-08\tGroceries\tWeekly vegetables\tDebit card\t24.80\n2026-04-09\tUtilities\tPhone top-up\tMobile pay\t15.00\n2026-04-10\tFood\tLunch\tCredit card\t12.40\n2026-04-11\tHousehold\tLaundry detergent\tDebit card\t8.90\n2026-04-12\tEntertainment\tMovie ticket\tCredit card\t11.00",
+        "table_range": "A1:E8"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'home']}",
+          "action_template": "When the spreadsheet is active and no popup is open, press Ctrl+Home to jump directly to cell A1 so the table can start in the top-left corner."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Date\\tCategory\\tDescription\\tPayment Method\\tAmount\\n2026-04-07\\tFood\\tBreakfast\\tCash\\t6.50\\n2026-04-07\\tTransport\\tMetro card\\tTransit card\\t3.00\\n2026-04-08\\tGroceries\\tWeekly vegetables\\tDebit card\\t24.80\\n2026-04-09\\tUtilities\\tPhone top-up\\tMobile pay\\t15.00\\n2026-04-10\\tFood\\tLunch\\tCredit card\\t12.40\\n2026-04-11\\tHousehold\\tLaundry detergent\\tDebit card\\t8.90\\n2026-04-12\\tEntertainment\\tMovie ticket\\tCredit card\\t11.00'}",
+          "action_template": "With A1 selected, type or paste {{table_content}} so the table fills {{table_range}} with the header row and data rows."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4
+      ],
+      "unit_intent": "Visually distinguish the table headers from the expense rows.",
+      "unit_type": "FORMAT_HEADER_ROW",
+      "unit_before_state": "The expense table is visible in A1:E8, and the header labels in A1:E1 are present but not yet emphasized.",
+      "unit_after_state": "Cells A1:E1 remain selected and the header labels are shown in bold, making the column names stand out from the data rows.",
+      "unit_precondition": [
+        "The expense table has already been entered into A1:E8.",
+        "Cells A1 through E1 are visible and can be selected.",
+        "The sheet still has input focus for the bold shortcut."
+      ],
+      "unit_effect": [
+        "The range A1:E1 becomes highlighted.",
+        "The header text visibly changes to bold formatting."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Apply bold formatting to a table's header row so the column labels are visually distinct from the data rows.",
+      "parameters": {
+        "header_range_start_cell": "cell A1",
+        "header_range_end_cell": "cell E1"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'cell A1'}, 'end': {'text': 'cell E1'}, 'target': {'begin': {'text': 'cell A1'}, 'end': {'text': 'cell E1'}}}",
+          "action_template": "After the table appears and {{header_range_start_cell}} through {{header_range_end_cell}} are visible on screen, drag from {{header_range_start_cell}} to {{header_range_end_cell}} to highlight the full header row so it can be formatted separately from the data rows; the header cells become selected and are ready for a formatting command."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'b']}",
+          "action_template": "When the header row is highlighted and the sheet still has keyboard focus, press Ctrl+B to apply bold formatting so the column names are visually distinct; the headers become bold, making the table structure clearer."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Make the date entries easier to read by applying a date display format.",
+      "unit_type": "FORMAT_DATE_COLUMN",
+      "unit_before_state": "The first data column contains raw date values in A2:A8, and the formatting toolbar is available above the sheet.",
+      "unit_after_state": "The cells A2:A8 are formatted as dates and display consistently as date values instead of generic raw entries.",
+      "unit_precondition": [
+        "The expense table is already present.",
+        "Cells A2 through A8 are visible on screen.",
+        "The toolbar contains the Date format control."
+      ],
+      "unit_effect": [
+        "The range A2:A8 is selected for formatting.",
+        "The values in A2:A8 visibly switch to a date-formatted display."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Apply a date display format to a spreadsheet cell range containing date entries.",
+      "parameters": {
+        "selection_start_cell": "cell A2",
+        "selection_end_cell": "cell A8",
+        "target_range": "A2:A8",
+        "format_control": "the Date format button in the number-format section of the top formatting toolbar"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'cell A2'}, 'end': {'text': 'cell A8'}, 'target': {'begin': {'text': 'cell A2'}, 'end': {'text': 'cell A8'}}}",
+          "action_template": "Once the date entries are visible, drag from {{selection_start_cell}} to {{selection_end_cell}} to select {{target_range}} for number-format changes before applying a date format."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Date format button in the number-format section of the top formatting toolbar'}}",
+          "action_template": "With {{target_range}} highlighted, click {{format_control}} so the selected values display using a consistent date format."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Present the spending amounts in a recognizable money format.",
+      "unit_type": "FORMAT_CURRENCY_COLUMN",
+      "unit_before_state": "The amount values are visible in E2:E8 as plain numeric entries, and the number-format toolbar controls are accessible.",
+      "unit_after_state": "The cells E2:E8 are formatted as currency values, so the spending column is shown with monetary formatting.",
+      "unit_precondition": [
+        "The main expense table has been entered.",
+        "Cells E2 through E8 are visible and selectable.",
+        "The toolbar contains the Currency format control."
+      ],
+      "unit_effect": [
+        "The range E2:E8 is selected.",
+        "The values in E2:E8 visibly change to currency-formatted amounts."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Apply currency formatting to a specified range of numeric cells.",
+      "parameters": {
+        "range_start_cell": "cell E2",
+        "range_end_cell": "cell E8",
+        "target_range": "E2:E8"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'cell E2'}, 'end': {'text': 'cell E8'}, 'target': {'begin': {'text': 'cell E2'}, 'end': {'text': 'cell E8'}}}",
+          "action_template": "After the numeric values have been entered and {{target_range}} is visible on screen, drag with the left mouse button from {{range_start_cell}} to {{range_end_cell}} so the full range is selected and ready for currency formatting."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Currency format button in the number-format section of the top formatting toolbar'}}",
+          "action_template": "With {{target_range}} highlighted and the currency-format button visible in the toolbar, click the Currency format button so the selected values display as currency amounts."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Add a summary block with overall spending metrics and category totals to the right of the main table.",
+      "unit_type": "CREATE_SUMMARY_SECTION",
+      "unit_before_state": "The expense tracker table occupies columns A through E, while the area beginning at G1 on the right side of the sheet is empty.",
+      "unit_after_state": "A summary block appears on the right side of the sheet: G1:H5 contains metric labels and formulas, and J1:K7 contains category names with corresponding total formulas.",
+      "unit_precondition": [
+        "Cell G1 is visible and the area G1:K7 is empty enough for the summary content.",
+        "The expense data in A1:E8 already exists so the formulas can reference it."
+      ],
+      "unit_effect": [
+        "Cell G1 becomes the active starting point for the summary block.",
+        "Metric formulas appear in column H and category total formulas appear in column K.",
+        "The right side of the worksheet now shows both overall metrics and per-category totals."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a summary section in an empty worksheet area next to the main table, including overall metrics and category totals derived from existing data.",
+      "parameters": {
+        "target_start_cell": "cell G1 in the empty area to the right of the table",
+        "summary_start_cell": "G1",
+        "summary_block_content": "Metric\tValue\t\tCategory\tTotal\nTotal Spent\t=SUM(E2:E8)\t\tFood\t=SUMIF(B2:B8;J2;E2:E8)\nAverage Expense\t=AVERAGE(E2:E8)\t\tTransport\t=SUMIF(B2:B8;J3;E2:E8)\nHighest Expense\t=MAX(E2:E8)\t\tGroceries\t=SUMIF(B2:B8;J4;E2:E8)\nPurchase Count\t=COUNTA(A2:A8)\t\tUtilities\t=SUMIF(B2:B8;J5;E2:E8)\n\t\t\tHousehold\t=SUMIF(B2:B8;J6;E2:E8)\n\t\t\tEntertainment\t=SUMIF(B2:B8;J7;E2:E8)"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "CLICK",
+          "action_template": "Click {{target_start_cell}} so the summary metrics and category totals can be entered without disturbing the original data. Preconditions: {{summary_start_cell}} is visible and the area to the right of the main table is empty. After this action, {{summary_start_cell}} becomes active and ready for the summary block."
+        },
+        {
+          "action": "TYPING",
+          "action_template": "With {{summary_start_cell}} selected, type or paste {{summary_block_content}} so Calc fills in the metric labels, formulas, category names, and category-total formulas in the summary area. Preconditions: {{summary_start_cell}} is selected and the summary area is empty. After this action, the metrics table and category totals table appear in the target area."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "unit_intent": "Create and insert a pie chart that visualizes spending by category from the summary totals.",
+      "unit_type": "INSERT_PIE_CHART",
+      "unit_before_state": "The category totals table is visible in J1:K7 on the worksheet, but no chart has been inserted yet.",
+      "unit_after_state": "A pie chart based on the category totals is inserted into the worksheet, providing a visual breakdown of spending by category.",
+      "unit_precondition": [
+        "The category summary table in J1:K7 exists and contains labels in column J and totals in column K.",
+        "Cells J1:K7 are visible and can be selected.",
+        "The Insert menu and Chart Wizard are available in LibreOffice Calc."
+      ],
+      "unit_effect": [
+        "The range J1:K7 is highlighted as the chart data source.",
+        "The Insert menu opens and the Chart Wizard launches using the selected data.",
+        "The wizard preview changes to a pie chart after Pie is selected.",
+        "After Finish is clicked, a pie chart object appears on the sheet."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create and insert a specified chart type from a selected summary data range in the worksheet.",
+      "parameters": {
+        "data_range": "J1:K7",
+        "chart_type": "Pie"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'cell J1'}, 'end': {'text': 'cell K7'}, 'target': {'begin': {'text': 'cell J1'}, 'end': {'text': 'cell K7'}}}",
+          "action_template": "After the summary block has been entered and {{data_range}} is visible, drag across {{data_range}} so both the labels and values are selected for chart insertion."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Insert menu in the top menu bar'}}",
+          "action_template": "With {{data_range}} highlighted and the Insert menu available, click the Insert menu to access chart creation options for the selected data."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Chart menu item'}}",
+          "action_template": "When the Insert menu is open and the Chart option is visible, click Chart to launch the Chart Wizard using {{data_range}} as the data source."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Pie chart type in the Chart Wizard'}}",
+          "action_template": "Inside the Chart Wizard, with chart type options visible, click the {{chart_type}} chart type so the preview changes to that chart format for the selected data."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Finish button in the Chart Wizard'}}",
+          "action_template": "Once the {{chart_type}} chart type is selected and the preview looks correct, click Finish to insert the chart into the worksheet."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

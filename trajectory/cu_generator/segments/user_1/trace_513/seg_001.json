@@ -1,0 +1,498 @@
+{
+  "segment_id": "seg_001",
+  "app": "vlc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open VLC Preferences window using keyboard shortcut",
+      "action_before_state": "vlc is ready for step 1 of the task.",
+      "action_preconditions": [
+        "VLC media player is open and visible on the screen",
+        "No modal dialogs are blocking the interface"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "p"
+        ]
+      },
+      "action_after_effects": "The Preferences window opens, displaying the 'Interface Settings' section by default with 'Simple' mode selected at the bottom left.",
+      "nl_explanation": "When VLC is the active window, pressing Ctrl+P opens the Preferences dialog where we can configure subtitle and hardware acceleration settings."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Switch to Advanced (All) preferences mode to access detailed settings",
+      "action_before_state": "vlc is ready for step 2 of the task.",
+      "action_preconditions": [
+        "Preferences window is open",
+        "Currently in 'Simple' mode (radio button selected at bottom left)"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "'All' radio button at the bottom left of the Preferences window to switch from Simple to Advanced mode"
+        }
+      },
+      "action_after_effects": "The left panel expands to show a detailed tree menu including categories like 'Audio', 'Input & Codecs', and 'Video', and the right panel updates to show advanced options.",
+      "nl_explanation": "Clicking the 'All' radio button switches the preferences view to advanced mode, revealing the detailed configuration tree needed to access hardware acceleration and subtitle encoding options."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Enable hardware-accelerated decoding in Input & Codecs section",
+      "action_before_state": "vlc is ready for step 3 of the task.",
+      "action_preconditions": [
+        "Preferences is in 'All' (Advanced) mode",
+        "Left panel shows the settings tree menu"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "'Input & Codecs' item in the left tree menu under the 'Advanced' section"
+        }
+      },
+      "action_after_effects": "The right panel displays Input & Codecs settings including the 'Hardware-accelerated decoding' dropdown menu currently set to 'Automatic' or 'Disable'.",
+      "nl_explanation": "Selecting 'Input & Codecs' from the left menu reveals hardware acceleration settings on the right side of the preferences window."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Set hardware acceleration to Automatic if not already enabled",
+      "action_before_state": "vlc is ready for step 4 of the task.",
+      "action_preconditions": [
+        "Input & Codecs section is displayed on the right",
+        "Hardware-accelerated decoding dropdown is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "Dropdown menu for 'Hardware-accelerated decoding' currently showing 'Disable' or similar"
+        }
+      },
+      "action_after_effects": "A dropdown list appears showing options: 'Disable', 'Automatic', 'VA-API', 'VDPAU', etc.",
+      "nl_explanation": "Clicking the hardware acceleration dropdown reveals the available decoding options."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Select 'Automatic' from the hardware acceleration dropdown",
+      "action_before_state": "vlc is ready for step 5 of the task.",
+      "action_preconditions": [
+        "Dropdown menu is expanded showing hardware acceleration options"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "'Automatic' option in the hardware-accelerated decoding dropdown menu"
+        }
+      },
+      "action_after_effects": "The dropdown closes and 'Automatic' is now displayed as the selected value for hardware-accelerated decoding.",
+      "nl_explanation": "Selecting 'Automatic' enables hardware acceleration when available, which improves video playback performance."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Navigate to Video > Subtitles/OSD to configure subtitle settings",
+      "action_before_state": "vlc is ready for step 6 of the task.",
+      "action_preconditions": [
+        "Hardware acceleration is now set to Automatic",
+        "Left panel shows the settings tree"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "'Subtitles/OSD' item under the 'Video' category in the left tree menu"
+        }
+      },
+      "action_after_effects": "The right panel updates to show subtitle configuration options including 'Autodetect subtitle files', 'Subtitle text encoding', and font settings.",
+      "nl_explanation": "Clicking on 'Subtitles/OSD' under the Video section reveals the subtitle configuration panel where we can enable autoload and set UTF-8 encoding."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Enable automatic subtitle detection",
+      "action_before_state": "vlc is ready for step 7 of the task.",
+      "action_preconditions": [
+        "Subtitles/OSD settings are displayed on the right",
+        "Checkbox for 'Autodetect subtitle files' is visible and unchecked"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "Checkbox next to 'Autodetect subtitle files' to enable automatic subtitle loading"
+        }
+      },
+      "action_after_effects": "The checkbox becomes checked, indicating that VLC will now automatically detect and load subtitle files with matching names.",
+      "nl_explanation": "Checking this box configures VLC to automatically look for and load subtitle files (like .srt files) when opening video files."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Set subtitle text encoding to UTF-8",
+      "action_before_state": "vlc is ready for step 8 of the task.",
+      "action_preconditions": [
+        "Autodetect subtitle files is now enabled",
+        "Subtitle text encoding dropdown is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "Dropdown menu for 'Subtitle text encoding' currently showing 'Default' or 'System encoding'"
+        }
+      },
+      "action_after_effects": "A dropdown list appears showing various encoding options including 'Universal (UTF-8)', 'Western European', etc.",
+      "nl_explanation": "Clicking the encoding dropdown reveals the list of available text encodings for subtitles."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Select UTF-8 encoding from the dropdown",
+      "action_before_state": "vlc is ready for step 9 of the task.",
+      "action_preconditions": [
+        "Encoding dropdown is expanded showing various encoding options"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "'Universal (UTF-8)' option in the subtitle text encoding dropdown menu"
+        }
+      },
+      "action_after_effects": "The dropdown closes and 'Universal (UTF-8)' is now displayed as the selected subtitle text encoding.",
+      "nl_explanation": "Selecting UTF-8 ensures that subtitles with special characters or non-English text display correctly without garbled characters."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Save all configuration changes",
+      "action_before_state": "vlc is ready for step 10 of the task.",
+      "action_preconditions": [
+        "Hardware acceleration is set to Automatic",
+        "Autodetect subtitle files is enabled",
+        "UTF-8 encoding is selected",
+        "Save button is visible at bottom right"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "'Save' button at the bottom right of the Preferences window"
+        }
+      },
+      "action_after_effects": "The Preferences window closes and the settings are saved to VLC's configuration file, applying the hardware acceleration, subtitle autoload, and UTF-8 encoding settings permanently.",
+      "nl_explanation": "Clicking the Save button commits all the configuration changes to VLC's settings, closing the preferences dialog and returning to the main VLC window with the new settings active."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Open VLC's detailed preferences so the required playback settings can be edited.",
+      "unit_type": "OPEN_ADVANCED_PREFERENCES",
+      "unit_before_state": "The main VLC media player window is open and active, with no modal dialog covering it.",
+      "unit_after_state": "The Preferences window is open in advanced mode, with the 'All' option selected at the bottom left, a settings tree visible on the left, and advanced options shown on the right.",
+      "unit_precondition": [
+        "VLC media player is already running and focused.",
+        "No other blocking dialog is open on top of VLC."
+      ],
+      "unit_effect": [
+        "The Preferences dialog appears after Ctrl+P.",
+        "The left pane expands into the full advanced settings tree after 'All' is selected."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4,
+        5
+      ],
+      "unit_intent": "Enable automatic hardware decoding for smoother video playback.",
+      "unit_type": "SET_HARDWARE_ACCELERATION_AUTOMATIC",
+      "unit_before_state": "The VLC Preferences window is open in advanced mode, and the left settings tree is available for navigation.",
+      "unit_after_state": "The 'Input & Codecs' page is open, and the 'Hardware-accelerated decoding' field shows 'Automatic' as the selected value.",
+      "unit_precondition": [
+        "The Preferences window is open in 'All' mode.",
+        "The settings tree includes the 'Input & Codecs' section.",
+        "The hardware decoding dropdown is available on the 'Input & Codecs' page."
+      ],
+      "unit_effect": [
+        "The right pane switches to the 'Input & Codecs' settings.",
+        "The hardware decoding dropdown opens and then closes with 'Automatic' displayed as the chosen option."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7
+      ],
+      "unit_intent": "Turn on automatic loading of matching subtitle files.",
+      "unit_type": "ENABLE_SUBTITLE_AUTOLOAD",
+      "unit_before_state": "The Preferences window remains open in advanced mode, currently showing the 'Input & Codecs' settings.",
+      "unit_after_state": "The 'Subtitles/OSD' settings page is open, and the 'Autodetect subtitle files' checkbox is checked.",
+      "unit_precondition": [
+        "The Preferences window is still open in advanced mode.",
+        "The left settings tree contains 'Video' and its 'Subtitles/OSD' entry.",
+        "The 'Autodetect subtitle files' control is available on the subtitle settings page."
+      ],
+      "unit_effect": [
+        "The right pane updates to the subtitle configuration page.",
+        "The 'Autodetect subtitle files' checkbox visibly changes to the checked state."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8,
+        9
+      ],
+      "unit_intent": "Force subtitle text to use UTF-8 so subtitle characters render correctly.",
+      "unit_type": "SET_SUBTITLE_ENCODING_UTF8",
+      "unit_before_state": "The 'Subtitles/OSD' settings page is visible, with subtitle controls including the 'Subtitle text encoding' dropdown.",
+      "unit_after_state": "The 'Subtitles/OSD' page remains open, and the 'Subtitle text encoding' field shows 'Universal (UTF-8)'.",
+      "unit_precondition": [
+        "The 'Subtitles/OSD' settings page is open.",
+        "The 'Subtitle text encoding' dropdown is visible and enabled."
+      ],
+      "unit_effect": [
+        "The encoding dropdown expands to show available text encodings.",
+        "After selection, the dropdown closes and 'Universal (UTF-8)' is displayed as the active encoding."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        10
+      ],
+      "unit_intent": "Persist the playback and subtitle configuration changes for future VLC sessions.",
+      "unit_type": "SAVE_PREFERENCES",
+      "unit_before_state": "The Preferences window is still open with hardware acceleration set to 'Automatic', subtitle autodetection enabled, and subtitle text encoding set to 'Universal (UTF-8)'.",
+      "unit_after_state": "The Preferences window closes, returning to the main VLC window with the updated settings saved.",
+      "unit_precondition": [
+        "The Preferences dialog is open.",
+        "The desired hardware acceleration and subtitle settings are already visible in the configured state.",
+        "The 'Save' button is available at the bottom right of the Preferences window."
+      ],
+      "unit_effect": [
+        "The Preferences window disappears after clicking 'Save'.",
+        "The configuration changes are committed as VLC's persistent preferences."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Open VLC's detailed preferences so the required playback settings can be edited.",
+      "unit_type": "OPEN_ADVANCED_PREFERENCES",
+      "unit_before_state": "The main VLC media player window is open and active, with no modal dialog covering it.",
+      "unit_after_state": "The Preferences window is open in advanced mode, with the 'All' option selected at the bottom left, a settings tree visible on the left, and advanced options shown on the right.",
+      "unit_precondition": [
+        "VLC media player is already running and focused.",
+        "No other blocking dialog is open on top of VLC."
+      ],
+      "unit_effect": [
+        "The Preferences dialog appears after Ctrl+P.",
+        "The left pane expands into the full advanced settings tree after 'All' is selected."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open the application's detailed preferences view by switching from the default settings mode to the advanced settings mode.",
+      "parameters": {
+        "preferences_shortcut": "Ctrl+P",
+        "initial_mode": "Simple",
+        "advanced_mode_option": "All"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'p']}",
+          "action_template": "When the application window is open and visible and no modal dialogs are blocking the interface, press {{preferences_shortcut}} to open the Preferences dialog, which appears in its default view with {{initial_mode}} mode selected."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': \"'All' radio button at the bottom left of the Preferences window to switch from Simple to Advanced mode\"}}",
+          "action_template": "With the Preferences window open and currently in {{initial_mode}} mode, click the {{advanced_mode_option}} radio button at the bottom left to switch to advanced mode and reveal the detailed settings tree and advanced options."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4,
+        5
+      ],
+      "unit_intent": "Enable automatic hardware decoding for smoother video playback.",
+      "unit_type": "SET_HARDWARE_ACCELERATION_AUTOMATIC",
+      "unit_before_state": "The VLC Preferences window is open in advanced mode, and the left settings tree is available for navigation.",
+      "unit_after_state": "The 'Input & Codecs' page is open, and the 'Hardware-accelerated decoding' field shows 'Automatic' as the selected value.",
+      "unit_precondition": [
+        "The Preferences window is open in 'All' mode.",
+        "The settings tree includes the 'Input & Codecs' section.",
+        "The hardware decoding dropdown is available on the 'Input & Codecs' page."
+      ],
+      "unit_effect": [
+        "The right pane switches to the 'Input & Codecs' settings.",
+        "The hardware decoding dropdown opens and then closes with 'Automatic' displayed as the chosen option."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Set the {{setting_name}} option to {{selected_option}} in the {{settings_section}} settings.",
+      "parameters": {
+        "settings_section": "Input & Codecs",
+        "setting_name": "Hardware-accelerated decoding",
+        "selected_option": "Automatic"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': \"'Input & Codecs' item in the left tree menu under the 'Advanced' section\"}}",
+          "action_template": "Click the {{settings_section}} item in the left settings tree to reveal the {{setting_name}} control, when Preferences is in 'All' mode and the settings tree menu is visible. The right panel then displays the {{settings_section}} settings including the {{setting_name}} dropdown menu."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': \"Dropdown menu for 'Hardware-accelerated decoding' currently showing 'Disable' or similar\"}}",
+          "action_template": "Click the {{setting_name}} dropdown after the {{settings_section}} section is displayed and the dropdown is visible to reveal the available decoding options. A dropdown list then appears with selectable hardware acceleration modes."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': \"'Automatic' option in the hardware-accelerated decoding dropdown menu\"}}",
+          "action_template": "Click the {{selected_option}} option in the {{setting_name}} dropdown after the menu is expanded. The dropdown closes and {{selected_option}} is displayed as the selected value for {{setting_name}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7
+      ],
+      "unit_intent": "Turn on automatic loading of matching subtitle files.",
+      "unit_type": "ENABLE_SUBTITLE_AUTOLOAD",
+      "unit_before_state": "The Preferences window remains open in advanced mode, currently showing the 'Input & Codecs' settings.",
+      "unit_after_state": "The 'Subtitles/OSD' settings page is open, and the 'Autodetect subtitle files' checkbox is checked.",
+      "unit_precondition": [
+        "The Preferences window is still open in advanced mode.",
+        "The left settings tree contains 'Video' and its 'Subtitles/OSD' entry.",
+        "The 'Autodetect subtitle files' control is available on the subtitle settings page."
+      ],
+      "unit_effect": [
+        "The right pane updates to the subtitle configuration page.",
+        "The 'Autodetect subtitle files' checkbox visibly changes to the checked state."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open {{settings_page}} under {{settings_category}} and enable {{target_option}}.",
+      "parameters": {
+        "settings_category": "Video",
+        "settings_page": "Subtitles/OSD",
+        "target_option": "Autodetect subtitle files"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': \"'Subtitles/OSD' item under the 'Video' category in the left tree menu\"}}",
+          "action_template": "Click {{settings_page}} under {{settings_category}} in the left settings tree when the settings tree is visible to open the subtitle configuration panel containing {{target_option}}."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': \"Checkbox next to 'Autodetect subtitle files' to enable automatic subtitle loading\"}}",
+          "action_template": "Click the checkbox next to {{target_option}} when the {{settings_page}} settings are displayed and the checkbox is visible and unchecked to turn on automatic subtitle loading."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8,
+        9
+      ],
+      "unit_intent": "Force subtitle text to use UTF-8 so subtitle characters render correctly.",
+      "unit_type": "SET_SUBTITLE_ENCODING_UTF8",
+      "unit_before_state": "The 'Subtitles/OSD' settings page is visible, with subtitle controls including the 'Subtitle text encoding' dropdown.",
+      "unit_after_state": "The 'Subtitles/OSD' page remains open, and the 'Subtitle text encoding' field shows 'Universal (UTF-8)'.",
+      "unit_precondition": [
+        "The 'Subtitles/OSD' settings page is open.",
+        "The 'Subtitle text encoding' dropdown is visible and enabled."
+      ],
+      "unit_effect": [
+        "The encoding dropdown expands to show available text encodings.",
+        "After selection, the dropdown closes and 'Universal (UTF-8)' is displayed as the active encoding."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Set the subtitle text encoding field to {{target_encoding}} so subtitle characters render correctly.",
+      "parameters": {
+        "target_field": "Subtitle text encoding",
+        "target_encoding": "Universal (UTF-8)"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': \"Dropdown menu for 'Subtitle text encoding' currently showing 'Default' or 'System encoding'\"}}",
+          "action_template": "Click the dropdown for {{target_field}} when the field is visible to reveal the available subtitle text encoding options."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': \"'Universal (UTF-8)' option in the subtitle text encoding dropdown menu\"}}",
+          "action_template": "Click {{target_encoding}} in the expanded {{target_field}} dropdown to apply it; the dropdown closes and {{target_encoding}} becomes the selected encoding."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        10
+      ],
+      "unit_intent": "Persist the playback and subtitle configuration changes for future VLC sessions.",
+      "unit_type": "SAVE_PREFERENCES",
+      "unit_before_state": "The Preferences window is still open with hardware acceleration set to 'Automatic', subtitle autodetection enabled, and subtitle text encoding set to 'Universal (UTF-8)'.",
+      "unit_after_state": "The Preferences window closes, returning to the main VLC window with the updated settings saved.",
+      "unit_precondition": [
+        "The Preferences dialog is open.",
+        "The desired hardware acceleration and subtitle settings are already visible in the configured state.",
+        "The 'Save' button is available at the bottom right of the Preferences window."
+      ],
+      "unit_effect": [
+        "The Preferences window disappears after clicking 'Save'.",
+        "The configuration changes are committed as VLC's persistent preferences."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the configured preferences so they persist across future application sessions.",
+      "parameters": {
+        "confirm_button": "'Save' button at the bottom right of the Preferences window"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': \"'Save' button at the bottom right of the Preferences window\"}}",
+          "action_template": "Click {{confirm_button}} once after the desired preference changes are already configured and the button is visible; this commits the changes, closes the preferences dialog, and returns to the main application window with the settings saved persistently."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

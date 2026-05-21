@@ -1,0 +1,237 @@
+{
+  "segment_id": "seg_001",
+  "app": "vlc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the Playback menu to access speed controls",
+      "action_before_state": "vlc is ready for step 1 of the task.",
+      "action_preconditions": [
+        "VLC media player is open and actively playing a video",
+        "The menu bar is visible at the top of the VLC window",
+        "The current playback speed is at normal 1.0x"
+      ],
+      "action": {
+        "type": "CLICK",
+        "target": {
+          "text": "Playback menu item in the top menu bar"
+        },
+        "button": "left",
+        "num_clicks": 1
+      },
+      "action_after_effects": "The Playback dropdown menu opens, displaying options including Pause, Stop, Speed, and Chapter navigation",
+      "nl_explanation": "When VLC is playing a video with the menu bar visible, click on the 'Playback' menu item in the top menu bar to open the playback options dropdown menu."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Access the Speed submenu from the Playback menu",
+      "action_before_state": "vlc is ready for step 2 of the task.",
+      "action_preconditions": [
+        "The Playback dropdown menu is currently open and visible",
+        "The 'Speed' option is available in the menu"
+      ],
+      "action": {
+        "type": "CLICK",
+        "target": {
+          "text": "Speed option in the Playback dropdown menu"
+        },
+        "button": "left",
+        "num_clicks": 1
+      },
+      "action_after_effects": "A submenu appears to the right of the Speed option showing speed adjustment choices including Faster, Slower, and Normal Speed options",
+      "nl_explanation": "With the Playback menu open, hover over or click on the 'Speed' option to reveal the speed adjustment submenu containing faster and slower options."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Increase playback speed to 1.5x using the Speed submenu options",
+      "action_before_state": "vlc is ready for step 3 of the task.",
+      "action_preconditions": [
+        "The Speed submenu is visible with the 'Faster' option available",
+        "Current speed is at 1.0x (normal)"
+      ],
+      "action": {
+        "type": "CLICK",
+        "target": {
+          "text": "Faster option in the Speed submenu"
+        },
+        "button": "left",
+        "num_clicks": 1
+      },
+      "action_after_effects": "The video playback speed increases. In VLC's default configuration, clicking 'Faster' once increases speed from 1.0x to 1.5x; however, depending on VLC settings (step mode vs nominal mode), the increment may be smaller (~0.1x) and multiple clicks may be required to reach 1.5x. A temporary on-screen display shows the current speed in the top-right corner of the video.",
+      "nl_explanation": "Click on the 'Faster' option in the Speed submenu to increase the playback speed toward 1.5x. Note that VLC's 'Faster' option increases speed incrementally—typically by 0.5x per click in default nominal mode (reaching 1.5x in one click from 1.0x), or by ~0.1x per click if VLC is configured for fine speed control. An on-screen indicator briefly displays the current speed."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Open the Video menu to access the Always on Top option",
+      "action_before_state": "vlc is ready for step 4 of the task.",
+      "action_preconditions": [
+        "The playback speed has been successfully set to 1.5x",
+        "The VLC menu bar is accessible at the top of the window",
+        "The window is currently not set to always be on top"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "alt",
+          "v"
+        ]
+      },
+      "action_after_effects": "The Video dropdown menu opens, displaying options including Always on Top, Fullscreen, Crop, Aspect Ratio, and other video-related settings",
+      "nl_explanation": "Use the keyboard shortcut Alt+V to open the Video menu as an alternative to mouse clicking, which provides quick access to the Always on Top feature and other video display options."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Enable the Always on Top window feature",
+      "action_before_state": "vlc is ready for step 5 of the task.",
+      "action_preconditions": [
+        "The Video dropdown menu is open and visible",
+        "The 'Always on Top' option is visible in the menu, currently unchecked"
+      ],
+      "action": {
+        "type": "CLICK",
+        "target": {
+          "text": "Always on Top option in the Video dropdown menu"
+        },
+        "button": "left",
+        "num_clicks": 1
+      },
+      "action_after_effects": "A checkmark appears next to 'Always on Top' in the Video menu, the menu closes, and the VLC window now remains on top of all other application windows even when clicking on other applications behind it",
+      "nl_explanation": "With the Video menu open, click on the 'Always on Top' option to enable the window to stay on top of other applications, allowing the user to watch the video while working in other windows."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Increase the currently playing video's playback speed to 1.5x.",
+      "unit_type": "SET_PLAYBACK_SPEED",
+      "unit_before_state": "The VLC window is open with a video already playing at normal speed. The top menu bar is visible, and no playback menu is expanded.",
+      "unit_after_state": "The playback menus have closed and the video is now playing faster at 1.5x. A temporary speed indicator can appear over the video confirming the new rate.",
+      "unit_precondition": [
+        "A video is already open and playing in VLC.",
+        "The VLC top menu bar is visible and usable.",
+        "The current playback speed is still at normal speed before starting this unit."
+      ],
+      "unit_effect": [
+        "The Playback menu opens, then the Speed submenu appears.",
+        "Choosing Faster increases the playback rate from normal speed to 1.5x.",
+        "VLC briefly shows an on-screen playback-speed indicator confirming the change."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Keep the VLC player visible above other application windows while working.",
+      "unit_type": "ENABLE_ALWAYS_ON_TOP",
+      "unit_before_state": "VLC is still open and playing the video at the updated faster speed. The main player window is visible, the Video menu is not yet open, and Always on Top is not enabled.",
+      "unit_after_state": "The Video menu closes and VLC remains configured to stay above other windows. The Always on Top option is enabled for the current VLC window.",
+      "unit_precondition": [
+        "VLC is the active window and its menu commands can be invoked.",
+        "The Video menu contains an available Always on Top option.",
+        "Always on Top is currently off before this unit begins."
+      ],
+      "unit_effect": [
+        "Pressing Alt+V opens the Video dropdown menu.",
+        "Clicking Always on Top adds a checkmark next to that menu item.",
+        "The VLC window now stays above overlapping application windows."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Increase the currently playing video's playback speed to 1.5x.",
+      "unit_type": "SET_PLAYBACK_SPEED",
+      "unit_before_state": "The VLC window is open with a video already playing at normal speed. The top menu bar is visible, and no playback menu is expanded.",
+      "unit_after_state": "The playback menus have closed and the video is now playing faster at 1.5x. A temporary speed indicator can appear over the video confirming the new rate.",
+      "unit_precondition": [
+        "A video is already open and playing in VLC.",
+        "The VLC top menu bar is visible and usable.",
+        "The current playback speed is still at normal speed before starting this unit."
+      ],
+      "unit_effect": [
+        "The Playback menu opens, then the Speed submenu appears.",
+        "Choosing Faster increases the playback rate from normal speed to 1.5x.",
+        "VLC briefly shows an on-screen playback-speed indicator confirming the change."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Increase the currently playing video's playback speed to a specified faster rate through the Playback > Speed menu.",
+      "parameters": {
+        "target_playback_speed": "1.5x"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'target': {'text': 'Playback menu item in the top menu bar'}, 'button': 'left', 'num_clicks': 1}",
+          "action_template": "When VLC media player is open, actively playing a video, and the menu bar is visible, click the 'Playback' menu item in the top menu bar to open the Playback dropdown menu with playback control options."
+        },
+        {
+          "action": "{'type': 'CLICK', 'target': {'text': 'Speed option in the Playback dropdown menu'}, 'button': 'left', 'num_clicks': 1}",
+          "action_template": "With the Playback dropdown menu open and the 'Speed' option available, click the 'Speed' option to reveal the speed adjustment submenu containing faster and slower options."
+        },
+        {
+          "action": "{'type': 'CLICK', 'target': {'text': 'Faster option in the Speed submenu'}, 'button': 'left', 'num_clicks': 1}",
+          "action_template": "With the Speed submenu visible and playback still at normal speed, click the 'Faster' option to increase playback speed toward {{target_playback_speed}}; VLC briefly shows the current speed on screen after the change."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Keep the VLC player visible above other application windows while working.",
+      "unit_type": "ENABLE_ALWAYS_ON_TOP",
+      "unit_before_state": "VLC is still open and playing the video at the updated faster speed. The main player window is visible, the Video menu is not yet open, and Always on Top is not enabled.",
+      "unit_after_state": "The Video menu closes and VLC remains configured to stay above other windows. The Always on Top option is enabled for the current VLC window.",
+      "unit_precondition": [
+        "VLC is the active window and its menu commands can be invoked.",
+        "The Video menu contains an available Always on Top option.",
+        "Always on Top is currently off before this unit begins."
+      ],
+      "unit_effect": [
+        "Pressing Alt+V opens the Video dropdown menu.",
+        "Clicking Always on Top adds a checkmark next to that menu item.",
+        "The VLC window now stays above overlapping application windows."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Enable the always-on-top setting for the current application window through its menu.",
+      "parameters": {
+        "target_menu": "Video",
+        "menu_shortcut": "Alt+V",
+        "target_option": "Always on Top"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['alt', 'v']}",
+          "action_template": "Press {{menu_shortcut}} to open the {{target_menu}} menu when the menu bar is accessible and the always-on-top setting is currently off, so the dropdown displays {{target_option}} and other related options."
+        },
+        {
+          "action": "{'type': 'CLICK', 'target': {'text': 'Always on Top option in the Video dropdown menu'}, 'button': 'left', 'num_clicks': 1}",
+          "action_template": "Click the {{target_option}} option in the open {{target_menu}} menu when it is visible and unchecked to enable the setting, show a checkmark next to {{target_option}}, close the menu, and keep the current window above other application windows."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

@@ -1,0 +1,481 @@
+{
+  "segment_id": "seg_001",
+  "app": "multi_apps",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open terminal to search for the template file",
+      "action_before_state": "Desktop showing GNOME desktop environment with no applications currently open",
+      "action_preconditions": [
+        "Desktop is visible",
+        "No modal dialogs blocking interaction"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "alt",
+          "t"
+        ]
+      },
+      "action_after_effects": "A terminal window opens in the center of the screen with the prompt showing the current directory as /home/user",
+      "nl_explanation": "When the desktop is visible, press the keyboard shortcut Ctrl+Alt+T to open a terminal window. This will allow us to search for the file using command line tools."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Search for the meeting_notes_template.odt file in the home directory",
+      "action_before_state": "Terminal window is open and ready for input",
+      "action_preconditions": [
+        "Terminal window is focused",
+        "Cursor is at the command prompt"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "find ~ -name 'meeting_notes_template.odt' -type f 2>/dev/null"
+      },
+      "action_after_effects": "The command appears typed in the terminal, ready to be executed",
+      "nl_explanation": "With the terminal focused, type the find command to search for the file named 'meeting_notes_template.odt' starting from the home directory while suppressing error messages."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Execute the search command and retrieve the file path",
+      "action_before_state": "The find command is fully typed in the terminal",
+      "action_preconditions": [
+        "Command is completely typed",
+        "Terminal is waiting for Enter key"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "return"
+        ]
+      },
+      "action_after_effects": "The terminal displays the full path '/home/user/Documents/Archives/meeting_notes_template.odt' as the search result, followed by a new prompt",
+      "nl_explanation": "Press Enter to execute the find command. The terminal will search through the directory structure and display the full path where the template file is located."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Open the found document in LibreOffice Writer",
+      "action_before_state": "Terminal shows the full path of the file",
+      "action_preconditions": [
+        "File path is known",
+        "Terminal is focused"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "libreoffice --writer '/home/user/Documents/Archives/meeting_notes_template.odt' &"
+      },
+      "action_after_effects": "The command appears in the terminal, and upon execution, LibreOffice Writer begins launching in a separate window",
+      "nl_explanation": "Type the command to open LibreOffice Writer with the specific file path, including the ampersand to run it in the background so the terminal remains available."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Execute the command to launch LibreOffice Writer",
+      "action_before_state": "The LibreOffice launch command is typed in the terminal",
+      "action_preconditions": [
+        "Command is completely typed",
+        "Terminal is focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "return"
+        ]
+      },
+      "action_after_effects": "LibreOffice Writer window opens loading the meeting_notes_template.odt file, showing the document content with a cursor ready for editing. The terminal returns to the prompt in the background.",
+      "nl_explanation": "Press Enter to execute the command, which launches LibreOffice Writer in a new window with the template file loaded and ready for editing."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Add the meeting date text at the top of the document",
+      "action_before_state": "LibreOffice Writer is open with the document loaded, cursor is likely in the document body",
+      "action_preconditions": [
+        "LibreOffice Writer window is focused",
+        "Document is editable",
+        "Cursor is in the document"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "home"
+        ]
+      },
+      "action_after_effects": "The cursor moves to the very beginning of the document, before any existing content",
+      "nl_explanation": "Press Ctrl+Home to move the cursor to the beginning of the document, ensuring the new text will be inserted at the very top."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Type the meeting date text at the current cursor position",
+      "action_before_state": "Cursor is positioned at the beginning of the document",
+      "action_preconditions": [
+        "Cursor is at the start of the document",
+        "Document is in edit mode"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Meeting Date: 2024"
+      },
+      "action_after_effects": "The text 'Meeting Date: 2024' appears at the top of the document",
+      "nl_explanation": "Type 'Meeting Date: 2024' at the current cursor position (the beginning of the document) to add the required header text."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Insert a line break after the meeting date text",
+      "action_before_state": "The text 'Meeting Date: 2024' has been typed at the beginning of the document",
+      "action_preconditions": [
+        "Text has been typed",
+        "Cursor is after the typed text"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "return"
+        ]
+      },
+      "action_after_effects": "A new line is inserted after the 'Meeting Date: 2024' text, pushing the original content downward",
+      "nl_explanation": "Press Enter to insert a line break after the meeting date, separating it from the original document content."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Export the document as PDF to the Desktop",
+      "action_before_state": "The document now contains the added date text at the top and the original content below it",
+      "action_preconditions": [
+        "Document has been modified with the required text",
+        "LibreOffice Writer is active"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "f"
+        ]
+      },
+      "action_after_effects": "The Export as PDF dialog window opens, showing options for exporting the document with the filename field ready for input",
+      "nl_explanation": "Press Ctrl+Shift+F to open the Export as PDF dialog, which will allow us to save the document as a PDF file to the Desktop."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Navigate to the Desktop folder in the save dialog",
+      "action_before_state": "The Export as PDF dialog is open, showing the current directory structure",
+      "action_preconditions": [
+        "Export dialog is open",
+        "File system navigation is available"
+      ],
+      "action": {
+        "type": "CLICK",
+        "target": {
+          "text": "Desktop"
+        },
+        "button": "left",
+        "num_clicks": 1
+      },
+      "action_after_effects": "The file browser navigates to the Desktop directory, showing it as the current save location",
+      "nl_explanation": "Click on 'Desktop' in the left sidebar or directory tree of the Export dialog to set the Desktop as the destination folder for the PDF."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Enter the filename for the PDF export",
+      "action_before_state": "The Desktop is selected as the save location and the filename field is active or ready for input",
+      "action_preconditions": [
+        "Desktop is the current directory",
+        "Filename field is accessible"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "meeting_notes.pdf"
+      },
+      "action_after_effects": "The filename field now displays 'meeting_notes.pdf' as the name for the exported file",
+      "nl_explanation": "Type 'meeting_notes.pdf' into the filename field to set the name for the PDF file that will be saved to the Desktop."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Click the Export button to save the PDF",
+      "action_before_state": "The filename is set to 'meeting_notes.pdf' and the location is Desktop",
+      "action_preconditions": [
+        "Filename is correctly entered",
+        "Desktop is selected",
+        "Export button is available"
+      ],
+      "action": {
+        "type": "CLICK",
+        "target": {
+          "text": "Export"
+        },
+        "button": "left",
+        "num_clicks": 1
+      },
+      "action_after_effects": "The dialog closes and the PDF is created on the Desktop. A brief progress indicator may appear during export.",
+      "nl_explanation": "Click the Export button to finalize the PDF creation process, saving 'meeting_notes.pdf' to the Desktop location."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Locate the template document's exact file path so it can be opened directly.",
+      "unit_type": "LOCATE_FILE_VIA_TERMINAL_SEARCH",
+      "unit_before_state": "The GNOME desktop is visible with no application windows open.",
+      "unit_after_state": "A terminal window is open and shows the search result path '/home/user/Documents/Archives/meeting_notes_template.odt' above a fresh shell prompt.",
+      "unit_precondition": [
+        "The desktop is visible and not blocked by any modal dialog.",
+        "The user can open and interact with a terminal session."
+      ],
+      "unit_effect": [
+        "A terminal window appears and accepts shell input.",
+        "The command output displays the full path to 'meeting_notes_template.odt', confirming the file has been found."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Open the located template in LibreOffice Writer for editing.",
+      "unit_type": "OPEN_DOCUMENT_IN_WRITER",
+      "unit_before_state": "The terminal remains focused and the discovered file path is visible in the terminal output.",
+      "unit_after_state": "LibreOffice Writer is open with 'meeting_notes_template.odt' loaded in an editable document window, while the terminal returns to the prompt in the background.",
+      "unit_precondition": [
+        "The terminal is focused at a command prompt.",
+        "The full file path to the target .odt document is known and valid."
+      ],
+      "unit_effect": [
+        "The LibreOffice launch command is executed from the terminal.",
+        "A Writer window opens with the target document loaded and ready for text editing."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Add a meeting date header at the top of the document while preserving the original content below it.",
+      "unit_type": "INSERT_HEADER_AT_DOCUMENT_TOP",
+      "unit_before_state": "LibreOffice Writer is focused on the opened template document, with the text cursor somewhere in the document body rather than explicitly at the start.",
+      "unit_after_state": "The document begins with the line 'Meeting Date: 2024', followed by a blank line break, and the original document content starts below that inserted header.",
+      "unit_precondition": [
+        "LibreOffice Writer is focused and the document is editable.",
+        "A text cursor is active inside the document content area."
+      ],
+      "unit_effect": [
+        "The insertion point moves to the very beginning of the document.",
+        "The text 'Meeting Date: 2024' appears at the top.",
+        "Pressing Enter inserts a new line so the original content is pushed down beneath the new header."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "unit_intent": "Export the edited document as a PDF to the Desktop using the required filename.",
+      "unit_type": "EXPORT_DOCUMENT_AS_PDF",
+      "unit_before_state": "LibreOffice Writer shows the edited document with 'Meeting Date: 2024' added at the top, and no export dialog is open yet.",
+      "unit_after_state": "The Export as PDF dialog has closed and a PDF file named 'meeting_notes.pdf' has been created on the Desktop.",
+      "unit_precondition": [
+        "LibreOffice Writer is the active application.",
+        "The document already contains the required inserted meeting date text.",
+        "The export dialog can be opened and the Desktop location is available in the save dialog."
+      ],
+      "unit_effect": [
+        "The Export as PDF dialog opens from Writer.",
+        "The save location changes to Desktop.",
+        "The filename field shows 'meeting_notes.pdf'.",
+        "After clicking Export, the dialog closes and the PDF is saved on the Desktop."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Locate the template document's exact file path so it can be opened directly.",
+      "unit_type": "LOCATE_FILE_VIA_TERMINAL_SEARCH",
+      "unit_before_state": "The GNOME desktop is visible with no application windows open.",
+      "unit_after_state": "A terminal window is open and shows the search result path '/home/user/Documents/Archives/meeting_notes_template.odt' above a fresh shell prompt.",
+      "unit_precondition": [
+        "The desktop is visible and not blocked by any modal dialog.",
+        "The user can open and interact with a terminal session."
+      ],
+      "unit_effect": [
+        "A terminal window appears and accepts shell input.",
+        "The command output displays the full path to 'meeting_notes_template.odt', confirming the file has been found."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Locate the exact file path of a specified file by searching from a specified directory in the terminal.",
+      "parameters": {
+        "target_file_name": "meeting_notes_template.odt",
+        "search_root": "~",
+        "located_file_path": "/home/user/Documents/Archives/meeting_notes_template.odt"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'alt', 't']}",
+          "action_template": "When the desktop is visible and no modal dialogs are blocking interaction, press Ctrl+Alt+T to open a terminal window so the file search can be performed from the command line. A terminal window opens with a shell prompt ready for input."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': \"find ~ -name 'meeting_notes_template.odt' -type f 2>/dev/null\"}",
+          "action_template": "With the terminal focused and the cursor at the command prompt, type `find {{search_root}} -name '{{target_file_name}}' -type f 2>/dev/null` to search for {{target_file_name}} starting from {{search_root}} while suppressing error messages. The command appears in the terminal ready to be executed."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['return']}",
+          "action_template": "When the search command is fully typed and the terminal is waiting for Enter, press Enter to execute the search. The terminal displays {{located_file_path}} as the search result and then returns to a fresh prompt."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Open the located template in LibreOffice Writer for editing.",
+      "unit_type": "OPEN_DOCUMENT_IN_WRITER",
+      "unit_before_state": "The terminal remains focused and the discovered file path is visible in the terminal output.",
+      "unit_after_state": "LibreOffice Writer is open with 'meeting_notes_template.odt' loaded in an editable document window, while the terminal returns to the prompt in the background.",
+      "unit_precondition": [
+        "The terminal is focused at a command prompt.",
+        "The full file path to the target .odt document is known and valid."
+      ],
+      "unit_effect": [
+        "The LibreOffice launch command is executed from the terminal.",
+        "A Writer window opens with the target document loaded and ready for text editing."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a specified .odt document in LibreOffice Writer for editing from the terminal.",
+      "parameters": {
+        "document_path": "/home/user/Documents/Archives/meeting_notes_template.odt"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': \"libreoffice --writer '/home/user/Documents/Archives/meeting_notes_template.odt' &\"}",
+          "action_template": "Type the command `libreoffice --writer '{{document_path}}' &` to open LibreOffice Writer with the specified document path while keeping the terminal available in the background. Preconditions: the file path is known and the terminal is focused. After this step, the command appears in the terminal and LibreOffice Writer begins launching in a separate window."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['return']}",
+          "action_template": "Press Enter to execute the typed LibreOffice Writer launch command. Preconditions: the command for {{document_path}} is completely typed and the terminal is focused. After this step, LibreOffice Writer opens with the document loaded and ready for editing, and the terminal returns to the prompt in the background."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Add a meeting date header at the top of the document while preserving the original content below it.",
+      "unit_type": "INSERT_HEADER_AT_DOCUMENT_TOP",
+      "unit_before_state": "LibreOffice Writer is focused on the opened template document, with the text cursor somewhere in the document body rather than explicitly at the start.",
+      "unit_after_state": "The document begins with the line 'Meeting Date: 2024', followed by a blank line break, and the original document content starts below that inserted header.",
+      "unit_precondition": [
+        "LibreOffice Writer is focused and the document is editable.",
+        "A text cursor is active inside the document content area."
+      ],
+      "unit_effect": [
+        "The insertion point moves to the very beginning of the document.",
+        "The text 'Meeting Date: 2024' appears at the top.",
+        "Pressing Enter inserts a new line so the original content is pushed down beneath the new header."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Insert a specified header line at the top of the current document and separate it from the existing content with a line break.",
+      "parameters": {
+        "header_text": "Meeting Date: 2024"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'home']}",
+          "action_template": "Press Ctrl+Home while LibreOffice Writer is focused, the document is editable, and the cursor is in the document to move the cursor to the very beginning of the document before any existing content."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Meeting Date: 2024'}",
+          "action_template": "Type {{header_text}} at the current cursor position when the cursor is at the start of the document and the document is in edit mode to add the header text at the top of the document."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['return']}",
+          "action_template": "Press Enter after {{header_text}} has been typed and the cursor is after the typed text to insert a line break after the header and push the original content downward."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "unit_intent": "Export the edited document as a PDF to the Desktop using the required filename.",
+      "unit_type": "EXPORT_DOCUMENT_AS_PDF",
+      "unit_before_state": "LibreOffice Writer shows the edited document with 'Meeting Date: 2024' added at the top, and no export dialog is open yet.",
+      "unit_after_state": "The Export as PDF dialog has closed and a PDF file named 'meeting_notes.pdf' has been created on the Desktop.",
+      "unit_precondition": [
+        "LibreOffice Writer is the active application.",
+        "The document already contains the required inserted meeting date text.",
+        "The export dialog can be opened and the Desktop location is available in the save dialog."
+      ],
+      "unit_effect": [
+        "The Export as PDF dialog opens from Writer.",
+        "The save location changes to Desktop.",
+        "The filename field shows 'meeting_notes.pdf'.",
+        "After clicking Export, the dialog closes and the PDF is saved on the Desktop."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Export the current document as a PDF to a specified destination folder using a specified filename.",
+      "parameters": {
+        "destination_folder": "Desktop",
+        "output_filename": "meeting_notes.pdf"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'f']}",
+          "action_template": "Press Ctrl+Shift+F to open the Export as PDF dialog while LibreOffice Writer is active and the document has been modified with the required text, so the document can be saved as a PDF file to {{destination_folder}}."
+        },
+        {
+          "action": "{'type': 'CLICK', 'target': {'text': 'Desktop'}, 'button': 'left', 'num_clicks': 1}",
+          "action_template": "Click {{destination_folder}} in the left sidebar or directory tree of the Export dialog after the export dialog is open and file system navigation is available, so {{destination_folder}} becomes the current save location."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'meeting_notes.pdf'}",
+          "action_template": "Type {{output_filename}} into the filename field after {{destination_folder}} is the current directory and the filename field is accessible, so the filename field displays {{output_filename}} as the export name."
+        },
+        {
+          "action": "{'type': 'CLICK', 'target': {'text': 'Export'}, 'button': 'left', 'num_clicks': 1}",
+          "action_template": "Click the Export button after {{output_filename}} is correctly entered, {{destination_folder}} is selected, and the Export button is available, so the dialog closes and the PDF is created in {{destination_folder}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

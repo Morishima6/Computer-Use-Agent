@@ -1,0 +1,425 @@
+{
+  "segment_id": "seg_001",
+  "app": "os",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open a terminal so the backup commands can be run",
+      "action_before_state": "The GNOME desktop or another normal OS window is visible, and there is no modal dialog blocking keyboard shortcuts.",
+      "action_preconditions": [
+        "The system is on a Linux desktop using GNOME.",
+        "Keyboard shortcuts are accepted by the current screen.",
+        "No fullscreen application is trapping input."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "alt",
+          "t"
+        ]
+      },
+      "action_after_effects": "A Terminal window opens and shows a shell prompt, usually in the home directory.",
+      "nl_explanation": "When the desktop is ready to accept shortcuts, press Ctrl+Alt+T to open Terminal. The expected result is a new shell prompt where the backup commands can be entered."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Enter the command that creates the backup folder and copies the shell config files into it",
+      "action_before_state": "A Terminal window is focused and a shell prompt is visible with the cursor waiting for input.",
+      "action_preconditions": [
+        "Terminal is the active window.",
+        "The shell prompt is idle and ready for a command."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "mkdir -p ~/dotfiles_backup && cp ~/.bashrc ~/.profile ~/dotfiles_backup/"
+      },
+      "action_after_effects": "The full command appears at the shell prompt but has not been executed yet.",
+      "nl_explanation": "With Terminal focused and the prompt ready, type the command that creates the dotfiles_backup folder in the home directory and stages .bashrc and .profile inside it. The command text should be visible in the terminal input line."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Run the folder creation and file copy command",
+      "action_before_state": "The terminal prompt contains the mkdir and cp command, and the cursor is at the end of the line.",
+      "action_preconditions": [
+        "The command in the terminal is complete and correctly typed.",
+        "Terminal focus has not changed."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The shell executes the command, creating ~/dotfiles_backup and copying .bashrc and .profile into it.",
+      "nl_explanation": "Once the backup command is fully typed in Terminal, press Enter to execute it. The expected result is that the backup folder is created and the two configuration files are copied into it."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Enter the command that compresses the backup folder into a tar.gz archive",
+      "action_before_state": "The terminal shows a fresh prompt after the previous command completed.",
+      "action_preconditions": [
+        "The previous command has finished running.",
+        "The shell prompt is available again."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "tar -czf ~/dotfiles_backup.tar.gz -C ~ dotfiles_backup"
+      },
+      "action_after_effects": "The tar command is visible at the prompt and is ready to be executed.",
+      "nl_explanation": "After the copy step finishes and the prompt returns, type the tar command that compresses the dotfiles_backup folder into dotfiles_backup.tar.gz in the home directory. The command should now be staged in Terminal."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Run the compression command to create the archive",
+      "action_before_state": "The terminal prompt contains the tar command, with the insertion cursor at the end of the line.",
+      "action_preconditions": [
+        "The tar command has been typed completely.",
+        "Terminal is still active and ready to execute commands."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The archive file ~/dotfiles_backup.tar.gz is created, and the terminal returns to a new prompt when the command completes.",
+      "nl_explanation": "With the tar command ready in the terminal, press Enter to create the compressed archive. The expected result is a dotfiles_backup.tar.gz file in the home directory."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Open the GNOME overview so Files can be launched through search",
+      "action_before_state": "Terminal or another normal application window is visible, and the desktop is not blocked by a dialog.",
+      "action_preconditions": [
+        "The system is responsive.",
+        "Keyboard shortcuts can still be used."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "super"
+        ]
+      },
+      "action_after_effects": "The GNOME Activities overview opens, and the search field is ready for input.",
+      "nl_explanation": "When the archive command is done, press the Super key to open the GNOME overview. The expected behavior is that the search interface appears so another app can be launched quickly."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Search for the Files application",
+      "action_before_state": "The Activities overview is open and the search box is focused.",
+      "action_preconditions": [
+        "The overview search field is active.",
+        "No other text field is intercepting input."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Files"
+      },
+      "action_after_effects": "The overview shows search results, including the Files application icon.",
+      "nl_explanation": "With the GNOME overview search box focused, type Files. The expected result is that the file manager appears in the search results and is ready to launch."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Launch Files to check that the archive exists",
+      "action_before_state": "The Files application is visible in the GNOME overview search results.",
+      "action_preconditions": [
+        "The Files app appears in the search results.",
+        "The result list is focused so Enter will launch the highlighted app."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "A Files window opens, typically showing the home folder contents.",
+      "nl_explanation": "When Files is shown in the overview search results, press Enter to open it. The expected outcome is a file manager window where the home directory contents can be inspected."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Select the new archive in the home folder to confirm it is present",
+      "action_before_state": "A Files window is open to the home directory, and dotfiles_backup.tar.gz is visible in the file list or grid.",
+      "action_preconditions": [
+        "Files is open.",
+        "The home folder contents are displayed.",
+        "The dotfiles_backup.tar.gz archive can be seen on screen."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the file named dotfiles_backup.tar.gz in the home folder"
+        }
+      },
+      "action_after_effects": "The archive becomes highlighted in Files, confirming that the compressed backup was created successfully.",
+      "nl_explanation": "Once the home folder is visible in Files and the archive can be seen, single-click dotfiles_backup.tar.gz. The expected result is that the file becomes selected, which verifies that the backup archive exists in the correct location."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Open a shell session where the backup commands can be executed.",
+      "unit_type": "OPEN_TERMINAL",
+      "unit_before_state": "The GNOME desktop or another regular application window is visible, and no modal dialog is blocking keyboard shortcuts.",
+      "unit_after_state": "A Terminal window is open on screen with a shell prompt ready for input, typically starting in the home directory.",
+      "unit_precondition": [
+        "The system is running a GNOME desktop session.",
+        "Keyboard shortcuts are accepted by the current screen.",
+        "No fullscreen or modal application is intercepting Ctrl+Alt+T."
+      ],
+      "unit_effect": [
+        "A new Terminal window appears.",
+        "A shell prompt is visible and ready to accept commands."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3
+      ],
+      "unit_intent": "Create a dedicated backup folder in the home directory and copy the current shell configuration files into it.",
+      "unit_type": "CREATE_BACKUP_FOLDER_AND_COPY_FILES",
+      "unit_before_state": "The Terminal window is focused and shows an idle shell prompt with the cursor waiting for a command.",
+      "unit_after_state": "The terminal shows the executed mkdir/cp command above a fresh prompt, and the backup folder ~/dotfiles_backup has been created with copies of .bashrc and .profile inside it.",
+      "unit_precondition": [
+        "Terminal is the active window.",
+        "The shell prompt is idle and ready for input.",
+        "The user has permission to create folders and copy files in the home directory.",
+        "The source files ~/.bashrc and ~/.profile are present and readable."
+      ],
+      "unit_effect": [
+        "The full backup command is entered and executed in Terminal.",
+        "The shell returns to a new prompt after running the command.",
+        "The folder ~/dotfiles_backup now contains .bashrc and .profile."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Compress the backup folder into a single archive stored in the home directory.",
+      "unit_type": "CREATE_TAR_GZ_ARCHIVE",
+      "unit_before_state": "The terminal shows a fresh shell prompt after the copy command has completed, with no command currently running.",
+      "unit_after_state": "The terminal shows the executed tar command above a new prompt, and the archive ~/dotfiles_backup.tar.gz has been created in the home directory.",
+      "unit_precondition": [
+        "The folder ~/dotfiles_backup already exists.",
+        "The copied backup files are present inside ~/dotfiles_backup.",
+        "Terminal is still focused and the shell prompt is idle."
+      ],
+      "unit_effect": [
+        "The tar command is entered and executed.",
+        "The shell returns to a fresh prompt after compression finishes.",
+        "The archive file ~/dotfiles_backup.tar.gz now exists in the home directory."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "unit_intent": "Visually verify in the file manager that the compressed backup archive is present in the home folder.",
+      "unit_type": "VERIFY_ARCHIVE_IN_HOME_FOLDER",
+      "unit_before_state": "The desktop is responsive after the archive command finishes, with Terminal or another normal window visible and no blocking dialog on screen.",
+      "unit_after_state": "A Files window is open to the home directory, and the file dotfiles_backup.tar.gz is visible and highlighted in the file list or grid.",
+      "unit_precondition": [
+        "The archive ~/dotfiles_backup.tar.gz has already been created.",
+        "The GNOME Activities overview can be opened with the Super key.",
+        "The Files application is installed and launchable from overview search."
+      ],
+      "unit_effect": [
+        "The Activities overview opens and accepts the search term Files.",
+        "The Files application launches and shows the home folder contents.",
+        "The archive dotfiles_backup.tar.gz becomes selected, providing a visible confirmation that the backup archive exists in the expected location."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Open a shell session where the backup commands can be executed.",
+      "unit_type": "OPEN_TERMINAL",
+      "unit_before_state": "The GNOME desktop or another regular application window is visible, and no modal dialog is blocking keyboard shortcuts.",
+      "unit_after_state": "A Terminal window is open on screen with a shell prompt ready for input, typically starting in the home directory.",
+      "unit_precondition": [
+        "The system is running a GNOME desktop session.",
+        "Keyboard shortcuts are accepted by the current screen.",
+        "No fullscreen or modal application is intercepting Ctrl+Alt+T."
+      ],
+      "unit_effect": [
+        "A new Terminal window appears.",
+        "A shell prompt is visible and ready to accept commands."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a terminal window so a shell prompt is available for entering commands.",
+      "parameters": {
+        "terminal_shortcut": "Ctrl+Alt+T"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'alt', 't']}",
+          "action_template": "When the desktop is ready to accept shortcuts and no fullscreen application is trapping input, press {{terminal_shortcut}} to open Terminal and show a shell prompt ready for command entry."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3
+      ],
+      "unit_intent": "Create a dedicated backup folder in the home directory and copy the current shell configuration files into it.",
+      "unit_type": "CREATE_BACKUP_FOLDER_AND_COPY_FILES",
+      "unit_before_state": "The Terminal window is focused and shows an idle shell prompt with the cursor waiting for a command.",
+      "unit_after_state": "The terminal shows the executed mkdir/cp command above a fresh prompt, and the backup folder ~/dotfiles_backup has been created with copies of .bashrc and .profile inside it.",
+      "unit_precondition": [
+        "Terminal is the active window.",
+        "The shell prompt is idle and ready for input.",
+        "The user has permission to create folders and copy files in the home directory.",
+        "The source files ~/.bashrc and ~/.profile are present and readable."
+      ],
+      "unit_effect": [
+        "The full backup command is entered and executed in Terminal.",
+        "The shell returns to a new prompt after running the command.",
+        "The folder ~/dotfiles_backup now contains .bashrc and .profile."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a backup folder in the home directory and copy specified shell configuration files into it.",
+      "parameters": {
+        "backup_folder": "~/dotfiles_backup",
+        "source_files": [
+          "~/.bashrc",
+          "~/.profile"
+        ],
+        "backup_command": "mkdir -p ~/dotfiles_backup && cp ~/.bashrc ~/.profile ~/dotfiles_backup/"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "TYPING",
+          "action_template": "With Terminal focused and the prompt ready, type {{backup_command}} to create {{backup_folder}} in the home directory and stage {{source_files}} inside it. The command text should be visible in the terminal input line."
+        },
+        {
+          "action": "PRESS",
+          "action_template": "Once {{backup_command}} is fully typed in Terminal, press Enter to execute it. The expected result is that {{backup_folder}} is created and {{source_files}} are copied into it."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Compress the backup folder into a single archive stored in the home directory.",
+      "unit_type": "CREATE_TAR_GZ_ARCHIVE",
+      "unit_before_state": "The terminal shows a fresh shell prompt after the copy command has completed, with no command currently running.",
+      "unit_after_state": "The terminal shows the executed tar command above a new prompt, and the archive ~/dotfiles_backup.tar.gz has been created in the home directory.",
+      "unit_precondition": [
+        "The folder ~/dotfiles_backup already exists.",
+        "The copied backup files are present inside ~/dotfiles_backup.",
+        "Terminal is still focused and the shell prompt is idle."
+      ],
+      "unit_effect": [
+        "The tar command is entered and executed.",
+        "The shell returns to a fresh prompt after compression finishes.",
+        "The archive file ~/dotfiles_backup.tar.gz now exists in the home directory."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a compressed tar.gz archive from {{source_folder}} and save it to {{archive_path}}.",
+      "parameters": {
+        "source_folder": "dotfiles_backup",
+        "source_parent_dir": "~",
+        "archive_path": "~/dotfiles_backup.tar.gz"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'tar -czf ~/dotfiles_backup.tar.gz -C ~ dotfiles_backup'}",
+          "action_template": "After the previous command finishes and the shell prompt returns, type `tar -czf {{archive_path}} -C {{source_parent_dir}} {{source_folder}}` so the tar command is visible at the prompt and ready to be executed."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "With the tar command for {{source_folder}} typed completely and Terminal still active, press Enter to create the compressed archive at {{archive_path}} and return to a new prompt when the command completes."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "unit_intent": "Visually verify in the file manager that the compressed backup archive is present in the home folder.",
+      "unit_type": "VERIFY_ARCHIVE_IN_HOME_FOLDER",
+      "unit_before_state": "The desktop is responsive after the archive command finishes, with Terminal or another normal window visible and no blocking dialog on screen.",
+      "unit_after_state": "A Files window is open to the home directory, and the file dotfiles_backup.tar.gz is visible and highlighted in the file list or grid.",
+      "unit_precondition": [
+        "The archive ~/dotfiles_backup.tar.gz has already been created.",
+        "The GNOME Activities overview can be opened with the Super key.",
+        "The Files application is installed and launchable from overview search."
+      ],
+      "unit_effect": [
+        "The Activities overview opens and accepts the search term Files.",
+        "The Files application launches and shows the home folder contents.",
+        "The archive dotfiles_backup.tar.gz becomes selected, providing a visible confirmation that the backup archive exists in the expected location."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Visually verify in the file manager that a specified archive file is present in the expected folder.",
+      "parameters": {
+        "file_manager_app": "Files",
+        "app_search_term": "Files",
+        "target_folder": "home directory",
+        "target_archive_name": "dotfiles_backup.tar.gz",
+        "target_element": "the file named dotfiles_backup.tar.gz in the home folder"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['super']}",
+          "action_template": "Press the Super key to open the GNOME overview so {{file_manager_app}} can be launched through search. Preconditions: the system is responsive and keyboard shortcuts can still be used. After this action, the GNOME Activities overview opens and the search field is ready for input."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Files'}",
+          "action_template": "Type {{app_search_term}} into the active overview search field to search for {{file_manager_app}}. Preconditions: the overview search field is active and no other text field is intercepting input. After this action, the overview shows search results including the {{file_manager_app}} application icon."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter to launch {{file_manager_app}} from the overview search results so the contents of {{target_folder}} can be inspected. Preconditions: {{file_manager_app}} appears in the search results and the result list is focused so Enter will launch the highlighted app. After this action, a {{file_manager_app}} window opens, typically showing the {{target_folder}} contents."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the file named dotfiles_backup.tar.gz in the home folder'}}",
+          "action_template": "Click {{target_element}} to select {{target_archive_name}} and confirm it is present in {{target_folder}}. Preconditions: {{file_manager_app}} is open, the {{target_folder}} contents are displayed, and {{target_archive_name}} is visible on screen. After this action, the archive becomes highlighted in {{file_manager_app}}, confirming that the compressed backup was created successfully."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

@@ -1,0 +1,535 @@
+{
+  "segment_id": "seg_001",
+  "app": "Chrome",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open a fresh browser tab for the task",
+      "action_before_state": "Chrome is already open on the screen, showing an existing webpage with the tab bar visible at the top.",
+      "action_preconditions": [
+        "The Chrome window is focused",
+        "The tab bar is visible",
+        "Keyboard input can be sent to Chrome"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "t"
+        ]
+      },
+      "action_after_effects": "A new tab opens in Chrome, and the address bar is focused automatically.",
+      "nl_explanation": "When Chrome is active and the tab bar is visible, press Ctrl+T to create a new tab. The expected result is a blank new-tab page with the address bar ready for input."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Enter a website to start the search from",
+      "action_before_state": "A new Chrome tab is open and the address bar is already selected.",
+      "action_preconditions": [
+        "The new tab is active",
+        "The address bar has focus",
+        "No modal dialog is blocking typing"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "google.com"
+      },
+      "action_after_effects": "The text google.com appears in the address bar.",
+      "nl_explanation": "With the new tab active and the address bar focused, type google.com. This prepares the browser to navigate to the search engine homepage."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Load the Google homepage",
+      "action_before_state": "The address bar contains google.com and Chrome is waiting for the navigation command.",
+      "action_preconditions": [
+        "google.com is visible in the address bar",
+        "The browser is still focused",
+        "The network is available so the page can load"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "Chrome navigates to Google and the homepage finishes loading.",
+      "nl_explanation": "After google.com has been typed into the address bar, press Enter to visit the site. The expected behavior is that the Google homepage opens."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Place the text cursor in the search box",
+      "action_before_state": "The Google homepage is visible, including the central search field.",
+      "action_preconditions": [
+        "The Google homepage has loaded",
+        "The search box is visible on the page",
+        "There is no cookie popup covering the search box"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the large search box in the center of the Google homepage"
+        }
+      },
+      "action_after_effects": "The cursor appears in the Google search field, ready for a query.",
+      "nl_explanation": "Once the Google homepage is loaded and the search box is visible, click in the middle of the search field. This places the cursor there so the recipe query can be entered."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Type the recipe search query",
+      "action_before_state": "The Google search field is active and ready to receive text.",
+      "action_preconditions": [
+        "The search box is focused",
+        "The cursor is visible in the field",
+        "The page is not still loading"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "quick vegetarian lentil soup recipe"
+      },
+      "action_after_effects": "The full search phrase appears in the search box.",
+      "nl_explanation": "With the search field focused, type quick vegetarian lentil soup recipe. This sets up the exact search needed for the dinner recipe task."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Run the search",
+      "action_before_state": "The Google search box contains the full recipe query.",
+      "action_preconditions": [
+        "The query text is present in the search field",
+        "The cursor is still in the search box",
+        "Chrome is ready to submit the search"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "Google displays search results for quick vegetarian lentil soup recipes.",
+      "nl_explanation": "After the recipe query is fully typed, press Enter to submit it. The expected result is a search results page with recipe links."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Browse further down the results to find a promising recipe link",
+      "action_before_state": "The search results page is open, showing a mix of recipe results and possibly extra panels near the top.",
+      "action_preconditions": [
+        "The search results page has loaded",
+        "Scrollable search results are visible",
+        "At least one recipe result is present on the page"
+      ],
+      "action": {
+        "type": "SCROLL",
+        "scroll_direction": "down",
+        "target": {
+          "text": "the middle of the search results page"
+        },
+        "direction": "down"
+      },
+      "action_after_effects": "The page moves down to more recipe results, and scrolling stops once a recipe result with a visible rating or time estimate can be seen clearly.",
+      "nl_explanation": "When the search results are visible, scroll down through the center of the page to inspect more options. Stop once a recipe result appears that looks useful, such as one showing ratings or a reasonable cooking time."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Open a suitable recipe result",
+      "action_before_state": "Several recipe results are visible on the Google results page, including at least one that appears well-reviewed or quick to make.",
+      "action_preconditions": [
+        "A recipe result is visible and clickable",
+        "The result looks relevant to lentil soup",
+        "The result appears to have useful metadata such as rating, review count, or total time"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the recipe result that mentions vegetarian lentil soup and has visible rating stars or cooking time in the snippet"
+        }
+      },
+      "action_after_effects": "The selected recipe webpage opens in the current Chrome tab.",
+      "nl_explanation": "After finding a suitable result in the search list, click the recipe link that best matches a quick vegetarian lentil soup. The expected behavior is that the recipe page opens."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Move through the recipe page until the quick navigation controls are visible",
+      "action_before_state": "A recipe webpage is open, showing the article header and introductory content near the top.",
+      "action_preconditions": [
+        "The recipe page has loaded",
+        "The page is scrollable",
+        "The page header or top content is visible"
+      ],
+      "action": {
+        "type": "SCROLL",
+        "scroll_direction": "down",
+        "target": {
+          "text": "the center of the recipe page"
+        },
+        "direction": "down"
+      },
+      "action_after_effects": "The page moves lower, and scrolling stops when a recipe utility area or a Jump to Recipe button becomes visible.",
+      "nl_explanation": "When the recipe page is open near the top, scroll down through the middle of the page until a quick navigation control appears, such as a Jump to Recipe button. This positions the page for faster access to the actual recipe card."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Jump directly to the recipe card",
+      "action_before_state": "The recipe page shows a visible Jump to Recipe button or similar shortcut near the main content.",
+      "action_preconditions": [
+        "A Jump to Recipe control is visible",
+        "The button is not covered by a popup",
+        "The page is stable and ready for a click"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Jump to Recipe button on the recipe page"
+        }
+      },
+      "action_after_effects": "The browser jumps down to the recipe card section, closer to the ingredients and cooking details.",
+      "nl_explanation": "Once the Jump to Recipe button is visible, click it to skip the long article text. The page should jump directly to the recipe card area."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Position the page so the ingredient list is clearly visible",
+      "action_before_state": "The recipe card area is open, and the ingredients or recipe details are near the current viewport.",
+      "action_preconditions": [
+        "The page has already jumped to the recipe card",
+        "The ingredient list is nearby on the page",
+        "A small adjustment may still be needed to center the ingredients"
+      ],
+      "action": {
+        "type": "SCROLL",
+        "scroll_direction": "down",
+        "target": {
+          "text": "the recipe card area in the middle of the page"
+        },
+        "direction": "down"
+      },
+      "action_after_effects": "The ingredient list is visible in the viewport, and the page scroll position is set so ingredients are centered for easy reading.",
+      "nl_explanation": "After arriving at the recipe card, scroll a little more through the center of that section if needed so the ingredient list is clearly visible in the viewport. The final expected state is that the ingredients are readable and ready for review."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Open a fresh search context on Google to start looking for a suitable lentil soup recipe.",
+      "unit_type": "OPEN_SEARCH_ENGINE",
+      "unit_before_state": "Chrome is already open on an existing webpage, with the tab strip visible at the top and no new search tab opened yet.",
+      "unit_after_state": "A new Chrome tab is active on the Google homepage, and the search interface is available for entering a query.",
+      "unit_precondition": [
+        "Chrome is the focused application.",
+        "The browser window is responsive and its tab bar is visible.",
+        "Internet access is available so google.com can load."
+      ],
+      "unit_effect": [
+        "A new tab is created and used for the task.",
+        "Chrome navigates to google.com successfully.",
+        "The Google homepage is visibly loaded in the active tab."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Search Google for quick vegetarian lentil soup recipes.",
+      "unit_type": "SUBMIT_SEARCH_QUERY",
+      "unit_before_state": "The Google homepage is open in the active tab, with the central search box visible and ready to be activated.",
+      "unit_after_state": "Google search results for quick vegetarian lentil soup recipes are displayed in the tab.",
+      "unit_precondition": [
+        "The Google homepage has finished loading.",
+        "The central search field is visible and not blocked by a popup.",
+        "Keyboard input can be entered into the page."
+      ],
+      "unit_effect": [
+        "The query \"quick vegetarian lentil soup recipe\" is entered into Google's search field.",
+        "The search is submitted.",
+        "A results page with recipe links becomes visible."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Open one promising recipe result that appears quick and well-reviewed.",
+      "unit_type": "OPEN_SEARCH_RESULT",
+      "unit_before_state": "The Google results page is open, showing recipe-related results near the top, but the target result may require scrolling to reach clearly.",
+      "unit_after_state": "A specific lentil soup recipe webpage is open in the current Chrome tab.",
+      "unit_precondition": [
+        "The search results page has loaded and can be scrolled.",
+        "At least one recipe result is present on the page.",
+        "A visible result can be judged relevant by title and metadata such as ratings or time."
+      ],
+      "unit_effect": [
+        "The viewport moves to a lower portion of the results list where a suitable recipe result is visible.",
+        "A relevant recipe link is clicked.",
+        "The browser loads the selected recipe page."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Skip the article intro and jump directly to the structured recipe card.",
+      "unit_type": "JUMP_TO_RECIPE_CARD",
+      "unit_before_state": "The chosen recipe webpage is open near the top of the article, with introductory content visible and the recipe card not yet in view.",
+      "unit_after_state": "The page is repositioned at the recipe card area, close to the ingredients and cooking details.",
+      "unit_precondition": [
+        "The recipe page has finished loading.",
+        "The page can be scrolled downward.",
+        "A Jump to Recipe control becomes visible after moving down the page."
+      ],
+      "unit_effect": [
+        "Scrolling reveals a recipe utility area with a Jump to Recipe button or similar shortcut.",
+        "Clicking the shortcut moves the page directly to the recipe card section.",
+        "The viewport is now near the ingredients section instead of the article header."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        11
+      ],
+      "unit_intent": "Bring the ingredients list fully into view for checking what is needed.",
+      "unit_type": "POSITION_INGREDIENTS_SECTION",
+      "unit_before_state": "The browser is already at the recipe card area, with the ingredients list nearby but not yet ideally centered in the viewport.",
+      "unit_after_state": "The ingredients list is clearly visible on screen and positioned for easy reading.",
+      "unit_precondition": [
+        "The page has already jumped to the recipe card.",
+        "The ingredients section is close to the current viewport.",
+        "The page remains scrollable for a small adjustment."
+      ],
+      "unit_effect": [
+        "A short scroll adjustment is made within the recipe card area.",
+        "The ingredients list becomes visibly readable in the viewport.",
+        "The page is left in a stable state for reviewing ingredients."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Open a fresh search context on Google to start looking for a suitable lentil soup recipe.",
+      "unit_type": "OPEN_SEARCH_ENGINE",
+      "unit_before_state": "Chrome is already open on an existing webpage, with the tab strip visible at the top and no new search tab opened yet.",
+      "unit_after_state": "A new Chrome tab is active on the Google homepage, and the search interface is available for entering a query.",
+      "unit_precondition": [
+        "Chrome is the focused application.",
+        "The browser window is responsive and its tab bar is visible.",
+        "Internet access is available so google.com can load."
+      ],
+      "unit_effect": [
+        "A new tab is created and used for the task.",
+        "Chrome navigates to google.com successfully.",
+        "The Google homepage is visibly loaded in the active tab."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a fresh browser tab and navigate to a specified search engine homepage so a new search can begin.",
+      "parameters": {
+        "search_engine_url": "google.com"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 't']}",
+          "action_template": "When Chrome is active and the tab bar is visible, press Ctrl+T to create a new tab. The expected result is a blank new-tab page with the address bar ready for input."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'google.com'}",
+          "action_template": "With the new tab active and the address bar focused, type {{search_engine_url}}. This prepares the browser to navigate to the search engine homepage, and the text {{search_engine_url}} appears in the address bar."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After {{search_engine_url}} has been typed into the address bar, press Enter to visit the site. The expected behavior is that the search engine homepage opens and finishes loading."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Search Google for quick vegetarian lentil soup recipes.",
+      "unit_type": "SUBMIT_SEARCH_QUERY",
+      "unit_before_state": "The Google homepage is open in the active tab, with the central search box visible and ready to be activated.",
+      "unit_after_state": "Google search results for quick vegetarian lentil soup recipes are displayed in the tab.",
+      "unit_precondition": [
+        "The Google homepage has finished loading.",
+        "The central search field is visible and not blocked by a popup.",
+        "Keyboard input can be entered into the page."
+      ],
+      "unit_effect": [
+        "The query \"quick vegetarian lentil soup recipe\" is entered into Google's search field.",
+        "The search is submitted.",
+        "A results page with recipe links becomes visible."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Submit a specified query through a search engine homepage search field.",
+      "parameters": {
+        "search_field": "the large search box in the center of the Google homepage",
+        "search_query": "quick vegetarian lentil soup recipe"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the large search box in the center of the Google homepage'}}",
+          "action_template": "Once the search engine homepage is loaded and {{search_field}} is visible and not blocked, click {{search_field}} to place the cursor there and prepare for query entry."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'quick vegetarian lentil soup recipe'}",
+          "action_template": "With the search field focused and the cursor visible, type {{search_query}} so the full query appears in the search box."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After {{search_query}} is fully present in the search field and the browser is ready, press Enter to submit the search and display the corresponding results page."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Open one promising recipe result that appears quick and well-reviewed.",
+      "unit_type": "OPEN_SEARCH_RESULT",
+      "unit_before_state": "The Google results page is open, showing recipe-related results near the top, but the target result may require scrolling to reach clearly.",
+      "unit_after_state": "A specific lentil soup recipe webpage is open in the current Chrome tab.",
+      "unit_precondition": [
+        "The search results page has loaded and can be scrolled.",
+        "At least one recipe result is present on the page.",
+        "A visible result can be judged relevant by title and metadata such as ratings or time."
+      ],
+      "unit_effect": [
+        "The viewport moves to a lower portion of the results list where a suitable recipe result is visible.",
+        "A relevant recipe link is clicked.",
+        "The browser loads the selected recipe page."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a search result that matches the desired recipe topic and appears promising based on visible metadata.",
+      "parameters": {
+        "scroll_region": "the middle of the search results page",
+        "target_recipe_topic": "vegetarian lentil soup",
+        "result_quality_cues": "visible rating stars or cooking time in the snippet"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'SCROLL', 'scroll_direction': 'down', 'target': {'text': 'the middle of the search results page'}, 'direction': 'down'}",
+          "action_template": "When the search results page has loaded and scrollable recipe results are visible, scroll down through {{scroll_region}} to inspect more options. Stop once a recipe result appears that looks useful and shows {{result_quality_cues}} clearly."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the recipe result that mentions vegetarian lentil soup and has visible rating stars or cooking time in the snippet'}}",
+          "action_template": "After a recipe result is visible and clickable, click the recipe result that mentions {{target_recipe_topic}} and shows {{result_quality_cues}}. The selected recipe webpage should open in the current Chrome tab."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Skip the article intro and jump directly to the structured recipe card.",
+      "unit_type": "JUMP_TO_RECIPE_CARD",
+      "unit_before_state": "The chosen recipe webpage is open near the top of the article, with introductory content visible and the recipe card not yet in view.",
+      "unit_after_state": "The page is repositioned at the recipe card area, close to the ingredients and cooking details.",
+      "unit_precondition": [
+        "The recipe page has finished loading.",
+        "The page can be scrolled downward.",
+        "A Jump to Recipe control becomes visible after moving down the page."
+      ],
+      "unit_effect": [
+        "Scrolling reveals a recipe utility area with a Jump to Recipe button or similar shortcut.",
+        "Clicking the shortcut moves the page directly to the recipe card section.",
+        "The viewport is now near the ingredients section instead of the article header."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Bypass introductory page content and navigate directly to the page's primary structured content section using an in-page shortcut.",
+      "parameters": {
+        "shortcut_control": "Jump to Recipe button",
+        "destination_section": "recipe card section"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'SCROLL', 'scroll_direction': 'down', 'target': {'text': 'the center of the recipe page'}, 'direction': 'down'}",
+          "action_template": "When the page is loaded, scrollable, and showing top content, scroll down through the middle of the page until a quick navigation control such as {{shortcut_control}} becomes visible. This positions the page so the shortcut can be used to reach {{destination_section}} more quickly."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Jump to Recipe button on the recipe page'}}",
+          "action_template": "Once {{shortcut_control}} is visible, unobstructed, and ready to click, click it to jump directly to the {{destination_section}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        11
+      ],
+      "unit_intent": "Bring the ingredients list fully into view for checking what is needed.",
+      "unit_type": "POSITION_INGREDIENTS_SECTION",
+      "unit_before_state": "The browser is already at the recipe card area, with the ingredients list nearby but not yet ideally centered in the viewport.",
+      "unit_after_state": "The ingredients list is clearly visible on screen and positioned for easy reading.",
+      "unit_precondition": [
+        "The page has already jumped to the recipe card.",
+        "The ingredients section is close to the current viewport.",
+        "The page remains scrollable for a small adjustment."
+      ],
+      "unit_effect": [
+        "A short scroll adjustment is made within the recipe card area.",
+        "The ingredients list becomes visibly readable in the viewport.",
+        "The page is left in a stable state for reviewing ingredients."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Adjust the page position so a nearby target section is fully visible and ready for review.",
+      "parameters": {
+        "target_section": "the ingredient list",
+        "context_area": "the recipe card area in the middle of the page",
+        "scroll_direction": "down"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'SCROLL', 'scroll_direction': 'down', 'target': {'text': 'the recipe card area in the middle of the page'}, 'direction': 'down'}",
+          "action_template": "After arriving at {{context_area}}, scroll {{scroll_direction}} a little more through that section if needed so {{target_section}} is clearly visible in the viewport. Preconditions: the page has already jumped to {{context_area}}, {{target_section}} is nearby on the page, and a small adjustment may still be needed to center it. Expected result: {{target_section}} is visible in the viewport and the page scroll position is set so it is centered for easy reading."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

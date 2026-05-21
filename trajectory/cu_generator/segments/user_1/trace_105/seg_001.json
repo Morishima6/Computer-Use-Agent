@@ -1,0 +1,622 @@
+{
+  "segment_id": "seg_001",
+  "app": "gimp",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Activate the Crop tool",
+      "action_before_state": "GIMP is open on GNOME, and an image is already visible on the canvas. The toolbox is available on the left side of the window.",
+      "action_preconditions": [
+        "The image is open in GIMP",
+        "The canvas is visible",
+        "GIMP has keyboard focus"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "shift",
+          "c"
+        ]
+      },
+      "action_after_effects": "The Crop tool becomes active, and the pointer is ready to define a crop region on the image.",
+      "nl_explanation": "When the image is open and GIMP is focused, press Shift+C to switch to the Crop tool so the next action can define the new framing."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Draw a square crop around the main subject",
+      "action_before_state": "The Crop tool is active, and the full image is still visible on the canvas.",
+      "action_preconditions": [
+        "The Crop tool is active",
+        "The main subject is visible in the image",
+        "There is enough empty space around the subject to crop cleanly"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "near the upper-left area of the main subject on the image canvas"
+        },
+        "end": {
+          "text": "down and right until the crop box becomes roughly square and includes the subject's face and some margin"
+        },
+        "target": {
+          "begin": {
+            "text": "the upper-left area of the main subject on the image canvas"
+          },
+          "end": {
+            "text": "the lower-right position on the canvas to form a square crop region"
+          }
+        }
+      },
+      "action_after_effects": "A crop rectangle appears over the image, showing the portion that will be kept after the crop is applied.",
+      "nl_explanation": "Once the Crop tool is active and the subject is visible, drag across the canvas to create a square crop box centered on the subject, so the profile photo framing is set up."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Apply the crop",
+      "action_before_state": "A square crop box is visible over the image, and the subject is framed inside it.",
+      "action_preconditions": [
+        "A crop rectangle has already been drawn",
+        "The crop box contains the desired subject area"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The image is cropped to the selected square area, and the canvas updates to show only the retained portion.",
+      "nl_explanation": "After the crop area is positioned correctly, press Enter to commit it, and GIMP will reduce the image to that square composition."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Open the Colors menu",
+      "action_before_state": "The cropped square image is visible on the canvas, and the top menu bar is available.",
+      "action_preconditions": [
+        "The crop has already been applied",
+        "The top menu bar is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Colors menu in the top menu bar"
+        }
+      },
+      "action_after_effects": "The Colors dropdown menu opens and displays image adjustment options.",
+      "nl_explanation": "With the cropped image visible, click the Colors menu to access basic photo adjustment tools needed for the profile image."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Open the Brightness-Contrast adjustment dialog",
+      "action_before_state": "The Colors dropdown menu is open, and adjustment options are visible.",
+      "action_preconditions": [
+        "The Colors menu is expanded",
+        "The Brightness-Contrast option is visible in the dropdown"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "Brightness-Contrast in the Colors menu"
+        }
+      },
+      "action_after_effects": "A Brightness-Contrast dialog opens with sliders that can be adjusted before applying the change.",
+      "nl_explanation": "When the Colors menu is open, click Brightness-Contrast so you can make the image look a bit clearer before exporting."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Slightly increase the contrast",
+      "action_before_state": "The Brightness-Contrast dialog is open, and both sliders are visible.",
+      "action_preconditions": [
+        "The Brightness-Contrast dialog is open",
+        "The Contrast slider handle is visible"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the current Contrast slider handle in the Brightness-Contrast dialog"
+        },
+        "end": {
+          "text": "a little to the right on the Contrast slider track"
+        },
+        "target": {
+          "begin": {
+            "text": "the Contrast slider handle in the Brightness-Contrast dialog"
+          },
+          "end": {
+            "text": "a new position slightly to the right on the Contrast slider track"
+          }
+        }
+      },
+      "action_after_effects": "The preview updates, and the subject appears slightly sharper and more defined.",
+      "nl_explanation": "With the adjustment dialog open, drag the Contrast slider a small amount to the right so the image gains a bit more clarity without looking over-edited."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Apply the contrast adjustment",
+      "action_before_state": "The preview in the Brightness-Contrast dialog shows the slightly improved image.",
+      "action_preconditions": [
+        "The contrast has been adjusted to an acceptable level",
+        "The OK button is visible in the dialog"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the OK button in the Brightness-Contrast dialog"
+        }
+      },
+      "action_after_effects": "The dialog closes, and the contrast change is applied to the image on the canvas.",
+      "nl_explanation": "After the preview looks right, click OK to confirm the adjustment and return to the main image view."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Open the Image menu",
+      "action_before_state": "The adjusted square image is shown on the canvas, and the top menu bar is available.",
+      "action_preconditions": [
+        "The contrast dialog has been closed",
+        "The top menu bar is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Image menu in the top menu bar"
+        }
+      },
+      "action_after_effects": "The Image dropdown menu opens with size and canvas options.",
+      "nl_explanation": "Once the image adjustment is finished, click the Image menu to access the resizing controls."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Open the Scale Image dialog",
+      "action_before_state": "The Image dropdown menu is open, and image size options are visible.",
+      "action_preconditions": [
+        "The Image menu is expanded",
+        "The Scale Image option is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "Scale Image in the Image menu"
+        }
+      },
+      "action_after_effects": "A Scale Image dialog opens with width and height fields for the image dimensions.",
+      "nl_explanation": "When the Image menu is open, click Scale Image so the cropped photo can be resized to the target output dimensions."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Focus the Width field for editing",
+      "action_before_state": "The Scale Image dialog is open, and the current width and height values are visible.",
+      "action_preconditions": [
+        "The Scale Image dialog is open",
+        "The Width input box is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 2,
+        "target": {
+          "text": "the Width value field in the Scale Image dialog"
+        }
+      },
+      "action_after_effects": "The current width value is selected, ready to be replaced with a new number.",
+      "nl_explanation": "After opening Scale Image, double-click the Width field so the existing value is selected and can be overwritten directly."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Set the image width to 1080 pixels",
+      "action_before_state": "The Width field in the Scale Image dialog is active and its current value is highlighted.",
+      "action_preconditions": [
+        "The Width field is focused",
+        "The old width value is selected",
+        "The chain link for proportional scaling is enabled"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "1080"
+      },
+      "action_after_effects": "The Width field changes to 1080, and because the image is already square, the Height field stays matched at 1080 as well.",
+      "nl_explanation": "With the Width field selected and proportional scaling still linked, type 1080 so the output size becomes 1080 by 1080."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Apply the resize operation",
+      "action_before_state": "The Scale Image dialog shows the new target dimensions, and the Scale button is visible.",
+      "action_preconditions": [
+        "The width has been changed to 1080",
+        "The resulting dimensions look correct",
+        "The Scale button is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Scale button in the Scale Image dialog"
+        }
+      },
+      "action_after_effects": "The dialog closes, and the image on the canvas is resized to 1080 by 1080 pixels.",
+      "nl_explanation": "Once the target dimensions are correct, click Scale to resize the image to the final profile-picture resolution."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Open the Export As dialog",
+      "action_before_state": "The resized image is visible on the canvas, and GIMP is ready for file operations.",
+      "action_preconditions": [
+        "The final edited image is visible",
+        "GIMP has keyboard focus"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "shift",
+          "ctrl",
+          "e"
+        ]
+      },
+      "action_after_effects": "The Export Image dialog opens so a new file can be saved without overwriting the original.",
+      "nl_explanation": "After the photo is cropped, adjusted, and resized, press Shift+Ctrl+E to open Export As and create a separate output file."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Enter the new output filename",
+      "action_before_state": "The Export Image dialog is open, and the name field is active or ready for input.",
+      "action_preconditions": [
+        "The Export Image dialog is open",
+        "A filename field is available for editing"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "profile_ready.png"
+      },
+      "action_after_effects": "The export name is set to profile_ready.png, preparing the file for export as a PNG copy.",
+      "nl_explanation": "With the export dialog open and the name field available, type profile_ready.png so the edited image is saved as a new PNG file."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Confirm the export destination and filename",
+      "action_before_state": "The Export Image dialog shows the new filename, and the Export button is visible.",
+      "action_preconditions": [
+        "The filename has been entered",
+        "The Export button is visible in the file chooser dialog"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Export button in the Export Image dialog"
+        }
+      },
+      "action_after_effects": "GIMP proceeds to the PNG export options dialog for the final confirmation.",
+      "nl_explanation": "After the filename is set, click Export in the save dialog to move on to the PNG-specific export confirmation step."
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Finish exporting the PNG file",
+      "action_before_state": "The PNG export options dialog is open, and a final Export button is visible.",
+      "action_preconditions": [
+        "The PNG export options dialog is open",
+        "The final Export button is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the final Export button in the PNG export options dialog"
+        }
+      },
+      "action_after_effects": "The file is exported as profile_ready.png, and the editing task is complete.",
+      "nl_explanation": "When the PNG export options appear, click the final Export button to save the finished 1080 by 1080 profile image as profile_ready.png."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Crop the photo into a square centered on the main subject so the composition is suitable for a profile picture.",
+      "unit_type": "CROP_IMAGE_TO_SQUARE",
+      "unit_before_state": "GIMP is open with the original photo visible on the canvas, and the toolbox and top menu bar are available in the main editing window.",
+      "unit_after_state": "The canvas shows only the selected square portion of the photo, with the main subject framed inside the cropped image and no crop overlay remaining.",
+      "unit_precondition": [
+        "The target image is already open in GIMP.",
+        "The main subject is visible on the canvas and there is enough surrounding area to define a square crop.",
+        "GIMP has keyboard focus so the Crop tool shortcut will work."
+      ],
+      "unit_effect": [
+        "The Crop tool becomes active and a crop rectangle can be drawn on the canvas.",
+        "A square crop box appears around the subject to preview the retained area.",
+        "Pressing Enter commits the crop and the canvas updates to the square composition."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Make the cropped profile image look a little clearer by applying a mild contrast adjustment.",
+      "unit_type": "ADJUST_IMAGE_CLARITY",
+      "unit_before_state": "The cropped square image is visible on the GIMP canvas, and the top menu bar is available with no adjustment dialog open.",
+      "unit_after_state": "The Brightness-Contrast dialog is closed, and the square image remains on the canvas with slightly stronger contrast so the subject looks a bit clearer.",
+      "unit_precondition": [
+        "The square crop has already been applied and the edited image is visible.",
+        "The top menu bar is visible and usable.",
+        "The user can access the Brightness-Contrast command from the Colors menu."
+      ],
+      "unit_effect": [
+        "The Colors menu opens and the Brightness-Contrast dialog appears with adjustment sliders.",
+        "Dragging the Contrast slider updates the live preview so the subject appears slightly sharper and more defined.",
+        "Clicking OK closes the dialog and leaves the contrast change applied on the canvas."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "unit_intent": "Resize the edited square photo to the required 1080 by 1080 output dimensions.",
+      "unit_type": "RESIZE_IMAGE",
+      "unit_before_state": "The adjusted square image is visible on the canvas in the main GIMP window, and the top menu bar is available.",
+      "unit_after_state": "The Scale Image dialog is closed, and the image displayed on the canvas has been resized to 1080 by 1080 pixels.",
+      "unit_precondition": [
+        "The image has already been cropped to a square and the clarity adjustment is complete.",
+        "The Image menu and Scale Image command are available from the top menu bar.",
+        "Proportional scaling remains linked in the Scale Image dialog so a square image stays matched in width and height."
+      ],
+      "unit_effect": [
+        "The Image menu opens and the Scale Image dialog appears with width and height fields.",
+        "The current width value becomes selected and is replaced with 1080.",
+        "The dialog shows 1080 for width and a matching 1080 height, and clicking Scale applies the new size to the canvas."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        13,
+        14,
+        15,
+        16
+      ],
+      "unit_intent": "Export the finished edited photo as a new PNG file named profile_ready.png without overwriting the original image.",
+      "unit_type": "EXPORT_PNG_COPY",
+      "unit_before_state": "The final edited square image is visible on the GIMP canvas after resizing, and GIMP is ready for file operations.",
+      "unit_after_state": "The export dialogs are closed, and a new PNG file named profile_ready.png has been created from the edited 1080 by 1080 image.",
+      "unit_precondition": [
+        "The final edited image is visible on the canvas and ready to be saved.",
+        "GIMP has keyboard focus so the export shortcut can open the export workflow.",
+        "The export dialog allows editing the filename and confirming PNG export options."
+      ],
+      "unit_effect": [
+        "The Export Image dialog opens from the shortcut and the filename field is available for input.",
+        "The filename is set to profile_ready.png in the export dialog.",
+        "Clicking the first Export advances to the PNG export options dialog, and clicking the final Export saves the new PNG copy."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Crop the photo into a square centered on the main subject so the composition is suitable for a profile picture.",
+      "unit_type": "CROP_IMAGE_TO_SQUARE",
+      "unit_before_state": "GIMP is open with the original photo visible on the canvas, and the toolbox and top menu bar are available in the main editing window.",
+      "unit_after_state": "The canvas shows only the selected square portion of the photo, with the main subject framed inside the cropped image and no crop overlay remaining.",
+      "unit_precondition": [
+        "The target image is already open in GIMP.",
+        "The main subject is visible on the canvas and there is enough surrounding area to define a square crop.",
+        "GIMP has keyboard focus so the Crop tool shortcut will work."
+      ],
+      "unit_effect": [
+        "The Crop tool becomes active and a crop rectangle can be drawn on the canvas.",
+        "A square crop box appears around the subject to preview the retained area.",
+        "Pressing Enter commits the crop and the canvas updates to the square composition."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Crop an open image to a square composition centered on {{target_subject}}.",
+      "parameters": {
+        "target_subject": "the main subject",
+        "target_crop_contents": "the subject's face and some margin"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['shift', 'c']}",
+          "action_template": "When the image is open in GIMP, the canvas is visible, and GIMP has keyboard focus, press Shift+C to activate the Crop tool so the pointer is ready to define a crop region on the image."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'near the upper-left area of the main subject on the image canvas'}, 'end': {'text': \"down and right until the crop box becomes roughly square and includes the subject's face and some margin\"}, 'target': {'begin': {'text': 'the upper-left area of the main subject on the image canvas'}, 'end': {'text': 'the lower-right position on the canvas to form a square crop region'}}}",
+          "action_template": "With the Crop tool active, {{target_subject}} visible, and enough space around it to crop cleanly, drag across the canvas to create a square crop box centered on {{target_subject}} so a crop rectangle previews the retained area containing {{target_crop_contents}}."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After a crop rectangle has been drawn and the square crop box contains {{target_crop_contents}}, press Enter to commit the crop so the image updates to show only the selected square area."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Make the cropped profile image look a little clearer by applying a mild contrast adjustment.",
+      "unit_type": "ADJUST_IMAGE_CLARITY",
+      "unit_before_state": "The cropped square image is visible on the GIMP canvas, and the top menu bar is available with no adjustment dialog open.",
+      "unit_after_state": "The Brightness-Contrast dialog is closed, and the square image remains on the canvas with slightly stronger contrast so the subject looks a bit clearer.",
+      "unit_precondition": [
+        "The square crop has already been applied and the edited image is visible.",
+        "The top menu bar is visible and usable.",
+        "The user can access the Brightness-Contrast command from the Colors menu."
+      ],
+      "unit_effect": [
+        "The Colors menu opens and the Brightness-Contrast dialog appears with adjustment sliders.",
+        "Dragging the Contrast slider updates the live preview so the subject appears slightly sharper and more defined.",
+        "Clicking OK closes the dialog and leaves the contrast change applied on the canvas."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Improve the current image's clarity by applying a mild contrast adjustment.",
+      "parameters": {
+        "contrast_adjustment_amount": "a small amount to the right",
+        "desired_preview_result": "slightly sharper and more defined"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Colors menu in the top menu bar'}}",
+          "action_template": "With the cropped image visible and the top menu bar available, click the Colors menu to access basic photo adjustment tools. Preconditions: the crop has already been applied and the top menu bar is visible. Afterward, the Colors dropdown menu opens and displays image adjustment options."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'Brightness-Contrast in the Colors menu'}}",
+          "action_template": "When the Colors menu is expanded and the Brightness-Contrast option is visible in the dropdown, click Brightness-Contrast to open the adjustment dialog. Afterward, a Brightness-Contrast dialog opens with sliders that can be adjusted before applying the change."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the current Contrast slider handle in the Brightness-Contrast dialog'}, 'end': {'text': 'a little to the right on the Contrast slider track'}, 'target': {'begin': {'text': 'the Contrast slider handle in the Brightness-Contrast dialog'}, 'end': {'text': 'a new position slightly to the right on the Contrast slider track'}}}",
+          "action_template": "With the Brightness-Contrast dialog open and the Contrast slider handle visible, drag the Contrast slider {{contrast_adjustment_amount}} so the image gains a bit more clarity without looking over-edited. Afterward, the preview updates and the subject appears {{desired_preview_result}}."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the OK button in the Brightness-Contrast dialog'}}",
+          "action_template": "After the contrast has been adjusted to an acceptable level and the OK button is visible in the dialog, click OK to confirm the adjustment and return to the main image view. Afterward, the dialog closes and the contrast change is applied to the image on the canvas."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "unit_intent": "Resize the edited square photo to the required 1080 by 1080 output dimensions.",
+      "unit_type": "RESIZE_IMAGE",
+      "unit_before_state": "The adjusted square image is visible on the canvas in the main GIMP window, and the top menu bar is available.",
+      "unit_after_state": "The Scale Image dialog is closed, and the image displayed on the canvas has been resized to 1080 by 1080 pixels.",
+      "unit_precondition": [
+        "The image has already been cropped to a square and the clarity adjustment is complete.",
+        "The Image menu and Scale Image command are available from the top menu bar.",
+        "Proportional scaling remains linked in the Scale Image dialog so a square image stays matched in width and height."
+      ],
+      "unit_effect": [
+        "The Image menu opens and the Scale Image dialog appears with width and height fields.",
+        "The current width value becomes selected and is replaced with 1080.",
+        "The dialog shows 1080 for width and a matching 1080 height, and clicking Scale applies the new size to the canvas."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Resize the current square image to a specified square pixel dimension using the Scale Image dialog.",
+      "parameters": {
+        "target_square_dimension_px": "1080"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Image menu in the top menu bar'}}",
+          "action_template": "With the top menu bar visible after the contrast dialog has been closed, click the Image menu to access the resizing controls; the Image dropdown menu opens with size and canvas options."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'Scale Image in the Image menu'}}",
+          "action_template": "When the Image menu is expanded and the Scale Image option is visible, click Scale Image so the cropped photo can be resized to {{target_square_dimension_px}} by {{target_square_dimension_px}} pixels; a Scale Image dialog opens with width and height fields for the image dimensions."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 2, 'target': {'text': 'the Width value field in the Scale Image dialog'}}",
+          "action_template": "After the Scale Image dialog is open and the Width input box is visible, double-click the Width value field so the existing value is selected and ready to be overwritten directly."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '1080'}",
+          "action_template": "With the Width field focused, the old width value selected, and proportional scaling still linked, type {{target_square_dimension_px}} so the output size becomes {{target_square_dimension_px}} by {{target_square_dimension_px}}; the Width field changes to {{target_square_dimension_px}}, and because the image is already square, the Height field stays matched at {{target_square_dimension_px}} as well."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Scale button in the Scale Image dialog'}}",
+          "action_template": "Once the dialog shows the correct target dimensions and the Scale button is visible, click the Scale button to apply the resize; the dialog closes, and the image on the canvas is resized to {{target_square_dimension_px}} by {{target_square_dimension_px}} pixels."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        13,
+        14,
+        15,
+        16
+      ],
+      "unit_intent": "Export the finished edited photo as a new PNG file named profile_ready.png without overwriting the original image.",
+      "unit_type": "EXPORT_PNG_COPY",
+      "unit_before_state": "The final edited square image is visible on the GIMP canvas after resizing, and GIMP is ready for file operations.",
+      "unit_after_state": "The export dialogs are closed, and a new PNG file named profile_ready.png has been created from the edited 1080 by 1080 image.",
+      "unit_precondition": [
+        "The final edited image is visible on the canvas and ready to be saved.",
+        "GIMP has keyboard focus so the export shortcut can open the export workflow.",
+        "The export dialog allows editing the filename and confirming PNG export options."
+      ],
+      "unit_effect": [
+        "The Export Image dialog opens from the shortcut and the filename field is available for input.",
+        "The filename is set to profile_ready.png in the export dialog.",
+        "Clicking the first Export advances to the PNG export options dialog, and clicking the final Export saves the new PNG copy."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Export the edited image as a new PNG file with a specified filename without overwriting the original image.",
+      "parameters": {
+        "output_filename": "profile_ready.png"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['shift', 'ctrl', 'e']}",
+          "action_template": "Press Shift+Ctrl+E while the edited image is visible and GIMP has keyboard focus to open the Export Image dialog and start creating a separate output file without overwriting the original."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'profile_ready.png'}",
+          "action_template": "Type {{output_filename}} into the filename field when the Export Image dialog is open and ready for input to set the export name for the PNG copy."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Export button in the Export Image dialog'}}",
+          "action_template": "Click the Export button in the Export Image dialog after the filename has been entered to proceed to the PNG export options dialog for final confirmation."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the final Export button in the PNG export options dialog'}}",
+          "action_template": "Click the final Export button in the PNG export options dialog to save the file as {{output_filename}} and complete the export."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

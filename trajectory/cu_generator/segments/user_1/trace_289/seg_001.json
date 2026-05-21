@@ -1,0 +1,1425 @@
+{
+  "segment_id": "seg_001",
+  "app": "multi_apps",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open terminal and create the destination directory for organized receipts",
+      "action_before_state": "Desktop is visible with no applications currently open",
+      "action_preconditions": [
+        "Desktop environment is active",
+        "Terminal application is available in the system"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "alt",
+          "t"
+        ]
+      },
+      "action_after_effects": "Terminal window opens with prompt ready for command input",
+      "nl_explanation": "When the desktop is visible, press Ctrl+Alt+T to open a terminal window to begin executing commands for file organization"
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Create the destination directory structure for storing organized receipts",
+      "action_before_state": "Terminal window is open and ready for input",
+      "action_preconditions": [
+        "Terminal has focus",
+        "Current directory is the home directory or accessible path"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "mkdir -p ~/Documents/Finance/Receipts_2024"
+      },
+      "action_after_effects": "Command appears in terminal and upon execution, the directory structure /home/user/Documents/Finance/Receipts_2024 is created",
+      "nl_explanation": "In the terminal, type the mkdir command with the -p flag to create the nested directory structure for storing the organized receipt files"
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Search Downloads folder for receipt and invoice files and copy them to the destination",
+      "action_before_state": "Terminal shows the previous command executed successfully with prompt returned",
+      "action_preconditions": [
+        "Terminal is ready for next command",
+        "Downloads directory exists at ~/Downloads"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "find ~/Downloads -type f \\( -iname \"*receipt*\" -o -iname \"*invoice*\" -o -iname \"*order*\" \\) -exec cp {} ~/Documents/Finance/Receipts_2024/ \\;"
+      },
+      "action_after_effects": "Command executes and any files matching the patterns in Downloads are copied to the Receipts_2024 folder, with terminal returning to prompt when complete",
+      "nl_explanation": "Type a find command in the terminal to search the Downloads folder for files with names containing 'receipt', 'invoice', or 'order' (case-insensitive), and copy all matches to the newly created Receipts_2024 directory"
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Search Documents folder for receipt and invoice files and copy them to the destination",
+      "action_before_state": "Terminal shows the previous find command completed and prompt is ready",
+      "action_preconditions": [
+        "Terminal is ready for input",
+        "Documents directory exists at ~/Documents"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "find ~/Documents -type f \\( -iname \"*receipt*\" -o -iname \"*invoice*\" -o -iname \"*order*\" \\) -exec cp {} ~/Documents/Finance/Receipts_2024/ \\;"
+      },
+      "action_after_effects": "Files matching the search criteria in the Documents folder are copied to the Receipts_2024 directory, and the terminal returns to the prompt",
+      "nl_explanation": "Execute a similar find command to search the Documents folder for receipt-related files and copy them to the consolidated Receipts_2024 directory"
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Open the file manager to view and organize the collected receipt files",
+      "action_before_state": "Terminal shows completed commands with files copied successfully",
+      "action_preconditions": [
+        "Files have been copied to ~/Documents/Finance/Receipts_2024",
+        "Nautilus file manager is available"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "nautilus ~/Documents/Finance/Receipts_2024 &"
+      },
+      "action_after_effects": "The Nautilus file manager window opens displaying the contents of the Receipts_2024 folder, showing all the copied receipt files from various sources",
+      "nl_explanation": "Launch the Nautilus file manager from the terminal to open the Receipts_2024 directory, appending an ampersand to run it in the background so the terminal remains usable"
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Rename the first receipt file with a consistent Date_Vendor format",
+      "action_before_state": "File manager window is open showing multiple receipt files with various naming conventions",
+      "action_preconditions": [
+        "File manager has focus",
+        "At least one file is visible in the directory",
+        "Files have original names from various sources"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "right",
+        "num_clicks": 1,
+        "target": {
+          "text": "The first receipt file in the list"
+        }
+      },
+      "action_after_effects": "A context menu appears near the selected file with options including 'Rename', 'Cut', 'Copy', 'Properties', etc.",
+      "nl_explanation": "Right-click on the first receipt file in the file manager to open the context menu in order to access the rename option"
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Select the rename option from the context menu",
+      "action_before_state": "Context menu is displayed with various file operation options",
+      "action_preconditions": [
+        "Context menu is visible",
+        "The rename option is available in the menu"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "Rename option in the context menu"
+        }
+      },
+      "action_after_effects": "The filename becomes editable with the current name highlighted in a text field, ready for typing the new name",
+      "nl_explanation": "Click on the 'Rename' option in the context menu to make the filename editable so it can be renamed with a standardized format"
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Type the new standardized filename with date and vendor",
+      "action_before_state": "Filename is in edit mode with text selected/highlighted",
+      "action_preconditions": [
+        "Filename field is active and editable",
+        "Old filename is selected"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "2024-01-15_Amazon_Purchase.pdf"
+      },
+      "action_after_effects": "The highlighted text is replaced with the new standardized filename '2024-01-15_Amazon_Purchase.pdf' in the filename field",
+      "nl_explanation": "Type the new filename following the Date_Vendor_Description format to replace the currently selected filename text"
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Confirm the rename operation",
+      "action_before_state": "New filename has been typed in the editable field",
+      "action_preconditions": [
+        "New filename is entered",
+        "Filename field is still in edit mode"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "return"
+        ]
+      },
+      "action_after_effects": "The file is renamed to the new standardized name, the edit mode exits, and the file now appears in the file list with the new name '2024-01-15_Amazon_Purchase.pdf'",
+      "nl_explanation": "Press Enter to confirm the rename operation and apply the new standardized filename to the file"
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Rename the second file using keyboard shortcut for efficiency",
+      "action_before_state": "First file has been renamed and is visible with new name in the file manager",
+      "action_preconditions": [
+        "File manager has focus",
+        "Second file is visible in the file list"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "The second receipt file in the list"
+        }
+      },
+      "action_after_effects": "The second file becomes selected (highlighted) in the file manager, indicating it is the active item for subsequent operations",
+      "nl_explanation": "Click on the second receipt file to select it as the target for the next rename operation using a keyboard shortcut"
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Activate rename mode using F2 key shortcut",
+      "action_before_state": "Second file is selected in the file manager",
+      "action_preconditions": [
+        "File is selected",
+        "File manager has keyboard focus"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "f2"
+        ]
+      },
+      "action_after_effects": "The filename of the selected file becomes editable in a text field, with the current name highlighted, ready for the new name to be entered",
+      "nl_explanation": "Press the F2 key to activate rename mode for the selected file, which is a keyboard shortcut alternative to using the right-click context menu"
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Enter the standardized name for the second receipt file",
+      "action_before_state": "Filename field is active and editable with current name selected",
+      "action_preconditions": [
+        "Rename mode is active",
+        "Text is selected"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "2024-02-03_WholeFoods_Groceries.pdf"
+      },
+      "action_after_effects": "The selected filename text is replaced with '2024-02-03_WholeFoods_Groceries.pdf' in the editable field",
+      "nl_explanation": "Type the new standardized filename with date, vendor, and description to replace the currently selected text in the rename field"
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Confirm the second file rename",
+      "action_before_state": "New filename has been entered in the editable field",
+      "action_preconditions": [
+        "New name is typed",
+        "Field is in edit mode"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "return"
+        ]
+      },
+      "action_after_effects": "The second file is renamed to '2024-02-03_WholeFoods_Groceries.pdf', the edit mode exits, and the file list updates to show the new name",
+      "nl_explanation": "Press Enter to confirm and apply the new filename to the second receipt file"
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Open LibreOffice Calc to create a summary spreadsheet",
+      "action_before_state": "Multiple files have been renamed in the file manager, which remains open in the background",
+      "action_preconditions": [
+        "Receipt files are organized",
+        "LibreOffice Calc is installed"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "alt",
+          "f2"
+        ]
+      },
+      "action_after_effects": "The 'Run Command' dialog (Alt+F2) appears at the top of the screen, ready for command input to launch applications",
+      "nl_explanation": "Press Alt+F2 to open the Run Command dialog to quickly launch LibreOffice Calc without navigating through menus"
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Launch LibreOffice Calc from the run dialog",
+      "action_before_state": "The Run Command dialog is visible at the top of the screen with an input field",
+      "action_preconditions": [
+        "Run dialog is active",
+        "Input field has focus"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "libreoffice --calc"
+      },
+      "action_after_effects": "The text 'libreoffice --calc' appears in the run dialog input field, and upon execution, LibreOffice Calc begins to launch with a new blank spreadsheet",
+      "nl_explanation": "Type 'libreoffice --calc' (the proper command for LibreOffice Calc) into the Run Command dialog input field to launch the spreadsheet application"
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Execute the launch command to open Calc",
+      "action_before_state": "The command 'libreoffice --calc' has been typed into the Run Command dialog",
+      "action_preconditions": [
+        "Command is typed",
+        "Run dialog is waiting for execution"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "return"
+        ]
+      },
+      "action_after_effects": "The Run Command dialog closes and LibreOffice Calc opens with a new blank spreadsheet, ready for data entry",
+      "nl_explanation": "Press Enter to execute the libreoffice --calc command and launch LibreOffice Calc with a new spreadsheet"
+    },
+    {
+      "step_id": "s17",
+      "step_goal": "Create column headers for the receipt summary spreadsheet",
+      "action_before_state": "LibreOffice Calc is open with cell A1 selected (highlighted)",
+      "action_preconditions": [
+        "Calc is active",
+        "Cell A1 is selected"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Date"
+      },
+      "action_after_effects": "The text 'Date' appears in cell A1, and the cursor moves to cell A2 or stays in A1 depending on settings, ready for the next header",
+      "nl_explanation": "Type 'Date' into cell A1 to create the first column header for the receipt summary spreadsheet"
+    },
+    {
+      "step_id": "s18",
+      "step_goal": "Move to next cell and add Vendor column header",
+      "action_before_state": "Cell A1 contains 'Date' and is still in edit mode or selected",
+      "action_preconditions": [
+        "A1 has content",
+        "Ready to move to next column"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "tab"
+        ]
+      },
+      "action_after_effects": "The selection moves to cell B1, ready for input of the next column header",
+      "nl_explanation": "Press Tab to move from cell A1 to cell B1 to continue entering the column headers"
+    },
+    {
+      "step_id": "s19",
+      "step_goal": "Enter Vendor header in cell B1",
+      "action_before_state": "Cell B1 is selected and empty",
+      "action_preconditions": [
+        "B1 is active",
+        "Ready for text input"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Vendor"
+      },
+      "action_after_effects": "The text 'Vendor' appears in cell B1",
+      "nl_explanation": "Type 'Vendor' into cell B1 to label the column for vendor/merchant names"
+    },
+    {
+      "step_id": "s20",
+      "step_goal": "Add remaining column headers (Amount, Filename)",
+      "action_before_state": "Cell B1 contains 'Vendor'",
+      "action_preconditions": [
+        "Headers partially complete"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "\tAmount\tFilename"
+      },
+      "action_after_effects": "Using tabs as separators, the text fills cells C1 with 'Amount' and D1 with 'Filename', completing the header row with all four requested columns",
+      "nl_explanation": "Type the remaining headers separated by tabs to quickly populate cells C1 and D1 with Amount and Filename, matching the instruction's four-column requirement"
+    },
+    {
+      "step_id": "s21",
+      "step_goal": "Move to the first data row to begin entering receipt information",
+      "action_before_state": "Header row is complete with all four columns labeled (Date, Vendor, Amount, Filename)",
+      "action_preconditions": [
+        "Headers are complete",
+        "Ready for data entry"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "return"
+        ]
+      },
+      "action_after_effects": "The selection moves to cell A2, the first cell in the data entry row, ready for input of the first receipt's date",
+      "nl_explanation": "Press Enter to move from the header row to the first data row (cell A2) to begin entering the first receipt's information"
+    },
+    {
+      "step_id": "s22",
+      "step_goal": "Enter the first receipt's date in cell A2",
+      "action_before_state": "Cell A2 is selected and ready for input",
+      "action_preconditions": [
+        "A2 is active",
+        "User knows the date from the first receipt file"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "2024-01-15"
+      },
+      "action_after_effects": "The date '2024-01-15' appears in cell A2",
+      "nl_explanation": "Type the date from the first receipt (e.g., 2024-01-15) into cell A2"
+    },
+    {
+      "step_id": "s23",
+      "step_goal": "Complete the first row of receipt data",
+      "action_before_state": "Cell A2 contains the date",
+      "action_preconditions": [
+        "Date is entered",
+        "Ready to complete the row"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "\tAmazon\t$45.67\t2024-01-15_Amazon_Purchase.pdf"
+      },
+      "action_after_effects": "Using tabs to move between cells, the row is filled with Amazon in B2, $45.67 in C2, and the filename in D2",
+      "nl_explanation": "Use tabs to separate values and complete the first row with vendor name, amount, and filename"
+    },
+    {
+      "step_id": "s24",
+      "step_goal": "Add second receipt data row",
+      "action_before_state": "Cell D2 contains the filename for the first receipt",
+      "action_preconditions": [
+        "First row complete",
+        "Ready to enter second receipt"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "return"
+        ]
+      },
+      "action_after_effects": "The selection moves to cell A3, ready for the second receipt's date",
+      "nl_explanation": "Press Enter to move to the next row to enter data for the second renamed receipt"
+    },
+    {
+      "step_id": "s25",
+      "step_goal": "Enter the second receipt's date in cell A3",
+      "action_before_state": "Cell A3 is selected and ready for input",
+      "action_preconditions": [
+        "A3 is active",
+        "Ready to enter second receipt data"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "2024-02-03"
+      },
+      "action_after_effects": "The date '2024-02-03' appears in cell A3",
+      "nl_explanation": "Type the date from the second receipt (2024-02-03) into cell A3"
+    },
+    {
+      "step_id": "s26",
+      "step_goal": "Complete the second row of receipt data",
+      "action_before_state": "Cell A3 contains the date for the second receipt",
+      "action_preconditions": [
+        "Date is entered",
+        "Ready to complete the row"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "\tWholeFoods\t$67.89\t2024-02-03_WholeFoods_Groceries.pdf"
+      },
+      "action_after_effects": "Using tabs to move between cells, the row is filled with WholeFoods in B3, $67.89 in C3, and the filename in D3",
+      "nl_explanation": "Use tabs to complete the second row with vendor name, amount, and filename matching the second renamed file"
+    },
+    {
+      "step_id": "s27",
+      "step_goal": "Save the spreadsheet in the receipts folder",
+      "action_before_state": "Two rows of receipt data have been entered into the spreadsheet",
+      "action_preconditions": [
+        "Data has been entered",
+        "Ready to save"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "s"
+        ]
+      },
+      "action_after_effects": "The Save dialog window appears, prompting for filename and location",
+      "nl_explanation": "Press Ctrl+S to open the Save dialog to save the receipt summary spreadsheet"
+    },
+    {
+      "step_id": "s28",
+      "step_goal": "Navigate to the Receipts_2024 folder in the save dialog",
+      "action_before_state": "Save dialog is open, likely showing the current directory or home directory",
+      "action_preconditions": [
+        "Save dialog is active"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "Home folder in the sidebar"
+        }
+      },
+      "action_after_effects": "The home directory is now visible in the file list",
+      "nl_explanation": "Click on the Home folder in the sidebar to navigate to the home directory"
+    },
+    {
+      "step_id": "s29",
+      "step_goal": "Navigate to Documents folder",
+      "action_before_state": "Home folder is visible in the file list",
+      "action_preconditions": [
+        "Home folder is visible",
+        "Documents folder is accessible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "Documents folder"
+        }
+      },
+      "action_after_effects": "The Documents folder contents are displayed",
+      "nl_explanation": "Click on Documents to navigate into that folder"
+    },
+    {
+      "step_id": "s30",
+      "step_goal": "Navigate to Finance subfolder",
+      "action_before_state": "Documents folder is visible",
+      "action_preconditions": [
+        "Documents folder is active"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "Finance folder"
+        }
+      },
+      "action_after_effects": "The Finance folder contents are displayed",
+      "nl_explanation": "Click on Finance to navigate into that subfolder"
+    },
+    {
+      "step_id": "s31",
+      "step_goal": "Navigate to Receipts_2024 folder",
+      "action_before_state": "Finance folder is visible",
+      "action_preconditions": [
+        "Finance folder is active"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "Receipts_2024 folder"
+        }
+      },
+      "action_after_effects": "The Receipts_2024 folder is now active in the save dialog, ready to save the file",
+      "nl_explanation": "Click on Receipts_2024 to set this folder as the save destination"
+    },
+    {
+      "step_id": "s32",
+      "step_goal": "Enter the filename for the summary spreadsheet",
+      "action_before_state": "The save location is set to the Receipts_2024 folder",
+      "action_preconditions": [
+        "Location is set",
+        "Filename field is available"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "Filename text field"
+        }
+      },
+      "action_after_effects": "The filename text field is focused and ready for input",
+      "nl_explanation": "Click on the filename field to ensure it has focus before typing"
+    },
+    {
+      "step_id": "s33",
+      "step_goal": "Type the filename for the summary spreadsheet",
+      "action_before_state": "Filename field has focus",
+      "action_preconditions": [
+        "Filename field is focused",
+        "Ready for input"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Receipts_Summary_2024"
+      },
+      "action_after_effects": "The filename 'Receipts_Summary_2024' appears in the filename field",
+      "nl_explanation": "Type the filename 'Receipts_Summary_2024' into the filename field to name the spreadsheet appropriately"
+    },
+    {
+      "step_id": "s34",
+      "step_goal": "Confirm saving the spreadsheet",
+      "action_before_state": "Filename and location are both set in the save dialog",
+      "action_preconditions": [
+        "Filename is entered",
+        "Location is correct"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "Save button in the save dialog"
+        }
+      },
+      "action_after_effects": "The save dialog closes, the spreadsheet is saved to ~/Documents/Finance/Receipts_2024/Receipts_Summary_2024.ods, and the user returns to the spreadsheet view. Note: LibreOffice Calc saves in ODS format by default, not XLSX",
+      "nl_explanation": "Click the Save button to save the receipt summary spreadsheet with the specified name in the Receipts_2024 folder, completing the organization task"
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Create the destination folder that will hold all consolidated receipt files.",
+      "unit_type": "CREATE_DESTINATION_FOLDER",
+      "unit_before_state": "The desktop is visible and no application window is open yet.",
+      "unit_after_state": "A terminal window is open with the prompt returned, and the path ~/Documents/Finance/Receipts_2024 has been created.",
+      "unit_precondition": [
+        "The desktop session is active.",
+        "A terminal application can be launched with Ctrl+Alt+T.",
+        "The user has permission to create folders under ~/Documents."
+      ],
+      "unit_effect": [
+        "A terminal window appears and accepts commands.",
+        "The folder ~/Documents/Finance/Receipts_2024 now exists for later file copying."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3
+      ],
+      "unit_intent": "Copy receipt-like files from Downloads into the consolidation folder.",
+      "unit_type": "COLLECT_FILES_FROM_SOURCE_FOLDER",
+      "unit_before_state": "The terminal is open, the destination folder already exists, and the shell prompt is ready for another command.",
+      "unit_after_state": "The Downloads search-and-copy command has finished, and the terminal prompt has returned after copying matching receipt, invoice, or order files into ~/Documents/Finance/Receipts_2024.",
+      "unit_precondition": [
+        "The terminal window has focus.",
+        "The folder ~/Downloads exists.",
+        "The destination folder ~/Documents/Finance/Receipts_2024 already exists."
+      ],
+      "unit_effect": [
+        "The terminal runs a find/cp command against ~/Downloads and returns to the prompt.",
+        "Any matching files from Downloads are copied into the Receipts_2024 folder."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        4
+      ],
+      "unit_intent": "Copy receipt-like files from Documents into the consolidation folder.",
+      "unit_type": "COLLECT_FILES_FROM_SOURCE_FOLDER",
+      "unit_before_state": "The terminal is still open after the previous copy command, with the prompt ready for input.",
+      "unit_after_state": "The Documents search-and-copy command has finished, and matching files from ~/Documents have been copied into ~/Documents/Finance/Receipts_2024.",
+      "unit_precondition": [
+        "The terminal window has focus.",
+        "The folder ~/Documents exists.",
+        "The destination folder ~/Documents/Finance/Receipts_2024 already exists."
+      ],
+      "unit_effect": [
+        "The terminal runs a find/cp command against ~/Documents and returns to the prompt.",
+        "Any matching files from Documents are copied into the Receipts_2024 folder."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        5
+      ],
+      "unit_intent": "Open the consolidated receipts folder in a visual file browser for manual organization.",
+      "unit_type": "OPEN_FOLDER_IN_FILE_MANAGER",
+      "unit_before_state": "The terminal shows completed copy commands, and the consolidated receipt folder has already been populated.",
+      "unit_after_state": "A Nautilus window is open and displaying the contents of ~/Documents/Finance/Receipts_2024.",
+      "unit_precondition": [
+        "The destination folder ~/Documents/Finance/Receipts_2024 exists.",
+        "Nautilus is installed and can be launched from the terminal."
+      ],
+      "unit_effect": [
+        "A file manager window opens for the Receipts_2024 directory.",
+        "The folder contents are visible as a file list for manual renaming."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "unit_intent": "Standardize the first receipt file name to match the required date-vendor naming pattern.",
+      "unit_type": "RENAME_RECEIPT_FILE",
+      "unit_before_state": "Nautilus is focused on the Receipts_2024 folder, showing multiple receipt files with inconsistent original names.",
+      "unit_after_state": "The first selected file now appears in the file list as 2024-01-15_Amazon_Purchase.pdf, and rename mode has closed.",
+      "unit_precondition": [
+        "The Receipts_2024 folder is open in Nautilus.",
+        "At least one receipt file is visible in the file list.",
+        "The file is not already being edited."
+      ],
+      "unit_effect": [
+        "A context menu opens for the first file and exposes the Rename option.",
+        "The filename becomes editable and is replaced with 2024-01-15_Amazon_Purchase.pdf.",
+        "After confirmation, the file list updates to show the new standardized name."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        10,
+        11,
+        12,
+        13
+      ],
+      "unit_intent": "Standardize the second receipt file name to match the required date-vendor naming pattern.",
+      "unit_type": "RENAME_RECEIPT_FILE",
+      "unit_before_state": "The first renamed receipt is visible in Nautilus, and a second receipt file is still shown with its original name.",
+      "unit_after_state": "The second selected file now appears in the file list as 2024-02-03_WholeFoods_Groceries.pdf, and rename mode has closed.",
+      "unit_precondition": [
+        "The Receipts_2024 folder is still open in Nautilus.",
+        "A second receipt file is visible and selectable.",
+        "The file manager has keyboard focus so F2 can trigger rename."
+      ],
+      "unit_effect": [
+        "The second file becomes selected.",
+        "F2 opens inline filename editing for that file.",
+        "After typing and pressing Enter, the file list shows 2024-02-03_WholeFoods_Groceries.pdf."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        14,
+        15,
+        16
+      ],
+      "unit_intent": "Open a blank LibreOffice Calc workbook to build the receipt summary table.",
+      "unit_type": "LAUNCH_SPREADSHEET_APP",
+      "unit_before_state": "The file manager remains open with renamed receipts visible, and no spreadsheet window is open yet.",
+      "unit_after_state": "LibreOffice Calc is open with a new blank spreadsheet ready for entry, with the initial worksheet active.",
+      "unit_precondition": [
+        "LibreOffice Calc is installed.",
+        "The desktop environment supports the Alt+F2 run dialog.",
+        "The user can switch away from the file manager."
+      ],
+      "unit_effect": [
+        "The Run Command dialog appears.",
+        "The command libreoffice --calc is entered and executed.",
+        "A blank Calc spreadsheet opens."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_08",
+      "step_indices": [
+        17,
+        18,
+        19,
+        20
+      ],
+      "unit_intent": "Create the header row for the receipt summary spreadsheet.",
+      "unit_type": "CREATE_SPREADSHEET_HEADERS",
+      "unit_before_state": "LibreOffice Calc is active with a blank sheet, and cell A1 is selected.",
+      "unit_after_state": "The first row is populated with the headers Date, Vendor, Amount, and Filename across cells A1 through D1.",
+      "unit_precondition": [
+        "LibreOffice Calc is the active window.",
+        "The worksheet is blank or row 1 is available for header entry.",
+        "Cell A1 is selected and ready for typing."
+      ],
+      "unit_effect": [
+        "Cell A1 shows Date.",
+        "Cell B1 shows Vendor.",
+        "Cells C1 and D1 show Amount and Filename."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_09",
+      "step_indices": [
+        21,
+        22,
+        23
+      ],
+      "unit_intent": "Enter the first receipt's data into the summary spreadsheet.",
+      "unit_type": "ENTER_RECEIPT_ROW",
+      "unit_before_state": "The header row A1:D1 is complete, and the sheet is ready for the first data row.",
+      "unit_after_state": "Row 2 is filled with the first receipt's values: A2 = 2024-01-15, B2 = Amazon, C2 = $45.67, and D2 = 2024-01-15_Amazon_Purchase.pdf.",
+      "unit_precondition": [
+        "The header row already exists in A1:D1.",
+        "The next empty row for data entry is row 2.",
+        "The user knows the first receipt's date, vendor, amount, and filename."
+      ],
+      "unit_effect": [
+        "The selection moves to cell A2.",
+        "All four cells in row 2 are populated with the first receipt's summary data."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_10",
+      "step_indices": [
+        24,
+        25,
+        26
+      ],
+      "unit_intent": "Enter the second receipt's data into the summary spreadsheet.",
+      "unit_type": "ENTER_RECEIPT_ROW",
+      "unit_before_state": "The first receipt already fills row 2, and the active position is at the end of that completed row.",
+      "unit_after_state": "Row 3 is filled with the second receipt's values: A3 = 2024-02-03, B3 = WholeFoods, C3 = $67.89, and D3 = 2024-02-03_WholeFoods_Groceries.pdf.",
+      "unit_precondition": [
+        "Row 2 already contains the first receipt.",
+        "The next empty row for data entry is row 3.",
+        "The user knows the second receipt's date, vendor, amount, and filename."
+      ],
+      "unit_effect": [
+        "The selection moves to cell A3.",
+        "All four cells in row 3 are populated with the second receipt's summary data."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_11",
+      "step_indices": [
+        27
+      ],
+      "unit_intent": "Open the save workflow for the completed receipt summary spreadsheet.",
+      "unit_type": "OPEN_SAVE_DIALOG",
+      "unit_before_state": "LibreOffice Calc shows a worksheet with headers in row 1 and two completed receipt rows beneath them.",
+      "unit_after_state": "A Save dialog is open over Calc, showing controls for choosing a folder and entering a filename.",
+      "unit_precondition": [
+        "LibreOffice Calc is the active application.",
+        "The spreadsheet already contains data worth saving."
+      ],
+      "unit_effect": [
+        "Pressing Ctrl+S opens the Save dialog.",
+        "The spreadsheet editing view is partially covered by save controls."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_12",
+      "step_indices": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "unit_intent": "Set the save destination to the Receipts_2024 folder.",
+      "unit_type": "NAVIGATE_SAVE_LOCATION",
+      "unit_before_state": "The Save dialog is open, but the current save location is not yet confirmed as the Receipts_2024 folder.",
+      "unit_after_state": "The Save dialog is navigated into ~/Documents/Finance/Receipts_2024, which is now the active destination folder.",
+      "unit_precondition": [
+        "The Save dialog is active.",
+        "The folders Home, Documents, Finance, and Receipts_2024 are available to browse.",
+        "The Receipts_2024 folder already exists."
+      ],
+      "unit_effect": [
+        "The Home view is opened from the sidebar.",
+        "The dialog successively opens Documents, then Finance, then Receipts_2024.",
+        "Receipts_2024 becomes the current save location."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_13",
+      "step_indices": [
+        32,
+        33,
+        34
+      ],
+      "unit_intent": "Name the spreadsheet file and complete saving it into the receipts folder.",
+      "unit_type": "SAVE_SPREADSHEET_FILE",
+      "unit_before_state": "The Save dialog is already positioned in ~/Documents/Finance/Receipts_2024, and the filename field is available.",
+      "unit_after_state": "The Save dialog closes, and the spreadsheet is saved in the Receipts_2024 folder as Receipts_Summary_2024.ods, returning the user to the Calc document view.",
+      "unit_precondition": [
+        "The Save dialog is open inside ~/Documents/Finance/Receipts_2024.",
+        "The filename field can be focused and edited.",
+        "The user is ready to commit the save."
+      ],
+      "unit_effect": [
+        "The filename field receives focus and shows Receipts_Summary_2024.",
+        "Clicking Save closes the dialog.",
+        "The document is stored in ~/Documents/Finance/Receipts_2024 as an ODS file."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Create the destination folder that will hold all consolidated receipt files.",
+      "unit_type": "CREATE_DESTINATION_FOLDER",
+      "unit_before_state": "The desktop is visible and no application window is open yet.",
+      "unit_after_state": "A terminal window is open with the prompt returned, and the path ~/Documents/Finance/Receipts_2024 has been created.",
+      "unit_precondition": [
+        "The desktop session is active.",
+        "A terminal application can be launched with Ctrl+Alt+T.",
+        "The user has permission to create folders under ~/Documents."
+      ],
+      "unit_effect": [
+        "A terminal window appears and accepts commands.",
+        "The folder ~/Documents/Finance/Receipts_2024 now exists for later file copying."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create {{destination_path}} as the destination folder for storing organized receipt files.",
+      "parameters": {
+        "destination_path": "~/Documents/Finance/Receipts_2024"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'alt', 't']}",
+          "action_template": "When the desktop environment is active and a terminal application is available, press Ctrl+Alt+T to open a terminal window so command input can begin for creating the destination folder; the terminal window opens with the prompt ready for input."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'mkdir -p ~/Documents/Finance/Receipts_2024'}",
+          "action_template": "With the terminal focused and the current directory accessible, type `mkdir -p {{destination_path}}` to create the nested destination directory for organized receipt files; the command appears in the terminal and {{destination_path}} is created upon execution."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3
+      ],
+      "unit_intent": "Copy receipt-like files from Downloads into the consolidation folder.",
+      "unit_type": "COLLECT_FILES_FROM_SOURCE_FOLDER",
+      "unit_before_state": "The terminal is open, the destination folder already exists, and the shell prompt is ready for another command.",
+      "unit_after_state": "The Downloads search-and-copy command has finished, and the terminal prompt has returned after copying matching receipt, invoice, or order files into ~/Documents/Finance/Receipts_2024.",
+      "unit_precondition": [
+        "The terminal window has focus.",
+        "The folder ~/Downloads exists.",
+        "The destination folder ~/Documents/Finance/Receipts_2024 already exists."
+      ],
+      "unit_effect": [
+        "The terminal runs a find/cp command against ~/Downloads and returns to the prompt.",
+        "Any matching files from Downloads are copied into the Receipts_2024 folder."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Copy files whose names match specified search terms from a source folder into a destination folder.",
+      "parameters": {
+        "source_folder": "~/Downloads",
+        "destination_folder": "~/Documents/Finance/Receipts_2024",
+        "filename_patterns": [
+          "receipt",
+          "invoice",
+          "order"
+        ]
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'find ~/Downloads -type f \\\\( -iname \"*receipt*\" -o -iname \"*invoice*\" -o -iname \"*order*\" \\\\) -exec cp {} ~/Documents/Finance/Receipts_2024/ \\\\;'}",
+          "action_template": "Type a find command in the terminal to search {{source_folder}} for files with names containing any of {{filename_patterns}} (case-insensitive), and copy all matches to {{destination_folder}}. Preconditions: terminal is ready for the next command and {{source_folder}} exists. After execution, matching files are copied to {{destination_folder}} and the terminal returns to the prompt."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        4
+      ],
+      "unit_intent": "Copy receipt-like files from Documents into the consolidation folder.",
+      "unit_type": "COLLECT_FILES_FROM_SOURCE_FOLDER",
+      "unit_before_state": "The terminal is still open after the previous copy command, with the prompt ready for input.",
+      "unit_after_state": "The Documents search-and-copy command has finished, and matching files from ~/Documents have been copied into ~/Documents/Finance/Receipts_2024.",
+      "unit_precondition": [
+        "The terminal window has focus.",
+        "The folder ~/Documents exists.",
+        "The destination folder ~/Documents/Finance/Receipts_2024 already exists."
+      ],
+      "unit_effect": [
+        "The terminal runs a find/cp command against ~/Documents and returns to the prompt.",
+        "Any matching files from Documents are copied into the Receipts_2024 folder."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Copy receipt-like files from a specified source folder into a designated consolidation folder from the terminal.",
+      "parameters": {
+        "source_folder_path": "~/Documents",
+        "destination_folder_path": "~/Documents/Finance/Receipts_2024"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'find ~/Documents -type f \\\\ ( -iname \"*receipt*\" -o -iname \"*invoice*\" -o -iname \"*order*\" \\\\ ) -exec cp {} ~/Documents/Finance/Receipts_2024/ \\\\;'}",
+          "action_template": "With the terminal ready for input, type a `find` command that searches `{{source_folder_path}}` for receipt-related files and copies each match into `{{destination_folder_path}}`. Preconditions: the terminal is ready for input and `{{source_folder_path}}` exists. After this action, files matching the search criteria in `{{source_folder_path}}` are copied into `{{destination_folder_path}}`, and the terminal returns to the prompt."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        5
+      ],
+      "unit_intent": "Open the consolidated receipts folder in a visual file browser for manual organization.",
+      "unit_type": "OPEN_FOLDER_IN_FILE_MANAGER",
+      "unit_before_state": "The terminal shows completed copy commands, and the consolidated receipt folder has already been populated.",
+      "unit_after_state": "A Nautilus window is open and displaying the contents of ~/Documents/Finance/Receipts_2024.",
+      "unit_precondition": [
+        "The destination folder ~/Documents/Finance/Receipts_2024 exists.",
+        "Nautilus is installed and can be launched from the terminal."
+      ],
+      "unit_effect": [
+        "A file manager window opens for the Receipts_2024 directory.",
+        "The folder contents are visible as a file list for manual renaming."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a specified folder in a file manager for manual file organization.",
+      "parameters": {
+        "file_manager_name": "nautilus",
+        "target_folder_path": "~/Documents/Finance/Receipts_2024"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'nautilus ~/Documents/Finance/Receipts_2024 &'}",
+          "action_template": "Type \"{{file_manager_name}} {{target_folder_path}} &\" in the terminal to launch the file manager for the target folder in the background so the terminal remains usable."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "unit_intent": "Standardize the first receipt file name to match the required date-vendor naming pattern.",
+      "unit_type": "RENAME_RECEIPT_FILE",
+      "unit_before_state": "Nautilus is focused on the Receipts_2024 folder, showing multiple receipt files with inconsistent original names.",
+      "unit_after_state": "The first selected file now appears in the file list as 2024-01-15_Amazon_Purchase.pdf, and rename mode has closed.",
+      "unit_precondition": [
+        "The Receipts_2024 folder is open in Nautilus.",
+        "At least one receipt file is visible in the file list.",
+        "The file is not already being edited."
+      ],
+      "unit_effect": [
+        "A context menu opens for the first file and exposes the Rename option.",
+        "The filename becomes editable and is replaced with 2024-01-15_Amazon_Purchase.pdf.",
+        "After confirmation, the file list updates to show the new standardized name."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Rename a receipt file to a specified standardized filename.",
+      "parameters": {
+        "target_file": "The first receipt file in the list",
+        "new_filename": "2024-01-15_Amazon_Purchase.pdf"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'right', 'num_clicks': 1, 'target': {'text': 'The first receipt file in the list'}}",
+          "action_template": "Right-click on {{target_file}} to open the context menu so the Rename option is available. Preconditions: the file manager has focus and at least one file is visible. Effect: a context menu appears near {{target_file}} with file operations including Rename."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'Rename option in the context menu'}}",
+          "action_template": "Click the Rename option in the context menu to make the filename editable. Preconditions: the context menu is visible and Rename is available. Effect: the current filename becomes highlighted in an editable text field, ready for replacement."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '2024-01-15_Amazon_Purchase.pdf'}",
+          "action_template": "Type {{new_filename}} to replace the selected filename text in the active filename field. Preconditions: the filename field is active and the old filename is selected. Effect: the highlighted text is replaced with {{new_filename}}."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['return']}",
+          "action_template": "Press Enter to confirm the rename after {{new_filename}} has been entered. Preconditions: the filename field is still in edit mode with the new name present. Effect: edit mode closes and the file list updates to show {{new_filename}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        10,
+        11,
+        12,
+        13
+      ],
+      "unit_intent": "Standardize the second receipt file name to match the required date-vendor naming pattern.",
+      "unit_type": "RENAME_RECEIPT_FILE",
+      "unit_before_state": "The first renamed receipt is visible in Nautilus, and a second receipt file is still shown with its original name.",
+      "unit_after_state": "The second selected file now appears in the file list as 2024-02-03_WholeFoods_Groceries.pdf, and rename mode has closed.",
+      "unit_precondition": [
+        "The Receipts_2024 folder is still open in Nautilus.",
+        "A second receipt file is visible and selectable.",
+        "The file manager has keyboard focus so F2 can trigger rename."
+      ],
+      "unit_effect": [
+        "The second file becomes selected.",
+        "F2 opens inline filename editing for that file.",
+        "After typing and pressing Enter, the file list shows 2024-02-03_WholeFoods_Groceries.pdf."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Rename a visible receipt file to a specified standardized date-vendor-description filename using inline rename mode.",
+      "parameters": {
+        "target_file": "The second receipt file in the list",
+        "new_file_name": "2024-02-03_WholeFoods_Groceries.pdf"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'The second receipt file in the list'}}",
+          "action_template": "Click {{target_file}} to select it as the target for the rename operation, when the file manager has focus and the file is visible; after the click, the file is selected and ready for subsequent rename actions."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['f2']}",
+          "action_template": "Press F2 to activate inline rename mode for the selected file, when {{target_file}} is selected and the file manager has keyboard focus; after the keypress, the current filename becomes editable with its text highlighted."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '2024-02-03_WholeFoods_Groceries.pdf'}",
+          "action_template": "Type {{new_file_name}} to replace the currently selected filename text, when rename mode is active and the existing text is selected; after typing, the editable field contains {{new_file_name}}."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['return']}",
+          "action_template": "Press Enter to confirm and apply {{new_file_name}} to {{target_file}}, when the new name has been typed and the field is still in edit mode; after the keypress, rename mode closes and the file list updates to show {{new_file_name}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_07",
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        14,
+        15,
+        16
+      ],
+      "unit_intent": "Open a blank LibreOffice Calc workbook to build the receipt summary table.",
+      "unit_type": "LAUNCH_SPREADSHEET_APP",
+      "unit_before_state": "The file manager remains open with renamed receipts visible, and no spreadsheet window is open yet.",
+      "unit_after_state": "LibreOffice Calc is open with a new blank spreadsheet ready for entry, with the initial worksheet active.",
+      "unit_precondition": [
+        "LibreOffice Calc is installed.",
+        "The desktop environment supports the Alt+F2 run dialog.",
+        "The user can switch away from the file manager."
+      ],
+      "unit_effect": [
+        "The Run Command dialog appears.",
+        "The command libreoffice --calc is entered and executed.",
+        "A blank Calc spreadsheet opens."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Launch a blank workbook in {{spreadsheet_app}} so it is ready for data entry.",
+      "parameters": {
+        "spreadsheet_app": "LibreOffice Calc",
+        "launch_command": "libreoffice --calc"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['alt', 'f2']}",
+          "action_template": "Press Alt+F2 to open the Run Command dialog so {{spreadsheet_app}} can be launched quickly. Preconditions: receipt files are organized and {{spreadsheet_app}} is installed. After this action, the Run Command dialog appears and is ready for command input."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'libreoffice --calc'}",
+          "action_template": "Type {{launch_command}} into the Run Command dialog input field to launch {{spreadsheet_app}}. Preconditions: the Run dialog is active and the input field has focus. After this action, {{launch_command}} appears in the input field and {{spreadsheet_app}} begins to launch with a new blank spreadsheet."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['return']}",
+          "action_template": "Press Enter to execute {{launch_command}} and open {{spreadsheet_app}} with a new blank spreadsheet. Preconditions: {{launch_command}} is typed and the Run dialog is waiting for execution. After this action, the Run Command dialog closes and {{spreadsheet_app}} opens ready for data entry."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_08",
+      "unit_id": "u_seg_001_08",
+      "step_indices": [
+        17,
+        18,
+        19,
+        20
+      ],
+      "unit_intent": "Create the header row for the receipt summary spreadsheet.",
+      "unit_type": "CREATE_SPREADSHEET_HEADERS",
+      "unit_before_state": "LibreOffice Calc is active with a blank sheet, and cell A1 is selected.",
+      "unit_after_state": "The first row is populated with the headers Date, Vendor, Amount, and Filename across cells A1 through D1.",
+      "unit_precondition": [
+        "LibreOffice Calc is the active window.",
+        "The worksheet is blank or row 1 is available for header entry.",
+        "Cell A1 is selected and ready for typing."
+      ],
+      "unit_effect": [
+        "Cell A1 shows Date.",
+        "Cell B1 shows Vendor.",
+        "Cells C1 and D1 show Amount and Filename."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Populate a spreadsheet header row with a specified sequence of column labels.",
+      "parameters": {
+        "first_header": "Date",
+        "second_header": "Vendor",
+        "third_header": "Amount",
+        "fourth_header": "Filename"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'Date'}",
+          "action_template": "With the spreadsheet active and the starting header cell selected, type {{first_header}} to create the first column header."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['tab']}",
+          "action_template": "Press Tab after the first header is entered to move to the next column's header cell."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Vendor'}",
+          "action_template": "With the next header cell active and ready for text input, type {{second_header}} to label the second column."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '\\tAmount\\tFilename'}",
+          "action_template": "With the earlier headers already entered, type a tab-separated sequence for {{third_header}} and {{fourth_header}} to populate the next two header cells and complete the header row."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_09",
+      "unit_id": "u_seg_001_09",
+      "step_indices": [
+        21,
+        22,
+        23
+      ],
+      "unit_intent": "Enter the first receipt's data into the summary spreadsheet.",
+      "unit_type": "ENTER_RECEIPT_ROW",
+      "unit_before_state": "The header row A1:D1 is complete, and the sheet is ready for the first data row.",
+      "unit_after_state": "Row 2 is filled with the first receipt's values: A2 = 2024-01-15, B2 = Amazon, C2 = $45.67, and D2 = 2024-01-15_Amazon_Purchase.pdf.",
+      "unit_precondition": [
+        "The header row already exists in A1:D1.",
+        "The next empty row for data entry is row 2.",
+        "The user knows the first receipt's date, vendor, amount, and filename."
+      ],
+      "unit_effect": [
+        "The selection moves to cell A2.",
+        "All four cells in row 2 are populated with the first receipt's summary data."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Enter a receipt's date, vendor, amount, and source filename into the next available spreadsheet row.",
+      "parameters": {
+        "receipt_date": "2024-01-15",
+        "vendor_name": "Amazon",
+        "amount_value": "$45.67",
+        "receipt_filename": "2024-01-15_Amazon_Purchase.pdf"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['return']}",
+          "action_template": "Press Enter when the headers are complete and the sheet is ready for data entry to move from the header row to the first cell of the next data row, ready for input of {{receipt_date}}."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '2024-01-15'}",
+          "action_template": "Type {{receipt_date}} into the active date cell when it is selected and the receipt date is known, so the row begins with the receipt's date."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '\\tAmazon\\t$45.67\\t2024-01-15_Amazon_Purchase.pdf'}",
+          "action_template": "Type tab-separated values for {{vendor_name}}, {{amount_value}}, and {{receipt_filename}} after the date is entered and the row is ready to complete, so tabs move across the row and populate the remaining receipt fields."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_10",
+      "unit_id": "u_seg_001_10",
+      "step_indices": [
+        24,
+        25,
+        26
+      ],
+      "unit_intent": "Enter the second receipt's data into the summary spreadsheet.",
+      "unit_type": "ENTER_RECEIPT_ROW",
+      "unit_before_state": "The first receipt already fills row 2, and the active position is at the end of that completed row.",
+      "unit_after_state": "Row 3 is filled with the second receipt's values: A3 = 2024-02-03, B3 = WholeFoods, C3 = $67.89, and D3 = 2024-02-03_WholeFoods_Groceries.pdf.",
+      "unit_precondition": [
+        "Row 2 already contains the first receipt.",
+        "The next empty row for data entry is row 3.",
+        "The user knows the second receipt's date, vendor, amount, and filename."
+      ],
+      "unit_effect": [
+        "The selection moves to cell A3.",
+        "All four cells in row 3 are populated with the second receipt's summary data."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Enter a receipt's summary data into the next empty row of the spreadsheet.",
+      "parameters": {
+        "receipt_date": "2024-02-03",
+        "vendor_name": "WholeFoods",
+        "amount": "$67.89",
+        "receipt_filename": "2024-02-03_WholeFoods_Groceries.pdf"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['return']}",
+          "action_template": "Press Enter to move from the completed receipt row to the next empty row, placing the selection in the date cell for the new receipt entry."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '2024-02-03'}",
+          "action_template": "Type {{receipt_date}} into the active date cell to begin the receipt row."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '\\tWholeFoods\\t$67.89\\t2024-02-03_WholeFoods_Groceries.pdf'}",
+          "action_template": "Type Tab, {{vendor_name}}, Tab, {{amount}}, Tab, and {{receipt_filename}} to populate the vendor, amount, and filename cells for the same receipt row."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_11",
+      "unit_id": "u_seg_001_11",
+      "step_indices": [
+        27
+      ],
+      "unit_intent": "Open the save workflow for the completed receipt summary spreadsheet.",
+      "unit_type": "OPEN_SAVE_DIALOG",
+      "unit_before_state": "LibreOffice Calc shows a worksheet with headers in row 1 and two completed receipt rows beneath them.",
+      "unit_after_state": "A Save dialog is open over Calc, showing controls for choosing a folder and entering a filename.",
+      "unit_precondition": [
+        "LibreOffice Calc is the active application.",
+        "The spreadsheet already contains data worth saving."
+      ],
+      "unit_effect": [
+        "Pressing Ctrl+S opens the Save dialog.",
+        "The spreadsheet editing view is partially covered by save controls."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open the save dialog for {{target_spreadsheet}}.",
+      "parameters": {
+        "target_spreadsheet": "receipt summary spreadsheet"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 's']}",
+          "action_template": "Press Ctrl+S to open the Save dialog for {{target_spreadsheet}} when data has been entered and the spreadsheet is ready to save, so a save window appears prompting for filename and location."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_12",
+      "unit_id": "u_seg_001_12",
+      "step_indices": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "unit_intent": "Set the save destination to the Receipts_2024 folder.",
+      "unit_type": "NAVIGATE_SAVE_LOCATION",
+      "unit_before_state": "The Save dialog is open, but the current save location is not yet confirmed as the Receipts_2024 folder.",
+      "unit_after_state": "The Save dialog is navigated into ~/Documents/Finance/Receipts_2024, which is now the active destination folder.",
+      "unit_precondition": [
+        "The Save dialog is active.",
+        "The folders Home, Documents, Finance, and Receipts_2024 are available to browse.",
+        "The Receipts_2024 folder already exists."
+      ],
+      "unit_effect": [
+        "The Home view is opened from the sidebar.",
+        "The dialog successively opens Documents, then Finance, then Receipts_2024.",
+        "Receipts_2024 becomes the current save location."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Navigate within the Save dialog through a specified folder path and make the target folder the active save location.",
+      "parameters": {
+        "root_sidebar_folder": "Home",
+        "folder_level_1": "Documents",
+        "folder_level_2": "Finance",
+        "destination_folder": "Receipts_2024"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'Home folder in the sidebar'}}",
+          "action_template": "Click the {{root_sidebar_folder}} folder in the sidebar while the Save dialog is active to open that location and make its contents visible in the file list."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'Documents folder'}}",
+          "action_template": "Click {{folder_level_1}} when {{root_sidebar_folder}} is visible and {{folder_level_1}} is accessible to open that folder and display its contents."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'Finance folder'}}",
+          "action_template": "Click {{folder_level_2}} when {{folder_level_1}} is the active folder to navigate into that subfolder and display its contents."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'Receipts_2024 folder'}}",
+          "action_template": "Click {{destination_folder}} when {{folder_level_2}} is active to open that folder and set it as the current save destination in the Save dialog."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_13",
+      "unit_id": "u_seg_001_13",
+      "step_indices": [
+        32,
+        33,
+        34
+      ],
+      "unit_intent": "Name the spreadsheet file and complete saving it into the receipts folder.",
+      "unit_type": "SAVE_SPREADSHEET_FILE",
+      "unit_before_state": "The Save dialog is already positioned in ~/Documents/Finance/Receipts_2024, and the filename field is available.",
+      "unit_after_state": "The Save dialog closes, and the spreadsheet is saved in the Receipts_2024 folder as Receipts_Summary_2024.ods, returning the user to the Calc document view.",
+      "unit_precondition": [
+        "The Save dialog is open inside ~/Documents/Finance/Receipts_2024.",
+        "The filename field can be focused and edited.",
+        "The user is ready to commit the save."
+      ],
+      "unit_effect": [
+        "The filename field receives focus and shows Receipts_Summary_2024.",
+        "Clicking Save closes the dialog.",
+        "The document is stored in ~/Documents/Finance/Receipts_2024 as an ODS file."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Enter a specified spreadsheet filename and confirm saving it in {{target_folder}}.",
+      "parameters": {
+        "file_name": "Receipts_Summary_2024",
+        "target_folder": "~/Documents/Finance/Receipts_2024"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'Filename text field'}}",
+          "action_template": "Click on the filename field to ensure it has focus before typing, when the save location is already set to {{target_folder}} and the filename field is available, so the filename text field is focused and ready for input."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Receipts_Summary_2024'}",
+          "action_template": "Type {{file_name}} into the filename field to name the spreadsheet appropriately, when the filename field is focused and ready for input, so {{file_name}} appears in the filename field."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'Save button in the save dialog'}}",
+          "action_template": "Click the Save button to save the spreadsheet with the specified name in {{target_folder}}, when the filename is entered and the location is correct, so the save dialog closes, the spreadsheet is saved in {{target_folder}}, and the user returns to the spreadsheet view."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

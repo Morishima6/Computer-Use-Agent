@@ -1,0 +1,431 @@
+{
+  "segment_id": "seg_001",
+  "app": "Chrome",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Focus the browser address bar so a search can be entered",
+      "action_before_state": "Chrome is already open on the screen, showing some webpage with the top toolbar and address bar visible.",
+      "action_preconditions": [
+        "The Chrome window is active and not covered by another window",
+        "The browser toolbar is visible at the top of the screen"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "l"
+        ]
+      },
+      "action_after_effects": "The current URL in the address bar is highlighted, and keyboard input will go into the address bar.",
+      "nl_explanation": "When Chrome is the active window and the top toolbar is visible, press Ctrl+L to place focus in the address bar. The existing address becomes selected so the next typed text will replace it."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Enter a search query for a fast vegetarian pasta recipe",
+      "action_before_state": "The address bar is focused and its current contents are selected.",
+      "action_preconditions": [
+        "The text cursor is active in the address bar",
+        "The existing address is selected or ready to be replaced"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "30 minute vegetarian pasta recipe"
+      },
+      "action_after_effects": "The search query appears in the address bar, ready to be submitted.",
+      "nl_explanation": "Once the address bar is focused, type the query for a 30 minute vegetarian pasta recipe. The full search text should now be visible in the bar."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Run the search",
+      "action_before_state": "The typed query is visible in the address bar.",
+      "action_preconditions": [
+        "The query text has been entered",
+        "The address bar still has keyboard focus"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "Chrome loads the search results page for the entered recipe query.",
+      "nl_explanation": "After the recipe query is visible in the address bar, press Enter to submit it. The browser should navigate to a results page with recipe-related links."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Open a recipe result that matches the quick vegetarian pasta request",
+      "action_before_state": "A search results page is visible with multiple links and snippets related to vegetarian pasta recipes.",
+      "action_preconditions": [
+        "The results page has finished loading",
+        "At least one non-ad recipe result is visible on the page"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "a non-sponsored recipe result that clearly looks like a vegetarian pasta recipe and suggests about a 30 minute cook time"
+        }
+      },
+      "action_after_effects": "The selected recipe page opens in the current tab.",
+      "nl_explanation": "When the search results page is ready and a suitable recipe link is visible, left-click a normal recipe result that matches the quick vegetarian pasta request. Chrome should open that recipe page."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Move down the recipe page until the ingredients section is visible",
+      "action_before_state": "The recipe page is open, usually showing the title, photo, and introductory content near the top.",
+      "action_preconditions": [
+        "The recipe page has loaded",
+        "The main page content is visible and not blocked by a modal dialog"
+      ],
+      "action": {
+        "type": "SCROLL",
+        "direction": "down",
+        "target": {
+          "text": "the middle of the recipe page"
+        },
+        "stop_reason": "Stop when the Ingredients heading and several ingredient lines are clearly visible."
+      },
+      "action_after_effects": "The page is positioned at the ingredients section, making the ingredient list readable on screen.",
+      "nl_explanation": "Once the recipe page is loaded and the main content is visible, scroll down over the center of the page. Stop scrolling when the Ingredients section and part of the ingredient list are clearly shown."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Open Chrome's print preview for the recipe page",
+      "action_before_state": "The recipe page remains open, with the ingredients section visible.",
+      "action_preconditions": [
+        "The recipe tab is still active",
+        "The page is fully interactive and not loading"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "p"
+        ]
+      },
+      "action_after_effects": "Chrome opens its print preview interface for the current recipe page.",
+      "nl_explanation": "While the recipe tab is active, press Ctrl+P to open the browser's print preview. The preview page should appear with print settings and a page thumbnail or preview pane."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Open the destination selector in print preview",
+      "action_before_state": "Chrome print preview is visible with print settings on the left side or top area.",
+      "action_preconditions": [
+        "The print preview has finished loading",
+        "A destination field or current printer selection is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the current destination or printer selector in the print preview settings"
+        }
+      },
+      "action_after_effects": "The destination options are shown so a PDF destination can be selected.",
+      "nl_explanation": "After print preview loads and the destination setting is visible, click the current destination selector. This should open the available print destinations."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Set the print destination to Save as PDF",
+      "action_before_state": "The list of available print destinations is open in Chrome's print preview.",
+      "action_preconditions": [
+        "The destination options are expanded",
+        "A Save as PDF option is visible in the list"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Save as PDF option in the destination list"
+        }
+      },
+      "action_after_effects": "Print preview is now configured to Save as PDF, and the page is ready for the final save action.",
+      "nl_explanation": "When the destination list is open and Save as PDF is available, left-click that option. The preview returns with Save as PDF selected, leaving the recipe ready to be saved."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Search the web for a vegetarian pasta recipe that looks fast enough for dinner.",
+      "unit_type": "SUBMIT_WEB_SEARCH",
+      "unit_before_state": "Chrome is open on an existing webpage, with the browser toolbar visible and the address bar available at the top of the window.",
+      "unit_after_state": "Chrome shows search results for \"30 minute vegetarian pasta recipe,\" with multiple recipe-related links and snippets visible on the page.",
+      "unit_precondition": [
+        "The Chrome window is active and not blocked by another window.",
+        "The browser toolbar and address bar are visible and can receive keyboard focus."
+      ],
+      "unit_effect": [
+        "The current address is replaced by the typed query in the address bar.",
+        "A search results page loads for the vegetarian pasta query."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4
+      ],
+      "unit_intent": "Open a promising recipe page that matches the quick vegetarian pasta need.",
+      "unit_type": "OPEN_RECIPE_RESULT",
+      "unit_before_state": "A search results page is visible with multiple recipe links, including at least one non-sponsored result for a vegetarian pasta recipe that appears to take about 30 minutes.",
+      "unit_after_state": "The selected recipe page opens in the current tab, showing the recipe content near the top of the page such as the title, hero image, and introduction.",
+      "unit_precondition": [
+        "The search results page has finished loading.",
+        "A visible non-ad recipe result matches the user's request for a quick vegetarian pasta recipe."
+      ],
+      "unit_effect": [
+        "The browser leaves the results page and navigates to the chosen recipe site.",
+        "The recipe article becomes the active page in the current tab."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5
+      ],
+      "unit_intent": "Position the recipe at the ingredients section so the relevant cooking details are on screen.",
+      "unit_type": "NAVIGATE_TO_INGREDIENTS_SECTION",
+      "unit_before_state": "The recipe page is open near the top, typically showing the recipe title, photo, and introductory content rather than the ingredient list.",
+      "unit_after_state": "The page is scrolled to the Ingredients section, with the Ingredients heading and several ingredient lines readable on screen.",
+      "unit_precondition": [
+        "The recipe page has finished loading and is interactive.",
+        "No modal, cookie banner, or overlay is blocking page scrolling or the main content."
+      ],
+      "unit_effect": [
+        "The Ingredients heading becomes visible.",
+        "Part of the ingredient list is readable on screen."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        6
+      ],
+      "unit_intent": "Open the browser's print workflow from the recipe page so it can be prepared for PDF export.",
+      "unit_type": "OPEN_PRINT_PREVIEW",
+      "unit_before_state": "The recipe page remains active in Chrome with the ingredients section visible in the main content area.",
+      "unit_after_state": "Chrome's print preview interface is open, showing print settings and a page preview for the current recipe page.",
+      "unit_precondition": [
+        "The recipe tab is still the active tab.",
+        "The webpage is fully loaded and accepts keyboard shortcuts."
+      ],
+      "unit_effect": [
+        "The normal webpage view is replaced by Chrome print preview.",
+        "Print settings and a preview pane or thumbnail for the recipe page appear."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Configure the print job to save the recipe as a PDF instead of sending it to a printer.",
+      "unit_type": "SET_PRINT_DESTINATION_TO_PDF",
+      "unit_before_state": "Chrome print preview is open with a destination field showing the current printer or destination option.",
+      "unit_after_state": "The print preview returns to its main settings view with Destination set to Save as PDF, leaving the recipe ready for the final save action.",
+      "unit_precondition": [
+        "Print preview has finished loading.",
+        "The destination selector is visible and includes a Save as PDF option."
+      ],
+      "unit_effect": [
+        "The destination options open from the current destination control.",
+        "Save as PDF becomes the selected destination in print preview.",
+        "The interface is ready for the user to trigger the final PDF save."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Search the web for a vegetarian pasta recipe that looks fast enough for dinner.",
+      "unit_type": "SUBMIT_WEB_SEARCH",
+      "unit_before_state": "Chrome is open on an existing webpage, with the browser toolbar visible and the address bar available at the top of the window.",
+      "unit_after_state": "Chrome shows search results for \"30 minute vegetarian pasta recipe,\" with multiple recipe-related links and snippets visible on the page.",
+      "unit_precondition": [
+        "The Chrome window is active and not blocked by another window.",
+        "The browser toolbar and address bar are visible and can receive keyboard focus."
+      ],
+      "unit_effect": [
+        "The current address is replaced by the typed query in the address bar.",
+        "A search results page loads for the vegetarian pasta query."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Search the web for a specified query using the browser address bar.",
+      "parameters": {
+        "search_query": "30 minute vegetarian pasta recipe"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'l']}",
+          "action_template": "When Chrome is the active window and the top toolbar is visible, press Ctrl+L to place focus in the address bar. The existing address becomes selected so the next typed text will replace it."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '30 minute vegetarian pasta recipe'}",
+          "action_template": "Once the address bar is focused, type {{search_query}}. The full search text should now be visible in the bar and ready to be submitted."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After {{search_query}} is visible in the address bar and the address bar still has keyboard focus, press Enter to submit it. Chrome should load a search results page for the entered query."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4
+      ],
+      "unit_intent": "Open a promising recipe page that matches the quick vegetarian pasta need.",
+      "unit_type": "OPEN_RECIPE_RESULT",
+      "unit_before_state": "A search results page is visible with multiple recipe links, including at least one non-sponsored result for a vegetarian pasta recipe that appears to take about 30 minutes.",
+      "unit_after_state": "The selected recipe page opens in the current tab, showing the recipe content near the top of the page such as the title, hero image, and introduction.",
+      "unit_precondition": [
+        "The search results page has finished loading.",
+        "A visible non-ad recipe result matches the user's request for a quick vegetarian pasta recipe."
+      ],
+      "unit_effect": [
+        "The browser leaves the results page and navigates to the chosen recipe site.",
+        "The recipe article becomes the active page in the current tab."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a visible recipe search result that matches the user's requested dish and constraint criteria.",
+      "parameters": {
+        "target_result": "a non-sponsored recipe result that clearly looks like a vegetarian pasta recipe and suggests about a 30 minute cook time",
+        "recipe_need": "quick vegetarian pasta request"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "CLICK",
+          "action_template": "When the search results page is ready and {{target_result}} is visible, left-click {{target_result}} that matches the {{recipe_need}}. The selected recipe page should open in the current tab."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5
+      ],
+      "unit_intent": "Position the recipe at the ingredients section so the relevant cooking details are on screen.",
+      "unit_type": "NAVIGATE_TO_INGREDIENTS_SECTION",
+      "unit_before_state": "The recipe page is open near the top, typically showing the recipe title, photo, and introductory content rather than the ingredient list.",
+      "unit_after_state": "The page is scrolled to the Ingredients section, with the Ingredients heading and several ingredient lines readable on screen.",
+      "unit_precondition": [
+        "The recipe page has finished loading and is interactive.",
+        "No modal, cookie banner, or overlay is blocking page scrolling or the main content."
+      ],
+      "unit_effect": [
+        "The Ingredients heading becomes visible.",
+        "Part of the ingredient list is readable on screen."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Navigate a recipe page to a specified content section so the section heading and relevant details are visible on screen.",
+      "parameters": {
+        "target_section_heading": "Ingredients",
+        "visible_section_content": "several ingredient lines",
+        "scroll_area": "the middle of the recipe page"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'SCROLL', 'direction': 'down', 'target': {'text': 'the middle of the recipe page'}, 'stop_reason': 'Stop when the Ingredients heading and several ingredient lines are clearly visible.'}",
+          "action_template": "Once the recipe page is loaded and the main content is visible, scroll down over {{scroll_area}}. Stop scrolling when the {{target_section_heading}} heading and {{visible_section_content}} are clearly visible, so the page is positioned at that section and its content is readable on screen."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        6
+      ],
+      "unit_intent": "Open the browser's print workflow from the recipe page so it can be prepared for PDF export.",
+      "unit_type": "OPEN_PRINT_PREVIEW",
+      "unit_before_state": "The recipe page remains active in Chrome with the ingredients section visible in the main content area.",
+      "unit_after_state": "Chrome's print preview interface is open, showing print settings and a page preview for the current recipe page.",
+      "unit_precondition": [
+        "The recipe tab is still the active tab.",
+        "The webpage is fully loaded and accepts keyboard shortcuts."
+      ],
+      "unit_effect": [
+        "The normal webpage view is replaced by Chrome print preview.",
+        "Print settings and a preview pane or thumbnail for the recipe page appear."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open the browser's print preview for the current webpage so print settings can be configured.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'p']}",
+          "action_template": "When the current browser tab is active and the webpage is fully interactive, press Ctrl+P to open the browser's print preview for the current page. Afterward, the normal page view is replaced by print preview showing print settings and a page thumbnail or preview pane."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Configure the print job to save the recipe as a PDF instead of sending it to a printer.",
+      "unit_type": "SET_PRINT_DESTINATION_TO_PDF",
+      "unit_before_state": "Chrome print preview is open with a destination field showing the current printer or destination option.",
+      "unit_after_state": "The print preview returns to its main settings view with Destination set to Save as PDF, leaving the recipe ready for the final save action.",
+      "unit_precondition": [
+        "Print preview has finished loading.",
+        "The destination selector is visible and includes a Save as PDF option."
+      ],
+      "unit_effect": [
+        "The destination options open from the current destination control.",
+        "Save as PDF becomes the selected destination in print preview.",
+        "The interface is ready for the user to trigger the final PDF save."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Configure the print job to use a specified destination option in print preview.",
+      "parameters": {
+        "destination_option": "Save as PDF"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the current destination or printer selector in the print preview settings'}}",
+          "action_template": "Click the current destination or printer selector in print preview after the preview has finished loading and the destination field is visible, so the available print destinations open for selection."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Save as PDF option in the destination list'}}",
+          "action_template": "Click the {{destination_option}} option in the expanded destination list when it is visible, so print preview returns with {{destination_option}} selected and the interface ready for the final save action."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

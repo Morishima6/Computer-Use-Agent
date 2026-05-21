@@ -1,0 +1,742 @@
+{
+  "segment_id": "seg_001",
+  "app": "gimp",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Activate the crop tool",
+      "action_before_state": "GIMP is open with a whiteboard photo already visible on the canvas, and the toolbox is shown on the left.",
+      "action_preconditions": [
+        "The GIMP window is focused",
+        "The left toolbox is visible",
+        "The image to edit is open on the canvas"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Crop Tool icon in the left toolbox"
+        }
+      },
+      "action_after_effects": "The Crop Tool becomes active and the pointer is ready to define a crop area.",
+      "nl_explanation": "When the whiteboard photo and toolbox are visible, click the Crop Tool in the left toolbar so the next drag will define the part of the image to keep."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Mark the whiteboard area to keep",
+      "action_before_state": "The Crop Tool is active and the full photo, including extra room edges around the whiteboard, is still visible.",
+      "action_preconditions": [
+        "The Crop Tool is active",
+        "The whiteboard content is clearly visible",
+        "There is unwanted background around the whiteboard"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "slightly inside the top-left edge of the whiteboard"
+        },
+        "end": {
+          "text": "slightly inside the bottom-right edge of the whiteboard"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "A crop rectangle appears around the useful whiteboard content.",
+      "nl_explanation": "With the Crop Tool active, drag from the upper-left part of the whiteboard to the lower-right part so the crop box excludes the surrounding room and keeps the board itself."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Apply the crop",
+      "action_before_state": "A crop rectangle is visible around the whiteboard area.",
+      "action_preconditions": [
+        "The crop rectangle has already been positioned",
+        "The desired whiteboard area is fully inside the crop box"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The image is cropped to the selected area and the room edges are removed.",
+      "nl_explanation": "After the crop box is in the right place, press Enter to commit the crop and trim away the unnecessary outer parts of the photo."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Switch to the rotate tool",
+      "action_before_state": "The cropped whiteboard image fills most of the canvas.",
+      "action_preconditions": [
+        "The cropped image is visible",
+        "No modal dialog is open"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "shift",
+          "r"
+        ]
+      },
+      "action_after_effects": "The Rotate Tool is activated.",
+      "nl_explanation": "Once the crop is finished and the image is visible again, use the Rotate Tool shortcut so you can straighten the whiteboard photo."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Open the rotate dialog for the image",
+      "action_before_state": "The Rotate Tool is active and the cursor is over the image.",
+      "action_preconditions": [
+        "The Rotate Tool is active",
+        "The image is visible on the canvas"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "near the center of the whiteboard image"
+        }
+      },
+      "action_after_effects": "The Rotate dialog opens and GIMP shows rotation controls for the image.",
+      "nl_explanation": "With the Rotate Tool active, click on the image to bring up the rotate controls so the angle can be adjusted precisely."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Focus the angle field",
+      "action_before_state": "The Rotate dialog is open on top of the image.",
+      "action_preconditions": [
+        "The Rotate dialog is visible",
+        "An angle input field is available in the dialog"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Angle input box in the Rotate dialog"
+        }
+      },
+      "action_after_effects": "The angle field is focused and ready for text entry.",
+      "nl_explanation": "When the Rotate dialog is open, click the Angle box so a small numeric correction can be typed in directly."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Enter a small correction angle",
+      "action_before_state": "The angle input box in the Rotate dialog is focused.",
+      "action_preconditions": [
+        "The Rotate dialog remains open",
+        "The cursor is active in the Angle field"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "-1.5"
+      },
+      "action_after_effects": "The preview updates to show the image rotated slightly counterclockwise.",
+      "nl_explanation": "With the Angle field active, type -1.5 so the whiteboard is straightened a little and becomes easier to read."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Apply the rotation",
+      "action_before_state": "The Rotate dialog shows the adjusted angle preview.",
+      "action_preconditions": [
+        "The desired angle value has been entered",
+        "The Rotate button is visible in the dialog"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Rotate button in the Rotate dialog"
+        }
+      },
+      "action_after_effects": "The image is rotated and the dialog closes.",
+      "nl_explanation": "After confirming the preview looks straighter, click Rotate to apply the correction to the image."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Open the brightness and contrast adjustment",
+      "action_before_state": "The straightened whiteboard photo is shown in the main GIMP window.",
+      "action_preconditions": [
+        "The main canvas is visible",
+        "The top menu bar is accessible",
+        "No transform dialog is open"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Colors menu in the top menu bar"
+        }
+      },
+      "action_after_effects": "The Colors menu drops down.",
+      "nl_explanation": "Once the image is straightened, open the Colors menu so you can improve readability with a quick tonal adjustment."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Launch the Brightness-Contrast dialog",
+      "action_before_state": "The Colors dropdown menu is open.",
+      "action_preconditions": [
+        "The Colors dropdown is visible",
+        "The Brightness-Contrast option is listed"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Brightness-Contrast menu item"
+        }
+      },
+      "action_after_effects": "The Brightness-Contrast dialog opens.",
+      "nl_explanation": "From the Colors menu, click Brightness-Contrast to open the adjustment dialog for making the marker writing stand out more clearly."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Increase the contrast slightly",
+      "action_before_state": "The Brightness-Contrast dialog is open with slider controls visible.",
+      "action_preconditions": [
+        "The Brightness-Contrast dialog is open",
+        "The Contrast slider is visible",
+        "A live preview of the image is available"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the current handle position on the Contrast slider"
+        },
+        "end": {
+          "text": "a little to the right on the Contrast slider"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "The preview updates and the whiteboard writing appears darker and more readable.",
+      "nl_explanation": "With the adjustment dialog open, drag the Contrast slider a bit to the right so the text on the board becomes easier to see without overprocessing the image."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Confirm the tonal adjustment",
+      "action_before_state": "The preview in the Brightness-Contrast dialog looks clearer than before.",
+      "action_preconditions": [
+        "The Brightness-Contrast dialog is still open",
+        "The adjusted preview looks acceptable",
+        "An OK button is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the OK button in the Brightness-Contrast dialog"
+        }
+      },
+      "action_after_effects": "The contrast change is applied and the dialog closes.",
+      "nl_explanation": "After the writing looks clearer in the preview, click OK to apply the adjustment and return to the main canvas."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Activate the text tool",
+      "action_before_state": "The cleaned-up whiteboard image is visible on the canvas.",
+      "action_preconditions": [
+        "The image remains open on the canvas",
+        "No modal dialog is blocking the workspace"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "t"
+        ]
+      },
+      "action_after_effects": "The Text Tool becomes active.",
+      "nl_explanation": "When the image is ready, press T to switch to the Text Tool so a short label can be added to the photo."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Place a text box in an empty corner",
+      "action_before_state": "The Text Tool is active and there is some free space near a corner of the image.",
+      "action_preconditions": [
+        "The Text Tool is active",
+        "There is a relatively empty area near the lower-right corner"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "an empty spot near the lower-right corner of the whiteboard image"
+        }
+      },
+      "action_after_effects": "A text box appears and is ready for typing.",
+      "nl_explanation": "With the Text Tool selected, click in an unused corner of the image to create a text area without covering important notes."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Add the label text",
+      "action_before_state": "The text box caret is visible on the image.",
+      "action_preconditions": [
+        "A text box is active",
+        "Keyboard input will go into the text box"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Week 4 notes"
+      },
+      "action_after_effects": "The label appears on the image inside the text box.",
+      "nl_explanation": "When the text cursor is active in the new text box, type 'Week 4 notes' so the edited image has a clear label before sharing."
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Open the export dialog",
+      "action_before_state": "The label has been added and the edited image is visible in GIMP.",
+      "action_preconditions": [
+        "The image edits are complete",
+        "The GIMP window is focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "shift",
+          "ctrl",
+          "e"
+        ]
+      },
+      "action_after_effects": "The Export Image dialog opens.",
+      "nl_explanation": "After finishing the label, use the export shortcut to open the save dialog for creating a shareable PNG file."
+    },
+    {
+      "step_id": "s17",
+      "step_goal": "Enter the export location and file name",
+      "action_before_state": "The Export Image dialog is open and the filename field is active.",
+      "action_preconditions": [
+        "The Export Image dialog is visible",
+        "The filename field is ready for typing"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "/home/user/Desktop/week4_notes_clean.png"
+      },
+      "action_after_effects": "The Desktop path and PNG filename are filled into the export dialog.",
+      "nl_explanation": "With the export dialog open and the name field active, type the full Desktop path and file name so the cleaned image is saved as a PNG in an easy-to-find place."
+    },
+    {
+      "step_id": "s18",
+      "step_goal": "Proceed to the PNG export settings",
+      "action_before_state": "The export path and PNG filename are already entered in the dialog.",
+      "action_preconditions": [
+        "A valid filename has been entered",
+        "The export dialog is still focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The PNG export settings dialog opens for final confirmation.",
+      "nl_explanation": "After the filename is filled in, press Enter to move from the file chooser to the PNG export settings dialog."
+    },
+    {
+      "step_id": "s19",
+      "step_goal": "Confirm the PNG export settings",
+      "action_before_state": "The PNG export settings dialog is visible with default options.",
+      "action_preconditions": [
+        "The PNG export settings are shown",
+        "The default PNG settings are acceptable"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Export button in the PNG export settings dialog"
+        }
+      },
+      "action_after_effects": "The edited whiteboard image is exported to the Desktop as a PNG file.",
+      "nl_explanation": "When the PNG export settings appear, accept the defaults and click Export to finish saving the cleaned image."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Trim the photo down to just the whiteboard area so distracting room surroundings are removed.",
+      "unit_type": "CROP_IMAGE_TO_WHITEBOARD",
+      "unit_before_state": "GIMP shows the full whiteboard photo on the canvas with extra room area around the board, and the left toolbox is visible.",
+      "unit_after_state": "The canvas now shows a cropped image containing only the selected whiteboard area, with the surrounding room edges removed.",
+      "unit_precondition": [
+        "The target whiteboard photo is already open in GIMP.",
+        "The left toolbox is visible and the canvas shows unwanted background around the board.",
+        "No modal dialog is blocking image editing."
+      ],
+      "unit_effect": [
+        "The Crop Tool becomes active and a crop rectangle appears around the board.",
+        "After confirming the crop, the canvas redraws to the smaller whiteboard-only image."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Straighten the whiteboard photo slightly so the writing lines are easier to read.",
+      "unit_type": "ROTATE_IMAGE",
+      "unit_before_state": "The cropped whiteboard image is visible on the main canvas, and no adjustment dialog is open.",
+      "unit_after_state": "The whiteboard image is rotated slightly counterclockwise and the Rotate dialog has closed, leaving the straightened image on the canvas.",
+      "unit_precondition": [
+        "The crop has already been applied and the cropped image is visible.",
+        "The Rotate Tool can be activated and the image itself is clickable.",
+        "The Rotate dialog's Angle field is available for numeric entry once opened."
+      ],
+      "unit_effect": [
+        "The Rotate dialog opens over the image.",
+        "Typing -1.5 updates the preview to a slight counterclockwise correction.",
+        "Clicking Rotate applies the correction and closes the dialog."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "unit_intent": "Improve the readability of the whiteboard writing by increasing contrast.",
+      "unit_type": "ADJUST_BRIGHTNESS_CONTRAST",
+      "unit_before_state": "The straightened whiteboard photo is visible in the main GIMP window with the top menu bar available.",
+      "unit_after_state": "The Brightness-Contrast dialog is closed and the image on the canvas shows darker, more legible writing than before.",
+      "unit_precondition": [
+        "The main canvas is visible and no transform dialog is open.",
+        "The Colors menu is accessible from the top menu bar.",
+        "The Brightness-Contrast dialog provides a live preview and a visible Contrast slider."
+      ],
+      "unit_effect": [
+        "The Colors menu opens and then the Brightness-Contrast dialog appears.",
+        "Dragging the Contrast slider updates the preview so the marker text looks clearer.",
+        "Clicking OK applies the tonal change and returns focus to the main canvas."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        13,
+        14,
+        15
+      ],
+      "unit_intent": "Add a small corner label identifying the image as Week 4 notes.",
+      "unit_type": "ADD_TEXT_LABEL",
+      "unit_before_state": "The cleaned-up whiteboard image is visible on the canvas, with free space available near the lower-right corner.",
+      "unit_after_state": "A text box containing \"Week 4 notes\" appears in a corner of the whiteboard image.",
+      "unit_precondition": [
+        "The edited image is still open on the canvas.",
+        "No modal dialog is blocking the workspace.",
+        "There is an empty enough corner area where a small label can be placed without covering important notes."
+      ],
+      "unit_effect": [
+        "The Text Tool becomes active.",
+        "Clicking the corner creates a text box with an insertion caret.",
+        "Typing inserts the visible label \"Week 4 notes\" onto the image."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "unit_intent": "Export the finished whiteboard image as a PNG file to the Desktop for sharing.",
+      "unit_type": "EXPORT_IMAGE_AS_PNG",
+      "unit_before_state": "The edited image with the added label is visible in GIMP, and the workspace is ready for export.",
+      "unit_after_state": "The export dialogs are dismissed and the cleaned whiteboard image has been saved as a PNG on the Desktop as week4_notes_clean.png.",
+      "unit_precondition": [
+        "All intended edits are complete and the GIMP window is focused.",
+        "The Export Image dialog can be opened and its filename field accepts text input.",
+        "A valid Desktop path and PNG filename can be entered and the default PNG export settings are acceptable."
+      ],
+      "unit_effect": [
+        "The Export Image dialog opens.",
+        "The filename field shows /home/user/Desktop/week4_notes_clean.png.",
+        "Pressing Enter advances to the PNG export settings dialog.",
+        "Clicking Export saves the PNG file and completes the export flow."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Trim the photo down to just the whiteboard area so distracting room surroundings are removed.",
+      "unit_type": "CROP_IMAGE_TO_WHITEBOARD",
+      "unit_before_state": "GIMP shows the full whiteboard photo on the canvas with extra room area around the board, and the left toolbox is visible.",
+      "unit_after_state": "The canvas now shows a cropped image containing only the selected whiteboard area, with the surrounding room edges removed.",
+      "unit_precondition": [
+        "The target whiteboard photo is already open in GIMP.",
+        "The left toolbox is visible and the canvas shows unwanted background around the board.",
+        "No modal dialog is blocking image editing."
+      ],
+      "unit_effect": [
+        "The Crop Tool becomes active and a crop rectangle appears around the board.",
+        "After confirming the crop, the canvas redraws to the smaller whiteboard-only image."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Crop an opened image to keep only a specified content area and remove unwanted surrounding background.",
+      "parameters": {
+        "target_content_area": "whiteboard area",
+        "excluded_background": "room surroundings",
+        "crop_start_point": "slightly inside the top-left edge of the whiteboard",
+        "crop_end_point": "slightly inside the bottom-right edge of the whiteboard"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Crop Tool icon in the left toolbox'}}",
+          "action_template": "When the image and toolbox are visible, click the Crop Tool in the left toolbar so the next drag will define the part of the image to keep around {{target_content_area}}."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'slightly inside the top-left edge of the whiteboard'}, 'end': {'text': 'slightly inside the bottom-right edge of the whiteboard'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "With the Crop Tool active, drag from {{crop_start_point}} to {{crop_end_point}} so the crop box keeps {{target_content_area}} and excludes {{excluded_background}}."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After the crop box is positioned around {{target_content_area}}, press Enter to commit the crop and trim away {{excluded_background}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Straighten the whiteboard photo slightly so the writing lines are easier to read.",
+      "unit_type": "ROTATE_IMAGE",
+      "unit_before_state": "The cropped whiteboard image is visible on the main canvas, and no adjustment dialog is open.",
+      "unit_after_state": "The whiteboard image is rotated slightly counterclockwise and the Rotate dialog has closed, leaving the straightened image on the canvas.",
+      "unit_precondition": [
+        "The crop has already been applied and the cropped image is visible.",
+        "The Rotate Tool can be activated and the image itself is clickable.",
+        "The Rotate dialog's Angle field is available for numeric entry once opened."
+      ],
+      "unit_effect": [
+        "The Rotate dialog opens over the image.",
+        "Typing -1.5 updates the preview to a slight counterclockwise correction.",
+        "Clicking Rotate applies the correction and closes the dialog."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Rotate a visible image by a specified angle using the Rotate Tool to straighten its alignment.",
+      "parameters": {
+        "target_image": "the whiteboard image",
+        "rotation_angle": "-1.5"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['shift', 'r']}",
+          "action_template": "With {{target_image}} visible and no modal dialog open, press Shift+R to activate the Rotate Tool so the image can be straightened."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'near the center of the whiteboard image'}}",
+          "action_template": "With the Rotate Tool active and {{target_image}} visible on the canvas, click near the center of {{target_image}} to open the Rotate dialog and show the image rotation controls."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Angle input box in the Rotate dialog'}}",
+          "action_template": "When the Rotate dialog is visible and the angle input field is available, click the Angle input box so {{rotation_angle}} can be entered directly."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '-1.5'}",
+          "action_template": "With the cursor active in the Angle field, type {{rotation_angle}} to update the preview and rotate {{target_image}} by the specified amount."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Rotate button in the Rotate dialog'}}",
+          "action_template": "After {{rotation_angle}} has been entered and the preview looks correct, click the Rotate button to apply the rotation to {{target_image}} and close the dialog."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "unit_intent": "Improve the readability of the whiteboard writing by increasing contrast.",
+      "unit_type": "ADJUST_BRIGHTNESS_CONTRAST",
+      "unit_before_state": "The straightened whiteboard photo is visible in the main GIMP window with the top menu bar available.",
+      "unit_after_state": "The Brightness-Contrast dialog is closed and the image on the canvas shows darker, more legible writing than before.",
+      "unit_precondition": [
+        "The main canvas is visible and no transform dialog is open.",
+        "The Colors menu is accessible from the top menu bar.",
+        "The Brightness-Contrast dialog provides a live preview and a visible Contrast slider."
+      ],
+      "unit_effect": [
+        "The Colors menu opens and then the Brightness-Contrast dialog appears.",
+        "Dragging the Contrast slider updates the preview so the marker text looks clearer.",
+        "Clicking OK applies the tonal change and returns focus to the main canvas."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Increase image contrast with the Brightness-Contrast adjustment so the target content in the image becomes more legible.",
+      "parameters": {
+        "target_content": "whiteboard writing"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Colors menu in the top menu bar'}}",
+          "action_template": "Click the Colors menu in the top menu bar once the main canvas is visible, the top menu bar is accessible, and no transform dialog is open to begin a tonal adjustment that will improve the readability of {{target_content}}; the Colors menu drops down."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Brightness-Contrast menu item'}}",
+          "action_template": "Click the Brightness-Contrast menu item after the Colors dropdown is visible to open the adjustment dialog for making {{target_content}} stand out more clearly; the Brightness-Contrast dialog opens."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the current handle position on the Contrast slider'}, 'end': {'text': 'a little to the right on the Contrast slider'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "Drag the Contrast slider handle a little to the right while the Brightness-Contrast dialog is open, the Contrast slider is visible, and a live preview is available so {{target_content}} becomes easier to see without overprocessing the image; the preview updates and {{target_content}} appears darker and more readable."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the OK button in the Brightness-Contrast dialog'}}",
+          "action_template": "Click the OK button in the Brightness-Contrast dialog after the adjusted preview of {{target_content}} looks acceptable and the dialog is still open to apply the contrast change and return to the main canvas; the change is applied and the dialog closes."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        13,
+        14,
+        15
+      ],
+      "unit_intent": "Add a small corner label identifying the image as Week 4 notes.",
+      "unit_type": "ADD_TEXT_LABEL",
+      "unit_before_state": "The cleaned-up whiteboard image is visible on the canvas, with free space available near the lower-right corner.",
+      "unit_after_state": "A text box containing \"Week 4 notes\" appears in a corner of the whiteboard image.",
+      "unit_precondition": [
+        "The edited image is still open on the canvas.",
+        "No modal dialog is blocking the workspace.",
+        "There is an empty enough corner area where a small label can be placed without covering important notes."
+      ],
+      "unit_effect": [
+        "The Text Tool becomes active.",
+        "Clicking the corner creates a text box with an insertion caret.",
+        "Typing inserts the visible label \"Week 4 notes\" onto the image."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Add a short identifying text label to the image in an unused corner area.",
+      "parameters": {
+        "target_corner_area": "an empty spot near the lower-right corner of the whiteboard image",
+        "label_text": "Week 4 notes"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['t']}",
+          "action_template": "Press T to activate the Text Tool when the image is open on the canvas and no modal dialog is blocking the workspace, so a short label can be added to the image."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'an empty spot near the lower-right corner of the whiteboard image'}}",
+          "action_template": "Click {{target_corner_area}} with the Text Tool active to create a text box in an unused corner area without covering important notes; after clicking, a text box appears and is ready for typing."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Week 4 notes'}",
+          "action_template": "Type {{label_text}} into the active text box when keyboard input is directed to it so the label appears on the image inside the text box."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "unit_intent": "Export the finished whiteboard image as a PNG file to the Desktop for sharing.",
+      "unit_type": "EXPORT_IMAGE_AS_PNG",
+      "unit_before_state": "The edited image with the added label is visible in GIMP, and the workspace is ready for export.",
+      "unit_after_state": "The export dialogs are dismissed and the cleaned whiteboard image has been saved as a PNG on the Desktop as week4_notes_clean.png.",
+      "unit_precondition": [
+        "All intended edits are complete and the GIMP window is focused.",
+        "The Export Image dialog can be opened and its filename field accepts text input.",
+        "A valid Desktop path and PNG filename can be entered and the default PNG export settings are acceptable."
+      ],
+      "unit_effect": [
+        "The Export Image dialog opens.",
+        "The filename field shows /home/user/Desktop/week4_notes_clean.png.",
+        "Pressing Enter advances to the PNG export settings dialog.",
+        "Clicking Export saves the PNG file and completes the export flow."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Export the finished image as a PNG file to a specified destination path for sharing or reuse.",
+      "parameters": {
+        "export_file_path": "/home/user/Desktop/week4_notes_clean.png"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['shift', 'ctrl', 'e']}",
+          "action_template": "Press Shift+Ctrl+E after the image edits are complete and GIMP is focused to open the Export Image dialog for saving the finished image as a PNG file."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '/home/user/Desktop/week4_notes_clean.png'}",
+          "action_template": "Type {{export_file_path}} into the active filename field while the Export Image dialog is visible to set the export destination and PNG file name."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter after a valid filename has been entered and the export dialog remains focused to proceed to the PNG export settings dialog."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Export button in the PNG export settings dialog'}}",
+          "action_template": "Click the Export button in the PNG export settings dialog when the default PNG settings are acceptable to complete the export and save the image as a PNG file."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

@@ -1,0 +1,469 @@
+{
+  "segment_id": "seg_001",
+  "app": "vlc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the file chooser from VLC",
+      "action_before_state": "The VLC main window is already open on the GNOME desktop and no modal dialog is covering it.",
+      "action_preconditions": [
+        "VLC is the active window",
+        "The main playback window is visible",
+        "No file chooser is currently open"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "o"
+        ]
+      },
+      "action_after_effects": "A GNOME file chooser opens on top of VLC.",
+      "nl_explanation": "When the VLC window is focused and no other dialog is blocking it, press Ctrl+O to open the file chooser, and the expected result is that a file selection dialog appears."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Focus the path entry in the file chooser",
+      "action_before_state": "The GNOME file chooser is open and showing files or folders.",
+      "action_preconditions": [
+        "The file chooser window is active",
+        "The location/path field is not yet focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "l"
+        ]
+      },
+      "action_after_effects": "The location entry becomes editable so a folder path can be typed directly.",
+      "nl_explanation": "Once the file chooser is open, press Ctrl+L to focus the location field, and the dialog should switch to direct path entry mode."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Enter the Videos folder path",
+      "action_before_state": "The file chooser's location field is active and ready for text input.",
+      "action_preconditions": [
+        "The insertion cursor is in the location field",
+        "The Videos folder path is known"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "/home/user/Videos"
+      },
+      "action_after_effects": "The typed path appears in the location field.",
+      "nl_explanation": "With the location field active, type `/home/user/Videos`, and the expected behavior is that the folder path is filled into the dialog."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Navigate into the Videos folder",
+      "action_before_state": "The path `/home/user/Videos` is visible in the location field.",
+      "action_preconditions": [
+        "A valid folder path has been entered",
+        "The file chooser is still focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The file list refreshes to show the contents of `/home/user/Videos`.",
+      "nl_explanation": "After the Videos path has been entered, press Enter to go to that folder, and the expected result is that the chooser displays the files inside Videos."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Open the stretch video in VLC",
+      "action_before_state": "The file chooser is showing files from `/home/user/Videos`, including `morning-stretch.mp4`.",
+      "action_preconditions": [
+        "`morning-stretch.mp4` is visible in the file list",
+        "The file chooser is ready to accept file selection"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 2,
+        "target": {
+          "text": "the file named morning-stretch.mp4 in the file list"
+        }
+      },
+      "action_after_effects": "The chooser closes, VLC loads the video, and playback begins.",
+      "nl_explanation": "When the Videos folder contents are visible and `morning-stretch.mp4` is present, double-click that file, and VLC should open it and start playing the video."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Slow the playback speed slightly",
+      "action_before_state": "The video is playing in the VLC window.",
+      "action_preconditions": [
+        "VLC has keyboard focus",
+        "Playback is active"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "["
+        ]
+      },
+      "action_after_effects": "Playback speed decreases below normal, making the motion easier to follow.",
+      "nl_explanation": "With the video already playing and VLC focused, press `[` once to reduce playback speed a bit, and the video should continue playing more slowly."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Jump to the middle of the video",
+      "action_before_state": "The VLC timeline is visible at the bottom of the player while the video is playing.",
+      "action_preconditions": [
+        "The progress bar is visible",
+        "The video has loaded enough for seeking"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the center point of the playback progress bar"
+        }
+      },
+      "action_after_effects": "Playback moves to approximately the halfway point of the video.",
+      "nl_explanation": "Once the timeline is visible and seekable, click near the center of the progress bar, and VLC should jump to roughly the middle of the clip."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Pause on the current frame",
+      "action_before_state": "The video is at about the middle section and is still playing.",
+      "action_preconditions": [
+        "VLC remains focused",
+        "Playback is currently running"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "space"
+        ]
+      },
+      "action_after_effects": "Playback stops on the current frame, leaving the image visible.",
+      "nl_explanation": "After seeking to the middle of the video, press Space to pause playback, and the current frame should remain on screen."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Take a snapshot of the paused frame",
+      "action_before_state": "The video is paused on a visible frame inside VLC.",
+      "action_preconditions": [
+        "A video frame is displayed",
+        "VLC has keyboard focus"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "shift",
+          "s"
+        ]
+      },
+      "action_after_effects": "VLC saves a snapshot image to the configured directory and briefly shows a confirmation thumbnail or status message.",
+      "nl_explanation": "When the desired frame is paused and visible, press Shift+S to capture a snapshot, and VLC should save an image of that frame to the configured snapshot location."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Switch the video to fullscreen",
+      "action_before_state": "The paused video is still shown in the normal VLC window after the snapshot was taken.",
+      "action_preconditions": [
+        "VLC is focused",
+        "The video remains loaded in the player"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "f"
+        ]
+      },
+      "action_after_effects": "VLC enters fullscreen mode with the paused video filling the display.",
+      "nl_explanation": "With the video still loaded and VLC focused, press F to enter fullscreen mode, and the expected result is a distraction-free fullscreen view of the paused frame."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "unit_intent": "Load the saved stretch video from the Videos folder into VLC so it is ready for playback control.",
+      "unit_type": "OPEN_VIDEO_FILE",
+      "unit_before_state": "The VLC main window is open on the desktop with no modal dialog visible, and no media file chooser is open yet.",
+      "unit_after_state": "The file chooser has closed and `morning-stretch.mp4` is loaded in VLC, with the video visible and playback started in the main player window.",
+      "unit_precondition": [
+        "VLC is the active window and its main playback window is visible.",
+        "No file chooser is currently open in front of VLC.",
+        "The file `morning-stretch.mp4` exists in `/home/user/Videos` and can be accessed from the file chooser."
+      ],
+      "unit_effect": [
+        "A GNOME file chooser opens from VLC.",
+        "The location field accepts `/home/user/Videos`, then the chooser refreshes to show the contents of that folder.",
+        "Double-clicking `morning-stretch.mp4` closes the chooser and starts video playback in VLC."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        6
+      ],
+      "unit_intent": "Make the stretch routine easier to follow by slightly reducing the playback speed.",
+      "unit_type": "ADJUST_PLAYBACK_SPEED",
+      "unit_before_state": "`morning-stretch.mp4` is already playing in the VLC window at normal speed.",
+      "unit_after_state": "The same video continues playing in VLC, but at a slightly slower-than-normal speed.",
+      "unit_precondition": [
+        "VLC has keyboard focus.",
+        "The video is currently playing."
+      ],
+      "unit_effect": [
+        "Playback visibly continues at a slower pace after pressing `[` once."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Position the video on a stable frame from the middle of the routine for capture.",
+      "unit_type": "SEEK_AND_PAUSE_VIDEO",
+      "unit_before_state": "The slowed video is playing in VLC and the playback progress bar is visible at the bottom of the window.",
+      "unit_after_state": "The video is paused on a visible frame near the halfway point of the timeline.",
+      "unit_precondition": [
+        "The video has loaded enough that the progress bar can be used for seeking.",
+        "The VLC player window remains focused and playback is running."
+      ],
+      "unit_effect": [
+        "Clicking the center of the progress bar moves playback to approximately 50% of the video.",
+        "Pressing Space stops playback and leaves the current frame frozen on screen."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9
+      ],
+      "unit_intent": "Capture an image of the selected paused frame.",
+      "unit_type": "TAKE_SNAPSHOT",
+      "unit_before_state": "VLC shows a paused frame from around the middle of `morning-stretch.mp4` in the normal player window.",
+      "unit_after_state": "The same paused frame remains visible in VLC, and a snapshot image of that frame has been saved to VLC's configured snapshot location.",
+      "unit_precondition": [
+        "A video frame is visibly displayed and playback is paused or otherwise stable enough for capture.",
+        "VLC has keyboard focus so the snapshot shortcut will be received."
+      ],
+      "unit_effect": [
+        "VLC saves a snapshot file for the current frame.",
+        "A brief confirmation thumbnail or status message appears indicating the snapshot was taken."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        10
+      ],
+      "unit_intent": "Leave the captured video frame displayed in fullscreen for unobstructed viewing.",
+      "unit_type": "ENTER_FULLSCREEN",
+      "unit_before_state": "The paused video remains shown in VLC's normal window after the snapshot has been taken.",
+      "unit_after_state": "VLC is in fullscreen mode with the paused video frame filling the display.",
+      "unit_precondition": [
+        "VLC is still the focused application.",
+        "The video remains loaded and visible in the player."
+      ],
+      "unit_effect": [
+        "The VLC window expands to fullscreen and the paused frame fills the screen."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "unit_intent": "Load the saved stretch video from the Videos folder into VLC so it is ready for playback control.",
+      "unit_type": "OPEN_VIDEO_FILE",
+      "unit_before_state": "The VLC main window is open on the desktop with no modal dialog visible, and no media file chooser is open yet.",
+      "unit_after_state": "The file chooser has closed and `morning-stretch.mp4` is loaded in VLC, with the video visible and playback started in the main player window.",
+      "unit_precondition": [
+        "VLC is the active window and its main playback window is visible.",
+        "No file chooser is currently open in front of VLC.",
+        "The file `morning-stretch.mp4` exists in `/home/user/Videos` and can be accessed from the file chooser."
+      ],
+      "unit_effect": [
+        "A GNOME file chooser opens from VLC.",
+        "The location field accepts `/home/user/Videos`, then the chooser refreshes to show the contents of that folder.",
+        "Double-clicking `morning-stretch.mp4` closes the chooser and starts video playback in VLC."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Load a specified video file from a chosen folder into VLC for playback.",
+      "parameters": {
+        "target_folder_path": "/home/user/Videos",
+        "target_file_name": "morning-stretch.mp4"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'o']}",
+          "action_template": "When VLC is the active window, the main playback window is visible, and no file chooser is currently open, press Ctrl+O to open the file chooser so a file selection dialog appears on top of VLC."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'l']}",
+          "action_template": "When the file chooser window is active and the location/path field is not yet focused, press Ctrl+L to focus the location field so it becomes editable for direct path entry."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '/home/user/Videos'}",
+          "action_template": "When the insertion cursor is in the location field and the destination folder path is known, type {{target_folder_path}} so the folder path appears in the location field."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "When a valid folder path has been entered and the file chooser is still focused, press Enter to navigate to {{target_folder_path}} so the file list refreshes to show that folder's contents."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 2, 'target': {'text': 'the file named morning-stretch.mp4 in the file list'}}",
+          "action_template": "When the chooser is displaying {{target_folder_path}} and {{target_file_name}} is visible in the file list, double-click {{target_file_name}} so the chooser closes and VLC loads the video and starts playback."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        6
+      ],
+      "unit_intent": "Make the stretch routine easier to follow by slightly reducing the playback speed.",
+      "unit_type": "ADJUST_PLAYBACK_SPEED",
+      "unit_before_state": "`morning-stretch.mp4` is already playing in the VLC window at normal speed.",
+      "unit_after_state": "The same video continues playing in VLC, but at a slightly slower-than-normal speed.",
+      "unit_precondition": [
+        "VLC has keyboard focus.",
+        "The video is currently playing."
+      ],
+      "unit_effect": [
+        "Playback visibly continues at a slower pace after pressing `[` once."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Reduce the playback speed slightly while keeping the media playing.",
+      "parameters": {
+        "slowdown_key": "["
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['[']}",
+          "action_template": "With playback already active and VLC focused, press {{slowdown_key}} once to reduce the playback speed slightly, and keep the video playing more slowly."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Position the video on a stable frame from the middle of the routine for capture.",
+      "unit_type": "SEEK_AND_PAUSE_VIDEO",
+      "unit_before_state": "The slowed video is playing in VLC and the playback progress bar is visible at the bottom of the window.",
+      "unit_after_state": "The video is paused on a visible frame near the halfway point of the timeline.",
+      "unit_precondition": [
+        "The video has loaded enough that the progress bar can be used for seeking.",
+        "The VLC player window remains focused and playback is running."
+      ],
+      "unit_effect": [
+        "Clicking the center of the progress bar moves playback to approximately 50% of the video.",
+        "Pressing Space stops playback and leaves the current frame frozen on screen."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Seek to a specified position in the video timeline and pause on the displayed frame.",
+      "parameters": {
+        "progress_bar_target": "the center point of the playback progress bar"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the center point of the playback progress bar'}}",
+          "action_template": "Once the progress bar is visible and the video has loaded enough for seeking, click {{progress_bar_target}} to move playback to the corresponding position in the video."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['space']}",
+          "action_template": "When VLC remains focused and playback is running after the seek, press Space to stop playback and leave the current frame visible on screen."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9
+      ],
+      "unit_intent": "Capture an image of the selected paused frame.",
+      "unit_type": "TAKE_SNAPSHOT",
+      "unit_before_state": "VLC shows a paused frame from around the middle of `morning-stretch.mp4` in the normal player window.",
+      "unit_after_state": "The same paused frame remains visible in VLC, and a snapshot image of that frame has been saved to VLC's configured snapshot location.",
+      "unit_precondition": [
+        "A video frame is visibly displayed and playback is paused or otherwise stable enough for capture.",
+        "VLC has keyboard focus so the snapshot shortcut will be received."
+      ],
+      "unit_effect": [
+        "VLC saves a snapshot file for the current frame.",
+        "A brief confirmation thumbnail or status message appears indicating the snapshot was taken."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Capture a snapshot image of the currently displayed video frame in VLC.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['shift', 's']}",
+          "action_template": "When a video frame is displayed and VLC has keyboard focus, press Shift+S to capture a snapshot of the currently visible frame. VLC saves the snapshot image to the configured directory and briefly shows a confirmation thumbnail or status message."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        10
+      ],
+      "unit_intent": "Leave the captured video frame displayed in fullscreen for unobstructed viewing.",
+      "unit_type": "ENTER_FULLSCREEN",
+      "unit_before_state": "The paused video remains shown in VLC's normal window after the snapshot has been taken.",
+      "unit_after_state": "VLC is in fullscreen mode with the paused video frame filling the display.",
+      "unit_precondition": [
+        "VLC is still the focused application.",
+        "The video remains loaded and visible in the player."
+      ],
+      "unit_effect": [
+        "The VLC window expands to fullscreen and the paused frame fills the screen."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Display the current video frame in fullscreen for unobstructed viewing.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "PRESS",
+          "action_template": "Press F while VLC is focused and the video remains loaded in the player to enter fullscreen mode, resulting in the current video frame filling the display."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

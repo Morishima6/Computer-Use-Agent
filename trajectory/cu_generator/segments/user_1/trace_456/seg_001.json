@@ -1,0 +1,277 @@
+{
+  "segment_id": "seg_001",
+  "app": "thunderbird",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the Account Settings dialog from the main menu",
+      "action_before_state": "thunderbird is ready for step 1 of the task.",
+      "action_preconditions": [
+        "Thunderbird main window is open and visible",
+        "The menu bar (File, Edit, View, Go, Message, Tools, Help) is visible at the top of the window"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "Tools menu in the menu bar at the top of Thunderbird window"
+        }
+      },
+      "action_after_effects": "The Tools dropdown menu opens showing options like Junk, Account Settings, Message Filters, Add-ons and Themes, Developer Tools, Settings, etc.",
+      "nl_explanation": "Click on the Tools menu in the menu bar at the top of the Thunderbird window to access account settings and other configuration options."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Click on Account Settings in the Tools menu",
+      "action_before_state": "thunderbird is ready for step 2 of the task.",
+      "action_preconditions": [
+        "The Tools dropdown menu is open",
+        "Account Settings option is visible in the menu"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "Account Settings option in the Tools menu dropdown"
+        }
+      },
+      "action_after_effects": "The Account Settings dialog window opens, showing a left panel with the account name (e.g., user@example.com) and various settings categories like Default Identity, Copies & Folders, etc.",
+      "nl_explanation": "Select 'Account Settings' from the Tools dropdown menu to open the account configuration dialog where signature settings can be modified."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Locate and check the HTML signature checkbox in the Default Identity section",
+      "action_before_state": "thunderbird is ready for step 3 of the task.",
+      "action_preconditions": [
+        "Account Settings window is open",
+        "Default Identity section is visible or selected in the left panel",
+        "The 'Use HTML' checkbox for signature is visible and currently unchecked"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "Use HTML checkbox in the Signature section of Default Identity"
+        }
+      },
+      "action_after_effects": "The 'Use HTML' checkbox becomes checked/enabled, and the signature text area below it may change appearance to support HTML formatting.",
+      "nl_explanation": "Enable the 'Use HTML' checkbox in the Signature section to allow formatting the signature with HTML tags for better presentation."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Enter the HTML formatted signature text in the signature field",
+      "action_before_state": "thunderbird is ready for step 4 of the task.",
+      "action_preconditions": [
+        "HTML signature checkbox is checked",
+        "The signature text area is active and ready for input",
+        "Cursor is positioned in the signature text field"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "<b>John Doe</b><br>Software Engineer<br><a href=\"mailto:john.doe@example.com\">john.doe@example.com</a>"
+      },
+      "action_after_effects": "The signature text area now contains the HTML formatted text: 'John Doe' in bold, followed by 'Software Engineer' on a new line, and a clickable email link to john.doe@example.com.",
+      "nl_explanation": "Type the HTML formatted signature containing the name in bold tags, title on a new line using break tags, and the email address as a clickable mailto link."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Save the account settings by clicking OK",
+      "action_before_state": "thunderbird is ready for step 5 of the task.",
+      "action_preconditions": [
+        "The HTML signature has been entered correctly",
+        "The OK button is visible at the bottom of the Account Settings dialog"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "OK button at the bottom of the Account Settings dialog"
+        }
+      },
+      "action_after_effects": "The Account Settings dialog closes, returning to the main Thunderbird window. The new HTML signature is now configured and will be automatically appended to new emails composed from this account.",
+      "nl_explanation": "Click the OK button to save the account settings and apply the new HTML signature configuration to the email account."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Open the account configuration view needed to edit the primary account's signature settings.",
+      "unit_type": "OPEN_ACCOUNT_SETTINGS",
+      "unit_before_state": "The main Thunderbird window is visible with the top menu bar showing items including File, Edit, View, Go, Message, Tools, and Help.",
+      "unit_after_state": "The Account Settings dialog is open over Thunderbird, with the account tree in the left sidebar and the selected account's settings, including Default Identity, shown in the main panel.",
+      "unit_precondition": [
+        "Thunderbird is open on its main mail window.",
+        "The top menu bar is visible and the Tools menu can be clicked.",
+        "The target mail account already exists in Thunderbird."
+      ],
+      "unit_effect": [
+        "The Tools dropdown appears after the first click.",
+        "Selecting Account Settings opens the Account Settings dialog with account categories visible."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4
+      ],
+      "unit_intent": "Create the HTML signature content for the account so formatted contact details will be used in outgoing mail.",
+      "unit_type": "CONFIGURE_HTML_SIGNATURE",
+      "unit_before_state": "The Account Settings dialog is open on the account's Default Identity page, and the Signature section shows the Use HTML option and the signature text area.",
+      "unit_after_state": "In the Signature section, the Use HTML checkbox is enabled and the signature field contains the HTML text '<b>John Doe</b><br>Software Engineer<br><a href=\"mailto:john.doe@example.com\">john.doe@example.com</a>'.",
+      "unit_precondition": [
+        "The Account Settings dialog is open for the correct account.",
+        "The Default Identity page and Signature section are visible.",
+        "The Use HTML checkbox is currently available to toggle.",
+        "The signature text area is editable and ready for input."
+      ],
+      "unit_effect": [
+        "The Use HTML checkbox becomes checked.",
+        "The signature field visibly shows the entered HTML signature content with John Doe, Software Engineer, and the john.doe@example.com mailto link."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5
+      ],
+      "unit_intent": "Apply the new signature configuration to the account.",
+      "unit_type": "SAVE_ACCOUNT_SETTINGS",
+      "unit_before_state": "The Account Settings dialog remains open with the HTML signature settings filled in and the OK button visible at the bottom.",
+      "unit_after_state": "The Account Settings dialog closes and Thunderbird returns to the main window, with the updated HTML signature saved for the account.",
+      "unit_precondition": [
+        "The desired HTML signature content is already entered in the Signature section.",
+        "The OK button is visible and clickable in the Account Settings dialog."
+      ],
+      "unit_effect": [
+        "Clicking OK closes the Account Settings dialog.",
+        "The account now has the new HTML signature configured for future composed messages."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Open the account configuration view needed to edit the primary account's signature settings.",
+      "unit_type": "OPEN_ACCOUNT_SETTINGS",
+      "unit_before_state": "The main Thunderbird window is visible with the top menu bar showing items including File, Edit, View, Go, Message, Tools, and Help.",
+      "unit_after_state": "The Account Settings dialog is open over Thunderbird, with the account tree in the left sidebar and the selected account's settings, including Default Identity, shown in the main panel.",
+      "unit_precondition": [
+        "Thunderbird is open on its main mail window.",
+        "The top menu bar is visible and the Tools menu can be clicked.",
+        "The target mail account already exists in Thunderbird."
+      ],
+      "unit_effect": [
+        "The Tools dropdown appears after the first click.",
+        "Selecting Account Settings opens the Account Settings dialog with account categories visible."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open the account configuration dialog from the application's main window so account settings can be edited.",
+      "parameters": {
+        "menu_name": "Tools",
+        "menu_option": "Account Settings"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'Tools menu in the menu bar at the top of Thunderbird window'}}",
+          "action_template": "Click the {{menu_name}} menu in the menu bar at the top of the Thunderbird window to access account settings and other configuration options when the Thunderbird main window and menu bar are visible; the {{menu_name}} dropdown menu opens showing options including {{menu_option}}."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'Account Settings option in the Tools menu dropdown'}}",
+          "action_template": "Click the {{menu_option}} option in the open {{menu_name}} menu when it is visible to open the account configuration dialog, showing the account name and settings categories in the dialog window."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4
+      ],
+      "unit_intent": "Create the HTML signature content for the account so formatted contact details will be used in outgoing mail.",
+      "unit_type": "CONFIGURE_HTML_SIGNATURE",
+      "unit_before_state": "The Account Settings dialog is open on the account's Default Identity page, and the Signature section shows the Use HTML option and the signature text area.",
+      "unit_after_state": "In the Signature section, the Use HTML checkbox is enabled and the signature field contains the HTML text '<b>John Doe</b><br>Software Engineer<br><a href=\"mailto:john.doe@example.com\">john.doe@example.com</a>'.",
+      "unit_precondition": [
+        "The Account Settings dialog is open for the correct account.",
+        "The Default Identity page and Signature section are visible.",
+        "The Use HTML checkbox is currently available to toggle.",
+        "The signature text area is editable and ready for input."
+      ],
+      "unit_effect": [
+        "The Use HTML checkbox becomes checked.",
+        "The signature field visibly shows the entered HTML signature content with John Doe, Software Engineer, and the john.doe@example.com mailto link."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Enable HTML signature editing for the account and enter {{signature_html}} into the signature field.",
+      "parameters": {
+        "signature_html": "<b>John Doe</b><br>Software Engineer<br><a href=\"mailto:john.doe@example.com\">john.doe@example.com</a>"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'Use HTML checkbox in the Signature section of Default Identity'}}",
+          "action_template": "Click the Use HTML checkbox in the Signature section after the Account Settings window and Default Identity section are visible and the checkbox is currently unchecked, to enable HTML formatting for the signature field."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '<b>John Doe</b><br>Software Engineer<br><a href=\"mailto:john.doe@example.com\">john.doe@example.com</a>'}",
+          "action_template": "Type {{signature_html}} into the active signature text area after HTML signature mode is enabled and the cursor is positioned in the field, so the signature displays the specified formatted HTML content."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5
+      ],
+      "unit_intent": "Apply the new signature configuration to the account.",
+      "unit_type": "SAVE_ACCOUNT_SETTINGS",
+      "unit_before_state": "The Account Settings dialog remains open with the HTML signature settings filled in and the OK button visible at the bottom.",
+      "unit_after_state": "The Account Settings dialog closes and Thunderbird returns to the main window, with the updated HTML signature saved for the account.",
+      "unit_precondition": [
+        "The desired HTML signature content is already entered in the Signature section.",
+        "The OK button is visible and clickable in the Account Settings dialog."
+      ],
+      "unit_effect": [
+        "Clicking OK closes the Account Settings dialog.",
+        "The account now has the new HTML signature configured for future composed messages."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Confirm and save the current signature settings for the email account.",
+      "parameters": {
+        "confirm_button": "OK button at the bottom of the Account Settings dialog",
+        "configured_setting": "the new HTML signature"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'OK button at the bottom of the Account Settings dialog'}}",
+          "action_template": "Click {{confirm_button}} to save the account settings after {{configured_setting}} has been entered correctly. This closes the Account Settings dialog, returns to the main Thunderbird window, and ensures {{configured_setting}} is applied to future composed messages from the account."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

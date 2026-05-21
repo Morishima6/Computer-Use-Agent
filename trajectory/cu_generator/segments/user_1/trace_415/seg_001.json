@@ -1,0 +1,525 @@
+{
+  "segment_id": "seg_001",
+  "app": "thunderbird",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the Inbox that contains the messages to be organized",
+      "action_before_state": "Thunderbird is already open. The folder pane is visible on the left, showing at least one mail account and its Inbox.",
+      "action_preconditions": [
+        "Thunderbird is the focused window",
+        "A mail account with an Inbox is visible in the folder pane"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Inbox folder under the main mail account in the left sidebar"
+        }
+      },
+      "action_after_effects": "The Inbox becomes selected and its messages are shown in the message list.",
+      "nl_explanation": "When the folder list is visible and the account's Inbox can be seen, click the Inbox in the left sidebar. Thunderbird should switch the main message list to the Inbox so the next search is performed in the correct folder."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Open the context menu for Local Folders",
+      "action_before_state": "The Inbox is selected, and the left folder pane also shows a Local Folders section.",
+      "action_preconditions": [
+        "The Local Folders entry is visible in the folder pane",
+        "The user can access folder actions from the sidebar"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "right",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Local Folders entry in the left folder pane"
+        }
+      },
+      "action_after_effects": "A context menu opens for Local Folders with options for folder management.",
+      "nl_explanation": "Once Local Folders is visible in the sidebar, right-click it to open the folder management menu. This prepares Thunderbird for creating a new destination folder."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Start creating a new folder for travel emails",
+      "action_before_state": "The Local Folders context menu is open next to the folder list.",
+      "action_preconditions": [
+        "The Local Folders context menu is open",
+        "A New Folder option is available in the menu"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the New Folder menu item in the Local Folders context menu"
+        }
+      },
+      "action_after_effects": "A small dialog opens asking for the new folder name and location.",
+      "nl_explanation": "When the Local Folders context menu is open, click New Folder. Thunderbird should open a folder creation dialog so the new organizing folder can be defined."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Name the new folder",
+      "action_before_state": "The New Folder dialog is open and the folder name field is focused or ready to be edited.",
+      "action_preconditions": [
+        "The New Folder dialog is open",
+        "The folder name input box is available"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Travel Bookings"
+      },
+      "action_after_effects": "The text Travel Bookings appears in the folder name field.",
+      "nl_explanation": "With the New Folder dialog open and the text field available, type Travel Bookings as the folder name. This sets the name that will appear under Local Folders."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Create the folder",
+      "action_before_state": "The New Folder dialog contains the name Travel Bookings, and the default create action is available.",
+      "action_preconditions": [
+        "The desired folder name has been entered",
+        "The dialog is still active"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The dialog closes and a new folder named Travel Bookings appears under Local Folders.",
+      "nl_explanation": "After entering the folder name, press Enter to confirm the dialog. Thunderbird should create the new folder and show it in the folder pane under Local Folders."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Return to the Inbox before filtering messages",
+      "action_before_state": "The new Travel Bookings folder is visible in the sidebar, and focus may still be on the newly created folder or another folder.",
+      "action_preconditions": [
+        "The Travel Bookings folder has been created successfully",
+        "The Inbox is still visible in the folder pane"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Inbox folder under the mail account in the left sidebar"
+        }
+      },
+      "action_after_effects": "The Inbox is selected again and the Inbox message list is shown.",
+      "nl_explanation": "Once the new folder exists, click the Inbox again so the search and selection steps happen in the mail folder that contains the reservation emails."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Show the Quick Filter bar",
+      "action_before_state": "The Inbox is selected and the main message list is visible.",
+      "action_preconditions": [
+        "The Inbox is the active folder",
+        "Thunderbird keyboard shortcuts are available"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "k"
+        ]
+      },
+      "action_after_effects": "The Quick Filter bar appears above the message list with a text search field.",
+      "nl_explanation": "With the Inbox active, press Ctrl+Shift+K to toggle the Quick Filter bar. Thunderbird should reveal the filter controls needed to narrow the message list."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Search for reservation-related emails in the Inbox",
+      "action_before_state": "The Quick Filter bar is visible and its text search field is ready for input.",
+      "action_preconditions": [
+        "The Quick Filter bar is open",
+        "The text filter box is visible and editable"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "reservation"
+      },
+      "action_after_effects": "The message list updates to show only Inbox emails matching the typed reservation keyword.",
+      "nl_explanation": "When the Quick Filter text box is visible, type reservation. Thunderbird should immediately filter the Inbox and reduce the list to messages that match the travel-booking theme."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Select all currently filtered messages",
+      "action_before_state": "The Inbox list is filtered and only matching reservation-related emails are displayed.",
+      "action_preconditions": [
+        "The filtered message list contains one or more visible messages",
+        "The message list pane is active"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "a"
+        ]
+      },
+      "action_after_effects": "All messages currently visible in the filtered list become selected.",
+      "nl_explanation": "After the filter narrows the Inbox to the matching travel emails, press Ctrl+A to select all visible results at once. This prepares the entire filtered set for moving."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Move the selected travel emails into the new folder",
+      "action_before_state": "The filtered reservation emails are all selected in the message list, and the Travel Bookings folder is visible in the left sidebar.",
+      "action_preconditions": [
+        "One or more filtered messages are selected",
+        "The Travel Bookings folder is visible as a drop target in the folder pane"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "any one of the highlighted selected messages in the message list"
+        },
+        "end": {
+          "text": "the Travel Bookings folder under Local Folders in the left sidebar"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "The selected messages are moved out of the Inbox and into the Travel Bookings folder.",
+      "nl_explanation": "With the matching messages selected and the new folder visible, drag the selected emails from the message list onto Travel Bookings in the sidebar. Thunderbird should move those messages into the new folder."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Open the destination folder to confirm the organization result",
+      "action_before_state": "The move is complete, and the Travel Bookings folder remains visible in the left sidebar.",
+      "action_preconditions": [
+        "The Travel Bookings folder exists",
+        "The previous drag-and-drop move completed successfully"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Travel Bookings folder in the left sidebar"
+        }
+      },
+      "action_after_effects": "Thunderbird opens the Travel Bookings folder and displays the moved reservation emails inside it.",
+      "nl_explanation": "After moving the selected messages, click Travel Bookings in the sidebar. The folder should open and show the moved travel emails, confirming that the organization task is complete."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Switch to the Inbox so the source messages are visible in the correct mail folder before organizing them.",
+      "unit_type": "OPEN_SOURCE_FOLDER",
+      "unit_before_state": "Thunderbird is open with the folder pane visible on the left, showing at least one mail account and its Inbox, but the active folder is not yet guaranteed to be the Inbox.",
+      "unit_after_state": "The Inbox under the main mail account is selected, and its messages are displayed in the central message list.",
+      "unit_precondition": [
+        "Thunderbird is the focused window.",
+        "A mail account with an Inbox is visible in the folder pane."
+      ],
+      "unit_effect": [
+        "The Inbox row is highlighted in the folder pane.",
+        "The message list refreshes to show messages from the Inbox."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "unit_intent": "Create a dedicated destination folder for travel-related reservation emails under Local Folders.",
+      "unit_type": "CREATE_FOLDER",
+      "unit_before_state": "The Inbox is selected, and the left folder pane shows a Local Folders entry that can be used for folder management.",
+      "unit_after_state": "A new folder named Travel Bookings is created under Local Folders, and the New Folder dialog is closed.",
+      "unit_precondition": [
+        "The Local Folders entry is visible in the folder pane.",
+        "Folder management actions are available from the Local Folders context menu.",
+        "The New Folder dialog can accept a typed folder name."
+      ],
+      "unit_effect": [
+        "A context menu for Local Folders opens and the New Folder command is invoked.",
+        "The text Travel Bookings appears in the folder name field before confirmation.",
+        "After confirming, a Travel Bookings folder becomes visible under Local Folders."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Return to the Inbox and narrow the visible messages to reservation-related emails.",
+      "unit_type": "FILTER_MESSAGES",
+      "unit_before_state": "The Travel Bookings folder already exists in the folder pane, and focus may still be on the newly created folder or another folder rather than the Inbox.",
+      "unit_after_state": "The Inbox is active, the Quick Filter bar is open, and the message list shows only Inbox emails matching the keyword reservation.",
+      "unit_precondition": [
+        "The Travel Bookings folder has been created successfully.",
+        "The Inbox is visible in the folder pane.",
+        "Thunderbird keyboard shortcuts are available.",
+        "The Quick Filter text field can receive input when opened."
+      ],
+      "unit_effect": [
+        "The Inbox becomes selected again.",
+        "The Quick Filter bar appears above the message list.",
+        "Typing reservation reduces the visible messages to matching reservation-related emails."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Move all currently filtered reservation emails from the Inbox into the Travel Bookings folder.",
+      "unit_type": "MOVE_MESSAGES_TO_FOLDER",
+      "unit_before_state": "The Inbox message list is filtered to reservation-related emails, and the Travel Bookings folder is visible in the left sidebar as a destination.",
+      "unit_after_state": "The filtered reservation emails are no longer in the Inbox list and have been moved into the Travel Bookings folder.",
+      "unit_precondition": [
+        "The filtered message list contains at least one visible message.",
+        "The message list pane is active so all filtered results can be selected.",
+        "The Travel Bookings folder is visible as a drag-and-drop target in the folder pane."
+      ],
+      "unit_effect": [
+        "All visible filtered messages become highlighted after selection.",
+        "Dropping the selection onto Travel Bookings removes those messages from the Inbox and files them into the destination folder."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        11
+      ],
+      "unit_intent": "Open the destination folder to verify that the moved travel emails are organized there.",
+      "unit_type": "OPEN_DESTINATION_FOLDER",
+      "unit_before_state": "The move operation is complete, and the Travel Bookings folder remains visible in the left sidebar.",
+      "unit_after_state": "The Travel Bookings folder is selected, and its message list displays the moved reservation emails.",
+      "unit_precondition": [
+        "The Travel Bookings folder exists in the folder pane.",
+        "The previous message move completed successfully."
+      ],
+      "unit_effect": [
+        "The Travel Bookings row is highlighted in the folder pane.",
+        "The central message list shows the reservation emails inside Travel Bookings."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Switch to the Inbox so the source messages are visible in the correct mail folder before organizing them.",
+      "unit_type": "OPEN_SOURCE_FOLDER",
+      "unit_before_state": "Thunderbird is open with the folder pane visible on the left, showing at least one mail account and its Inbox, but the active folder is not yet guaranteed to be the Inbox.",
+      "unit_after_state": "The Inbox under the main mail account is selected, and its messages are displayed in the central message list.",
+      "unit_precondition": [
+        "Thunderbird is the focused window.",
+        "A mail account with an Inbox is visible in the folder pane."
+      ],
+      "unit_effect": [
+        "The Inbox row is highlighted in the folder pane.",
+        "The message list refreshes to show messages from the Inbox."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Switch to a specified mail folder so its messages are visible in the message list before subsequent organization tasks.",
+      "parameters": {
+        "target_folder": "the Inbox folder under the main mail account in the left sidebar"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "CLICK",
+          "action_template": "When Thunderbird is focused and {{target_folder}} is visible in the folder pane, click {{target_folder}} to select that folder and display its messages in the main message list."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "unit_intent": "Create a dedicated destination folder for travel-related reservation emails under Local Folders.",
+      "unit_type": "CREATE_FOLDER",
+      "unit_before_state": "The Inbox is selected, and the left folder pane shows a Local Folders entry that can be used for folder management.",
+      "unit_after_state": "A new folder named Travel Bookings is created under Local Folders, and the New Folder dialog is closed.",
+      "unit_precondition": [
+        "The Local Folders entry is visible in the folder pane.",
+        "Folder management actions are available from the Local Folders context menu.",
+        "The New Folder dialog can accept a typed folder name."
+      ],
+      "unit_effect": [
+        "A context menu for Local Folders opens and the New Folder command is invoked.",
+        "The text Travel Bookings appears in the folder name field before confirmation.",
+        "After confirming, a Travel Bookings folder becomes visible under Local Folders."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a new destination folder named {{folder_name}} under {{parent_folder}}.",
+      "parameters": {
+        "parent_folder": "Local Folders",
+        "folder_name": "Travel Bookings"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "CLICK",
+          "action_template": "With {{parent_folder}} visible in the folder pane and folder actions available from the sidebar, right-click the {{parent_folder}} entry to open its folder management context menu."
+        },
+        {
+          "action": "CLICK",
+          "action_template": "When the {{parent_folder}} context menu is open and the New Folder option is available, click New Folder to open the folder creation dialog for {{parent_folder}}."
+        },
+        {
+          "action": "TYPING",
+          "action_template": "With the New Folder dialog open and the folder name input box available, type {{folder_name}} into the folder name field so it appears as the new folder name under {{parent_folder}}."
+        },
+        {
+          "action": "PRESS",
+          "action_template": "After {{folder_name}} has been entered and the dialog is still active, press Enter to confirm the dialog so the folder is created and shown under {{parent_folder}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Return to the Inbox and narrow the visible messages to reservation-related emails.",
+      "unit_type": "FILTER_MESSAGES",
+      "unit_before_state": "The Travel Bookings folder already exists in the folder pane, and focus may still be on the newly created folder or another folder rather than the Inbox.",
+      "unit_after_state": "The Inbox is active, the Quick Filter bar is open, and the message list shows only Inbox emails matching the keyword reservation.",
+      "unit_precondition": [
+        "The Travel Bookings folder has been created successfully.",
+        "The Inbox is visible in the folder pane.",
+        "Thunderbird keyboard shortcuts are available.",
+        "The Quick Filter text field can receive input when opened."
+      ],
+      "unit_effect": [
+        "The Inbox becomes selected again.",
+        "The Quick Filter bar appears above the message list.",
+        "Typing reservation reduces the visible messages to matching reservation-related emails."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open {{target_folder}} and filter its visible messages by {{filter_keyword}} using the Quick Filter bar.",
+      "parameters": {
+        "target_folder": "Inbox",
+        "filter_keyword": "reservation"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Inbox folder under the mail account in the left sidebar'}}",
+          "action_template": "Click the {{target_folder}} folder under the mail account in the left sidebar once the destination folder has been created and {{target_folder}} is visible, so {{target_folder}} is selected and its message list is shown."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'k']}",
+          "action_template": "Press Ctrl+Shift+K while {{target_folder}} is the active folder and Thunderbird keyboard shortcuts are available to show the Quick Filter bar above the message list."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'reservation'}",
+          "action_template": "Type {{filter_keyword}} into the Quick Filter text box when the Quick Filter bar is open and the field is visible and editable, so the message list updates to show only {{target_folder}} emails matching that keyword."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Move all currently filtered reservation emails from the Inbox into the Travel Bookings folder.",
+      "unit_type": "MOVE_MESSAGES_TO_FOLDER",
+      "unit_before_state": "The Inbox message list is filtered to reservation-related emails, and the Travel Bookings folder is visible in the left sidebar as a destination.",
+      "unit_after_state": "The filtered reservation emails are no longer in the Inbox list and have been moved into the Travel Bookings folder.",
+      "unit_precondition": [
+        "The filtered message list contains at least one visible message.",
+        "The message list pane is active so all filtered results can be selected.",
+        "The Travel Bookings folder is visible as a drag-and-drop target in the folder pane."
+      ],
+      "unit_effect": [
+        "All visible filtered messages become highlighted after selection.",
+        "Dropping the selection onto Travel Bookings removes those messages from the Inbox and files them into the destination folder."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Move all currently visible filtered messages from the current mailbox view into a specified destination folder.",
+      "parameters": {
+        "destination_folder": "Travel Bookings"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'a']}",
+          "action_template": "When the filtered message list contains one or more visible messages and the message list pane is active, press Ctrl+A to select all currently visible filtered results at once so all messages in the filtered list become selected and ready to move."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'any one of the highlighted selected messages in the message list'}, 'end': {'text': 'the Travel Bookings folder under Local Folders in the left sidebar'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "When one or more filtered messages are selected and {{destination_folder}} is visible as a drop target in the folder pane, drag any one of the highlighted selected messages from the message list onto {{destination_folder}} to move the selected messages out of the current mailbox view and into that folder."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        11
+      ],
+      "unit_intent": "Open the destination folder to verify that the moved travel emails are organized there.",
+      "unit_type": "OPEN_DESTINATION_FOLDER",
+      "unit_before_state": "The move operation is complete, and the Travel Bookings folder remains visible in the left sidebar.",
+      "unit_after_state": "The Travel Bookings folder is selected, and its message list displays the moved reservation emails.",
+      "unit_precondition": [
+        "The Travel Bookings folder exists in the folder pane.",
+        "The previous message move completed successfully."
+      ],
+      "unit_effect": [
+        "The Travel Bookings row is highlighted in the folder pane.",
+        "The central message list shows the reservation emails inside Travel Bookings."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a specified destination folder to verify that the moved emails are organized correctly.",
+      "parameters": {
+        "target_folder": "the Travel Bookings folder in the left sidebar",
+        "moved_email_type": "reservation emails"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "CLICK",
+          "action_template": "Click {{target_folder}} after the previous move completes to open that folder and display the moved {{moved_email_type}} for verification."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

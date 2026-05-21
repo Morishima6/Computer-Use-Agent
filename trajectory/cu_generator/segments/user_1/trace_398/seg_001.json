@@ -1,0 +1,628 @@
+{
+  "segment_id": "seg_001",
+  "app": "os",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the Documents folder in Files",
+      "action_before_state": "The Files window is already open on the screen, and the left sidebar with standard folders like Home, Desktop, and Documents is visible.",
+      "action_preconditions": [
+        "Files is the active window.",
+        "The Documents entry is visible in the left sidebar."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Documents folder in the Files sidebar"
+        }
+      },
+      "action_after_effects": "The main pane switches to the Documents directory and shows its current contents.",
+      "nl_explanation": "When the Files window is focused and the Documents entry is visible in the sidebar, click Documents. The file list should change to show the contents of the Documents folder."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Start creating a new backup folder",
+      "action_before_state": "Files is showing the Documents folder contents.",
+      "action_preconditions": [
+        "The Documents folder is open.",
+        "The Files window is focused so keyboard shortcuts will apply to it."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "n"
+        ]
+      },
+      "action_after_effects": "A new folder name field appears in the Documents view, ready for text input.",
+      "nl_explanation": "With Documents open in Files, press Ctrl+Shift+N to create a new folder. A rename box should appear so the folder can be named immediately."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Name the new folder",
+      "action_before_state": "An inline text field for the new folder name is active in the Documents view.",
+      "action_preconditions": [
+        "The new folder naming box is visible.",
+        "The text cursor is active in that naming box."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Daily Backups"
+      },
+      "action_after_effects": "The folder name field now contains the text Daily Backups.",
+      "nl_explanation": "Once the new folder name box is active, type Daily Backups. The text should appear in the editable folder name field."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Finish creating the backup folder",
+      "action_before_state": "The new folder name field contains Daily Backups and is still in edit mode.",
+      "action_preconditions": [
+        "The folder name has already been typed.",
+        "The inline rename field is still active."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The folder is created in Documents and appears as a normal folder item named Daily Backups.",
+      "nl_explanation": "After entering the folder name, press Enter to confirm it. The new Daily Backups folder should now appear in the Documents folder."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Open the GNOME overview to launch Terminal",
+      "action_before_state": "Files remains open with Documents visible, including the new Daily Backups folder.",
+      "action_preconditions": [
+        "The Files window is active.",
+        "GNOME keyboard shortcuts are available."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "super"
+        ]
+      },
+      "action_after_effects": "The GNOME Activities overview opens and the search field becomes available.",
+      "nl_explanation": "While Files is still focused, press the Super key to open the GNOME overview. The desktop should zoom out and a search field should be ready for launching apps."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Search for Terminal from the overview",
+      "action_before_state": "The GNOME Activities overview is open with the search field ready.",
+      "action_preconditions": [
+        "The overview is visible.",
+        "Keyboard input will go to the GNOME search box."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "terminal"
+      },
+      "action_after_effects": "The overview shows Terminal as a search result, usually as the top match.",
+      "nl_explanation": "With the GNOME overview open, type terminal. The system should filter the app results and show Terminal as a launchable option."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Launch Terminal",
+      "action_before_state": "The search results in the GNOME overview show Terminal.",
+      "action_preconditions": [
+        "Terminal is visible in the search results.",
+        "The search box still has focus."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "A Terminal window opens in front of the Files window with a shell prompt ready.",
+      "nl_explanation": "When Terminal appears in the GNOME search results, press Enter to launch it. A shell window should open and show a command prompt."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Enter the command that records the date and creates the archive",
+      "action_before_state": "Terminal is open and the shell prompt is idle.",
+      "action_preconditions": [
+        "The Terminal window is focused.",
+        "The shell prompt is ready for a command."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "backup_date=$(date +%F); tar -czf ~/Desktop/downloads_backup_${backup_date}.tar.gz -C ~ Downloads"
+      },
+      "action_after_effects": "The full command appears on the command line but has not run yet.",
+      "nl_explanation": "At the Terminal prompt, type a command that first records today's date in a shell variable and then compresses the Downloads folder into a dated archive on the Desktop. The command should be visible in the shell, waiting to be executed."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Run the archive creation command",
+      "action_before_state": "The command that sets backup_date and runs tar is fully typed at the Terminal prompt.",
+      "action_preconditions": [
+        "The full backup_date-and-tar command is present on the current command line.",
+        "The Terminal prompt is still focused."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The command runs and, if successful, stores the current date in the shell variable backup_date, creates a file named like downloads_backup_YYYY-MM-DD.tar.gz on the Desktop, and then returns to the prompt.",
+      "nl_explanation": "After the command has been typed, press Enter to execute it. The shell should save the date for reuse, create the backup archive, and return to a prompt once the archive has been created."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Enter the command that moves the archive into the backup folder",
+      "action_before_state": "Terminal has returned to the prompt after creating the archive, and the shell still has the backup_date variable set from the previous command.",
+      "action_preconditions": [
+        "The archive creation command has finished.",
+        "A shell prompt is visible again in Terminal.",
+        "The backup_date variable is still available in the current shell session."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "mv ~/Desktop/downloads_backup_${backup_date}.tar.gz ~/Documents/'Daily Backups'/"
+      },
+      "action_after_effects": "The move command appears in Terminal and is ready to run.",
+      "nl_explanation": "Once the archive command has completed and the prompt is back, type the move command that uses the same recorded date to send the archive from Desktop into Documents/Daily Backups. The command should appear on the current line."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Run the move command",
+      "action_before_state": "The mv command using backup_date is typed at the Terminal prompt.",
+      "action_preconditions": [
+        "The full move command is present on the current line.",
+        "Terminal is still focused."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The archive is moved into the Daily Backups folder, and the shell returns to the prompt without an error if the move succeeds.",
+      "nl_explanation": "With the mv command ready in Terminal, press Enter to run it. The archive should be relocated into the Daily Backups folder and the prompt should reappear."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Switch back to Files to verify the result",
+      "action_before_state": "Terminal is in front, and the Files window is still open in the background.",
+      "action_preconditions": [
+        "Files is already open behind Terminal.",
+        "The desktop session supports normal application switching."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "alt",
+          "tab"
+        ]
+      },
+      "action_after_effects": "The Files window returns to the front, still showing the Documents area where Daily Backups was created.",
+      "nl_explanation": "When Terminal is no longer needed, press Alt+Tab to switch back to Files. The file manager should come back to the foreground."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Open the Daily Backups folder",
+      "action_before_state": "Files is visible again and the Daily Backups folder can be seen in the Documents folder view.",
+      "action_preconditions": [
+        "Files is focused.",
+        "The Daily Backups folder is visible in the main pane."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 2,
+        "target": {
+          "text": "the Daily Backups folder in the Documents file list"
+        }
+      },
+      "action_after_effects": "Files opens the Daily Backups folder and displays the files inside it, including the new archive if the previous commands worked.",
+      "nl_explanation": "Back in Files, double-click the Daily Backups folder to open it. The main pane should switch into that folder and show its contents."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Confirm the backup archive is present",
+      "action_before_state": "The Daily Backups folder is open and the dated archive file is visible in the file list.",
+      "action_preconditions": [
+        "The Daily Backups folder is open.",
+        "A file named like downloads_backup_YYYY-MM-DD.tar.gz is visible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the downloads_backup_YYYY-MM-DD.tar.gz file in the Daily Backups folder"
+        }
+      },
+      "action_after_effects": "The archive file becomes selected, confirming it exists in the intended backup location.",
+      "nl_explanation": "When the dated archive is visible inside Daily Backups, click it once to select it. The selection confirms that the Downloads backup was created and moved to the correct folder."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Navigate to the Documents location where the backup folder will be created.",
+      "unit_type": "OPEN_FOLDER",
+      "unit_before_state": "The Files window is already open, and its left sidebar shows standard locations including Documents.",
+      "unit_after_state": "Files is displaying the Documents directory in the main pane, with the current contents of Documents visible.",
+      "unit_precondition": [
+        "Files is the active window.",
+        "The Documents entry is visible in the Files sidebar."
+      ],
+      "unit_effect": [
+        "The Documents item becomes the active location.",
+        "The main file list updates to show the contents of Documents."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Create a dedicated destination folder named Daily Backups inside Documents.",
+      "unit_type": "CREATE_FOLDER",
+      "unit_before_state": "Files is open to Documents, and the main pane shows the existing contents of that folder.",
+      "unit_after_state": "A normal folder item named Daily Backups exists in Documents and is no longer in inline rename mode.",
+      "unit_precondition": [
+        "The Documents folder is open in Files.",
+        "The Files window is focused so the new-folder shortcut and text entry will apply there."
+      ],
+      "unit_effect": [
+        "An inline new-folder naming field appears in Documents.",
+        "The text Daily Backups is entered into the naming field.",
+        "After confirmation, a folder named Daily Backups appears in the Documents file list."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Open a Terminal window to run shell commands for creating the backup archive.",
+      "unit_type": "LAUNCH_TERMINAL",
+      "unit_before_state": "Files is still showing Documents, including the newly created Daily Backups folder.",
+      "unit_after_state": "A Terminal window is open in front of Files with a shell prompt ready for input.",
+      "unit_precondition": [
+        "The desktop session supports the GNOME overview and app search.",
+        "Files is currently focused so the Super key opens the overview from the active desktop."
+      ],
+      "unit_effect": [
+        "The GNOME Activities overview opens with the search field ready.",
+        "Typing terminal filters the search results to Terminal.",
+        "Pressing Enter opens Terminal and shows an interactive shell prompt."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8,
+        9
+      ],
+      "unit_intent": "Create a compressed backup archive of the Downloads folder using today's date in the filename.",
+      "unit_type": "CREATE_DATED_ARCHIVE",
+      "unit_before_state": "Terminal is focused and idle at a shell prompt.",
+      "unit_after_state": "The shell has finished running the tar command and returned to a prompt, with a dated archive file for Downloads created on the Desktop.",
+      "unit_precondition": [
+        "Terminal is focused.",
+        "A shell prompt is visible and ready for a command.",
+        "The home directory contains a Downloads folder to archive."
+      ],
+      "unit_effect": [
+        "The full backup command appears at the prompt before execution.",
+        "After execution, the shell returns to a prompt without interruption.",
+        "A file named in the pattern downloads_backup_YYYY-MM-DD.tar.gz is created on the Desktop."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        10,
+        11
+      ],
+      "unit_intent": "Place the newly created dated backup archive into the Daily Backups folder.",
+      "unit_type": "MOVE_FILE_TO_FOLDER",
+      "unit_before_state": "Terminal has returned to the prompt after archive creation, and the shell session still retains the backup_date variable.",
+      "unit_after_state": "The dated archive file has been moved from the Desktop into Documents/Daily Backups, and Terminal is back at a prompt.",
+      "unit_precondition": [
+        "The previous archive creation command completed successfully.",
+        "The current Terminal session still has the backup_date shell variable set.",
+        "The Daily Backups folder already exists under Documents."
+      ],
+      "unit_effect": [
+        "The move command is visible at the prompt before execution.",
+        "After the command runs, the shell returns to a prompt without an error.",
+        "The archive is no longer expected on the Desktop and is expected inside Documents/Daily Backups."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        12,
+        13,
+        14
+      ],
+      "unit_intent": "Verify that the dated Downloads backup is present in the Daily Backups folder.",
+      "unit_type": "VERIFY_BACKUP_IN_FOLDER",
+      "unit_before_state": "Terminal is in front, while the Files window remains open behind it on the Documents area where Daily Backups was created.",
+      "unit_after_state": "Files is open inside the Daily Backups folder, and the dated archive file is visible and selected in the file list.",
+      "unit_precondition": [
+        "Files is already open in the current desktop session.",
+        "The Daily Backups folder exists and is visible when Files returns to the foreground.",
+        "A dated archive file named like downloads_backup_YYYY-MM-DD.tar.gz is present if the backup and move commands succeeded."
+      ],
+      "unit_effect": [
+        "Alt+Tab brings the Files window back to the foreground.",
+        "Opening Daily Backups displays its contents in the main pane.",
+        "Selecting the downloads_backup_YYYY-MM-DD.tar.gz file confirms the backup exists in the intended folder."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Navigate to the Documents location where the backup folder will be created.",
+      "unit_type": "OPEN_FOLDER",
+      "unit_before_state": "The Files window is already open, and its left sidebar shows standard locations including Documents.",
+      "unit_after_state": "Files is displaying the Documents directory in the main pane, with the current contents of Documents visible.",
+      "unit_precondition": [
+        "Files is the active window.",
+        "The Documents entry is visible in the Files sidebar."
+      ],
+      "unit_effect": [
+        "The Documents item becomes the active location.",
+        "The main file list updates to show the contents of Documents."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Navigate to a specified folder location in the file manager sidebar so its contents are displayed.",
+      "parameters": {
+        "target_location": "Documents"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "CLICK",
+          "action_template": "When the Files window is focused and the {{target_location}} entry is visible in the sidebar, click {{target_location}}. The main pane should switch to the {{target_location}} directory and show its current contents."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Create a dedicated destination folder named Daily Backups inside Documents.",
+      "unit_type": "CREATE_FOLDER",
+      "unit_before_state": "Files is open to Documents, and the main pane shows the existing contents of that folder.",
+      "unit_after_state": "A normal folder item named Daily Backups exists in Documents and is no longer in inline rename mode.",
+      "unit_precondition": [
+        "The Documents folder is open in Files.",
+        "The Files window is focused so the new-folder shortcut and text entry will apply there."
+      ],
+      "unit_effect": [
+        "An inline new-folder naming field appears in Documents.",
+        "The text Daily Backups is entered into the naming field.",
+        "After confirmation, a folder named Daily Backups appears in the Documents file list."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a new folder with a specified name inside a specified open directory.",
+      "parameters": {
+        "target_directory": "Documents",
+        "folder_name": "Daily Backups"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'n']}",
+          "action_template": "With {{target_directory}} open in Files and the Files window focused, press Ctrl+Shift+N to create a new folder. A new folder name field should appear in the {{target_directory}} view, ready for text input."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Daily Backups'}",
+          "action_template": "Once the new folder naming box is visible and the text cursor is active, type {{folder_name}} into the inline naming field. The field should then contain {{folder_name}}."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After {{folder_name}} has been entered and the inline rename field is still active, press Enter to confirm the name. The folder should then be created in {{target_directory}} as a normal folder item named {{folder_name}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Open a Terminal window to run shell commands for creating the backup archive.",
+      "unit_type": "LAUNCH_TERMINAL",
+      "unit_before_state": "Files is still showing Documents, including the newly created Daily Backups folder.",
+      "unit_after_state": "A Terminal window is open in front of Files with a shell prompt ready for input.",
+      "unit_precondition": [
+        "The desktop session supports the GNOME overview and app search.",
+        "Files is currently focused so the Super key opens the overview from the active desktop."
+      ],
+      "unit_effect": [
+        "The GNOME Activities overview opens with the search field ready.",
+        "Typing terminal filters the search results to Terminal.",
+        "Pressing Enter opens Terminal and shows an interactive shell prompt."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Launch a specified application from the GNOME overview using app search.",
+      "parameters": {
+        "application_name": "Terminal",
+        "search_text": "terminal"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['super']}",
+          "action_template": "Press the Super key while the current window is active and GNOME keyboard shortcuts are available to open the GNOME Activities overview so the search field becomes available for launching apps."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'terminal'}",
+          "action_template": "Type {{search_text}} into the GNOME overview search box while the overview is visible and keyboard input goes to the search box to filter the results and show {{application_name}} as a launchable option."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter when {{application_name}} is visible in the GNOME search results and the search box still has focus to launch the application and open its window with a ready prompt."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8,
+        9
+      ],
+      "unit_intent": "Create a compressed backup archive of the Downloads folder using today's date in the filename.",
+      "unit_type": "CREATE_DATED_ARCHIVE",
+      "unit_before_state": "Terminal is focused and idle at a shell prompt.",
+      "unit_after_state": "The shell has finished running the tar command and returned to a prompt, with a dated archive file for Downloads created on the Desktop.",
+      "unit_precondition": [
+        "Terminal is focused.",
+        "A shell prompt is visible and ready for a command.",
+        "The home directory contains a Downloads folder to archive."
+      ],
+      "unit_effect": [
+        "The full backup command appears at the prompt before execution.",
+        "After execution, the shell returns to a prompt without interruption.",
+        "A file named in the pattern downloads_backup_YYYY-MM-DD.tar.gz is created on the Desktop."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a compressed backup archive of a specified folder with a date-based filename in a specified destination.",
+      "parameters": {
+        "source_folder": "Downloads",
+        "destination_directory": "~/Desktop",
+        "archive_name_prefix": "downloads_backup_"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'backup_date=$(date +%F); tar -czf ~/Desktop/downloads_backup_${backup_date}.tar.gz -C ~ Downloads'}",
+          "action_template": "With Terminal focused and the shell prompt ready for a command, type a command that first records today's date in a shell variable and then compresses the {{source_folder}} folder into a dated archive in {{destination_directory}} using the filename prefix {{archive_name_prefix}}. The full command should appear on the command line but not run yet."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "With the full archive command present on the current command line and Terminal still focused, press Enter to execute it. The shell should create the dated archive for {{source_folder}} in {{destination_directory}} and then return to the prompt."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        10,
+        11
+      ],
+      "unit_intent": "Place the newly created dated backup archive into the Daily Backups folder.",
+      "unit_type": "MOVE_FILE_TO_FOLDER",
+      "unit_before_state": "Terminal has returned to the prompt after archive creation, and the shell session still retains the backup_date variable.",
+      "unit_after_state": "The dated archive file has been moved from the Desktop into Documents/Daily Backups, and Terminal is back at a prompt.",
+      "unit_precondition": [
+        "The previous archive creation command completed successfully.",
+        "The current Terminal session still has the backup_date shell variable set.",
+        "The Daily Backups folder already exists under Documents."
+      ],
+      "unit_effect": [
+        "The move command is visible at the prompt before execution.",
+        "After the command runs, the shell returns to a prompt without an error.",
+        "The archive is no longer expected on the Desktop and is expected inside Documents/Daily Backups."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Move a specified dated backup archive from its current location into a specified destination folder from the active Terminal session.",
+      "parameters": {
+        "source_archive_path": "~/Desktop/downloads_backup_${backup_date}.tar.gz",
+        "destination_folder_path": "~/Documents/'Daily Backups'/"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': \"mv ~/Desktop/downloads_backup_${backup_date}.tar.gz ~/Documents/'Daily Backups'/\"}",
+          "action_template": "Once the archive creation command has finished, a shell prompt is visible again in Terminal, and the recorded date variable is still available in the current shell session, type mv {{source_archive_path}} {{destination_folder_path}} so the move command appears on the current line and is ready to run."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "With the full move command mv {{source_archive_path}} {{destination_folder_path}} present on the current line and Terminal still focused, press Enter to run it. The archive should be moved into {{destination_folder_path}} and the shell should return to the prompt without an error if the move succeeds."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        12,
+        13,
+        14
+      ],
+      "unit_intent": "Verify that the dated Downloads backup is present in the Daily Backups folder.",
+      "unit_type": "VERIFY_BACKUP_IN_FOLDER",
+      "unit_before_state": "Terminal is in front, while the Files window remains open behind it on the Documents area where Daily Backups was created.",
+      "unit_after_state": "Files is open inside the Daily Backups folder, and the dated archive file is visible and selected in the file list.",
+      "unit_precondition": [
+        "Files is already open in the current desktop session.",
+        "The Daily Backups folder exists and is visible when Files returns to the foreground.",
+        "A dated archive file named like downloads_backup_YYYY-MM-DD.tar.gz is present if the backup and move commands succeeded."
+      ],
+      "unit_effect": [
+        "Alt+Tab brings the Files window back to the foreground.",
+        "Opening Daily Backups displays its contents in the main pane.",
+        "Selecting the downloads_backup_YYYY-MM-DD.tar.gz file confirms the backup exists in the intended folder."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Verify that a backup archive is present in the intended destination folder.",
+      "parameters": {
+        "file_manager_app": "Files",
+        "destination_folder": "Daily Backups",
+        "backup_archive_pattern": "downloads_backup_YYYY-MM-DD.tar.gz"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['alt', 'tab']}",
+          "action_template": "Press Alt+Tab to switch back to {{file_manager_app}} when it is already open behind Terminal, so the file manager returns to the foreground for verification."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 2, 'target': {'text': 'the Daily Backups folder in the Documents file list'}}",
+          "action_template": "Double-click {{destination_folder}} in the current file list when it is visible to open that folder and display its contents."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the downloads_backup_YYYY-MM-DD.tar.gz file in the Daily Backups folder'}}",
+          "action_template": "Click {{backup_archive_pattern}} once when it is visible inside {{destination_folder}} to select it and confirm the backup archive exists in the intended location."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

@@ -1,0 +1,395 @@
+{
+  "segment_id": "seg_001",
+  "app": "os",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the GNOME Activities overview",
+      "action_before_state": "The GNOME desktop is visible, with the top bar and desktop background on screen.",
+      "action_preconditions": [
+        "The desktop is the active view",
+        "Keyboard input is available"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "super"
+        ]
+      },
+      "action_after_effects": "The Activities overview opens and the search box is ready for input.",
+      "nl_explanation": "When the desktop is visible and ready for keyboard input, press the Super key to open Activities. The expected result is that the overview appears with search focused."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Search for the Power settings page",
+      "action_before_state": "The Activities overview is open and the search field is focused.",
+      "action_preconditions": [
+        "The overview search field accepts text input",
+        "No modal dialog is blocking the screen"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "power"
+      },
+      "action_after_effects": "Search results appear with the Power settings entry selected and ready to activate.",
+      "nl_explanation": "With the Activities search box active, type `power`. GNOME should filter the results and show the Power settings option as the selected result."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Open the Power panel in Settings",
+      "action_before_state": "Search results are visible with the Power settings entry selected.",
+      "action_preconditions": [
+        "The search results include the Power settings entry",
+        "The Power result is currently selected"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "GNOME Settings opens directly to the Power panel.",
+      "nl_explanation": "Once the Power result is visible and selected in the Activities search results, press Enter to open it. The expected behavior is that Settings launches on the Power page."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Enable the battery percentage indicator",
+      "action_before_state": "The Power panel is open in GNOME Settings and the Show Battery Percentage switch is visible.",
+      "action_preconditions": [
+        "GNOME Settings is open to the Power panel",
+        "The Show Battery Percentage switch can be seen"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Show Battery Percentage switch in the Power panel"
+        }
+      },
+      "action_after_effects": "The battery percentage setting turns on, and GNOME will show the remaining percentage in the top bar.",
+      "nl_explanation": "When the Power panel is open and the Show Battery Percentage switch is visible, click that switch once. The result should be that the percentage display is enabled."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Open the Screen Blank timeout options",
+      "action_before_state": "The Power panel remains open, and the Screen Blank row is visible.",
+      "action_preconditions": [
+        "GNOME Settings is still focused",
+        "The Screen Blank setting is visible in the Power panel"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Screen Blank row in the Power panel"
+        }
+      },
+      "action_after_effects": "The Screen Blank drop-down list opens.",
+      "nl_explanation": "After confirming the Screen Blank setting is visible in the Power panel, click that row. GNOME should open the available timeout options."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Set the screen to blank after 5 minutes",
+      "action_before_state": "The Screen Blank drop-down list is open, including a 5 minutes option.",
+      "action_preconditions": [
+        "The Screen Blank drop-down list is open",
+        "A 5 minutes option is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the 5 minutes option in the Screen Blank drop-down list"
+        }
+      },
+      "action_after_effects": "The drop-down list closes and the Screen Blank setting updates to 5 minutes.",
+      "nl_explanation": "When the Screen Blank drop-down list is displayed and `5 minutes` is available, click it. The expected result is that the Power panel now shows the screen will blank after 5 minutes."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Navigate to notification settings",
+      "action_before_state": "GNOME Settings is open, and the left sidebar with settings categories is visible.",
+      "action_preconditions": [
+        "The Settings sidebar is visible",
+        "The Notifications category can be selected"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "Notifications in the Settings sidebar"
+        }
+      },
+      "action_after_effects": "The main panel switches from Power settings to Notifications settings.",
+      "nl_explanation": "With the Settings sidebar available, click `Notifications`. GNOME should load the Notifications panel in the main area."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Turn on Do Not Disturb",
+      "action_before_state": "The Notifications panel is open and the Do Not Disturb toggle is visible.",
+      "action_preconditions": [
+        "The Notifications panel is currently displayed",
+        "The Do Not Disturb switch is accessible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Do Not Disturb switch at the top of the Notifications panel"
+        }
+      },
+      "action_after_effects": "Do Not Disturb is enabled, so new notifications will be silenced until it is turned off.",
+      "nl_explanation": "Once the Notifications page is open and the Do Not Disturb switch is visible, click it once. The result should be that notification interruptions are disabled."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Reach the Power settings page so battery-related display and timeout options can be configured.",
+      "unit_type": "OPEN_POWER_SETTINGS",
+      "unit_before_state": "The GNOME desktop is visible with the top bar and wallpaper on screen, and no settings window is open.",
+      "unit_after_state": "GNOME Settings is open to the Power panel, showing power-related options such as Show Battery Percentage and Screen Blank.",
+      "unit_precondition": [
+        "The GNOME desktop is the active view.",
+        "Keyboard input is available.",
+        "No modal dialog is blocking the Activities overview or Settings launch."
+      ],
+      "unit_effect": [
+        "The Activities overview appears with the search field focused.",
+        "Searching for \"power\" shows the Power settings result selected.",
+        "Pressing Enter opens GNOME Settings directly on the Power panel."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4
+      ],
+      "unit_intent": "Show the remaining battery percentage in the top bar while working on battery.",
+      "unit_type": "ENABLE_BATTERY_PERCENTAGE",
+      "unit_before_state": "The Power panel is open in GNOME Settings and the Show Battery Percentage switch is visible.",
+      "unit_after_state": "The Show Battery Percentage switch is turned on in the Power panel, and the top bar is configured to display the battery percentage.",
+      "unit_precondition": [
+        "GNOME Settings is open to the Power panel.",
+        "The Show Battery Percentage toggle is visible and can be clicked."
+      ],
+      "unit_effect": [
+        "The Show Battery Percentage switch changes to its enabled state.",
+        "The desktop top bar will show a numeric battery percentage next to the battery indicator."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Reduce distraction and save power by setting the display to blank after 5 minutes of inactivity.",
+      "unit_type": "SET_SCREEN_BLANK_TIMEOUT",
+      "unit_before_state": "The Power panel remains open in GNOME Settings, and the Screen Blank setting row is visible.",
+      "unit_after_state": "The Screen Blank menu is closed and the Power panel shows the screen blank timeout set to 5 minutes.",
+      "unit_precondition": [
+        "GNOME Settings is still focused on the Power panel.",
+        "The Screen Blank row is visible.",
+        "A \"5 minutes\" option is available in the Screen Blank menu."
+      ],
+      "unit_effect": [
+        "Clicking the Screen Blank row opens the timeout list.",
+        "Selecting \"5 minutes\" closes the list and updates the Screen Blank value to 5 minutes."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Silence notification interruptions while continuing to work on battery.",
+      "unit_type": "ENABLE_DO_NOT_DISTURB",
+      "unit_before_state": "GNOME Settings is open with the sidebar visible, and the main panel is still showing Power settings.",
+      "unit_after_state": "The Notifications panel is open in GNOME Settings and the Do Not Disturb switch is enabled.",
+      "unit_precondition": [
+        "The Settings sidebar is visible.",
+        "The Notifications category can be selected.",
+        "The Do Not Disturb toggle is present in the Notifications panel."
+      ],
+      "unit_effect": [
+        "Clicking Notifications switches the main panel from Power to Notifications.",
+        "The Do Not Disturb switch changes to its enabled state, indicating new notifications will be silenced."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Reach the Power settings page so battery-related display and timeout options can be configured.",
+      "unit_type": "OPEN_POWER_SETTINGS",
+      "unit_before_state": "The GNOME desktop is visible with the top bar and wallpaper on screen, and no settings window is open.",
+      "unit_after_state": "GNOME Settings is open to the Power panel, showing power-related options such as Show Battery Percentage and Screen Blank.",
+      "unit_precondition": [
+        "The GNOME desktop is the active view.",
+        "Keyboard input is available.",
+        "No modal dialog is blocking the Activities overview or Settings launch."
+      ],
+      "unit_effect": [
+        "The Activities overview appears with the search field focused.",
+        "Searching for \"power\" shows the Power settings result selected.",
+        "Pressing Enter opens GNOME Settings directly on the Power panel."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a specified GNOME Settings panel from the desktop using Activities search.",
+      "parameters": {
+        "target_settings_panel": "Power",
+        "search_query": "power"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['super']}",
+          "action_template": "Press the Super key when the desktop is active and keyboard input is available to open Activities, so the overview appears with the search box focused."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'power'}",
+          "action_template": "Type {{search_query}} into the focused Activities search field while it accepts text input and no modal dialog is blocking the screen, so GNOME filters the results and selects the {{target_settings_panel}} settings entry."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter once the {{target_settings_panel}} settings entry is visible and selected in the search results, so GNOME Settings opens directly to the {{target_settings_panel}} panel."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4
+      ],
+      "unit_intent": "Show the remaining battery percentage in the top bar while working on battery.",
+      "unit_type": "ENABLE_BATTERY_PERCENTAGE",
+      "unit_before_state": "The Power panel is open in GNOME Settings and the Show Battery Percentage switch is visible.",
+      "unit_after_state": "The Show Battery Percentage switch is turned on in the Power panel, and the top bar is configured to display the battery percentage.",
+      "unit_precondition": [
+        "GNOME Settings is open to the Power panel.",
+        "The Show Battery Percentage toggle is visible and can be clicked."
+      ],
+      "unit_effect": [
+        "The Show Battery Percentage switch changes to its enabled state.",
+        "The desktop top bar will show a numeric battery percentage next to the battery indicator."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Enable the system setting that displays the remaining battery percentage in the top bar.",
+      "parameters": {
+        "target_toggle": "the Show Battery Percentage switch in the Power panel"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Show Battery Percentage switch in the Power panel'}}",
+          "action_template": "When GNOME Settings is open to the Power panel and {{target_toggle}} can be seen, click {{target_toggle}} once to enable the percentage display. The result should be that the battery percentage setting turns on and GNOME shows the remaining percentage in the top bar."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Reduce distraction and save power by setting the display to blank after 5 minutes of inactivity.",
+      "unit_type": "SET_SCREEN_BLANK_TIMEOUT",
+      "unit_before_state": "The Power panel remains open in GNOME Settings, and the Screen Blank setting row is visible.",
+      "unit_after_state": "The Screen Blank menu is closed and the Power panel shows the screen blank timeout set to 5 minutes.",
+      "unit_precondition": [
+        "GNOME Settings is still focused on the Power panel.",
+        "The Screen Blank row is visible.",
+        "A \"5 minutes\" option is available in the Screen Blank menu."
+      ],
+      "unit_effect": [
+        "Clicking the Screen Blank row opens the timeout list.",
+        "Selecting \"5 minutes\" closes the list and updates the Screen Blank value to 5 minutes."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Set the display to blank after a specified period of inactivity.",
+      "parameters": {
+        "blank_timeout": "5 minutes"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "CLICK",
+          "action_template": "When GNOME Settings is focused on the Power panel and the Screen Blank setting is visible, click the Screen Blank row to open the available timeout options."
+        },
+        {
+          "action": "CLICK",
+          "action_template": "When the Screen Blank drop-down list is open and {{blank_timeout}} is visible, click the {{blank_timeout}} option to close the list and update the Screen Blank setting to {{blank_timeout}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Silence notification interruptions while continuing to work on battery.",
+      "unit_type": "ENABLE_DO_NOT_DISTURB",
+      "unit_before_state": "GNOME Settings is open with the sidebar visible, and the main panel is still showing Power settings.",
+      "unit_after_state": "The Notifications panel is open in GNOME Settings and the Do Not Disturb switch is enabled.",
+      "unit_precondition": [
+        "The Settings sidebar is visible.",
+        "The Notifications category can be selected.",
+        "The Do Not Disturb toggle is present in the Notifications panel."
+      ],
+      "unit_effect": [
+        "Clicking Notifications switches the main panel from Power to Notifications.",
+        "The Do Not Disturb switch changes to its enabled state, indicating new notifications will be silenced."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Navigate to {{settings_category}} settings and enable {{toggle_name}} to silence incoming notifications.",
+      "parameters": {
+        "settings_category": "Notifications",
+        "sidebar_item": "Notifications in the Settings sidebar",
+        "toggle_name": "Do Not Disturb",
+        "toggle_control": "the Do Not Disturb switch at the top of the Notifications panel"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'Notifications in the Settings sidebar'}}",
+          "action_template": "Click {{sidebar_item}} when the Settings sidebar is visible and {{settings_category}} can be selected to open the {{settings_category}} panel in the main area."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Do Not Disturb switch at the top of the Notifications panel'}}",
+          "action_template": "Click {{toggle_control}} once when the {{settings_category}} panel is displayed and {{toggle_name}} is accessible to enable it and silence new notifications."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

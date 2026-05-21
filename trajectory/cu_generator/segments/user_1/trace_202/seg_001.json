@@ -1,0 +1,802 @@
+{
+  "segment_id": "seg_001",
+  "app": "libreoffice_calc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Enter the grocery tracker table with headers and sample rows",
+      "action_before_state": "LibreOffice Calc is already open on a blank spreadsheet, and cell A1 is selected in the grid.",
+      "action_preconditions": [
+        "A blank or unused area of the sheet is visible",
+        "The active cell is A1 or another top-left empty cell ready for data entry"
+      ],
+      "action": {
+        "type": "CLICK",
+        "target": {
+          "text": "cell A1 in the spreadsheet grid"
+        },
+        "text": "Item\tPlanned\tActual\tDifference\tCategory\nMilk\t4.50\t4.79\t\tDairy\nBread\t2.80\t2.45\t\tBakery\nEggs\t3.60\t3.99\t\tDairy\nApples\t5.20\t4.90\t\tProduce\nChicken\t8.50\t9.10\t\tMeat\nRice\t6.00\t5.70\t\tPantry\nCoffee\t7.50\t8.20\t\tBeverages\nTotal",
+        "button": "left",
+        "num_clicks": 1
+      },
+      "action_after_effects": "The sheet now contains headers in row 1, seven grocery entries in rows 2 through 8, blank Difference cells in column D, and the word Total in cell A9.",
+      "nl_explanation": "When the blank sheet is ready for input and the first empty cell is active, paste the full table so the headers and grocery rows fill the sheet automatically, leaving the Difference column ready for formulas."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Select the first Difference cell",
+      "action_before_state": "The grocery table is visible with column D labeled Difference and row 2 containing the first item.",
+      "action_preconditions": [
+        "The pasted table is present on the sheet",
+        "Cell D2 is visible in the first data row"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell D2, the first blank cell under the Difference header"
+        }
+      },
+      "action_after_effects": "Cell D2 becomes the active cell, ready for a formula.",
+      "nl_explanation": "Once the table is on the sheet and the first Difference cell is visible, click D2 so the formula for the first row can be entered in the correct place."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Enter the Difference formula for the first row",
+      "action_before_state": "Cell D2 is active and the first row contains Planned in B2 and Actual in C2.",
+      "action_preconditions": [
+        "Cell D2 is selected",
+        "Cells B2 and C2 contain numeric values"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "=B2-C2"
+      },
+      "action_after_effects": "LibreOffice Calc calculates the difference for the first row and keeps the formula in D2.",
+      "nl_explanation": "With D2 selected and the first row values already present, type the subtraction formula so the sheet calculates Planned minus Actual for that row."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Fill the Difference formula down the rest of the list",
+      "action_before_state": "Cell D2 contains the correct formula, and rows 3 through 8 in column D are still empty.",
+      "action_preconditions": [
+        "D2 contains a valid formula",
+        "Rows 2 through 8 are visible so the fill handle can be dragged down"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the fill handle at the bottom-right corner of cell D2"
+        },
+        "end": {
+          "text": "the fill handle position at cell D8"
+        },
+        "target": {
+          "begin": {
+            "text": "the fill handle at bottom-right of cell D2"
+          },
+          "end": {
+            "text": "cell D8"
+          }
+        }
+      },
+      "action_after_effects": "The formula is copied from D2 down through D8, and each grocery row now has a Difference value.",
+      "nl_explanation": "After the first Difference formula is working, drag the fill handle from D2 down to D8 so Calc copies the formula for the remaining grocery rows."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Select the Planned total cell",
+      "action_before_state": "The data rows are filled, and row 9 contains the Total label in column A.",
+      "action_preconditions": [
+        "Cell B9 is empty and directly below the Planned values",
+        "The Planned column values from B2 to B8 are contiguous"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell B9 below the Planned column"
+        }
+      },
+      "action_after_effects": "Cell B9 becomes active, positioned to receive a sum formula.",
+      "nl_explanation": "When the Total row is visible and the Planned values are above it, click B9 so the sheet can total that column."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Insert the Planned total formula",
+      "action_before_state": "Cell B9 is selected below the Planned values.",
+      "action_preconditions": [
+        "B9 is the active cell",
+        "The cells above B9 contain the Planned numbers to sum"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "=SUM(B2:B8)"
+      },
+      "action_after_effects": "Calc inserts a SUM formula in B9 and shows the total Planned amount.",
+      "nl_explanation": "With B9 selected under the numeric column, type the SUM formula so Calc calculates the total for Planned spending."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Select the Actual total cell",
+      "action_before_state": "B9 now contains the Planned total, and the Actual values are in column C.",
+      "action_preconditions": [
+        "Cell C9 is empty and visible",
+        "The Actual data in C2 through C8 is already entered"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell C9 below the Actual column"
+        }
+      },
+      "action_after_effects": "Cell C9 becomes active and ready for the sum formula.",
+      "nl_explanation": "After finishing the Planned total, click C9 under the Actual column so the next total can be added in the right place."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Insert the Actual total formula",
+      "action_before_state": "Cell C9 is selected below the Actual values.",
+      "action_preconditions": [
+        "C9 is active",
+        "There is a continuous numeric range above C9"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "=SUM(C2:C8)"
+      },
+      "action_after_effects": "Calc places a SUM formula in C9 and displays the total Actual amount.",
+      "nl_explanation": "Once C9 is active under the Actual numbers, type the SUM formula so LibreOffice totals that column."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Select the Difference total cell",
+      "action_before_state": "The Planned and Actual totals are already shown in row 9, and the Difference values fill D2 through D8.",
+      "action_preconditions": [
+        "Cell D9 is empty and visible",
+        "The Difference column above D9 contains formulas or numeric results"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell D9 below the Difference column"
+        }
+      },
+      "action_after_effects": "Cell D9 is selected for the final total formula.",
+      "nl_explanation": "When the row totals are being completed and the Difference values are already present, click D9 so the last money column can be summed."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Insert the Difference total formula",
+      "action_before_state": "Cell D9 is active beneath the Difference values.",
+      "action_preconditions": [
+        "D9 is the selected cell",
+        "Cells D2 through D8 contain numeric Difference values"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "=SUM(D2:D8)"
+      },
+      "action_after_effects": "Calc inserts a SUM formula in D9 and completes the totals row.",
+      "nl_explanation": "With D9 selected and the Difference numbers above it, type the SUM formula to finish the totals row."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Select all money cells for formatting",
+      "action_before_state": "Columns B through D contain numeric values for rows 2 through 9, and they are still shown as general numbers.",
+      "action_preconditions": [
+        "The money range from B2 to D9 is visible",
+        "The range includes all Planned, Actual, Difference, and total values"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell B2, the first Planned amount"
+        },
+        "end": {
+          "text": "cell D9, the last total in the money section"
+        },
+        "target": {
+          "begin": {
+            "text": "cell B2"
+          },
+          "end": {
+            "text": "cell D9"
+          }
+        }
+      },
+      "action_after_effects": "The full money range B2:D9 is highlighted and ready for a shared number format.",
+      "nl_explanation": "After all formulas are filled in, drag across the money block from B2 to D9 so the currency formatting can be applied to every relevant numeric cell at once."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Format the money cells as currency",
+      "action_before_state": "The range B2:D9 is selected, and the Calc toolbar is visible at the top of the window.",
+      "action_preconditions": [
+        "The money range is highlighted",
+        "A toolbar button for currency formatting is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Currency Format button on the toolbar"
+        }
+      },
+      "action_after_effects": "The selected money cells in B2:D9, including Planned, Actual, Difference, and total values, switch to currency formatting with two decimal places.",
+      "nl_explanation": "When the numeric budget cells are selected and the toolbar is available, click the currency formatting button so all money amounts, including Difference calculations, display consistently as currency with two decimal places."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Select the item and spending columns for chart creation",
+      "action_before_state": "The table is complete, and columns A through C contain Item, Planned, and Actual data for rows 1 through 8.",
+      "action_preconditions": [
+        "Headers and data in A1:C8 are visible",
+        "The selected range should include only the item names and the two spending columns, not the totals row"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell A1, the Item header"
+        },
+        "end": {
+          "text": "cell C8, the last Actual value for Coffee"
+        },
+        "target": {
+          "begin": {
+            "text": "cell A1"
+          },
+          "end": {
+            "text": "cell C8"
+          }
+        }
+      },
+      "action_after_effects": "The range A1:C8 is highlighted, ready to be turned into a chart comparing Planned and Actual spending by item.",
+      "nl_explanation": "Once the budget table is finished, drag from A1 to C8 so the chart will use the item labels and the two spending columns without including the totals row."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Insert a chart from the selected data",
+      "action_before_state": "Range A1:C8 is selected and contains item labels plus Planned and Actual values.",
+      "action_preconditions": [
+        "A1:C8 is the current selection",
+        "The selected range contains one text label column and two numeric columns"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "alt",
+          "i",
+          "c"
+        ]
+      },
+      "action_after_effects": "LibreOffice Calc inserts a simple column chart on the sheet based on the selected data, showing Planned and Actual spending by item.",
+      "nl_explanation": "With the chart data highlighted, use Insert > Chart so Calc inserts a simple comparison chart directly onto the sheet."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Save the completed grocery budget tracker",
+      "action_before_state": "The spreadsheet now contains the completed table, totals, currency formatting, and an inserted chart.",
+      "action_preconditions": [
+        "The sheet reflects the finished budget tracker",
+        "The Calc window is active and ready to receive a save shortcut"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "s"
+        ]
+      },
+      "action_after_effects": "The spreadsheet is saved with all edits preserved.",
+      "nl_explanation": "After the tracker and chart are complete, press the save shortcut so the finished spreadsheet is stored with the new budget data and formatting."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Create the grocery budget table structure with headers, sample rows, and a totals label.",
+      "unit_type": "ENTER_TABLE_DATA",
+      "unit_before_state": "LibreOffice Calc shows a blank worksheet with cell A1 selected and no grocery tracker content on the sheet.",
+      "unit_after_state": "Cells A1:E8 contain the tracker headers and seven grocery rows, column D has blank Difference cells for each item row, and cell A9 contains the label Total.",
+      "unit_precondition": [
+        "A blank or unused worksheet area is visible.",
+        "The insertion point is at cell A1 or another empty top-left cell that can accept pasted tabular data."
+      ],
+      "unit_effect": [
+        "The sheet displays the headers Item, Planned, Actual, Difference, and Category in row 1.",
+        "Rows 2 through 8 are populated with seven grocery items and their Planned, Actual, and Category values.",
+        "Cell A9 visibly shows Total, establishing the totals row."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Populate the Difference column for all grocery rows by calculating Planned minus Actual.",
+      "unit_type": "FILL_CALCULATED_COLUMN",
+      "unit_before_state": "The grocery tracker table is present, row 2 is the first item row, and cells D2:D8 under Difference are empty.",
+      "unit_after_state": "Cell D2 contains the formula for Planned minus Actual, and cells D2:D8 all show computed Difference values for the seven grocery items.",
+      "unit_precondition": [
+        "The table has already been entered and the first data row is visible.",
+        "Cells B2:C8 contain numeric Planned and Actual amounts.",
+        "Cell D2 and the rest of the Difference column down to D8 are visible so the formula can be entered and filled."
+      ],
+      "unit_effect": [
+        "D2 becomes active and receives the formula =B2-C2.",
+        "After dragging the fill handle, D3:D8 are auto-filled with corresponding row formulas.",
+        "Every grocery row now shows a numeric Difference result in column D."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Calculate the total planned spending for all grocery items.",
+      "unit_type": "ADD_COLUMN_TOTAL",
+      "unit_before_state": "The grocery rows are complete, row 9 is the totals row with Total in A9, and cell B9 below the Planned column is empty.",
+      "unit_after_state": "Cell B9 displays the sum of Planned amounts from B2 through B8.",
+      "unit_precondition": [
+        "The Planned values are already entered in cells B2:B8.",
+        "Cell B9 is visible and empty beneath the Planned column."
+      ],
+      "unit_effect": [
+        "B9 becomes the active cell.",
+        "The formula =SUM(B2:B8) is inserted into B9.",
+        "A numeric total appears in B9 for the Planned column."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Calculate the total actual spending for all grocery items.",
+      "unit_type": "ADD_COLUMN_TOTAL",
+      "unit_before_state": "B9 already shows the Planned total, the Actual amounts are listed in C2:C8, and cell C9 is empty.",
+      "unit_after_state": "Cell C9 displays the sum of Actual amounts from C2 through C8.",
+      "unit_precondition": [
+        "The Actual values are already entered in cells C2:C8.",
+        "Cell C9 is visible and empty beneath the Actual column."
+      ],
+      "unit_effect": [
+        "C9 becomes the active cell.",
+        "The formula =SUM(C2:C8) is inserted into C9.",
+        "A numeric total appears in C9 for the Actual column."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Calculate the total net difference across all grocery items.",
+      "unit_type": "ADD_COLUMN_TOTAL",
+      "unit_before_state": "B9 and C9 already show totals, cells D2:D8 contain Difference values, and cell D9 is empty.",
+      "unit_after_state": "Cell D9 displays the sum of the Difference values from D2 through D8, completing the totals row for the money columns.",
+      "unit_precondition": [
+        "Difference values are already present in cells D2:D8.",
+        "Cell D9 is visible and empty beneath the Difference column."
+      ],
+      "unit_effect": [
+        "D9 becomes the active cell.",
+        "The formula =SUM(D2:D8) is inserted into D9.",
+        "A numeric total appears in D9, completing totals for Planned, Actual, and Difference."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        11,
+        12
+      ],
+      "unit_intent": "Make all spending and totals amounts display as currency with two decimal places.",
+      "unit_type": "FORMAT_CURRENCY_RANGE",
+      "unit_before_state": "Cells B2:D9 contain numeric Planned, Actual, Difference, and total values, and they are still shown in a general number format.",
+      "unit_after_state": "The full money range B2:D9 remains selected and all values in that range are displayed in currency format with two decimal places.",
+      "unit_precondition": [
+        "The full money range B2:D9 is visible on the sheet.",
+        "The values in B2:D9 are already entered or calculated.",
+        "The toolbar contains a visible currency formatting control."
+      ],
+      "unit_effect": [
+        "The range B2:D9 is highlighted as one selection.",
+        "Currency symbols and two decimal places appear across Planned, Actual, Difference, and total cells.",
+        "The numeric display format changes consistently for the entire selected money block."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        13,
+        14
+      ],
+      "unit_intent": "Insert a comparison chart showing planned versus actual spending for each grocery item.",
+      "unit_type": "CREATE_COMPARISON_CHART",
+      "unit_before_state": "The completed table is visible, and the item names with Planned and Actual values occupy A1:C8 while the totals row remains outside the intended chart data.",
+      "unit_after_state": "A simple chart is inserted onto the worksheet using A1:C8, with item names as categories and Planned and Actual as the compared series.",
+      "unit_precondition": [
+        "Headers and data in A1:C8 are visible.",
+        "The chart source range should exclude the totals row.",
+        "The worksheet is ready to accept an inserted chart."
+      ],
+      "unit_effect": [
+        "The range A1:C8 is highlighted before chart insertion.",
+        "A chart object appears on the sheet after the insert-chart command.",
+        "The chart visually compares Planned and Actual spending by item."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_08",
+      "step_indices": [
+        15
+      ],
+      "unit_intent": "Preserve the completed grocery budget tracker and chart in the spreadsheet file.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The worksheet contains the finished grocery tracker with populated rows, Difference formulas, totals, currency formatting, and an inserted chart.",
+      "unit_after_state": "The spreadsheet remains open with the completed tracker, and the current file state is saved to disk.",
+      "unit_precondition": [
+        "The Calc window is active.",
+        "The worksheet reflects the final intended content and formatting.",
+        "The document is in a state where the save shortcut can be executed."
+      ],
+      "unit_effect": [
+        "The save shortcut is triggered.",
+        "LibreOffice Calc records the latest table, formulas, formatting, and chart in the document.",
+        "The current spreadsheet state is preserved as the saved version."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Create the grocery budget table structure with headers, sample rows, and a totals label.",
+      "unit_type": "ENTER_TABLE_DATA",
+      "unit_before_state": "LibreOffice Calc shows a blank worksheet with cell A1 selected and no grocery tracker content on the sheet.",
+      "unit_after_state": "Cells A1:E8 contain the tracker headers and seven grocery rows, column D has blank Difference cells for each item row, and cell A9 contains the label Total.",
+      "unit_precondition": [
+        "A blank or unused worksheet area is visible.",
+        "The insertion point is at cell A1 or another empty top-left cell that can accept pasted tabular data."
+      ],
+      "unit_effect": [
+        "The sheet displays the headers Item, Planned, Actual, Difference, and Category in row 1.",
+        "Rows 2 through 8 are populated with seven grocery items and their Planned, Actual, and Category values.",
+        "Cell A9 visibly shows Total, establishing the totals row."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Populate a worksheet with a provided tabular tracker layout, including headers, data rows, and a totals label, starting from a specified empty top-left cell.",
+      "parameters": {
+        "target_cell": "cell A1 in the spreadsheet grid",
+        "table_content": "Item\tPlanned\tActual\tDifference\tCategory\nMilk\t4.50\t4.79\t\tDairy\nBread\t2.80\t2.45\t\tBakery\nEggs\t3.60\t3.99\t\tDairy\nApples\t5.20\t4.90\t\tProduce\nChicken\t8.50\t9.10\t\tMeat\nRice\t6.00\t5.70\t\tPantry\nCoffee\t7.50\t8.20\t\tBeverages\nTotal"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'target': {'text': 'cell A1 in the spreadsheet grid'}, 'text': 'Item\\tPlanned\\tActual\\tDifference\\tCategory\\nMilk\\t4.50\\t4.79\\t\\tDairy\\nBread\\t2.80\\t2.45\\t\\tBakery\\nEggs\\t3.60\\t3.99\\t\\tDairy\\nApples\\t5.20\\t4.90\\t\\tProduce\\nChicken\\t8.50\\t9.10\\t\\tMeat\\nRice\\t6.00\\t5.70\\t\\tPantry\\nCoffee\\t7.50\\t8.20\\t\\tBeverages\\nTotal', 'button': 'left', 'num_clicks': 1}",
+          "action_template": "When a blank or unused area of the sheet is visible and {{target_cell}} is the active empty top-left cell ready for data entry, click {{target_cell}} and enter {{table_content}} so the worksheet is populated with the full table, including headers, data rows, blank calculation cells, and the totals label."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Populate the Difference column for all grocery rows by calculating Planned minus Actual.",
+      "unit_type": "FILL_CALCULATED_COLUMN",
+      "unit_before_state": "The grocery tracker table is present, row 2 is the first item row, and cells D2:D8 under Difference are empty.",
+      "unit_after_state": "Cell D2 contains the formula for Planned minus Actual, and cells D2:D8 all show computed Difference values for the seven grocery items.",
+      "unit_precondition": [
+        "The table has already been entered and the first data row is visible.",
+        "Cells B2:C8 contain numeric Planned and Actual amounts.",
+        "Cell D2 and the rest of the Difference column down to D8 are visible so the formula can be entered and filled."
+      ],
+      "unit_effect": [
+        "D2 becomes active and receives the formula =B2-C2.",
+        "After dragging the fill handle, D3:D8 are auto-filled with corresponding row formulas.",
+        "Every grocery row now shows a numeric Difference result in column D."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Populate a calculated result column for all visible data rows by entering the formula in the first result cell and filling it downward.",
+      "parameters": {
+        "target_cell": "cell D2, the first blank cell under the Difference header",
+        "formula_text": "=B2-C2",
+        "fill_start_handle": "the fill handle at the bottom-right corner of cell D2",
+        "fill_end_cell": "cell D8"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell D2, the first blank cell under the Difference header'}}",
+          "action_template": "Once the table is on the sheet and {{target_cell}} is visible, click {{target_cell}} so the formula for the first row can be entered in the correct place. Preconditions: the pasted table is present on the sheet, and {{target_cell}} is visible in the first data row. After effect: {{target_cell}} becomes the active cell, ready for a formula."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '=B2-C2'}",
+          "action_template": "With {{target_cell}} selected and the first row values already present, type {{formula_text}} so the sheet calculates the row result for that row. Preconditions: {{target_cell}} is selected, and the referenced source cells contain numeric values. After effect: LibreOffice Calc calculates the result for the first row and keeps the formula in {{target_cell}}."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the fill handle at the bottom-right corner of cell D2'}, 'end': {'text': 'the fill handle position at cell D8'}, 'target': {'begin': {'text': 'the fill handle at bottom-right of cell D2'}, 'end': {'text': 'cell D8'}}}",
+          "action_template": "After the first formula is working, drag {{fill_start_handle}} down to {{fill_end_cell}} so Calc copies the formula for the remaining rows. Preconditions: {{target_cell}} contains a valid formula, and the destination rows through {{fill_end_cell}} are visible so the fill handle can be dragged down. After effect: the formula is copied from {{target_cell}} down through {{fill_end_cell}}, and each row now has a computed value."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Calculate the total planned spending for all grocery items.",
+      "unit_type": "ADD_COLUMN_TOTAL",
+      "unit_before_state": "The grocery rows are complete, row 9 is the totals row with Total in A9, and cell B9 below the Planned column is empty.",
+      "unit_after_state": "Cell B9 displays the sum of Planned amounts from B2 through B8.",
+      "unit_precondition": [
+        "The Planned values are already entered in cells B2:B8.",
+        "Cell B9 is visible and empty beneath the Planned column."
+      ],
+      "unit_effect": [
+        "B9 becomes the active cell.",
+        "The formula =SUM(B2:B8) is inserted into B9.",
+        "A numeric total appears in B9 for the Planned column."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Calculate the total for a specified numeric column by selecting its totals cell and entering the appropriate SUM formula.",
+      "parameters": {
+        "column_name": "Planned",
+        "target_total_cell": "B9",
+        "source_range": "B2:B8",
+        "sum_formula": "=SUM(B2:B8)"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell B9 below the Planned column'}}",
+          "action_template": "When the total row is visible and the {{column_name}} values in {{source_range}} are contiguous above it, click {{target_total_cell}} so the sheet can total that column and make the cell active for formula entry."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '=SUM(B2:B8)'}",
+          "action_template": "With {{target_total_cell}} selected under the numeric {{column_name}} column and the cells in {{source_range}} containing the numbers to sum, type {{sum_formula}} so Calc inserts the SUM formula in {{target_total_cell}} and shows the total amount."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Calculate the total actual spending for all grocery items.",
+      "unit_type": "ADD_COLUMN_TOTAL",
+      "unit_before_state": "B9 already shows the Planned total, the Actual amounts are listed in C2:C8, and cell C9 is empty.",
+      "unit_after_state": "Cell C9 displays the sum of Actual amounts from C2 through C8.",
+      "unit_precondition": [
+        "The Actual values are already entered in cells C2:C8.",
+        "Cell C9 is visible and empty beneath the Actual column."
+      ],
+      "unit_effect": [
+        "C9 becomes the active cell.",
+        "The formula =SUM(C2:C8) is inserted into C9.",
+        "A numeric total appears in C9 for the Actual column."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Calculate the total for a specified numeric column by inserting a SUM formula into its designated total cell.",
+      "parameters": {
+        "target_total_cell": "C9",
+        "target_column_label": "Actual",
+        "source_range": "C2:C8",
+        "sum_formula": "=SUM(C2:C8)"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell C9 below the Actual column'}}",
+          "action_template": "Click {{target_total_cell}} under the {{target_column_label}} column when the cell is visible and empty and the numeric data in {{source_range}} is already entered, so the total is added in the right place and {{target_total_cell}} becomes active and ready for the sum formula."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '=SUM(C2:C8)'}",
+          "action_template": "Type {{sum_formula}} while {{target_total_cell}} is active and there is a continuous numeric range above it, so Calc inserts the SUM formula into {{target_total_cell}} and displays the total for the {{target_column_label}} column."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Calculate the total net difference across all grocery items.",
+      "unit_type": "ADD_COLUMN_TOTAL",
+      "unit_before_state": "B9 and C9 already show totals, cells D2:D8 contain Difference values, and cell D9 is empty.",
+      "unit_after_state": "Cell D9 displays the sum of the Difference values from D2 through D8, completing the totals row for the money columns.",
+      "unit_precondition": [
+        "Difference values are already present in cells D2:D8.",
+        "Cell D9 is visible and empty beneath the Difference column."
+      ],
+      "unit_effect": [
+        "D9 becomes the active cell.",
+        "The formula =SUM(D2:D8) is inserted into D9.",
+        "A numeric total appears in D9, completing totals for Planned, Actual, and Difference."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Calculate the total for a specified value column by selecting its total cell and entering the appropriate SUM formula.",
+      "parameters": {
+        "target_total_cell": "cell D9 below the Difference column",
+        "column_name": "Difference",
+        "source_value_range": "D2:D8",
+        "total_formula": "=SUM(D2:D8)"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell D9 below the Difference column'}}",
+          "action_template": "When the row totals are being completed and the {{column_name}} values in {{source_value_range}} are already present, click {{target_total_cell}} so that total cell is selected for the final sum formula."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '=SUM(D2:D8)'}",
+          "action_template": "With {{target_total_cell}} selected and the {{column_name}} numbers in {{source_value_range}} above it, type {{total_formula}} to insert the SUM formula and complete the totals row."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        11,
+        12
+      ],
+      "unit_intent": "Make all spending and totals amounts display as currency with two decimal places.",
+      "unit_type": "FORMAT_CURRENCY_RANGE",
+      "unit_before_state": "Cells B2:D9 contain numeric Planned, Actual, Difference, and total values, and they are still shown in a general number format.",
+      "unit_after_state": "The full money range B2:D9 remains selected and all values in that range are displayed in currency format with two decimal places.",
+      "unit_precondition": [
+        "The full money range B2:D9 is visible on the sheet.",
+        "The values in B2:D9 are already entered or calculated.",
+        "The toolbar contains a visible currency formatting control."
+      ],
+      "unit_effect": [
+        "The range B2:D9 is highlighted as one selection.",
+        "Currency symbols and two decimal places appear across Planned, Actual, Difference, and total cells.",
+        "The numeric display format changes consistently for the entire selected money block."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Apply currency formatting with two decimal places to a specified money cell range.",
+      "parameters": {
+        "range_start_cell": "cell B2",
+        "range_end_cell": "cell D9",
+        "target_range": "B2:D9",
+        "format_control": "the Currency Format button on the toolbar"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'cell B2, the first Planned amount'}, 'end': {'text': 'cell D9, the last total in the money section'}, 'target': {'begin': {'text': 'cell B2'}, 'end': {'text': 'cell D9'}}}",
+          "action_template": "Drag from {{range_start_cell}} to {{range_end_cell}} after the money range is visible so the full {{target_range}} block is selected and ready for a shared number format."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Currency Format button on the toolbar'}}",
+          "action_template": "Click {{format_control}} when {{target_range}} is highlighted so all selected money cells switch to currency formatting with two decimal places."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_07",
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        13,
+        14
+      ],
+      "unit_intent": "Insert a comparison chart showing planned versus actual spending for each grocery item.",
+      "unit_type": "CREATE_COMPARISON_CHART",
+      "unit_before_state": "The completed table is visible, and the item names with Planned and Actual values occupy A1:C8 while the totals row remains outside the intended chart data.",
+      "unit_after_state": "A simple chart is inserted onto the worksheet using A1:C8, with item names as categories and Planned and Actual as the compared series.",
+      "unit_precondition": [
+        "Headers and data in A1:C8 are visible.",
+        "The chart source range should exclude the totals row.",
+        "The worksheet is ready to accept an inserted chart."
+      ],
+      "unit_effect": [
+        "The range A1:C8 is highlighted before chart insertion.",
+        "A chart object appears on the sheet after the insert-chart command.",
+        "The chart visually compares Planned and Actual spending by item."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Insert a comparison chart from a specified table range that contains one category column and two value series, excluding any summary row.",
+      "parameters": {
+        "chart_data_range": "A1:C8",
+        "range_start_cell": "A1",
+        "range_end_cell": "C8",
+        "series_name_1": "Planned",
+        "series_name_2": "Actual"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'cell A1, the Item header'}, 'end': {'text': 'cell C8, the last Actual value for Coffee'}, 'target': {'begin': {'text': 'cell A1'}, 'end': {'text': 'cell C8'}}}",
+          "action_template": "Drag from {{range_start_cell}} to {{range_end_cell}} so the chart uses {{chart_data_range}} with the two value series {{series_name_1}} and {{series_name_2}}, without including any totals row."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['alt', 'i', 'c']}",
+          "action_template": "Press Alt+I, C to insert a chart from the selected range {{chart_data_range}} after confirming it contains one category column and the two numeric series {{series_name_1}} and {{series_name_2}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_08",
+      "unit_id": "u_seg_001_08",
+      "step_indices": [
+        15
+      ],
+      "unit_intent": "Preserve the completed grocery budget tracker and chart in the spreadsheet file.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The worksheet contains the finished grocery tracker with populated rows, Difference formulas, totals, currency formatting, and an inserted chart.",
+      "unit_after_state": "The spreadsheet remains open with the completed tracker, and the current file state is saved to disk.",
+      "unit_precondition": [
+        "The Calc window is active.",
+        "The worksheet reflects the final intended content and formatting.",
+        "The document is in a state where the save shortcut can be executed."
+      ],
+      "unit_effect": [
+        "The save shortcut is triggered.",
+        "LibreOffice Calc records the latest table, formulas, formatting, and chart in the document.",
+        "The current spreadsheet state is preserved as the saved version."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the completed spreadsheet so the latest content, formatting, formulas, and visual elements are written to disk.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 's']}",
+          "action_template": "Press Ctrl+S when the Calc window is active and the spreadsheet reflects the finished content so the current document is saved with all edits preserved."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

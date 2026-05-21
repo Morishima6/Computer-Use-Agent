@@ -1,0 +1,562 @@
+{
+  "segment_id": "seg_001",
+  "app": "vlc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Enable Advanced Controls to access the Record button",
+      "action_before_state": "The VLC media player is open and playing a video. The menu bar at the top shows Playback, Tools, View, etc.",
+      "action_preconditions": [
+        "VLC is currently playing a video",
+        "The menu bar is accessible at the top of the window"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": "The 'View' menu item in the menu bar"
+      },
+      "action_after_effects": "The View dropdown menu opens, showing options including 'Advanced Controls' with a checkbox.",
+      "nl_explanation": "Click the View menu to access the Advanced Controls option needed to reveal the Record button."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Enable Advanced Controls to show the Record button",
+      "action_before_state": "The View dropdown menu is open with the 'Advanced Controls' option visible.",
+      "action_preconditions": [
+        "The View menu is open",
+        "Advanced Controls option is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": "The 'Advanced Controls' checkbox option"
+      },
+      "action_after_effects": "Advanced Controls is now enabled. The control bar at the bottom now shows additional buttons including a red circular Record button.",
+      "nl_explanation": "Click 'Advanced Controls' to enable it, which adds the Record button to the VLC control bar."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Navigate to the 30-second timestamp using the Go to Time feature",
+      "action_before_state": "The VLC media player is open and playing a video. Advanced Controls is now enabled showing the record button.",
+      "action_preconditions": [
+        "VLC is currently playing a video",
+        "The menu bar is accessible at the top of the window"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "t"
+        ]
+      },
+      "action_after_effects": "The 'Go to Time' dialog box appears in the center of the screen with input fields for hours, minutes, and seconds.",
+      "nl_explanation": "When VLC is playing a video, press Ctrl+T to open the 'Go to Time' dialog so we can jump to the 30-second mark."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Focus the time input field in the Go to Time dialog",
+      "action_before_state": "The 'Go to Time' dialog is open with empty or zeroed time input fields (HH:MM:SS format).",
+      "action_preconditions": [
+        "The Go to Time dialog is active",
+        "The time input field is accessible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": "The time input field in the Go to Time dialog"
+      },
+      "action_after_effects": "The time input field is now focused and ready for typing.",
+      "nl_explanation": "Click on the time input field to ensure it is focused before typing."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Enter 30 seconds in the time field",
+      "action_before_state": "The 'Go to Time' dialog is open with the time input field focused.",
+      "action_preconditions": [
+        "The time input field is focused",
+        "The seconds input field is accessible"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "00:00:30"
+      },
+      "action_after_effects": "The time field now displays '00:00:30' and the dialog is ready for confirmation.",
+      "nl_explanation": "Type '00:00:30' into the time input field to specify the 30-second timestamp."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Confirm the time jump to navigate to 30 seconds",
+      "action_before_state": "The 'Go to Time' dialog shows '00:00:30' in the input field. The 'Go' or 'OK' button is visible at the bottom of the dialog.",
+      "action_preconditions": [
+        "The time '00:00:30' has been entered correctly",
+        "The confirmation button is clickable"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": "The 'Go' button in the Go to Time dialog"
+      },
+      "action_after_effects": "The dialog closes and the video jumps to the 30-second mark, showing that frame in the main window.",
+      "nl_explanation": "Click the 'Go' button in the dialog to confirm and jump to the 30-second timestamp in the video."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Start recording the video segment",
+      "action_before_state": "The video is paused or playing at the 30-second mark. The control bar at the bottom shows the standard play/pause buttons and the record button (red circle, now visible after enabling Advanced Controls).",
+      "action_preconditions": [
+        "The video is positioned at approximately 30 seconds",
+        "The record button is visible in the control bar (Advanced Controls enabled)"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": "The red circular Record button in the VLC control bar"
+      },
+      "action_after_effects": "The record button appears pressed or highlighted, indicating that recording has started. A recording indicator may appear in the interface.",
+      "nl_explanation": "Click the red Record button in the control bar to begin recording the video starting from the 30-second mark."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Stop recording after 10 seconds",
+      "action_before_state": "The video has been playing and recording for approximately 10 seconds (from 0:30 to 0:40). The record button still appears active/highlighted.",
+      "action_preconditions": [
+        "Approximately 10 seconds have passed since recording started",
+        "The record button is still in the active/recording state"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": "The Record button (currently active/recording state) in the control bar"
+      },
+      "action_after_effects": "The record button returns to its normal inactive appearance, indicating recording has stopped. The 10-second clip has been saved to the directory of the source video file (or the last configured recording directory).",
+      "nl_explanation": "Click the Record button again to stop recording after approximately 10 seconds. The clip is saved to the source video's directory or configured recording location."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Open the file manager to locate the recorded file",
+      "action_before_state": "VLC is still open with the video. The desktop or VLC window is visible. The file manager is not yet open.",
+      "action_preconditions": [
+        "VLC has finished recording",
+        "The file manager application (Nautilus/Files) is available in the system"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "super",
+          "e"
+        ]
+      },
+      "action_after_effects": "The Files application (Nautilus) window opens, displaying the Home directory with folders like Desktop, Documents, Downloads, Videos, etc.",
+      "nl_explanation": "Press Super+E to open the Files application (file manager) so we can navigate to the folder where the recording was saved."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Navigate to the folder containing the recorded file",
+      "action_before_state": "The Files window is open showing the Home directory. The folder containing the source video (where the recording was saved) is visible in the main area or sidebar.",
+      "action_preconditions": [
+        "The file manager is open",
+        "The folder containing the source video is accessible from the current view"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 2,
+        "target": "The folder containing the source video file"
+      },
+      "action_after_effects": "The file manager navigates into the folder, displaying its contents including the recently recorded VLC clip (typically named with a timestamp or 'vlc-record-' prefix).",
+      "nl_explanation": "Double-click the folder containing the source video to view the recorded video file that VLC saved there."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Move the recorded file to the Desktop",
+      "action_before_state": "The folder containing the recorded file is open showing the recorded file (e.g., 'vlc-record-2024...'). The Desktop folder is visible in the sidebar or can be accessed via navigation.",
+      "action_preconditions": [
+        "The recorded video file is visible in the folder",
+        "The Desktop folder is accessible (either in sidebar or via navigation)"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "The recorded video file in the folder"
+        },
+        "end": {
+          "text": "The Desktop folder in the sidebar or the Desktop entry"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "The recorded video file disappears from the current folder view (or shows as moved), and is now located on the Desktop for easy access.",
+      "nl_explanation": "Drag the recorded video file from its current folder to the Desktop folder in the sidebar to move it to the Desktop as requested."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Expose VLC's recording controls so the clip can be captured from the playback window.",
+      "unit_type": "ENABLE_ADVANCED_CONTROLS",
+      "unit_before_state": "VLC is open and playing a video. The top menu bar is visible, and the bottom control bar does not yet show the extra recording controls.",
+      "unit_after_state": "The View menu action has been applied and VLC now shows the Advanced Controls set in the bottom control bar, including the red Record button.",
+      "unit_precondition": [
+        "A video is already open in VLC and the main player window is in focus.",
+        "The top menu bar is visible and the View menu can be opened."
+      ],
+      "unit_effect": [
+        "The View dropdown briefly appears with the Advanced Controls option.",
+        "A red circular Record button becomes visible in the VLC control bar."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Position playback at the exact 30-second starting point for the clip.",
+      "unit_type": "JUMP_TO_TIMESTAMP",
+      "unit_before_state": "VLC is showing the video player with Advanced Controls enabled and the Record button available, but playback has not yet been moved to the desired starting timestamp.",
+      "unit_after_state": "The Go to Time dialog has been dismissed and the main VLC player is now positioned at the 00:00:30 point in the video.",
+      "unit_precondition": [
+        "VLC is the active window and a playable video is loaded.",
+        "The Go to Time command is available, and its time field can accept input."
+      ],
+      "unit_effect": [
+        "The Go to Time dialog opens with time-entry fields.",
+        "The dialog shows 00:00:30 before confirmation.",
+        "After confirmation, the dialog closes and the video jumps to the frame at about 30 seconds."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Capture a 10-second video excerpt starting from the 30-second mark.",
+      "unit_type": "RECORD_VIDEO_SEGMENT",
+      "unit_before_state": "VLC is at approximately 00:00:30 in the video, and the red Record button is visible in the bottom control bar.",
+      "unit_after_state": "Recording has been stopped after roughly 10 seconds of playback, the Record button is back to its normal inactive state, and the new clip has been saved in VLC's recording/output folder for that video.",
+      "unit_precondition": [
+        "Playback is positioned at about 00:00:30.",
+        "The Record button is visible and clickable.",
+        "The user can let the video run for about 10 seconds before stopping recording."
+      ],
+      "unit_effect": [
+        "The Record button changes to an active or highlighted state when recording starts.",
+        "After the second click, the Record button returns to its normal state.",
+        "A new recorded clip is saved to the source video's folder or the configured VLC recording directory."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9
+      ],
+      "unit_intent": "Open the file manager to begin locating the newly recorded clip.",
+      "unit_type": "OPEN_FILE_MANAGER",
+      "unit_before_state": "VLC remains open after recording, and no file browser window is currently open in front of it.",
+      "unit_after_state": "A Files/file manager window is open, showing the Home directory with common folders such as Desktop, Documents, Downloads, and Videos.",
+      "unit_precondition": [
+        "Recording in VLC has already been stopped.",
+        "The system file manager can be launched with the keyboard shortcut."
+      ],
+      "unit_effect": [
+        "A new Files window appears.",
+        "The Home directory view is visible with standard folder entries."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        10
+      ],
+      "unit_intent": "Open the folder where VLC saved the recorded clip so the file can be accessed.",
+      "unit_type": "OPEN_RECORDING_FOLDER",
+      "unit_before_state": "The Files window is open at the Home directory, and the folder that contains the source video and saved VLC recording is visible from the current view.",
+      "unit_after_state": "The Files window is navigated into the target folder, and the folder contents now include the recently recorded VLC clip.",
+      "unit_precondition": [
+        "The Files window is already open.",
+        "The folder containing the source video or VLC recording is visible and accessible from the current file manager view."
+      ],
+      "unit_effect": [
+        "The file manager enters the selected folder.",
+        "A newly created recording file, often with a VLC recording name pattern, is visible in the folder contents."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        11
+      ],
+      "unit_intent": "Place the recorded clip on the Desktop so it is easy to find and share.",
+      "unit_type": "MOVE_FILE_TO_DESKTOP",
+      "unit_before_state": "The Files window is open inside the folder containing the recorded clip, and the Desktop location is available as a destination in the sidebar or file manager navigation.",
+      "unit_after_state": "The recorded clip is no longer in the original folder view and has been moved to the Desktop location.",
+      "unit_precondition": [
+        "The recorded clip file is visible in the current folder.",
+        "The Desktop destination is visible or otherwise reachable in the file manager."
+      ],
+      "unit_effect": [
+        "The recorded file is dragged onto the Desktop destination.",
+        "The file disappears from the original folder or is shown as moved.",
+        "The clip is now available on the Desktop."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Expose VLC's recording controls so the clip can be captured from the playback window.",
+      "unit_type": "ENABLE_ADVANCED_CONTROLS",
+      "unit_before_state": "VLC is open and playing a video. The top menu bar is visible, and the bottom control bar does not yet show the extra recording controls.",
+      "unit_after_state": "The View menu action has been applied and VLC now shows the Advanced Controls set in the bottom control bar, including the red Record button.",
+      "unit_precondition": [
+        "A video is already open in VLC and the main player window is in focus.",
+        "The top menu bar is visible and the View menu can be opened."
+      ],
+      "unit_effect": [
+        "The View dropdown briefly appears with the Advanced Controls option.",
+        "A red circular Record button becomes visible in the VLC control bar."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Expose recording controls in the player by enabling the relevant advanced-control option from the application menu.",
+      "parameters": {
+        "menu_name": "View",
+        "option_name": "Advanced Controls",
+        "revealed_control": "red circular Record button"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': \"The 'View' menu item in the menu bar\"}",
+          "action_template": "Click the {{menu_name}} menu item in the menu bar when a video is playing and the top menu bar is accessible to open the dropdown and reveal the {{option_name}} option."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': \"The 'Advanced Controls' checkbox option\"}",
+          "action_template": "Click the {{option_name}} checkbox option after the {{menu_name}} menu is open and the option is visible to enable it and show the {{revealed_control}} in the control bar."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Position playback at the exact 30-second starting point for the clip.",
+      "unit_type": "JUMP_TO_TIMESTAMP",
+      "unit_before_state": "VLC is showing the video player with Advanced Controls enabled and the Record button available, but playback has not yet been moved to the desired starting timestamp.",
+      "unit_after_state": "The Go to Time dialog has been dismissed and the main VLC player is now positioned at the 00:00:30 point in the video.",
+      "unit_precondition": [
+        "VLC is the active window and a playable video is loaded.",
+        "The Go to Time command is available, and its time field can accept input."
+      ],
+      "unit_effect": [
+        "The Go to Time dialog opens with time-entry fields.",
+        "The dialog shows 00:00:30 before confirmation.",
+        "After confirmation, the dialog closes and the video jumps to the frame at about 30 seconds."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Jump video playback to a specified timestamp using the Go to Time dialog.",
+      "parameters": {
+        "target_timestamp": "00:00:30",
+        "time_input_field": "The time input field in the Go to Time dialog",
+        "confirm_button": "The 'Go' button in the Go to Time dialog"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 't']}",
+          "action_template": "Press Ctrl+T while VLC is playing a video and the menu bar is accessible to open the 'Go to Time' dialog so playback can jump to {{target_timestamp}}; the dialog then appears with input fields for hours, minutes, and seconds."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': 'The time input field in the Go to Time dialog'}",
+          "action_template": "Click {{time_input_field}} when the Go to Time dialog is active and the field is accessible to focus it; the field becomes ready for typing."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '00:00:30'}",
+          "action_template": "Type {{target_timestamp}} into {{time_input_field}} after the field is focused and the seconds input is accessible; the dialog then displays {{target_timestamp}} and is ready for confirmation."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': \"The 'Go' button in the Go to Time dialog\"}",
+          "action_template": "Click {{confirm_button}} after {{target_timestamp}} has been entered correctly and the button is clickable to confirm the time jump; the dialog closes and playback moves to the specified timestamp."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Capture a 10-second video excerpt starting from the 30-second mark.",
+      "unit_type": "RECORD_VIDEO_SEGMENT",
+      "unit_before_state": "VLC is at approximately 00:00:30 in the video, and the red Record button is visible in the bottom control bar.",
+      "unit_after_state": "Recording has been stopped after roughly 10 seconds of playback, the Record button is back to its normal inactive state, and the new clip has been saved in VLC's recording/output folder for that video.",
+      "unit_precondition": [
+        "Playback is positioned at about 00:00:30.",
+        "The Record button is visible and clickable.",
+        "The user can let the video run for about 10 seconds before stopping recording."
+      ],
+      "unit_effect": [
+        "The Record button changes to an active or highlighted state when recording starts.",
+        "After the second click, the Record button returns to its normal state.",
+        "A new recorded clip is saved to the source video's folder or the configured VLC recording directory."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Capture a video excerpt of {{recording_duration}} starting from {{start_time}}.",
+      "parameters": {
+        "start_time": "00:00:30",
+        "recording_duration": "10 seconds"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': 'The red circular Record button in the VLC control bar'}",
+          "action_template": "Click the red Record button in the control bar to begin recording the video starting from {{start_time}}. Preconditions: the video is positioned at approximately {{start_time}}, and the record button is visible in the control bar with Advanced Controls enabled. Afterward, the record button appears pressed or highlighted, indicating that recording has started."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': 'The Record button (currently active/recording state) in the control bar'}",
+          "action_template": "Click the Record button again to stop recording after approximately {{recording_duration}}. Preconditions: approximately {{recording_duration}} have passed since recording started, and the record button is still in the active recording state. Afterward, the record button returns to its normal inactive appearance, indicating recording has stopped, and the clip is saved to the source video's directory or configured recording location."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9
+      ],
+      "unit_intent": "Open the file manager to begin locating the newly recorded clip.",
+      "unit_type": "OPEN_FILE_MANAGER",
+      "unit_before_state": "VLC remains open after recording, and no file browser window is currently open in front of it.",
+      "unit_after_state": "A Files/file manager window is open, showing the Home directory with common folders such as Desktop, Documents, Downloads, and Videos.",
+      "unit_precondition": [
+        "Recording in VLC has already been stopped.",
+        "The system file manager can be launched with the keyboard shortcut."
+      ],
+      "unit_effect": [
+        "A new Files window appears.",
+        "The Home directory view is visible with standard folder entries."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open the system file manager to start browsing for a saved file.",
+      "parameters": {
+        "launch_shortcut": "Super+E",
+        "target_application": "Files application (file manager)",
+        "initial_directory": "Home directory"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['super', 'e']}",
+          "action_template": "Press {{launch_shortcut}} to open {{target_application}} so you can navigate to the folder where the saved file is located; this requires the file manager application to be available and results in {{initial_directory}} opening."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        10
+      ],
+      "unit_intent": "Open the folder where VLC saved the recorded clip so the file can be accessed.",
+      "unit_type": "OPEN_RECORDING_FOLDER",
+      "unit_before_state": "The Files window is open at the Home directory, and the folder that contains the source video and saved VLC recording is visible from the current view.",
+      "unit_after_state": "The Files window is navigated into the target folder, and the folder contents now include the recently recorded VLC clip.",
+      "unit_precondition": [
+        "The Files window is already open.",
+        "The folder containing the source video or VLC recording is visible and accessible from the current file manager view."
+      ],
+      "unit_effect": [
+        "The file manager enters the selected folder.",
+        "A newly created recording file, often with a VLC recording name pattern, is visible in the folder contents."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open {{target_folder}} so the saved recording file can be accessed.",
+      "parameters": {
+        "target_folder": "The folder containing the source video file"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 2, 'target': 'The folder containing the source video file'}",
+          "action_template": "Double-click {{target_folder}} when the file manager is open and the folder is accessible from the current view to navigate into it and display its contents, including the recently recorded clip."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        11
+      ],
+      "unit_intent": "Place the recorded clip on the Desktop so it is easy to find and share.",
+      "unit_type": "MOVE_FILE_TO_DESKTOP",
+      "unit_before_state": "The Files window is open inside the folder containing the recorded clip, and the Desktop location is available as a destination in the sidebar or file manager navigation.",
+      "unit_after_state": "The recorded clip is no longer in the original folder view and has been moved to the Desktop location.",
+      "unit_precondition": [
+        "The recorded clip file is visible in the current folder.",
+        "The Desktop destination is visible or otherwise reachable in the file manager."
+      ],
+      "unit_effect": [
+        "The recorded file is dragged onto the Desktop destination.",
+        "The file disappears from the original folder or is shown as moved.",
+        "The clip is now available on the Desktop."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Move {{source_file}} from its current folder to the Desktop location for easier access.",
+      "parameters": {
+        "source_file": "The recorded video file in the folder",
+        "desktop_destination": "The Desktop folder in the sidebar or the Desktop entry"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'The recorded video file in the folder'}, 'end': {'text': 'The Desktop folder in the sidebar or the Desktop entry'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "Drag {{source_file}} from its current folder to {{desktop_destination}} to move it to the Desktop. This requires {{source_file}} to be visible in the folder and {{desktop_destination}} to be accessible. After the drag, the file disappears from the current folder view or shows as moved and is now located on the Desktop."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

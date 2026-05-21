@@ -1,0 +1,501 @@
+{
+  "segment_id": "seg_001",
+  "app": "thunderbird",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open a new email compose window",
+      "action_before_state": "thunderbird is ready for step 1 of the task.",
+      "action_preconditions": [
+        "The Thunderbird main mail window is open on the screen",
+        "The top toolbar is visible",
+        "A button labeled Write is available in the toolbar"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Write button in the top mail toolbar"
+        }
+      },
+      "action_after_effects": "A new compose window opens, and the cursor is placed in the To field.",
+      "nl_explanation": "When the main mail view is visible and the Write button is available, click Write to open a blank message. The expected result is a compose window ready for entering recipients."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Fill in the main recipient",
+      "action_before_state": "thunderbird is ready for step 2 of the task.",
+      "action_preconditions": [
+        "The compose window is open",
+        "The To field is focused and ready for input"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "team@example.com"
+      },
+      "action_after_effects": "The recipient address appears in the To field.",
+      "nl_explanation": "With the compose window open and the cursor in the To field, type the recipient email address. After the input, the address should be visible as the main recipient."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Move from the recipient field to the subject field",
+      "action_before_state": "thunderbird is ready for step 3 of the task.",
+      "action_preconditions": [
+        "The recipient has been entered in the To field",
+        "The compose window is still active"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "tab"
+        ]
+      },
+      "action_after_effects": "Keyboard focus moves to the Subject field.",
+      "nl_explanation": "Once the recipient is filled in, press Tab to move to the next input area. The cursor should land in the Subject field."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Enter the email subject",
+      "action_before_state": "thunderbird is ready for step 4 of the task.",
+      "action_preconditions": [
+        "The Subject field is focused",
+        "The compose window remains active"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Weekly project update"
+      },
+      "action_after_effects": "The subject line is filled with the requested text.",
+      "nl_explanation": "When the Subject field is active, type the requested subject. The compose window should now show the completed subject line."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Move focus to the message body",
+      "action_before_state": "thunderbird is ready for step 5 of the task.",
+      "action_preconditions": [
+        "The subject has been entered",
+        "The compose window is active",
+        "The message body area is visible and clickable"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the message body area in the compose window"
+        }
+      },
+      "action_after_effects": "The message body editor is focused and ready for text entry.",
+      "nl_explanation": "After filling in the subject, click directly on the message body area to place the cursor there. This ensures focus is correctly set in the body editor for writing the email content."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Write the email body",
+      "action_before_state": "thunderbird is ready for step 6 of the task.",
+      "action_preconditions": [
+        "The message body editor is focused",
+        "The compose window is ready for text entry"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Hi team,\n\nHere is this week's update:\n- Finished the bug triage list.\n- Sent the revised API notes.\n- Waiting on staging access for the last check.\n\nBest,\nAlex"
+      },
+      "action_after_effects": "The full status message appears in the email body.",
+      "nl_explanation": "With the cursor in the message body, type the full update text. The editor should display the greeting, status lines, and sign-off as a complete draft."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Save the message as a draft",
+      "action_before_state": "thunderbird is ready for step 7 of the task.",
+      "action_preconditions": [
+        "The recipient, subject, and body have all been entered",
+        "The compose window is still active"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "s"
+        ]
+      },
+      "action_after_effects": "Thunderbird saves the message to Drafts while keeping the compose window open.",
+      "nl_explanation": "Once the draft content is complete, press Ctrl+S to save it. The expected result is that Thunderbird stores the message in Drafts without sending it."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Close the compose window after saving",
+      "action_before_state": "thunderbird is ready for step 8 of the task.",
+      "action_preconditions": [
+        "The message has already been saved as a draft",
+        "The compose window is still open in front of the main Thunderbird window"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "w"
+        ]
+      },
+      "action_after_effects": "The compose window closes and focus returns to the main Thunderbird mail window.",
+      "nl_explanation": "After saving the draft, press Ctrl+W to close the compose window. Since the message is already saved, Thunderbird should return to the main mail view."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Open the Drafts folder to confirm the draft is there",
+      "action_before_state": "thunderbird is ready for step 9 of the task.",
+      "action_preconditions": [
+        "The main Thunderbird window is visible again",
+        "The folder pane on the left is visible",
+        "A Drafts folder is available for the active account"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Drafts folder in the left folder pane"
+        }
+      },
+      "action_after_effects": "The message list switches to Drafts and shows the saved email with the subject Weekly project update.",
+      "nl_explanation": "When the main window is active and the folder list is visible, click Drafts to verify the saved message. The expected result is that the draft appears in the message list with the correct subject."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Start a new email draft so the weekly update can be composed.",
+      "unit_type": "OPEN_COMPOSE_WINDOW",
+      "unit_before_state": "The Thunderbird main mail window is open with the top mail toolbar visible, including a Write button.",
+      "unit_after_state": "A blank message compose window is open in front of Thunderbird, and the text cursor is in the To field.",
+      "unit_precondition": [
+        "The Thunderbird main mail window is open on screen.",
+        "The top toolbar is visible.",
+        "The Write button is available in the toolbar."
+      ],
+      "unit_effect": [
+        "A new compose window appears.",
+        "Keyboard focus is placed in the To field, ready for recipient entry."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Address the draft to the team and set the requested subject line.",
+      "unit_type": "FILL_RECIPIENT_AND_SUBJECT",
+      "unit_before_state": "The compose window is open with an empty To field focused and the Subject field visible below or beside it.",
+      "unit_after_state": "The To field contains team@example.com, and the Subject field contains Weekly project update.",
+      "unit_precondition": [
+        "The compose window is open and active.",
+        "The To field is focused and ready for typing.",
+        "The Subject field is available to receive focus after moving forward from the recipient field."
+      ],
+      "unit_effect": [
+        "The recipient address team@example.com is visible in the To field.",
+        "Focus moves into the Subject field after pressing Tab.",
+        "The subject line shows Weekly project update."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Enter the weekly project status note into the message body.",
+      "unit_type": "COMPOSE_EMAIL_BODY",
+      "unit_before_state": "The compose window already shows the recipient and subject, and the message body editor is visible but not yet filled with the update text.",
+      "unit_after_state": "The message body contains the full status note beginning with Hi team and ending with Best, Alex.",
+      "unit_precondition": [
+        "The compose window is active.",
+        "The subject has already been entered.",
+        "The message body area is visible and can receive focus."
+      ],
+      "unit_effect": [
+        "The insertion cursor moves into the message body editor.",
+        "The body displays the complete weekly update text, including the greeting, bullet-style status lines, and sign-off."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7
+      ],
+      "unit_intent": "Store the completed email as a draft without sending it.",
+      "unit_type": "SAVE_DRAFT",
+      "unit_before_state": "The compose window is still open and shows a completed draft with recipient, subject, and body filled in.",
+      "unit_after_state": "The compose window remains open, and the current message has been saved to Thunderbird Drafts.",
+      "unit_precondition": [
+        "The recipient, subject, and body have all been entered.",
+        "The compose window is active."
+      ],
+      "unit_effect": [
+        "Thunderbird saves the message to Drafts.",
+        "The draft remains open instead of being sent or closed."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        8
+      ],
+      "unit_intent": "Return from the saved draft editor to the main mail workspace.",
+      "unit_type": "CLOSE_COMPOSE_WINDOW",
+      "unit_before_state": "The saved draft is still open in the compose window in front of the main Thunderbird window.",
+      "unit_after_state": "The compose window is closed, and focus returns to the main Thunderbird mail window.",
+      "unit_precondition": [
+        "The message has already been saved as a draft.",
+        "The compose window is open and in front of the main Thunderbird window."
+      ],
+      "unit_effect": [
+        "The compose window disappears.",
+        "The main Thunderbird mail view becomes active again."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        9
+      ],
+      "unit_intent": "Verify that the saved weekly update is present in the Drafts folder.",
+      "unit_type": "VERIFY_DRAFT_IN_FOLDER",
+      "unit_before_state": "The main Thunderbird window is visible with the folder pane on the left, including a Drafts folder for the active account.",
+      "unit_after_state": "The Drafts folder is selected, and the message list shows a saved draft with the subject Weekly project update.",
+      "unit_precondition": [
+        "The main Thunderbird window is visible again.",
+        "The folder pane is visible.",
+        "A Drafts folder exists for the active account."
+      ],
+      "unit_effect": [
+        "The message list switches to the Drafts folder.",
+        "A draft email with the subject Weekly project update appears in the list as confirmation of the save."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Start a new email draft so the weekly update can be composed.",
+      "unit_type": "OPEN_COMPOSE_WINDOW",
+      "unit_before_state": "The Thunderbird main mail window is open with the top mail toolbar visible, including a Write button.",
+      "unit_after_state": "A blank message compose window is open in front of Thunderbird, and the text cursor is in the To field.",
+      "unit_precondition": [
+        "The Thunderbird main mail window is open on screen.",
+        "The top toolbar is visible.",
+        "The Write button is available in the toolbar."
+      ],
+      "unit_effect": [
+        "A new compose window appears.",
+        "Keyboard focus is placed in the To field, ready for recipient entry."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a blank email compose window from the main mail interface so message details can be entered.",
+      "parameters": {
+        "compose_button": "the Write button in the top mail toolbar"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Write button in the top mail toolbar'}}",
+          "action_template": "When the main mail window is open on the screen, the top toolbar is visible, and {{compose_button}} is available, click {{compose_button}} to open a blank message. The expected result is that a new compose window opens and the cursor is placed in the To field."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Address the draft to the team and set the requested subject line.",
+      "unit_type": "FILL_RECIPIENT_AND_SUBJECT",
+      "unit_before_state": "The compose window is open with an empty To field focused and the Subject field visible below or beside it.",
+      "unit_after_state": "The To field contains team@example.com, and the Subject field contains Weekly project update.",
+      "unit_precondition": [
+        "The compose window is open and active.",
+        "The To field is focused and ready for typing.",
+        "The Subject field is available to receive focus after moving forward from the recipient field."
+      ],
+      "unit_effect": [
+        "The recipient address team@example.com is visible in the To field.",
+        "Focus moves into the Subject field after pressing Tab.",
+        "The subject line shows Weekly project update."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Address the draft to a specified recipient and enter a specified subject line.",
+      "parameters": {
+        "recipient_address": "team@example.com",
+        "subject_text": "Weekly project update"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'team@example.com'}",
+          "action_template": "With the compose window open and the To field focused, type {{recipient_address}} so the address appears in the To field as the main recipient."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['tab']}",
+          "action_template": "After the recipient has been entered and the compose window is still active, press Tab to move focus from the To field to the Subject field."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Weekly project update'}",
+          "action_template": "When the Subject field is focused and the compose window remains active, type {{subject_text}} so the subject line is filled with the requested text."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Enter the weekly project status note into the message body.",
+      "unit_type": "COMPOSE_EMAIL_BODY",
+      "unit_before_state": "The compose window already shows the recipient and subject, and the message body editor is visible but not yet filled with the update text.",
+      "unit_after_state": "The message body contains the full status note beginning with Hi team and ending with Best, Alex.",
+      "unit_precondition": [
+        "The compose window is active.",
+        "The subject has already been entered.",
+        "The message body area is visible and can receive focus."
+      ],
+      "unit_effect": [
+        "The insertion cursor moves into the message body editor.",
+        "The body displays the complete weekly update text, including the greeting, bullet-style status lines, and sign-off."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Enter a specified email message into the compose window's body editor.",
+      "parameters": {
+        "target_body_area": "the message body area in the compose window",
+        "message_body_text": "Hi team,\n\nHere is this week's update:\n- Finished the bug triage list.\n- Sent the revised API notes.\n- Waiting on staging access for the last check.\n\nBest,\nAlex"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the message body area in the compose window'}}",
+          "action_template": "After the subject has been entered, while the compose window is active and {{target_body_area}} is visible and clickable, click {{target_body_area}} to place the cursor there. This focuses the message body editor and makes it ready for text entry."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': \"Hi team,\\n\\nHere is this week's update:\\n- Finished the bug triage list.\\n- Sent the revised API notes.\\n- Waiting on staging access for the last check.\\n\\nBest,\\nAlex\"}",
+          "action_template": "With the message body editor focused and the compose window ready for text entry, type {{message_body_text}} so the full draft content appears in the email body."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7
+      ],
+      "unit_intent": "Store the completed email as a draft without sending it.",
+      "unit_type": "SAVE_DRAFT",
+      "unit_before_state": "The compose window is still open and shows a completed draft with recipient, subject, and body filled in.",
+      "unit_after_state": "The compose window remains open, and the current message has been saved to Thunderbird Drafts.",
+      "unit_precondition": [
+        "The recipient, subject, and body have all been entered.",
+        "The compose window is active."
+      ],
+      "unit_effect": [
+        "Thunderbird saves the message to Drafts.",
+        "The draft remains open instead of being sent or closed."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the current composed email as a draft without sending it.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 's']}",
+          "action_template": "Press Ctrl+S when the email content is complete and the compose window is active to save the current message as a draft while keeping the compose window open."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        8
+      ],
+      "unit_intent": "Return from the saved draft editor to the main mail workspace.",
+      "unit_type": "CLOSE_COMPOSE_WINDOW",
+      "unit_before_state": "The saved draft is still open in the compose window in front of the main Thunderbird window.",
+      "unit_after_state": "The compose window is closed, and focus returns to the main Thunderbird mail window.",
+      "unit_precondition": [
+        "The message has already been saved as a draft.",
+        "The compose window is open and in front of the main Thunderbird window."
+      ],
+      "unit_effect": [
+        "The compose window disappears.",
+        "The main Thunderbird mail view becomes active again."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Close the current compose window after the message has already been saved, and return to the main mail workspace.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'w']}",
+          "action_template": "After the message has already been saved as a draft and the compose window is still open in front of the main Thunderbird window, press Ctrl+W to close the compose window so focus returns to the main Thunderbird mail window."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        9
+      ],
+      "unit_intent": "Verify that the saved weekly update is present in the Drafts folder.",
+      "unit_type": "VERIFY_DRAFT_IN_FOLDER",
+      "unit_before_state": "The main Thunderbird window is visible with the folder pane on the left, including a Drafts folder for the active account.",
+      "unit_after_state": "The Drafts folder is selected, and the message list shows a saved draft with the subject Weekly project update.",
+      "unit_precondition": [
+        "The main Thunderbird window is visible again.",
+        "The folder pane is visible.",
+        "A Drafts folder exists for the active account."
+      ],
+      "unit_effect": [
+        "The message list switches to the Drafts folder.",
+        "A draft email with the subject Weekly project update appears in the list as confirmation of the save."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Verify that a saved draft email with the expected subject is present in the Drafts folder.",
+      "parameters": {
+        "draft_subject": "Weekly project update"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Drafts folder in the left folder pane'}}",
+          "action_template": "When the main Thunderbird window is visible again, the left folder pane is visible, and a Drafts folder is available for the active account, click the Drafts folder in the left folder pane to verify that the message list switches to Drafts and shows the saved email with subject {{draft_subject}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

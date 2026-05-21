@@ -1,0 +1,350 @@
+{
+  "segment_id": "seg_001",
+  "app": "Chrome",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Focus the address bar so a new search can be entered",
+      "action_before_state": "Chrome is already open on the screen, and the current tab is active. The keyboard focus may be anywhere on the page.",
+      "action_preconditions": [
+        "A Chrome window is visible",
+        "The current tab is responsive",
+        "Keyboard input can be sent to Chrome"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "l"
+        ]
+      },
+      "action_after_effects": "The address bar becomes focused and its current contents are selected, ready to be replaced by a new query.",
+      "nl_explanation": "When Chrome is active and ready for input, press Ctrl+L to move focus to the address bar. The current URL is highlighted so the next typed text will replace it."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Enter a search query for a fast vegetarian pasta recipe",
+      "action_before_state": "The address bar is focused and its current contents are highlighted.",
+      "action_preconditions": [
+        "The address bar is focused",
+        "Existing text in the address bar is selected or can be overwritten"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "quick vegetarian pasta recipe 30 minutes"
+      },
+      "action_after_effects": "The full search query appears in the address bar.",
+      "nl_explanation": "With the address bar focused, type a search query that clearly describes a quick vegetarian pasta recipe. The typed query is now ready to be submitted."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Run the web search",
+      "action_before_state": "The search query is visible in the address bar.",
+      "action_preconditions": [
+        "A search query has been entered",
+        "Chrome is still focused on the address bar"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "A search results page loads with multiple recipe links related to quick vegetarian pasta dishes.",
+      "nl_explanation": "After the query has been typed, press Enter to submit it. Chrome loads the search results page so suitable recipe options can be reviewed."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Move through the results until a promising quick recipe is visible",
+      "action_before_state": "The search results page is open, with recipe links and snippets visible.",
+      "action_preconditions": [
+        "The results page has finished loading enough to scroll",
+        "At least one recipe result is visible on the page"
+      ],
+      "action": {
+        "type": "SCROLL",
+        "direction": "down",
+        "target": {
+          "text": "recipe search results whose visible snippet or metadata mentions a short total time such as 30 minutes, 25 minutes, or quick"
+        },
+        "stop_reason": "Stop when a recipe result is visible that appears to match a quick vegetarian pasta dish and shows a short total time in the snippet or metadata."
+      },
+      "action_after_effects": "A relevant recipe result that looks suitable for a 30-minute vegetarian pasta meal is visible on screen.",
+      "nl_explanation": "Once the search results are loaded, scroll down until a recipe result is visible with text indicating it is a quick vegetarian pasta option. Stop when a result appears to match the 30-minute requirement."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Open a suitable recipe result",
+      "action_before_state": "A relevant recipe result for a quick vegetarian pasta dish is visible on the search results page.",
+      "action_preconditions": [
+        "A recipe result is visible",
+        "The result appears relevant to the user's request"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the visible title link of the vegetarian pasta recipe result that shows a short total time in its snippet or metadata"
+        }
+      },
+      "action_after_effects": "The selected recipe page opens in the current tab.",
+      "nl_explanation": "When a suitable recipe result is visible, click its title link to open the recipe page. Chrome navigates from the search results to the recipe itself."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Open the browser's find-in-page tool",
+      "action_before_state": "The recipe page is open, showing the recipe title and page content.",
+      "action_preconditions": [
+        "The recipe page has loaded",
+        "Chrome is the active window"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "f"
+        ]
+      },
+      "action_after_effects": "The find-in-page search box appears in the browser toolbar area, ready for text input.",
+      "nl_explanation": "With the recipe page open, press Ctrl+F to open the in-page search box. This makes it faster to jump directly to the ingredients section."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Search within the recipe page for the ingredients section",
+      "action_before_state": "The find-in-page box is open and focused.",
+      "action_preconditions": [
+        "The find-in-page box is visible",
+        "Text can be entered into the find field"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Ingredients"
+      },
+      "action_after_effects": "Chrome searches the page for the word 'Ingredients' and jumps to the closest matching section or heading.",
+      "nl_explanation": "After the find box opens, type 'Ingredients' so Chrome searches within the current page. The browser moves to and highlights the first matching section."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Adjust the page so the ingredients list is clearly visible",
+      "action_before_state": "The page has jumped near the ingredients heading, but the list may need a small adjustment to be clearly visible.",
+      "action_preconditions": [
+        "A match for 'Ingredients' has been found on the page",
+        "The page is positioned near the ingredients section"
+      ],
+      "action": {
+        "type": "SCROLL",
+        "direction": "down",
+        "target": {
+          "text": "the ingredients section"
+        },
+        "stop_reason": "Stop when the ingredients heading and at least the first few ingredient items are clearly visible on screen. If they are already visible after find-in-page, stop without further scrolling."
+      },
+      "action_after_effects": "The ingredients section is clearly visible, and the task is complete.",
+      "nl_explanation": "After Ctrl+F jumps to the first 'Ingredients' match, check whether the heading and ingredient items are already visible. Scroll only if needed to bring the ingredients section clearly into view."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Submit a web search for quick vegetarian pasta recipes that can likely be made in about 30 minutes or less.",
+      "unit_type": "SEARCH_RECIPE_QUERY",
+      "unit_before_state": "Chrome is open on an existing page in the current tab, and the address bar is not yet focused for a new search.",
+      "unit_after_state": "Chrome displays a search results page for \"quick vegetarian pasta recipe 30 minutes\" with recipe links and snippets visible in the current tab.",
+      "unit_precondition": [
+        "Chrome is the active window.",
+        "The current tab is responsive and can accept keyboard input.",
+        "No modal or popup is blocking access to the address bar."
+      ],
+      "unit_effect": [
+        "The address bar becomes focused with its previous contents selected.",
+        "The query text \"quick vegetarian pasta recipe 30 minutes\" appears in the address bar.",
+        "After submission, a search results page with recipe results for quick vegetarian pasta loads."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Open one visible search result that appears to satisfy the quick vegetarian pasta requirement.",
+      "unit_type": "OPEN_RECIPE_RESULT",
+      "unit_before_state": "The search results page is open in Chrome, showing multiple recipe results, but the target quick vegetarian pasta recipe is not yet the active page.",
+      "unit_after_state": "A selected recipe page for a quick vegetarian pasta dish is open in the current tab instead of the search results list.",
+      "unit_precondition": [
+        "The search results page has loaded enough to scroll.",
+        "At least one visible or reachable result appears relevant to the request and indicates a short total time such as 30 minutes or less.",
+        "The result title link is clickable in the current tab."
+      ],
+      "unit_effect": [
+        "Scrolling reveals a promising vegetarian pasta recipe result with quick-time metadata or snippet text.",
+        "Clicking the visible result navigates away from the results page.",
+        "The chosen recipe article opens in the same Chrome tab."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Bring the recipe's ingredients section into clear view so the needed items can be reviewed for shopping.",
+      "unit_type": "JUMP_TO_INGREDIENTS_SECTION",
+      "unit_before_state": "The recipe page is open near its top content, with the recipe title and body visible, but the ingredients list is not yet clearly positioned on screen.",
+      "unit_after_state": "The browser is positioned at the recipe's ingredients section, with the Ingredients heading and at least the first few ingredient items clearly visible.",
+      "unit_precondition": [
+        "The recipe page has finished loading in the active Chrome tab.",
+        "Chrome can open the find-in-page box.",
+        "The page contains an Ingredients section or heading that can be found.",
+        "The page can be scrolled slightly if the initial find match does not fully expose the list."
+      ],
+      "unit_effect": [
+        "The find-in-page box opens and accepts input.",
+        "Searching for \"Ingredients\" jumps the page to a matching ingredients heading or nearby section.",
+        "A final viewport adjustment leaves the ingredients section clearly readable on screen."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Submit a web search for quick vegetarian pasta recipes that can likely be made in about 30 minutes or less.",
+      "unit_type": "SEARCH_RECIPE_QUERY",
+      "unit_before_state": "Chrome is open on an existing page in the current tab, and the address bar is not yet focused for a new search.",
+      "unit_after_state": "Chrome displays a search results page for \"quick vegetarian pasta recipe 30 minutes\" with recipe links and snippets visible in the current tab.",
+      "unit_precondition": [
+        "Chrome is the active window.",
+        "The current tab is responsive and can accept keyboard input.",
+        "No modal or popup is blocking access to the address bar."
+      ],
+      "unit_effect": [
+        "The address bar becomes focused with its previous contents selected.",
+        "The query text \"quick vegetarian pasta recipe 30 minutes\" appears in the address bar.",
+        "After submission, a search results page with recipe results for quick vegetarian pasta loads."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Submit a specified recipe-related web search query using the browser address bar.",
+      "parameters": {
+        "search_query": "quick vegetarian pasta recipe 30 minutes"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'l']}",
+          "action_template": "When Chrome is active, the current tab is responsive, and keyboard input can be sent to the browser, press Ctrl+L to focus the address bar and select its current contents so {{search_query}} can replace it."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'quick vegetarian pasta recipe 30 minutes'}",
+          "action_template": "With the address bar focused and existing text selected or overwritable, type {{search_query}} so the full recipe search query appears in the address bar."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After {{search_query}} has been entered and the address bar is still focused, press Enter to submit it and load a search results page for the specified recipe query."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Open one visible search result that appears to satisfy the quick vegetarian pasta requirement.",
+      "unit_type": "OPEN_RECIPE_RESULT",
+      "unit_before_state": "The search results page is open in Chrome, showing multiple recipe results, but the target quick vegetarian pasta recipe is not yet the active page.",
+      "unit_after_state": "A selected recipe page for a quick vegetarian pasta dish is open in the current tab instead of the search results list.",
+      "unit_precondition": [
+        "The search results page has loaded enough to scroll.",
+        "At least one visible or reachable result appears relevant to the request and indicates a short total time such as 30 minutes or less.",
+        "The result title link is clickable in the current tab."
+      ],
+      "unit_effect": [
+        "Scrolling reveals a promising vegetarian pasta recipe result with quick-time metadata or snippet text.",
+        "Clicking the visible result navigates away from the results page.",
+        "The chosen recipe article opens in the same Chrome tab."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a visible recipe search result that satisfies the requested dish and time constraints.",
+      "parameters": {
+        "dish_requirement": "vegetarian pasta",
+        "time_requirement": "a short total time such as 30 minutes or less"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'SCROLL', 'direction': 'down', 'target': {'text': 'recipe search results whose visible snippet or metadata mentions a short total time such as 30 minutes, 25 minutes, or quick'}, 'stop_reason': 'Stop when a recipe result is visible that appears to match a quick vegetarian pasta dish and shows a short total time in the snippet or metadata.'}",
+          "action_template": "Once the search results page has loaded enough to scroll and at least one recipe result is visible, scroll down until a recipe result is visible with text indicating it matches {{dish_requirement}} and {{time_requirement}}. Stop when a suitable result meeting {{time_requirement}} is visible on screen."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the visible title link of the vegetarian pasta recipe result that shows a short total time in its snippet or metadata'}}",
+          "action_template": "When a suitable recipe result is visible and appears relevant to the request, click the visible title link of the recipe result that matches {{dish_requirement}} and {{time_requirement}} to open the selected recipe page in the current Chrome tab."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Bring the recipe's ingredients section into clear view so the needed items can be reviewed for shopping.",
+      "unit_type": "JUMP_TO_INGREDIENTS_SECTION",
+      "unit_before_state": "The recipe page is open near its top content, with the recipe title and body visible, but the ingredients list is not yet clearly positioned on screen.",
+      "unit_after_state": "The browser is positioned at the recipe's ingredients section, with the Ingredients heading and at least the first few ingredient items clearly visible.",
+      "unit_precondition": [
+        "The recipe page has finished loading in the active Chrome tab.",
+        "Chrome can open the find-in-page box.",
+        "The page contains an Ingredients section or heading that can be found.",
+        "The page can be scrolled slightly if the initial find match does not fully expose the list."
+      ],
+      "unit_effect": [
+        "The find-in-page box opens and accepts input.",
+        "Searching for \"Ingredients\" jumps the page to a matching ingredients heading or nearby section.",
+        "A final viewport adjustment leaves the ingredients section clearly readable on screen."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Bring a specified section of the current webpage into clear view by using find-in-page and, if needed, adjusting the viewport.",
+      "parameters": {
+        "target_section_heading": "Ingredients"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'f']}",
+          "action_template": "With the webpage loaded and Chrome active, press Ctrl+F to open the in-page search box so you can quickly jump to the {{target_section_heading}} section."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Ingredients'}",
+          "action_template": "When the find-in-page box is visible and focused, type {{target_section_heading}} so Chrome searches the current page and jumps to the closest matching section or heading."
+        },
+        {
+          "action": "{'type': 'SCROLL', 'direction': 'down', 'target': {'text': 'the ingredients section'}, 'stop_reason': 'Stop when the ingredients heading and at least the first few ingredient items are clearly visible on screen. If they are already visible after find-in-page, stop without further scrolling.'}",
+          "action_template": "After find-in-page locates {{target_section_heading}}, check whether the section heading and contents are already visible. Scroll down only if needed until the section is clearly readable on screen."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

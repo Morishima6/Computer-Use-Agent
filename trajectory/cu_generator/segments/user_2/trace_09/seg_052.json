@@ -1,0 +1,177 @@
+{
+  "segment_id": "seg_052",
+  "app": "LibreOffice Calc",
+  "env": {
+    "os": "linux",
+    "screen": "1920x1080",
+    "url": "",
+    "locale": "en_US"
+  },
+  "steps": [
+    {
+      "step_id": "s224",
+      "step_goal": "Delete one character from formula reference",
+      "now_state": {
+        "screenshot_path_before": "screenshots/s226_before_press.png",
+        "screenshot_path_before_part": null,
+        "screenshot_path_before_raw": "",
+        "screenshot_path_after": "screenshots/s226_after_press.png",
+        "screenshot_time_before": "2026-04-25 16:08:58",
+        "screenshot_time_after": "2026-04-25 16:08:59",
+        "app_title_before": "libreoffice — SalesRep.xlsx - LibreOffice Calc",
+        "app_title_after": "libreoffice — SalesRep.xlsx - LibreOffice Calc"
+      },
+      "action_preconditions": [
+        "LibreOffice Calc is open with `SalesRep.xlsx` loaded.",
+        "Sheet2 is the active worksheet.",
+        "Cell B3 is in formula/input-line edit mode.",
+        "The formula `=SUM(Sheet1.B2:B11)` is present and uncommitted, with the text cursor placed inside the formula reference."
+      ],
+      "action": {
+        "type": "press",
+        "target": {},
+        "param": {
+          "press_list": [
+            "backspace"
+          ],
+          "press_count": 1
+        }
+      },
+      "action_before_state": "LibreOffice Calc shows `SalesRep.xlsx` on Sheet2. Cell B3 is being edited with the uncommitted formula `=SUM(Sheet1.B2:B11)`, and the cursor is positioned inside the formula input line immediately before or within the `B2:B11` reference after the previous click.",
+      "action_after_effects": [
+        "The formula reference changes from `Sheet1.B2:B11` to `Sheet1.2:B11` in both the input line and cell B3.",
+        "The text cursor remains inside the formula input line near the edited sheet/range reference.",
+        "Cell B3 stays in edit mode with the red cancel and green accept controls still visible.",
+        "The SUM function help tooltip remains displayed above the input line."
+      ],
+      "nl_explanation": "The user presses Backspace once while editing the formula, deleting one character from the sheet/range reference to begin changing the referenced column or range."
+    },
+    {
+      "step_id": "s225",
+      "step_goal": "Insert column letter into formula reference",
+      "now_state": {
+        "screenshot_path_before": "screenshots/s227_before_typing.png",
+        "screenshot_path_before_part": null,
+        "screenshot_path_before_raw": "",
+        "screenshot_path_after": "screenshots/s227_after_typing.png",
+        "screenshot_time_before": "2026-04-25 15:42:27",
+        "screenshot_time_after": "2026-04-25 15:42:27",
+        "app_title_before": "libreoffice — SalesRep.xlsx - LibreOffice Calc",
+        "app_title_after": "libreoffice — SalesRep.xlsx - LibreOffice Calc"
+      },
+      "action_preconditions": [
+        "LibreOffice Calc is open with `SalesRep.xlsx` loaded.",
+        "Sheet2 is the active worksheet.",
+        "Cell B3 is in formula/input-line edit mode.",
+        "The formula reference has just been partially edited so the first range endpoint is missing its column letter before `2`.",
+        "The text cursor is positioned in the input line at the insertion point before `2` in the reference."
+      ],
+      "action": {
+        "type": "typing",
+        "target": {},
+        "param": {
+          "text": "C"
+        }
+      },
+      "action_before_state": "LibreOffice Calc shows `SalesRep.xlsx` on Sheet2. Cell B3 is being edited, and after the previous Backspace the uncommitted formula has a missing column letter in the first range endpoint, effectively `=SUM(Sheet1.2:B11)`, with the text cursor positioned where the column letter should be inserted.",
+      "action_after_effects": [
+        "The formula in the input line changes to `=SUM(Sheet1.C2:B11)`.",
+        "Cell B3 shows the same uncommitted formula `=SUM(Sheet1.C2:B11)`.",
+        "The text cursor remains inside the input line near the edited `C2` reference.",
+        "Cell B3 remains in edit mode with the red cancel and green accept buttons visible."
+      ],
+      "nl_explanation": "The user types `C` into the formula reference to restore/replace the starting column of the summed range, changing the first endpoint to `C2`."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_052_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Change the starting cell of the SUM formula range in Sheet2 cell B3 from column B to column C.",
+      "unit_type": "EDIT_FORMULA_REFERENCE",
+      "unit_before_state": "LibreOffice Calc is open with SalesRep.xlsx on Sheet2. Cell B3 is in formula edit mode with the uncommitted formula =SUM(Sheet1.B2:B11) visible in both the cell and the input line, and the text cursor is positioned inside the Sheet1.B2:B11 range reference near the first endpoint.",
+      "unit_after_state": "Cell B3 remains in formula edit mode on Sheet2, and the uncommitted formula shown in the input line and in the cell has been changed to =SUM(Sheet1.C2:B11). The cursor remains near the edited C2 reference, with the formula accept and cancel controls still visible.",
+      "unit_precondition": [
+        "SalesRep.xlsx is open in LibreOffice Calc.",
+        "Sheet2 is the active worksheet.",
+        "Cell B3 is active and currently in formula/input-line edit mode.",
+        "The formula =SUM(Sheet1.B2:B11) is present but not yet committed.",
+        "The text cursor is positioned so the column letter in the first range endpoint B2 can be edited."
+      ],
+      "unit_effect": [
+        "The original first endpoint Sheet1.B2 is temporarily changed to Sheet1.2 after deleting the B character.",
+        "Typing C inserts the new column letter before 2.",
+        "The displayed formula becomes =SUM(Sheet1.C2:B11) in both the input line and cell B3.",
+        "Cell B3 stays in edit mode, indicating the formula edit has not yet been accepted or committed."
+      ],
+      "phase1_status": "done",
+      "unit_denoise_meta": {
+        "chosen_step_ids": [],
+        "chosen_all": false,
+        "reason": "No step reached unanimous VLM choosing consensus.",
+        "backend": "qwen",
+        "model": "qwen3.6-plus",
+        "screenshot_count": 2,
+        "required_repeat_count": 3
+      }
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_052_01",
+      "unit_id": "u_seg_052_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Change the starting cell of the SUM formula range in Sheet2 cell B3 from column B to column C.",
+      "unit_type": "EDIT_FORMULA_REFERENCE",
+      "unit_before_state": "LibreOffice Calc is open with SalesRep.xlsx on Sheet2. Cell B3 is in formula edit mode with the uncommitted formula =SUM(Sheet1.B2:B11) visible in both the cell and the input line, and the text cursor is positioned inside the Sheet1.B2:B11 range reference near the first endpoint.",
+      "unit_after_state": "Cell B3 remains in formula edit mode on Sheet2, and the uncommitted formula shown in the input line and in the cell has been changed to =SUM(Sheet1.C2:B11). The cursor remains near the edited C2 reference, with the formula accept and cancel controls still visible.",
+      "unit_precondition": [
+        "SalesRep.xlsx is open in LibreOffice Calc.",
+        "Sheet2 is the active worksheet.",
+        "Cell B3 is active and currently in formula/input-line edit mode.",
+        "The formula =SUM(Sheet1.B2:B11) is present but not yet committed.",
+        "The text cursor is positioned so the column letter in the first range endpoint B2 can be edited."
+      ],
+      "unit_effect": [
+        "The original first endpoint Sheet1.B2 is temporarily changed to Sheet1.2 after deleting the B character.",
+        "Typing C inserts the new column letter before 2.",
+        "The displayed formula becomes =SUM(Sheet1.C2:B11) in both the input line and cell B3.",
+        "Cell B3 stays in edit mode, indicating the formula edit has not yet been accepted or committed."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Change the starting column letter of a formula range reference in a specified spreadsheet cell while keeping the formula in edit mode.",
+      "parameters": {
+        "workbook_name": "SalesRep.xlsx",
+        "active_sheet": "Sheet2",
+        "target_formula_cell": "B3",
+        "formula_before_edit": "=SUM(Sheet1.B2:B11)",
+        "referenced_sheet": "Sheet1",
+        "range_start_endpoint_before": "B2",
+        "range_start_endpoint_after": "C2",
+        "range_end_endpoint": "B11",
+        "old_column_letter": "B",
+        "new_column_letter": "C",
+        "row_number": "2",
+        "formula_after_edit": "=SUM(Sheet1.C2:B11)"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'press', 'target': {}, 'param': {'press_list': ['backspace'], 'press_count': 1}}",
+          "action_template": "Press Backspace once while {{workbook_name}} is open on {{active_sheet}} and {{target_formula_cell}} is in formula/input-line edit mode with {{formula_before_edit}} uncommitted. The cursor is positioned at the column letter of {{range_start_endpoint_before}} in the {{referenced_sheet}} range reference, so this deletes {{old_column_letter}} and temporarily changes the referenced range start to a missing-column endpoint before {{row_number}} while keeping the cell in edit mode."
+        },
+        {
+          "action": "{'type': 'typing', 'target': {}, 'param': {'text': 'C'}}",
+          "action_template": "Type {{new_column_letter}} at the insertion point before {{row_number}} in the partially edited formula reference. This restores the starting endpoint as {{range_start_endpoint_after}}, keeps the range ending at {{range_end_endpoint}}, and changes the uncommitted formula in {{target_formula_cell}} to {{formula_after_edit}} while leaving formula edit mode active."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

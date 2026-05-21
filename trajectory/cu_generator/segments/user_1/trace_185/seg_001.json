@@ -1,0 +1,513 @@
+{
+  "segment_id": "seg_001",
+  "app": "libreoffice_calc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Enter the expense table with headers and six rows of purchases",
+      "action_before_state": "A blank Calc worksheet is visible, with the cell grid shown and A1 selected near the top-left corner.",
+      "action_preconditions": [
+        "LibreOffice Calc is open on an editable worksheet",
+        "Cell A1 is the active cell",
+        "The sheet is empty or has enough blank space starting at A1"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Item\tCategory\tCost\nGroceries\tFood\t54.20\nBus pass\tTransport\t25.00\nLaundry detergent\tHome\t18.75\nTakeout dinner\tFood\t31.40\nNotebook\tStudy\t12.60\nElectricity top-up\tBills\t46.00"
+      },
+      "action_after_effects": "Cells A1:C7 are populated with the headers and purchase data.",
+      "nl_explanation": "When the worksheet is ready and A1 is active, type the full tab-and-newline separated table so the expense list fills A1 through C7."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Select the header row",
+      "action_before_state": "The expense table is visible in A1:C7, with the header row in row 1.",
+      "action_preconditions": [
+        "The table data has already been entered into A1:C7",
+        "Cells A1, B1, and C1 are visible on screen"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell A1 containing Item"
+        },
+        "end": {
+          "text": "cell C1 containing Cost"
+        },
+        "target": {
+          "begin": {
+            "text": "cell A1 containing Item"
+          },
+          "end": {
+            "text": "cell C1 containing Cost"
+          }
+        }
+      },
+      "action_after_effects": "The header cells A1:C1 are selected.",
+      "nl_explanation": "Once the table is visible, drag from the Item header in A1 across to the Cost header in C1 so the whole header row is selected."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Make the headers bold",
+      "action_before_state": "The header row A1:C1 is highlighted.",
+      "action_preconditions": [
+        "Cells A1:C1 are selected",
+        "The sheet is still in editing mode"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "b"
+        ]
+      },
+      "action_after_effects": "The header text becomes bold, making the table easier to read.",
+      "nl_explanation": "With the header row selected, press Ctrl+B to apply bold formatting to the three column headers."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Select the numeric cost values",
+      "action_before_state": "The table remains visible, and the Cost values are listed from C2 to C7.",
+      "action_preconditions": [
+        "The table occupies A1:C7",
+        "The Cost column values in C2:C7 are visible"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell C2 with the first cost value 54.20"
+        },
+        "end": {
+          "text": "cell C7 with the last cost value 46.00"
+        },
+        "target": {
+          "begin": {
+            "text": "cell C2 with the first cost value 54.20"
+          },
+          "end": {
+            "text": "cell C7 with the last cost value 46.00"
+          }
+        }
+      },
+      "action_after_effects": "The range C2:C7 is selected.",
+      "nl_explanation": "After the table has been created, drag down the Cost column from C2 to C7 so only the purchase amounts are selected."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Format the purchase amounts as currency",
+      "action_before_state": "Cells C2:C7 are highlighted and the formatting toolbar is visible above the sheet.",
+      "action_preconditions": [
+        "The amount cells C2:C7 are selected",
+        "The currency format button is available in the toolbar"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Currency Format button ($) in the formatting toolbar"
+        }
+      },
+      "action_after_effects": "Each selected value in C2:C7 is displayed in currency format.",
+      "nl_explanation": "When the cost cells are selected, click the Currency button in the toolbar so all purchase amounts show as money values."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Move to the summary area on the right",
+      "action_before_state": "The expense table is on the left side of the sheet, and empty cells are available around column E.",
+      "action_preconditions": [
+        "The table uses only columns A through C",
+        "Cell E1 is empty and visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the empty cell E1 to the right of the expense table"
+        }
+      },
+      "action_after_effects": "Cell E1 becomes the active cell for entering the summary block.",
+      "nl_explanation": "Once the expense list is complete, click the empty cell E1 so the summary can be placed to the right of the table."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Enter the budget summary labels and formulas",
+      "action_before_state": "Cell E1 is active and the area E1:F3 is empty.",
+      "action_preconditions": [
+        "Cell E1 is selected",
+        "Cells E1:F3 are blank and ready for data entry",
+        "The expense amounts remain in C2:C7 for the formula reference"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Budget\t200\nTotal Spent\t=SUM(C2:C7)\nRemaining\t=F1-F2"
+      },
+      "action_after_effects": "The summary block fills E1:F3, with labels in column E and values/formulas in column F, and the total spent and remaining balance are calculated automatically.",
+      "nl_explanation": "With E1 active, type the two-column summary block so Budget, Total Spent, and Remaining appear in E1:F3, using formulas to calculate the totals."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Select the summary values",
+      "action_before_state": "The summary block is visible in E1:F3, with the numbers and formulas in column F.",
+      "action_preconditions": [
+        "The summary block has been entered into E1:F3",
+        "Cells F1:F3 are visible"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell F1 containing the budget value 200"
+        },
+        "end": {
+          "text": "cell F3 containing the remaining balance"
+        },
+        "target": {
+          "begin": {
+            "text": "cell F1 containing the budget value 200"
+          },
+          "end": {
+            "text": "cell F3 containing the remaining balance"
+          }
+        }
+      },
+      "action_after_effects": "The range F1:F3 is selected.",
+      "nl_explanation": "After the summary appears, drag from F1 down to F3 so the budget, total, and remaining values are all selected together."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Format the summary numbers as currency",
+      "action_before_state": "The summary values in F1:F3 are highlighted and the toolbar is still visible.",
+      "action_preconditions": [
+        "Cells F1:F3 are selected",
+        "The currency format control is available"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Currency Format button ($) in the formatting toolbar"
+        }
+      },
+      "action_after_effects": "The budget, total spent, and remaining balance are all shown in currency format.",
+      "nl_explanation": "When the three summary values are selected, click the Currency button again so the budget section uses the same money formatting as the expense list."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Create the main expense table with the required headers and six purchase records.",
+      "unit_type": "CREATE_EXPENSE_TABLE",
+      "unit_before_state": "LibreOffice Calc shows an editable worksheet with an empty grid, and cell A1 is the active cell in the top-left corner.",
+      "unit_after_state": "The worksheet contains an expense table in A1:C7 with headers Item, Category, and Cost in row 1 and six purchase rows underneath.",
+      "unit_precondition": [
+        "LibreOffice Calc is open on an editable worksheet.",
+        "Cell A1 is selected as the active cell.",
+        "The range A1:C7 is empty or available for new data."
+      ],
+      "unit_effect": [
+        "Cells A1:C7 become populated in one paste-style text entry.",
+        "The six purchases and their categories and costs are visible in the sheet."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3
+      ],
+      "unit_intent": "Visually distinguish the table headers from the expense entries.",
+      "unit_type": "FORMAT_HEADERS_BOLD",
+      "unit_before_state": "The expense table is visible in A1:C7, and the header cells A1:C1 are not yet specially formatted.",
+      "unit_after_state": "Cells A1:C1 remain selected and the header texts Item, Category, and Cost are displayed in bold.",
+      "unit_precondition": [
+        "The expense table already exists in A1:C7.",
+        "Header cells A1 through C1 are visible and selectable.",
+        "Keyboard formatting shortcuts are accepted by the worksheet."
+      ],
+      "unit_effect": [
+        "The range A1:C1 is highlighted during the operation.",
+        "The header text weight changes to bold, making row 1 visibly different from the data rows."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Display all purchase amounts in the expense table as money values.",
+      "unit_type": "FORMAT_COST_COLUMN_AS_CURRENCY",
+      "unit_before_state": "The expense table is visible, with numeric cost values in cells C2:C7 shown as plain numbers.",
+      "unit_after_state": "Cells C2:C7 are formatted as currency, so each purchase amount in the Cost column displays with currency styling.",
+      "unit_precondition": [
+        "The expense table occupies A1:C7.",
+        "Cost values are present in cells C2 through C7.",
+        "The Currency Format button is available in the Calc toolbar."
+      ],
+      "unit_effect": [
+        "The range C2:C7 is selected before formatting is applied.",
+        "Values such as 54.20 and 25.00 change to currency-formatted displays in the Cost column."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        6,
+        7
+      ],
+      "unit_intent": "Add a budget summary block beside the expense table with formulas for total spent and remaining balance.",
+      "unit_type": "CREATE_BUDGET_SUMMARY",
+      "unit_before_state": "The completed expense table is on the left in columns A through C, and the area starting at E1 is empty.",
+      "unit_after_state": "A summary block appears in E1:F3 with labels Budget, Total Spent, and Remaining in column E, and corresponding values/formulas in column F; the total spent evaluates to 187.95 and the remaining balance evaluates to 12.05.",
+      "unit_precondition": [
+        "The expense table already exists and the costs remain in C2:C7.",
+        "Cell E1 is visible and empty.",
+        "Cells E1:F3 are free for entering the summary block."
+      ],
+      "unit_effect": [
+        "Cell E1 becomes the active insertion point for the summary area.",
+        "The formulas =SUM(C2:C7) and =F1-F2 are entered and immediately calculate visible results in F2 and F3."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        8,
+        9
+      ],
+      "unit_intent": "Make the budget summary values use the same money format as the expense amounts.",
+      "unit_type": "FORMAT_SUMMARY_VALUES_AS_CURRENCY",
+      "unit_before_state": "The summary block is visible in E1:F3, with numeric and formula results in F1:F3 not yet shown in currency format.",
+      "unit_after_state": "The values in F1:F3 are displayed as currency, so the budget, total spent, and remaining balance all appear as money amounts.",
+      "unit_precondition": [
+        "The summary block has been entered in E1:F3.",
+        "Cells F1 through F3 are visible and contain the summary values.",
+        "The Currency Format control is available in the toolbar."
+      ],
+      "unit_effect": [
+        "The range F1:F3 is selected during the operation.",
+        "The three summary values update to currency-formatted displays, including the computed total and remaining balance."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Create the main expense table with the required headers and six purchase records.",
+      "unit_type": "CREATE_EXPENSE_TABLE",
+      "unit_before_state": "LibreOffice Calc shows an editable worksheet with an empty grid, and cell A1 is the active cell in the top-left corner.",
+      "unit_after_state": "The worksheet contains an expense table in A1:C7 with headers Item, Category, and Cost in row 1 and six purchase rows underneath.",
+      "unit_precondition": [
+        "LibreOffice Calc is open on an editable worksheet.",
+        "Cell A1 is selected as the active cell.",
+        "The range A1:C7 is empty or available for new data."
+      ],
+      "unit_effect": [
+        "Cells A1:C7 become populated in one paste-style text entry.",
+        "The six purchases and their categories and costs are visible in the sheet."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Populate a worksheet with a complete expense table by entering a tab-and-newline separated dataset starting from the active cell.",
+      "parameters": {
+        "target_cell": "A1",
+        "target_range": "A1:C7",
+        "table_data": "Item\tCategory\tCost\nGroceries\tFood\t54.20\nBus pass\tTransport\t25.00\nLaundry detergent\tHome\t18.75\nTakeout dinner\tFood\t31.40\nNotebook\tStudy\t12.60\nElectricity top-up\tBills\t46.00"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "TYPING",
+          "action_template": "When the worksheet is ready and {{target_cell}} is active, type {{table_data}} to populate {{target_range}} with the complete expense table."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3
+      ],
+      "unit_intent": "Visually distinguish the table headers from the expense entries.",
+      "unit_type": "FORMAT_HEADERS_BOLD",
+      "unit_before_state": "The expense table is visible in A1:C7, and the header cells A1:C1 are not yet specially formatted.",
+      "unit_after_state": "Cells A1:C1 remain selected and the header texts Item, Category, and Cost are displayed in bold.",
+      "unit_precondition": [
+        "The expense table already exists in A1:C7.",
+        "Header cells A1 through C1 are visible and selectable.",
+        "Keyboard formatting shortcuts are accepted by the worksheet."
+      ],
+      "unit_effect": [
+        "The range A1:C1 is highlighted during the operation.",
+        "The header text weight changes to bold, making row 1 visibly different from the data rows."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Apply bold formatting to a selected table header range so it is visually distinguished from the data rows.",
+      "parameters": {
+        "header_start_cell": "cell A1 containing Item",
+        "header_end_cell": "cell C1 containing Cost",
+        "header_range": "A1:C1",
+        "format_shortcut": "Ctrl+B"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "DRAG_TO",
+          "action_template": "Once the table is visible, drag from {{header_start_cell}} across to {{header_end_cell}} so the whole header range {{header_range}} is selected. Preconditions: the table data has already been entered and the header cells are visible on screen. After this action, the header cells in {{header_range}} are selected."
+        },
+        {
+          "action": "PRESS",
+          "action_template": "With the header range {{header_range}} selected, press {{format_shortcut}} to apply bold formatting to the column headers. Preconditions: cells in {{header_range}} are selected and the sheet is still in editing mode. After this action, the header text becomes bold, making the table easier to read."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Display all purchase amounts in the expense table as money values.",
+      "unit_type": "FORMAT_COST_COLUMN_AS_CURRENCY",
+      "unit_before_state": "The expense table is visible, with numeric cost values in cells C2:C7 shown as plain numbers.",
+      "unit_after_state": "Cells C2:C7 are formatted as currency, so each purchase amount in the Cost column displays with currency styling.",
+      "unit_precondition": [
+        "The expense table occupies A1:C7.",
+        "Cost values are present in cells C2 through C7.",
+        "The Currency Format button is available in the Calc toolbar."
+      ],
+      "unit_effect": [
+        "The range C2:C7 is selected before formatting is applied.",
+        "Values such as 54.20 and 25.00 change to currency-formatted displays in the Cost column."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Format a specified range of numeric cells in a table as currency values.",
+      "parameters": {
+        "target_range": "C2:C7",
+        "range_start_cell": "cell C2 with the first cost value 54.20",
+        "range_end_cell": "cell C7 with the last cost value 46.00",
+        "format_button": "the Currency Format button ($) in the formatting toolbar"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "DRAG_TO",
+          "action_template": "Drag from {{range_start_cell}} to {{range_end_cell}} to select only the numeric cells in {{target_range}} after confirming the table and those values are visible. This leaves {{target_range}} selected."
+        },
+        {
+          "action": "CLICK",
+          "action_template": "Click {{format_button}} to apply currency formatting to the selected cells in {{target_range}} once that range is selected and the toolbar is available. This displays each selected value in currency format."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        6,
+        7
+      ],
+      "unit_intent": "Add a budget summary block beside the expense table with formulas for total spent and remaining balance.",
+      "unit_type": "CREATE_BUDGET_SUMMARY",
+      "unit_before_state": "The completed expense table is on the left in columns A through C, and the area starting at E1 is empty.",
+      "unit_after_state": "A summary block appears in E1:F3 with labels Budget, Total Spent, and Remaining in column E, and corresponding values/formulas in column F; the total spent evaluates to 187.95 and the remaining balance evaluates to 12.05.",
+      "unit_precondition": [
+        "The expense table already exists and the costs remain in C2:C7.",
+        "Cell E1 is visible and empty.",
+        "Cells E1:F3 are free for entering the summary block."
+      ],
+      "unit_effect": [
+        "Cell E1 becomes the active insertion point for the summary area.",
+        "The formulas =SUM(C2:C7) and =F1-F2 are entered and immediately calculate visible results in F2 and F3."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a two-column budget summary block in a specified empty area beside an existing expense table, including formulas for total spent and remaining balance.",
+      "parameters": {
+        "target_start_cell": "E1",
+        "target_summary_range": "E1:F3",
+        "source_amount_range": "C2:C7",
+        "budget_label": "Budget",
+        "budget_value": "200",
+        "total_spent_label": "Total Spent",
+        "total_spent_formula": "=SUM(C2:C7)",
+        "remaining_label": "Remaining",
+        "remaining_formula": "=F1-F2"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the empty cell E1 to the right of the expense table'}}",
+          "action_template": "Click {{target_start_cell}} to activate the starting cell for placing the summary block beside the existing table."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Budget\\t200\\nTotal Spent\\t=SUM(C2:C7)\\nRemaining\\t=F1-F2'}",
+          "action_template": "Type the two-column summary block into {{target_summary_range}} starting at {{target_start_cell}} so {{budget_label}}, {{total_spent_label}}, and {{remaining_label}} appear in the label column, with {{budget_value}}, {{total_spent_formula}}, and {{remaining_formula}} in the value column using {{source_amount_range}} as the expense source range."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        8,
+        9
+      ],
+      "unit_intent": "Make the budget summary values use the same money format as the expense amounts.",
+      "unit_type": "FORMAT_SUMMARY_VALUES_AS_CURRENCY",
+      "unit_before_state": "The summary block is visible in E1:F3, with numeric and formula results in F1:F3 not yet shown in currency format.",
+      "unit_after_state": "The values in F1:F3 are displayed as currency, so the budget, total spent, and remaining balance all appear as money amounts.",
+      "unit_precondition": [
+        "The summary block has been entered in E1:F3.",
+        "Cells F1 through F3 are visible and contain the summary values.",
+        "The Currency Format control is available in the toolbar."
+      ],
+      "unit_effect": [
+        "The range F1:F3 is selected during the operation.",
+        "The three summary values update to currency-formatted displays, including the computed total and remaining balance."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Apply currency formatting to a specified summary value range.",
+      "parameters": {
+        "target_range": "F1:F3",
+        "range_start_cell": "cell F1 containing the budget value 200",
+        "range_end_cell": "cell F3 containing the remaining balance",
+        "format_control": "the Currency Format button ($) in the formatting toolbar"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'cell F1 containing the budget value 200'}, 'end': {'text': 'cell F3 containing the remaining balance'}, 'target': {'begin': {'text': 'cell F1 containing the budget value 200'}, 'end': {'text': 'cell F3 containing the remaining balance'}}}",
+          "action_template": "Drag from {{range_start_cell}} to {{range_end_cell}} to select the summary values in {{target_range}} after they appear and while the cells are visible."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Currency Format button ($) in the formatting toolbar'}}",
+          "action_template": "Click {{format_control}} to show the selected values in {{target_range}} in currency format once the range is selected and the control is available."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

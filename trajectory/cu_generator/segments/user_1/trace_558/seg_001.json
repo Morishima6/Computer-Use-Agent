@@ -1,0 +1,496 @@
+{
+  "segment_id": "seg_001",
+  "app": "vs_code",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the folder picker from VS Code",
+      "action_before_state": "VS Code is already open on screen, showing either the Welcome page or an empty editor area with the main sidebar visible.",
+      "action_preconditions": [
+        "The VS Code window is focused.",
+        "An option to open a folder is visible on the Welcome page or in the primary interface."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Open Folder button in the main VS Code window"
+        }
+      },
+      "action_after_effects": "A GNOME folder chooser opens in front of VS Code.",
+      "nl_explanation": "When VS Code is visible and ready, click the Open Folder button. This should open the Linux folder selection dialog so you can choose the notes directory."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Focus the location entry in the folder chooser",
+      "action_before_state": "The GNOME folder chooser is open, showing folders and navigation controls.",
+      "action_preconditions": [
+        "The folder chooser window is active.",
+        "Keyboard shortcuts are accepted by the file chooser."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "l"
+        ]
+      },
+      "action_after_effects": "The location bar becomes editable so a full path can be entered directly.",
+      "nl_explanation": "With the folder chooser active, press Ctrl+L to switch focus to the location field. This prepares the dialog for direct path entry instead of browsing manually."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Enter the notes folder path",
+      "action_before_state": "The file chooser location field is focused and ready for text input.",
+      "action_preconditions": [
+        "The location entry is active.",
+        "The path `/home/user/notes` exists or is expected to exist."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "/home/user/notes"
+      },
+      "action_after_effects": "The notes folder path appears in the location entry.",
+      "nl_explanation": "Once the location field is active, type `/home/user/notes`. This sets the exact folder that should be opened in VS Code."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Navigate to the typed folder path",
+      "action_before_state": "The location field contains `/home/user/notes`.",
+      "action_preconditions": [
+        "The path text has been entered completely.",
+        "The folder chooser is still focused."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The folder chooser navigates into `/home/user/notes` and shows its contents.",
+      "nl_explanation": "After the folder path is entered, press Enter. The dialog should jump directly into the notes folder so it can be selected for opening."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Open the notes folder in VS Code",
+      "action_before_state": "The file chooser is displaying the `/home/user/notes` directory and its contents.",
+      "action_preconditions": [
+        "The dialog is currently inside `/home/user/notes`.",
+        "The Open button is available."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Open button in the bottom-right of the folder chooser"
+        }
+      },
+      "action_after_effects": "The dialog closes and VS Code loads `/home/user/notes` into the Explorer sidebar.",
+      "nl_explanation": "When the chooser is already inside the notes directory, click Open. VS Code should switch to that folder and show its files in the Explorer panel."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Start creating a new Markdown file",
+      "action_before_state": "VS Code is focused again, with the Explorer showing the `/home/user/notes` folder.",
+      "action_preconditions": [
+        "The Explorer sidebar is visible.",
+        "The root folder `/home/user/notes` is loaded."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the New File icon beside the notes folder name in the Explorer"
+        }
+      },
+      "action_after_effects": "An inline filename input appears in the Explorer.",
+      "nl_explanation": "With the notes folder open in the Explorer, click the New File icon. VS Code should create an editable filename field for the new note."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Name the new standup note file",
+      "action_before_state": "The Explorer shows an inline text box for the new file name.",
+      "action_preconditions": [
+        "The filename input is active.",
+        "The notes folder is still selected."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "2026-04-03-standup.md"
+      },
+      "action_after_effects": "The intended Markdown filename is filled into the new file input.",
+      "nl_explanation": "When the new file name box is active, type `2026-04-03-standup.md`. This prepares a dated daily standup note in Markdown format."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Create and open the new file",
+      "action_before_state": "The filename input contains `2026-04-03-standup.md`.",
+      "action_preconditions": [
+        "The full filename has been typed.",
+        "The inline input is still selected."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The file is created in the notes folder and opens as a blank editor tab.",
+      "nl_explanation": "After the filename is entered, press Enter. VS Code should create the file in the current folder and place the cursor inside the new editor tab."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Add the standup note content",
+      "action_before_state": "The new Markdown file is open in the editor with an empty text area and a blinking cursor.",
+      "action_preconditions": [
+        "The `2026-04-03-standup.md` tab is active.",
+        "The text cursor is inside the editor."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "# Standup - 2026-04-03\n\n## Yesterday\n- [ ] Finished reviewing open pull requests\n- [ ] Replied to the urgent bug report\n\n## Today\n- [ ] Update the API usage notes\n- [ ] Test the settings screen fixes\n\n## Blockers\n- [ ] Waiting for final copy from the design team\n"
+      },
+      "action_after_effects": "The editor contains a structured Markdown standup note with headings and checklist items.",
+      "nl_explanation": "With the new file open and empty, type the standup template content. The result should be a readable Markdown note with Yesterday, Today, and Blockers sections."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Save the new note to disk",
+      "action_before_state": "The Markdown content is visible in the editor and the tab shows unsaved changes.",
+      "action_preconditions": [
+        "The standup note content has been entered.",
+        "The editor tab is active."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "s"
+        ]
+      },
+      "action_after_effects": "The unsaved indicator disappears and the file is stored in `/home/user/notes`.",
+      "nl_explanation": "After the content is in place, press Ctrl+S to save the file. This commits the new standup note to disk so it can be reopened later."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Open the Markdown preview for review",
+      "action_before_state": "The saved standup note is open in the editor as plain Markdown text.",
+      "action_preconditions": [
+        "The `2026-04-03-standup.md` tab is active.",
+        "The file has already been saved."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "v"
+        ]
+      },
+      "action_after_effects": "VS Code opens the Markdown preview, rendering the headings and checklist formatting for review.",
+      "nl_explanation": "When the saved Markdown file is active, press Ctrl+Shift+V. VS Code should switch to a rendered preview so the note layout can be checked visually."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "unit_intent": "Open the notes workspace in VS Code so the new standup note is created in the correct folder.",
+      "unit_type": "OPEN_FOLDER_BY_PATH",
+      "unit_before_state": "VS Code is open on its welcome or empty workspace view, and the notes folder is not yet loaded in the Explorer.",
+      "unit_after_state": "The folder chooser is closed, and VS Code shows `/home/user/notes` as the root folder in the Explorer sidebar.",
+      "unit_precondition": [
+        "VS Code is focused and shows an available Open Folder entry point.",
+        "The path `/home/user/notes` exists and can be accessed from the folder chooser."
+      ],
+      "unit_effect": [
+        "A folder chooser appears, accepts direct path entry, navigates to `/home/user/notes`, and then closes after confirmation.",
+        "The Explorer refreshes to display the contents of `/home/user/notes`."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Create the dated standup Markdown file in the notes folder and open it for editing.",
+      "unit_type": "CREATE_FILE_IN_EXPLORER",
+      "unit_before_state": "VS Code is focused with `/home/user/notes` loaded in the Explorer, and no new file name field is active.",
+      "unit_after_state": "A new editor tab for `2026-04-03-standup.md` is open, showing a blank Markdown file with the text cursor inside it.",
+      "unit_precondition": [
+        "The Explorer sidebar is visible and `/home/user/notes` is the active root folder.",
+        "The New File control can be used to create a file in that folder."
+      ],
+      "unit_effect": [
+        "An inline filename box appears in the Explorer, receives `2026-04-03-standup.md`, and disappears after confirmation.",
+        "The new file appears in the folder and opens as the active editor tab."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        9
+      ],
+      "unit_intent": "Draft the standup note content with the required sections and checklist items.",
+      "unit_type": "INSERT_MARKDOWN_TEMPLATE",
+      "unit_before_state": "The file `2026-04-03-standup.md` is open as an empty editor tab, and the cursor is ready for typing.",
+      "unit_after_state": "The editor contains a Markdown standup note with the title `Standup - 2026-04-03` and the sections `Yesterday`, `Today`, and `Blockers`, each with checklist items.",
+      "unit_precondition": [
+        "The `2026-04-03-standup.md` tab is active.",
+        "The editor caret is in the file body and ready to accept text input."
+      ],
+      "unit_effect": [
+        "The blank editor is replaced by visible Markdown headings and checklist syntax for the three requested sections.",
+        "The editor tab shows unsaved changes after the text is entered."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        10
+      ],
+      "unit_intent": "Save the drafted standup note so the new file is persisted on disk.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The completed Markdown note is visible in `2026-04-03-standup.md`, and the tab indicates unsaved changes.",
+      "unit_after_state": "The same Markdown note remains open in the editor, but the unsaved-change indicator is gone because the file has been written to `/home/user/notes`.",
+      "unit_precondition": [
+        "The note content has already been entered into `2026-04-03-standup.md`.",
+        "The editor tab for that file is active and accepts keyboard shortcuts."
+      ],
+      "unit_effect": [
+        "The dirty indicator on the editor tab disappears.",
+        "The file is saved to disk in `/home/user/notes`."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        11
+      ],
+      "unit_intent": "Open a rendered view of the saved standup note to review its Markdown formatting.",
+      "unit_type": "OPEN_MARKDOWN_PREVIEW",
+      "unit_before_state": "The saved file `2026-04-03-standup.md` is open as plain Markdown source in the active editor.",
+      "unit_after_state": "VS Code shows the Markdown preview for `2026-04-03-standup.md`, rendering the title, section headings, and checklist items for visual review.",
+      "unit_precondition": [
+        "The `2026-04-03-standup.md` editor tab is active.",
+        "The file has already been saved and VS Code Markdown preview is available."
+      ],
+      "unit_effect": [
+        "A preview pane or preview tab opens for the current Markdown file.",
+        "The note is displayed as formatted Markdown instead of raw source text."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "unit_intent": "Open the notes workspace in VS Code so the new standup note is created in the correct folder.",
+      "unit_type": "OPEN_FOLDER_BY_PATH",
+      "unit_before_state": "VS Code is open on its welcome or empty workspace view, and the notes folder is not yet loaded in the Explorer.",
+      "unit_after_state": "The folder chooser is closed, and VS Code shows `/home/user/notes` as the root folder in the Explorer sidebar.",
+      "unit_precondition": [
+        "VS Code is focused and shows an available Open Folder entry point.",
+        "The path `/home/user/notes` exists and can be accessed from the folder chooser."
+      ],
+      "unit_effect": [
+        "A folder chooser appears, accepts direct path entry, navigates to `/home/user/notes`, and then closes after confirmation.",
+        "The Explorer refreshes to display the contents of `/home/user/notes`."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a specified folder in VS Code by entering its path directly in the folder chooser.",
+      "parameters": {
+        "target_folder_path": "/home/user/notes"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Open Folder button in the main VS Code window'}}",
+          "action_template": "When VS Code is visible and ready, click the Open Folder button. This opens the folder selection dialog so you can choose the target folder path."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'l']}",
+          "action_template": "With the folder chooser active, press Ctrl+L to switch focus to the location field. This prepares the dialog for direct path entry instead of browsing manually."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '/home/user/notes'}",
+          "action_template": "Once the location field is active, type {{target_folder_path}}. This sets the exact folder that should be opened in VS Code."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After the folder path is entered, press Enter. The dialog should jump directly into {{target_folder_path}} so it can be selected for opening."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Open button in the bottom-right of the folder chooser'}}",
+          "action_template": "When the chooser is already inside {{target_folder_path}}, click the Open button. VS Code should switch to that folder and show its files in the Explorer panel."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Create the dated standup Markdown file in the notes folder and open it for editing.",
+      "unit_type": "CREATE_FILE_IN_EXPLORER",
+      "unit_before_state": "VS Code is focused with `/home/user/notes` loaded in the Explorer, and no new file name field is active.",
+      "unit_after_state": "A new editor tab for `2026-04-03-standup.md` is open, showing a blank Markdown file with the text cursor inside it.",
+      "unit_precondition": [
+        "The Explorer sidebar is visible and `/home/user/notes` is the active root folder.",
+        "The New File control can be used to create a file in that folder."
+      ],
+      "unit_effect": [
+        "An inline filename box appears in the Explorer, receives `2026-04-03-standup.md`, and disappears after confirmation.",
+        "The new file appears in the folder and opens as the active editor tab."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a specified file in the active Explorer folder and open it for editing.",
+      "parameters": {
+        "target_folder": "/home/user/notes",
+        "file_name": "2026-04-03-standup.md"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the New File icon beside the notes folder name in the Explorer'}}",
+          "action_template": "With {{target_folder}} open in the Explorer and visible in the sidebar, click the New File icon beside the folder name to open an inline filename input for the new file."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '2026-04-03-standup.md'}",
+          "action_template": "When the inline filename input is active and {{target_folder}} is still selected, type {{file_name}} so the intended file name is filled into the new file input."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After {{file_name}} has been fully typed and the inline input is still selected, press Enter to create the file in {{target_folder}} and open it as a blank editor tab."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        9
+      ],
+      "unit_intent": "Draft the standup note content with the required sections and checklist items.",
+      "unit_type": "INSERT_MARKDOWN_TEMPLATE",
+      "unit_before_state": "The file `2026-04-03-standup.md` is open as an empty editor tab, and the cursor is ready for typing.",
+      "unit_after_state": "The editor contains a Markdown standup note with the title `Standup - 2026-04-03` and the sections `Yesterday`, `Today`, and `Blockers`, each with checklist items.",
+      "unit_precondition": [
+        "The `2026-04-03-standup.md` tab is active.",
+        "The editor caret is in the file body and ready to accept text input."
+      ],
+      "unit_effect": [
+        "The blank editor is replaced by visible Markdown headings and checklist syntax for the three requested sections.",
+        "The editor tab shows unsaved changes after the text is entered."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Insert a specified standup-note Markdown template with standard sections and checklist items into the active editor.",
+      "parameters": {
+        "target_file": "2026-04-03-standup.md",
+        "markdown_template": "# Standup - 2026-04-03\n\n## Yesterday\n- [ ] Finished reviewing open pull requests\n- [ ] Replied to the urgent bug report\n\n## Today\n- [ ] Update the API usage notes\n- [ ] Test the settings screen fixes\n\n## Blockers\n- [ ] Waiting for final copy from the design team\n"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': '# Standup - 2026-04-03\\n\\n## Yesterday\\n- [ ] Finished reviewing open pull requests\\n- [ ] Replied to the urgent bug report\\n\\n## Today\\n- [ ] Update the API usage notes\\n- [ ] Test the settings screen fixes\\n\\n## Blockers\\n- [ ] Waiting for final copy from the design team\\n'}",
+          "action_template": "With the new file open and empty, type {{markdown_template}} into the editor to insert the standup template content. Preconditions: the {{target_file}} tab is active and the text cursor is inside the editor. After effects: the editor contains a structured Markdown standup note with headings and checklist items."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        10
+      ],
+      "unit_intent": "Save the drafted standup note so the new file is persisted on disk.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The completed Markdown note is visible in `2026-04-03-standup.md`, and the tab indicates unsaved changes.",
+      "unit_after_state": "The same Markdown note remains open in the editor, but the unsaved-change indicator is gone because the file has been written to `/home/user/notes`.",
+      "unit_precondition": [
+        "The note content has already been entered into `2026-04-03-standup.md`.",
+        "The editor tab for that file is active and accepts keyboard shortcuts."
+      ],
+      "unit_effect": [
+        "The dirty indicator on the editor tab disappears.",
+        "The file is saved to disk in `/home/user/notes`."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the active drafted document so its current contents are persisted to disk.",
+      "parameters": {
+        "target_document": "2026-04-03-standup.md",
+        "save_location": "/home/user/notes"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 's']}",
+          "action_template": "With {{target_document}} content already entered and its editor tab active, press Ctrl+S to save the file so the unsaved indicator disappears and the file is stored in {{save_location}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        11
+      ],
+      "unit_intent": "Open a rendered view of the saved standup note to review its Markdown formatting.",
+      "unit_type": "OPEN_MARKDOWN_PREVIEW",
+      "unit_before_state": "The saved file `2026-04-03-standup.md` is open as plain Markdown source in the active editor.",
+      "unit_after_state": "VS Code shows the Markdown preview for `2026-04-03-standup.md`, rendering the title, section headings, and checklist items for visual review.",
+      "unit_precondition": [
+        "The `2026-04-03-standup.md` editor tab is active.",
+        "The file has already been saved and VS Code Markdown preview is available."
+      ],
+      "unit_effect": [
+        "A preview pane or preview tab opens for the current Markdown file.",
+        "The note is displayed as formatted Markdown instead of raw source text."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open the rendered preview of the active saved Markdown file to visually review its formatting.",
+      "parameters": {
+        "target_file": "2026-04-03-standup.md"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'v']}",
+          "action_template": "When the saved Markdown file {{target_file}} is active, press Ctrl+Shift+V to open its rendered preview so the layout and formatting can be checked visually."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

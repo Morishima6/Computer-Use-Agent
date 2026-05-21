@@ -1,0 +1,511 @@
+{
+  "segment_id": "seg_001",
+  "app": "vs_code",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the integrated terminal in the editor",
+      "action_before_state": "VS Code is already open on the screen, and the main editor area is visible.",
+      "action_preconditions": [
+        "The VS Code window is focused",
+        "No modal dialog is blocking keyboard input"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "`"
+        ]
+      },
+      "action_after_effects": "The integrated terminal panel opens at the bottom of VS Code and is ready for command input.",
+      "nl_explanation": "When the main VS Code window is active, press Ctrl+` to open the integrated terminal. The expected result is that a terminal panel appears at the bottom, giving you a place to prepare the file location."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Prepare an empty Markdown file for the handoff note",
+      "action_before_state": "The terminal panel is open with a blinking cursor waiting for input.",
+      "action_preconditions": [
+        "The terminal cursor is active",
+        "The shell prompt is visible"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "mkdir -p /home/user/Documents && truncate -s 0 /home/user/Documents/daily-handoff.md"
+      },
+      "action_after_effects": "The full shell command appears in the terminal input line but has not run yet.",
+      "nl_explanation": "With the terminal focused and ready, type a command that ensures the Documents folder exists and resets the Markdown file directly inside it. This sets up the file path needed for the next steps."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Run the terminal command",
+      "action_before_state": "The terminal contains the folder-and-file creation command, and the cursor is at the end of the line.",
+      "action_preconditions": [
+        "The command text is fully entered",
+        "The terminal remains focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The shell runs the command and returns to a prompt, meaning the Markdown file now exists in the Documents folder.",
+      "nl_explanation": "After the setup command is visible in the terminal, press Enter to execute it. The expected result is a new shell prompt, which indicates the empty Markdown file was created successfully."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Open Quick Open so the new file can be opened by path",
+      "action_before_state": "The terminal is still visible, and VS Code remains in focus.",
+      "action_preconditions": [
+        "VS Code is the active application",
+        "No popup is blocking shortcuts"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "p"
+        ]
+      },
+      "action_after_effects": "The Quick Open input box appears near the top of the window, ready for a file path.",
+      "nl_explanation": "With VS Code active, press Ctrl+P to open the Quick Open bar. This gives you a fast way to open the Markdown file directly by its absolute path."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Enter the path of the handoff note file",
+      "action_before_state": "The Quick Open box is visible at the top of VS Code and has keyboard focus.",
+      "action_preconditions": [
+        "The Quick Open input field is active",
+        "The file path from the previous terminal step exists"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "/home/user/Documents/daily-handoff.md"
+      },
+      "action_after_effects": "The file path appears in Quick Open, and VS Code shows the matching file suggestion.",
+      "nl_explanation": "When the Quick Open field is focused, type the absolute path to the Markdown file you created. The matching file path will appear in the results list for selection."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Open the Markdown file in the editor",
+      "action_before_state": "Quick Open shows the typed file path and the matching result is selected.",
+      "action_preconditions": [
+        "The target file appears as the active Quick Open result",
+        "The Quick Open field still has focus"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The Quick Open box closes and the empty file opens as a new editor tab named daily-handoff.md.",
+      "nl_explanation": "Once the correct file path is selected in Quick Open, press Enter to open it. The result should be a blank Markdown editor tab for the new handoff note."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Focus the editor so content can be entered cleanly",
+      "action_before_state": "The daily-handoff.md tab is open, and the editor canvas is empty.",
+      "action_preconditions": [
+        "The Markdown file tab is visible",
+        "The main editor area is not obstructed"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the empty text area in the daily-handoff.md editor"
+        }
+      },
+      "action_after_effects": "The text cursor appears inside the editor, confirming that typing will go into the Markdown file.",
+      "nl_explanation": "When the blank Markdown tab is open, click once inside the empty editor area to place the caret there. This ensures the next typing action goes into the file instead of another panel."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Write the daily handoff note content",
+      "action_before_state": "The caret is visible inside the empty Markdown editor and the file has focus.",
+      "action_preconditions": [
+        "The Markdown editor is focused",
+        "The file is open and editable"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "# Daily Handoff\n\n**Date:** April 2, 2026\n\n## Completed Today\n- Finished reviewing incoming bug reports\n- Updated the API usage notes\n- Sent the status summary to the team\n\n## Blockers\n- Waiting for confirmation on the staging database reset\n- One login issue still needs a reproducible test case\n\n## Next Up\n- Re-test the login fix after the database reset\n- Draft tomorrow's release checklist\n- Follow up on two unresolved support tickets\n"
+      },
+      "action_after_effects": "The Markdown file now contains a complete handoff note with headings and bullet lists.",
+      "nl_explanation": "With the cursor already inside the editor, type the full Markdown handoff note, including a title, date, completed work, blockers, and next steps. The file should visibly populate with structured text and list formatting."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Save the Markdown file",
+      "action_before_state": "The note content is visible in the editor, and the tab shows unsaved changes.",
+      "action_preconditions": [
+        "The editor still has focus",
+        "There are unsaved edits in the file"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "s"
+        ]
+      },
+      "action_after_effects": "The unsaved-change indicator disappears from the tab, confirming the file is written to disk.",
+      "nl_explanation": "After the note text has been entered, press Ctrl+S to save it. The expected result is that the tab no longer shows a dirty-state indicator, meaning the handoff note is stored."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Open the Markdown preview to verify formatting",
+      "action_before_state": "The saved Markdown file is open in the editor and remains selected.",
+      "action_preconditions": [
+        "The active tab is the Markdown file",
+        "The editor is not blocked by another panel"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "v"
+        ]
+      },
+      "action_after_effects": "A Markdown preview pane opens, showing the rendered title, bold date line, and section headings.",
+      "nl_explanation": "When the saved Markdown file is active, press Ctrl+Shift+V to open or focus its preview. The expected behavior is a rendered view of the note so the formatting can be checked visually."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Review the lower portion of the preview to confirm all sections rendered",
+      "action_before_state": "The Markdown preview is open, and the upper sections of the note are visible.",
+      "action_preconditions": [
+        "The preview pane is visible",
+        "The mouse pointer can be placed over the preview area"
+      ],
+      "action": {
+        "type": "SCROLL",
+        "direction": "down",
+        "target": {
+          "text": "the Markdown preview pane on the right side of the editor"
+        }
+      },
+      "action_after_effects": "The preview scrolls downward until the 'Next Up' section and its bullet list are fully visible, so no further scrolling is needed.",
+      "nl_explanation": "With the preview pane visible, scroll down inside it to inspect the lower part of the rendered note. Stop once the 'Next Up' section is fully visible, which confirms the entire handoff note rendered correctly."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Create the target Markdown file in the Documents folder so it can be opened and edited in VS Code.",
+      "unit_type": "PREPARE_MARKDOWN_FILE",
+      "unit_before_state": "VS Code is open with the main editor area visible, and no terminal command has been entered yet.",
+      "unit_after_state": "The integrated terminal is open at the bottom of VS Code, the shell prompt has returned, and an empty file named daily-handoff.md now exists in /home/user/Documents.",
+      "unit_precondition": [
+        "VS Code is the focused application.",
+        "No modal dialog is blocking keyboard input.",
+        "The integrated terminal can be opened and accept shell commands."
+      ],
+      "unit_effect": [
+        "The integrated terminal becomes visible and shows the typed mkdir/truncate command.",
+        "After Enter is pressed, the shell returns to a prompt, indicating the file creation command finished successfully.",
+        "The path /home/user/Documents/daily-handoff.md is now available to open in VS Code."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Open the newly created handoff note file in the editor by its absolute path.",
+      "unit_type": "OPEN_FILE_BY_PATH",
+      "unit_before_state": "The terminal is still visible in VS Code, and the new Markdown file exists on disk but is not yet open in an editor tab.",
+      "unit_after_state": "Quick Open has closed and a blank editor tab named daily-handoff.md is open in VS Code.",
+      "unit_precondition": [
+        "VS Code remains focused and can open the Quick Open palette.",
+        "The file /home/user/Documents/daily-handoff.md already exists.",
+        "Keyboard focus can move to the Quick Open input field."
+      ],
+      "unit_effect": [
+        "The Quick Open input appears at the top of the window.",
+        "The typed absolute path is recognized and shown as a matching file result.",
+        "Pressing Enter opens daily-handoff.md as the active editor tab."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Draft the full daily handoff note content in the Markdown file.",
+      "unit_type": "AUTHOR_MARKDOWN_NOTE",
+      "unit_before_state": "The daily-handoff.md tab is open and blank, but the text caret is not yet confirmed inside the editor content area.",
+      "unit_after_state": "The editor contains a complete Markdown handoff note with a title, date line, Completed Today section, Blockers section, and Next Up section with bullet lists.",
+      "unit_precondition": [
+        "The daily-handoff.md file is open as the active editor tab.",
+        "The editor area is visible and editable.",
+        "A click inside the text area can place the insertion caret in the document."
+      ],
+      "unit_effect": [
+        "A text cursor appears in the empty editor after the click.",
+        "The document body fills with the entered Markdown text.",
+        "The tab shows that the file has unsaved changes after content entry."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9
+      ],
+      "unit_intent": "Persist the drafted handoff note to disk.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The Markdown note content is visible in the editor, and the tab indicates unsaved changes.",
+      "unit_after_state": "The same Markdown content remains visible, and the tab no longer shows an unsaved-change indicator.",
+      "unit_precondition": [
+        "The editor for daily-handoff.md is focused.",
+        "There are unsaved edits in the file."
+      ],
+      "unit_effect": [
+        "Ctrl+S writes the file to disk.",
+        "The dirty-state marker disappears from the daily-handoff.md tab as the save confirmation signal."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        10,
+        11
+      ],
+      "unit_intent": "Verify that the saved Markdown note renders correctly across all sections in preview mode.",
+      "unit_type": "VERIFY_MARKDOWN_PREVIEW",
+      "unit_before_state": "The saved daily-handoff.md file is open in the editor, and no rendered preview is yet being inspected.",
+      "unit_after_state": "A Markdown preview pane is open, and it has been scrolled so the lower part of the note, including the Next Up section and bullets, is visible.",
+      "unit_precondition": [
+        "The active tab is daily-handoff.md.",
+        "The file has been saved so the preview reflects the latest content.",
+        "The preview pane can be opened and scrolled within VS Code."
+      ],
+      "unit_effect": [
+        "A rendered Markdown preview appears showing the title, bold date line, and section headings.",
+        "Scrolling in the preview reveals the Next Up section and its bullet list.",
+        "The full note structure is visually confirmed in rendered form, including the lower content."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Create the target Markdown file in the Documents folder so it can be opened and edited in VS Code.",
+      "unit_type": "PREPARE_MARKDOWN_FILE",
+      "unit_before_state": "VS Code is open with the main editor area visible, and no terminal command has been entered yet.",
+      "unit_after_state": "The integrated terminal is open at the bottom of VS Code, the shell prompt has returned, and an empty file named daily-handoff.md now exists in /home/user/Documents.",
+      "unit_precondition": [
+        "VS Code is the focused application.",
+        "No modal dialog is blocking keyboard input.",
+        "The integrated terminal can be opened and accept shell commands."
+      ],
+      "unit_effect": [
+        "The integrated terminal becomes visible and shows the typed mkdir/truncate command.",
+        "After Enter is pressed, the shell returns to a prompt, indicating the file creation command finished successfully.",
+        "The path /home/user/Documents/daily-handoff.md is now available to open in VS Code."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create or reset an empty Markdown file at a specified directory from the VS Code integrated terminal so it can be opened and edited.",
+      "parameters": {
+        "target_directory": "/home/user/Documents",
+        "target_file_name": "daily-handoff.md",
+        "creation_command": "mkdir -p /home/user/Documents && truncate -s 0 /home/user/Documents/daily-handoff.md"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', '`']}",
+          "action_template": "Press Ctrl+` when the VS Code window is focused and no modal dialog is blocking keyboard input to open the integrated terminal. The terminal panel appears at the bottom of VS Code and is ready for command input."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'mkdir -p /home/user/Documents && truncate -s 0 /home/user/Documents/daily-handoff.md'}",
+          "action_template": "With the terminal cursor active and the shell prompt visible, type {{creation_command}} to ensure {{target_directory}} exists and create or reset the empty Markdown file {{target_file_name}} there. The full shell command appears in the terminal input line but has not run yet."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After the command for {{target_file_name}} is fully entered and the terminal remains focused, press Enter to execute it. The shell runs the command and returns to a prompt, indicating the empty Markdown file now exists in {{target_directory}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Open the newly created handoff note file in the editor by its absolute path.",
+      "unit_type": "OPEN_FILE_BY_PATH",
+      "unit_before_state": "The terminal is still visible in VS Code, and the new Markdown file exists on disk but is not yet open in an editor tab.",
+      "unit_after_state": "Quick Open has closed and a blank editor tab named daily-handoff.md is open in VS Code.",
+      "unit_precondition": [
+        "VS Code remains focused and can open the Quick Open palette.",
+        "The file /home/user/Documents/daily-handoff.md already exists.",
+        "Keyboard focus can move to the Quick Open input field."
+      ],
+      "unit_effect": [
+        "The Quick Open input appears at the top of the window.",
+        "The typed absolute path is recognized and shown as a matching file result.",
+        "Pressing Enter opens daily-handoff.md as the active editor tab."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open an existing file in VS Code by entering {{file_path}} in Quick Open.",
+      "parameters": {
+        "file_path": "/home/user/Documents/daily-handoff.md"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'p']}",
+          "action_template": "With VS Code active and no popup blocking shortcuts, press Ctrl+P to open the Quick Open bar so a file path can be entered."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '/home/user/Documents/daily-handoff.md'}",
+          "action_template": "When the Quick Open input field is active and {{file_path}} exists, type {{file_path}} so VS Code shows the matching file suggestion."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "When the target file is the active Quick Open result and the Quick Open field still has focus, press Enter to open the selected file in the editor."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Draft the full daily handoff note content in the Markdown file.",
+      "unit_type": "AUTHOR_MARKDOWN_NOTE",
+      "unit_before_state": "The daily-handoff.md tab is open and blank, but the text caret is not yet confirmed inside the editor content area.",
+      "unit_after_state": "The editor contains a complete Markdown handoff note with a title, date line, Completed Today section, Blockers section, and Next Up section with bullet lists.",
+      "unit_precondition": [
+        "The daily-handoff.md file is open as the active editor tab.",
+        "The editor area is visible and editable.",
+        "A click inside the text area can place the insertion caret in the document."
+      ],
+      "unit_effect": [
+        "A text cursor appears in the empty editor after the click.",
+        "The document body fills with the entered Markdown text.",
+        "The tab shows that the file has unsaved changes after content entry."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Enter a complete structured Markdown handoff note into the open editable note document.",
+      "parameters": {
+        "target_editor_area": "the empty text area in the daily-handoff.md editor",
+        "markdown_note_content": "# Daily Handoff\n\n**Date:** April 2, 2026\n\n## Completed Today\n- Finished reviewing incoming bug reports\n- Updated the API usage notes\n- Sent the status summary to the team\n\n## Blockers\n- Waiting for confirmation on the staging database reset\n- One login issue still needs a reproducible test case\n\n## Next Up\n- Re-test the login fix after the database reset\n- Draft tomorrow's release checklist\n- Follow up on two unresolved support tickets\n"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "CLICK",
+          "action_template": "Click once inside {{target_editor_area}} when the Markdown file tab is visible and the main editor area is not obstructed, so the text cursor appears in the editor and subsequent typing goes into the file."
+        },
+        {
+          "action": "TYPING",
+          "action_template": "Type {{markdown_note_content}} after the Markdown editor is focused and editable to populate the file with a complete structured handoff note."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9
+      ],
+      "unit_intent": "Persist the drafted handoff note to disk.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The Markdown note content is visible in the editor, and the tab indicates unsaved changes.",
+      "unit_after_state": "The same Markdown content remains visible, and the tab no longer shows an unsaved-change indicator.",
+      "unit_precondition": [
+        "The editor for daily-handoff.md is focused.",
+        "There are unsaved edits in the file."
+      ],
+      "unit_effect": [
+        "Ctrl+S writes the file to disk.",
+        "The dirty-state marker disappears from the daily-handoff.md tab as the save confirmation signal."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the currently focused document to disk.",
+      "parameters": {
+        "target_file": "daily-handoff.md"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 's']}",
+          "action_template": "After the document text has been entered, press Ctrl+S to save {{target_file}} while the editor still has focus and there are unsaved edits in the file. The expected result is that the unsaved-change indicator disappears from the {{target_file}} tab, confirming the file is written to disk."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        10,
+        11
+      ],
+      "unit_intent": "Verify that the saved Markdown note renders correctly across all sections in preview mode.",
+      "unit_type": "VERIFY_MARKDOWN_PREVIEW",
+      "unit_before_state": "The saved daily-handoff.md file is open in the editor, and no rendered preview is yet being inspected.",
+      "unit_after_state": "A Markdown preview pane is open, and it has been scrolled so the lower part of the note, including the Next Up section and bullets, is visible.",
+      "unit_precondition": [
+        "The active tab is daily-handoff.md.",
+        "The file has been saved so the preview reflects the latest content.",
+        "The preview pane can be opened and scrolled within VS Code."
+      ],
+      "unit_effect": [
+        "A rendered Markdown preview appears showing the title, bold date line, and section headings.",
+        "Scrolling in the preview reveals the Next Up section and its bullet list.",
+        "The full note structure is visually confirmed in rendered form, including the lower content."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Verify that a saved Markdown document renders correctly throughout its preview, including lower sections that require scrolling to inspect.",
+      "parameters": {
+        "target_markdown_file": "daily-handoff.md",
+        "target_lower_section": "Next Up"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'v']}",
+          "action_template": "When {{target_markdown_file}} is the active tab and the editor is not blocked by another panel, press Ctrl+Shift+V to open or focus its Markdown preview so the rendered title, bold date line, and section headings can be visually checked."
+        },
+        {
+          "action": "{'type': 'SCROLL', 'direction': 'down', 'target': {'text': 'the Markdown preview pane on the right side of the editor'}}",
+          "action_template": "With the Markdown preview pane visible and the pointer over the preview area, scroll down inside the preview pane until the {{target_lower_section}} section and its bullet list are fully visible, confirming the lower part of the rendered document."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

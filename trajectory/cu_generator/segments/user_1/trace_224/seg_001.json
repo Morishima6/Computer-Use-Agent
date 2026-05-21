@@ -1,0 +1,655 @@
+{
+  "segment_id": "seg_001",
+  "app": "libreoffice_calc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Move to the starting cell of the sheet",
+      "action_before_state": "LibreOffice Calc is already open, and a spreadsheet grid is visible on the screen.",
+      "action_preconditions": [
+        "The Calc window is active.",
+        "A sheet grid is visible and can accept keyboard input."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "home"
+        ]
+      },
+      "action_after_effects": "The active cell moves to A1, giving a clean starting point in the top-left corner of the sheet.",
+      "nl_explanation": "When the spreadsheet is visible and ready for input, press Ctrl+Home to jump to cell A1 so the table can be entered from the top-left of the sheet."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Enter the tracker headers and appliance data",
+      "action_before_state": "Cell A1 is active in a blank area of the sheet.",
+      "action_preconditions": [
+        "Cell A1 is selected.",
+        "The cells from A1 onward are empty or available for new data entry."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Appliance\tDaily Cost\tHours per Day\tPower (kW)\nFridge\t\t24\t0.15\nLaptop\t\t6\t0.065\nFan\t\t8\t0.05\nMicrowave\t\t0.5\t1.2\nDesk Lamp\t\t5\t0.012"
+      },
+      "action_after_effects": "A table is created in A1:D6. Columns A, C, and D contain the appliance names and usage values, and the Daily Cost column in B is present but still empty for each row.",
+      "nl_explanation": "With A1 selected, type the full table using tabs and line breaks so the headers and sample appliance data are placed directly into the sheet, leaving the Daily Cost cells empty for calculation."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Select the first Daily Cost cell",
+      "action_before_state": "The data table is visible in A1:D6, and the Daily Cost column starts at B2.",
+      "action_preconditions": [
+        "The table has already been entered.",
+        "Cell B2 is visible in the current sheet view."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell B2, the first empty cell under the Daily Cost header"
+        }
+      },
+      "action_after_effects": "Cell B2 becomes the active cell, ready for the first cost formula.",
+      "nl_explanation": "Once the appliance table is visible, click cell B2 so the first Daily Cost formula can be entered in the correct column."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Enter the first daily cost formula",
+      "action_before_state": "Cell B2 is selected and the values for hours and power are visible in C2 and D2.",
+      "action_preconditions": [
+        "Cell B2 is active.",
+        "The row 2 values are present in columns C and D."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "=C2*D2*0.12\n"
+      },
+      "action_after_effects": "Cell B2 displays the calculated daily electricity cost for the first appliance, and the formula is committed to the sheet.",
+      "nl_explanation": "With B2 active and the row 2 usage data available, type the formula `=C2*D2*0.12` and confirm it so Calc computes the first daily cost."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Re-select the first calculated cost cell for autofill",
+      "action_before_state": "The first cost formula has been entered, and cell B2 now contains a numeric result.",
+      "action_preconditions": [
+        "Cell B2 contains the correct formula result.",
+        "The remaining cells B3:B6 are still empty."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell B2 with the newly calculated cost"
+        }
+      },
+      "action_after_effects": "Cell B2 is selected again, and its fill handle can be used to copy the formula downward.",
+      "nl_explanation": "After the first cost is calculated, click back on B2 so the fill handle can be used to extend the same formula to the remaining appliance rows."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Fill the cost formula down the rest of the Daily Cost column",
+      "action_before_state": "Cell B2 is selected, and rows 3 through 6 contain appliance data without Daily Cost formulas.",
+      "action_preconditions": [
+        "The formula in B2 is correct.",
+        "Cells B3 through B6 are visible and empty."
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the small fill handle at the bottom-right corner of cell B2"
+        },
+        "end": {
+          "text": "the bottom-right corner of cell B6"
+        },
+        "target": {
+          "begin": {
+            "text": "the fill handle on cell B2"
+          },
+          "end": {
+            "text": "the fill handle position at cell B6"
+          }
+        }
+      },
+      "action_after_effects": "The formula from B2 is copied into B3:B6, and each appliance row now shows a daily cost value.",
+      "nl_explanation": "When B2 is selected and the rows below it are populated, drag the fill handle from B2 down to B6 so Calc copies the cost formula to every appliance row."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Select the row where the grand total will be added",
+      "action_before_state": "The Daily Cost values are filled in B2:B6, and row 7 is empty below the table.",
+      "action_preconditions": [
+        "The table ends at row 6.",
+        "Cells A7 and B7 are empty and visible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell A7, the empty cell below the data table"
+        }
+      },
+      "action_after_effects": "Cell A7 becomes active, ready for the label and total formula row.",
+      "nl_explanation": "With the calculated table finished and an empty row below it, click cell A7 so the grand total row can be added directly under the charted columns."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Add the grand total label and formula",
+      "action_before_state": "Cell A7 is selected and the total should appear beside it in B7.",
+      "action_preconditions": [
+        "Cell A7 is active.",
+        "The cost values in B2:B6 are already calculated."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Grand Total\t=SUM(B2:B6)\n"
+      },
+      "action_after_effects": "Cell A7 shows the label Grand Total, and B7 shows the summed daily cost for all five appliances.",
+      "nl_explanation": "When A7 is selected and the cost values above are ready, type the label and formula with a tab between them so Calc places Grand Total in A7 and the overall sum in B7."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Select the cost values and grand total for formatting",
+      "action_before_state": "The Daily Cost amounts are in B2:B6 and the total is in B7.",
+      "action_preconditions": [
+        "Cells B2 through B7 contain numeric values.",
+        "The Daily Cost column is visible on screen."
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell B2, the first daily cost value"
+        },
+        "end": {
+          "text": "cell B7, the grand total value"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "The range B2:B7 becomes highlighted, making it ready for currency formatting.",
+      "nl_explanation": "After the cost numbers and grand total are present, drag from B2 to B7 to select the whole set of monetary values before applying a currency format."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Format the cost values as currency",
+      "action_before_state": "The selected range B2:B7 is highlighted in the sheet.",
+      "action_preconditions": [
+        "Cells B2:B7 are selected.",
+        "The formatting toolbar is visible with a currency button."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Currency format button in the toolbar"
+        }
+      },
+      "action_after_effects": "The values in B2:B7 are displayed in a currency format, making the daily costs easier to read.",
+      "nl_explanation": "With the Daily Cost range selected, click the Currency button on the toolbar so the numeric amounts are shown as money instead of plain decimals."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Select the table data that should be charted",
+      "action_before_state": "The appliance names and daily cost values are visible in the table, and the chart has not been inserted yet.",
+      "action_preconditions": [
+        "The range A1:B6 is visible.",
+        "The data table contains headers and calculated Daily Cost values."
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell A1 at the top-left of the chart data"
+        },
+        "end": {
+          "text": "cell B6 at the bottom-right of the appliance cost data"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "The range A1:B6 is selected, giving Calc the appliance names and daily cost values needed for the chart.",
+      "nl_explanation": "When the completed appliance table is visible, drag from A1 to B6 to highlight the header row and all appliance cost rows so the chart compares appliance names against daily costs only."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Open the chart insertion workflow",
+      "action_before_state": "The source table A1:B6 is highlighted in the sheet.",
+      "action_preconditions": [
+        "The data range A1:B6 is selected.",
+        "The toolbar or Insert menu contains the chart command."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Insert Chart button on the toolbar"
+        }
+      },
+      "action_after_effects": "The Chart Wizard opens with the selected data range, and the default chart type is ready to be confirmed.",
+      "nl_explanation": "With the appliance names and daily cost data selected as chart source data, click the Insert Chart button so Calc opens the Chart Wizard using the highlighted range."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Finish inserting the column chart",
+      "action_before_state": "The Chart Wizard is open and the default column chart option is available for the selected table.",
+      "action_preconditions": [
+        "The Chart Wizard window is visible.",
+        "The selected chart type is Column or the default column option is already active."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Finish button in the Chart Wizard"
+        }
+      },
+      "action_after_effects": "A column chart is inserted into the sheet, showing the appliance cost comparison visually and completing the task.",
+      "nl_explanation": "Once the Chart Wizard is open with the selected data and the default column chart ready, click Finish to place the chart on the sheet and complete the daily power cost tracker."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Set up the tracker table at the top of the sheet with the headers and appliance usage data in place.",
+      "unit_type": "ENTER_TABLE_DATA",
+      "unit_before_state": "LibreOffice Calc is open with a spreadsheet grid visible, but the active cell may be somewhere other than the top-left starting area.",
+      "unit_after_state": "The active entry area starts at A1, and cells A1:D6 contain a table with the headers Appliance, Daily Cost, Hours per Day, and Power (kW). Rows 2 through 6 list Fridge, Laptop, Fan, Microwave, and Desk Lamp, while Daily Cost cells B2:B6 are still empty.",
+      "unit_precondition": [
+        "The Calc window is active and accepting keyboard input.",
+        "The sheet area starting at A1 is visible and available for entering a new table."
+      ],
+      "unit_effect": [
+        "The active cell jumps to A1.",
+        "A filled data block appears in A1:D6.",
+        "The Daily Cost column exists but has blank cells in B2:B6 ready for formulas."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4
+      ],
+      "unit_intent": "Create the first daily cost formula so the Daily Cost column has the correct calculation pattern.",
+      "unit_type": "ENTER_COST_FORMULA",
+      "unit_before_state": "The appliance table is visible in A1:D6, with B2 empty under Daily Cost and row 2 values already present in C2 and D2.",
+      "unit_after_state": "Cell B2 contains the committed cost formula result for the first appliance, and the first Daily Cost entry is now calculated in the sheet.",
+      "unit_precondition": [
+        "The table in A1:D6 has already been entered.",
+        "Cell B2 is visible and empty.",
+        "Cells C2 and D2 contain the hours-per-day and power values for the first appliance."
+      ],
+      "unit_effect": [
+        "Cell B2 becomes the active cell for formula entry.",
+        "After confirmation, B2 shows a numeric result computed from =C2*D2*0.12."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Fill the Daily Cost formula down so every appliance row gets a calculated daily cost.",
+      "unit_type": "FILL_FORMULA_DOWN",
+      "unit_before_state": "Cell B2 already shows the first calculated daily cost, and cells B3:B6 are still empty while rows 3 through 6 contain appliance usage data.",
+      "unit_after_state": "Cells B2:B6 all contain calculated Daily Cost values for the five appliances.",
+      "unit_precondition": [
+        "Cell B2 contains the correct base formula result.",
+        "Cells B3:B6 are visible and available to receive copied formulas.",
+        "Rows 3 through 6 already have the needed input values in columns C and D."
+      ],
+      "unit_effect": [
+        "B2 is reselected so its fill handle can be used.",
+        "The formula from B2 is copied into B3:B6.",
+        "Each appliance row now shows a numeric Daily Cost value."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Add a summary row that totals all appliance daily costs.",
+      "unit_type": "ADD_TOTAL_ROW",
+      "unit_before_state": "The sheet shows completed appliance cost values in B2:B6, and row 7 below the table is empty.",
+      "unit_after_state": "Cell A7 displays the label Grand Total, and cell B7 displays the summed total of the Daily Cost values above.",
+      "unit_precondition": [
+        "Rows 2 through 6 already contain calculated Daily Cost values.",
+        "Cells A7 and B7 are visible and empty."
+      ],
+      "unit_effect": [
+        "A7 becomes the active insertion point for the summary row.",
+        "The text Grand Total appears in A7.",
+        "B7 shows the total produced by the SUM(B2:B6) formula."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Format the cost column and total as monetary values for easier reading.",
+      "unit_type": "FORMAT_AS_CURRENCY",
+      "unit_before_state": "Cells B2:B7 contain plain numeric Daily Cost amounts, including the grand total in B7.",
+      "unit_after_state": "The values in B2:B7 are displayed using a currency number format in the sheet.",
+      "unit_precondition": [
+        "Cells B2:B7 already contain numeric results.",
+        "The Daily Cost column is visible.",
+        "A currency-format command is available on the Calc toolbar."
+      ],
+      "unit_effect": [
+        "The range B2:B7 becomes highlighted.",
+        "After the toolbar command is clicked, the selected values display with currency formatting rather than plain decimals."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        11,
+        12,
+        13
+      ],
+      "unit_intent": "Create a column chart that visually compares the daily costs of the five appliances.",
+      "unit_type": "INSERT_COLUMN_CHART",
+      "unit_before_state": "The completed tracker table is visible on the sheet, including appliance names in column A and calculated Daily Cost values in column B, and no chart has been inserted yet.",
+      "unit_after_state": "An embedded column chart appears on the Calc sheet using the appliance names and Daily Cost values from A1:B6 as its source data.",
+      "unit_precondition": [
+        "The source range A1:B6 is visible and contains the header row plus the five appliance rows.",
+        "The Daily Cost values in B2:B6 have already been calculated.",
+        "The chart insertion command is available, and the Chart Wizard can be finished with the default Column chart type."
+      ],
+      "unit_effect": [
+        "The range A1:B6 is selected as chart source data.",
+        "The Chart Wizard opens for the selected range.",
+        "After Finish is clicked, a column chart is inserted into the sheet showing the appliance cost comparison."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Set up the tracker table at the top of the sheet with the headers and appliance usage data in place.",
+      "unit_type": "ENTER_TABLE_DATA",
+      "unit_before_state": "LibreOffice Calc is open with a spreadsheet grid visible, but the active cell may be somewhere other than the top-left starting area.",
+      "unit_after_state": "The active entry area starts at A1, and cells A1:D6 contain a table with the headers Appliance, Daily Cost, Hours per Day, and Power (kW). Rows 2 through 6 list Fridge, Laptop, Fan, Microwave, and Desk Lamp, while Daily Cost cells B2:B6 are still empty.",
+      "unit_precondition": [
+        "The Calc window is active and accepting keyboard input.",
+        "The sheet area starting at A1 is visible and available for entering a new table."
+      ],
+      "unit_effect": [
+        "The active cell jumps to A1.",
+        "A filled data block appears in A1:D6.",
+        "The Daily Cost column exists but has blank cells in B2:B6 ready for formulas."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Populate a table from a specified starting cell with provided headers and row data while leaving a designated column blank for later calculations.",
+      "parameters": {
+        "start_cell": "A1",
+        "target_range": "A1:D6",
+        "blank_column_header": "Daily Cost",
+        "table_input": "Appliance\tDaily Cost\tHours per Day\tPower (kW)\nFridge\t\t24\t0.15\nLaptop\t\t6\t0.065\nFan\t\t8\t0.05\nMicrowave\t\t0.5\t1.2\nDesk Lamp\t\t5\t0.012"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'home']}",
+          "action_template": "When the Calc window is active and a visible sheet grid can accept keyboard input, press Ctrl+Home to move the active cell to {{start_cell}}, creating a clean starting point for entering the table from the top-left of the sheet."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Appliance\\tDaily Cost\\tHours per Day\\tPower (kW)\\nFridge\\t\\t24\\t0.15\\nLaptop\\t\\t6\\t0.065\\nFan\\t\\t8\\t0.05\\nMicrowave\\t\\t0.5\\t1.2\\nDesk Lamp\\t\\t5\\t0.012'}",
+          "action_template": "With {{start_cell}} selected and the cells from {{start_cell}} onward empty or available for new data entry, type {{table_input}} using tabs and line breaks to create the table in {{target_range}}, leaving the {{blank_column_header}} column cells empty for later calculation."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4
+      ],
+      "unit_intent": "Create the first daily cost formula so the Daily Cost column has the correct calculation pattern.",
+      "unit_type": "ENTER_COST_FORMULA",
+      "unit_before_state": "The appliance table is visible in A1:D6, with B2 empty under Daily Cost and row 2 values already present in C2 and D2.",
+      "unit_after_state": "Cell B2 contains the committed cost formula result for the first appliance, and the first Daily Cost entry is now calculated in the sheet.",
+      "unit_precondition": [
+        "The table in A1:D6 has already been entered.",
+        "Cell B2 is visible and empty.",
+        "Cells C2 and D2 contain the hours-per-day and power values for the first appliance."
+      ],
+      "unit_effect": [
+        "Cell B2 becomes the active cell for formula entry.",
+        "After confirmation, B2 shows a numeric result computed from =C2*D2*0.12."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Enter and commit a row-specific daily cost formula in the target Daily Cost cell.",
+      "parameters": {
+        "target_cell": "cell B2, the first empty cell under the Daily Cost header",
+        "formula_text": "=C2*D2*0.12",
+        "source_value_cells": "cells C2 and D2"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell B2, the first empty cell under the Daily Cost header'}}",
+          "action_template": "Click {{target_cell}} once the table is visible so the daily cost formula can be entered in the correct result cell; this requires {{target_cell}} to be visible in the current sheet view and leaves it active and ready for formula entry."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '=C2*D2*0.12\\n'}",
+          "action_template": "Type {{formula_text}} into the active {{target_cell}} and confirm it so Calc computes the daily cost using the row values in {{source_value_cells}}; this requires {{target_cell}} to be active and {{source_value_cells}} to already contain the row's usage data, and leaves the formula committed with a calculated result displayed in {{target_cell}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Fill the Daily Cost formula down so every appliance row gets a calculated daily cost.",
+      "unit_type": "FILL_FORMULA_DOWN",
+      "unit_before_state": "Cell B2 already shows the first calculated daily cost, and cells B3:B6 are still empty while rows 3 through 6 contain appliance usage data.",
+      "unit_after_state": "Cells B2:B6 all contain calculated Daily Cost values for the five appliances.",
+      "unit_precondition": [
+        "Cell B2 contains the correct base formula result.",
+        "Cells B3:B6 are visible and available to receive copied formulas.",
+        "Rows 3 through 6 already have the needed input values in columns C and D."
+      ],
+      "unit_effect": [
+        "B2 is reselected so its fill handle can be used.",
+        "The formula from B2 is copied into B3:B6.",
+        "Each appliance row now shows a numeric Daily Cost value."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Fill a verified formula from a source cell down through a specified contiguous range in the same column.",
+      "parameters": {
+        "source_cell": "cell B2",
+        "target_range": "cells B3:B6",
+        "fill_end_cell": "cell B6"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell B2 with the newly calculated cost'}}",
+          "action_template": "Click {{source_cell}} when it contains the correct formula result and {{target_range}} is still empty, so the source cell is selected and its fill handle can be used to extend the formula downward."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the small fill handle at the bottom-right corner of cell B2'}, 'end': {'text': 'the bottom-right corner of cell B6'}, 'target': {'begin': {'text': 'the fill handle on cell B2'}, 'end': {'text': 'the fill handle position at cell B6'}}}",
+          "action_template": "Drag the fill handle from the bottom-right corner of {{source_cell}} down to {{fill_end_cell}} when {{target_range}} is visible and empty, so the formula is copied through {{target_range}} and each row shows a calculated value."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Add a summary row that totals all appliance daily costs.",
+      "unit_type": "ADD_TOTAL_ROW",
+      "unit_before_state": "The sheet shows completed appliance cost values in B2:B6, and row 7 below the table is empty.",
+      "unit_after_state": "Cell A7 displays the label Grand Total, and cell B7 displays the summed total of the Daily Cost values above.",
+      "unit_precondition": [
+        "Rows 2 through 6 already contain calculated Daily Cost values.",
+        "Cells A7 and B7 are visible and empty."
+      ],
+      "unit_effect": [
+        "A7 becomes the active insertion point for the summary row.",
+        "The text Grand Total appears in A7.",
+        "B7 shows the total produced by the SUM(B2:B6) formula."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Add a labeled summary row that calculates the total for a specified range of values.",
+      "parameters": {
+        "target_label_cell": "cell A7",
+        "target_formula_cell": "cell B7",
+        "summary_label": "Grand Total",
+        "summary_formula": "=SUM(B2:B6)"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell A7, the empty cell below the data table'}}",
+          "action_template": "Click {{target_label_cell}} when the summary row cells are visible and empty so the summary row can be entered there."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Grand Total\\t=SUM(B2:B6)\\n'}",
+          "action_template": "When {{target_label_cell}} is active and the values to total are already calculated, type {{summary_label}}, a tab, and {{summary_formula}} so Calc places {{summary_label}} in {{target_label_cell}} and the computed total in {{target_formula_cell}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Format the cost column and total as monetary values for easier reading.",
+      "unit_type": "FORMAT_AS_CURRENCY",
+      "unit_before_state": "Cells B2:B7 contain plain numeric Daily Cost amounts, including the grand total in B7.",
+      "unit_after_state": "The values in B2:B7 are displayed using a currency number format in the sheet.",
+      "unit_precondition": [
+        "Cells B2:B7 already contain numeric results.",
+        "The Daily Cost column is visible.",
+        "A currency-format command is available on the Calc toolbar."
+      ],
+      "unit_effect": [
+        "The range B2:B7 becomes highlighted.",
+        "After the toolbar command is clicked, the selected values display with currency formatting rather than plain decimals."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Apply a currency number format to a contiguous range of numeric cells in the sheet.",
+      "parameters": {
+        "range_start_cell": "B2",
+        "range_end_cell": "B7",
+        "target_range": "B2:B7"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'cell B2, the first daily cost value'}, 'end': {'text': 'cell B7, the grand total value'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "When {{range_start_cell}} through {{range_end_cell}} contain numeric values and are visible in the sheet, drag from {{range_start_cell}} to {{range_end_cell}} to select {{target_range}} so the range becomes highlighted and ready for currency formatting."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Currency format button in the toolbar'}}",
+          "action_template": "With {{target_range}} selected and the formatting toolbar visible, click the Currency format button in the toolbar so the selected values are displayed using a currency number format instead of plain decimals."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        11,
+        12,
+        13
+      ],
+      "unit_intent": "Create a column chart that visually compares the daily costs of the five appliances.",
+      "unit_type": "INSERT_COLUMN_CHART",
+      "unit_before_state": "The completed tracker table is visible on the sheet, including appliance names in column A and calculated Daily Cost values in column B, and no chart has been inserted yet.",
+      "unit_after_state": "An embedded column chart appears on the Calc sheet using the appliance names and Daily Cost values from A1:B6 as its source data.",
+      "unit_precondition": [
+        "The source range A1:B6 is visible and contains the header row plus the five appliance rows.",
+        "The Daily Cost values in B2:B6 have already been calculated.",
+        "The chart insertion command is available, and the Chart Wizard can be finished with the default Column chart type."
+      ],
+      "unit_effect": [
+        "The range A1:B6 is selected as chart source data.",
+        "The Chart Wizard opens for the selected range.",
+        "After Finish is clicked, a column chart is inserted into the sheet showing the appliance cost comparison."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Insert a column chart from a specified label-and-value table range to compare item names against numeric values.",
+      "parameters": {
+        "source_range": "A1:B6",
+        "range_start_cell": "A1",
+        "range_end_cell": "B6",
+        "category_field": "appliance names",
+        "value_field": "Daily Cost values"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'cell A1 at the top-left of the chart data'}, 'end': {'text': 'cell B6 at the bottom-right of the appliance cost data'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "When {{source_range}} is visible and the table contains headers and calculated {{value_field}}, drag from {{range_start_cell}} to {{range_end_cell}} to select {{source_range}} so Calc uses {{category_field}} and {{value_field}} as the chart source data."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Insert Chart button on the toolbar'}}",
+          "action_template": "With {{source_range}} selected, click the Insert Chart button to open the Chart Wizard for {{source_range}}, with the default Column chart ready to be confirmed."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Finish button in the Chart Wizard'}}",
+          "action_template": "When the Chart Wizard is visible and the default Column chart is active, click the Finish button to insert a column chart on the sheet using {{category_field}} and {{value_field}} from {{source_range}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

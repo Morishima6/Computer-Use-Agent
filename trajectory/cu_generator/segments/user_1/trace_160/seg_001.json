@@ -1,0 +1,833 @@
+{
+  "segment_id": "seg_001",
+  "app": "gimp",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the image picker so the source photo can be loaded",
+      "action_before_state": "GIMP is already open and focused, with no file chooser dialog visible.",
+      "action_preconditions": [
+        "The main GIMP window is active",
+        "No modal dialog is blocking the canvas",
+        "Keyboard input is going to GIMP"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "o"
+        ]
+      },
+      "action_after_effects": "The Open Image dialog appears in front of GIMP.",
+      "nl_explanation": "When the main GIMP window is focused and nothing is blocking it, press Ctrl+O to bring up the Open Image dialog so a photo can be selected."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Navigate to the folder that contains the source image",
+      "action_before_state": "The Open Image dialog is visible with the places sidebar on the left.",
+      "action_preconditions": [
+        "The Open Image dialog is open",
+        "The left sidebar shows common locations",
+        "The Pictures folder is available in the sidebar"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Pictures location in the file chooser sidebar"
+        }
+      },
+      "action_after_effects": "The file list updates to show the contents of the Pictures folder.",
+      "nl_explanation": "Once the file chooser is open and the sidebar is visible, click Pictures so the dialog shows the images stored there."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Load the market photo into GIMP",
+      "action_before_state": "The file chooser is showing files from the Pictures folder.",
+      "action_preconditions": [
+        "The Pictures folder is open in the dialog",
+        "The file weekend_market.jpg is visible in the file list",
+        "The dialog is ready for file selection"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 2,
+        "target": {
+          "text": "the file named weekend_market.jpg in the file list"
+        }
+      },
+      "action_after_effects": "The file chooser closes and the photo opens on the GIMP canvas.",
+      "nl_explanation": "When the Pictures folder is displayed and the target image is visible, double-click weekend_market.jpg to open it directly in GIMP."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Activate the crop tool",
+      "action_before_state": "The market photo is visible on the canvas.",
+      "action_preconditions": [
+        "The image has finished loading",
+        "The canvas is visible",
+        "No dialog is covering the image"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "shift",
+          "c"
+        ]
+      },
+      "action_after_effects": "The Crop tool becomes active and the pointer is ready to define a crop area.",
+      "nl_explanation": "With the image open and unobstructed, press Shift+C to switch to the Crop tool so a square crop can be drawn."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Draw a square crop around the fruit stand",
+      "action_before_state": "The Crop tool is active and the full photo is visible.",
+      "action_preconditions": [
+        "The Crop tool is selected",
+        "The fruit stand area is visible in the image",
+        "The canvas can be dragged on"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "near the upper-left edge of the fruit stand area"
+        },
+        "end": {
+          "text": "toward the lower-right so the crop region tightly frames the stand in a square"
+        },
+        "target": {
+          "begin": {
+            "text": "the image canvas near the upper-left edge of the fruit stand"
+          },
+          "end": {
+            "text": "the image canvas toward the lower-right edge of the fruit stand, keeping the crop square"
+          }
+        }
+      },
+      "action_after_effects": "A crop rectangle appears over the image, previewing the new square composition.",
+      "nl_explanation": "After the Crop tool is active and the subject is visible, drag from the top-left side of the fruit stand to the lower-right so the crop box becomes a square around the main subject."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Apply the crop",
+      "action_before_state": "A square crop rectangle is visible on top of the photo.",
+      "action_preconditions": [
+        "The crop rectangle is already positioned correctly",
+        "The Crop tool is still active",
+        "The image canvas is focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The image is trimmed to the selected square area.",
+      "nl_explanation": "When the crop box looks correct and the image is still focused, press Enter to commit the crop and reduce the canvas to that square selection."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Open the Colors menu",
+      "action_before_state": "The square-cropped image is visible in the main GIMP window.",
+      "action_preconditions": [
+        "The crop has been applied",
+        "The top menu bar is visible",
+        "No modal window is blocking the menus"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Colors menu in the top menu bar"
+        }
+      },
+      "action_after_effects": "The Colors dropdown menu opens.",
+      "nl_explanation": "Once the cropped image is visible and the menu bar is available, click Colors to open the color adjustment options."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Open the Brightness-Contrast adjustment dialog",
+      "action_before_state": "The Colors menu is expanded.",
+      "action_preconditions": [
+        "The Colors dropdown is open",
+        "Brightness-Contrast is listed in the menu",
+        "The cursor can select a menu item"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Brightness-Contrast menu item"
+        }
+      },
+      "action_after_effects": "The Brightness-Contrast dialog appears with a live preview.",
+      "nl_explanation": "When the Colors menu is open and Brightness-Contrast is available, click that option to open the dialog for quick tonal adjustments."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Increase the image brightness slightly",
+      "action_before_state": "The Brightness-Contrast dialog is open on top of the image.",
+      "action_preconditions": [
+        "The Brightness-Contrast dialog is visible",
+        "The Brightness slider can be interacted with",
+        "Preview updates are enabled"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the Brightness slider handle at its current position"
+        },
+        "end": {
+          "text": "a little to the right of its current position"
+        },
+        "target": {
+          "begin": {
+            "text": "the Brightness slider handle in the Brightness-Contrast dialog"
+          },
+          "end": {
+            "text": "slightly to the right on the Brightness slider track"
+          }
+        }
+      },
+      "action_after_effects": "The preview becomes slightly brighter while preserving the overall scene.",
+      "nl_explanation": "With the adjustment dialog open and the Brightness slider visible, drag the slider a small distance to the right so the photo looks a bit brighter."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Apply the brightness change",
+      "action_before_state": "The Brightness-Contrast dialog is still open and the preview looks brighter.",
+      "action_preconditions": [
+        "The brightness level has already been adjusted",
+        "The OK button is visible",
+        "The dialog is active"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the OK button in the Brightness-Contrast dialog"
+        }
+      },
+      "action_after_effects": "The dialog closes and the brightness change is applied to the image.",
+      "nl_explanation": "After the preview looks right and the dialog remains open, click OK to commit the brightness adjustment to the image."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Switch to the text tool",
+      "action_before_state": "The edited square image is visible on the canvas.",
+      "action_preconditions": [
+        "The brightness dialog has been closed",
+        "The canvas is visible and editable",
+        "Keyboard shortcuts are being sent to GIMP"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "t"
+        ]
+      },
+      "action_after_effects": "The Text tool becomes active.",
+      "nl_explanation": "When the image is back in view and ready for editing, press T to activate the Text tool for adding a label."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Place a text box on the image",
+      "action_before_state": "The Text tool is active and the photo is visible.",
+      "action_preconditions": [
+        "The Text tool is selected",
+        "There is open space near the lower-left area of the image",
+        "The canvas accepts a text insertion point"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "an open area near the lower-left corner of the cropped image canvas"
+        }
+      },
+      "action_after_effects": "A text box appears and the text cursor is placed inside it.",
+      "nl_explanation": "With the Text tool active and a suitable empty area visible, click near the lower-left part of the image to create a text box there."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Enter the caption text",
+      "action_before_state": "A text box is active on the image and the insertion cursor is blinking.",
+      "action_preconditions": [
+        "A text box has already been created",
+        "The text cursor is inside that box",
+        "Typing will go into the image text layer"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Saturday Market"
+      },
+      "action_after_effects": "The words \"Saturday Market\" appear inside the text box on the image.",
+      "nl_explanation": "Once the text box is active and ready for input, type Saturday Market so the caption appears directly on the photo."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Exit text editing mode so export shortcuts work cleanly",
+      "action_before_state": "The new text is visible and the text box is still active.",
+      "action_preconditions": [
+        "The caption has already been typed",
+        "The text tool is still in editing mode",
+        "The canvas remains focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "esc"
+        ]
+      },
+      "action_after_effects": "The text box loses active edit focus while the text remains on the image.",
+      "nl_explanation": "After entering the caption and while the text box is still active, press Esc to leave text editing mode without removing the text."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Open the export dialog",
+      "action_before_state": "The finished composition is visible in GIMP with no modal dialog open.",
+      "action_preconditions": [
+        "The image edits are complete",
+        "No other dialog is blocking the window",
+        "GIMP is focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "e"
+        ]
+      },
+      "action_after_effects": "The Export Image dialog opens.",
+      "nl_explanation": "When the image is ready and GIMP is focused, press Ctrl+Shift+E to open the export dialog and prepare the final file."
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Switch the export dialog to direct path entry",
+      "action_before_state": "The Export Image dialog is visible.",
+      "action_preconditions": [
+        "The export dialog is open",
+        "The dialog supports location entry",
+        "Keyboard input is going to the dialog"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "l"
+        ]
+      },
+      "action_after_effects": "A location entry field becomes active in the export dialog.",
+      "nl_explanation": "With the export dialog open, press Ctrl+L to move to the location entry so the full destination path can be typed directly."
+    },
+    {
+      "step_id": "s17",
+      "step_goal": "Enter the destination path and file name",
+      "action_before_state": "The location field in the export dialog is active.",
+      "action_preconditions": [
+        "The export location entry is focused",
+        "Typing will go into the path field",
+        "The desktop path is valid on the Linux system"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "/home/user/Desktop/market_post.jpg"
+      },
+      "action_after_effects": "The full output path appears in the location field.",
+      "nl_explanation": "Once the location field is active in the export dialog, type /home/user/Desktop/market_post.jpg so the export target and file name are both specified."
+    },
+    {
+      "step_id": "s18",
+      "step_goal": "Confirm the typed export path",
+      "action_before_state": "The full desktop export path is visible in the location field.",
+      "action_preconditions": [
+        "The path has been fully typed",
+        "The export dialog is still active",
+        "The dialog is ready to accept the location"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The dialog accepts the path and prepares to export the file there.",
+      "nl_explanation": "After the destination path is entered and visible, press Enter so the export dialog accepts that desktop path and file name."
+    },
+    {
+      "step_id": "s19",
+      "step_goal": "Start exporting the JPEG file",
+      "action_before_state": "The export dialog is ready with market_post.jpg as the target file.",
+      "action_preconditions": [
+        "The destination path has been accepted",
+        "The main Export button is visible",
+        "No validation error is shown"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Export button in the Export Image dialog"
+        }
+      },
+      "action_after_effects": "A JPEG export options dialog appears.",
+      "nl_explanation": "When the dialog shows the correct output file and no errors are blocking it, click Export to proceed to the JPEG-specific export options."
+    },
+    {
+      "step_id": "s20",
+      "step_goal": "Confirm the JPEG export options",
+      "action_before_state": "The JPEG export options dialog is open.",
+      "action_preconditions": [
+        "The JPEG options window is visible",
+        "Its Export button is available",
+        "Default JPEG settings are acceptable"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Export button in the JPEG export options dialog"
+        }
+      },
+      "action_after_effects": "GIMP saves the finished image as /home/user/Desktop/market_post.jpg and the JPEG export options dialog closes.",
+      "nl_explanation": "With the JPEG options dialog open and the default settings acceptable, click Export to save the final image to the desktop as market_post.jpg."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Open the requested weekend market photo in GIMP so editing can begin.",
+      "unit_type": "OPEN_IMAGE_FILE",
+      "unit_before_state": "The main GIMP window is focused with no modal dialog open and no image file chooser on screen.",
+      "unit_after_state": "The Open Image dialog has been used to select weekend_market.jpg from Pictures, the dialog is closed, and the weekend market photo is displayed on the GIMP canvas.",
+      "unit_precondition": [
+        "GIMP is already running and focused.",
+        "No modal dialog is blocking keyboard or mouse input.",
+        "The file weekend_market.jpg exists in the Pictures folder and is reachable from the file chooser sidebar."
+      ],
+      "unit_effect": [
+        "The Open Image dialog appears after the shortcut.",
+        "The file list changes to show the Pictures folder contents.",
+        "The dialog closes and the selected photo becomes visible on the canvas."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Crop the photo to a square composition centered on the fruit stand.",
+      "unit_type": "CROP_IMAGE_TO_SQUARE",
+      "unit_before_state": "The full weekend market photo is visible on the GIMP canvas with no crop selection active.",
+      "unit_after_state": "The canvas now shows only the square-cropped area around the fruit stand, with the crop overlay removed because the crop has been committed.",
+      "unit_precondition": [
+        "The image has finished loading and is visible on the canvas.",
+        "The fruit stand area is visible in the current view.",
+        "No dialog is covering the image."
+      ],
+      "unit_effect": [
+        "The Crop tool becomes active.",
+        "A square crop rectangle appears over the fruit stand area as a preview.",
+        "Pressing Enter commits the crop and the image bounds shrink to the selected square region."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8,
+        9,
+        10
+      ],
+      "unit_intent": "Brighten the cropped image slightly to improve its appearance.",
+      "unit_type": "APPLY_BRIGHTNESS_ADJUSTMENT",
+      "unit_before_state": "The square-cropped photo is visible in the main GIMP window, and no color adjustment dialog is open yet.",
+      "unit_after_state": "The Brightness-Contrast dialog has been closed and the cropped image remains on the canvas with a slightly brighter appearance applied.",
+      "unit_precondition": [
+        "The crop has already been applied.",
+        "The top menu bar is visible and usable.",
+        "The image is the active editable canvas."
+      ],
+      "unit_effect": [
+        "The Colors menu opens.",
+        "The Brightness-Contrast dialog appears with live preview.",
+        "Dragging the Brightness slider makes the preview visibly brighter.",
+        "Clicking OK closes the dialog and leaves the brighter image on the canvas."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        11,
+        12,
+        13,
+        14
+      ],
+      "unit_intent": "Add the caption \"Saturday Market\" onto the image and leave the text in a finished non-editing state.",
+      "unit_type": "ADD_TEXT_OVERLAY",
+      "unit_before_state": "The brightened square image is visible on the canvas, and no text box is active yet.",
+      "unit_after_state": "The words \"Saturday Market\" are visible near the lower-left area of the image, and the text box is no longer in active editing mode.",
+      "unit_precondition": [
+        "The brightness adjustment has already been applied.",
+        "The canvas is visible and editable.",
+        "There is open space on the image where the caption can be placed."
+      ],
+      "unit_effect": [
+        "The Text tool becomes active.",
+        "Clicking the canvas creates a text box with a blinking insertion cursor.",
+        "Typing inserts the caption text onto the image.",
+        "Pressing Esc removes text-edit focus while keeping the caption visible."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        15,
+        16,
+        17,
+        18
+      ],
+      "unit_intent": "Prepare the export dialog with the requested desktop JPEG destination path.",
+      "unit_type": "SET_EXPORT_DESTINATION",
+      "unit_before_state": "The finished edited image is visible in GIMP with no modal dialog open.",
+      "unit_after_state": "The Export Image dialog remains open with /home/user/Desktop/market_post.jpg entered and accepted as the target path.",
+      "unit_precondition": [
+        "Image edits are complete and visible on the canvas.",
+        "No other modal window is blocking GIMP.",
+        "The desktop path /home/user/Desktop is valid and writable on the system."
+      ],
+      "unit_effect": [
+        "The Export Image dialog opens.",
+        "The location entry field becomes active.",
+        "The full output path appears in the location field.",
+        "Pressing Enter accepts the typed path and leaves the dialog ready for export."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        19,
+        20
+      ],
+      "unit_intent": "Complete the JPEG export so the edited image is saved to the desktop.",
+      "unit_type": "EXPORT_AS_JPEG",
+      "unit_before_state": "The Export Image dialog is ready with market_post.jpg as the accepted output file, and the main Export button is available.",
+      "unit_after_state": "The export dialogs are closed and the final edited image has been saved as /home/user/Desktop/market_post.jpg.",
+      "unit_precondition": [
+        "The export destination path has already been accepted.",
+        "No validation error is shown in the Export Image dialog.",
+        "Default JPEG export settings are acceptable."
+      ],
+      "unit_effect": [
+        "Clicking Export in the Export Image dialog opens the JPEG export options dialog.",
+        "Clicking Export in the JPEG options dialog closes it and saves market_post.jpg to the desktop."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Open the requested weekend market photo in GIMP so editing can begin.",
+      "unit_type": "OPEN_IMAGE_FILE",
+      "unit_before_state": "The main GIMP window is focused with no modal dialog open and no image file chooser on screen.",
+      "unit_after_state": "The Open Image dialog has been used to select weekend_market.jpg from Pictures, the dialog is closed, and the weekend market photo is displayed on the GIMP canvas.",
+      "unit_precondition": [
+        "GIMP is already running and focused.",
+        "No modal dialog is blocking keyboard or mouse input.",
+        "The file weekend_market.jpg exists in the Pictures folder and is reachable from the file chooser sidebar."
+      ],
+      "unit_effect": [
+        "The Open Image dialog appears after the shortcut.",
+        "The file list changes to show the Pictures folder contents.",
+        "The dialog closes and the selected photo becomes visible on the canvas."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a specified image file from a specified folder in GIMP so editing can begin.",
+      "parameters": {
+        "folder_name": "Pictures",
+        "file_name": "weekend_market.jpg"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'o']}",
+          "action_template": "When the main GIMP window is active, no modal dialog is blocking the canvas, and keyboard input is going to GIMP, press Ctrl+O to bring up the Open Image dialog so a photo can be selected."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Pictures location in the file chooser sidebar'}}",
+          "action_template": "Once the Open Image dialog is open, the left sidebar shows common locations, and the {{folder_name}} folder is available in the sidebar, click the {{folder_name}} location in the file chooser sidebar so the dialog shows the files stored in {{folder_name}}."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 2, 'target': {'text': 'the file named weekend_market.jpg in the file list'}}",
+          "action_template": "When the {{folder_name}} folder is displayed, the file named {{file_name}} is visible in the file list, and the dialog is ready for file selection, double-click {{file_name}} to close the file chooser and open the image on the GIMP canvas."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Crop the photo to a square composition centered on the fruit stand.",
+      "unit_type": "CROP_IMAGE_TO_SQUARE",
+      "unit_before_state": "The full weekend market photo is visible on the GIMP canvas with no crop selection active.",
+      "unit_after_state": "The canvas now shows only the square-cropped area around the fruit stand, with the crop overlay removed because the crop has been committed.",
+      "unit_precondition": [
+        "The image has finished loading and is visible on the canvas.",
+        "The fruit stand area is visible in the current view.",
+        "No dialog is covering the image."
+      ],
+      "unit_effect": [
+        "The Crop tool becomes active.",
+        "A square crop rectangle appears over the fruit stand area as a preview.",
+        "Pressing Enter commits the crop and the image bounds shrink to the selected square region."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Crop the image to a square composition centered on a specified subject area.",
+      "parameters": {
+        "target_subject_area": "fruit stand area"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['shift', 'c']}",
+          "action_template": "With the image loaded, the canvas visible, and no dialog covering it, press Shift+C to activate the Crop tool so a square crop can be drawn."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'near the upper-left edge of the fruit stand area'}, 'end': {'text': 'toward the lower-right so the crop region tightly frames the stand in a square'}, 'target': {'begin': {'text': 'the image canvas near the upper-left edge of the fruit stand'}, 'end': {'text': 'the image canvas toward the lower-right edge of the fruit stand, keeping the crop square'}}}",
+          "action_template": "After the Crop tool is selected, {{target_subject_area}} is visible, and the canvas can be dragged on, drag on the image canvas from the upper-left side of {{target_subject_area}} toward the lower-right while keeping the crop square to preview the new composition."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "When the square crop rectangle is positioned correctly, the Crop tool is still active, and the image canvas is focused, press Enter to commit the crop and trim the image to the selected square area."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8,
+        9,
+        10
+      ],
+      "unit_intent": "Brighten the cropped image slightly to improve its appearance.",
+      "unit_type": "APPLY_BRIGHTNESS_ADJUSTMENT",
+      "unit_before_state": "The square-cropped photo is visible in the main GIMP window, and no color adjustment dialog is open yet.",
+      "unit_after_state": "The Brightness-Contrast dialog has been closed and the cropped image remains on the canvas with a slightly brighter appearance applied.",
+      "unit_precondition": [
+        "The crop has already been applied.",
+        "The top menu bar is visible and usable.",
+        "The image is the active editable canvas."
+      ],
+      "unit_effect": [
+        "The Colors menu opens.",
+        "The Brightness-Contrast dialog appears with live preview.",
+        "Dragging the Brightness slider makes the preview visibly brighter.",
+        "Clicking OK closes the dialog and leaves the brighter image on the canvas."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Apply a {{brightness_adjustment_amount}} brightness increase to the active image using the Brightness-Contrast dialog.",
+      "parameters": {
+        "brightness_adjustment_amount": "slightly",
+        "slider_adjustment_direction": "a little to the right"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Colors menu in the top menu bar'}}",
+          "action_template": "Click the Colors menu in the top menu bar to open the color adjustment options once the active image is visible, the top menu bar is available, and no modal window is blocking the menus."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Brightness-Contrast menu item'}}",
+          "action_template": "Click the Brightness-Contrast menu item when the Colors dropdown is open, the option is listed, and the cursor can select it to open the Brightness-Contrast dialog with live preview."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the Brightness slider handle at its current position'}, 'end': {'text': 'a little to the right of its current position'}, 'target': {'begin': {'text': 'the Brightness slider handle in the Brightness-Contrast dialog'}, 'end': {'text': 'slightly to the right on the Brightness slider track'}}}",
+          "action_template": "Drag the Brightness slider handle {{slider_adjustment_direction}} in the Brightness-Contrast dialog when the dialog is visible, the slider can be interacted with, and preview updates are enabled so the preview becomes {{brightness_adjustment_amount}} brighter."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the OK button in the Brightness-Contrast dialog'}}",
+          "action_template": "Click the OK button in the Brightness-Contrast dialog after the preview looks {{brightness_adjustment_amount}} brighter and the dialog remains active to apply the brightness change and close the dialog."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        11,
+        12,
+        13,
+        14
+      ],
+      "unit_intent": "Add the caption \"Saturday Market\" onto the image and leave the text in a finished non-editing state.",
+      "unit_type": "ADD_TEXT_OVERLAY",
+      "unit_before_state": "The brightened square image is visible on the canvas, and no text box is active yet.",
+      "unit_after_state": "The words \"Saturday Market\" are visible near the lower-left area of the image, and the text box is no longer in active editing mode.",
+      "unit_precondition": [
+        "The brightness adjustment has already been applied.",
+        "The canvas is visible and editable.",
+        "There is open space on the image where the caption can be placed."
+      ],
+      "unit_effect": [
+        "The Text tool becomes active.",
+        "Clicking the canvas creates a text box with a blinking insertion cursor.",
+        "Typing inserts the caption text onto the image.",
+        "Pressing Esc removes text-edit focus while keeping the caption visible."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Add a specified caption onto the image at a chosen area and leave the text in a finished non-editing state.",
+      "parameters": {
+        "caption_text": "Saturday Market",
+        "target_area": "an open area near the lower-left corner of the cropped image canvas"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['t']}",
+          "action_template": "When the image is back in view and ready for editing, press T to activate the Text tool for adding a label."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'an open area near the lower-left corner of the cropped image canvas'}}",
+          "action_template": "With the Text tool active and a suitable empty area visible, click {{target_area}} to create a text box there."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Saturday Market'}",
+          "action_template": "Once the text box is active and ready for input, type {{caption_text}} so the caption appears directly on the photo."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['esc']}",
+          "action_template": "After entering {{caption_text}} and while the text box is still active, press Esc to leave text editing mode without removing the text."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        15,
+        16,
+        17,
+        18
+      ],
+      "unit_intent": "Prepare the export dialog with the requested desktop JPEG destination path.",
+      "unit_type": "SET_EXPORT_DESTINATION",
+      "unit_before_state": "The finished edited image is visible in GIMP with no modal dialog open.",
+      "unit_after_state": "The Export Image dialog remains open with /home/user/Desktop/market_post.jpg entered and accepted as the target path.",
+      "unit_precondition": [
+        "Image edits are complete and visible on the canvas.",
+        "No other modal window is blocking GIMP.",
+        "The desktop path /home/user/Desktop is valid and writable on the system."
+      ],
+      "unit_effect": [
+        "The Export Image dialog opens.",
+        "The location entry field becomes active.",
+        "The full output path appears in the location field.",
+        "Pressing Enter accepts the typed path and leaves the dialog ready for export."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Prepare the export dialog by entering and confirming a specified output file path.",
+      "parameters": {
+        "output_path": "/home/user/Desktop/market_post.jpg"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'e']}",
+          "action_template": "When the image is ready, no other dialog is blocking the window, and GIMP is focused, press Ctrl+Shift+E to open the Export Image dialog and prepare the final file."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'l']}",
+          "action_template": "With the Export Image dialog open, location entry supported, and keyboard input going to the dialog, press Ctrl+L to activate the location entry field so the full destination path can be typed directly."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '/home/user/Desktop/market_post.jpg'}",
+          "action_template": "Once the export location entry is focused and typing will go into the path field, type {{output_path}} so the export target and file name are specified in the location field."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After {{output_path}} has been fully typed, the Export Image dialog is still active, and the dialog is ready to accept the location, press Enter so the dialog accepts the path and prepares to export the file there."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        19,
+        20
+      ],
+      "unit_intent": "Complete the JPEG export so the edited image is saved to the desktop.",
+      "unit_type": "EXPORT_AS_JPEG",
+      "unit_before_state": "The Export Image dialog is ready with market_post.jpg as the accepted output file, and the main Export button is available.",
+      "unit_after_state": "The export dialogs are closed and the final edited image has been saved as /home/user/Desktop/market_post.jpg.",
+      "unit_precondition": [
+        "The export destination path has already been accepted.",
+        "No validation error is shown in the Export Image dialog.",
+        "Default JPEG export settings are acceptable."
+      ],
+      "unit_effect": [
+        "Clicking Export in the Export Image dialog opens the JPEG export options dialog.",
+        "Clicking Export in the JPEG options dialog closes it and saves market_post.jpg to the desktop."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Complete a JPEG export by confirming the export dialog and the JPEG options dialog so the edited image is saved to the specified output path.",
+      "parameters": {
+        "output_file_path": "/home/user/Desktop/market_post.jpg"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Export button in the Export Image dialog'}}",
+          "action_template": "When the destination path for {{output_file_path}} has been accepted, the main Export button is visible, and no validation error is shown, click the Export button in the Export Image dialog to proceed to the JPEG-specific export options so that a JPEG export options dialog appears."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Export button in the JPEG export options dialog'}}",
+          "action_template": "When the JPEG options window is visible, its Export button is available, and the default JPEG settings are acceptable, click the Export button in the JPEG export options dialog to save the finished image as {{output_file_path}} and close the dialog."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

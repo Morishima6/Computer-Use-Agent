@@ -1,0 +1,400 @@
+{
+  "segment_id": "seg_001",
+  "app": "Chrome",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open a fresh tab for the search",
+      "action_before_state": "Chrome is already open on the screen, showing at least one tab and the toolbar at the top.",
+      "action_preconditions": [
+        "The Chrome window is active and visible.",
+        "The tab strip is available at the top of the browser."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "t"
+        ]
+      },
+      "action_after_effects": "A new tab opens and the address bar is focused automatically, ready for text input.",
+      "nl_explanation": "When Chrome is active and the tab bar is visible, press Ctrl+T to open a new tab. The expected result is a blank tab with the cursor already in the address bar."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Enter a search for a fast vegetarian pasta recipe",
+      "action_before_state": "The new tab page is open and the text cursor is in the address bar.",
+      "action_preconditions": [
+        "The address bar is focused.",
+        "No other dialog is blocking the page."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "quick vegetarian pasta recipe under 30 minutes"
+      },
+      "action_after_effects": "The full search query appears in the address bar.",
+      "nl_explanation": "With the cursor already in the address bar, type a search phrase for a vegetarian pasta recipe that can be made in 30 minutes or less. The query should now be visible and ready to submit."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Run the search",
+      "action_before_state": "The search query is visible in the address bar on the new tab page.",
+      "action_preconditions": [
+        "The full query text has been entered.",
+        "The keyboard focus remains in the address bar."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "Chrome loads the search results page for the recipe query.",
+      "nl_explanation": "After the search text is entered and still selected for submission, press Enter. The browser should navigate to a results page showing recipe links."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Scan lower in the results until a suitable recipe is visible",
+      "action_before_state": "A search results page is displayed with multiple recipe links and snippets.",
+      "action_preconditions": [
+        "The results page has finished loading.",
+        "At least one scrollable column of search results is visible."
+      ],
+      "action": {
+        "type": "SCROLL",
+        "scroll_type": "down",
+        "target": {
+          "text": "the search results list, stopping when a recipe result with a clear quick-cook description or visible time appears"
+        },
+        "direction": "down"
+      },
+      "action_after_effects": "More recipe results become visible, including one that looks appropriate for a quick vegetarian pasta dinner.",
+      "nl_explanation": "Once the results page is loaded, scroll down through the results until you can see a promising recipe result that appears to fit the under-30-minute requirement."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Open one promising recipe result",
+      "action_before_state": "The search results page shows at least one recipe result that appears vegetarian and quick to make.",
+      "action_preconditions": [
+        "A recipe result is visible on screen.",
+        "The result title or snippet suggests it is vegetarian and fast."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "a visible recipe result whose title or snippet indicates a vegetarian pasta recipe that takes 30 minutes or less"
+        }
+      },
+      "action_after_effects": "The selected recipe page opens in the current tab.",
+      "nl_explanation": "When a suitable recipe result is visible, left-click it once to open the recipe page. The browser should navigate away from the results list to the chosen recipe."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Move to the part of the page where the ingredients can be checked",
+      "action_before_state": "The recipe page is open, usually showing the title, image, and summary near the top.",
+      "action_preconditions": [
+        "The recipe page has loaded.",
+        "The page content is scrollable."
+      ],
+      "action": {
+        "type": "SCROLL",
+        "scroll_type": "down",
+        "target": {
+          "text": "the main recipe page area, stopping when the ingredients list is clearly visible"
+        },
+        "direction": "down"
+      },
+      "action_after_effects": "The ingredients section is brought into view, allowing the recipe contents to be verified.",
+      "nl_explanation": "After the recipe page loads, scroll down through the main content until the ingredient list is visible. The expected result is that the ingredients can be read directly on screen."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Open the bookmark dialog to save the recipe",
+      "action_before_state": "The recipe page is open and the ingredients section is visible.",
+      "action_preconditions": [
+        "The desired recipe page is the active tab.",
+        "No modal window is already open."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "d"
+        ]
+      },
+      "action_after_effects": "Chrome opens the bookmark dialog for the current recipe page.",
+      "nl_explanation": "When the correct recipe page is open, press Ctrl+D to start saving it. The expected behavior is that a bookmark dialog appears for the current page."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Confirm the bookmark so the recipe is saved for later",
+      "action_before_state": "The bookmark dialog is visible on top of the recipe page, showing the page title and a confirmation button.",
+      "action_preconditions": [
+        "The bookmark dialog is open.",
+        "A visible confirmation button such as Done is available."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Done button in the bookmark dialog"
+        }
+      },
+      "action_after_effects": "The dialog closes and the recipe page is saved as a bookmark.",
+      "nl_explanation": "With the bookmark dialog open, click the Done button once to confirm the save. The dialog should close and the recipe will remain bookmarked for later use."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Start a web search for a vegetarian pasta recipe that can be cooked in 30 minutes or less.",
+      "unit_type": "OPEN_AND_RUN_SEARCH",
+      "unit_before_state": "Chrome is open with an existing browser window, at least one tab is visible in the tab strip, and no modal dialog is blocking the toolbar.",
+      "unit_after_state": "A Chrome search results page is open in a new tab for the query \"quick vegetarian pasta recipe under 30 minutes,\" showing recipe links and snippets.",
+      "unit_precondition": [
+        "The Chrome window is active and responsive.",
+        "The tab strip and address bar are visible.",
+        "Keyboard input can be sent to Chrome."
+      ],
+      "unit_effect": [
+        "A new tab opens with the address bar focused.",
+        "The full search query appears in the address bar before submission.",
+        "The browser navigates to a results page listing relevant recipe results."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Choose and open a promising recipe result that appears to satisfy the quick vegetarian pasta requirement.",
+      "unit_type": "SELECT_SEARCH_RESULT",
+      "unit_before_state": "The search results page for quick vegetarian pasta recipes is visible, with multiple recipe results and snippets shown in the main results column.",
+      "unit_after_state": "The selected recipe webpage is open in the current tab instead of the search results list.",
+      "unit_precondition": [
+        "The search results page has finished loading enough to scroll.",
+        "At least one recipe result is visible or can be brought into view.",
+        "A visible result indicates it is a vegetarian pasta recipe that takes 30 minutes or less."
+      ],
+      "unit_effect": [
+        "Scrolling reveals additional recipe results lower on the page.",
+        "A suitable recipe result becomes visible on screen.",
+        "Clicking the result loads the chosen recipe page in the current tab."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6
+      ],
+      "unit_intent": "Bring the recipe's ingredient list into view so the page content can be checked before saving.",
+      "unit_type": "REVEAL_INGREDIENTS_SECTION",
+      "unit_before_state": "The recipe page is open near its top section, typically showing the recipe title, hero image, or summary rather than the full ingredients list.",
+      "unit_after_state": "The ingredients section of the recipe page is visible on screen and can be read directly.",
+      "unit_precondition": [
+        "The chosen recipe page has loaded.",
+        "The page content is scrollable.",
+        "The ingredients list exists further down the page."
+      ],
+      "unit_effect": [
+        "The page scrolls downward from the top content area.",
+        "An ingredients list or ingredients section heading becomes clearly visible in the main page content."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Save the current recipe page as a bookmark for later access.",
+      "unit_type": "SAVE_PAGE_BOOKMARK",
+      "unit_before_state": "The desired recipe page is the active Chrome tab, and the ingredients section is visible in the page content.",
+      "unit_after_state": "The bookmark dialog is closed and the recipe page remains open, now saved as a Chrome bookmark.",
+      "unit_precondition": [
+        "The correct recipe page is still the active tab.",
+        "No other modal window is open.",
+        "Chrome bookmark controls are available and the bookmark confirmation button is visible after opening the dialog."
+      ],
+      "unit_effect": [
+        "Pressing Ctrl+D opens Chrome's bookmark dialog for the current page.",
+        "The dialog shows the current recipe page information and a visible Done button.",
+        "Clicking Done closes the dialog and confirms the page has been bookmarked."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Start a web search for a vegetarian pasta recipe that can be cooked in 30 minutes or less.",
+      "unit_type": "OPEN_AND_RUN_SEARCH",
+      "unit_before_state": "Chrome is open with an existing browser window, at least one tab is visible in the tab strip, and no modal dialog is blocking the toolbar.",
+      "unit_after_state": "A Chrome search results page is open in a new tab for the query \"quick vegetarian pasta recipe under 30 minutes,\" showing recipe links and snippets.",
+      "unit_precondition": [
+        "The Chrome window is active and responsive.",
+        "The tab strip and address bar are visible.",
+        "Keyboard input can be sent to Chrome."
+      ],
+      "unit_effect": [
+        "A new tab opens with the address bar focused.",
+        "The full search query appears in the address bar before submission.",
+        "The browser navigates to a results page listing relevant recipe results."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a new browser tab and run a web search for a specified query.",
+      "parameters": {
+        "search_query": "quick vegetarian pasta recipe under 30 minutes"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 't']}",
+          "action_template": "When Chrome is active and the tab bar is visible, press Ctrl+T to open a new tab. The Chrome window must be active and visible, and the tab strip must be available at the top of the browser. The expected result is a blank tab with the cursor already in the address bar, ready for text input."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'quick vegetarian pasta recipe under 30 minutes'}",
+          "action_template": "With the cursor already in the address bar, type {{search_query}}. The address bar must be focused and no other dialog can be blocking the page. The full search query should appear in the address bar and be ready to submit."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After {{search_query}} has been entered and keyboard focus remains in the address bar, press Enter to submit the search. Chrome should then load the search results page for the query."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Choose and open a promising recipe result that appears to satisfy the quick vegetarian pasta requirement.",
+      "unit_type": "SELECT_SEARCH_RESULT",
+      "unit_before_state": "The search results page for quick vegetarian pasta recipes is visible, with multiple recipe results and snippets shown in the main results column.",
+      "unit_after_state": "The selected recipe webpage is open in the current tab instead of the search results list.",
+      "unit_precondition": [
+        "The search results page has finished loading enough to scroll.",
+        "At least one recipe result is visible or can be brought into view.",
+        "A visible result indicates it is a vegetarian pasta recipe that takes 30 minutes or less."
+      ],
+      "unit_effect": [
+        "Scrolling reveals additional recipe results lower on the page.",
+        "A suitable recipe result becomes visible on screen.",
+        "Clicking the result loads the chosen recipe page in the current tab."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Locate and open a search result that matches the specified content category and time constraint.",
+      "parameters": {
+        "results_container": "the search results list",
+        "content_category": "vegetarian pasta recipe",
+        "time_constraint": "30 minutes or less"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'SCROLL', 'scroll_type': 'down', 'target': {'text': 'the search results list, stopping when a recipe result with a clear quick-cook description or visible time appears'}, 'direction': 'down'}",
+          "action_template": "After the results page has finished loading and a scrollable results column is visible, scroll down within {{results_container}} until a promising result for {{content_category}} with a clear quick-cook description or visible time matching {{time_constraint}} is visible, so more relevant results appear on screen."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'a visible recipe result whose title or snippet indicates a vegetarian pasta recipe that takes 30 minutes or less'}}",
+          "action_template": "When a visible result's title or snippet suggests {{content_category}} that takes {{time_constraint}}, left-click it once to open the selected result page in the current tab."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6
+      ],
+      "unit_intent": "Bring the recipe's ingredient list into view so the page content can be checked before saving.",
+      "unit_type": "REVEAL_INGREDIENTS_SECTION",
+      "unit_before_state": "The recipe page is open near its top section, typically showing the recipe title, hero image, or summary rather than the full ingredients list.",
+      "unit_after_state": "The ingredients section of the recipe page is visible on screen and can be read directly.",
+      "unit_precondition": [
+        "The chosen recipe page has loaded.",
+        "The page content is scrollable.",
+        "The ingredients list exists further down the page."
+      ],
+      "unit_effect": [
+        "The page scrolls downward from the top content area.",
+        "An ingredients list or ingredients section heading becomes clearly visible in the main page content."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Reveal a specified section of a webpage so its contents can be reviewed.",
+      "parameters": {
+        "target_section": "ingredients section"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'SCROLL', 'scroll_type': 'down', 'target': {'text': 'the main recipe page area, stopping when the ingredients list is clearly visible'}, 'direction': 'down'}",
+          "action_template": "With the webpage loaded and scrollable, scroll down through the main page content until {{target_section}} is clearly visible. This brings the section into view so its contents can be reviewed directly on screen."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Save the current recipe page as a bookmark for later access.",
+      "unit_type": "SAVE_PAGE_BOOKMARK",
+      "unit_before_state": "The desired recipe page is the active Chrome tab, and the ingredients section is visible in the page content.",
+      "unit_after_state": "The bookmark dialog is closed and the recipe page remains open, now saved as a Chrome bookmark.",
+      "unit_precondition": [
+        "The correct recipe page is still the active tab.",
+        "No other modal window is open.",
+        "Chrome bookmark controls are available and the bookmark confirmation button is visible after opening the dialog."
+      ],
+      "unit_effect": [
+        "Pressing Ctrl+D opens Chrome's bookmark dialog for the current page.",
+        "The dialog shows the current recipe page information and a visible Done button.",
+        "Clicking Done closes the dialog and confirms the page has been bookmarked."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the current browser page as a bookmark for later access.",
+      "parameters": {
+        "target_page": "the current recipe page",
+        "confirm_button": "the Done button in the bookmark dialog"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'd']}",
+          "action_template": "When {{target_page}} is open as the active tab and no modal window is already open, press Ctrl+D to start saving it; the expected result is that Chrome opens the bookmark dialog for the current page."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Done button in the bookmark dialog'}}",
+          "action_template": "With the bookmark dialog open and {{confirm_button}} visible, click {{confirm_button}} once to confirm saving {{target_page}}; the dialog should close and the page will remain bookmarked for later use."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

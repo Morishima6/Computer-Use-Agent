@@ -1,0 +1,261 @@
+{
+  "segment_id": "seg_001",
+  "app": "vlc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Enable Always on Top feature via the Video menu",
+      "action_before_state": "vlc is ready for step 1 of the task.",
+      "action_preconditions": [
+        "VLC media player is open and playing a video",
+        "The menu bar is visible at the top of the VLC window"
+      ],
+      "action": {
+        "type": "CLICK",
+        "target": {
+          "text": "Video menu in the menu bar"
+        },
+        "button": "left",
+        "num_clicks": 1
+      },
+      "action_after_effects": "The Video dropdown menu opens, displaying options including Always on Top, Crop, Aspect Ratio, etc.",
+      "nl_explanation": "Click on the 'Video' menu in the top menu bar to access video display options including the Always on Top feature."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Click on Always on Top option in the Video menu",
+      "action_before_state": "vlc is ready for step 2 of the task.",
+      "action_preconditions": [
+        "The Video dropdown menu is currently open",
+        "The 'Always on Top' option is visible in the menu"
+      ],
+      "action": {
+        "type": "CLICK",
+        "target": {
+          "text": "Always on Top option in Video dropdown menu"
+        },
+        "button": "left",
+        "num_clicks": 1
+      },
+      "action_after_effects": "The VLC window is now set to stay on top of all other windows, and the Video menu closes. A checkmark may appear next to 'Always on Top' in the menu if reopened.",
+      "nl_explanation": "Select the 'Always on Top' option from the Video dropdown menu to make the VLC window float above all other application windows."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Open the Playback menu to access bookmark functionality",
+      "action_before_state": "vlc is ready for step 3 of the task.",
+      "action_preconditions": [
+        "VLC is playing the video with Always on Top enabled",
+        "The menu bar is accessible at the top of the window"
+      ],
+      "action": {
+        "type": "CLICK",
+        "target": {
+          "text": "Playback menu in the menu bar"
+        },
+        "button": "left",
+        "num_clicks": 1
+      },
+      "action_after_effects": "The Playback dropdown menu opens, showing options like Title, Chapter, Program, Custom Bookmarks, Speed, Jump Forward/Backward, etc.",
+      "nl_explanation": "Click on the 'Playback' menu in the menu bar to access playback controls and bookmark management options."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Click on Custom Bookmarks to access bookmark options",
+      "action_before_state": "vlc is ready for step 4 of the task.",
+      "action_preconditions": [
+        "The Playback dropdown menu is open",
+        "Custom Bookmarks option is visible in the menu"
+      ],
+      "action": {
+        "type": "CLICK",
+        "target": {
+          "text": "Custom Bookmarks option in Playback menu"
+        },
+        "button": "left",
+        "num_clicks": 1
+      },
+      "action_after_effects": "A submenu appears to the right of the Custom Bookmarks option, displaying options like 'Manage', 'Create', and existing bookmarks if any.",
+      "nl_explanation": "Click on 'Custom Bookmarks' in the Playback menu to open its submenu where bookmark creation and management options are available."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Click on Create to add a bookmark at current playback position",
+      "action_before_state": "vlc is ready for step 5 of the task.",
+      "action_preconditions": [
+        "The Custom Bookmarks submenu is visible",
+        "The 'Create' option is available in the submenu",
+        "Video is at the desired timestamp for bookmarking"
+      ],
+      "action": {
+        "type": "CLICK",
+        "target": {
+          "text": "Create option in Custom Bookmarks submenu"
+        },
+        "button": "left",
+        "num_clicks": 1
+      },
+      "action_after_effects": "A dialog box appears where you can enter a bookmark name (defaults to current timestamp).",
+      "nl_explanation": "Click the 'Create' option in the Custom Bookmarks submenu to save the current playback position as a bookmark."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Confirm bookmark creation by clicking OK or pressing Enter",
+      "action_before_state": "vlc is ready for step 6 of the task.",
+      "action_preconditions": [
+        "A bookmark creation dialog is open with a name field",
+        "OK/Confirm button is available"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "return"
+        ]
+      },
+      "action_after_effects": "The dialog closes and the bookmark is saved. The VLC window remains on top as configured, and the user can now continue watching or switch to other tasks while the video stays visible.",
+      "nl_explanation": "Press Enter to confirm and save the bookmark with the default or entered name, completing the task of setting VLC to always stay on top and creating a playback position bookmark."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Keep the VLC video visible above other application windows while multitasking.",
+      "unit_type": "ENABLE_ALWAYS_ON_TOP",
+      "unit_before_state": "The VLC media player window is open with a video playing, and the top menu bar is visible. No VLC menu is expanded yet.",
+      "unit_after_state": "The Video menu has closed and VLC is configured to stay above other windows. If the Video menu is opened again, the Always on Top entry would appear checked.",
+      "unit_precondition": [
+        "VLC is open with a video loaded and playing or paused.",
+        "The VLC menu bar is visible and clickable.",
+        "The user is at the main VLC playback window rather than inside a modal dialog."
+      ],
+      "unit_effect": [
+        "The Video drop-down briefly opens and then closes after selection.",
+        "VLC remains the active playback window with Always on Top enabled.",
+        "Reopening Video would show a checkmark next to Always on Top, confirming the setting."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Save the current playback position as a reusable bookmark for later return.",
+      "unit_type": "CREATE_PLAYBACK_BOOKMARK",
+      "unit_before_state": "VLC is at the desired timestamp in the video, the main playback window is visible, and Always on Top is already enabled from the prior action.",
+      "unit_after_state": "The bookmark creation dialog has been confirmed and closed, returning to the main VLC playback window with the current position saved as a custom bookmark.",
+      "unit_precondition": [
+        "The video is already at the timestamp the user wants to save.",
+        "The VLC menu bar is visible and accessible.",
+        "No other modal dialog is blocking the Playback menu.",
+        "The Playback > Custom Bookmarks menu path is available in this VLC session."
+      ],
+      "unit_effect": [
+        "The Playback menu opens, then the Custom Bookmarks submenu appears with a Create option.",
+        "A bookmark naming dialog opens after Create is selected.",
+        "Pressing Enter confirms the dialog, closes it, and saves a custom bookmark for the current playback position."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Keep the VLC video visible above other application windows while multitasking.",
+      "unit_type": "ENABLE_ALWAYS_ON_TOP",
+      "unit_before_state": "The VLC media player window is open with a video playing, and the top menu bar is visible. No VLC menu is expanded yet.",
+      "unit_after_state": "The Video menu has closed and VLC is configured to stay above other windows. If the Video menu is opened again, the Always on Top entry would appear checked.",
+      "unit_precondition": [
+        "VLC is open with a video loaded and playing or paused.",
+        "The VLC menu bar is visible and clickable.",
+        "The user is at the main VLC playback window rather than inside a modal dialog."
+      ],
+      "unit_effect": [
+        "The Video drop-down briefly opens and then closes after selection.",
+        "VLC remains the active playback window with Always on Top enabled.",
+        "Reopening Video would show a checkmark next to Always on Top, confirming the setting."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Enable the application's Always on Top setting from the relevant top-level menu so the playback window stays above other windows.",
+      "parameters": {
+        "top_level_menu": "Video menu in the menu bar",
+        "always_on_top_option": "Always on Top option in Video dropdown menu"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'target': {'text': 'Video menu in the menu bar'}, 'button': 'left', 'num_clicks': 1}",
+          "action_template": "When the media player is open and the menu bar is visible at the top of the window, click {{top_level_menu}} to access display-related window options. Afterward, the dropdown menu opens and shows options including {{always_on_top_option}}."
+        },
+        {
+          "action": "{'type': 'CLICK', 'target': {'text': 'Always on Top option in Video dropdown menu'}, 'button': 'left', 'num_clicks': 1}",
+          "action_template": "When the top-level menu is already open and {{always_on_top_option}} is visible, click {{always_on_top_option}} to enable the window to stay above other application windows. Afterward, the menu closes, the always-on-top behavior is enabled, and reopening the menu would show a checkmark next to {{always_on_top_option}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Save the current playback position as a reusable bookmark for later return.",
+      "unit_type": "CREATE_PLAYBACK_BOOKMARK",
+      "unit_before_state": "VLC is at the desired timestamp in the video, the main playback window is visible, and Always on Top is already enabled from the prior action.",
+      "unit_after_state": "The bookmark creation dialog has been confirmed and closed, returning to the main VLC playback window with the current position saved as a custom bookmark.",
+      "unit_precondition": [
+        "The video is already at the timestamp the user wants to save.",
+        "The VLC menu bar is visible and accessible.",
+        "No other modal dialog is blocking the Playback menu.",
+        "The Playback > Custom Bookmarks menu path is available in this VLC session."
+      ],
+      "unit_effect": [
+        "The Playback menu opens, then the Custom Bookmarks submenu appears with a Create option.",
+        "A bookmark naming dialog opens after Create is selected.",
+        "Pressing Enter confirms the dialog, closes it, and saves a custom bookmark for the current playback position."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a custom playback bookmark for {{bookmark_position}}.",
+      "parameters": {
+        "bookmark_position": "the current playback position"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'target': {'text': 'Playback menu in the menu bar'}, 'button': 'left', 'num_clicks': 1}",
+          "action_template": "Click the Playback menu in the menu bar when VLC is playing and the menu bar is accessible, to open playback controls and bookmark management options. The Playback dropdown menu opens and shows options including Custom Bookmarks."
+        },
+        {
+          "action": "{'type': 'CLICK', 'target': {'text': 'Custom Bookmarks option in Playback menu'}, 'button': 'left', 'num_clicks': 1}",
+          "action_template": "Click the Custom Bookmarks option in the Playback menu when the Playback dropdown menu is open and the option is visible, to open the bookmark submenu. A submenu appears with options including Manage and Create."
+        },
+        {
+          "action": "{'type': 'CLICK', 'target': {'text': 'Create option in Custom Bookmarks submenu'}, 'button': 'left', 'num_clicks': 1}",
+          "action_template": "Click the Create option in the Custom Bookmarks submenu when the submenu is visible and the video is already at {{bookmark_position}}, to start saving {{bookmark_position}} as a custom bookmark. A dialog box appears where a bookmark name can be confirmed."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['return']}",
+          "action_template": "Press Enter when a bookmark creation dialog is open with a name field and a confirm control is available, to confirm the dialog and save a custom bookmark for {{bookmark_position}}. The dialog closes and the bookmark is saved in the main VLC playback window."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

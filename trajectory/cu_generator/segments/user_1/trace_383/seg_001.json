@@ -1,0 +1,703 @@
+{
+  "segment_id": "seg_001",
+  "app": "os",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open a terminal window",
+      "action_before_state": "A normal GNOME desktop or another regular window is visible, and there is no modal dialog blocking input.",
+      "action_preconditions": [
+        "The Linux GNOME session is unlocked.",
+        "Keyboard input is available."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "alt",
+          "t"
+        ]
+      },
+      "action_after_effects": "A Terminal window opens and the shell prompt is focused.",
+      "nl_explanation": "When the GNOME session is ready for keyboard input, press Ctrl+Alt+T to open Terminal. The expected result is a focused shell prompt where commands can be entered."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Prepare to work inside the Downloads folder",
+      "action_before_state": "The Terminal window is open and shows a shell prompt waiting for input.",
+      "action_preconditions": [
+        "Terminal is focused.",
+        "A shell prompt is visible."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "cd ~/Downloads"
+      },
+      "action_after_effects": "The command `cd ~/Downloads` appears at the prompt but has not run yet.",
+      "nl_explanation": "With Terminal focused and the prompt visible, type `cd ~/Downloads` so the next command will switch the working directory to Downloads."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Enter the Downloads directory",
+      "action_before_state": "The command `cd ~/Downloads` is visible at the shell prompt in Terminal.",
+      "action_preconditions": [
+        "The `cd ~/Downloads` command has been typed.",
+        "Terminal remains focused."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The shell runs the command and the prompt changes to indicate the current directory is `~/Downloads`.",
+      "nl_explanation": "Once the change-directory command is typed, press Enter to move the terminal into Downloads. The prompt should update to show that Downloads is now the active folder."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Prepare the destination backup folder on the Desktop",
+      "action_before_state": "Terminal is open in `~/Downloads`, and the shell prompt is ready for another command.",
+      "action_preconditions": [
+        "The current working directory is `~/Downloads`.",
+        "The prompt is idle and ready."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "mkdir -p ~/Desktop/download-logs-backup"
+      },
+      "action_after_effects": "The folder-creation command is visible in Terminal and ready to be executed.",
+      "nl_explanation": "With the terminal sitting in Downloads, type `mkdir -p ~/Desktop/download-logs-backup` to prepare a backup folder on the Desktop."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Create the backup folder",
+      "action_before_state": "The command `mkdir -p ~/Desktop/download-logs-backup` is typed at the shell prompt.",
+      "action_preconditions": [
+        "The destination folder command is fully typed.",
+        "Terminal is still focused."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "A folder named `download-logs-backup` is created on the Desktop if it did not already exist.",
+      "nl_explanation": "After typing the folder-creation command, press Enter to create the Desktop backup folder. The system should return to the prompt without an error."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Prepare the command that copies every log file while preserving subfolders",
+      "action_before_state": "Terminal is still in `~/Downloads`, and the shell prompt is waiting for input.",
+      "action_preconditions": [
+        "The backup folder exists on the Desktop.",
+        "Terminal is ready for the next command."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "find . -type f -name \"*.log\" -exec cp --parents -t ~/Desktop/download-logs-backup {} +"
+      },
+      "action_after_effects": "The copy command is visible at the prompt and ready to run.",
+      "nl_explanation": "When the backup folder has been created and Terminal is idle, type the `find` command that locates all `.log` files and copies them into the Desktop backup folder while keeping their original relative paths."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Copy the log files into the backup folder",
+      "action_before_state": "The `find ... cp --parents ...` command is typed in Terminal.",
+      "action_preconditions": [
+        "There are one or more `.log` files somewhere inside Downloads or its subfolders.",
+        "The copy command has been typed completely."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "All matching `.log` files are copied into `~/Desktop/download-logs-backup`, and the original folder structure under Downloads is preserved.",
+      "nl_explanation": "Once the copy command is ready, press Enter to gather all `.log` files from Downloads into the Desktop backup folder. The terminal should finish and return to the prompt after the copy completes."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Prepare the archive command",
+      "action_before_state": "Terminal has returned to an idle prompt after copying the files.",
+      "action_preconditions": [
+        "The backup folder already contains the copied log files.",
+        "The shell prompt is available."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "tar -czf ~/Desktop/download-logs-backup.tar.gz -C ~/Desktop download-logs-backup"
+      },
+      "action_after_effects": "The compression command is visible in Terminal and is ready to run.",
+      "nl_explanation": "With the copied files already in the Desktop backup folder, type the `tar` command that will create a compressed `download-logs-backup.tar.gz` archive on the Desktop."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Create the compressed archive",
+      "action_before_state": "The `tar -czf ~/Desktop/download-logs-backup.tar.gz -C ~/Desktop download-logs-backup` command is visible at the prompt.",
+      "action_preconditions": [
+        "The compression command has been entered.",
+        "The backup folder exists on the Desktop."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "A file named `download-logs-backup.tar.gz` is created on the Desktop.",
+      "nl_explanation": "After the archive command has been typed, press Enter to build the compressed backup file. The expected result is a new `.tar.gz` archive on the Desktop."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Open the GNOME overview to launch the file manager",
+      "action_before_state": "Terminal is still visible, and the archive command has completed.",
+      "action_preconditions": [
+        "The terminal command has finished.",
+        "Keyboard input is available."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "super"
+        ]
+      },
+      "action_after_effects": "The GNOME Activities overview opens with the search field ready.",
+      "nl_explanation": "When the archive has finished building, press the Super key to open the GNOME overview so the file manager can be launched from search."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Search for the file manager",
+      "action_before_state": "The GNOME Activities overview is open and the search box is active.",
+      "action_preconditions": [
+        "The overview search field is focused.",
+        "Typing will go into the launcher search."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "files"
+      },
+      "action_after_effects": "The Files application appears in the search results.",
+      "nl_explanation": "With the overview search active, type `files` so GNOME shows the Files application as a launch result."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Launch the Files app",
+      "action_before_state": "The Activities overview shows Files in the search results.",
+      "action_preconditions": [
+        "The search term `files` has been entered.",
+        "The Files app is visible as the top result."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The Files application opens in a new window.",
+      "nl_explanation": "Once Files appears in the overview search results, press Enter to open it. A Files window should appear on screen."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Navigate to the Desktop folder in Files",
+      "action_before_state": "The Files window is open, showing the standard GNOME file browser layout with the left sidebar visible.",
+      "action_preconditions": [
+        "Files is the active window.",
+        "The left navigation sidebar is visible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Desktop entry in the left sidebar of the Files window"
+        }
+      },
+      "action_after_effects": "The main file list switches to the Desktop contents.",
+      "nl_explanation": "When Files is open and the sidebar is visible, click the Desktop entry on the left. The main pane should update to show the files and folders stored on the Desktop."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Confirm the compressed backup archive is present",
+      "action_before_state": "Files is displaying the Desktop contents, including the newly created backup items.",
+      "action_preconditions": [
+        "The Desktop folder is open in Files.",
+        "The archive `download-logs-backup.tar.gz` is visible in the main pane."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the file named `download-logs-backup.tar.gz` in the Desktop file list"
+        }
+      },
+      "action_after_effects": "The archive file becomes selected, confirming that the backup archive was created successfully.",
+      "nl_explanation": "After the Desktop contents are visible in Files, click the `download-logs-backup.tar.gz` archive. The file should highlight, confirming the final compressed backup exists and the task is complete."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Open a shell workspace to perform the file backup operations.",
+      "unit_type": "OPEN_TERMINAL",
+      "unit_before_state": "A regular GNOME desktop or another non-blocking window is visible, and no modal dialog is preventing keyboard input.",
+      "unit_after_state": "A Terminal window is open in the foreground with a focused shell prompt ready for commands.",
+      "unit_precondition": [
+        "The GNOME session is unlocked.",
+        "Keyboard input is available and not captured by a blocking dialog."
+      ],
+      "unit_effect": [
+        "A new Terminal window appears.",
+        "A shell prompt is visible and focused for immediate input."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3
+      ],
+      "unit_intent": "Move the shell into the Downloads directory so subsequent commands operate on the correct source tree.",
+      "unit_type": "CHANGE_WORKING_DIRECTORY",
+      "unit_before_state": "The Terminal window is open with an idle shell prompt, but the current directory has not yet been changed to Downloads.",
+      "unit_after_state": "The shell prompt returns with the current working directory set to `~/Downloads`.",
+      "unit_precondition": [
+        "Terminal is focused.",
+        "A shell prompt is visible and ready for input."
+      ],
+      "unit_effect": [
+        "The command `cd ~/Downloads` is executed.",
+        "The prompt updates to indicate that `~/Downloads` is now the active directory."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Create the Desktop destination folder that will hold the collected log files.",
+      "unit_type": "CREATE_FOLDER",
+      "unit_before_state": "Terminal is active in `~/Downloads`, and the shell is waiting for the next command.",
+      "unit_after_state": "The folder `~/Desktop/download-logs-backup` exists, and the shell prompt is available again.",
+      "unit_precondition": [
+        "The current working directory is `~/Downloads`.",
+        "The shell prompt is idle and ready to run a command."
+      ],
+      "unit_effect": [
+        "The command `mkdir -p ~/Desktop/download-logs-backup` runs without needing further interaction.",
+        "A `download-logs-backup` folder is present on the Desktop if it did not already exist."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        6,
+        7
+      ],
+      "unit_intent": "Collect all `.log` files from Downloads into the backup folder while preserving their relative folder structure.",
+      "unit_type": "COPY_FILES_WITH_STRUCTURE",
+      "unit_before_state": "Terminal is open in `~/Downloads`, and the Desktop folder `download-logs-backup` already exists.",
+      "unit_after_state": "All `.log` files found under `~/Downloads` have been copied into `~/Desktop/download-logs-backup` with their original subfolder paths preserved, and the shell prompt has returned.",
+      "unit_precondition": [
+        "The folder `~/Desktop/download-logs-backup` exists.",
+        "Terminal is focused in `~/Downloads`.",
+        "At least one `.log` file may exist in Downloads or its subfolders."
+      ],
+      "unit_effect": [
+        "The `find ... -exec cp --parents ...` command completes and returns to the prompt.",
+        "The backup folder now contains copied `.log` files arranged under the same relative subdirectories as in Downloads."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        8,
+        9
+      ],
+      "unit_intent": "Produce a single compressed archive of the backup folder for sharing.",
+      "unit_type": "CREATE_ARCHIVE",
+      "unit_before_state": "The backup folder on the Desktop contains the copied log files, and Terminal is idle after the copy operation.",
+      "unit_after_state": "A compressed archive named `download-logs-backup.tar.gz` exists on the Desktop, and the shell prompt is visible again.",
+      "unit_precondition": [
+        "The folder `~/Desktop/download-logs-backup` exists and contains the backup contents.",
+        "The shell prompt is available for a new command."
+      ],
+      "unit_effect": [
+        "The `tar -czf ~/Desktop/download-logs-backup.tar.gz -C ~/Desktop download-logs-backup` command runs to completion.",
+        "A file named `download-logs-backup.tar.gz` is created on the Desktop."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        10,
+        11,
+        12
+      ],
+      "unit_intent": "Open the GNOME Files application to visually inspect the created backup archive.",
+      "unit_type": "LAUNCH_FILE_MANAGER",
+      "unit_before_state": "Terminal is still visible after the archive command has finished, and the GNOME desktop session is ready for keyboard input.",
+      "unit_after_state": "A GNOME Files window is open in the foreground.",
+      "unit_precondition": [
+        "The archive creation command has completed.",
+        "Keyboard input is available.",
+        "The Activities overview search can be used to launch applications."
+      ],
+      "unit_effect": [
+        "The GNOME Activities overview opens.",
+        "Typing `files` shows the Files application in search results.",
+        "Pressing Enter launches the Files application."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        13
+      ],
+      "unit_intent": "Navigate the file manager to the Desktop location where the backup artifacts were created.",
+      "unit_type": "SWITCH_DIRECTORY_VIEW",
+      "unit_before_state": "The Files window is open with the standard sidebar visible, but the main pane is not yet confirmed to be showing the Desktop contents.",
+      "unit_after_state": "Files displays the Desktop folder contents in the main file list.",
+      "unit_precondition": [
+        "The Files window is active.",
+        "The left navigation sidebar is visible.",
+        "The Desktop entry is available in the sidebar."
+      ],
+      "unit_effect": [
+        "Clicking the Desktop sidebar entry changes the main pane to show Desktop items."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_08",
+      "step_indices": [
+        14
+      ],
+      "unit_intent": "Confirm that the final compressed backup archive exists on the Desktop.",
+      "unit_type": "VERIFY_ARCHIVE_PRESENCE",
+      "unit_before_state": "Files is displaying the Desktop contents, including the newly created backup folder and archive.",
+      "unit_after_state": "The file `download-logs-backup.tar.gz` is selected in the Desktop file list.",
+      "unit_precondition": [
+        "The Desktop folder is open in Files.",
+        "The file `download-logs-backup.tar.gz` is visible in the main pane."
+      ],
+      "unit_effect": [
+        "The archive file becomes highlighted when clicked.",
+        "The selected `download-logs-backup.tar.gz` file provides visible confirmation that the compressed backup was created successfully."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Open a shell workspace to perform the file backup operations.",
+      "unit_type": "OPEN_TERMINAL",
+      "unit_before_state": "A regular GNOME desktop or another non-blocking window is visible, and no modal dialog is preventing keyboard input.",
+      "unit_after_state": "A Terminal window is open in the foreground with a focused shell prompt ready for commands.",
+      "unit_precondition": [
+        "The GNOME session is unlocked.",
+        "Keyboard input is available and not captured by a blocking dialog."
+      ],
+      "unit_effect": [
+        "A new Terminal window appears.",
+        "A shell prompt is visible and focused for immediate input."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a terminal application so a focused shell prompt is available for command entry.",
+      "parameters": {
+        "desktop_environment": "GNOME",
+        "terminal_application": "Terminal",
+        "terminal_shortcut": "Ctrl+Alt+T"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'alt', 't']}",
+          "action_template": "When the {{desktop_environment}} session is unlocked and keyboard input is available, press {{terminal_shortcut}} to open {{terminal_application}}. The expected result is that a {{terminal_application}} window opens and the shell prompt is focused for immediate command entry."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3
+      ],
+      "unit_intent": "Move the shell into the Downloads directory so subsequent commands operate on the correct source tree.",
+      "unit_type": "CHANGE_WORKING_DIRECTORY",
+      "unit_before_state": "The Terminal window is open with an idle shell prompt, but the current directory has not yet been changed to Downloads.",
+      "unit_after_state": "The shell prompt returns with the current working directory set to `~/Downloads`.",
+      "unit_precondition": [
+        "Terminal is focused.",
+        "A shell prompt is visible and ready for input."
+      ],
+      "unit_effect": [
+        "The command `cd ~/Downloads` is executed.",
+        "The prompt updates to indicate that `~/Downloads` is now the active directory."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Change the shell's working directory to {{target_directory}} so subsequent commands run in the intended location.",
+      "parameters": {
+        "target_directory": "~/Downloads"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'cd ~/Downloads'}",
+          "action_template": "With Terminal focused and a shell prompt visible, type `cd {{target_directory}}` so the next command will switch the working directory to {{target_directory}}."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Once the change-directory command for {{target_directory}} is typed and Terminal remains focused, press Enter to run it. The prompt should update to show that {{target_directory}} is now the active folder."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Create the Desktop destination folder that will hold the collected log files.",
+      "unit_type": "CREATE_FOLDER",
+      "unit_before_state": "Terminal is active in `~/Downloads`, and the shell is waiting for the next command.",
+      "unit_after_state": "The folder `~/Desktop/download-logs-backup` exists, and the shell prompt is available again.",
+      "unit_precondition": [
+        "The current working directory is `~/Downloads`.",
+        "The shell prompt is idle and ready to run a command."
+      ],
+      "unit_effect": [
+        "The command `mkdir -p ~/Desktop/download-logs-backup` runs without needing further interaction.",
+        "A `download-logs-backup` folder is present on the Desktop if it did not already exist."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a destination folder at {{destination_folder_path}} from the terminal.",
+      "parameters": {
+        "destination_folder_path": "~/Desktop/download-logs-backup"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'mkdir -p ~/Desktop/download-logs-backup'}",
+          "action_template": "With Terminal focused and the prompt idle, type `mkdir -p {{destination_folder_path}}` to prepare the destination folder command. This requires the shell to be ready for input and results in the folder-creation command being visible in Terminal and ready to be executed."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter to run the folder-creation command and create the folder at {{destination_folder_path}}. This requires the command to be fully typed and Terminal to remain focused, and should return to the prompt without an error after the folder is created if it did not already exist."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        6,
+        7
+      ],
+      "unit_intent": "Collect all `.log` files from Downloads into the backup folder while preserving their relative folder structure.",
+      "unit_type": "COPY_FILES_WITH_STRUCTURE",
+      "unit_before_state": "Terminal is open in `~/Downloads`, and the Desktop folder `download-logs-backup` already exists.",
+      "unit_after_state": "All `.log` files found under `~/Downloads` have been copied into `~/Desktop/download-logs-backup` with their original subfolder paths preserved, and the shell prompt has returned.",
+      "unit_precondition": [
+        "The folder `~/Desktop/download-logs-backup` exists.",
+        "Terminal is focused in `~/Downloads`.",
+        "At least one `.log` file may exist in Downloads or its subfolders."
+      ],
+      "unit_effect": [
+        "The `find ... -exec cp --parents ...` command completes and returns to the prompt.",
+        "The backup folder now contains copied `.log` files arranged under the same relative subdirectories as in Downloads."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Copy all files matching {{file_pattern}} from {{source_directory}} and its subfolders into {{target_backup_folder}} while preserving their relative folder structure.",
+      "parameters": {
+        "source_directory": "~/Downloads",
+        "file_pattern": "*.log",
+        "target_backup_folder": "~/Desktop/download-logs-backup"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'find . -type f -name \"*.log\" -exec cp --parents -t ~/Desktop/download-logs-backup {} +'}",
+          "action_template": "Type the `find` command in Terminal from {{source_directory}} to locate all files matching {{file_pattern}} and copy them into {{target_backup_folder}} while keeping their original relative paths. Preconditions: the backup folder exists and Terminal is ready for the next command. Afterward, the copy command is visible at the prompt and ready to run."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter to run the prepared copy command and gather all files matching {{file_pattern}} from {{source_directory}} into {{target_backup_folder}} with their folder structure preserved. Preconditions: matching files may exist and the command has been typed completely. Afterward, the copy completes and Terminal returns to the prompt."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        8,
+        9
+      ],
+      "unit_intent": "Produce a single compressed archive of the backup folder for sharing.",
+      "unit_type": "CREATE_ARCHIVE",
+      "unit_before_state": "The backup folder on the Desktop contains the copied log files, and Terminal is idle after the copy operation.",
+      "unit_after_state": "A compressed archive named `download-logs-backup.tar.gz` exists on the Desktop, and the shell prompt is visible again.",
+      "unit_precondition": [
+        "The folder `~/Desktop/download-logs-backup` exists and contains the backup contents.",
+        "The shell prompt is available for a new command."
+      ],
+      "unit_effect": [
+        "The `tar -czf ~/Desktop/download-logs-backup.tar.gz -C ~/Desktop download-logs-backup` command runs to completion.",
+        "A file named `download-logs-backup.tar.gz` is created on the Desktop."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a compressed archive file from a specified folder using a terminal command.",
+      "parameters": {
+        "source_folder_path": "~/Desktop/download-logs-backup",
+        "archive_file_path": "~/Desktop/download-logs-backup.tar.gz"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'tar -czf ~/Desktop/download-logs-backup.tar.gz -C ~/Desktop download-logs-backup'}",
+          "action_template": "With the source folder already prepared and the shell prompt available, type the tar command that will create {{archive_file_path}} from {{source_folder_path}}. The compression command should then be visible in Terminal and ready to run."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After the archive command for {{archive_file_path}} has been entered and {{source_folder_path}} exists, press Enter to build the compressed archive. The expected result is that {{archive_file_path}} is created and the shell prompt becomes available again after completion."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        10,
+        11,
+        12
+      ],
+      "unit_intent": "Open the GNOME Files application to visually inspect the created backup archive.",
+      "unit_type": "LAUNCH_FILE_MANAGER",
+      "unit_before_state": "Terminal is still visible after the archive command has finished, and the GNOME desktop session is ready for keyboard input.",
+      "unit_after_state": "A GNOME Files window is open in the foreground.",
+      "unit_precondition": [
+        "The archive creation command has completed.",
+        "Keyboard input is available.",
+        "The Activities overview search can be used to launch applications."
+      ],
+      "unit_effect": [
+        "The GNOME Activities overview opens.",
+        "Typing `files` shows the Files application in search results.",
+        "Pressing Enter launches the Files application."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Launch the file manager application from the GNOME Activities search interface.",
+      "parameters": {
+        "target_application": "Files",
+        "launcher_query": "files"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['super']}",
+          "action_template": "Press the Super key when keyboard input is available to open the GNOME Activities overview so {{target_application}} can be launched from search."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'files'}",
+          "action_template": "Type {{launcher_query}} into the focused overview search field to show {{target_application}} in the launcher results."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter after {{launcher_query}} has been entered and {{target_application}} is visible as the top result to launch the application in a new window."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_07",
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        13
+      ],
+      "unit_intent": "Navigate the file manager to the Desktop location where the backup artifacts were created.",
+      "unit_type": "SWITCH_DIRECTORY_VIEW",
+      "unit_before_state": "The Files window is open with the standard sidebar visible, but the main pane is not yet confirmed to be showing the Desktop contents.",
+      "unit_after_state": "Files displays the Desktop folder contents in the main file list.",
+      "unit_precondition": [
+        "The Files window is active.",
+        "The left navigation sidebar is visible.",
+        "The Desktop entry is available in the sidebar."
+      ],
+      "unit_effect": [
+        "Clicking the Desktop sidebar entry changes the main pane to show Desktop items."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Navigate the file manager to a specified location using the sidebar.",
+      "parameters": {
+        "target_location": "Desktop",
+        "target_sidebar_entry": "the Desktop entry in the left sidebar of the Files window"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Desktop entry in the left sidebar of the Files window'}}",
+          "action_template": "When the file manager is open and the sidebar is visible, click {{target_sidebar_entry}}. The main pane should update to show the files and folders stored in {{target_location}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_08",
+      "unit_id": "u_seg_001_08",
+      "step_indices": [
+        14
+      ],
+      "unit_intent": "Confirm that the final compressed backup archive exists on the Desktop.",
+      "unit_type": "VERIFY_ARCHIVE_PRESENCE",
+      "unit_before_state": "Files is displaying the Desktop contents, including the newly created backup folder and archive.",
+      "unit_after_state": "The file `download-logs-backup.tar.gz` is selected in the Desktop file list.",
+      "unit_precondition": [
+        "The Desktop folder is open in Files.",
+        "The file `download-logs-backup.tar.gz` is visible in the main pane."
+      ],
+      "unit_effect": [
+        "The archive file becomes highlighted when clicked.",
+        "The selected `download-logs-backup.tar.gz` file provides visible confirmation that the compressed backup was created successfully."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Verify that a specified archive file exists in an open folder by selecting it in the file list.",
+      "parameters": {
+        "target_file_name": "download-logs-backup.tar.gz",
+        "target_location": "Desktop"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the file named `download-logs-backup.tar.gz` in the Desktop file list'}}",
+          "action_template": "Click the file named {{target_file_name}} in the {{target_location}} file list after the folder is open and the archive is visible. The file should highlight, confirming that the archive exists and was created successfully."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

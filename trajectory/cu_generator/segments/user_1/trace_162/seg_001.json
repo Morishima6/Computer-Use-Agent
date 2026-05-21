@@ -1,0 +1,558 @@
+{
+  "segment_id": "seg_001",
+  "app": "gimp",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Activate the Crop tool",
+      "action_before_state": "GIMP is already open, the image is visible on the canvas, and the toolbox is available.",
+      "action_preconditions": [
+        "The GIMP window is focused",
+        "An image is already open on the canvas"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "shift",
+          "c"
+        ]
+      },
+      "action_after_effects": "The Crop tool becomes active, and the pointer changes to a crop cursor.",
+      "nl_explanation": "When the open image is visible and GIMP is focused, press Shift+C to switch to the Crop tool. The expected result is that GIMP is ready to define a crop area."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Draw a centered square crop around the main subject",
+      "action_before_state": "The Crop tool is active and the full image is still visible.",
+      "action_preconditions": [
+        "The Crop tool is active",
+        "The main subject of the image is visible on the canvas"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the upper-left corner of the desired square crop around the main subject"
+        },
+        "end": {
+          "text": "the lower-right corner so the crop area becomes a centered square"
+        },
+        "target": {
+          "begin": {
+            "text": "the canvas area"
+          },
+          "end": {
+            "text": "the canvas area"
+          }
+        }
+      },
+      "action_after_effects": "A square crop rectangle appears, and the outside area is dimmed.",
+      "nl_explanation": "With the Crop tool active, drag from the upper-left to the lower-right of the area you want to keep so the subject stays centered inside a square. The expected result is a visible square crop boundary."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Apply the crop",
+      "action_before_state": "A square crop rectangle is visible over the image.",
+      "action_preconditions": [
+        "A crop rectangle has already been drawn",
+        "The desired area inside the crop looks correct"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The image is cropped to the selected square area.",
+      "nl_explanation": "Once the square crop box is in the right place, press Enter to commit it. The expected result is that only the selected square portion remains on the canvas."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Open the Image menu",
+      "action_before_state": "The cropped square image is visible in the main editing area.",
+      "action_preconditions": [
+        "The crop has already been applied",
+        "The top menu bar is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Image menu in the top menu bar"
+        }
+      },
+      "action_after_effects": "The Image menu opens and shows image-related commands.",
+      "nl_explanation": "After cropping is finished, click the Image menu at the top of GIMP to open the list of image operations. The expected result is a dropdown menu with options such as scaling."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Open the Scale Image dialog",
+      "action_before_state": "The Image menu dropdown is open.",
+      "action_preconditions": [
+        "The Image menu is expanded",
+        "The Scale Image option is visible in the menu"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Scale Image option in the Image menu"
+        }
+      },
+      "action_after_effects": "The Scale Image dialog opens.",
+      "nl_explanation": "With the Image menu open, click Scale Image to open the resizing dialog. The expected result is a popup where width and height can be changed."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Set the image width to 1080 pixels",
+      "action_before_state": "The Scale Image dialog is open and the size fields are visible.",
+      "action_preconditions": [
+        "The Scale Image dialog is open",
+        "The width field is active and its current value is selected",
+        "The aspect ratio link is enabled so height stays matched"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "1080"
+      },
+      "action_after_effects": "The width changes to 1080, and the height updates to 1080 as well because the image is square.",
+      "nl_explanation": "When the Scale Image dialog is open and the width value is selected, type 1080. The expected result is that the new size becomes 1080 by 1080 pixels."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Apply the new image size",
+      "action_before_state": "The Scale Image dialog shows 1080 x 1080 as the new dimensions.",
+      "action_preconditions": [
+        "The Scale Image dialog is still open",
+        "The target dimensions are set correctly"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Scale button in the Scale Image dialog"
+        }
+      },
+      "action_after_effects": "The dialog closes and the canvas updates to the resized 1080 x 1080 image.",
+      "nl_explanation": "After confirming the dimensions are correct, click Scale to resize the image. The expected result is that the canvas refreshes with the square image at the new size."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Activate the Text tool",
+      "action_before_state": "The resized square image is visible on the canvas.",
+      "action_preconditions": [
+        "The image has already been resized",
+        "The GIMP window remains focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "t"
+        ]
+      },
+      "action_after_effects": "The Text tool becomes active, ready for placing a text box.",
+      "nl_explanation": "With the resized image visible, press T to switch to the Text tool. The expected result is that GIMP is ready to place text on the image."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Create a text box near the bottom of the image",
+      "action_before_state": "The Text tool is active and the image is ready for annotation.",
+      "action_preconditions": [
+        "The Text tool is active",
+        "There is clear space near the bottom area of the image for a caption"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "a point near the lower-left area of the image with a small margin from the edge"
+        },
+        "end": {
+          "text": "a point near the lower-right area to create a wide caption box"
+        },
+        "target": {
+          "begin": {
+            "text": "the canvas area"
+          },
+          "end": {
+            "text": "the canvas area"
+          }
+        }
+      },
+      "action_after_effects": "A text box appears near the bottom of the image and the text cursor is placed inside it.",
+      "nl_explanation": "When the Text tool is active, drag across the lower part of the image to create a wide text area for the caption. The expected result is an editable text box with the caret inside."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Enter the caption text",
+      "action_before_state": "A text box is visible near the bottom of the image and the caret is inside it.",
+      "action_preconditions": [
+        "The text box has already been created",
+        "The text cursor is active inside the box"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Weekend Market"
+      },
+      "action_after_effects": "The caption appears inside the text box on the image.",
+      "nl_explanation": "With the text box active, type Weekend Market. The expected result is that the caption is rendered near the bottom of the square image."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Open the Export dialog",
+      "action_before_state": "The edited image now includes the crop, resize, and caption.",
+      "action_preconditions": [
+        "All edits are complete",
+        "The GIMP window is focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "e"
+        ]
+      },
+      "action_after_effects": "The Export dialog opens.",
+      "nl_explanation": "After finishing the edits, press Ctrl+Shift+E to open the Export dialog. The expected result is a save dialog for creating the output file."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Set the export filename",
+      "action_before_state": "The Export dialog is open and the filename field is ready for input.",
+      "action_preconditions": [
+        "The Export dialog is open",
+        "The filename field is active and the current name is selected"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "square_market_post.png"
+      },
+      "action_after_effects": "The export name is updated to square_market_post.png.",
+      "nl_explanation": "When the Export dialog is open and the current filename is selected, type square_market_post.png. The expected result is that the new PNG filename is ready to export."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Start exporting the PNG file",
+      "action_before_state": "The Export dialog shows the desired filename.",
+      "action_preconditions": [
+        "The export filename has been entered",
+        "The Export button is visible in the dialog"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Export button in the Export dialog"
+        }
+      },
+      "action_after_effects": "The PNG export options dialog appears.",
+      "nl_explanation": "Once the filename is correct, click Export in the Export dialog. The expected result is that GIMP opens the PNG export options window."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Finish the PNG export",
+      "action_before_state": "The PNG export options dialog is open.",
+      "action_preconditions": [
+        "The PNG export options dialog is visible",
+        "The default export settings are acceptable"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Export button in the PNG export options dialog"
+        }
+      },
+      "action_after_effects": "The file is exported, the dialog closes, and the edited image remains open in GIMP.",
+      "nl_explanation": "When the PNG options window appears, click Export to save the final file. The expected result is that square_market_post.png is created and the editing workflow is complete."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Crop the already-open photo to a centered square composition around the main subject.",
+      "unit_type": "CROP_TO_CENTERED_SQUARE",
+      "unit_before_state": "GIMP shows the full original photo on the canvas with the toolbox visible, and no crop has been committed yet.",
+      "unit_after_state": "The canvas shows only the selected centered square portion of the photo, with the crop rectangle gone and the image reduced to the cropped square.",
+      "unit_precondition": [
+        "GIMP is focused and an image is already open on the canvas.",
+        "The main subject is visible well enough to define a centered square crop area."
+      ],
+      "unit_effect": [
+        "The Crop tool becomes active and a square crop boundary appears during the drag.",
+        "After confirming, the dimmed outer area disappears and the image visibly updates to the chosen square crop."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Resize the cropped square image to the final social-post dimensions of 1080 by 1080 pixels.",
+      "unit_type": "RESIZE_IMAGE_TO_TARGET_DIMENSIONS",
+      "unit_before_state": "The cropped square image is visible in the main GIMP editing area at its current size, and no scaling dialog is open yet.",
+      "unit_after_state": "The Scale Image dialog is closed and the canvas shows the square image resized to 1080 by 1080 pixels.",
+      "unit_precondition": [
+        "The square crop has already been applied.",
+        "The top menu bar is visible and the image can be scaled from the Image menu.",
+        "The Scale Image dialog will allow editing the width field while keeping the square aspect ratio linked."
+      ],
+      "unit_effect": [
+        "The Image menu opens and then the Scale Image dialog appears.",
+        "Entering 1080 updates the target dimensions to 1080 x 1080.",
+        "Clicking Scale closes the dialog and refreshes the canvas at the new size."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        8,
+        9,
+        10
+      ],
+      "unit_intent": "Add the caption text 'Weekend Market' near the bottom of the square post image.",
+      "unit_type": "ADD_TEXT_CAPTION",
+      "unit_before_state": "The resized 1080 by 1080 square image is visible on the canvas with no new text box placed yet.",
+      "unit_after_state": "A text box remains near the bottom of the image containing the visible caption 'Weekend Market'.",
+      "unit_precondition": [
+        "The resized image is open and visible on the canvas.",
+        "There is usable space near the bottom area for placing a caption.",
+        "GIMP is focused so the Text tool can be activated and text entered."
+      ],
+      "unit_effect": [
+        "The Text tool activates and a new text box is created near the bottom of the image.",
+        "The caret appears inside the text box and the words 'Weekend Market' render on the canvas."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        11,
+        12,
+        13,
+        14
+      ],
+      "unit_intent": "Export the edited square post as a PNG file named square_market_post.png.",
+      "unit_type": "EXPORT_IMAGE_AS_PNG",
+      "unit_before_state": "The finished edited image is open in GIMP, showing the square crop, 1080 by 1080 size, and the 'Weekend Market' caption on the canvas.",
+      "unit_after_state": "The export dialogs are closed, the edited image remains open in GIMP, and the PNG file has been written with the name square_market_post.png.",
+      "unit_precondition": [
+        "All desired edits are already complete on the current image.",
+        "GIMP is focused so the export shortcut opens the export workflow.",
+        "The export filename field can be edited and the default PNG export settings are acceptable."
+      ],
+      "unit_effect": [
+        "The Export dialog opens and the filename field is updated to 'square_market_post.png'.",
+        "Clicking Export opens the PNG export options dialog.",
+        "Confirming the second Export closes the dialog and creates the PNG file."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Crop the already-open photo to a centered square composition around the main subject.",
+      "unit_type": "CROP_TO_CENTERED_SQUARE",
+      "unit_before_state": "GIMP shows the full original photo on the canvas with the toolbox visible, and no crop has been committed yet.",
+      "unit_after_state": "The canvas shows only the selected centered square portion of the photo, with the crop rectangle gone and the image reduced to the cropped square.",
+      "unit_precondition": [
+        "GIMP is focused and an image is already open on the canvas.",
+        "The main subject is visible well enough to define a centered square crop area."
+      ],
+      "unit_effect": [
+        "The Crop tool becomes active and a square crop boundary appears during the drag.",
+        "After confirming, the dimmed outer area disappears and the image visibly updates to the chosen square crop."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Crop the open image to a centered square composition around the target subject.",
+      "parameters": {
+        "target_subject": "main subject"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['shift', 'c']}",
+          "action_template": "When GIMP is focused and an image is already open on the canvas, press Shift+C to switch to the Crop tool. The expected result is that GIMP is ready to define a crop area and the Crop tool becomes active."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the upper-left corner of the desired square crop around the main subject'}, 'end': {'text': 'the lower-right corner so the crop area becomes a centered square'}, 'target': {'begin': {'text': 'the canvas area'}, 'end': {'text': 'the canvas area'}}}",
+          "action_template": "With the Crop tool active and {{target_subject}} visible on the canvas, drag on the canvas from the upper-left to the lower-right of the area you want to keep so {{target_subject}} stays centered inside a square. The expected result is that a square crop rectangle appears and the outside area is dimmed."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Once the square crop box is in the right place, press Enter to commit it. The expected result is that only the selected square portion remains on the canvas and the image is cropped to the selected square area."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Resize the cropped square image to the final social-post dimensions of 1080 by 1080 pixels.",
+      "unit_type": "RESIZE_IMAGE_TO_TARGET_DIMENSIONS",
+      "unit_before_state": "The cropped square image is visible in the main GIMP editing area at its current size, and no scaling dialog is open yet.",
+      "unit_after_state": "The Scale Image dialog is closed and the canvas shows the square image resized to 1080 by 1080 pixels.",
+      "unit_precondition": [
+        "The square crop has already been applied.",
+        "The top menu bar is visible and the image can be scaled from the Image menu.",
+        "The Scale Image dialog will allow editing the width field while keeping the square aspect ratio linked."
+      ],
+      "unit_effect": [
+        "The Image menu opens and then the Scale Image dialog appears.",
+        "Entering 1080 updates the target dimensions to 1080 x 1080.",
+        "Clicking Scale closes the dialog and refreshes the canvas at the new size."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Resize the current cropped square image to the specified output pixel dimensions using the Scale Image dialog.",
+      "parameters": {
+        "target_width_pixels": "1080",
+        "target_height_pixels": "1080"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Image menu in the top menu bar'}}",
+          "action_template": "Click the Image menu in the top menu bar after the crop has already been applied to open image-related commands for resizing."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Scale Image option in the Image menu'}}",
+          "action_template": "Click the Scale Image option in the expanded Image menu to open the resizing dialog where width and height can be changed."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '1080'}",
+          "action_template": "Type {{target_width_pixels}} into the active width field in the Scale Image dialog while the aspect ratio link is enabled, so the height updates to {{target_height_pixels}} automatically."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Scale button in the Scale Image dialog'}}",
+          "action_template": "Click the Scale button in the Scale Image dialog to apply the {{target_width_pixels}} by {{target_height_pixels}} image size and refresh the canvas."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        8,
+        9,
+        10
+      ],
+      "unit_intent": "Add the caption text 'Weekend Market' near the bottom of the square post image.",
+      "unit_type": "ADD_TEXT_CAPTION",
+      "unit_before_state": "The resized 1080 by 1080 square image is visible on the canvas with no new text box placed yet.",
+      "unit_after_state": "A text box remains near the bottom of the image containing the visible caption 'Weekend Market'.",
+      "unit_precondition": [
+        "The resized image is open and visible on the canvas.",
+        "There is usable space near the bottom area for placing a caption.",
+        "GIMP is focused so the Text tool can be activated and text entered."
+      ],
+      "unit_effect": [
+        "The Text tool activates and a new text box is created near the bottom of the image.",
+        "The caret appears inside the text box and the words 'Weekend Market' render on the canvas."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Add a specified caption text to a target area of the image using a new text box.",
+      "parameters": {
+        "text_box_begin_point": "a point near the lower-left area of the image with a small margin from the edge",
+        "text_box_end_point": "a point near the lower-right area to create a wide caption box",
+        "caption_text": "Weekend Market"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['t']}",
+          "action_template": "With the image visible and GIMP focused, press T to switch to the Text tool. This requires that the image has already been resized and the GIMP window remains focused. The expected result is that the Text tool becomes active, ready for placing a text box."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'a point near the lower-left area of the image with a small margin from the edge'}, 'end': {'text': 'a point near the lower-right area to create a wide caption box'}, 'target': {'begin': {'text': 'the canvas area'}, 'end': {'text': 'the canvas area'}}}",
+          "action_template": "When the Text tool is active, drag across the canvas from {{text_box_begin_point}} to {{text_box_end_point}} to create a wide text area for the caption. This requires that the Text tool is active and there is clear space near the bottom area of the image for a caption. The expected result is that a text box appears and the text cursor is placed inside it."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Weekend Market'}",
+          "action_template": "With the text box created and the caret active inside it, type {{caption_text}}. This requires that the text box has already been created and the text cursor is active inside the box. The expected result is that the caption appears inside the text box on the image."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        11,
+        12,
+        13,
+        14
+      ],
+      "unit_intent": "Export the edited square post as a PNG file named square_market_post.png.",
+      "unit_type": "EXPORT_IMAGE_AS_PNG",
+      "unit_before_state": "The finished edited image is open in GIMP, showing the square crop, 1080 by 1080 size, and the 'Weekend Market' caption on the canvas.",
+      "unit_after_state": "The export dialogs are closed, the edited image remains open in GIMP, and the PNG file has been written with the name square_market_post.png.",
+      "unit_precondition": [
+        "All desired edits are already complete on the current image.",
+        "GIMP is focused so the export shortcut opens the export workflow.",
+        "The export filename field can be edited and the default PNG export settings are acceptable."
+      ],
+      "unit_effect": [
+        "The Export dialog opens and the filename field is updated to 'square_market_post.png'.",
+        "Clicking Export opens the PNG export options dialog.",
+        "Confirming the second Export closes the dialog and creates the PNG file."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Export the current edited image as a PNG file with a specified filename.",
+      "parameters": {
+        "output_filename": "square_market_post.png"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'e']}",
+          "action_template": "After all edits are complete and the GIMP window is focused, press Ctrl+Shift+E to open the Export dialog for creating the output file. This opens the Export dialog."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'square_market_post.png'}",
+          "action_template": "When the Export dialog is open, the filename field is active, and the current name is selected, type {{output_filename}} to set the export filename. This updates the export name to {{output_filename}}."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Export button in the Export dialog'}}",
+          "action_template": "Once {{output_filename}} has been entered and the Export button is visible in the Export dialog, click the Export button to proceed. This opens the PNG export options dialog."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Export button in the PNG export options dialog'}}",
+          "action_template": "When the PNG export options dialog is visible and the default export settings are acceptable, click the Export button to save the file as {{output_filename}}. This closes the dialog, writes the PNG file, and leaves the edited image open in GIMP."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

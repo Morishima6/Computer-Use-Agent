@@ -1,0 +1,457 @@
+{
+  "segment_id": "seg_001",
+  "app": "vlc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Pause the current video so the setup can be adjusted without the clip moving",
+      "action_before_state": "vlc is ready for step 1 of the task.",
+      "action_preconditions": [
+        "The VLC window is already open and focused",
+        "A video is loaded in VLC",
+        "The bottom playback controls are visible",
+        "The video is currently playing"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the play/pause button in the bottom control bar"
+        }
+      },
+      "action_after_effects": "Playback stops on the current frame, the timestamp stops advancing, and the play/pause control changes to the Play state.",
+      "nl_explanation": "When the video is already loaded and the playback controls are visible, click the play/pause button once. VLC should pause on the current frame so the rest of the adjustments can be made more precisely."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Jump to the main demonstration section of the video",
+      "action_before_state": "vlc is ready for step 2 of the task.",
+      "action_preconditions": [
+        "The video is paused",
+        "The progress bar is visible",
+        "The playhead can be dragged along the timeline"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the current playhead position on the progress bar"
+        },
+        "end": {
+          "text": "a point around the middle of the progress bar"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "The current playback position moves forward to a later part of the clip, and the previewed frame changes to the new section.",
+      "nl_explanation": "Once the video is paused and the timeline is visible, drag the playhead from its current position to roughly the middle of the progress bar. VLC should seek to that later section so the clip is lined up with the main demonstration."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Reduce the playback speed by one step",
+      "action_before_state": "vlc is ready for step 3 of the task.",
+      "action_preconditions": [
+        "The VLC window is still focused",
+        "The video remains loaded at the new position",
+        "No text field or dialog box is capturing keyboard input"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "-"
+        ]
+      },
+      "action_after_effects": "The playback rate decreases one level below normal, making the video easier to follow while keeping the current position unchanged.",
+      "nl_explanation": "With VLC focused on the selected section of the video, press the minus key once. The playback speed should become slightly slower so the motions are easier to study."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Lower the volume to a moderate level",
+      "action_before_state": "vlc is ready for step 4 of the task.",
+      "action_preconditions": [
+        "The bottom-right volume control is visible",
+        "The pointer is positioned over the volume slider area",
+        "The video is not muted"
+      ],
+      "action": {
+        "type": "SCROLL",
+        "direction": "down",
+        "target": {
+          "text": "the volume slider in the bottom-right corner of the VLC window"
+        }
+      },
+      "action_after_effects": "The volume indicator moves down to a medium level, making the audio quieter without muting it.",
+      "nl_explanation": "When the volume control is visible in the lower-right area, hover over it and scroll down until the volume sits around the middle. The result should be a more comfortable audio level for practice."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Switch the video into fullscreen mode",
+      "action_before_state": "vlc is ready for step 5 of the task.",
+      "action_preconditions": [
+        "The VLC window is focused",
+        "No menu or dialog is open",
+        "The video is still positioned at the chosen section"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "f"
+        ]
+      },
+      "action_after_effects": "The video expands to fullscreen and VLC hides most window chrome until the pointer moves again.",
+      "nl_explanation": "After the timeline, speed, and volume are set, press f while VLC is focused. The video should fill the screen so it is easier to watch from a distance."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Start playback from the prepared section",
+      "action_before_state": "vlc is ready for step 6 of the task.",
+      "action_preconditions": [
+        "VLC is in fullscreen mode",
+        "The video is paused at the desired section",
+        "The slower speed and lower volume settings are already applied"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "space"
+        ]
+      },
+      "action_after_effects": "Playback resumes from the selected point using the slower speed, reduced volume, and fullscreen view.",
+      "nl_explanation": "Once fullscreen is active and the video is positioned where you want it, press Space to start playing. The clip should now run from the practice section with the adjusted speed and volume."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Freeze the workout video so the remaining setup changes can be made on a stable frame.",
+      "unit_type": "PAUSE_PLAYBACK",
+      "unit_before_state": "VLC is open with the workout video currently playing in the normal windowed view. The bottom control bar is visible, the timeline is advancing, and the play/pause button is in the pause state.",
+      "unit_after_state": "The video is paused on the current frame in the VLC window. The timeline stops advancing, and the play/pause control now shows the play state.",
+      "unit_precondition": [
+        "VLC is the active window.",
+        "A video is loaded and currently playing.",
+        "The bottom playback controls are visible so the play/pause button can be clicked."
+      ],
+      "unit_effect": [
+        "Playback stops on a fixed frame.",
+        "The timestamp no longer changes.",
+        "The transport control changes from pause to play."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2
+      ],
+      "unit_intent": "Reposition the video to the main demonstration section around the middle of the workout.",
+      "unit_type": "SEEK_TO_SECTION",
+      "unit_before_state": "The video is paused in VLC with the progress bar visible, and the playhead is still at an earlier point in the clip.",
+      "unit_after_state": "The paused video is now positioned around the middle of the timeline, and the displayed frame has changed to a later section that corresponds to the main demonstration.",
+      "unit_precondition": [
+        "The video is paused.",
+        "The progress bar and draggable playhead are visible.",
+        "The user can drag the playhead to a later point in the clip."
+      ],
+      "unit_effect": [
+        "The playhead moves forward to roughly the middle of the progress bar.",
+        "The previewed frame updates to a later workout segment while playback remains paused."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        3
+      ],
+      "unit_intent": "Make the upcoming playback easier to follow by slowing the workout video slightly.",
+      "unit_type": "ADJUST_PLAYBACK_SPEED",
+      "unit_before_state": "VLC remains focused on the chosen middle section of the video, paused on a frame, with no text field or dialog capturing keyboard input.",
+      "unit_after_state": "The video stays at the same paused position, but VLC's playback rate is reduced by one step below normal.",
+      "unit_precondition": [
+        "VLC is still focused.",
+        "The video is loaded at the desired seek position.",
+        "No input field, menu, or dialog is intercepting keyboard presses."
+      ],
+      "unit_effect": [
+        "The playback speed decreases one level below normal.",
+        "The current frame and timeline position remain unchanged."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        4
+      ],
+      "unit_intent": "Set the workout audio to a more comfortable listening level before resuming playback.",
+      "unit_type": "ADJUST_VOLUME",
+      "unit_before_state": "The video is paused at the selected section, and the bottom-right volume slider is visible at a higher level in the VLC control bar.",
+      "unit_after_state": "The volume slider is lowered to about a medium level, leaving the video quieter but not muted.",
+      "unit_precondition": [
+        "The VLC volume control is visible.",
+        "The pointer is over the volume slider area so scrolling will affect volume.",
+        "Audio is not currently muted."
+      ],
+      "unit_effect": [
+        "The volume indicator drops downward to a moderate setting.",
+        "The muted state is not activated."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        5
+      ],
+      "unit_intent": "Switch the prepared workout video into a larger viewing mode for easier follow-along practice.",
+      "unit_type": "ENTER_FULLSCREEN",
+      "unit_before_state": "VLC is paused at the chosen middle section with the slower speed and lower volume already set, and the player is still shown in its normal windowed interface.",
+      "unit_after_state": "The video fills the screen in fullscreen mode while remaining paused at the selected frame, and most VLC window chrome is hidden until the pointer moves.",
+      "unit_precondition": [
+        "VLC is focused.",
+        "No menu or dialog is open.",
+        "The video is already positioned at the desired section."
+      ],
+      "unit_effect": [
+        "The VLC window expands to fullscreen.",
+        "Most player chrome disappears from view until controls are summoned again."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        6
+      ],
+      "unit_intent": "Start the workout from the prepared section using the adjusted viewing and playback settings.",
+      "unit_type": "RESUME_PLAYBACK",
+      "unit_before_state": "VLC is in fullscreen mode with the video paused at the chosen middle section, and the slower playback rate and reduced volume are already configured.",
+      "unit_after_state": "The workout video is playing from the selected section in fullscreen, using the slower speed and lower volume settings.",
+      "unit_precondition": [
+        "VLC is in fullscreen mode.",
+        "The video is paused at the desired start point.",
+        "The playback speed and volume have already been adjusted."
+      ],
+      "unit_effect": [
+        "Playback resumes from the prepared position.",
+        "The timestamp begins advancing again.",
+        "The video continues in fullscreen with the configured slower speed and reduced volume."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Freeze the workout video so the remaining setup changes can be made on a stable frame.",
+      "unit_type": "PAUSE_PLAYBACK",
+      "unit_before_state": "VLC is open with the workout video currently playing in the normal windowed view. The bottom control bar is visible, the timeline is advancing, and the play/pause button is in the pause state.",
+      "unit_after_state": "The video is paused on the current frame in the VLC window. The timeline stops advancing, and the play/pause control now shows the play state.",
+      "unit_precondition": [
+        "VLC is the active window.",
+        "A video is loaded and currently playing.",
+        "The bottom playback controls are visible so the play/pause button can be clicked."
+      ],
+      "unit_effect": [
+        "Playback stops on a fixed frame.",
+        "The timestamp no longer changes.",
+        "The transport control changes from pause to play."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Pause the currently playing video on the current frame so subsequent adjustments can be made on a stable image.",
+      "parameters": {
+        "target_element": "the play/pause button in the bottom control bar"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the play/pause button in the bottom control bar'}}",
+          "action_template": "When the video player window is open and focused, a video is loaded and currently playing, and the playback controls are visible, click {{target_element}} once to pause playback on the current frame so further adjustments can be made precisely. Playback stops on the current frame, the timestamp stops advancing, and the play/pause control changes to the Play state."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2
+      ],
+      "unit_intent": "Reposition the video to the main demonstration section around the middle of the workout.",
+      "unit_type": "SEEK_TO_SECTION",
+      "unit_before_state": "The video is paused in VLC with the progress bar visible, and the playhead is still at an earlier point in the clip.",
+      "unit_after_state": "The paused video is now positioned around the middle of the timeline, and the displayed frame has changed to a later section that corresponds to the main demonstration.",
+      "unit_precondition": [
+        "The video is paused.",
+        "The progress bar and draggable playhead are visible.",
+        "The user can drag the playhead to a later point in the clip."
+      ],
+      "unit_effect": [
+        "The playhead moves forward to roughly the middle of the progress bar.",
+        "The previewed frame updates to a later workout segment while playback remains paused."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Reposition the paused video to a specified later section by dragging the timeline playhead.",
+      "parameters": {
+        "target_section": "the main demonstration section of the video",
+        "target_timeline_position": "roughly the middle of the progress bar"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "DRAG_TO",
+          "action_template": "Once the video is paused and the timeline is visible, drag the playhead from its current position to {{target_timeline_position}} on the progress bar to seek to {{target_section}}. The playback position moves forward to that later part of the clip, and the previewed frame changes to the new section while playback remains paused."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        3
+      ],
+      "unit_intent": "Make the upcoming playback easier to follow by slowing the workout video slightly.",
+      "unit_type": "ADJUST_PLAYBACK_SPEED",
+      "unit_before_state": "VLC remains focused on the chosen middle section of the video, paused on a frame, with no text field or dialog capturing keyboard input.",
+      "unit_after_state": "The video stays at the same paused position, but VLC's playback rate is reduced by one step below normal.",
+      "unit_precondition": [
+        "VLC is still focused.",
+        "The video is loaded at the desired seek position.",
+        "No input field, menu, or dialog is intercepting keyboard presses."
+      ],
+      "unit_effect": [
+        "The playback speed decreases one level below normal.",
+        "The current frame and timeline position remain unchanged."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Reduce the playback speed by one step while keeping the current video position unchanged.",
+      "parameters": {
+        "decrease_speed_key": "-"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['-']}",
+          "action_template": "When the VLC window is focused, the video remains loaded at the current position, and no text field or dialog box is capturing keyboard input, press {{decrease_speed_key}} once to decrease the playback rate by one level below normal while keeping the current position unchanged."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        4
+      ],
+      "unit_intent": "Set the workout audio to a more comfortable listening level before resuming playback.",
+      "unit_type": "ADJUST_VOLUME",
+      "unit_before_state": "The video is paused at the selected section, and the bottom-right volume slider is visible at a higher level in the VLC control bar.",
+      "unit_after_state": "The volume slider is lowered to about a medium level, leaving the video quieter but not muted.",
+      "unit_precondition": [
+        "The VLC volume control is visible.",
+        "The pointer is over the volume slider area so scrolling will affect volume.",
+        "Audio is not currently muted."
+      ],
+      "unit_effect": [
+        "The volume indicator drops downward to a moderate setting.",
+        "The muted state is not activated."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Lower playback volume to a specified moderate listening level without muting the audio.",
+      "parameters": {
+        "target_volume_control": "the volume slider in the bottom-right corner of the VLC window",
+        "target_volume_level": "around the middle"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'SCROLL', 'direction': 'down', 'target': {'text': 'the volume slider in the bottom-right corner of the VLC window'}}",
+          "action_template": "When {{target_volume_control}} is visible and the pointer is positioned over its area, scroll down until the volume sits {{target_volume_level}}. This lowers the audio to a quieter, more comfortable level without muting it."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        5
+      ],
+      "unit_intent": "Switch the prepared workout video into a larger viewing mode for easier follow-along practice.",
+      "unit_type": "ENTER_FULLSCREEN",
+      "unit_before_state": "VLC is paused at the chosen middle section with the slower speed and lower volume already set, and the player is still shown in its normal windowed interface.",
+      "unit_after_state": "The video fills the screen in fullscreen mode while remaining paused at the selected frame, and most VLC window chrome is hidden until the pointer moves.",
+      "unit_precondition": [
+        "VLC is focused.",
+        "No menu or dialog is open.",
+        "The video is already positioned at the desired section."
+      ],
+      "unit_effect": [
+        "The VLC window expands to fullscreen.",
+        "Most player chrome disappears from view until controls are summoned again."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Switch the current VLC video into fullscreen viewing mode for larger on-screen playback.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['f']}",
+          "action_template": "Press f while VLC is focused, no menu or dialog is open, and the video is still positioned at the desired section to enter fullscreen mode. The video fills the screen and most VLC window chrome hides until the pointer moves again."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        6
+      ],
+      "unit_intent": "Start the workout from the prepared section using the adjusted viewing and playback settings.",
+      "unit_type": "RESUME_PLAYBACK",
+      "unit_before_state": "VLC is in fullscreen mode with the video paused at the chosen middle section, and the slower playback rate and reduced volume are already configured.",
+      "unit_after_state": "The workout video is playing from the selected section in fullscreen, using the slower speed and lower volume settings.",
+      "unit_precondition": [
+        "VLC is in fullscreen mode.",
+        "The video is paused at the desired start point.",
+        "The playback speed and volume have already been adjusted."
+      ],
+      "unit_effect": [
+        "Playback resumes from the prepared position.",
+        "The timestamp begins advancing again.",
+        "The video continues in fullscreen with the configured slower speed and reduced volume."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Resume playback from a prepared position using the current viewing mode and playback settings.",
+      "parameters": {
+        "play_pause_key": "space"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['space']}",
+          "action_template": "Once fullscreen is active, the video is paused at the desired section, and the playback settings are already applied, press {{play_pause_key}} to resume playback from the selected point using the current fullscreen view and configured speed and volume."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

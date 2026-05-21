@@ -1,0 +1,465 @@
+{
+  "segment_id": "seg_001",
+  "app": "vs_code",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open a new untitled file in VS Code",
+      "action_before_state": "VS Code is already open on the GNOME desktop, and the main editor window is visible without any modal dialog blocking it.",
+      "action_preconditions": [
+        "VS Code is the focused application",
+        "No save dialog, settings window, or command palette is currently open"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "n"
+        ]
+      },
+      "action_after_effects": "A blank untitled editor tab opens, and the text cursor is ready for input in the main editing area.",
+      "nl_explanation": "When VS Code is focused and no popup is blocking the window, press Ctrl+N to create a new untitled file. The expected result is a blank editor tab where the daily log can be written."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Enter the daily log template content",
+      "action_before_state": "The untitled editor tab is open, and the insertion cursor is visible in the empty document.",
+      "action_preconditions": [
+        "The blank untitled file is active",
+        "The text cursor is inside the editor"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "# Daily Log - 2026-04-03\n\n## Checklist\n- [ ] Review email\n- [ ] Finish status update\n- [ ] Plan tomorrow\n\n## Notes\n"
+      },
+      "action_after_effects": "The Markdown template appears in the editor, including the dated heading, a short checklist, and a Notes section.",
+      "nl_explanation": "With the new empty file active, type the Markdown log template into the editor. After typing, the document should contain a dated title, three checklist items, and a Notes section."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Open the Save dialog for the new file",
+      "action_before_state": "The daily log content is visible in the untitled file, and the file has not been saved yet.",
+      "action_preconditions": [
+        "The edited untitled document is still active",
+        "No other dialog is open on top of VS Code"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "s"
+        ]
+      },
+      "action_after_effects": "A save dialog opens so the file can be named and stored on disk.",
+      "nl_explanation": "Once the daily log text is already in the untitled document, press Ctrl+S to open the save dialog. This prepares the file to be saved with a real name and location."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Focus the location entry in the save dialog",
+      "action_before_state": "The GNOME save dialog is open in front of VS Code, showing a file browser and save controls.",
+      "action_preconditions": [
+        "The save dialog is the active window",
+        "Keyboard input is being sent to the save dialog"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "l"
+        ]
+      },
+      "action_after_effects": "The save dialog reveals and focuses its location field, allowing a full path to be typed directly.",
+      "nl_explanation": "When the save dialog is open, press Ctrl+L to switch to manual location entry in the GNOME file chooser. This makes it possible to enter the Desktop path directly instead of browsing folders manually."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Enter the full Desktop path and filename",
+      "action_before_state": "The location field in the save dialog is focused and ready to accept text input.",
+      "action_preconditions": [
+        "The location bar is active in the save dialog",
+        "Any existing text in that field can be replaced by typing"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "/home/user/Desktop/daily-log.md"
+      },
+      "action_after_effects": "The full file path appears in the dialog, pointing to a Markdown file named `daily-log.md` on the Desktop.",
+      "nl_explanation": "After the location field is focused, type `/home/user/Desktop/daily-log.md`. The expected result is that the save dialog now targets the Desktop file with the correct name."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Save the Markdown file to the Desktop",
+      "action_before_state": "The save dialog shows `/home/user/Desktop/daily-log.md` as the destination path.",
+      "action_preconditions": [
+        "The correct full path is visible in the save dialog",
+        "The dialog is ready to confirm the save action"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The save dialog closes, VS Code returns to the editor, and the tab title changes from untitled to `daily-log.md`.",
+      "nl_explanation": "When the destination path is correct in the save dialog, press Enter to confirm the save. The file should be written to the Desktop and reopened as `daily-log.md` in VS Code."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Open the Command Palette to change an editor setting",
+      "action_before_state": "The saved file `daily-log.md` is open in the editor, and the main VS Code window is active again.",
+      "action_preconditions": [
+        "The editor has focus",
+        "No dialog is open on top of the main VS Code window"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "p"
+        ]
+      },
+      "action_after_effects": "The Command Palette opens near the top of the VS Code window with a text input ready for a command search.",
+      "nl_explanation": "With the saved Markdown file visible in the editor, press Ctrl+Shift+P to open the Command Palette. This exposes commands that can be used to change settings such as Auto Save."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Search for the Auto Save command",
+      "action_before_state": "The Command Palette input box is open and focused, and a command list is visible below it.",
+      "action_preconditions": [
+        "The Command Palette search field is active",
+        "The command list can update based on typed text"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Toggle Auto Save"
+      },
+      "action_after_effects": "The command list filters down to the `File: Toggle Auto Save` command or an equivalent matching result.",
+      "nl_explanation": "When the Command Palette is ready for text input, type `Toggle Auto Save`. The expected behavior is that the command results narrow to the Auto Save toggle command."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Enable Auto Save",
+      "action_before_state": "The Command Palette is showing the Auto Save command as the relevant selection.",
+      "action_preconditions": [
+        "The `Toggle Auto Save` command is visible or highlighted",
+        "The Command Palette is still focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The Command Palette closes and Auto Save becomes enabled for VS Code.",
+      "nl_explanation": "After the Auto Save command is visible in the Command Palette, press Enter to run it. The palette should close and Auto Save should now be turned on."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Place the cursor in the Notes section for one more edit",
+      "action_before_state": "The `daily-log.md` file is open in the editor, showing the Notes heading and the rest of the Markdown content.",
+      "action_preconditions": [
+        "The editor is visible and interactive",
+        "There is a blank line under the `## Notes` heading"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the empty line directly under the `## Notes` heading in the editor"
+        }
+      },
+      "action_after_effects": "The text cursor moves to the Notes section, ready for another line of content.",
+      "nl_explanation": "Once Auto Save has been enabled, click the blank line below the `## Notes` heading. This places the cursor where a final note can be added to confirm the file still edits normally."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Add one final note and let Auto Save save it automatically",
+      "action_before_state": "The cursor is positioned under the Notes heading inside `daily-log.md`.",
+      "action_preconditions": [
+        "The insertion point is in the Notes section",
+        "Auto Save is already enabled from the previous step"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "- Prepared in VS Code\n"
+      },
+      "action_after_effects": "A new bullet appears under Notes, and after a brief moment the change is saved automatically without opening the save dialog again.",
+      "nl_explanation": "With the cursor already placed in the Notes section and Auto Save enabled, type `- Prepared in VS Code`. The new note should appear immediately, and the edit should be saved automatically a moment later."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Create a new Markdown work-log draft and enter the requested daily log template.",
+      "unit_type": "CREATE_AND_POPULATE_DOCUMENT",
+      "unit_before_state": "VS Code is open on the desktop with the main editor window visible and no modal dialog or palette blocking input.",
+      "unit_after_state": "An untitled editor tab is active and contains the Markdown daily log template with the heading `# Daily Log - 2026-04-03`, a `## Checklist` section with three unchecked items, and a `## Notes` section.",
+      "unit_precondition": [
+        "VS Code is the focused application.",
+        "No save dialog, settings window, or command palette is open.",
+        "Keyboard input can be sent to the editor."
+      ],
+      "unit_effect": [
+        "A new untitled tab opens in the editor.",
+        "The typed Markdown template is visible in the document body.",
+        "The insertion cursor remains in the untitled file after the Notes section."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Save the drafted note as a Markdown file named `daily-log.md` on the Desktop.",
+      "unit_type": "SAVE_NEW_FILE_TO_PATH",
+      "unit_before_state": "The untitled document with the completed daily log template is open in VS Code and has not yet been saved to disk.",
+      "unit_after_state": "The save dialog is closed, VS Code is back in the editor, and the tab title shows `daily-log.md` for the file saved at `/home/user/Desktop/daily-log.md`.",
+      "unit_precondition": [
+        "The untitled document is the active editor tab.",
+        "The typed daily log content is already present.",
+        "No other modal dialog is open before invoking Save."
+      ],
+      "unit_effect": [
+        "Pressing Ctrl+S opens the GNOME save dialog.",
+        "The location field becomes focused for direct path entry.",
+        "`/home/user/Desktop/daily-log.md` appears as the destination path in the dialog.",
+        "After confirmation, the dialog closes and the tab changes from untitled to `daily-log.md`."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8,
+        9
+      ],
+      "unit_intent": "Turn on Auto Save in VS Code so future edits to the note are saved automatically.",
+      "unit_type": "ENABLE_AUTO_SAVE",
+      "unit_before_state": "The saved file `daily-log.md` is open in the VS Code editor, and the main window is active with no dialog on top.",
+      "unit_after_state": "The Command Palette is closed and Auto Save is enabled while `daily-log.md` remains open in the editor.",
+      "unit_precondition": [
+        "The editor has focus.",
+        "The file `daily-log.md` is already saved and open.",
+        "The Command Palette can be opened from the main VS Code window."
+      ],
+      "unit_effect": [
+        "The Command Palette opens with a searchable input field.",
+        "Typing `Toggle Auto Save` filters the command list to the Auto Save command.",
+        "Pressing Enter runs the command and closes the palette, leaving Auto Save enabled."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        10,
+        11
+      ],
+      "unit_intent": "Add a final note entry in the Notes section and confirm that Auto Save persists the edit automatically.",
+      "unit_type": "APPEND_NOTE_WITH_AUTOSAVE",
+      "unit_before_state": "`daily-log.md` is open in the editor with the `## Notes` heading visible, Auto Save is enabled, and there is an empty line under the Notes heading.",
+      "unit_after_state": "A new bullet line `- Prepared in VS Code` appears under `## Notes` in `daily-log.md`, and the file remains open without any save dialog appearing.",
+      "unit_precondition": [
+        "The editor is visible and interactive.",
+        "The `## Notes` section is visible with a clickable empty line below it.",
+        "Auto Save has already been enabled."
+      ],
+      "unit_effect": [
+        "The text cursor moves to the blank line under `## Notes`.",
+        "The new bullet `- Prepared in VS Code` appears in the Notes section.",
+        "After a brief moment, the edit is saved automatically without reopening the save dialog."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Create a new Markdown work-log draft and enter the requested daily log template.",
+      "unit_type": "CREATE_AND_POPULATE_DOCUMENT",
+      "unit_before_state": "VS Code is open on the desktop with the main editor window visible and no modal dialog or palette blocking input.",
+      "unit_after_state": "An untitled editor tab is active and contains the Markdown daily log template with the heading `# Daily Log - 2026-04-03`, a `## Checklist` section with three unchecked items, and a `## Notes` section.",
+      "unit_precondition": [
+        "VS Code is the focused application.",
+        "No save dialog, settings window, or command palette is open.",
+        "Keyboard input can be sent to the editor."
+      ],
+      "unit_effect": [
+        "A new untitled tab opens in the editor.",
+        "The typed Markdown template is visible in the document body.",
+        "The insertion cursor remains in the untitled file after the Notes section."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a new Markdown work-log draft and populate it with a specified daily log template.",
+      "parameters": {
+        "template_content": "# Daily Log - 2026-04-03\n\n## Checklist\n- [ ] Review email\n- [ ] Finish status update\n- [ ] Plan tomorrow\n\n## Notes\n"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'n']}",
+          "action_template": "When VS Code is focused and no popup is blocking the window, press Ctrl+N to create a new untitled file. The expected result is a blank editor tab ready for input."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '# Daily Log - 2026-04-03\\n\\n## Checklist\\n- [ ] Review email\\n- [ ] Finish status update\\n- [ ] Plan tomorrow\\n\\n## Notes\\n'}",
+          "action_template": "With the new empty file active and the text cursor inside the editor, type {{template_content}} into the document. After typing, the editor should contain the specified Markdown work-log template."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Save the drafted note as a Markdown file named `daily-log.md` on the Desktop.",
+      "unit_type": "SAVE_NEW_FILE_TO_PATH",
+      "unit_before_state": "The untitled document with the completed daily log template is open in VS Code and has not yet been saved to disk.",
+      "unit_after_state": "The save dialog is closed, VS Code is back in the editor, and the tab title shows `daily-log.md` for the file saved at `/home/user/Desktop/daily-log.md`.",
+      "unit_precondition": [
+        "The untitled document is the active editor tab.",
+        "The typed daily log content is already present.",
+        "No other modal dialog is open before invoking Save."
+      ],
+      "unit_effect": [
+        "Pressing Ctrl+S opens the GNOME save dialog.",
+        "The location field becomes focused for direct path entry.",
+        "`/home/user/Desktop/daily-log.md` appears as the destination path in the dialog.",
+        "After confirmation, the dialog closes and the tab changes from untitled to `daily-log.md`."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the current untitled document to a specified file path using the save dialog.",
+      "parameters": {
+        "destination_path": "/home/user/Desktop/daily-log.md",
+        "saved_file_name": "daily-log.md"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 's']}",
+          "action_template": "With the edited untitled document active and no other dialog open, press Ctrl+S to open the save dialog so the file can be saved with a real name and location."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'l']}",
+          "action_template": "With the save dialog active, press Ctrl+L to reveal and focus the location field for direct path entry."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '/home/user/Desktop/daily-log.md'}",
+          "action_template": "With the location field focused, type {{destination_path}} so the save dialog targets the specified file path."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "When {{destination_path}} is visible in the save dialog and ready to confirm, press Enter to save the file. The dialog closes and the editor tab updates to {{saved_file_name}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8,
+        9
+      ],
+      "unit_intent": "Turn on Auto Save in VS Code so future edits to the note are saved automatically.",
+      "unit_type": "ENABLE_AUTO_SAVE",
+      "unit_before_state": "The saved file `daily-log.md` is open in the VS Code editor, and the main window is active with no dialog on top.",
+      "unit_after_state": "The Command Palette is closed and Auto Save is enabled while `daily-log.md` remains open in the editor.",
+      "unit_precondition": [
+        "The editor has focus.",
+        "The file `daily-log.md` is already saved and open.",
+        "The Command Palette can be opened from the main VS Code window."
+      ],
+      "unit_effect": [
+        "The Command Palette opens with a searchable input field.",
+        "Typing `Toggle Auto Save` filters the command list to the Auto Save command.",
+        "Pressing Enter runs the command and closes the palette, leaving Auto Save enabled."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Enable Auto Save in VS Code by invoking the corresponding command from the Command Palette.",
+      "parameters": {
+        "command_name": "Toggle Auto Save"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'p']}",
+          "action_template": "Press Ctrl+Shift+P to open the Command Palette when the editor has focus and no dialog is open, so a text input is ready for a command search."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Toggle Auto Save'}",
+          "action_template": "Type {{command_name}} into the active Command Palette search field so the command list filters to the Auto Save toggle command."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter when {{command_name}} is visible or highlighted in the focused Command Palette to run it, close the palette, and enable Auto Save."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        10,
+        11
+      ],
+      "unit_intent": "Add a final note entry in the Notes section and confirm that Auto Save persists the edit automatically.",
+      "unit_type": "APPEND_NOTE_WITH_AUTOSAVE",
+      "unit_before_state": "`daily-log.md` is open in the editor with the `## Notes` heading visible, Auto Save is enabled, and there is an empty line under the Notes heading.",
+      "unit_after_state": "A new bullet line `- Prepared in VS Code` appears under `## Notes` in `daily-log.md`, and the file remains open without any save dialog appearing.",
+      "unit_precondition": [
+        "The editor is visible and interactive.",
+        "The `## Notes` section is visible with a clickable empty line below it.",
+        "Auto Save has already been enabled."
+      ],
+      "unit_effect": [
+        "The text cursor moves to the blank line under `## Notes`.",
+        "The new bullet `- Prepared in VS Code` appears in the Notes section.",
+        "After a brief moment, the edit is saved automatically without reopening the save dialog."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Append a specified bullet note under a visible notes section and rely on Auto Save to persist the edit automatically.",
+      "parameters": {
+        "target_section_heading": "## Notes",
+        "target_insert_location": "the empty line directly under the `## Notes` heading in the editor",
+        "input_text": "- Prepared in VS Code\n",
+        "file_name": "daily-log.md"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the empty line directly under the `## Notes` heading in the editor'}}",
+          "action_template": "Once Auto Save has been enabled, click {{target_insert_location}}. This places the cursor where a final note can be added. Preconditions: the editor is visible and interactive, and there is a blank line under the {{target_section_heading}} heading. Afterward, the text cursor moves to the {{target_section_heading}} section, ready for another line of content."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '- Prepared in VS Code\\n'}",
+          "action_template": "With the cursor already placed in the {{target_section_heading}} section of {{file_name}} and Auto Save enabled, type {{input_text}}. The new note should appear immediately under {{target_section_heading}}, and after a brief moment the change is saved automatically without opening the save dialog again. Preconditions: the insertion point is in the {{target_section_heading}} section, and Auto Save is already enabled from the previous step. Afterward, a new bullet appears under {{target_section_heading}}, and the edit is saved automatically."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

@@ -1,0 +1,821 @@
+{
+  "segment_id": "seg_001",
+  "app": "gimp",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the file chooser so the source photo can be selected",
+      "action_before_state": "GIMP is already open on GNOME, showing the main editing window with the menu bar and toolbox.",
+      "action_preconditions": [
+        "The GIMP window is focused",
+        "No modal dialog is blocking the interface"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "o"
+        ]
+      },
+      "action_after_effects": "The Open Image file chooser appears in front of GIMP.",
+      "nl_explanation": "When the main GIMP window is active, press Ctrl+O to bring up the Open Image dialog so you can choose the photo to edit."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Move focus to the file chooser location entry",
+      "action_before_state": "The Open Image dialog is visible with the standard GNOME file chooser layout.",
+      "action_preconditions": [
+        "The file chooser is open",
+        "The dialog is focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "l"
+        ]
+      },
+      "action_after_effects": "The location bar becomes editable so a full file path can be typed directly.",
+      "nl_explanation": "With the file chooser open, press Ctrl+L to activate the location entry, which is the quickest way to jump straight to the image file."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Enter the full path of the photo to open",
+      "action_before_state": "The location entry in the file chooser is active and ready for text input.",
+      "action_preconditions": [
+        "The location bar has keyboard focus",
+        "The source file exists at /home/user/Pictures/coffee_break.jpg"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "/home/user/Pictures/coffee_break.jpg"
+      },
+      "action_after_effects": "The full image path is filled into the location entry.",
+      "nl_explanation": "Once the location field is active, type the path to coffee_break.jpg so GIMP knows exactly which photo to open."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Load the photo into GIMP",
+      "action_before_state": "The file chooser shows the typed path to the source image.",
+      "action_preconditions": [
+        "The correct image path has been entered",
+        "The file is accessible"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The file chooser closes and the coffee photo opens on the GIMP canvas.",
+      "nl_explanation": "After the image path is entered, press Enter to open the photo so it becomes the active canvas in GIMP."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Activate the Crop tool",
+      "action_before_state": "The coffee photo is visible on the canvas with the toolbox on the left.",
+      "action_preconditions": [
+        "The image is loaded and visible",
+        "The toolbox is accessible"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "shift",
+          "c"
+        ]
+      },
+      "action_after_effects": "The Crop tool becomes active and the canvas is ready for drawing a crop region.",
+      "nl_explanation": "With the photo open, press Shift+C to switch to the Crop tool so the next drag defines the area that should remain in the final image."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Draw a square crop around the mug and pastry",
+      "action_before_state": "The Crop tool is active and the full photo is visible.",
+      "action_preconditions": [
+        "The Crop tool is selected",
+        "The mug and pastry are both visible in the current image"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the canvas area just above and left of the mug"
+        },
+        "end": {
+          "text": "the canvas area below and right of the pastry, sized to make a square crop"
+        },
+        "target": {
+          "begin": {
+            "text": "the upper-left area just outside the mug"
+          },
+          "end": {
+            "text": "the lower-right area just outside the pastry"
+          }
+        }
+      },
+      "action_after_effects": "A square crop box appears over the photo with the selected composition highlighted.",
+      "nl_explanation": "When the Crop tool is active, drag from just above and left of the mug to just below and right of the pastry so the crop box frames the mug and pastry in a square layout."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Apply the crop selection",
+      "action_before_state": "A square crop rectangle with visible handles is over the photo.",
+      "action_preconditions": [
+        "The crop box with handles is visible",
+        "The Crop tool is still active",
+        "The intended subject is fully inside the crop area"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "Everything outside the crop box is removed and the image becomes a square composition.",
+      "nl_explanation": "After the crop box is placed correctly and the Crop tool is still active, press Enter to commit the crop and keep only the square view around the main subject."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Open the image scaling dialog",
+      "action_before_state": "The cropped square photo is displayed on the canvas.",
+      "action_preconditions": [
+        "The crop has already been applied",
+        "The top menu bar is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Image menu in the top menu bar"
+        }
+      },
+      "action_after_effects": "The Image menu opens and its commands are shown.",
+      "nl_explanation": "With the cropped image active, click the Image menu so you can access the command used to resize the picture."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Choose the Scale Image command",
+      "action_before_state": "The Image menu dropdown is open.",
+      "action_preconditions": [
+        "The Image menu is open",
+        "The Scale Image option is visible in the dropdown"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Scale Image... menu item"
+        }
+      },
+      "action_after_effects": "The Scale Image dialog opens with the size fields available for editing.",
+      "nl_explanation": "When the Image menu is open, click Scale Image to open the resize dialog for setting the final output dimensions."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Focus the width field in the Scale Image dialog",
+      "action_before_state": "The Scale Image dialog is open and shows the current square image dimensions.",
+      "action_preconditions": [
+        "The Scale Image dialog is focused",
+        "The width field is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Width field in the Scale Image dialog"
+        }
+      },
+      "action_after_effects": "The width field has keyboard focus and is ready to be edited.",
+      "nl_explanation": "Click the Width field so the current width value can be replaced with the target size."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Select the current width value",
+      "action_before_state": "The width field in the Scale Image dialog has focus.",
+      "action_preconditions": [
+        "The width field is active"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "a"
+        ]
+      },
+      "action_after_effects": "The existing width value is selected.",
+      "nl_explanation": "Press Ctrl+A in the width field to select the current number so typing replaces it instead of appending to it."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Set the resized image width to 1080 pixels",
+      "action_before_state": "The width value in the Scale Image dialog is fully selected.",
+      "action_preconditions": [
+        "The width field text is selected",
+        "The width and height fields remain linked proportionally",
+        "The cropped image is already square"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "1080"
+      },
+      "action_after_effects": "The width changes to 1080 pixels, and the height field also shows 1080 because the image is square and the dimensions are linked proportionally.",
+      "nl_explanation": "Type 1080 to replace the selected width value so the square image is set to 1080 by 1080 pixels."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Apply the new image dimensions",
+      "action_before_state": "The Scale Image dialog shows 1080 for both width and height.",
+      "action_preconditions": [
+        "The dialog displays 1080 for the output width",
+        "The height also shows 1080",
+        "No other settings need to be changed"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The dialog closes and the canvas updates to the resized 1080 by 1080 image.",
+      "nl_explanation": "After confirming the new size, press Enter to scale the image so the canvas updates to the final square resolution."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Open the Image menu again to change the image mode",
+      "action_before_state": "The resized square photo is visible on the canvas.",
+      "action_preconditions": [
+        "The image has already been scaled",
+        "The menu bar is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Image menu in the top menu bar"
+        }
+      },
+      "action_after_effects": "The Image menu opens again.",
+      "nl_explanation": "With resizing complete, click the Image menu again because the grayscale conversion command is located under this menu path."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Open the Mode submenu",
+      "action_before_state": "The Image menu dropdown is visible.",
+      "action_preconditions": [
+        "The Image menu is open",
+        "The Mode submenu entry is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Mode submenu entry in the Image menu"
+        }
+      },
+      "action_after_effects": "The Mode submenu expands to show available image modes.",
+      "nl_explanation": "While the Image menu is open, click Mode so the list of available color modes appears."
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Convert the image to grayscale",
+      "action_before_state": "The Mode submenu is open and the mode options are visible.",
+      "action_preconditions": [
+        "The Mode submenu is expanded",
+        "The Grayscale option is available"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Grayscale option in the Mode submenu"
+        }
+      },
+      "action_after_effects": "The photo changes from color to black and white.",
+      "nl_explanation": "When the Mode submenu is visible, click Grayscale to convert the image into a black-and-white version for sharing."
+    },
+    {
+      "step_id": "s17",
+      "step_goal": "Open the export dialog",
+      "action_before_state": "The finished grayscale image is visible on the canvas.",
+      "action_preconditions": [
+        "The final edit is complete",
+        "The image is still the active document in GIMP"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "e"
+        ]
+      },
+      "action_after_effects": "The Export Image dialog opens so a new PNG file can be saved.",
+      "nl_explanation": "Once the grayscale image looks correct, press Ctrl+Shift+E to open the export dialog and save a shareable copy."
+    },
+    {
+      "step_id": "s18",
+      "step_goal": "Move focus to the export location entry",
+      "action_before_state": "The Export Image dialog is open.",
+      "action_preconditions": [
+        "The export dialog is focused",
+        "No secondary export options dialog is covering it"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "l"
+        ]
+      },
+      "action_after_effects": "The editable location bar becomes active in the export dialog.",
+      "nl_explanation": "With the export dialog open, press Ctrl+L so you can type the exact destination path and file name for the exported PNG."
+    },
+    {
+      "step_id": "s19",
+      "step_goal": "Enter the export destination and file name",
+      "action_before_state": "The export location bar is active and ready for typing.",
+      "action_preconditions": [
+        "The location entry has focus",
+        "The Pictures folder is writable"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "/home/user/Pictures/coffee_break_square.png"
+      },
+      "action_after_effects": "The export path and PNG file name are filled into the dialog.",
+      "nl_explanation": "After focusing the location field, type the full export path so the edited image will be saved as coffee_break_square.png in Pictures."
+    },
+    {
+      "step_id": "s20",
+      "step_goal": "Submit the export destination",
+      "action_before_state": "The Export Image dialog contains the new PNG path.",
+      "action_preconditions": [
+        "The desired export path has been entered",
+        "The file name ends with .png"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The export path is submitted. GIMP either saves the PNG immediately or opens a PNG export settings dialog for final confirmation.",
+      "nl_explanation": "When the export path is correct, press Enter to continue the export flow for the PNG file."
+    },
+    {
+      "step_id": "s21",
+      "step_goal": "Accept the PNG export settings if the options dialog appears",
+      "action_before_state": "A PNG export settings dialog may be visible after submitting the export path.",
+      "action_preconditions": [
+        "If a PNG export settings dialog appears, it is focused",
+        "The default PNG settings are acceptable"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The default PNG export settings are accepted and the final file is saved to /home/user/Pictures/coffee_break_square.png.",
+      "nl_explanation": "If GIMP shows PNG export options after the first confirmation, press Enter to accept the default settings and finish saving the final image."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Load the source coffee photo into GIMP so editing can begin.",
+      "unit_type": "OPEN_IMAGE_FROM_PATH",
+      "unit_before_state": "GIMP is open on the main editing window, with the menu bar and toolbox visible and no file chooser currently blocking the canvas.",
+      "unit_after_state": "The Open Image dialog has been dismissed and coffee_break.jpg is open as the active image on the GIMP canvas.",
+      "unit_precondition": [
+        "The GIMP main window is focused.",
+        "No modal dialog is already blocking input.",
+        "The file /home/user/Pictures/coffee_break.jpg exists and is readable."
+      ],
+      "unit_effect": [
+        "The Open Image file chooser appears.",
+        "The file chooser location entry accepts the typed full path.",
+        "After submission, the dialog closes and the coffee photo becomes visible on the canvas."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Keep only a square composition that focuses on the mug and pastry.",
+      "unit_type": "CROP_IMAGE_TO_SQUARE",
+      "unit_before_state": "The full coffee photo is visible on the canvas, with the toolbox available on the left side of GIMP.",
+      "unit_after_state": "The image on the canvas is cropped to a square framing centered on the mug and pastry, with everything outside that square removed.",
+      "unit_precondition": [
+        "The source photo is already open and active.",
+        "The mug and pastry are visible in the current view.",
+        "The Crop tool can be activated from the toolbox or shortcut."
+      ],
+      "unit_effect": [
+        "The Crop tool becomes active.",
+        "A square crop rectangle with handles appears over the photo.",
+        "After confirmation, the crop overlay disappears and the image bounds become square."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        8,
+        9
+      ],
+      "unit_intent": "Open the resize controls needed to change the image dimensions.",
+      "unit_type": "OPEN_SCALE_IMAGE_DIALOG",
+      "unit_before_state": "The cropped square coffee photo is displayed on the GIMP canvas, and no size dialog is currently open.",
+      "unit_after_state": "The Scale Image dialog is open in front of GIMP, showing editable width and height fields for the current square image.",
+      "unit_precondition": [
+        "The crop has already been applied.",
+        "The top menu bar is visible and usable.",
+        "No other modal dialog is blocking the Image menu."
+      ],
+      "unit_effect": [
+        "The Image menu opens.",
+        "Selecting Scale Image opens the Scale Image dialog with dimension fields visible."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        10,
+        11,
+        12,
+        13
+      ],
+      "unit_intent": "Set the final image size to 1080 by 1080 pixels.",
+      "unit_type": "RESIZE_IMAGE_TO_TARGET_DIMENSIONS",
+      "unit_before_state": "The Scale Image dialog is open and shows the current dimensions of the square cropped photo.",
+      "unit_after_state": "The Scale Image dialog has closed, and the canvas shows the resized coffee image at 1080 by 1080 pixels.",
+      "unit_precondition": [
+        "The Scale Image dialog is focused.",
+        "The Width field is visible and editable.",
+        "The width and height remain proportionally linked so a square image stays square."
+      ],
+      "unit_effect": [
+        "The Width field receives focus and its current value is selected.",
+        "Typing 1080 replaces the width value and updates the height to 1080.",
+        "Pressing Enter closes the dialog and applies the new 1080 by 1080 size."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        14,
+        15,
+        16
+      ],
+      "unit_intent": "Convert the resized square photo into a black-and-white image.",
+      "unit_type": "CONVERT_IMAGE_TO_GRAYSCALE",
+      "unit_before_state": "The resized 1080 by 1080 coffee photo is visible on the canvas in color, and the top menu bar is available.",
+      "unit_after_state": "The same square image remains on the canvas, but it is now displayed in grayscale instead of color.",
+      "unit_precondition": [
+        "The resized image is the active document in GIMP.",
+        "The Image menu and Mode submenu are accessible.",
+        "No modal dialog is blocking the main window."
+      ],
+      "unit_effect": [
+        "The Image menu opens and the Mode submenu expands.",
+        "Choosing Grayscale removes the image colors.",
+        "The canvas visibly changes from color to black and white."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        17,
+        18,
+        19,
+        20,
+        21
+      ],
+      "unit_intent": "Save the edited square black-and-white image as a PNG in the Pictures folder with the required filename.",
+      "unit_type": "EXPORT_IMAGE_AS_PNG",
+      "unit_before_state": "The finished grayscale square photo is visible on the GIMP canvas, and no export dialog is currently open.",
+      "unit_after_state": "The export flow is completed and the file /home/user/Pictures/coffee_break_square.png has been saved, with GIMP returned from the export dialogs to the main editing view.",
+      "unit_precondition": [
+        "The grayscale image is the active document in GIMP.",
+        "The Pictures folder is writable.",
+        "The export should use the filename coffee_break_square.png.",
+        "Default PNG export settings are acceptable if a PNG options dialog appears."
+      ],
+      "unit_effect": [
+        "The Export Image dialog opens.",
+        "Its location entry is activated and filled with /home/user/Pictures/coffee_break_square.png.",
+        "Submitting the path either saves immediately or opens a PNG export settings dialog.",
+        "After the final confirmation, the PNG file is saved at the specified path."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Load the source coffee photo into GIMP so editing can begin.",
+      "unit_type": "OPEN_IMAGE_FROM_PATH",
+      "unit_before_state": "GIMP is open on the main editing window, with the menu bar and toolbox visible and no file chooser currently blocking the canvas.",
+      "unit_after_state": "The Open Image dialog has been dismissed and coffee_break.jpg is open as the active image on the GIMP canvas.",
+      "unit_precondition": [
+        "The GIMP main window is focused.",
+        "No modal dialog is already blocking input.",
+        "The file /home/user/Pictures/coffee_break.jpg exists and is readable."
+      ],
+      "unit_effect": [
+        "The Open Image file chooser appears.",
+        "The file chooser location entry accepts the typed full path.",
+        "After submission, the dialog closes and the coffee photo becomes visible on the canvas."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a specified image file in GIMP by entering its full path in the Open Image dialog.",
+      "parameters": {
+        "file_path": "/home/user/Pictures/coffee_break.jpg"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'o']}",
+          "action_template": "When the main GIMP window is active, press Ctrl+O to bring up the Open Image dialog so the target image file can be selected."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'l']}",
+          "action_template": "With the file chooser open, press Ctrl+L to activate the location entry so a full image path can be entered directly."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '/home/user/Pictures/coffee_break.jpg'}",
+          "action_template": "Once the location field is active, type {{file_path}} so GIMP knows exactly which image file to open."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After {{file_path}} is entered, press Enter to submit the path, close the dialog, and open the image on the GIMP canvas."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Keep only a square composition that focuses on the mug and pastry.",
+      "unit_type": "CROP_IMAGE_TO_SQUARE",
+      "unit_before_state": "The full coffee photo is visible on the canvas, with the toolbox available on the left side of GIMP.",
+      "unit_after_state": "The image on the canvas is cropped to a square framing centered on the mug and pastry, with everything outside that square removed.",
+      "unit_precondition": [
+        "The source photo is already open and active.",
+        "The mug and pastry are visible in the current view.",
+        "The Crop tool can be activated from the toolbox or shortcut."
+      ],
+      "unit_effect": [
+        "The Crop tool becomes active.",
+        "A square crop rectangle with handles appears over the photo.",
+        "After confirmation, the crop overlay disappears and the image bounds become square."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Crop the active image to a square composition centered on the target subject.",
+      "parameters": {
+        "target_subject": "mug and pastry",
+        "crop_start_region": "just above and left of the mug",
+        "crop_end_region": "just below and right of the pastry"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['shift', 'c']}",
+          "action_template": "With the image open and the toolbox accessible, press Shift+C to activate the Crop tool so the next drag defines the square area to keep around {{target_subject}}."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the canvas area just above and left of the mug'}, 'end': {'text': 'the canvas area below and right of the pastry, sized to make a square crop'}, 'target': {'begin': {'text': 'the upper-left area just outside the mug'}, 'end': {'text': 'the lower-right area just outside the pastry'}}}",
+          "action_template": "With the Crop tool selected and {{target_subject}} visible, drag from {{crop_start_region}} to {{crop_end_region}} to create a square crop box framing {{target_subject}}."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "When the square crop box is visible, the Crop tool is still active, and {{target_subject}} is fully inside the crop area, press Enter to apply the crop and keep only the square view around {{target_subject}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        8,
+        9
+      ],
+      "unit_intent": "Open the resize controls needed to change the image dimensions.",
+      "unit_type": "OPEN_SCALE_IMAGE_DIALOG",
+      "unit_before_state": "The cropped square coffee photo is displayed on the GIMP canvas, and no size dialog is currently open.",
+      "unit_after_state": "The Scale Image dialog is open in front of GIMP, showing editable width and height fields for the current square image.",
+      "unit_precondition": [
+        "The crop has already been applied.",
+        "The top menu bar is visible and usable.",
+        "No other modal dialog is blocking the Image menu."
+      ],
+      "unit_effect": [
+        "The Image menu opens.",
+        "Selecting Scale Image opens the Scale Image dialog with dimension fields visible."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open the image scaling dialog so the image dimensions can be edited.",
+      "parameters": {
+        "top_menu": "Image",
+        "menu_item": "Scale Image...",
+        "dialog_name": "Scale Image"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Image menu in the top menu bar'}}",
+          "action_template": "Click the {{top_menu}} menu in the top menu bar when the cropped image is active and the menu bar is visible, so its commands are shown and the resize command becomes accessible."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Scale Image... menu item'}}",
+          "action_template": "Click the {{menu_item}} menu item when the {{top_menu}} menu is open and the option is visible, to open the {{dialog_name}} dialog with size fields available for editing."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        10,
+        11,
+        12,
+        13
+      ],
+      "unit_intent": "Set the final image size to 1080 by 1080 pixels.",
+      "unit_type": "RESIZE_IMAGE_TO_TARGET_DIMENSIONS",
+      "unit_before_state": "The Scale Image dialog is open and shows the current dimensions of the square cropped photo.",
+      "unit_after_state": "The Scale Image dialog has closed, and the canvas shows the resized coffee image at 1080 by 1080 pixels.",
+      "unit_precondition": [
+        "The Scale Image dialog is focused.",
+        "The Width field is visible and editable.",
+        "The width and height remain proportionally linked so a square image stays square."
+      ],
+      "unit_effect": [
+        "The Width field receives focus and its current value is selected.",
+        "Typing 1080 replaces the width value and updates the height to 1080.",
+        "Pressing Enter closes the dialog and applies the new 1080 by 1080 size."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Set a square image to a specified final pixel dimension in the Scale Image dialog.",
+      "parameters": {
+        "target_dimension_px": "1080"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Width field in the Scale Image dialog'}}",
+          "action_template": "Click the Width field in the Scale Image dialog so the current width value can be replaced with {{target_dimension_px}} while the dialog is focused and the field is visible; afterward the width field has keyboard focus and is ready to be edited."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'a']}",
+          "action_template": "Press Ctrl+A in the active width field to select the current number so typing {{target_dimension_px}} replaces it instead of appending to it; afterward the existing width value is selected."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '1080'}",
+          "action_template": "Type {{target_dimension_px}} to replace the selected width value; because the width and height fields remain proportionally linked and the image is square, both dimensions update to {{target_dimension_px}} pixels."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter after the dialog shows {{target_dimension_px}} for both width and height and no other settings need to be changed, so the dialog closes and the canvas updates to the resized square image."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        14,
+        15,
+        16
+      ],
+      "unit_intent": "Convert the resized square photo into a black-and-white image.",
+      "unit_type": "CONVERT_IMAGE_TO_GRAYSCALE",
+      "unit_before_state": "The resized 1080 by 1080 coffee photo is visible on the canvas in color, and the top menu bar is available.",
+      "unit_after_state": "The same square image remains on the canvas, but it is now displayed in grayscale instead of color.",
+      "unit_precondition": [
+        "The resized image is the active document in GIMP.",
+        "The Image menu and Mode submenu are accessible.",
+        "No modal dialog is blocking the main window."
+      ],
+      "unit_effect": [
+        "The Image menu opens and the Mode submenu expands.",
+        "Choosing Grayscale removes the image colors.",
+        "The canvas visibly changes from color to black and white."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Convert {{target_image}} to grayscale using the Image > Mode menu path.",
+      "parameters": {
+        "target_image": "the resized 1080 by 1080 coffee photo"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Image menu in the top menu bar'}}",
+          "action_template": "Click the Image menu in the top menu bar to open the menu containing the grayscale conversion command for {{target_image}}, when {{target_image}} has already been scaled and the menu bar is visible, so the Image menu opens."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Mode submenu entry in the Image menu'}}",
+          "action_template": "Click the Mode submenu entry in the Image menu to reveal the available color modes for {{target_image}}, when the Image menu is open and the Mode submenu entry is visible, so the Mode submenu expands to show available image modes."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Grayscale option in the Mode submenu'}}",
+          "action_template": "Click the Grayscale option in the Mode submenu to convert {{target_image}} from color to black and white, when the Mode submenu is expanded and the Grayscale option is available, so the photo changes from color to black and white."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        17,
+        18,
+        19,
+        20,
+        21
+      ],
+      "unit_intent": "Save the edited square black-and-white image as a PNG in the Pictures folder with the required filename.",
+      "unit_type": "EXPORT_IMAGE_AS_PNG",
+      "unit_before_state": "The finished grayscale square photo is visible on the GIMP canvas, and no export dialog is currently open.",
+      "unit_after_state": "The export flow is completed and the file /home/user/Pictures/coffee_break_square.png has been saved, with GIMP returned from the export dialogs to the main editing view.",
+      "unit_precondition": [
+        "The grayscale image is the active document in GIMP.",
+        "The Pictures folder is writable.",
+        "The export should use the filename coffee_break_square.png.",
+        "Default PNG export settings are acceptable if a PNG options dialog appears."
+      ],
+      "unit_effect": [
+        "The Export Image dialog opens.",
+        "Its location entry is activated and filled with /home/user/Pictures/coffee_break_square.png.",
+        "Submitting the path either saves immediately or opens a PNG export settings dialog.",
+        "After the final confirmation, the PNG file is saved at the specified path."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Export the active edited image as a PNG file to a specified destination path.",
+      "parameters": {
+        "export_path": "/home/user/Pictures/coffee_break_square.png"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'e']}",
+          "action_template": "When the active edited image is ready, press Ctrl+Shift+E to open the export dialog so the PNG export flow can begin."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'l']}",
+          "action_template": "With the export dialog focused and no secondary export dialog covering it, press Ctrl+L to activate the location entry for {{export_path}}."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '/home/user/Pictures/coffee_break_square.png'}",
+          "action_template": "When the location entry has focus and the destination folder is writable, type {{export_path}} to fill in the export path and PNG file name."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After {{export_path}} has been entered and the file name ends with .png, press Enter to submit the export destination and continue the PNG export flow."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "If a PNG export settings dialog appears and the default PNG settings are acceptable, press Enter to accept them and save the file to {{export_path}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

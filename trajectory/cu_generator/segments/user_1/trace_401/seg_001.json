@@ -1,0 +1,633 @@
+{
+  "segment_id": "seg_001",
+  "app": "os",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the GNOME overview so Terminal can be launched",
+      "action_before_state": "A normal GNOME desktop session is visible, with no modal dialog blocking keyboard input.",
+      "action_preconditions": [
+        "The system is unlocked and responsive",
+        "The keyboard can send global shortcuts",
+        "No password prompt or fullscreen lock screen is covering the desktop"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "super"
+        ]
+      },
+      "action_after_effects": "The GNOME overview opens and the search field becomes ready for input.",
+      "nl_explanation": "When the desktop is active and keyboard shortcuts are available, press the Super key to open the GNOME overview so you can search for an app."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Search for Terminal",
+      "action_before_state": "The GNOME overview is open with the search box focused.",
+      "action_preconditions": [
+        "The overview search field is active",
+        "Typed text will go into GNOME search"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "terminal"
+      },
+      "action_after_effects": "Search results update and show Terminal as a launchable application.",
+      "nl_explanation": "With the GNOME search field focused, type terminal so the Terminal application appears in the launcher results."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Launch Terminal",
+      "action_before_state": "The Terminal app is visible in the search results and is typically selected as the top match.",
+      "action_preconditions": [
+        "Terminal appears in the GNOME search results",
+        "The selected result can be opened with the keyboard"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "A Terminal window opens with a shell prompt ready to accept commands.",
+      "nl_explanation": "Once Terminal is shown in the overview results, press Enter to open it and get a command prompt."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Create the support folder and save OS details in one command",
+      "action_before_state": "Terminal is open and the cursor is blinking at an empty command line.",
+      "action_preconditions": [
+        "The shell prompt is visible",
+        "The terminal window has keyboard focus"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "mkdir -p ~/Documents/support_bundle && cat /etc/os-release > ~/Documents/support_bundle/os_details.txt"
+      },
+      "action_after_effects": "The full command is present at the prompt, ready to be executed.",
+      "nl_explanation": "When Terminal is focused, type a command that creates the support_bundle folder in Documents and writes the system release information into os_details.txt."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Run the folder creation and OS details command",
+      "action_before_state": "The command to create the folder and save OS details is fully typed in Terminal.",
+      "action_preconditions": [
+        "The command line is complete and visible",
+        "The shell is waiting for execution"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The support_bundle folder is created in Documents, os_details.txt is generated inside it, and the shell returns to a prompt if the command succeeds.",
+      "nl_explanation": "After confirming the command is typed correctly, press Enter to create the folder and save the OS version details into the first text file."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Prepare the disk and memory information command",
+      "action_before_state": "Terminal is back at a shell prompt after the first command finished.",
+      "action_preconditions": [
+        "The terminal prompt is visible again",
+        "The support_bundle folder already exists"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "df -h > ~/Documents/support_bundle/disk_usage.txt && free -h > ~/Documents/support_bundle/memory_usage.txt && ls ~/Documents/support_bundle"
+      },
+      "action_after_effects": "The second command is fully entered and ready to run.",
+      "nl_explanation": "With the folder already created, type a command that saves disk usage and memory usage into separate text files and then lists the folder contents for a quick check."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Run the disk and memory information command",
+      "action_before_state": "The command to create disk_usage.txt and memory_usage.txt is visible at the prompt.",
+      "action_preconditions": [
+        "The command line is complete",
+        "The shell is idle and ready to execute it"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "disk_usage.txt and memory_usage.txt are created in support_bundle, and the terminal lists the files now inside the folder.",
+      "nl_explanation": "Once the resource-report command is typed, press Enter to save disk and memory information and confirm the folder now contains the expected files."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Prepare the archive command",
+      "action_before_state": "Terminal is ready for another command, and the support_bundle folder already contains the report files.",
+      "action_preconditions": [
+        "The folder with the collected text files exists",
+        "The terminal prompt is visible"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "tar -czf ~/Desktop/support_bundle.tar.gz -C ~/Documents support_bundle"
+      },
+      "action_after_effects": "The archive creation command appears in Terminal, ready to execute.",
+      "nl_explanation": "After the report files have been created, type a tar command that compresses the entire support_bundle folder and saves the archive onto the Desktop."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Create the compressed archive on the Desktop",
+      "action_before_state": "The tar command for creating support_bundle.tar.gz is fully typed in Terminal.",
+      "action_preconditions": [
+        "The command is visible and complete",
+        "The Desktop location is writable"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The compressed file support_bundle.tar.gz is created on the Desktop, and the shell returns to the prompt if the command succeeds.",
+      "nl_explanation": "When the archive command is ready, press Enter to generate the compressed support bundle on the Desktop."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Open the GNOME overview again to launch Files",
+      "action_before_state": "Terminal remains open after the archive command completes.",
+      "action_preconditions": [
+        "The desktop session is still responsive",
+        "Global shortcuts are available in the current desktop session"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "super"
+        ]
+      },
+      "action_after_effects": "The GNOME overview opens above the current workspace and is ready for another app search.",
+      "nl_explanation": "With the archive created, press the Super key again to return to the GNOME overview and launch the file manager for verification."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Search for Files",
+      "action_before_state": "The GNOME overview is open and the search box is active.",
+      "action_preconditions": [
+        "The overview search field is focused",
+        "Typing will search installed applications"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "files"
+      },
+      "action_after_effects": "The Files application appears in the search results.",
+      "nl_explanation": "When the overview search box is ready, type files so the GNOME file manager can be opened."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Launch Files",
+      "action_before_state": "The Files app is visible in GNOME search results and is typically highlighted.",
+      "action_preconditions": [
+        "Files appears in the search results",
+        "The selected app can be launched with Enter"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The Files window opens, usually showing the Home folder or the last visited location.",
+      "nl_explanation": "Once Files is shown in the results, press Enter to open the file manager and verify the archive."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Navigate to the Desktop in Files",
+      "action_before_state": "Files is open, and the sidebar with common locations such as Home, Documents, and Desktop is visible.",
+      "action_preconditions": [
+        "The Files sidebar is visible",
+        "Desktop appears as a selectable location"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "Desktop in the Files sidebar"
+        }
+      },
+      "action_after_effects": "The main file list changes to show the contents of the Desktop.",
+      "nl_explanation": "When the Files sidebar is available, click Desktop so the file list updates to the Desktop contents where the archive should be saved."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Confirm the compressed support bundle exists",
+      "action_before_state": "The Desktop view is open in Files and its contents are visible.",
+      "action_preconditions": [
+        "The Desktop folder is being displayed",
+        "The archive support_bundle.tar.gz is visible in the file list or icon grid"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the file named support_bundle.tar.gz in the Desktop view"
+        }
+      },
+      "action_after_effects": "The archive is highlighted, visually confirming that the support bundle was created successfully on the Desktop.",
+      "nl_explanation": "If support_bundle.tar.gz is visible on the Desktop in Files, click it once to highlight it and confirm the task is complete."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Open Terminal so shell commands can be used to build the support bundle.",
+      "unit_type": "OPEN_TERMINAL",
+      "unit_before_state": "A normal GNOME desktop session is visible, with no blocking dialog and no application launcher open.",
+      "unit_after_state": "A Terminal window is open in the foreground with a shell prompt ready for input.",
+      "unit_precondition": [
+        "The GNOME desktop session is unlocked and responsive.",
+        "Global keyboard shortcuts are working so the overview can be opened.",
+        "Terminal is installed and can be found from GNOME search."
+      ],
+      "unit_effect": [
+        "The GNOME overview opens with the search field focused.",
+        "Searching for \"terminal\" shows Terminal in the results.",
+        "Pressing Enter opens Terminal and displays a prompt."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Create the support bundle folder and store the operating system version information in it.",
+      "unit_type": "CREATE_FOLDER_AND_SAVE_OS_DETAILS",
+      "unit_before_state": "Terminal is focused at an empty shell prompt, and the support_bundle folder has not yet been created in Documents in this workflow.",
+      "unit_after_state": "The folder Documents/support_bundle exists, and os_details.txt has been created inside it from /etc/os-release. Terminal has returned to a prompt.",
+      "unit_precondition": [
+        "Terminal is open and has keyboard focus.",
+        "The shell prompt is idle and ready to accept a command.",
+        "The Documents directory is writable."
+      ],
+      "unit_effect": [
+        "The command line shows the mkdir and os-release redirection command before execution.",
+        "After execution, the shell returns without an error prompt.",
+        "A file named os_details.txt now exists in Documents/support_bundle."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7
+      ],
+      "unit_intent": "Add disk usage and memory usage reports to the support bundle and confirm the folder contents.",
+      "unit_type": "SAVE_RESOURCE_REPORTS",
+      "unit_before_state": "Terminal is back at a prompt, and Documents/support_bundle already exists with os_details.txt inside it.",
+      "unit_after_state": "Documents/support_bundle contains disk_usage.txt and memory_usage.txt in addition to the existing OS details file, and Terminal shows the folder listing.",
+      "unit_precondition": [
+        "The support_bundle folder already exists in Documents.",
+        "Terminal is focused and the shell is idle.",
+        "The user can write additional files into Documents/support_bundle."
+      ],
+      "unit_effect": [
+        "The df and free command line is fully entered before execution.",
+        "After pressing Enter, disk_usage.txt and memory_usage.txt are created.",
+        "The terminal output lists the files inside support_bundle as a visible verification signal."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8,
+        9
+      ],
+      "unit_intent": "Compress the completed support bundle folder into a shareable archive on the Desktop.",
+      "unit_type": "CREATE_ARCHIVE",
+      "unit_before_state": "Terminal is ready for another command, and Documents/support_bundle already contains the collected text files.",
+      "unit_after_state": "A compressed archive named support_bundle.tar.gz has been created on the Desktop, and Terminal has returned to the prompt.",
+      "unit_precondition": [
+        "Documents/support_bundle exists and contains the report files to archive.",
+        "Terminal is focused with an idle shell prompt.",
+        "The Desktop location is writable."
+      ],
+      "unit_effect": [
+        "The tar command targeting ~/Desktop/support_bundle.tar.gz appears at the prompt before execution.",
+        "After execution, the shell returns to a prompt without interruption.",
+        "The archive support_bundle.tar.gz is available on the Desktop."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        10,
+        11,
+        12
+      ],
+      "unit_intent": "Open the Files application to visually verify that the archive was created.",
+      "unit_type": "OPEN_FILES_APP",
+      "unit_before_state": "Terminal remains open after the archive command, and no file manager window is currently active in front.",
+      "unit_after_state": "A Files window is open, showing its default location such as Home or the last visited folder, with the sidebar visible.",
+      "unit_precondition": [
+        "The GNOME desktop session is still responsive.",
+        "Global keyboard shortcuts can open the GNOME overview.",
+        "Files is installed and can be launched from GNOME search."
+      ],
+      "unit_effect": [
+        "The GNOME overview opens and accepts search input.",
+        "Searching for \"files\" shows the Files application in the results.",
+        "Pressing Enter opens the Files window."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        13,
+        14
+      ],
+      "unit_intent": "Navigate to the Desktop and confirm that the support bundle archive is present there.",
+      "unit_type": "VERIFY_ARCHIVE_ON_DESKTOP",
+      "unit_before_state": "Files is open with the sidebar visible, but it may still be showing Home or another location rather than the Desktop.",
+      "unit_after_state": "Files is showing the Desktop contents, and the file support_bundle.tar.gz is selected and visibly highlighted.",
+      "unit_precondition": [
+        "The Files sidebar includes Desktop as a selectable location.",
+        "The Desktop can be opened in the current Files window.",
+        "The archive support_bundle.tar.gz is present or expected to appear in the Desktop view."
+      ],
+      "unit_effect": [
+        "Clicking Desktop updates the main pane to show Desktop contents.",
+        "The file support_bundle.tar.gz is visible in the Desktop view.",
+        "Clicking the archive highlights it, providing a clear visual confirmation that the bundle was created."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Open Terminal so shell commands can be used to build the support bundle.",
+      "unit_type": "OPEN_TERMINAL",
+      "unit_before_state": "A normal GNOME desktop session is visible, with no blocking dialog and no application launcher open.",
+      "unit_after_state": "A Terminal window is open in the foreground with a shell prompt ready for input.",
+      "unit_precondition": [
+        "The GNOME desktop session is unlocked and responsive.",
+        "Global keyboard shortcuts are working so the overview can be opened.",
+        "Terminal is installed and can be found from GNOME search."
+      ],
+      "unit_effect": [
+        "The GNOME overview opens with the search field focused.",
+        "Searching for \"terminal\" shows Terminal in the results.",
+        "Pressing Enter opens Terminal and displays a prompt."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Launch {{application_name}} from the GNOME desktop using overview search.",
+      "parameters": {
+        "application_name": "Terminal",
+        "search_query": "terminal"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['super']}",
+          "action_template": "When the desktop is active and keyboard shortcuts are available, press the Super key to open the GNOME overview so you can search for an app."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'terminal'}",
+          "action_template": "With the GNOME search field focused, type {{search_query}} so {{application_name}} appears in the launcher results."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Once {{application_name}} is shown in the overview results, press Enter to open it and get a ready-to-use application window."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Create the support bundle folder and store the operating system version information in it.",
+      "unit_type": "CREATE_FOLDER_AND_SAVE_OS_DETAILS",
+      "unit_before_state": "Terminal is focused at an empty shell prompt, and the support_bundle folder has not yet been created in Documents in this workflow.",
+      "unit_after_state": "The folder Documents/support_bundle exists, and os_details.txt has been created inside it from /etc/os-release. Terminal has returned to a prompt.",
+      "unit_precondition": [
+        "Terminal is open and has keyboard focus.",
+        "The shell prompt is idle and ready to accept a command.",
+        "The Documents directory is writable."
+      ],
+      "unit_effect": [
+        "The command line shows the mkdir and os-release redirection command before execution.",
+        "After execution, the shell returns without an error prompt.",
+        "A file named os_details.txt now exists in Documents/support_bundle."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create {{folder_name}} in {{target_directory}} and save operating system version information from {{os_info_source}} into {{output_file_name}} inside that folder.",
+      "parameters": {
+        "target_directory": "~/Documents",
+        "folder_name": "support_bundle",
+        "os_info_source": "/etc/os-release",
+        "output_file_name": "os_details.txt",
+        "creation_command": "mkdir -p ~/Documents/support_bundle && cat /etc/os-release > ~/Documents/support_bundle/os_details.txt"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'mkdir -p ~/Documents/support_bundle && cat /etc/os-release > ~/Documents/support_bundle/os_details.txt'}",
+          "action_template": "When Terminal is focused and the shell prompt is visible, type {{creation_command}} to create {{folder_name}} in {{target_directory}} and write the operating system release information from {{os_info_source}} into {{output_file_name}}. The full command should then be present at the prompt, ready to be executed."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After confirming the command line is complete and the shell is waiting for execution, press Enter to create {{folder_name}} in {{target_directory}} and generate {{output_file_name}} from {{os_info_source}}. The expected result is that the shell returns to a prompt with the file saved inside the new folder."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7
+      ],
+      "unit_intent": "Add disk usage and memory usage reports to the support bundle and confirm the folder contents.",
+      "unit_type": "SAVE_RESOURCE_REPORTS",
+      "unit_before_state": "Terminal is back at a prompt, and Documents/support_bundle already exists with os_details.txt inside it.",
+      "unit_after_state": "Documents/support_bundle contains disk_usage.txt and memory_usage.txt in addition to the existing OS details file, and Terminal shows the folder listing.",
+      "unit_precondition": [
+        "The support_bundle folder already exists in Documents.",
+        "Terminal is focused and the shell is idle.",
+        "The user can write additional files into Documents/support_bundle."
+      ],
+      "unit_effect": [
+        "The df and free command line is fully entered before execution.",
+        "After pressing Enter, disk_usage.txt and memory_usage.txt are created.",
+        "The terminal output lists the files inside support_bundle as a visible verification signal."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save disk usage and memory usage reports into {{target_folder}} and verify the saved files by listing the folder contents.",
+      "parameters": {
+        "target_folder": "~/Documents/support_bundle",
+        "disk_report_file": "disk_usage.txt",
+        "memory_report_file": "memory_usage.txt"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'df -h > ~/Documents/support_bundle/disk_usage.txt && free -h > ~/Documents/support_bundle/memory_usage.txt && ls ~/Documents/support_bundle'}",
+          "action_template": "With the terminal prompt visible and {{target_folder}} already existing, type a command that saves disk usage to {{disk_report_file}} and memory usage to {{memory_report_file}} in {{target_folder}}, then lists {{target_folder}} so the command is ready to run."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Once the command line is complete and the shell is idle, press Enter to create {{disk_report_file}} and {{memory_report_file}} in {{target_folder}} and list the files now inside {{target_folder}} for verification."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8,
+        9
+      ],
+      "unit_intent": "Compress the completed support bundle folder into a shareable archive on the Desktop.",
+      "unit_type": "CREATE_ARCHIVE",
+      "unit_before_state": "Terminal is ready for another command, and Documents/support_bundle already contains the collected text files.",
+      "unit_after_state": "A compressed archive named support_bundle.tar.gz has been created on the Desktop, and Terminal has returned to the prompt.",
+      "unit_precondition": [
+        "Documents/support_bundle exists and contains the report files to archive.",
+        "Terminal is focused with an idle shell prompt.",
+        "The Desktop location is writable."
+      ],
+      "unit_effect": [
+        "The tar command targeting ~/Desktop/support_bundle.tar.gz appears at the prompt before execution.",
+        "After execution, the shell returns to a prompt without interruption.",
+        "The archive support_bundle.tar.gz is available on the Desktop."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a compressed archive of a specified folder at a specified destination from the terminal.",
+      "parameters": {
+        "source_folder_name": "support_bundle",
+        "source_parent_dir": "~/Documents",
+        "archive_output_path": "~/Desktop/support_bundle.tar.gz"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'tar -czf ~/Desktop/support_bundle.tar.gz -C ~/Documents support_bundle'}",
+          "action_template": "Type a tar command that compresses {{source_folder_name}} from {{source_parent_dir}} and saves the archive to {{archive_output_path}} after confirming the folder exists and the terminal prompt is visible, so the archive creation command is ready to execute."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter to run the visible and complete archive command once the destination for {{archive_output_path}} is writable, creating the compressed file and returning the shell to the prompt."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        10,
+        11,
+        12
+      ],
+      "unit_intent": "Open the Files application to visually verify that the archive was created.",
+      "unit_type": "OPEN_FILES_APP",
+      "unit_before_state": "Terminal remains open after the archive command, and no file manager window is currently active in front.",
+      "unit_after_state": "A Files window is open, showing its default location such as Home or the last visited folder, with the sidebar visible.",
+      "unit_precondition": [
+        "The GNOME desktop session is still responsive.",
+        "Global keyboard shortcuts can open the GNOME overview.",
+        "Files is installed and can be launched from GNOME search."
+      ],
+      "unit_effect": [
+        "The GNOME overview opens and accepts search input.",
+        "Searching for \"files\" shows the Files application in the results.",
+        "Pressing Enter opens the Files window."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Launch {{target_application}} from the GNOME overview search.",
+      "parameters": {
+        "target_application": "Files",
+        "app_search_query": "files"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['super']}",
+          "action_template": "Press the Super key to open the GNOME overview and prepare to search for {{target_application}}."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'files'}",
+          "action_template": "Type {{app_search_query}} in the overview search field so {{target_application}} appears in the search results."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter to launch {{target_application}} once it is shown in the GNOME search results."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        13,
+        14
+      ],
+      "unit_intent": "Navigate to the Desktop and confirm that the support bundle archive is present there.",
+      "unit_type": "VERIFY_ARCHIVE_ON_DESKTOP",
+      "unit_before_state": "Files is open with the sidebar visible, but it may still be showing Home or another location rather than the Desktop.",
+      "unit_after_state": "Files is showing the Desktop contents, and the file support_bundle.tar.gz is selected and visibly highlighted.",
+      "unit_precondition": [
+        "The Files sidebar includes Desktop as a selectable location.",
+        "The Desktop can be opened in the current Files window.",
+        "The archive support_bundle.tar.gz is present or expected to appear in the Desktop view."
+      ],
+      "unit_effect": [
+        "Clicking Desktop updates the main pane to show Desktop contents.",
+        "The file support_bundle.tar.gz is visible in the Desktop view.",
+        "Clicking the archive highlights it, providing a clear visual confirmation that the bundle was created."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Navigate to {{target_location}} in the file manager and select {{archive_name}} to visually verify that the expected archive exists there.",
+      "parameters": {
+        "target_location": "Desktop",
+        "archive_name": "support_bundle.tar.gz"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'Desktop in the Files sidebar'}}",
+          "action_template": "When the Files sidebar is visible and {{target_location}} appears as a selectable location, click {{target_location}} in the sidebar so the main file list updates to show the contents of {{target_location}}, where {{archive_name}} should be saved."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the file named support_bundle.tar.gz in the Desktop view'}}",
+          "action_template": "If {{archive_name}} is visible in the {{target_location}} view, click it once to highlight it and visually confirm that the expected archive is present."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

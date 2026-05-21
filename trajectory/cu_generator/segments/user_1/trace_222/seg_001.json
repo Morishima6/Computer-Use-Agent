@@ -1,0 +1,854 @@
+{
+  "segment_id": "seg_001",
+  "app": "libreoffice_calc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Place the cursor in the top-left starting cell",
+      "action_before_state": "LibreOffice Calc is already open on a blank or unused sheet, and the upper-left grid area is visible.",
+      "action_preconditions": [
+        "A spreadsheet grid is visible.",
+        "Cell A1 can be seen on the screen."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell A1 in the top-left corner of the sheet"
+        }
+      },
+      "action_after_effects": "Cell A1 becomes the active cell with a visible selection border.",
+      "nl_explanation": "When the blank sheet is visible and A1 is on screen, click cell A1 so the worksheet title can be entered at the top."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Enter the worksheet title",
+      "action_before_state": "Cell A1 is selected and ready for text input.",
+      "action_preconditions": [
+        "Cell A1 is the active cell.",
+        "No dialog window is blocking the sheet."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Weekly Meal Budget Tracker"
+      },
+      "action_after_effects": "The title appears in cell A1.",
+      "nl_explanation": "With A1 selected, type the title so the spreadsheet has a clear heading at the top."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Move to the area where the table should begin",
+      "action_before_state": "The title is in A1, and the sheet is still focused.",
+      "action_preconditions": [
+        "The spreadsheet remains editable.",
+        "Cell A2 is visible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell A2 directly below the title"
+        }
+      },
+      "action_after_effects": "Cell A2 becomes active.",
+      "nl_explanation": "After entering the title, click A2 to start building the actual budget table underneath it."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Fill in the day, planned budget, and actual spend columns",
+      "action_before_state": "Cell A2 is selected and there is empty space available from columns A to C.",
+      "action_preconditions": [
+        "Cell A2 is active.",
+        "Rows 2 through 9 and columns A through C are available."
+      ],
+      "action": {
+        "type": "CLICK",
+        "text": "Day\tPlanned Budget\tActual Spend\nMonday\t12\t11.5\nTuesday\t15\t16.75\nWednesday\t10\t9\nThursday\t18\t21.2\nFriday\t14\t13.6\nSaturday\t20\t19.8\nSunday\t16\t17.4",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the relevant libreoffice_calc UI element"
+        }
+      },
+      "action_after_effects": "Cells A2:C9 are populated with the headers and the seven daily entries.",
+      "nl_explanation": "With A2 selected, paste the first three columns of the tracker so the weekday names and spending values are entered in one pass."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Select the starting cell for the difference column",
+      "action_before_state": "The first three columns of the table are filled in, and column D is still empty.",
+      "action_preconditions": [
+        "The table from A2 to C9 is visible.",
+        "Cell D2 is available."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell D2 to the right of the Actual Spend header"
+        }
+      },
+      "action_after_effects": "Cell D2 becomes the active cell.",
+      "nl_explanation": "When the first three columns are present, click D2 so the Difference column can be added next."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Add the difference header and formulas",
+      "action_before_state": "Cell D2 is active and the cells below it are empty.",
+      "action_preconditions": [
+        "Cell D2 is selected.",
+        "Cells D2 through D9 are empty and visible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "text": "Difference\n=C3-B3\n=C4-B4\n=C5-B5\n=C6-B6\n=C7-B7\n=C8-B8\n=C9-B9",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the relevant libreoffice_calc UI element"
+        }
+      },
+      "action_after_effects": "Column D now has the Difference header in D2 and formulas in D3:D9 calculating Actual Spend minus Planned Budget for each day.",
+      "nl_explanation": "With D2 selected, paste the Difference header and the formulas below it so each row automatically computes how far over or under budget it is."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Select the starting cell for the status column",
+      "action_before_state": "The Difference column is filled, and column E is empty.",
+      "action_preconditions": [
+        "Column D already contains the difference results.",
+        "Cell E2 is visible and empty."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell E2 to the right of the Difference header"
+        }
+      },
+      "action_after_effects": "Cell E2 becomes active.",
+      "nl_explanation": "Once the Difference column is in place, click E2 so the final Status column can be created."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Add the status header and formulas",
+      "action_before_state": "Cell E2 is selected and the cells below it are empty.",
+      "action_preconditions": [
+        "Cell E2 is active.",
+        "Cells E2 through E9 are available."
+      ],
+      "action": {
+        "type": "CLICK",
+        "text": "Status\n=IF(D3>0,\"Over\",\"OK\")\n=IF(D4>0,\"Over\",\"OK\")\n=IF(D5>0,\"Over\",\"OK\")\n=IF(D6>0,\"Over\",\"OK\")\n=IF(D7>0,\"Over\",\"OK\")\n=IF(D8>0,\"Over\",\"OK\")\n=IF(D9>0,\"Over\",\"OK\")",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the relevant libreoffice_calc UI element"
+        }
+      },
+      "action_after_effects": "Column E now has the Status header in E2 and formulas in E3:E9 showing whether each day is over budget or still okay.",
+      "nl_explanation": "With E2 selected, paste the Status header and the IF formulas so each row is labeled based on the difference amount."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Select the money range for formatting",
+      "action_before_state": "The full table from A2 to E9 is populated, and the numeric money columns are visible.",
+      "action_preconditions": [
+        "Cells B3 through D9 are visible on the screen.",
+        "No menu or dialog is open."
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell B3, the first planned budget value"
+        },
+        "end": {
+          "text": "cell D9, the last difference value"
+        },
+        "target": {
+          "begin": {
+            "text": "cell B3, the first planned budget value"
+          },
+          "end": {
+            "text": "cell D9, the last difference value"
+          }
+        }
+      },
+      "action_after_effects": "The range B3:D9 is highlighted.",
+      "nl_explanation": "After the table is complete, drag from B3 to D9 to select the planned, actual, and difference values together for currency formatting."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Format the numeric values as currency",
+      "action_before_state": "The range B3:D9 is selected.",
+      "action_preconditions": [
+        "B3:D9 remains highlighted.",
+        "The formatting toolbar is visible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Currency Format button on the formatting toolbar"
+        }
+      },
+      "action_after_effects": "The selected money values display using the system's currency format.",
+      "nl_explanation": "When B3:D9 is selected, click the currency formatting button so all budget-related numbers display as money."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Select the header row so it can be emphasized",
+      "action_before_state": "The table is visible and the header row runs from A2 to E2.",
+      "action_preconditions": [
+        "Cells A2 through E2 are visible.",
+        "The sheet is still active."
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell A2, the Day header"
+        },
+        "end": {
+          "text": "cell E2, the Status header"
+        },
+        "target": {
+          "begin": {
+            "text": "cell A2, the Day header"
+          },
+          "end": {
+            "text": "cell E2, the Status header"
+          }
+        }
+      },
+      "action_after_effects": "The entire header row A2:E2 is selected.",
+      "nl_explanation": "Drag across the header row from A2 to E2 so the labels can be formatted together and stand out from the data rows."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Make the header row stand out",
+      "action_before_state": "The header row A2:E2 is selected.",
+      "action_preconditions": [
+        "A2:E2 is highlighted.",
+        "The Bold button is available on the toolbar."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Bold button on the toolbar"
+        }
+      },
+      "action_after_effects": "The header row becomes bold.",
+      "nl_explanation": "With the headers selected, click Bold so the column names are easier to distinguish from the daily entries."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Select the full table for border formatting",
+      "action_before_state": "The completed table from A2 to E9 is visible and already contains all values and formulas.",
+      "action_preconditions": [
+        "Cells A2 through E9 are on screen.",
+        "The spreadsheet remains editable."
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell A2 at the top-left of the table"
+        },
+        "end": {
+          "text": "cell E9 at the bottom-right of the table"
+        },
+        "target": {
+          "begin": {
+            "text": "cell A2 at the top-left of the table"
+          },
+          "end": {
+            "text": "cell E9 at the bottom-right of the table"
+          }
+        }
+      },
+      "action_after_effects": "The whole table range A2:E9 is selected.",
+      "nl_explanation": "Drag from A2 to E9 to select the whole tracker so a border can be applied to the completed table."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Add borders to tidy the table",
+      "action_before_state": "The full table A2:E9 is selected.",
+      "action_preconditions": [
+        "A2:E9 remains highlighted.",
+        "The border controls are visible on the toolbar."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the All Borders option in the border controls on the toolbar"
+        }
+      },
+      "action_after_effects": "Grid borders appear around the selected table cells.",
+      "nl_explanation": "When the whole table is selected, apply all borders so the finished budget tracker looks organized and easier to read."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Open the Save As dialog",
+      "action_before_state": "The spreadsheet is complete and still open in LibreOffice Calc.",
+      "action_preconditions": [
+        "The worksheet is active.",
+        "No save dialog is currently open."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "s"
+        ]
+      },
+      "action_after_effects": "The Save As dialog opens.",
+      "nl_explanation": "After finishing the table, press Ctrl+Shift+S to open Save As and prepare to store the spreadsheet with a specific file name."
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Enter the file name",
+      "action_before_state": "The Save As dialog is open and the file name field is ready for input.",
+      "action_preconditions": [
+        "The Save As dialog is visible.",
+        "The file name input box is focused or ready to accept typing."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "weekly_meal_budget.ods"
+      },
+      "action_after_effects": "The chosen file name appears in the Save As dialog.",
+      "nl_explanation": "With the save dialog open, type the target file name so the completed budget sheet will be saved under the requested name."
+    },
+    {
+      "step_id": "s17",
+      "step_goal": "Confirm the save",
+      "action_before_state": "The Save As dialog contains the file name weekly_meal_budget.ods.",
+      "action_preconditions": [
+        "The Save As dialog is still open.",
+        "The file name has already been entered."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The file is saved and the dialog closes, returning focus to the spreadsheet.",
+      "nl_explanation": "Once the file name is entered in the save dialog, press Enter to save the spreadsheet and finish the task."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Add a clear worksheet title at the top of the tracker.",
+      "unit_type": "ENTER_TITLE",
+      "unit_before_state": "LibreOffice Calc is open on an editable sheet with the upper-left grid visible and cell A1 available.",
+      "unit_after_state": "Cell A1 contains the text \"Weekly Meal Budget Tracker\" at the top of the sheet.",
+      "unit_precondition": [
+        "The spreadsheet grid is visible.",
+        "Cell A1 is on screen and can be selected.",
+        "No dialog is blocking text entry into the sheet."
+      ],
+      "unit_effect": [
+        "A1 becomes the active cell and then displays the title text \"Weekly Meal Budget Tracker\"."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4
+      ],
+      "unit_intent": "Create the base weekly meal table with day names and the planned and actual spending columns.",
+      "unit_type": "POPULATE_TABLE_COLUMNS",
+      "unit_before_state": "The title is already visible in A1, and the area starting at cell A2 is empty and ready for table data.",
+      "unit_after_state": "Cells A2:C9 are filled with the headers Day, Planned Budget, and Actual Spend plus rows for Monday through Sunday and their numeric values.",
+      "unit_precondition": [
+        "The title has already been entered in A1.",
+        "Cell A2 is visible and can be activated.",
+        "The range A2:C9 is empty or available for new content."
+      ],
+      "unit_effect": [
+        "A2 becomes the active starting cell.",
+        "The three-column table appears from A2 to C9 with seven weekday rows populated."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Add calculated budget differences for each day.",
+      "unit_type": "ADD_CALCULATED_COLUMN",
+      "unit_before_state": "The base table is visible in columns A to C, and column D is empty with cell D2 available beside the Actual Spend header.",
+      "unit_after_state": "Column D contains the header \"Difference\" in D2 and formulas in D3:D9 that compute Actual Spend minus Planned Budget for each day.",
+      "unit_precondition": [
+        "The table in A2:C9 is already populated.",
+        "Cell D2 is visible and empty.",
+        "The cells D3:D9 are available for formulas."
+      ],
+      "unit_effect": [
+        "D2 becomes the active cell.",
+        "The Difference header appears in D2.",
+        "Formula results populate D3:D9 for all seven days."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Label each day as over budget or within budget based on the calculated difference.",
+      "unit_type": "ADD_STATUS_COLUMN",
+      "unit_before_state": "The table now includes the Difference column in D, and column E is empty with cell E2 available.",
+      "unit_after_state": "Column E contains the header \"Status\" in E2 and formulas in E3:E9 that show \"Over\" when the difference is positive and \"OK\" otherwise.",
+      "unit_precondition": [
+        "The Difference column has already been created in D2:D9.",
+        "Cell E2 is visible and empty.",
+        "The cells E3:E9 are available for formulas."
+      ],
+      "unit_effect": [
+        "E2 becomes the active cell.",
+        "The Status header appears in E2.",
+        "Status values populate E3:E9 with visible results such as \"Over\" or \"OK\"."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Display all budget-related numeric values using currency formatting.",
+      "unit_type": "FORMAT_CURRENCY_RANGE",
+      "unit_before_state": "The completed table from A2:E9 is visible, and the numeric budget and difference values in B3:D9 are unformatted or in plain number format.",
+      "unit_after_state": "The cells in B3:D9 show currency formatting with currency symbols and monetary number presentation.",
+      "unit_precondition": [
+        "The table data and formulas are already present.",
+        "Cells B3 through D9 are visible on screen.",
+        "The formatting toolbar with the Currency Format control is available."
+      ],
+      "unit_effect": [
+        "The range B3:D9 becomes highlighted.",
+        "The selected values visibly change to currency-formatted amounts."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        11,
+        12
+      ],
+      "unit_intent": "Make the table header row visually stand out from the daily entries.",
+      "unit_type": "EMPHASIZE_HEADER_ROW",
+      "unit_before_state": "The table is visible with headers in A2:E2, and the header row is not yet specially emphasized.",
+      "unit_after_state": "The header row A2:E2 is displayed in bold, making the column labels more prominent than the data rows.",
+      "unit_precondition": [
+        "Cells A2 through E2 are visible.",
+        "The sheet remains active and editable.",
+        "The Bold formatting control is available on the toolbar."
+      ],
+      "unit_effect": [
+        "The range A2:E2 becomes selected.",
+        "The header text visibly changes to bold formatting."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        13,
+        14
+      ],
+      "unit_intent": "Add visible grid borders to organize the finished tracker table.",
+      "unit_type": "APPLY_TABLE_BORDERS",
+      "unit_before_state": "The full tracker table from A2 to E9 is complete and visible, but cell borders have not yet been applied to the whole range.",
+      "unit_after_state": "The table range A2:E9 shows borders around the selected cells, making the tracker look structured and separated into grid cells.",
+      "unit_precondition": [
+        "The completed table A2:E9 is visible on screen.",
+        "The spreadsheet is still editable.",
+        "The border controls, including an all-borders option, are available."
+      ],
+      "unit_effect": [
+        "The range A2:E9 becomes selected.",
+        "Visible grid borders appear around the cells in the selected table."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_08",
+      "step_indices": [
+        15,
+        16,
+        17
+      ],
+      "unit_intent": "Save the completed spreadsheet under the requested weekly meal budget filename.",
+      "unit_type": "SAVE_DOCUMENT_AS",
+      "unit_before_state": "The formatted weekly meal budget tracker is open in LibreOffice Calc, and no save dialog is currently open.",
+      "unit_after_state": "The file is saved as \"weekly_meal_budget.ods\", the Save As dialog closes, and focus returns to the spreadsheet.",
+      "unit_precondition": [
+        "The worksheet is active in LibreOffice Calc.",
+        "The spreadsheet content is complete and ready to save.",
+        "The Save As dialog can be opened and its filename field can accept input."
+      ],
+      "unit_effect": [
+        "The Save As dialog opens.",
+        "The filename field shows \"weekly_meal_budget.ods\".",
+        "After confirmation, the dialog closes and the document is saved under that name."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Add a clear worksheet title at the top of the tracker.",
+      "unit_type": "ENTER_TITLE",
+      "unit_before_state": "LibreOffice Calc is open on an editable sheet with the upper-left grid visible and cell A1 available.",
+      "unit_after_state": "Cell A1 contains the text \"Weekly Meal Budget Tracker\" at the top of the sheet.",
+      "unit_precondition": [
+        "The spreadsheet grid is visible.",
+        "Cell A1 is on screen and can be selected.",
+        "No dialog is blocking text entry into the sheet."
+      ],
+      "unit_effect": [
+        "A1 becomes the active cell and then displays the title text \"Weekly Meal Budget Tracker\"."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Enter a specified worksheet title into a designated starting cell at the top of the sheet.",
+      "parameters": {
+        "target_cell": "cell A1 in the top-left corner of the sheet",
+        "title_text": "Weekly Meal Budget Tracker"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell A1 in the top-left corner of the sheet'}}",
+          "action_template": "When a spreadsheet grid is visible and {{target_cell}} can be seen on the screen, click {{target_cell}} so the worksheet title can be entered at the top; after the click, {{target_cell}} becomes the active cell with a visible selection border."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Weekly Meal Budget Tracker'}",
+          "action_template": "With {{target_cell}} selected and no dialog window blocking the sheet, type {{title_text}} so the spreadsheet has a clear heading at the top; after typing, the title appears in {{target_cell}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4
+      ],
+      "unit_intent": "Create the base weekly meal table with day names and the planned and actual spending columns.",
+      "unit_type": "POPULATE_TABLE_COLUMNS",
+      "unit_before_state": "The title is already visible in A1, and the area starting at cell A2 is empty and ready for table data.",
+      "unit_after_state": "Cells A2:C9 are filled with the headers Day, Planned Budget, and Actual Spend plus rows for Monday through Sunday and their numeric values.",
+      "unit_precondition": [
+        "The title has already been entered in A1.",
+        "Cell A2 is visible and can be activated.",
+        "The range A2:C9 is empty or available for new content."
+      ],
+      "unit_effect": [
+        "A2 becomes the active starting cell.",
+        "The three-column table appears from A2 to C9 with seven weekday rows populated."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Populate a spreadsheet table by activating a specified starting cell and inserting the full header-and-row dataset into the target range.",
+      "parameters": {
+        "target_cell": "A2",
+        "target_range": "A2:C9",
+        "table_content": "Day\tPlanned Budget\tActual Spend\nMonday\t12\t11.5\nTuesday\t15\t16.75\nWednesday\t10\t9\nThursday\t18\t21.2\nFriday\t14\t13.6\nSaturday\t20\t19.8\nSunday\t16\t17.4"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell A2 directly below the title'}}",
+          "action_template": "Click {{target_cell}} to position the cursor where the table should begin after confirming the spreadsheet is editable and {{target_cell}} is visible; this makes {{target_cell}} active."
+        },
+        {
+          "action": "{'type': 'CLICK', 'text': 'Day\\tPlanned Budget\\tActual Spend\\nMonday\\t12\\t11.5\\nTuesday\\t15\\t16.75\\nWednesday\\t10\\t9\\nThursday\\t18\\t21.2\\nFriday\\t14\\t13.6\\nSaturday\\t20\\t19.8\\nSunday\\t16\\t17.4', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the relevant libreoffice_calc UI element'}}",
+          "action_template": "With {{target_cell}} selected, paste {{table_content}} in one pass after confirming the rows and columns for {{target_range}} are available; this populates {{target_range}} with the table headers and entries."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Add calculated budget differences for each day.",
+      "unit_type": "ADD_CALCULATED_COLUMN",
+      "unit_before_state": "The base table is visible in columns A to C, and column D is empty with cell D2 available beside the Actual Spend header.",
+      "unit_after_state": "Column D contains the header \"Difference\" in D2 and formulas in D3:D9 that compute Actual Spend minus Planned Budget for each day.",
+      "unit_precondition": [
+        "The table in A2:C9 is already populated.",
+        "Cell D2 is visible and empty.",
+        "The cells D3:D9 are available for formulas."
+      ],
+      "unit_effect": [
+        "D2 becomes the active cell.",
+        "The Difference header appears in D2.",
+        "Formula results populate D3:D9 for all seven days."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Add a calculated difference column to an existing table by selecting the target start cell and inserting a header with row formulas.",
+      "parameters": {
+        "target_start_cell": "D2",
+        "formula_fill_range": "D3:D9",
+        "header_text": "Difference",
+        "formula_block": "=C3-B3\n=C4-B4\n=C5-B5\n=C6-B6\n=C7-B7\n=C8-B8\n=C9-B9"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell D2 to the right of the Actual Spend header'}}",
+          "action_template": "When the existing table is visible and {{target_start_cell}} is available, click {{target_start_cell}} to make it the active cell for the calculated difference column."
+        },
+        {
+          "action": "{'type': 'CLICK', 'text': 'Difference\\n=C3-B3\\n=C4-B4\\n=C5-B5\\n=C6-B6\\n=C7-B7\\n=C8-B8\\n=C9-B9', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the relevant libreoffice_calc UI element'}}",
+          "action_template": "With {{target_start_cell}} selected and {{formula_fill_range}} empty and visible, paste {{header_text}} and {{formula_block}} starting at {{target_start_cell}} so the calculated column is populated with the header and row formulas."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Label each day as over budget or within budget based on the calculated difference.",
+      "unit_type": "ADD_STATUS_COLUMN",
+      "unit_before_state": "The table now includes the Difference column in D, and column E is empty with cell E2 available.",
+      "unit_after_state": "Column E contains the header \"Status\" in E2 and formulas in E3:E9 that show \"Over\" when the difference is positive and \"OK\" otherwise.",
+      "unit_precondition": [
+        "The Difference column has already been created in D2:D9.",
+        "Cell E2 is visible and empty.",
+        "The cells E3:E9 are available for formulas."
+      ],
+      "unit_effect": [
+        "E2 becomes the active cell.",
+        "The Status header appears in E2.",
+        "Status values populate E3:E9 with visible results such as \"Over\" or \"OK\"."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a status column by selecting its starting cell and inserting a header plus row-wise formulas that classify each record based on the computed difference.",
+      "parameters": {
+        "target_start_cell": "cell E2 to the right of the Difference header",
+        "status_column_content": "Status\n=IF(D3>0,\"Over\",\"OK\")\n=IF(D4>0,\"Over\",\"OK\")\n=IF(D5>0,\"Over\",\"OK\")\n=IF(D6>0,\"Over\",\"OK\")\n=IF(D7>0,\"Over\",\"OK\")\n=IF(D8>0,\"Over\",\"OK\")\n=IF(D9>0,\"Over\",\"OK\")",
+        "content_source_ui": "the relevant libreoffice_calc UI element"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "CLICK",
+          "action_template": "Click {{target_start_cell}} once the difference results are already present and the cell is visible and empty, so the status column can be created and the start cell becomes active."
+        },
+        {
+          "action": "CLICK",
+          "action_template": "With the start cell active and the target cells available, click {{content_source_ui}} containing {{status_column_content}} to populate the column with the header and formulas that classify each row based on the difference amount."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Display all budget-related numeric values using currency formatting.",
+      "unit_type": "FORMAT_CURRENCY_RANGE",
+      "unit_before_state": "The completed table from A2:E9 is visible, and the numeric budget and difference values in B3:D9 are unformatted or in plain number format.",
+      "unit_after_state": "The cells in B3:D9 show currency formatting with currency symbols and monetary number presentation.",
+      "unit_precondition": [
+        "The table data and formulas are already present.",
+        "Cells B3 through D9 are visible on screen.",
+        "The formatting toolbar with the Currency Format control is available."
+      ],
+      "unit_effect": [
+        "The range B3:D9 becomes highlighted.",
+        "The selected values visibly change to currency-formatted amounts."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Apply currency formatting to a worksheet range containing monetary values.",
+      "parameters": {
+        "target_range": "B3:D9",
+        "range_start_cell": "cell B3, the first planned budget value",
+        "range_end_cell": "cell D9, the last difference value"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'cell B3, the first planned budget value'}, 'end': {'text': 'cell D9, the last difference value'}, 'target': {'begin': {'text': 'cell B3, the first planned budget value'}, 'end': {'text': 'cell D9, the last difference value'}}}",
+          "action_template": "With {{target_range}} visible and no menu or dialog open, drag from {{range_start_cell}} to {{range_end_cell}} to select the monetary values so {{target_range}} is highlighted for currency formatting."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Currency Format button on the formatting toolbar'}}",
+          "action_template": "With {{target_range}} still highlighted and the formatting toolbar visible, click the Currency Format button to display the selected values in {{target_range}} using the system's currency format."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        11,
+        12
+      ],
+      "unit_intent": "Make the table header row visually stand out from the daily entries.",
+      "unit_type": "EMPHASIZE_HEADER_ROW",
+      "unit_before_state": "The table is visible with headers in A2:E2, and the header row is not yet specially emphasized.",
+      "unit_after_state": "The header row A2:E2 is displayed in bold, making the column labels more prominent than the data rows.",
+      "unit_precondition": [
+        "Cells A2 through E2 are visible.",
+        "The sheet remains active and editable.",
+        "The Bold formatting control is available on the toolbar."
+      ],
+      "unit_effect": [
+        "The range A2:E2 becomes selected.",
+        "The header text visibly changes to bold formatting."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Apply bold formatting to a specified header cell range so the column labels stand out from the data rows.",
+      "parameters": {
+        "target_range": "A2:E2",
+        "range_start_cell": "cell A2, the Day header",
+        "range_end_cell": "cell E2, the Status header"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'cell A2, the Day header'}, 'end': {'text': 'cell E2, the Status header'}, 'target': {'begin': {'text': 'cell A2, the Day header'}, 'end': {'text': 'cell E2, the Status header'}}}",
+          "action_template": "Drag across {{target_range}} from {{range_start_cell}} to {{range_end_cell}} so the header labels can be selected and formatted together."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Bold button on the toolbar'}}",
+          "action_template": "Click the Bold button on the toolbar to apply bold formatting to the selected {{target_range}} and make the header labels more prominent than the data rows."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_07",
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        13,
+        14
+      ],
+      "unit_intent": "Add visible grid borders to organize the finished tracker table.",
+      "unit_type": "APPLY_TABLE_BORDERS",
+      "unit_before_state": "The full tracker table from A2 to E9 is complete and visible, but cell borders have not yet been applied to the whole range.",
+      "unit_after_state": "The table range A2:E9 shows borders around the selected cells, making the tracker look structured and separated into grid cells.",
+      "unit_precondition": [
+        "The completed table A2:E9 is visible on screen.",
+        "The spreadsheet is still editable.",
+        "The border controls, including an all-borders option, are available."
+      ],
+      "unit_effect": [
+        "The range A2:E9 becomes selected.",
+        "Visible grid borders appear around the cells in the selected table."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Apply visible grid borders to a specified completed table range to make the table visually organized and easier to read.",
+      "parameters": {
+        "selection_start_cell": "A2",
+        "selection_end_cell": "E9",
+        "target_range": "A2:E9",
+        "border_option": "the All Borders option in the border controls on the toolbar"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'cell A2 at the top-left of the table'}, 'end': {'text': 'cell E9 at the bottom-right of the table'}, 'target': {'begin': {'text': 'cell A2 at the top-left of the table'}, 'end': {'text': 'cell E9 at the bottom-right of the table'}}}",
+          "action_template": "With {{selection_start_cell}} through {{selection_end_cell}} visible on screen and the spreadsheet editable, drag from {{selection_start_cell}} to {{selection_end_cell}} to select the whole table range {{target_range}} so border formatting can be applied; the full range becomes selected."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the All Borders option in the border controls on the toolbar'}}",
+          "action_template": "When {{target_range}} remains highlighted and the border controls are visible on the toolbar, click {{border_option}} to apply grid borders around the selected table cells so the table looks organized and easier to read."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_08",
+      "unit_id": "u_seg_001_08",
+      "step_indices": [
+        15,
+        16,
+        17
+      ],
+      "unit_intent": "Save the completed spreadsheet under the requested weekly meal budget filename.",
+      "unit_type": "SAVE_DOCUMENT_AS",
+      "unit_before_state": "The formatted weekly meal budget tracker is open in LibreOffice Calc, and no save dialog is currently open.",
+      "unit_after_state": "The file is saved as \"weekly_meal_budget.ods\", the Save As dialog closes, and focus returns to the spreadsheet.",
+      "unit_precondition": [
+        "The worksheet is active in LibreOffice Calc.",
+        "The spreadsheet content is complete and ready to save.",
+        "The Save As dialog can be opened and its filename field can accept input."
+      ],
+      "unit_effect": [
+        "The Save As dialog opens.",
+        "The filename field shows \"weekly_meal_budget.ods\".",
+        "After confirmation, the dialog closes and the document is saved under that name."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the completed spreadsheet under a specified filename using the Save As dialog.",
+      "parameters": {
+        "file_name": "weekly_meal_budget.ods"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 's']}",
+          "action_template": "Press Ctrl+Shift+S to open the Save As dialog when the worksheet is active and no save dialog is currently open, so the spreadsheet can be prepared for saving under a specified file name."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'weekly_meal_budget.ods'}",
+          "action_template": "Type {{file_name}} into the file name input box when the Save As dialog is visible and the filename field is ready to accept input, so the chosen file name appears in the dialog."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter to confirm saving after {{file_name}} has been entered and the Save As dialog remains open, so the file is saved and the dialog closes, returning focus to the spreadsheet."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

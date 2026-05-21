@@ -1,0 +1,415 @@
+{
+  "segment_id": "seg_001",
+  "app": "thunderbird",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Select the target email from newsletter@example.com in the inbox list",
+      "action_before_state": "Thunderbird main window is displayed showing the inbox with multiple emails in the list. The email from newsletter@example.com with subject 'Weekly Newsletter - October Edition' is visible in the message list pane.",
+      "action_preconditions": [
+        "Thunderbird is open and focused",
+        "The inbox folder is currently selected and displayed",
+        "The target email from newsletter@example.com is visible in the message list"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "target": {
+          "text": "Email entry from newsletter@example.com in the message list"
+        },
+        "num_clicks": 1
+      },
+      "action_after_effects": "The selected email becomes highlighted in the list, and its content (headers, body, and any attachments) is displayed in the preview pane below or in a new tab if configured for tabbed reading.",
+      "nl_explanation": "Locate the email from newsletter@example.com in the inbox list and click on it to select it, which will display its contents in the preview pane."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Open the Save Message dialog to initiate saving the email as a file",
+      "action_before_state": "The email from newsletter@example.com is now selected and highlighted in the message list. The email content is visible in the preview pane showing the newsletter content.",
+      "action_preconditions": [
+        "An email is selected in the message list (highlighted)",
+        "The main Thunderbird window has focus"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "s"
+        ]
+      },
+      "action_after_effects": "The 'Save Message' dialog window opens, prompting for the location and filename. By default, the dialog may open to the last used save location. You can choose to save as .eml format.",
+      "nl_explanation": "With the target email selected, press Ctrl+S to open the Save Message dialog, which allows saving the email as an .eml file."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Navigate to home directory and specify the filename for the saved email file",
+      "action_before_state": "The Save Message dialog is open. The current location shows the last used folder or a default location. The filename field may contain a default name based on the email subject.",
+      "action_preconditions": [
+        "The Save Message dialog is open and active",
+        "The location/path field and filename input field are visible and accessible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "target": {
+          "text": "Path bar or location entry in Save Message dialog"
+        },
+        "num_clicks": 1
+      },
+      "action_after_effects": "The location entry is now editable. User can now type the home directory path.",
+      "nl_explanation": "Click on the path bar to make it editable so we can navigate to the home directory."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Enter the home directory path in the location field",
+      "action_before_state": "The Save Message dialog is open with the path/location field now editable (or cursor in filename field after clearing it).",
+      "action_preconditions": [
+        "The Save Message dialog is open and active",
+        "The path/location field is editable"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "/home/user"
+      },
+      "action_after_effects": "The path bar now shows '/home/user' as the target directory. The filename field remains or can be cleared for entering the new filename.",
+      "nl_explanation": "Type the home directory path '/home/user' into the location field to navigate to the home folder. Note: GTK file dialogs do not automatically expand tilde (~) in the filename field, so we use the full path in the location field."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Navigate to the home directory",
+      "action_before_state": "The path bar contains '/home/user' but the dialog may still be showing the previous directory.",
+      "action_preconditions": [
+        "The path '/home/user' has been entered in the location field"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The dialog navigates to /home/user. The file list updates to show contents of the home directory. The filename field is now ready for input.",
+      "nl_explanation": "Press Enter to confirm the path and navigate to the home directory."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Enter the filename for the saved email",
+      "action_before_state": "The Save Message dialog is showing the home directory (/home/user). The filename field is empty or can be cleared.",
+      "action_preconditions": [
+        "The dialog is showing /home/user directory",
+        "The filename field is accessible"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "newsletter-backup.eml"
+      },
+      "action_after_effects": "The filename field now contains 'newsletter-backup.eml'. The full save path will be /home/user/newsletter-backup.eml.",
+      "nl_explanation": "Type 'newsletter-backup.eml' into the filename field. This will save the email as /home/user/newsletter-backup.eml."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Confirm the save operation to complete saving the email file",
+      "action_before_state": "The Save Message dialog shows the filename field populated with 'newsletter-backup.eml'. The location bar shows /home/user. The Save button is active and ready to be clicked.",
+      "action_preconditions": [
+        "The filename 'newsletter-backup.eml' has been entered",
+        "The location shows /home/user",
+        "The Save button is visible and enabled"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "target": {
+          "text": "Save button in the Save Message dialog"
+        },
+        "num_clicks": 1
+      },
+      "action_after_effects": "The Save Message dialog closes. The email is saved as /home/user/newsletter-backup.eml. The main Thunderbird window returns to focus showing the inbox with the selected email still highlighted.",
+      "nl_explanation": "Click the Save button to confirm and complete saving the email as newsletter-backup.eml in the home directory. The dialog will close and the file will be created."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Load the requested newsletter email so it becomes the active message to operate on.",
+      "unit_type": "SELECT_MESSAGE",
+      "unit_before_state": "Thunderbird is open on the inbox view, showing multiple messages in the message list. The email from newsletter@example.com with subject 'Weekly Newsletter - October Edition' is visible but not yet selected.",
+      "unit_after_state": "The newsletter email from newsletter@example.com is highlighted in the message list, and its contents are displayed in the message preview pane.",
+      "unit_precondition": [
+        "Thunderbird is the focused application.",
+        "The inbox folder is open.",
+        "The message from newsletter@example.com is visible in the message list."
+      ],
+      "unit_effect": [
+        "The target email row becomes highlighted.",
+        "The preview pane updates to show the selected newsletter email's headers and body."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2
+      ],
+      "unit_intent": "Start exporting the selected email to a file.",
+      "unit_type": "OPEN_SAVE_MESSAGE_DIALOG",
+      "unit_before_state": "The newsletter email is selected in Thunderbird, and its content is visible in the preview pane within the main window.",
+      "unit_after_state": "A 'Save Message' dialog is open on top of Thunderbird, showing a save location control and a filename field.",
+      "unit_precondition": [
+        "A single email is selected in Thunderbird.",
+        "The Thunderbird main window has keyboard focus."
+      ],
+      "unit_effect": [
+        "The 'Save Message' dialog appears.",
+        "The dialog exposes controls for choosing the folder and output filename."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        3,
+        4,
+        5
+      ],
+      "unit_intent": "Change the save destination to the user's home folder before naming the backup file.",
+      "unit_type": "NAVIGATE_SAVE_LOCATION",
+      "unit_before_state": "The 'Save Message' dialog is open, currently showing a default or previously used folder. The path control is visible but not yet in edit mode.",
+      "unit_after_state": "The save dialog is now navigated to /home/user, with the file list updated to that folder and the filename field ready for entry.",
+      "unit_precondition": [
+        "The 'Save Message' dialog is open and active.",
+        "The location/path control in the dialog can be focused and edited."
+      ],
+      "unit_effect": [
+        "The path entry becomes editable after clicking it.",
+        "The location field shows '/home/user'.",
+        "After pressing Enter, the dialog content refreshes to display the home directory."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        6
+      ],
+      "unit_intent": "Set the exact backup filename requested for the exported email.",
+      "unit_type": "SET_SAVE_FILENAME",
+      "unit_before_state": "The 'Save Message' dialog is displaying the /home/user directory, and the filename field is available for typing.",
+      "unit_after_state": "The filename field contains 'newsletter-backup.eml', indicating the file will be saved as /home/user/newsletter-backup.eml.",
+      "unit_precondition": [
+        "The save dialog is currently open in /home/user.",
+        "The filename input field is editable."
+      ],
+      "unit_effect": [
+        "The filename field visibly shows 'newsletter-backup.eml'.",
+        "The pending save target resolves to /home/user/newsletter-backup.eml."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        7
+      ],
+      "unit_intent": "Complete the export so the newsletter is saved as an offline .eml backup in the home folder.",
+      "unit_type": "SAVE_MESSAGE_FILE",
+      "unit_before_state": "The 'Save Message' dialog shows location /home/user and filename 'newsletter-backup.eml', and the Save button is enabled.",
+      "unit_after_state": "The save dialog is closed, Thunderbird returns to the inbox view, and the selected newsletter email remains highlighted in the main window.",
+      "unit_precondition": [
+        "The save location is set to /home/user.",
+        "The filename field contains 'newsletter-backup.eml'.",
+        "The Save button is visible and enabled."
+      ],
+      "unit_effect": [
+        "The 'Save Message' dialog closes.",
+        "The email is saved as /home/user/newsletter-backup.eml.",
+        "Focus returns to the Thunderbird main window."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Load the requested newsletter email so it becomes the active message to operate on.",
+      "unit_type": "SELECT_MESSAGE",
+      "unit_before_state": "Thunderbird is open on the inbox view, showing multiple messages in the message list. The email from newsletter@example.com with subject 'Weekly Newsletter - October Edition' is visible but not yet selected.",
+      "unit_after_state": "The newsletter email from newsletter@example.com is highlighted in the message list, and its contents are displayed in the message preview pane.",
+      "unit_precondition": [
+        "Thunderbird is the focused application.",
+        "The inbox folder is open.",
+        "The message from newsletter@example.com is visible in the message list."
+      ],
+      "unit_effect": [
+        "The target email row becomes highlighted.",
+        "The preview pane updates to show the selected newsletter email's headers and body."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Select a specified email message so it becomes the active message for subsequent operations.",
+      "parameters": {
+        "target_folder": "inbox",
+        "sender_email": "newsletter@example.com",
+        "email_subject": "Weekly Newsletter - October Edition"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'target': {'text': 'Email entry from newsletter@example.com in the message list'}, 'num_clicks': 1}",
+          "action_template": "With Thunderbird focused and the {{target_folder}} folder displayed, locate the email from {{sender_email}} with subject {{email_subject}} in the message list and single-click it to select it, causing the message row to become highlighted and its contents to appear in the preview pane or reading tab."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2
+      ],
+      "unit_intent": "Start exporting the selected email to a file.",
+      "unit_type": "OPEN_SAVE_MESSAGE_DIALOG",
+      "unit_before_state": "The newsletter email is selected in Thunderbird, and its content is visible in the preview pane within the main window.",
+      "unit_after_state": "A 'Save Message' dialog is open on top of Thunderbird, showing a save location control and a filename field.",
+      "unit_precondition": [
+        "A single email is selected in Thunderbird.",
+        "The Thunderbird main window has keyboard focus."
+      ],
+      "unit_effect": [
+        "The 'Save Message' dialog appears.",
+        "The dialog exposes controls for choosing the folder and output filename."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open the save dialog for the selected email to begin exporting it as a message file.",
+      "parameters": {
+        "target_email": "the email from newsletter@example.com",
+        "output_file_format": ".eml"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 's']}",
+          "action_template": "With {{target_email}} selected and the main Thunderbird window focused, press Ctrl+S to open the Save Message dialog, which prompts for the save location and filename and supports saving the email as a {{output_file_format}} file."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        3,
+        4,
+        5
+      ],
+      "unit_intent": "Change the save destination to the user's home folder before naming the backup file.",
+      "unit_type": "NAVIGATE_SAVE_LOCATION",
+      "unit_before_state": "The 'Save Message' dialog is open, currently showing a default or previously used folder. The path control is visible but not yet in edit mode.",
+      "unit_after_state": "The save dialog is now navigated to /home/user, with the file list updated to that folder and the filename field ready for entry.",
+      "unit_precondition": [
+        "The 'Save Message' dialog is open and active.",
+        "The location/path control in the dialog can be focused and edited."
+      ],
+      "unit_effect": [
+        "The path entry becomes editable after clicking it.",
+        "The location field shows '/home/user'.",
+        "After pressing Enter, the dialog content refreshes to display the home directory."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Navigate the save dialog to a specified destination folder before entering a filename.",
+      "parameters": {
+        "target_directory": "/home/user"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'target': {'text': 'Path bar or location entry in Save Message dialog'}, 'num_clicks': 1}",
+          "action_template": "With the Save Message dialog open and the location/path field visible and accessible, click the path bar or location entry to make it editable so {{target_directory}} can be entered."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '/home/user'}",
+          "action_template": "With the Save Message dialog open and the path/location field editable, type {{target_directory}} into the location field to set the target directory."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After {{target_directory}} has been entered in the location field, press Enter to confirm the path and navigate there so the dialog refreshes and the filename field is ready for input."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        6
+      ],
+      "unit_intent": "Set the exact backup filename requested for the exported email.",
+      "unit_type": "SET_SAVE_FILENAME",
+      "unit_before_state": "The 'Save Message' dialog is displaying the /home/user directory, and the filename field is available for typing.",
+      "unit_after_state": "The filename field contains 'newsletter-backup.eml', indicating the file will be saved as /home/user/newsletter-backup.eml.",
+      "unit_precondition": [
+        "The save dialog is currently open in /home/user.",
+        "The filename input field is editable."
+      ],
+      "unit_effect": [
+        "The filename field visibly shows 'newsletter-backup.eml'.",
+        "The pending save target resolves to /home/user/newsletter-backup.eml."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Specify the desired filename for the item being saved in the open save dialog.",
+      "parameters": {
+        "file_name": "newsletter-backup.eml",
+        "save_directory": "/home/user"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'newsletter-backup.eml'}",
+          "action_template": "Type {{file_name}} into the filename field when the save dialog is showing {{save_directory}} and the filename field is accessible. After typing, the filename field contains {{file_name}} and the full save path resolves under {{save_directory}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        7
+      ],
+      "unit_intent": "Complete the export so the newsletter is saved as an offline .eml backup in the home folder.",
+      "unit_type": "SAVE_MESSAGE_FILE",
+      "unit_before_state": "The 'Save Message' dialog shows location /home/user and filename 'newsletter-backup.eml', and the Save button is enabled.",
+      "unit_after_state": "The save dialog is closed, Thunderbird returns to the inbox view, and the selected newsletter email remains highlighted in the main window.",
+      "unit_precondition": [
+        "The save location is set to /home/user.",
+        "The filename field contains 'newsletter-backup.eml'.",
+        "The Save button is visible and enabled."
+      ],
+      "unit_effect": [
+        "The 'Save Message' dialog closes.",
+        "The email is saved as /home/user/newsletter-backup.eml.",
+        "Focus returns to the Thunderbird main window."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Confirm saving the selected email message as a specified .eml file in the chosen folder.",
+      "parameters": {
+        "save_location": "/home/user",
+        "file_name": "newsletter-backup.eml",
+        "confirm_button": "Save button in the Save Message dialog"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'target': {'text': 'Save button in the Save Message dialog'}, 'num_clicks': 1}",
+          "action_template": "Click {{confirm_button}} to confirm and complete saving the email as {{file_name}} in {{save_location}} once the filename has been entered, the location is set, and the button is enabled. The dialog closes, the file is created, and focus returns to the Thunderbird main window with the selected email still highlighted."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

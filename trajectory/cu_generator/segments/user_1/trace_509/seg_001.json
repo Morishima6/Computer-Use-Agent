@@ -1,0 +1,475 @@
+{
+  "segment_id": "seg_001",
+  "app": "vlc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the file chooser so the video can be loaded",
+      "action_before_state": "VLC is already open on the screen, and either no media is playing yet or the main player window is visible.",
+      "action_preconditions": [
+        "The VLC window is focused.",
+        "Keyboard input is going to VLC."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "o"
+        ]
+      },
+      "action_after_effects": "A GNOME file chooser opens in front of VLC for selecting a media file.",
+      "nl_explanation": "When VLC is the active window, press Ctrl+O to open the file chooser. The expected result is that a file selection dialog appears so the video can be picked."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Navigate to the Videos folder that contains the recording",
+      "action_before_state": "The GNOME file chooser is open, with a left sidebar that includes standard folders such as Home, Downloads, and Videos.",
+      "action_preconditions": [
+        "The file chooser is visible.",
+        "The Videos folder is listed in the sidebar."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Videos folder in the left sidebar of the file chooser"
+        }
+      },
+      "action_after_effects": "The main file list updates to show the contents of the Videos folder.",
+      "nl_explanation": "Once the file chooser is open and the Videos shortcut is visible, click Videos in the sidebar. This should switch the file list to the folder where the video is stored."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Open the talk recording in VLC",
+      "action_before_state": "The file chooser is showing the contents of the Videos folder, including the file `community_talk.mp4`.",
+      "action_preconditions": [
+        "`community_talk.mp4` is visible in the file list.",
+        "The file chooser is still active."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 2,
+        "target": {
+          "text": "the file named community_talk.mp4 in the main file list"
+        }
+      },
+      "action_after_effects": "The file chooser closes, VLC loads the selected video, and playback begins or the first frame appears.",
+      "nl_explanation": "When the target video file is visible in the Videos folder, double-click `community_talk.mp4`. VLC should close the chooser and open that recording."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Open the subtitle file picker",
+      "action_before_state": "The video is loaded in VLC, and the top menu bar is visible.",
+      "action_preconditions": [
+        "A video is open in VLC.",
+        "The VLC menu bar is available."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Add Subtitle File option under the Subtitle menu in the VLC menu bar"
+        }
+      },
+      "action_after_effects": "A file chooser opens for selecting an external subtitle file.",
+      "nl_explanation": "After the video is open and the menu bar is accessible, click `Subtitle > Add Subtitle File`. The expected result is a new file chooser for attaching subtitles to the current video."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Go to the Downloads folder where the subtitle file was saved",
+      "action_before_state": "The subtitle file chooser is open, and the sidebar shows common locations such as Home, Downloads, and Videos.",
+      "action_preconditions": [
+        "The subtitle file chooser is visible.",
+        "The Downloads folder is listed in the sidebar."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Downloads folder in the left sidebar of the file chooser"
+        }
+      },
+      "action_after_effects": "The main pane refreshes to show files stored in Downloads.",
+      "nl_explanation": "With the subtitle chooser open, click Downloads in the sidebar. This should navigate the chooser to the folder containing the `.srt` file."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Attach the subtitle file to the current video",
+      "action_before_state": "The subtitle file chooser is displaying the Downloads folder, and `community_talk_en.srt` is visible in the list.",
+      "action_preconditions": [
+        "`community_talk_en.srt` is visible in the file list.",
+        "The chooser is still active."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 2,
+        "target": {
+          "text": "the file named community_talk_en.srt in the main file list"
+        }
+      },
+      "action_after_effects": "The chooser closes, and VLC loads the external subtitles for the current video.",
+      "nl_explanation": "When the subtitle file is visible in Downloads, double-click `community_talk_en.srt`. VLC should attach that subtitle track to the open video."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Open the subtitle synchronization controls",
+      "action_before_state": "The video is playing in VLC with the subtitle track loaded, and the top menu bar is visible.",
+      "action_preconditions": [
+        "The subtitle file has already been loaded.",
+        "The VLC menu bar is accessible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Track Synchronization option under the Tools menu"
+        }
+      },
+      "action_after_effects": "The Track Synchronization dialog opens on top of the VLC window.",
+      "nl_explanation": "After the subtitles are attached, click `Tools > Track Synchronization`. This opens the dialog used to adjust subtitle timing against the video."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Select the current subtitle delay value for editing",
+      "action_before_state": "The Track Synchronization dialog is open, and the Subtitle track synchronization value field is visible.",
+      "action_preconditions": [
+        "The Track Synchronization dialog is open.",
+        "The subtitle delay input box is visible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 2,
+        "target": {
+          "text": "the numeric value inside the Subtitle track synchronization field"
+        }
+      },
+      "action_after_effects": "The existing subtitle delay value is highlighted, ready to be replaced.",
+      "nl_explanation": "When the synchronization dialog is visible, double-click the current value in the subtitle synchronization field. The expected result is that the old number becomes selected for quick replacement."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Set the subtitle delay to 0.5 seconds later",
+      "action_before_state": "The current subtitle synchronization value is selected inside the Track Synchronization dialog.",
+      "action_preconditions": [
+        "The subtitle synchronization field is focused.",
+        "Its existing value is highlighted or ready for replacement."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "0.5"
+      },
+      "action_after_effects": "The field updates to 0.5 seconds, so subtitle lines will appear half a second later than before.",
+      "nl_explanation": "With the subtitle delay field focused and its old value selected, type `0.5`. VLC should update the timing so the subtitles appear 0.5 seconds later."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Close the synchronization dialog after applying the timing change",
+      "action_before_state": "The Track Synchronization dialog still sits above the VLC player, and the subtitle delay value has already been changed to 0.5.",
+      "action_preconditions": [
+        "The timing value has been entered.",
+        "The dialog is still open."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the close button on the Track Synchronization dialog"
+        }
+      },
+      "action_after_effects": "The Track Synchronization dialog closes, returning focus to the main VLC playback window.",
+      "nl_explanation": "After the subtitle timing has been adjusted, click the dialog's close button. This dismisses the settings window and returns you to the video."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Switch the video to fullscreen for viewing",
+      "action_before_state": "The main VLC window is visible again, with the video and synchronized subtitles active.",
+      "action_preconditions": [
+        "VLC is focused.",
+        "The synchronization dialog has been closed."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "f"
+        ]
+      },
+      "action_after_effects": "VLC enters fullscreen mode, showing the video and subtitles across the whole screen.",
+      "nl_explanation": "When the main playback window is active again, press `f` to toggle fullscreen. The result should be a fullscreen video with the newly adjusted subtitles."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Load the downloaded talk recording into VLC so it is ready for subtitle setup and playback.",
+      "unit_type": "OPEN_VIDEO_FILE",
+      "unit_before_state": "The VLC player window is open on screen and is focused, with no file chooser open yet. The main player area is visible and ready to accept a media-open command.",
+      "unit_after_state": "The file chooser has closed and `community_talk.mp4` is loaded in VLC. The video is now visible in the player area, either already playing or paused on its first frame.",
+      "unit_precondition": [
+        "VLC is the active window and can receive keyboard input.",
+        "The system file chooser can be opened from VLC.",
+        "`community_talk.mp4` is available in the Videos folder and visible after navigating there."
+      ],
+      "unit_effect": [
+        "A GNOME file chooser opens from VLC.",
+        "The chooser switches to the Videos folder and shows its contents.",
+        "Double-clicking `community_talk.mp4` closes the chooser and loads the video into VLC."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Attach the separately downloaded English subtitle file to the currently open video.",
+      "unit_type": "LOAD_EXTERNAL_SUBTITLE",
+      "unit_before_state": "`community_talk.mp4` is already open in VLC, the main playback window is visible, and no subtitle file chooser is open yet.",
+      "unit_after_state": "The subtitle file chooser has closed, and the current VLC video now has the external subtitle track `community_talk_en.srt` loaded.",
+      "unit_precondition": [
+        "A video is already open in VLC.",
+        "The VLC menu bar is available so `Subtitle > Add Subtitle File` can be used.",
+        "`community_talk_en.srt` exists in the Downloads folder and can be selected from the chooser."
+      ],
+      "unit_effect": [
+        "Choosing `Subtitle > Add Subtitle File` opens a file chooser for subtitle selection.",
+        "Selecting Downloads updates the chooser to show files from that folder.",
+        "Double-clicking `community_talk_en.srt` closes the chooser and attaches the subtitle track to the video."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8,
+        9,
+        10
+      ],
+      "unit_intent": "Delay the loaded subtitles by 0.5 seconds so they align better with the talk audio and return to normal playback view.",
+      "unit_type": "ADJUST_SUBTITLE_DELAY",
+      "unit_before_state": "VLC is showing the loaded video with the external subtitle track active, and the main playback window with the top menu bar is visible.",
+      "unit_after_state": "The Track Synchronization dialog is closed, focus has returned to the main VLC playback window, and the subtitle synchronization value has been changed to `0.5` so subtitles will appear later than before.",
+      "unit_precondition": [
+        "The external subtitle file has already been loaded for the current video.",
+        "The VLC menu bar is accessible so the Track Synchronization dialog can be opened.",
+        "The Subtitle track synchronization field is available for editing inside the dialog."
+      ],
+      "unit_effect": [
+        "The Track Synchronization dialog opens over VLC.",
+        "The existing subtitle delay value becomes selected in the Subtitle track synchronization field.",
+        "Typing `0.5` replaces the old value in that field.",
+        "Closing the dialog returns to the main VLC window with the new subtitle delay setting applied."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        11
+      ],
+      "unit_intent": "Switch the prepared video into fullscreen for watching with the adjusted subtitles.",
+      "unit_type": "ENTER_FULLSCREEN",
+      "unit_before_state": "The main VLC playback window is focused again after closing the synchronization dialog, and the video is playing with the external subtitles and the new 0.5-second delay setting active.",
+      "unit_after_state": "VLC is in fullscreen mode, with the video occupying the entire screen and subtitles displayed in the fullscreen playback view.",
+      "unit_precondition": [
+        "The main VLC window is focused.",
+        "No modal dialog is blocking keyboard input.",
+        "The video and subtitle settings have already been configured."
+      ],
+      "unit_effect": [
+        "Pressing `f` toggles VLC from windowed playback into fullscreen mode.",
+        "The video canvas expands to full screen and subtitles continue displaying during fullscreen playback."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Load the downloaded talk recording into VLC so it is ready for subtitle setup and playback.",
+      "unit_type": "OPEN_VIDEO_FILE",
+      "unit_before_state": "The VLC player window is open on screen and is focused, with no file chooser open yet. The main player area is visible and ready to accept a media-open command.",
+      "unit_after_state": "The file chooser has closed and `community_talk.mp4` is loaded in VLC. The video is now visible in the player area, either already playing or paused on its first frame.",
+      "unit_precondition": [
+        "VLC is the active window and can receive keyboard input.",
+        "The system file chooser can be opened from VLC.",
+        "`community_talk.mp4` is available in the Videos folder and visible after navigating there."
+      ],
+      "unit_effect": [
+        "A GNOME file chooser opens from VLC.",
+        "The chooser switches to the Videos folder and shows its contents.",
+        "Double-clicking `community_talk.mp4` closes the chooser and loads the video into VLC."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Load a specified video file from a designated folder into VLC so it is ready for playback or further setup.",
+      "parameters": {
+        "target_folder": "Videos",
+        "target_file": "community_talk.mp4"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'o']}",
+          "action_template": "When VLC is the active window and keyboard input is going to VLC, press Ctrl+O to open the file chooser. The expected result is that a file selection dialog appears in front of VLC so the video can be picked."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Videos folder in the left sidebar of the file chooser'}}",
+          "action_template": "Once the file chooser is visible and {{target_folder}} is listed in the sidebar, click {{target_folder}} in the left sidebar of the file chooser. This should switch the main file list to show the contents of {{target_folder}}."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 2, 'target': {'text': 'the file named community_talk.mp4 in the main file list'}}",
+          "action_template": "When {{target_file}} is visible in the file list and the file chooser is still active, double-click {{target_file}} in the main file list. The chooser should close, VLC should load the selected video, and playback should begin or the first frame should appear."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Attach the separately downloaded English subtitle file to the currently open video.",
+      "unit_type": "LOAD_EXTERNAL_SUBTITLE",
+      "unit_before_state": "`community_talk.mp4` is already open in VLC, the main playback window is visible, and no subtitle file chooser is open yet.",
+      "unit_after_state": "The subtitle file chooser has closed, and the current VLC video now has the external subtitle track `community_talk_en.srt` loaded.",
+      "unit_precondition": [
+        "A video is already open in VLC.",
+        "The VLC menu bar is available so `Subtitle > Add Subtitle File` can be used.",
+        "`community_talk_en.srt` exists in the Downloads folder and can be selected from the chooser."
+      ],
+      "unit_effect": [
+        "Choosing `Subtitle > Add Subtitle File` opens a file chooser for subtitle selection.",
+        "Selecting Downloads updates the chooser to show files from that folder.",
+        "Double-clicking `community_talk_en.srt` closes the chooser and attaches the subtitle track to the video."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Attach a specified external subtitle file from a chosen folder to the currently open video.",
+      "parameters": {
+        "subtitle_folder": "Downloads",
+        "subtitle_file_name": "community_talk_en.srt"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Add Subtitle File option under the Subtitle menu in the VLC menu bar'}}",
+          "action_template": "With a video already open in VLC and the menu bar available, click `Subtitle > Add Subtitle File` to open a file chooser for selecting an external subtitle file."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Downloads folder in the left sidebar of the file chooser'}}",
+          "action_template": "When the subtitle file chooser is visible and {{subtitle_folder}} is listed in the sidebar, click {{subtitle_folder}} to navigate the chooser so the main pane shows files from that folder."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 2, 'target': {'text': 'the file named community_talk_en.srt in the main file list'}}",
+          "action_template": "When {{subtitle_file_name}} is visible in the file list and the chooser is still active, double-click {{subtitle_file_name}} to close the chooser and attach that subtitle track to the current video."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8,
+        9,
+        10
+      ],
+      "unit_intent": "Delay the loaded subtitles by 0.5 seconds so they align better with the talk audio and return to normal playback view.",
+      "unit_type": "ADJUST_SUBTITLE_DELAY",
+      "unit_before_state": "VLC is showing the loaded video with the external subtitle track active, and the main playback window with the top menu bar is visible.",
+      "unit_after_state": "The Track Synchronization dialog is closed, focus has returned to the main VLC playback window, and the subtitle synchronization value has been changed to `0.5` so subtitles will appear later than before.",
+      "unit_precondition": [
+        "The external subtitle file has already been loaded for the current video.",
+        "The VLC menu bar is accessible so the Track Synchronization dialog can be opened.",
+        "The Subtitle track synchronization field is available for editing inside the dialog."
+      ],
+      "unit_effect": [
+        "The Track Synchronization dialog opens over VLC.",
+        "The existing subtitle delay value becomes selected in the Subtitle track synchronization field.",
+        "Typing `0.5` replaces the old value in that field.",
+        "Closing the dialog returns to the main VLC window with the new subtitle delay setting applied."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Adjust the subtitle track synchronization value to a specified delay and return to the main playback view.",
+      "parameters": {
+        "subtitle_delay_value": "0.5"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Track Synchronization option under the Tools menu'}}",
+          "action_template": "Click `Tools > Track Synchronization` to open the dialog used to adjust subtitle timing against the video, provided the subtitle file has already been loaded and the VLC menu bar is accessible. The Track Synchronization dialog opens on top of the VLC window."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 2, 'target': {'text': 'the numeric value inside the Subtitle track synchronization field'}}",
+          "action_template": "When the Track Synchronization dialog is open and the subtitle delay input box is visible, double-click the current value in the Subtitle track synchronization field so the existing subtitle delay value is highlighted and ready to be replaced."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '0.5'}",
+          "action_template": "With the subtitle synchronization field focused and its existing value highlighted or ready for replacement, type {{subtitle_delay_value}} so the field updates to {{subtitle_delay_value}} seconds and subtitle lines will appear later than before."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the close button on the Track Synchronization dialog'}}",
+          "action_template": "After the timing value has been entered and the dialog is still open, click the close button on the Track Synchronization dialog to dismiss the settings window and return focus to the main VLC playback window."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        11
+      ],
+      "unit_intent": "Switch the prepared video into fullscreen for watching with the adjusted subtitles.",
+      "unit_type": "ENTER_FULLSCREEN",
+      "unit_before_state": "The main VLC playback window is focused again after closing the synchronization dialog, and the video is playing with the external subtitles and the new 0.5-second delay setting active.",
+      "unit_after_state": "VLC is in fullscreen mode, with the video occupying the entire screen and subtitles displayed in the fullscreen playback view.",
+      "unit_precondition": [
+        "The main VLC window is focused.",
+        "No modal dialog is blocking keyboard input.",
+        "The video and subtitle settings have already been configured."
+      ],
+      "unit_effect": [
+        "Pressing `f` toggles VLC from windowed playback into fullscreen mode.",
+        "The video canvas expands to full screen and subtitles continue displaying during fullscreen playback."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Switch the current VLC playback into fullscreen mode for viewing.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['f']}",
+          "action_template": "When the main playback window is active again and VLC is focused after the synchronization dialog has been closed, press `f` to toggle fullscreen. The result should be fullscreen playback with the video and subtitles shown across the whole screen."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

@@ -1,0 +1,542 @@
+{
+  "segment_id": "seg_001",
+  "app": "libreoffice_calc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Place the cursor in the empty header cell for the new calculation column",
+      "action_before_state": "The spreadsheet is open in Calc, row 1 contains existing headers, and the cell to the right of the 'Actual Spend' header is empty.",
+      "action_preconditions": [
+        "LibreOffice Calc is the active window",
+        "The main data table is visible",
+        "Cell D1 is empty and available for a new header"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell D1, the empty header cell immediately to the right of 'Actual Spend'"
+        }
+      },
+      "action_after_effects": "Cell D1 becomes the active cell and is ready for text entry.",
+      "nl_explanation": "When the budget table is visible and D1 is empty, click the empty header cell to the right of 'Actual Spend' so the new column can be named."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Name the new column",
+      "action_before_state": "Cell D1 is active with a visible cell border, and the rest of the sheet remains unchanged.",
+      "action_preconditions": [
+        "Cell D1 is selected",
+        "The insertion point is ready for input"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Remaining Budget"
+      },
+      "action_after_effects": "The new header text is entered into D1.",
+      "nl_explanation": "With D1 selected, type 'Remaining Budget' so the new calculation column is clearly labeled."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Move to the first data row in the new column",
+      "action_before_state": "The header row now includes 'Remaining Budget' in D1, and the first category row starts on row 2.",
+      "action_preconditions": [
+        "The header in D1 has been entered",
+        "The first row of actual data is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell D2, the first empty data cell under 'Remaining Budget'"
+        }
+      },
+      "action_after_effects": "Cell D2 becomes active and is ready for a formula.",
+      "nl_explanation": "After adding the new header, click D2 so the first remaining-budget formula can be entered in the first category row."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Enter the remaining-budget formula for the first category",
+      "action_before_state": "Cell D2 is selected, and the planned and actual amounts for the first category are in B2 and C2.",
+      "action_preconditions": [
+        "Cell D2 is active",
+        "Column B contains planned values",
+        "Column C contains actual values"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "=B2-C2"
+      },
+      "action_after_effects": "The subtraction formula is entered into D2 and is ready to be confirmed.",
+      "nl_explanation": "When D2 is selected and the first row has planned and actual numbers in B2 and C2, type '=B2-C2' to calculate the remaining budget for that category."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Confirm the formula and calculate the first result",
+      "action_before_state": "The formula '=B2-C2' is visible in the active D2 cell entry.",
+      "action_preconditions": [
+        "The formula has been typed into D2",
+        "The formula has not yet been confirmed"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "Calc evaluates the formula in D2 and shows the remaining-budget result for the first row.",
+      "nl_explanation": "Once the formula is typed in D2, press Enter to commit it and display the calculated remaining budget for the first category."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Fill the same formula down the rest of the budget categories",
+      "action_before_state": "Cell D2 contains the correct remaining-budget result, and the other rows in column D are still empty.",
+      "action_preconditions": [
+        "D2 contains the completed formula result",
+        "The remaining category rows are visible down to row 8",
+        "The fill handle on D2 can be reached"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the small fill handle at the bottom-right corner of cell D2"
+        },
+        "end": {
+          "text": "the bottom-right corner of cell D8"
+        },
+        "target": {
+          "begin": {
+            "text": "the fill handle at the bottom-right corner of cell D2"
+          },
+          "end": {
+            "text": "cell D8, the last row of the budget table"
+          }
+        }
+      },
+      "action_after_effects": "The remaining-budget formula is copied from D2 through D8, and each category row now has a calculated value.",
+      "nl_explanation": "With the first formula already working in D2 and the rest of the category rows visible, drag the fill handle down to D8 so Calc copies the same calculation for every category."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Select the full budget table for chart creation",
+      "action_before_state": "Columns A through D now contain category labels plus planned, actual, and remaining amounts, with row 1 as headers.",
+      "action_preconditions": [
+        "The table spans A1 through D8",
+        "All needed rows and columns are visible on screen"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell A1 at the top-left of the table"
+        },
+        "end": {
+          "text": "cell D8 at the bottom-right of the completed table"
+        },
+        "target": {
+          "begin": {
+            "text": "cell A1, the top-left corner of the budget table"
+          },
+          "end": {
+            "text": "cell D8, the bottom-right corner of the budget table"
+          }
+        }
+      },
+      "action_after_effects": "The entire data table A1:D8 is highlighted, making it the active selection for the chart wizard and allowing Calc to use the first row and first column as labels.",
+      "nl_explanation": "After the remaining-budget column is filled in, drag from A1 to D8 to select the whole table so the chart uses all category labels and numeric columns."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Open the Insert menu to add a chart",
+      "action_before_state": "The table from A1 to D8 is selected, and the top Calc menu bar is visible.",
+      "action_preconditions": [
+        "The full table is still selected",
+        "The menu bar is visible at the top of the Calc window"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the 'Insert' menu in the top menu bar"
+        }
+      },
+      "action_after_effects": "The Insert drop-down menu opens with chart-related options visible.",
+      "nl_explanation": "With the full table highlighted, click the Insert menu so you can add a chart based on the selected budget data."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Start the chart insertion workflow",
+      "action_before_state": "The Insert menu is open, and the Chart option is visible in the drop-down list.",
+      "action_preconditions": [
+        "The Insert menu is expanded",
+        "The Chart menu item is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the 'Chart' option in the Insert menu"
+        }
+      },
+      "action_after_effects": "The chart wizard opens and shows a default chart preview based on the selected table.",
+      "nl_explanation": "When the Insert menu is open and the Chart option is available, click it to open the chart wizard using the selected budget table."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Insert the chart with the selected budget data",
+      "action_before_state": "The chart wizard is open and shows a default chart preview based on the selected table.",
+      "action_preconditions": [
+        "The chart wizard is visible",
+        "A chart preview appears with the selected data range"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the 'Finish' button in the chart wizard"
+        }
+      },
+      "action_after_effects": "A chart is inserted into the sheet, showing the budget comparison based on the selected table.",
+      "nl_explanation": "Once the chart wizard preview looks ready, click Finish to place the chart into the spreadsheet and complete the visual comparison."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Save the completed spreadsheet",
+      "action_before_state": "The worksheet now contains the new Remaining Budget column and the inserted chart.",
+      "action_preconditions": [
+        "The requested edits are visible in the spreadsheet",
+        "LibreOffice Calc remains the active window"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "s"
+        ]
+      },
+      "action_after_effects": "The spreadsheet is saved with the new formulas and chart.",
+      "nl_explanation": "After the calculations and chart are in place, press Ctrl+S to save the updated budget sheet."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Create a new labeled column where remaining budget values will be stored.",
+      "unit_type": "ADD_COLUMN_HEADER",
+      "unit_before_state": "LibreOffice Calc shows the household budget table with headers in row 1, including an 'Actual Spend' header in column C, and cell D1 is empty to its right.",
+      "unit_after_state": "Cell D1 contains the header text 'Remaining Budget', establishing column D as the new remaining-budget column.",
+      "unit_precondition": [
+        "LibreOffice Calc is the active window.",
+        "The main budget table is visible with the header row on screen.",
+        "Cell D1 is empty and available for a new header."
+      ],
+      "unit_effect": [
+        "Cell D1 becomes active and accepts text input.",
+        "The visible header row now includes 'Remaining Budget' in D1."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Calculate the remaining budget for every listed category using planned minus actual spending.",
+      "unit_type": "POPULATE_FORMULA_COLUMN",
+      "unit_before_state": "The worksheet already shows the new 'Remaining Budget' header in D1, row 2 is the first category row, and cells D2:D8 are still empty.",
+      "unit_after_state": "Column D is populated from D2 through D8 with calculated remaining-budget values for each category.",
+      "unit_precondition": [
+        "The header 'Remaining Budget' is already present in D1.",
+        "Column B contains planned amounts and column C contains actual spending values for the category rows.",
+        "The first data row and the fill handle for D2 are visible.",
+        "Rows 2 through 8 of the budget table are on screen."
+      ],
+      "unit_effect": [
+        "Cell D2 receives the formula '=B2-C2' and displays a numeric result after Enter is pressed.",
+        "Dragging the fill handle copies the formula down through D8.",
+        "Each category row now shows a remaining-budget value in column D."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7
+      ],
+      "unit_intent": "Select the completed budget table as the source range for chart creation.",
+      "unit_type": "SELECT_DATA_RANGE",
+      "unit_before_state": "The budget table is complete across columns A through D, with headers in row 1 and category values filled through row 8, but no chart source range is currently highlighted.",
+      "unit_after_state": "The full table range A1:D8 is highlighted as the active selection.",
+      "unit_precondition": [
+        "The completed table spans A1 through D8.",
+        "All four columns and rows 1 through 8 are visible on screen."
+      ],
+      "unit_effect": [
+        "Cells A1 through D8 are visibly selected.",
+        "The selected range now includes category labels plus planned, actual, and remaining values for charting."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8,
+        9,
+        10
+      ],
+      "unit_intent": "Insert a chart that visually compares planned, actual, and remaining amounts across categories.",
+      "unit_type": "INSERT_CHART",
+      "unit_before_state": "Range A1:D8 is selected in Calc, and the menu bar is visible at the top of the spreadsheet window.",
+      "unit_after_state": "A chart object is inserted into the sheet showing a comparison based on the selected budget table.",
+      "unit_precondition": [
+        "The full source table A1:D8 remains selected.",
+        "The Insert menu is accessible from the Calc menu bar.",
+        "The chart wizard can open using the current selection as its data range."
+      ],
+      "unit_effect": [
+        "The Insert menu opens and exposes the Chart command.",
+        "The chart wizard appears with a preview based on the selected table.",
+        "Clicking Finish places the generated chart onto the worksheet."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        11
+      ],
+      "unit_intent": "Save the worksheet after adding the remaining-budget calculations and comparison chart.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The worksheet displays the new 'Remaining Budget' column with calculated values and an inserted chart comparing the budget figures.",
+      "unit_after_state": "The spreadsheet remains open with the same visible edits, and those edits are now saved to disk.",
+      "unit_precondition": [
+        "The requested spreadsheet changes are already visible.",
+        "LibreOffice Calc is still the active application window."
+      ],
+      "unit_effect": [
+        "The save command is issued with Ctrl+S.",
+        "The updated formulas and inserted chart are stored in the document."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Create a new labeled column where remaining budget values will be stored.",
+      "unit_type": "ADD_COLUMN_HEADER",
+      "unit_before_state": "LibreOffice Calc shows the household budget table with headers in row 1, including an 'Actual Spend' header in column C, and cell D1 is empty to its right.",
+      "unit_after_state": "Cell D1 contains the header text 'Remaining Budget', establishing column D as the new remaining-budget column.",
+      "unit_precondition": [
+        "LibreOffice Calc is the active window.",
+        "The main budget table is visible with the header row on screen.",
+        "Cell D1 is empty and available for a new header."
+      ],
+      "unit_effect": [
+        "Cell D1 becomes active and accepts text input.",
+        "The visible header row now includes 'Remaining Budget' in D1."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Add a specified header label into an empty column-header cell next to an existing table header.",
+      "parameters": {
+        "target_cell": "D1",
+        "reference_header": "Actual Spend",
+        "header_text": "Remaining Budget"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "CLICK",
+          "action_template": "When the budget table is visible and {{target_cell}} is empty, click the empty header cell to the right of '{{reference_header}}' so the new column can be named."
+        },
+        {
+          "action": "TYPING",
+          "action_template": "With {{target_cell}} selected, type '{{header_text}}' so the new calculation column is clearly labeled."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Calculate the remaining budget for every listed category using planned minus actual spending.",
+      "unit_type": "POPULATE_FORMULA_COLUMN",
+      "unit_before_state": "The worksheet already shows the new 'Remaining Budget' header in D1, row 2 is the first category row, and cells D2:D8 are still empty.",
+      "unit_after_state": "Column D is populated from D2 through D8 with calculated remaining-budget values for each category.",
+      "unit_precondition": [
+        "The header 'Remaining Budget' is already present in D1.",
+        "Column B contains planned amounts and column C contains actual spending values for the category rows.",
+        "The first data row and the fill handle for D2 are visible.",
+        "Rows 2 through 8 of the budget table are on screen."
+      ],
+      "unit_effect": [
+        "Cell D2 receives the formula '=B2-C2' and displays a numeric result after Enter is pressed.",
+        "Dragging the fill handle copies the formula down through D8.",
+        "Each category row now shows a remaining-budget value in column D."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Populate a calculation column by entering the formula for the first data row and autofilling it through the remaining visible rows.",
+      "parameters": {
+        "target_cell": "D2",
+        "formula_expression": "=B2-C2",
+        "source_cell_1": "B2",
+        "source_cell_2": "C2",
+        "fill_end_cell": "D8"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': \"cell D2, the first empty data cell under 'Remaining Budget'\"}}",
+          "action_template": "When the destination column header is already entered and the first data row is visible, click {{target_cell}} so the first calculation formula can be entered there. After this action, {{target_cell}} becomes active and is ready for a formula."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '=B2-C2'}",
+          "action_template": "With {{target_cell}} active and the source values available in {{source_cell_1}} and {{source_cell_2}}, type {{formula_expression}} to calculate the value for the first row. After this action, the formula is entered into {{target_cell}} and is ready to be confirmed."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Once {{formula_expression}} has been typed into {{target_cell}} and not yet confirmed, press Enter to commit it. After this action, the spreadsheet evaluates the formula in {{target_cell}} and shows the calculated result for the first row."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the small fill handle at the bottom-right corner of cell D2'}, 'end': {'text': 'the bottom-right corner of cell D8'}, 'target': {'begin': {'text': 'the fill handle at the bottom-right corner of cell D2'}, 'end': {'text': 'cell D8, the last row of the budget table'}}}",
+          "action_template": "With the completed formula result already in {{target_cell}}, the remaining rows visible, and the fill handle reachable, drag the fill handle from {{target_cell}} down to {{fill_end_cell}} to copy the same calculation through the rest of the rows. After this action, the formula is filled from {{target_cell}} through {{fill_end_cell}} and each row shows a calculated value."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7
+      ],
+      "unit_intent": "Select the completed budget table as the source range for chart creation.",
+      "unit_type": "SELECT_DATA_RANGE",
+      "unit_before_state": "The budget table is complete across columns A through D, with headers in row 1 and category values filled through row 8, but no chart source range is currently highlighted.",
+      "unit_after_state": "The full table range A1:D8 is highlighted as the active selection.",
+      "unit_precondition": [
+        "The completed table spans A1 through D8.",
+        "All four columns and rows 1 through 8 are visible on screen."
+      ],
+      "unit_effect": [
+        "Cells A1 through D8 are visibly selected.",
+        "The selected range now includes category labels plus planned, actual, and remaining values for charting."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Select a completed table range as the source data for chart creation.",
+      "parameters": {
+        "source_range_start": "cell A1 at the top-left of the table",
+        "source_range_end": "cell D8 at the bottom-right of the completed table",
+        "source_range": "A1:D8"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "DRAG_TO",
+          "action_template": "After the table is complete, drag from {{source_range_start}} to {{source_range_end}} to select the whole table so the chart uses all labels and numeric columns. Preconditions: the table spans {{source_range}} and all needed rows and columns are visible on screen. After this action, the entire data table {{source_range}} is highlighted as the active selection for chart creation."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8,
+        9,
+        10
+      ],
+      "unit_intent": "Insert a chart that visually compares planned, actual, and remaining amounts across categories.",
+      "unit_type": "INSERT_CHART",
+      "unit_before_state": "Range A1:D8 is selected in Calc, and the menu bar is visible at the top of the spreadsheet window.",
+      "unit_after_state": "A chart object is inserted into the sheet showing a comparison based on the selected budget table.",
+      "unit_precondition": [
+        "The full source table A1:D8 remains selected.",
+        "The Insert menu is accessible from the Calc menu bar.",
+        "The chart wizard can open using the current selection as its data range."
+      ],
+      "unit_effect": [
+        "The Insert menu opens and exposes the Chart command.",
+        "The chart wizard appears with a preview based on the selected table.",
+        "Clicking Finish places the generated chart onto the worksheet."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Insert a chart from a selected table to visualize comparisons across categories.",
+      "parameters": {
+        "source_data_range": "A1:D8",
+        "source_table_description": "the selected budget table"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "CLICK",
+          "action_template": "With {{source_data_range}} highlighted, click the Insert menu so you can add a chart based on {{source_table_description}}."
+        },
+        {
+          "action": "CLICK",
+          "action_template": "When the Insert menu is open and the Chart option is available, click it to open the chart wizard using {{source_table_description}}."
+        },
+        {
+          "action": "CLICK",
+          "action_template": "Once the chart wizard preview looks ready, click Finish to place the chart into the spreadsheet using {{source_table_description}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        11
+      ],
+      "unit_intent": "Save the worksheet after adding the remaining-budget calculations and comparison chart.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The worksheet displays the new 'Remaining Budget' column with calculated values and an inserted chart comparing the budget figures.",
+      "unit_after_state": "The spreadsheet remains open with the same visible edits, and those edits are now saved to disk.",
+      "unit_precondition": [
+        "The requested spreadsheet changes are already visible.",
+        "LibreOffice Calc is still the active application window."
+      ],
+      "unit_effect": [
+        "The save command is issued with Ctrl+S.",
+        "The updated formulas and inserted chart are stored in the document."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the active spreadsheet after completing the requested edits.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "PRESS",
+          "action_template": "Press Ctrl+S to save the active spreadsheet after the requested edits are visible and LibreOffice Calc remains the active window."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

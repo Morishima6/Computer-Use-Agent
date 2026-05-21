@@ -1,0 +1,640 @@
+{
+  "segment_id": "seg_001",
+  "app": "libreoffice_calc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Place the cursor in the top-left cell so the table can be entered from the start of the sheet",
+      "action_before_state": "libreoffice_calc is ready for step 1 of the task.",
+      "action_preconditions": [
+        "LibreOffice Calc is already open and visible",
+        "The worksheet grid is visible",
+        "Cell A1 can be seen near the top-left corner of the sheet"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the A1 cell at the top-left of the spreadsheet"
+        }
+      },
+      "action_after_effects": "Cell A1 becomes the active cell, so the next typed content will start there.",
+      "nl_explanation": "When the sheet grid is visible and A1 can be seen, click the A1 cell so the expense tracker starts from the first cell in the worksheet."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Enter the full weekly expense table with headers, values, and row formulas",
+      "action_before_state": "libreoffice_calc is ready for step 2 of the task.",
+      "action_preconditions": [
+        "Cell A1 is the active cell",
+        "The sheet is ready to receive typed input"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Category\tPlanned Budget\tActual Spend\tDifference\tStatus\nGroceries\t320\t298\t=C2-B2\t=IF(D2>0,\"Over budget\",\"Within budget\")\nTransport\t90\t112\t=C3-B3\t=IF(D3>0,\"Over budget\",\"Within budget\")\nDining Out\t140\t165\t=C4-B4\t=IF(D4>0,\"Over budget\",\"Within budget\")\nUtilities\t210\t205\t=C5-B5\t=IF(D5>0,\"Over budget\",\"Within budget\")\nMiscellaneous\t75\t88\t=C6-B6\t=IF(D6>0,\"Over budget\",\"Within budget\")"
+      },
+      "action_after_effects": "The range A1:E6 is populated with the expense tracker data, and the Difference and Status columns calculate automatically.",
+      "nl_explanation": "With A1 selected, type the tab-separated table so Calc fills the headers, the five expense rows, and the formulas needed to compare planned and actual spending."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Add a totals row for the budget, spending, and difference columns",
+      "action_before_state": "libreoffice_calc is ready for step 3 of the task.",
+      "action_preconditions": [
+        "The table in A1:E6 has been entered",
+        "Row 7 is empty and visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the empty A7 cell directly below the expense table"
+        }
+      },
+      "action_after_effects": "Cell A7 becomes active and is ready for the totals row.",
+      "nl_explanation": "After the main table is filled, click A7 so the summary totals can be inserted directly under the data."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Fill in the totals row",
+      "action_before_state": "libreoffice_calc is ready for step 4 of the task.",
+      "action_preconditions": [
+        "Cell A7 is active",
+        "Rows 2 through 6 contain the expense data"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Total\t=SUM(B2:B6)\t=SUM(C2:C6)\t=SUM(D2:D6)"
+      },
+      "action_after_effects": "A7 shows the Total label, and B7:D7 display the summed budget, actual spending, and difference values.",
+      "nl_explanation": "With A7 selected, type the total label and the SUM formulas so the overall planned, actual, and difference amounts appear in row 7."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Add one more summary line showing the highest actual expense value",
+      "action_before_state": "libreoffice_calc is ready for step 5 of the task.",
+      "action_preconditions": [
+        "The totals row is present in row 7",
+        "Row 8 is empty and visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the empty A8 cell below the totals row"
+        }
+      },
+      "action_after_effects": "Cell A8 becomes active and ready for another summary entry.",
+      "nl_explanation": "When the totals row is already in place, click A8 so the final summary line can be entered underneath it."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Insert the highest actual expense summary",
+      "action_before_state": "libreoffice_calc is ready for step 6 of the task.",
+      "action_preconditions": [
+        "Cell A8 is active",
+        "The Actual Spend values are present in C2:C6"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Highest Actual Expense\t\t=MAX(C2:C6)"
+      },
+      "action_after_effects": "A8 shows the label and C8 shows the largest value from the Actual Spend column.",
+      "nl_explanation": "With A8 selected, type the label and MAX formula so the sheet also reports the single highest actual spending amount."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Select the numeric part of the table for currency formatting",
+      "action_before_state": "libreoffice_calc is ready for step 7 of the task.",
+      "action_preconditions": [
+        "The table and summary rows are visible",
+        "Cells B2 through D8 are on screen"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell B2, the first numeric budget value"
+        },
+        "end": {
+          "text": "cell D8, the bottom-right cell covering the numeric summary area"
+        },
+        "target": {
+          "begin": {
+            "text": "cell B2, the first numeric budget value"
+          },
+          "end": {
+            "text": "cell D8, the bottom-right cell covering the numeric summary area"
+          }
+        }
+      },
+      "action_after_effects": "The numeric range B2:D8 is highlighted.",
+      "nl_explanation": "When the value columns are visible, drag from B2 to D8 to select the numeric cells that should display as money."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Format the selected numeric cells as currency",
+      "action_before_state": "libreoffice_calc is ready for step 8 of the task.",
+      "action_preconditions": [
+        "The range B2:D8 is selected",
+        "The standard formatting toolbar is visible above the sheet"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the currency format button in the toolbar above the worksheet"
+        }
+      },
+      "action_after_effects": "The selected numbers change to a currency display format.",
+      "nl_explanation": "With the numeric cells selected, click the currency button in the toolbar so the budget and spending values are shown in a money format."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Select the header row so it can be emphasized",
+      "action_before_state": "libreoffice_calc is ready for step 9 of the task.",
+      "action_preconditions": [
+        "The table headers are visible in row 1",
+        "Cells A1 through E1 are visible"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell A1, the Category header"
+        },
+        "end": {
+          "text": "cell E1, the Status header"
+        },
+        "target": {
+          "begin": {
+            "text": "cell A1, the Category header"
+          },
+          "end": {
+            "text": "cell E1, the Status header"
+          }
+        }
+      },
+      "action_after_effects": "The full header row A1:E1 is selected.",
+      "nl_explanation": "Once the table is built, drag across the first row from A1 to E1 so the headers can be formatted together."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Make the header row bold",
+      "action_before_state": "libreoffice_calc is ready for step 10 of the task.",
+      "action_preconditions": [
+        "The header cells A1:E1 are selected",
+        "LibreOffice Calc is focused and ready for keyboard shortcuts"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "b"
+        ]
+      },
+      "action_after_effects": "The column headers become bold and stand out from the data rows.",
+      "nl_explanation": "With the header row selected, press Ctrl+B to bold the labels and make the spreadsheet easier to read."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Open the Save As dialog so the spreadsheet can be stored with the requested name",
+      "action_before_state": "libreoffice_calc is ready for step 11 of the task.",
+      "action_preconditions": [
+        "The spreadsheet content is complete",
+        "LibreOffice Calc is the active window"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "s"
+        ]
+      },
+      "action_after_effects": "A Save As dialog opens.",
+      "nl_explanation": "After finishing the tracker, press Ctrl+Shift+S to open Save As and prepare to store the file with a specific name."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Enter the requested filename",
+      "action_before_state": "libreoffice_calc is ready for step 12 of the task.",
+      "action_preconditions": [
+        "The Save As dialog is open",
+        "The filename field is active or ready for input"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "weekly_household_budget.ods"
+      },
+      "action_after_effects": "The filename field contains weekly_household_budget.ods.",
+      "nl_explanation": "When the Save As dialog is open and the name field is ready, type weekly_household_budget.ods so the document will be saved under the requested filename."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Confirm the save operation",
+      "action_before_state": "libreoffice_calc is ready for step 13 of the task.",
+      "action_preconditions": [
+        "The Save As dialog is still open",
+        "The filename has been entered correctly"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The file is saved and the dialog closes, leaving the completed budget tracker open in LibreOffice Calc.",
+      "nl_explanation": "After the filename is entered, press Enter to confirm the save so the completed weekly household budget tracker is written to disk."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Create the main weekly budget tracker table with expense categories, planned and actual amounts, and per-row budget status calculations.",
+      "unit_type": "CREATE_TRACKER_TABLE",
+      "unit_before_state": "LibreOffice Calc shows an open worksheet grid with cell A1 visible and no budget table entered yet.",
+      "unit_after_state": "The sheet contains a filled table in A1:E6 with headers in row 1, five expense categories in rows 2 through 6, calculated differences in column D, and status labels in column E.",
+      "unit_precondition": [
+        "LibreOffice Calc is open with the worksheet grid visible.",
+        "Cell A1 is visible and can be activated for data entry.",
+        "The sheet is ready to accept pasted or typed tab-separated content."
+      ],
+      "unit_effect": [
+        "Cell A1 becomes the active insertion point.",
+        "Range A1:E6 is populated with the tracker table.",
+        "Difference cells display computed values and Status cells show either Over budget or Within budget."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4
+      ],
+      "unit_intent": "Add an overall totals summary directly below the expense table.",
+      "unit_type": "ADD_TOTALS_ROW",
+      "unit_before_state": "The budget table already fills A1:E6, and row 7 below it is empty and visible.",
+      "unit_after_state": "Row 7 contains a totals summary with Total in A7 and SUM formulas in B7, C7, and D7.",
+      "unit_precondition": [
+        "The main tracker table in A1:E6 is already present.",
+        "Cell A7 is empty and visible beneath the table.",
+        "Rows 2 through 6 contain numeric planned, actual, and difference values."
+      ],
+      "unit_effect": [
+        "Cell A7 becomes active for summary entry.",
+        "A7 shows the label Total.",
+        "B7, C7, and D7 display summed values for the budget, actual spend, and difference columns."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Add a separate summary showing the largest actual spending value.",
+      "unit_type": "ADD_MAX_SUMMARY",
+      "unit_before_state": "The totals row is already present in row 7, and the empty row 8 is visible below it.",
+      "unit_after_state": "Row 8 shows Highest Actual Expense in A8 and the maximum value from the Actual Spend column in C8.",
+      "unit_precondition": [
+        "The totals row in row 7 has already been created.",
+        "Cell A8 is empty and visible.",
+        "Actual Spend values exist in cells C2:C6."
+      ],
+      "unit_effect": [
+        "Cell A8 becomes active.",
+        "A8 displays the Highest Actual Expense label.",
+        "C8 shows the calculated maximum actual expense from C2:C6."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Format the budget, spending, and summary numbers as currency so the tracker reads like a financial sheet.",
+      "unit_type": "APPLY_CURRENCY_FORMAT",
+      "unit_before_state": "The completed table and summary rows are visible, and numeric values occupy B2:D8 in plain number format.",
+      "unit_after_state": "The selected numeric cells in B2:D8 remain highlighted and display currency formatting with money symbols and monetary number presentation.",
+      "unit_precondition": [
+        "The tracker data and summary rows are already filled in.",
+        "Cells B2 through D8 are visible on screen.",
+        "The toolbar currency format control is available."
+      ],
+      "unit_effect": [
+        "Range B2:D8 is selected.",
+        "The numbers in the selected range visibly change from plain numbers to currency-formatted values."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Emphasize the table headers so the tracker structure is easier to scan.",
+      "unit_type": "FORMAT_HEADER_ROW",
+      "unit_before_state": "The worksheet shows the completed tracker, with header labels in A1:E1 displayed in regular text weight.",
+      "unit_after_state": "Cells A1:E1 remain selected and the header labels are shown in bold, making the top row stand out from the data.",
+      "unit_precondition": [
+        "The header row A1:E1 is visible.",
+        "LibreOffice Calc is focused and accepts drag selection and keyboard shortcuts.",
+        "The table headers have already been entered in row 1."
+      ],
+      "unit_effect": [
+        "The full header row A1:E1 is selected.",
+        "The header text becomes bold."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        11,
+        12,
+        13
+      ],
+      "unit_intent": "Save the completed tracker as a new spreadsheet file with the requested filename.",
+      "unit_type": "SAVE_DOCUMENT_AS",
+      "unit_before_state": "The finished weekly household budget tracker is open in LibreOffice Calc, and no save dialog is currently blocking the sheet.",
+      "unit_after_state": "The Save As dialog has closed and the completed budget tracker remains open after being saved as weekly_household_budget.ods.",
+      "unit_precondition": [
+        "The spreadsheet content is complete and ready to save.",
+        "LibreOffice Calc is the active window.",
+        "A Save As operation can be opened and the filename field can receive input."
+      ],
+      "unit_effect": [
+        "A Save As dialog opens.",
+        "The filename field shows weekly_household_budget.ods.",
+        "After confirmation, the Save As dialog closes and the file is saved."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Create the main weekly budget tracker table with expense categories, planned and actual amounts, and per-row budget status calculations.",
+      "unit_type": "CREATE_TRACKER_TABLE",
+      "unit_before_state": "LibreOffice Calc shows an open worksheet grid with cell A1 visible and no budget table entered yet.",
+      "unit_after_state": "The sheet contains a filled table in A1:E6 with headers in row 1, five expense categories in rows 2 through 6, calculated differences in column D, and status labels in column E.",
+      "unit_precondition": [
+        "LibreOffice Calc is open with the worksheet grid visible.",
+        "Cell A1 is visible and can be activated for data entry.",
+        "The sheet is ready to accept pasted or typed tab-separated content."
+      ],
+      "unit_effect": [
+        "Cell A1 becomes the active insertion point.",
+        "Range A1:E6 is populated with the tracker table.",
+        "Difference cells display computed values and Status cells show either Over budget or Within budget."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a budget tracker table by activating a specified start cell and entering the full tab-separated table content with formulas.",
+      "parameters": {
+        "start_cell": "A1",
+        "tab_separated_table_content": "Category\tPlanned Budget\tActual Spend\tDifference\tStatus\nGroceries\t320\t298\t=C2-B2\t=IF(D2>0,\"Over budget\",\"Within budget\")\nTransport\t90\t112\t=C3-B3\t=IF(D3>0,\"Over budget\",\"Within budget\")\nDining Out\t140\t165\t=C4-B4\t=IF(D4>0,\"Over budget\",\"Within budget\")\nUtilities\t210\t205\t=C5-B5\t=IF(D5>0,\"Over budget\",\"Within budget\")\nMiscellaneous\t75\t88\t=C6-B6\t=IF(D6>0,\"Over budget\",\"Within budget\")"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the A1 cell at the top-left of the spreadsheet'}}",
+          "action_template": "When the worksheet grid is visible and {{start_cell}} can be seen, click {{start_cell}} so the budget tracker starts from the first selected cell and {{start_cell}} becomes the active cell for data entry."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Category\\tPlanned Budget\\tActual Spend\\tDifference\\tStatus\\nGroceries\\t320\\t298\\t=C2-B2\\t=IF(D2>0,\"Over budget\",\"Within budget\")\\nTransport\\t90\\t112\\t=C3-B3\\t=IF(D3>0,\"Over budget\",\"Within budget\")\\nDining Out\\t140\\t165\\t=C4-B4\\t=IF(D4>0,\"Over budget\",\"Within budget\")\\nUtilities\\t210\\t205\\t=C5-B5\\t=IF(D5>0,\"Over budget\",\"Within budget\")\\nMiscellaneous\\t75\\t88\\t=C6-B6\\t=IF(D6>0,\"Over budget\",\"Within budget\")'}",
+          "action_template": "With {{start_cell}} selected and the sheet ready to receive input, type {{tab_separated_table_content}} so Calc fills the tracker table with headers, expense rows, and formulas, and calculates the difference and status columns automatically."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4
+      ],
+      "unit_intent": "Add an overall totals summary directly below the expense table.",
+      "unit_type": "ADD_TOTALS_ROW",
+      "unit_before_state": "The budget table already fills A1:E6, and row 7 below it is empty and visible.",
+      "unit_after_state": "Row 7 contains a totals summary with Total in A7 and SUM formulas in B7, C7, and D7.",
+      "unit_precondition": [
+        "The main tracker table in A1:E6 is already present.",
+        "Cell A7 is empty and visible beneath the table.",
+        "Rows 2 through 6 contain numeric planned, actual, and difference values."
+      ],
+      "unit_effect": [
+        "Cell A7 becomes active for summary entry.",
+        "A7 shows the label Total.",
+        "B7, C7, and D7 display summed values for the budget, actual spend, and difference columns."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Add a totals summary row directly below a completed table by entering a summary label and column sum formulas.",
+      "parameters": {
+        "summary_cell": "A7",
+        "summary_label": "Total",
+        "planned_total_formula": "=SUM(B2:B6)",
+        "actual_total_formula": "=SUM(C2:C6)",
+        "difference_total_formula": "=SUM(D2:D6)"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the empty A7 cell directly below the expense table'}}",
+          "action_template": "After the main table is filled and {{summary_cell}} is empty and visible below it, click {{summary_cell}} so the totals summary can be inserted directly under the data and {{summary_cell}} becomes active."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Total\\t=SUM(B2:B6)\\t=SUM(C2:C6)\\t=SUM(D2:D6)'}",
+          "action_template": "With {{summary_cell}} active and the data rows already populated, type {{summary_label}}, {{planned_total_formula}}, {{actual_total_formula}}, and {{difference_total_formula}} so the summary row shows the label and summed values for the planned, actual, and difference columns."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Add a separate summary showing the largest actual spending value.",
+      "unit_type": "ADD_MAX_SUMMARY",
+      "unit_before_state": "The totals row is already present in row 7, and the empty row 8 is visible below it.",
+      "unit_after_state": "Row 8 shows Highest Actual Expense in A8 and the maximum value from the Actual Spend column in C8.",
+      "unit_precondition": [
+        "The totals row in row 7 has already been created.",
+        "Cell A8 is empty and visible.",
+        "Actual Spend values exist in cells C2:C6."
+      ],
+      "unit_effect": [
+        "Cell A8 becomes active.",
+        "A8 displays the Highest Actual Expense label.",
+        "C8 shows the calculated maximum actual expense from C2:C6."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Add a labeled summary row that displays the maximum value from a specified data range.",
+      "parameters": {
+        "target_label_cell": "A8",
+        "summary_label": "Highest Actual Expense",
+        "source_value_range": "C2:C6"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the empty A8 cell below the totals row'}}",
+          "action_template": "Click {{target_label_cell}} when the totals row is already present and the row below it is empty so the summary line can be entered there; this makes {{target_label_cell}} active and ready for the summary entry."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Highest Actual Expense\\t\\t=MAX(C2:C6)'}",
+          "action_template": "With {{target_label_cell}} active and source values present in {{source_value_range}}, type {{summary_label}}\t\t=MAX({{source_value_range}}) so the label is entered in {{target_label_cell}} and the largest value from that range is shown in the summary row."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Format the budget, spending, and summary numbers as currency so the tracker reads like a financial sheet.",
+      "unit_type": "APPLY_CURRENCY_FORMAT",
+      "unit_before_state": "The completed table and summary rows are visible, and numeric values occupy B2:D8 in plain number format.",
+      "unit_after_state": "The selected numeric cells in B2:D8 remain highlighted and display currency formatting with money symbols and monetary number presentation.",
+      "unit_precondition": [
+        "The tracker data and summary rows are already filled in.",
+        "Cells B2 through D8 are visible on screen.",
+        "The toolbar currency format control is available."
+      ],
+      "unit_effect": [
+        "Range B2:D8 is selected.",
+        "The numbers in the selected range visibly change from plain numbers to currency-formatted values."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Format a specified numeric cell range in the worksheet as currency.",
+      "parameters": {
+        "target_range": "B2:D8",
+        "range_start_cell": "cell B2, the first numeric budget value",
+        "range_end_cell": "cell D8, the bottom-right cell covering the numeric summary area",
+        "format_button": "the currency format button in the toolbar above the worksheet"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'cell B2, the first numeric budget value'}, 'end': {'text': 'cell D8, the bottom-right cell covering the numeric summary area'}, 'target': {'begin': {'text': 'cell B2, the first numeric budget value'}, 'end': {'text': 'cell D8, the bottom-right cell covering the numeric summary area'}}}",
+          "action_template": "When the table and summary rows are visible and {{target_range}} is on screen, drag from {{range_start_cell}} to {{range_end_cell}} to select the numeric cells for currency formatting. Afterward, {{target_range}} is highlighted."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the currency format button in the toolbar above the worksheet'}}",
+          "action_template": "With {{target_range}} selected and the standard formatting toolbar visible, click {{format_button}} to change the selected numbers to a currency display format."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Emphasize the table headers so the tracker structure is easier to scan.",
+      "unit_type": "FORMAT_HEADER_ROW",
+      "unit_before_state": "The worksheet shows the completed tracker, with header labels in A1:E1 displayed in regular text weight.",
+      "unit_after_state": "Cells A1:E1 remain selected and the header labels are shown in bold, making the top row stand out from the data.",
+      "unit_precondition": [
+        "The header row A1:E1 is visible.",
+        "LibreOffice Calc is focused and accepts drag selection and keyboard shortcuts.",
+        "The table headers have already been entered in row 1."
+      ],
+      "unit_effect": [
+        "The full header row A1:E1 is selected.",
+        "The header text becomes bold."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Emphasize a visible table header row by selecting it and applying bold formatting.",
+      "parameters": {
+        "header_row_start": "cell A1, the Category header",
+        "header_row_end": "cell E1, the Status header",
+        "header_range": "A1:E1"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'cell A1, the Category header'}, 'end': {'text': 'cell E1, the Status header'}, 'target': {'begin': {'text': 'cell A1, the Category header'}, 'end': {'text': 'cell E1, the Status header'}}}",
+          "action_template": "Drag across the header row from {{header_row_start}} to {{header_row_end}} so the headers in {{header_range}} can be formatted together."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'b']}",
+          "action_template": "With the header row {{header_range}} selected, press Ctrl+B to bold the labels and make the spreadsheet easier to read."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        11,
+        12,
+        13
+      ],
+      "unit_intent": "Save the completed tracker as a new spreadsheet file with the requested filename.",
+      "unit_type": "SAVE_DOCUMENT_AS",
+      "unit_before_state": "The finished weekly household budget tracker is open in LibreOffice Calc, and no save dialog is currently blocking the sheet.",
+      "unit_after_state": "The Save As dialog has closed and the completed budget tracker remains open after being saved as weekly_household_budget.ods.",
+      "unit_precondition": [
+        "The spreadsheet content is complete and ready to save.",
+        "LibreOffice Calc is the active window.",
+        "A Save As operation can be opened and the filename field can receive input."
+      ],
+      "unit_effect": [
+        "A Save As dialog opens.",
+        "The filename field shows weekly_household_budget.ods.",
+        "After confirmation, the Save As dialog closes and the file is saved."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the current spreadsheet as a new file with a specified filename.",
+      "parameters": {
+        "file_name": "weekly_household_budget.ods"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 's']}",
+          "action_template": "Press Ctrl+Shift+S when the spreadsheet content is complete and LibreOffice Calc is the active window to open Save As and prepare to store the file as {{file_name}}. A Save As dialog opens."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'weekly_household_budget.ods'}",
+          "action_template": "When the Save As dialog is open and the filename field is active or ready for input, type {{file_name}} so the document will be saved under the requested filename. The filename field contains {{file_name}}."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "When the Save As dialog is still open and {{file_name}} has been entered correctly, press Enter to confirm the save. The file is saved and the dialog closes, leaving the spreadsheet open in LibreOffice Calc."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

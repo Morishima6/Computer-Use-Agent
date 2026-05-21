@@ -1,0 +1,645 @@
+{
+  "segment_id": "seg_001",
+  "app": "libreoffice_calc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Jump to the starting cell of the sheet",
+      "action_before_state": "libreoffice_calc is ready for step 1 of the task.",
+      "action_preconditions": [
+        "LibreOffice Calc is already open and focused",
+        "A spreadsheet grid is visible on screen"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "home"
+        ]
+      },
+      "action_after_effects": "Cell A1 becomes the active cell, so data entry can start from the top-left corner.",
+      "nl_explanation": "When the sheet grid is visible, press Ctrl+Home to move directly to A1 so the tracker can be built from the beginning of the sheet."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Create the header row for the spending table",
+      "action_before_state": "libreoffice_calc is ready for step 2 of the task.",
+      "action_preconditions": [
+        "Cell A1 is active",
+        "Row 1 is empty across the first several columns"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Date\tCategory\tDescription\tAmount\tPayment Method"
+      },
+      "action_after_effects": "The headers fill cells A1 through E1.",
+      "nl_explanation": "With A1 selected and the first row empty, type the tab-separated header labels so the main spending table is created across row 1."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Place the cursor in the first data row",
+      "action_before_state": "libreoffice_calc is ready for step 3 of the task.",
+      "action_preconditions": [
+        "The header row is present in A1:E1",
+        "Cell A2 is empty"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell A2, directly below the Date header"
+        }
+      },
+      "action_after_effects": "Cell A2 becomes active and ready for entering the expense records.",
+      "nl_explanation": "After the headers are in place, click the first cell under them, A2, so the expense data can be entered starting on the second row."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Enter the weekly expense records",
+      "action_before_state": "libreoffice_calc is ready for step 4 of the task.",
+      "action_preconditions": [
+        "Cell A2 is active",
+        "Rows 2 through 8 are empty in columns A to E"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "2026-04-01\tGroceries\tVegetables\t18.40\tCard\n2026-04-01\tTransport\tMetro top-up\t10.00\tCash\n2026-04-02\tCoffee\tCafe latte\t4.80\tCard\n2026-04-03\tDining\tLunch set\t12.50\tCard\n2026-04-04\tHousehold\tDish soap\t6.30\tCard\n2026-04-05\tGroceries\tFruit\t9.20\tCash\n2026-04-06\tEntertainment\tMovie ticket\t15.00\tCard"
+      },
+      "action_after_effects": "The transaction table is filled from A2 to E8 with seven expense rows.",
+      "nl_explanation": "When A2 is active and the rows below are empty, enter the tab- and line-separated expense block so the full weekly spending list appears in the sheet."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Move to the area where the summary will be built",
+      "action_before_state": "libreoffice_calc is ready for step 5 of the task.",
+      "action_preconditions": [
+        "The expense table in A1:E8 is visible",
+        "Columns G and H are empty"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell G1 in the empty area to the right of the main table"
+        }
+      },
+      "action_after_effects": "Cell G1 becomes active, ready for summary labels.",
+      "nl_explanation": "Once the main table is populated and the right side of the sheet is empty, click G1 so the summary section can be created there."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Lay out the labels for totals and category summary",
+      "action_before_state": "libreoffice_calc is ready for step 6 of the task.",
+      "action_preconditions": [
+        "Cell G1 is active",
+        "The range G1:H10 is unused"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Total Spent\t\nAverage Transaction\t\n\nCategory\tTotal\nGroceries\t\nTransport\t\nCoffee\t\nDining\t\nHousehold\t\nEntertainment\t"
+      },
+      "action_after_effects": "The summary labels are placed in the right-side section, including the category list and the Total header.",
+      "nl_explanation": "With G1 selected and the summary area empty, type the tab-separated summary block so the sheet gets labels for total spent, average transaction, and each category subtotal."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Calculate the grand total of all expenses",
+      "action_before_state": "libreoffice_calc is ready for step 7 of the task.",
+      "action_preconditions": [
+        "The summary labels are visible on the right",
+        "Cell H1 is empty and aligned with the Total Spent label"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell H1 next to the Total Spent label"
+        }
+      },
+      "action_after_effects": "Cell H1 becomes active for the total formula.",
+      "nl_explanation": "After the summary labels are in place, click H1 so the total-spent formula can be entered beside its label."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Enter the total-spent formula",
+      "action_before_state": "libreoffice_calc is ready for step 8 of the task.",
+      "action_preconditions": [
+        "Cell H1 is active",
+        "The expense amounts are present in D2:D8"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "=SUM(D2:D8)"
+      },
+      "action_after_effects": "H1 shows the total of all seven transactions.",
+      "nl_explanation": "With H1 selected and the amounts already filled in column D, type the SUM formula so the tracker shows the full amount spent for the week."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Enter the average-transaction formula",
+      "action_before_state": "libreoffice_calc is ready for step 9 of the task.",
+      "action_preconditions": [
+        "The total formula is already in H1",
+        "Cell H2 is empty and next to the Average Transaction label"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell H2 next to the Average Transaction label"
+        }
+      },
+      "action_after_effects": "Cell H2 becomes active for the average formula.",
+      "nl_explanation": "When the total is finished and H2 is still empty, click H2 so the average spending formula can be entered in the correct place."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Calculate the average amount per transaction",
+      "action_before_state": "libreoffice_calc is ready for step 10 of the task.",
+      "action_preconditions": [
+        "Cell H2 is active",
+        "The amounts remain available in D2:D8"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "=AVERAGE(D2:D8)"
+      },
+      "action_after_effects": "H2 shows the average value of the seven expense rows.",
+      "nl_explanation": "With H2 selected and the amount column populated, type the AVERAGE formula so the summary includes the mean transaction value."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Start the category total formulas",
+      "action_before_state": "libreoffice_calc is ready for step 11 of the task.",
+      "action_preconditions": [
+        "The category names are listed in G5:G10",
+        "Cell H5 is empty"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell H5 beside the Groceries category"
+        }
+      },
+      "action_after_effects": "Cell H5 becomes active for the first category subtotal formula.",
+      "nl_explanation": "After the category labels are listed, click H5 next to Groceries so the first subtotal formula can be entered and reused for the remaining categories."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Calculate the subtotal for the first category",
+      "action_before_state": "libreoffice_calc is ready for step 12 of the task.",
+      "action_preconditions": [
+        "Cell H5 is active",
+        "The category names are in B2:B8 and the amounts are in D2:D8"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "=SUMIF($B$2:$B$8,G5,$D$2:$D$8)"
+      },
+      "action_after_effects": "H5 displays the total amount spent on Groceries.",
+      "nl_explanation": "When H5 is selected and the category and amount columns are filled, type the SUMIF formula so the subtotal for the category named in G5 is calculated."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Fill the same subtotal formula down for the remaining categories",
+      "action_before_state": "libreoffice_calc is ready for step 13 of the task.",
+      "action_preconditions": [
+        "H5 contains a working SUMIF formula",
+        "The category list continues down to G10"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the fill handle at the bottom-right corner of cell H5"
+        },
+        "end": {
+          "text": "cell H10 at the bottom of the category summary"
+        },
+        "target": {
+          "begin": {
+            "text": "the fill handle at the bottom-right corner of cell H5"
+          },
+          "end": {
+            "text": "cell H10 at the bottom of the category summary"
+          }
+        }
+      },
+      "action_after_effects": "The formula is copied from H5 through H10, producing subtotals for all listed categories.",
+      "nl_explanation": "Once H5 has the correct category formula, drag its fill handle down to H10 so Calc copies the formula and computes totals for every category in the summary."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Save the completed spending tracker",
+      "action_before_state": "libreoffice_calc is ready for step 14 of the task.",
+      "action_preconditions": [
+        "The main expense table and the summary formulas are complete",
+        "LibreOffice Calc is still the active window"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "s"
+        ]
+      },
+      "action_after_effects": "The spreadsheet is saved with the new weekly spending tracker and summary.",
+      "nl_explanation": "After the table and summary are finished, press Ctrl+S to save the completed tracker so the work is not lost."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Create the main weekly spending table and populate it with the seven expense records.",
+      "unit_type": "CREATE_EXPENSE_TABLE",
+      "unit_before_state": "LibreOffice Calc shows a spreadsheet grid, and the current active cell may be anywhere on the sheet. The top-left area of the sheet is available for building a new table.",
+      "unit_after_state": "Cells A1:E8 contain a completed spending table. Row 1 shows the headers Date, Category, Description, Amount, and Payment Method, and rows 2 through 8 contain the seven entered expenses.",
+      "unit_precondition": [
+        "LibreOffice Calc is open and focused.",
+        "A spreadsheet grid is visible.",
+        "The top-left table area is available so A1:E8 can be filled with the new tracker content."
+      ],
+      "unit_effect": [
+        "A1 becomes the starting point for entry.",
+        "The header row appears in A1:E1.",
+        "The seven expense rows are filled in A2:E8, creating the main dataset for later formulas."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Set up the summary section on the right side of the sheet for totals and category breakdowns.",
+      "unit_type": "CREATE_SUMMARY_LAYOUT",
+      "unit_before_state": "The main spending table is visible in A1:E8, and the area to the right, including columns G and H, is empty.",
+      "unit_after_state": "A summary block is laid out in G1:H10. G1 shows Total Spent, G2 shows Average Transaction, G4:H4 shows Category and Total, and G5:G10 lists Groceries, Transport, Coffee, Dining, Household, and Entertainment.",
+      "unit_precondition": [
+        "The expense table in A1:E8 has already been entered.",
+        "The right-side summary area, especially G1:H10, is unused and visible."
+      ],
+      "unit_effect": [
+        "Cell G1 is activated as the summary starting point.",
+        "Summary labels and category names appear in the right-side section, leaving H1, H2, and H5:H10 ready for formulas."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Calculate the overall amount spent across all listed transactions.",
+      "unit_type": "CALCULATE_TOTAL_SPENT",
+      "unit_before_state": "The summary labels are visible on the right, with Total Spent in G1 and empty result cell H1 beside it. The expense amounts are already present in D2:D8.",
+      "unit_after_state": "Cell H1 contains the total-spent formula and displays the summed result for D2:D8.",
+      "unit_precondition": [
+        "The summary layout is already present with Total Spent in G1.",
+        "Cell H1 is empty and aligned with that label.",
+        "The transaction amounts exist in D2:D8."
+      ],
+      "unit_effect": [
+        "H1 becomes the active formula cell.",
+        "The formula =SUM(D2:D8) is entered.",
+        "H1 shows the overall weekly total, which should evaluate to 76.20."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Calculate the mean value of the recorded transactions.",
+      "unit_type": "CALCULATE_AVERAGE_TRANSACTION",
+      "unit_before_state": "The summary area already shows the total in H1, Average Transaction is labeled in G2, and H2 is empty. The amount column D2:D8 is still populated.",
+      "unit_after_state": "Cell H2 contains the average formula and displays the average transaction value for the seven expense rows.",
+      "unit_precondition": [
+        "The summary layout includes Average Transaction in G2.",
+        "Cell H2 is empty and available for the formula.",
+        "The numeric expense amounts remain present in D2:D8."
+      ],
+      "unit_effect": [
+        "H2 becomes active for formula entry.",
+        "The formula =AVERAGE(D2:D8) is entered.",
+        "H2 shows the average transaction result based on the seven amounts."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        11,
+        12,
+        13
+      ],
+      "unit_intent": "Generate category-wise spending totals for all listed categories in the summary table.",
+      "unit_type": "CALCULATE_CATEGORY_SUMMARY",
+      "unit_before_state": "The category summary area is prepared with category names in G5:G10 and empty result cells in H5:H10. The transaction categories are in B2:B8 and amounts are in D2:D8.",
+      "unit_after_state": "H5:H10 contains subtotal formulas and displayed results for each category next to Groceries, Transport, Coffee, Dining, Household, and Entertainment.",
+      "unit_precondition": [
+        "The category labels are present in G5:G10.",
+        "Cell H5 is empty and ready for the first subtotal formula.",
+        "The source data columns B2:B8 and D2:D8 contain the transaction categories and amounts."
+      ],
+      "unit_effect": [
+        "H5 receives the SUMIF formula referencing the category name in G5.",
+        "Dragging the fill handle copies the formula from H5 down to H10.",
+        "The category summary shows visible subtotals, including 27.60 for Groceries, 10.00 for Transport, 4.80 for Coffee, 12.50 for Dining, 6.30 for Household, and 15.00 for Entertainment."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        14
+      ],
+      "unit_intent": "Persist the completed weekly spending tracker to disk.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The spreadsheet shows the completed spending table on the left and the finished totals and category summary on the right, with LibreOffice Calc still focused.",
+      "unit_after_state": "The document remains open in LibreOffice Calc, and the current spreadsheet state has been saved.",
+      "unit_precondition": [
+        "The spending tracker content and formulas are complete.",
+        "LibreOffice Calc is the active window so the save shortcut will apply to this document."
+      ],
+      "unit_effect": [
+        "The Ctrl+S shortcut triggers a save.",
+        "The spreadsheet is stored with the newly created weekly spending tracker and summary calculations."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Create the main weekly spending table and populate it with the seven expense records.",
+      "unit_type": "CREATE_EXPENSE_TABLE",
+      "unit_before_state": "LibreOffice Calc shows a spreadsheet grid, and the current active cell may be anywhere on the sheet. The top-left area of the sheet is available for building a new table.",
+      "unit_after_state": "Cells A1:E8 contain a completed spending table. Row 1 shows the headers Date, Category, Description, Amount, and Payment Method, and rows 2 through 8 contain the seven entered expenses.",
+      "unit_precondition": [
+        "LibreOffice Calc is open and focused.",
+        "A spreadsheet grid is visible.",
+        "The top-left table area is available so A1:E8 can be filled with the new tracker content."
+      ],
+      "unit_effect": [
+        "A1 becomes the starting point for entry.",
+        "The header row appears in A1:E1.",
+        "The seven expense rows are filled in A2:E8, creating the main dataset for later formulas."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a structured table at the top of the sheet by inserting a header row and then populating it with a provided block of records.",
+      "parameters": {
+        "start_cell": "A1",
+        "header_row_text": "Date\tCategory\tDescription\tAmount\tPayment Method",
+        "first_data_cell": "A2",
+        "record_block": "2026-04-01\tGroceries\tVegetables\t18.40\tCard\n2026-04-01\tTransport\tMetro top-up\t10.00\tCash\n2026-04-02\tCoffee\tCafe latte\t4.80\tCard\n2026-04-03\tDining\tLunch set\t12.50\tCard\n2026-04-04\tHousehold\tDish soap\t6.30\tCard\n2026-04-05\tGroceries\tFruit\t9.20\tCash\n2026-04-06\tEntertainment\tMovie ticket\t15.00\tCard"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'home']}",
+          "action_template": "When LibreOffice Calc is open and a spreadsheet grid is visible, press Ctrl+Home to move directly to {{start_cell}} so table entry can begin from the top-left corner; after the action, {{start_cell}} becomes the active cell."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Date\\tCategory\\tDescription\\tAmount\\tPayment Method'}",
+          "action_template": "With {{start_cell}} active and the destination header row empty, type the tab-separated header text {{header_row_text}} so the table headers fill the first row."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell A2, directly below the Date header'}}",
+          "action_template": "After the header row is present and {{first_data_cell}} is empty, click {{first_data_cell}} so the cursor is positioned in the first data row and ready for record entry."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '2026-04-01\\tGroceries\\tVegetables\\t18.40\\tCard\\n2026-04-01\\tTransport\\tMetro top-up\\t10.00\\tCash\\n2026-04-02\\tCoffee\\tCafe latte\\t4.80\\tCard\\n2026-04-03\\tDining\\tLunch set\\t12.50\\tCard\\n2026-04-04\\tHousehold\\tDish soap\\t6.30\\tCard\\n2026-04-05\\tGroceries\\tFruit\\t9.20\\tCash\\n2026-04-06\\tEntertainment\\tMovie ticket\\t15.00\\tCard'}",
+          "action_template": "When {{first_data_cell}} is active and the destination rows are empty, type the tab- and line-separated record block {{record_block}} so the table is populated with the provided records starting at {{first_data_cell}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Set up the summary section on the right side of the sheet for totals and category breakdowns.",
+      "unit_type": "CREATE_SUMMARY_LAYOUT",
+      "unit_before_state": "The main spending table is visible in A1:E8, and the area to the right, including columns G and H, is empty.",
+      "unit_after_state": "A summary block is laid out in G1:H10. G1 shows Total Spent, G2 shows Average Transaction, G4:H4 shows Category and Total, and G5:G10 lists Groceries, Transport, Coffee, Dining, Household, and Entertainment.",
+      "unit_precondition": [
+        "The expense table in A1:E8 has already been entered.",
+        "The right-side summary area, especially G1:H10, is unused and visible."
+      ],
+      "unit_effect": [
+        "Cell G1 is activated as the summary starting point.",
+        "Summary labels and category names appear in the right-side section, leaving H1, H2, and H5:H10 ready for formulas."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a summary block in a designated empty sheet area by selecting its starting cell and entering the required summary labels and category rows.",
+      "parameters": {
+        "summary_start_cell": "G1",
+        "summary_range": "G1:H10",
+        "summary_block_text": "Total Spent\t\nAverage Transaction\t\n\nCategory\tTotal\nGroceries\t\nTransport\t\nCoffee\t\nDining\t\nHousehold\t\nEntertainment\t"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell G1 in the empty area to the right of the main table'}}",
+          "action_template": "Click {{summary_start_cell}} in the empty summary area to activate the starting cell for the summary block."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Total Spent\\t\\nAverage Transaction\\t\\n\\nCategory\\tTotal\\nGroceries\\t\\nTransport\\t\\nCoffee\\t\\nDining\\t\\nHousehold\\t\\nEntertainment\\t'}",
+          "action_template": "Type {{summary_block_text}} into the active cell to populate {{summary_range}} with the summary labels and category rows."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Calculate the overall amount spent across all listed transactions.",
+      "unit_type": "CALCULATE_TOTAL_SPENT",
+      "unit_before_state": "The summary labels are visible on the right, with Total Spent in G1 and empty result cell H1 beside it. The expense amounts are already present in D2:D8.",
+      "unit_after_state": "Cell H1 contains the total-spent formula and displays the summed result for D2:D8.",
+      "unit_precondition": [
+        "The summary layout is already present with Total Spent in G1.",
+        "Cell H1 is empty and aligned with that label.",
+        "The transaction amounts exist in D2:D8."
+      ],
+      "unit_effect": [
+        "H1 becomes the active formula cell.",
+        "The formula =SUM(D2:D8) is entered.",
+        "H1 shows the overall weekly total, which should evaluate to 76.20."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Calculate the total of a populated value range by entering a summation formula into the designated summary result cell.",
+      "parameters": {
+        "summary_result_cell": "cell H1 next to the Total Spent label",
+        "summary_label": "Total Spent",
+        "value_range": "D2:D8",
+        "formula_text": "=SUM(D2:D8)"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "CLICK",
+          "action_template": "Click {{summary_result_cell}} after the summary labels are visible and the cell aligned with {{summary_label}} is empty, so the total formula can be entered there and the summary cell becomes active."
+        },
+        {
+          "action": "TYPING",
+          "action_template": "Type {{formula_text}} with {{summary_result_cell}} active and values present in {{value_range}} so the summary cell shows the total for that range."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Calculate the mean value of the recorded transactions.",
+      "unit_type": "CALCULATE_AVERAGE_TRANSACTION",
+      "unit_before_state": "The summary area already shows the total in H1, Average Transaction is labeled in G2, and H2 is empty. The amount column D2:D8 is still populated.",
+      "unit_after_state": "Cell H2 contains the average formula and displays the average transaction value for the seven expense rows.",
+      "unit_precondition": [
+        "The summary layout includes Average Transaction in G2.",
+        "Cell H2 is empty and available for the formula.",
+        "The numeric expense amounts remain present in D2:D8."
+      ],
+      "unit_effect": [
+        "H2 becomes active for formula entry.",
+        "The formula =AVERAGE(D2:D8) is entered.",
+        "H2 shows the average transaction result based on the seven amounts."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Calculate and display the average value of a specified numeric cell range in a designated summary cell.",
+      "parameters": {
+        "target_cell": "cell H2 next to the Average Transaction label",
+        "source_range": "D2:D8"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "CLICK",
+          "action_template": "When the prior summary formula is already entered and {{target_cell}} is empty, click {{target_cell}} so the average formula can be entered in the correct place; after the click, {{target_cell}} becomes active for formula entry."
+        },
+        {
+          "action": "TYPING",
+          "action_template": "With {{target_cell}} active and the amounts available in {{source_range}}, type =AVERAGE({{source_range}}) so the summary includes the mean transaction value; after typing, {{target_cell}} shows the average value for the specified range."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        11,
+        12,
+        13
+      ],
+      "unit_intent": "Generate category-wise spending totals for all listed categories in the summary table.",
+      "unit_type": "CALCULATE_CATEGORY_SUMMARY",
+      "unit_before_state": "The category summary area is prepared with category names in G5:G10 and empty result cells in H5:H10. The transaction categories are in B2:B8 and amounts are in D2:D8.",
+      "unit_after_state": "H5:H10 contains subtotal formulas and displayed results for each category next to Groceries, Transport, Coffee, Dining, Household, and Entertainment.",
+      "unit_precondition": [
+        "The category labels are present in G5:G10.",
+        "Cell H5 is empty and ready for the first subtotal formula.",
+        "The source data columns B2:B8 and D2:D8 contain the transaction categories and amounts."
+      ],
+      "unit_effect": [
+        "H5 receives the SUMIF formula referencing the category name in G5.",
+        "Dragging the fill handle copies the formula from H5 down to H10.",
+        "The category summary shows visible subtotals, including 27.60 for Groceries, 10.00 for Transport, 4.80 for Coffee, 12.50 for Dining, 6.30 for Household, and 15.00 for Entertainment."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Populate a category summary table by entering the first category subtotal formula and filling it down for all listed categories.",
+      "parameters": {
+        "target_result_cell": "cell H5 beside the Groceries category",
+        "category_label_range": "G5:G10",
+        "first_category_reference_cell": "G5",
+        "category_source_range": "$B$2:$B$8",
+        "amount_source_range": "$D$2:$D$8",
+        "subtotal_formula": "=SUMIF($B$2:$B$8,G5,$D$2:$D$8)",
+        "fill_handle_source": "the fill handle at the bottom-right corner of cell H5",
+        "fill_end_cell": "cell H10 at the bottom of the category summary"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell H5 beside the Groceries category'}}",
+          "action_template": "Click {{target_result_cell}} after the category labels are listed in {{category_label_range}} so the first subtotal formula can be entered and reused for the remaining categories; this requires the target cell to be empty and makes it active for the first category subtotal formula."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '=SUMIF($B$2:$B$8,G5,$D$2:$D$8)'}",
+          "action_template": "Type {{subtotal_formula}} when {{target_result_cell}} is active and the category names are in {{category_source_range}} and the amounts are in {{amount_source_range}} so the subtotal for the category referenced by {{first_category_reference_cell}} is calculated."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the fill handle at the bottom-right corner of cell H5'}, 'end': {'text': 'cell H10 at the bottom of the category summary'}, 'target': {'begin': {'text': 'the fill handle at the bottom-right corner of cell H5'}, 'end': {'text': 'cell H10 at the bottom of the category summary'}}}",
+          "action_template": "Drag from {{fill_handle_source}} to {{fill_end_cell}} once {{target_result_cell}} contains a working SUMIF formula and the category list continues through {{category_label_range}}, so the formula is copied down to produce subtotals for all listed categories."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        14
+      ],
+      "unit_intent": "Persist the completed weekly spending tracker to disk.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The spreadsheet shows the completed spending table on the left and the finished totals and category summary on the right, with LibreOffice Calc still focused.",
+      "unit_after_state": "The document remains open in LibreOffice Calc, and the current spreadsheet state has been saved.",
+      "unit_precondition": [
+        "The spending tracker content and formulas are complete.",
+        "LibreOffice Calc is the active window so the save shortcut will apply to this document."
+      ],
+      "unit_effect": [
+        "The Ctrl+S shortcut triggers a save.",
+        "The spreadsheet is stored with the newly created weekly spending tracker and summary calculations."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the completed spreadsheet to disk.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 's']}",
+          "action_template": "Press Ctrl+S after the spreadsheet content and formulas are complete while LibreOffice Calc is the active window to save the current document."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

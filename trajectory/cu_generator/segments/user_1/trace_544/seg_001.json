@@ -1,0 +1,500 @@
+{
+  "segment_id": "seg_001",
+  "app": "vs_code",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the integrated terminal in VS Code",
+      "action_before_state": "VS Code is already open on the GNOME desktop, and the main editor area is visible.",
+      "action_preconditions": [
+        "VS Code is the focused window",
+        "Keyboard input is available"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "`"
+        ]
+      },
+      "action_after_effects": "The integrated terminal panel opens at the bottom of VS Code with a shell prompt ready for input.",
+      "nl_explanation": "When VS Code is focused and the editor is visible, press Ctrl+` to open the integrated terminal. The expected result is that a terminal prompt appears at the bottom of the window."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Create the notes folder and the new Markdown file",
+      "action_before_state": "The integrated terminal is open and the shell prompt is active.",
+      "action_preconditions": [
+        "The terminal cursor is active",
+        "The shell prompt is ready to accept a command"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "mkdir -p /home/user/Documents/daily-notes && touch /home/user/Documents/daily-notes/standup-2026-04-02.md\n"
+      },
+      "action_after_effects": "The folder and empty file are created on disk, and the terminal returns to the prompt.",
+      "nl_explanation": "With the terminal active, type the mkdir and touch command to create the daily-notes folder and the standup Markdown file. After the command runs, the file exists and is ready to be opened in the editor."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Open Quick Open so the new file can be loaded",
+      "action_before_state": "The terminal is still visible, and the new file has already been created.",
+      "action_preconditions": [
+        "VS Code is still focused",
+        "The file /home/user/Documents/daily-notes/standup-2026-04-02.md exists"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "p"
+        ]
+      },
+      "action_after_effects": "The Quick Open input box appears near the top of the VS Code window.",
+      "nl_explanation": "Once the file exists, press Ctrl+P to bring up Quick Open. This prepares VS Code to search for and open the new Markdown file."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Search for the standup note file",
+      "action_before_state": "The Quick Open input box is visible and focused.",
+      "action_preconditions": [
+        "Quick Open is active",
+        "Text typed now will go into the Quick Open search box"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "/home/user/Documents/daily-notes/standup-2026-04-02.md"
+      },
+      "action_after_effects": "A matching file result for standup-2026-04-02.md appears in the Quick Open dropdown.",
+      "nl_explanation": "With Quick Open focused, type the full file path so VS Code can find the note. The expected result is that the matching Markdown file appears in the suggestion list."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Open the new Markdown file in the editor",
+      "action_before_state": "The Quick Open dropdown shows the matching standup-2026-04-02.md result.",
+      "action_preconditions": [
+        "The matching file is visible in the Quick Open results",
+        "The mouse can reach the result row"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Quick Open result for standup-2026-04-02.md"
+        }
+      },
+      "action_after_effects": "The file opens in a new editor tab as a blank Markdown document.",
+      "nl_explanation": "When the correct file appears in Quick Open, left-click its result entry to open it. The expected behavior is that the blank Markdown file loads into the main editor."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Enter the standup note content",
+      "action_before_state": "A blank Markdown file named standup-2026-04-02.md is open in the editor with the text cursor visible.",
+      "action_preconditions": [
+        "The editor has focus",
+        "The file is open and ready for editing"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "# Standup - 2026-04-02\n\n## Yesterday\n- Reviewed bug reports from the previous sprint\n- Cleaned up old project notes\n\n## Today\n- Finish API test cases\n- Draft the release checklist\n\n## Blockers\n- Waiting for design feedback on the settings page\n"
+      },
+      "action_after_effects": "The Markdown content appears in the editor, and the file becomes modified but not yet saved.",
+      "nl_explanation": "With the empty file open and the cursor in the editor, type the standup template and bullet points. After typing, the note content is visible and the tab shows unsaved changes."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Save the Markdown note",
+      "action_before_state": "The standup note content is visible in the editor, and the tab shows unsaved changes.",
+      "action_preconditions": [
+        "The editor contains the typed note",
+        "VS Code is still focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "s"
+        ]
+      },
+      "action_after_effects": "The file is saved to disk, and the unsaved-change indicator disappears from the tab.",
+      "nl_explanation": "After the note has been entered, press Ctrl+S to save it. The expected result is that the file is written to disk and the modified indicator goes away."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Open the Markdown preview",
+      "action_before_state": "The saved Markdown file is still active in the editor.",
+      "action_preconditions": [
+        "The active tab is a Markdown file",
+        "The file has already been saved"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "v"
+        ]
+      },
+      "action_after_effects": "A Markdown preview opens, showing the rendered title and section formatting for the note.",
+      "nl_explanation": "When the saved Markdown file is active, press Ctrl+Shift+V to open the Markdown preview. The expected behavior is that the rendered note appears for visual review."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Review the lower part of the rendered note",
+      "action_before_state": "The Markdown preview is visible and currently shows the top part of the standup note.",
+      "action_preconditions": [
+        "The Markdown preview pane is visible",
+        "There is more rendered content below the fold"
+      ],
+      "action": {
+        "type": "SCROLL",
+        "direction": "down",
+        "target": {
+          "text": "inside the Markdown preview pane"
+        }
+      },
+      "action_after_effects": "The preview scrolls downward until the Today and Blockers sections are visible.",
+      "nl_explanation": "With the Markdown preview open, scroll down inside the preview pane until the lower sections of the note are visible. This confirms that the full standup note was rendered correctly."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Create the target daily standup Markdown file at the requested path so it can be edited in VS Code.",
+      "unit_type": "CREATE_MARKDOWN_FILE",
+      "unit_before_state": "VS Code is open on the desktop with the main editor area visible and no terminal interaction in progress.",
+      "unit_after_state": "The integrated terminal is open at the bottom of VS Code, the folder /home/user/Documents/daily-notes exists, and an empty file named standup-2026-04-02.md has been created on disk with the shell prompt returned.",
+      "unit_precondition": [
+        "VS Code is the focused window.",
+        "Keyboard input is available.",
+        "The integrated terminal can be opened and accept shell commands."
+      ],
+      "unit_effect": [
+        "A terminal panel with a shell prompt appears in VS Code.",
+        "After the command runs, the prompt returns without error and the target Markdown file now exists at /home/user/Documents/daily-notes/standup-2026-04-02.md."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4,
+        5
+      ],
+      "unit_intent": "Load the newly created standup note into the editor for authoring.",
+      "unit_type": "OPEN_FILE_FROM_QUICK_OPEN",
+      "unit_before_state": "The terminal remains visible in VS Code, and the standup-2026-04-02.md file already exists on disk but is not yet open in the editor.",
+      "unit_after_state": "A new editor tab for standup-2026-04-02.md is open in the main editing area as a blank Markdown document ready for typing.",
+      "unit_precondition": [
+        "The file /home/user/Documents/daily-notes/standup-2026-04-02.md already exists.",
+        "VS Code is still focused.",
+        "Quick Open can be invoked and used to search for files."
+      ],
+      "unit_effect": [
+        "The Quick Open box appears near the top of the window.",
+        "A matching result for standup-2026-04-02.md appears in the Quick Open list.",
+        "Clicking the result opens the blank Markdown file in an editor tab."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6
+      ],
+      "unit_intent": "Draft the April 2 standup note with the required sections and bullet points.",
+      "unit_type": "INSERT_MARKDOWN_CONTENT",
+      "unit_before_state": "The blank file standup-2026-04-02.md is open in the editor, and the text cursor is visible inside the empty document.",
+      "unit_after_state": "The editor shows a completed Markdown note with the title 'Standup - 2026-04-02' and sections for Yesterday, Today, and Blockers, and the tab is marked as modified.",
+      "unit_precondition": [
+        "The standup-2026-04-02.md editor tab is active.",
+        "The text cursor is in the document and ready for typing."
+      ],
+      "unit_effect": [
+        "The Markdown text appears in the editor exactly as entered.",
+        "The editor tab shows an unsaved-change indicator after typing."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7
+      ],
+      "unit_intent": "Persist the drafted standup note to disk.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The standup note content is visible in the editor, and the file tab shows unsaved changes.",
+      "unit_after_state": "The same Markdown note remains open in the editor, but the unsaved-change indicator is gone because the file has been saved.",
+      "unit_precondition": [
+        "The note content has already been entered in the active editor.",
+        "VS Code is focused and can receive the save shortcut."
+      ],
+      "unit_effect": [
+        "The modified indicator disappears from the file tab.",
+        "The Markdown file is saved to disk at /home/user/Documents/daily-notes/standup-2026-04-02.md."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        8
+      ],
+      "unit_intent": "Open a rendered view of the Markdown note to inspect its formatting.",
+      "unit_type": "OPEN_MARKDOWN_PREVIEW",
+      "unit_before_state": "The saved standup-2026-04-02.md file is the active tab in the editor, and no preview pane is open yet.",
+      "unit_after_state": "A Markdown preview pane is open in VS Code and displays the rendered standup note with formatted heading and section structure.",
+      "unit_precondition": [
+        "The active tab is the saved Markdown file standup-2026-04-02.md.",
+        "VS Code can receive the Markdown preview shortcut."
+      ],
+      "unit_effect": [
+        "A rendered Markdown preview appears.",
+        "The note title and section formatting are visibly rendered instead of raw Markdown syntax."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        9
+      ],
+      "unit_intent": "Verify that the lower sections of the rendered standup note are present and formatted in the preview.",
+      "unit_type": "REVIEW_RENDERED_CONTENT",
+      "unit_before_state": "The Markdown preview pane is visible and currently shows the top portion of the rendered standup note.",
+      "unit_after_state": "The preview is scrolled down so the Today and Blockers sections are visible in the rendered note.",
+      "unit_precondition": [
+        "The Markdown preview pane is open and focused enough to scroll.",
+        "There is additional rendered content below the currently visible area."
+      ],
+      "unit_effect": [
+        "The preview viewport moves downward.",
+        "The Today and Blockers headings and their bullet points become visible in the rendered preview."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Create the target daily standup Markdown file at the requested path so it can be edited in VS Code.",
+      "unit_type": "CREATE_MARKDOWN_FILE",
+      "unit_before_state": "VS Code is open on the desktop with the main editor area visible and no terminal interaction in progress.",
+      "unit_after_state": "The integrated terminal is open at the bottom of VS Code, the folder /home/user/Documents/daily-notes exists, and an empty file named standup-2026-04-02.md has been created on disk with the shell prompt returned.",
+      "unit_precondition": [
+        "VS Code is the focused window.",
+        "Keyboard input is available.",
+        "The integrated terminal can be opened and accept shell commands."
+      ],
+      "unit_effect": [
+        "A terminal panel with a shell prompt appears in VS Code.",
+        "After the command runs, the prompt returns without error and the target Markdown file now exists at /home/user/Documents/daily-notes/standup-2026-04-02.md."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a specified Markdown file at a target path from the VS Code integrated terminal so it can be edited.",
+      "parameters": {
+        "target_folder_path": "/home/user/Documents/daily-notes",
+        "target_markdown_file_path": "/home/user/Documents/daily-notes/standup-2026-04-02.md"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', '`']}",
+          "action_template": "When VS Code is focused and the editor is visible, press Ctrl+` to open the integrated terminal. Preconditions: VS Code is the focused window and keyboard input is available. Expected result: the integrated terminal panel opens at the bottom of VS Code with a shell prompt ready for input."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'mkdir -p /home/user/Documents/daily-notes && touch /home/user/Documents/daily-notes/standup-2026-04-02.md\\n'}",
+          "action_template": "With the terminal cursor active and the shell prompt ready to accept a command, type `mkdir -p {{target_folder_path}} && touch {{target_markdown_file_path}}` and press Enter to create the target folder and Markdown file. Expected result: the folder and empty file are created on disk, and the terminal returns to the prompt."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4,
+        5
+      ],
+      "unit_intent": "Load the newly created standup note into the editor for authoring.",
+      "unit_type": "OPEN_FILE_FROM_QUICK_OPEN",
+      "unit_before_state": "The terminal remains visible in VS Code, and the standup-2026-04-02.md file already exists on disk but is not yet open in the editor.",
+      "unit_after_state": "A new editor tab for standup-2026-04-02.md is open in the main editing area as a blank Markdown document ready for typing.",
+      "unit_precondition": [
+        "The file /home/user/Documents/daily-notes/standup-2026-04-02.md already exists.",
+        "VS Code is still focused.",
+        "Quick Open can be invoked and used to search for files."
+      ],
+      "unit_effect": [
+        "The Quick Open box appears near the top of the window.",
+        "A matching result for standup-2026-04-02.md appears in the Quick Open list.",
+        "Clicking the result opens the blank Markdown file in an editor tab."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open an existing file in VS Code via Quick Open so it is ready for editing.",
+      "parameters": {
+        "file_path": "/home/user/Documents/daily-notes/standup-2026-04-02.md",
+        "file_name": "standup-2026-04-02.md"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'p']}",
+          "action_template": "Press Ctrl+P in VS Code to open Quick Open so {{file_path}} can be searched and opened. Preconditions: VS Code is focused and {{file_path}} already exists. After this action, the Quick Open input box appears near the top of the window."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '/home/user/Documents/daily-notes/standup-2026-04-02.md'}",
+          "action_template": "Type {{file_path}} into the active Quick Open search box so VS Code can locate the target file. Preconditions: Quick Open is active and text input goes to its search field. After this action, a matching result for {{file_name}} appears in the Quick Open dropdown."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Quick Open result for standup-2026-04-02.md'}}",
+          "action_template": "Left-click the Quick Open result for {{file_name}} to open the file in the editor. Preconditions: the matching file result is visible and reachable. After this action, the file opens in a new editor tab as a blank Markdown document."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6
+      ],
+      "unit_intent": "Draft the April 2 standup note with the required sections and bullet points.",
+      "unit_type": "INSERT_MARKDOWN_CONTENT",
+      "unit_before_state": "The blank file standup-2026-04-02.md is open in the editor, and the text cursor is visible inside the empty document.",
+      "unit_after_state": "The editor shows a completed Markdown note with the title 'Standup - 2026-04-02' and sections for Yesterday, Today, and Blockers, and the tab is marked as modified.",
+      "unit_precondition": [
+        "The standup-2026-04-02.md editor tab is active.",
+        "The text cursor is in the document and ready for typing."
+      ],
+      "unit_effect": [
+        "The Markdown text appears in the editor exactly as entered.",
+        "The editor tab shows an unsaved-change indicator after typing."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Insert a standup note in Markdown into the active note file, including the title and required status sections.",
+      "parameters": {
+        "target_file_name": "standup-2026-04-02.md",
+        "markdown_content": "# Standup - 2026-04-02\n\n## Yesterday\n- Reviewed bug reports from the previous sprint\n- Cleaned up old project notes\n\n## Today\n- Finish API test cases\n- Draft the release checklist\n\n## Blockers\n- Waiting for design feedback on the settings page\n"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "TYPING",
+          "action_template": "With the editor focused and {{target_file_name}} open and ready for editing, type {{markdown_content}} into the document to insert the standup note. After typing, the Markdown content is visible in the editor and the file is marked as modified but not yet saved."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7
+      ],
+      "unit_intent": "Persist the drafted standup note to disk.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The standup note content is visible in the editor, and the file tab shows unsaved changes.",
+      "unit_after_state": "The same Markdown note remains open in the editor, but the unsaved-change indicator is gone because the file has been saved.",
+      "unit_precondition": [
+        "The note content has already been entered in the active editor.",
+        "VS Code is focused and can receive the save shortcut."
+      ],
+      "unit_effect": [
+        "The modified indicator disappears from the file tab.",
+        "The Markdown file is saved to disk at /home/user/Documents/daily-notes/standup-2026-04-02.md."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the active edited document to disk in the editor.",
+      "parameters": {
+        "target_document": "Markdown note"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 's']}",
+          "action_template": "With VS Code focused and the editor containing {{target_document}}, press Ctrl+S to save {{target_document}}. The expected result is that the file is saved to disk and the unsaved-change indicator disappears from the tab."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        8
+      ],
+      "unit_intent": "Open a rendered view of the Markdown note to inspect its formatting.",
+      "unit_type": "OPEN_MARKDOWN_PREVIEW",
+      "unit_before_state": "The saved standup-2026-04-02.md file is the active tab in the editor, and no preview pane is open yet.",
+      "unit_after_state": "A Markdown preview pane is open in VS Code and displays the rendered standup note with formatted heading and section structure.",
+      "unit_precondition": [
+        "The active tab is the saved Markdown file standup-2026-04-02.md.",
+        "VS Code can receive the Markdown preview shortcut."
+      ],
+      "unit_effect": [
+        "A rendered Markdown preview appears.",
+        "The note title and section formatting are visibly rendered instead of raw Markdown syntax."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a rendered preview of the active Markdown document to inspect its formatting.",
+      "parameters": {
+        "target_markdown_file": "standup-2026-04-02.md"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'v']}",
+          "action_template": "When the saved Markdown file {{target_markdown_file}} is active, press Ctrl+Shift+V to open the Markdown preview. The precondition is that the active tab is a Markdown file and the file has already been saved. The expected result is that a Markdown preview opens for visual review, showing the rendered title and section formatting instead of raw Markdown syntax."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        9
+      ],
+      "unit_intent": "Verify that the lower sections of the rendered standup note are present and formatted in the preview.",
+      "unit_type": "REVIEW_RENDERED_CONTENT",
+      "unit_before_state": "The Markdown preview pane is visible and currently shows the top portion of the rendered standup note.",
+      "unit_after_state": "The preview is scrolled down so the Today and Blockers sections are visible in the rendered note.",
+      "unit_precondition": [
+        "The Markdown preview pane is open and focused enough to scroll.",
+        "There is additional rendered content below the currently visible area."
+      ],
+      "unit_effect": [
+        "The preview viewport moves downward.",
+        "The Today and Blockers headings and their bullet points become visible in the rendered preview."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Scroll within a rendered preview pane to verify that specified lower sections of the document are visible and correctly rendered.",
+      "parameters": {
+        "preview_pane": "Markdown preview pane",
+        "target_sections": "Today and Blockers sections"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'SCROLL', 'direction': 'down', 'target': {'text': 'inside the Markdown preview pane'}}",
+          "action_template": "With {{preview_pane}} visible and additional rendered content below the fold, scroll down inside {{preview_pane}} until {{target_sections}} are visible, confirming that the lower rendered sections are present correctly."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

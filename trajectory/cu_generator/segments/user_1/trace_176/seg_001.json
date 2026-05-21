@@ -1,0 +1,535 @@
+{
+  "segment_id": "seg_001",
+  "app": "libreoffice_calc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Return to the top of the worksheet so the full budget table is easy to access",
+      "action_before_state": "LibreOffice Calc is open, but the active cell may be somewhere else in the sheet.",
+      "action_preconditions": [
+        "The spreadsheet window is focused.",
+        "The sheet contains the utilities table with headers near the top."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "home"
+        ]
+      },
+      "action_after_effects": "The view jumps to the beginning of the sheet, with the top-left area of the table visible.",
+      "nl_explanation": "When the spreadsheet is active and the utilities table is located near the top, press Ctrl+Home to jump back to the start of the sheet so the calculation area is visible."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Place the cursor in the first empty Difference cell",
+      "action_before_state": "The table headers Utility, Planned, Actual, and Difference are visible, and the first utility row is near the top of the sheet.",
+      "action_preconditions": [
+        "The Difference column is visible.",
+        "The top utility row has an empty cell in the Difference column."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the first empty cell in the Difference column for the top utility row"
+        }
+      },
+      "action_after_effects": "The first blank Difference cell becomes the active cell and is ready for formula entry.",
+      "nl_explanation": "Once the Difference column is visible and its first empty calculation cell can be seen, click that cell so the planned-minus-actual formula can be entered there."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Enter the difference formula for the first utility row",
+      "action_before_state": "The first empty Difference cell is selected.",
+      "action_preconditions": [
+        "The active cell is the first blank cell under the Difference header.",
+        "The Planned value is in column B and the Actual value is in column C for that same row."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "=B2-C2"
+      },
+      "action_after_effects": "The formula text appears in the active cell editor, ready to be confirmed.",
+      "nl_explanation": "With the first Difference cell selected and the row's Planned and Actual values in columns B and C, type =B2-C2 so the sheet will compute planned minus actual for that row."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Confirm the first formula",
+      "action_before_state": "The formula =B2-C2 is typed into the active Difference cell.",
+      "action_preconditions": [
+        "The formula text is present in the selected cell.",
+        "No other editing dialog is blocking input."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The formula is committed, the first Difference value is calculated, and the cell now shows a numeric result.",
+      "nl_explanation": "After typing the formula into the first Difference cell, press Enter to apply it so the first calculated difference appears in the sheet."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Copy the first difference formula to the remaining utility rows",
+      "action_before_state": "The first populated Difference cell shows the calculated result, and the other Difference cells below it are still blank.",
+      "action_preconditions": [
+        "The first calculated Difference cell is visible.",
+        "The remaining utility rows below it belong to the same table and need the same row-relative formula."
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the fill handle (small square at the bottom-right corner) of cell D2"
+        },
+        "end": {
+          "text": "cell D7, the last empty Difference cell in the utilities table"
+        },
+        "target": {
+          "begin": {
+            "text": "the fill handle of cell D2"
+          },
+          "end": {
+            "text": "cell D7"
+          }
+        }
+      },
+      "action_after_effects": "The formula is autofilled down the Difference column, and each utility row now shows its own planned-minus-actual result.",
+      "nl_explanation": "When the first calculated Difference cell is ready and the remaining rows below it need the same calculation pattern, drag the fill handle down to the last utility row to copy the formula through the column."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Move to the blank summary cell for Total Actual",
+      "action_before_state": "The utility rows now have values in the Difference column, and the summary area below the table is visible or nearly visible.",
+      "action_preconditions": [
+        "A row labeled Total Actual appears below the utility table.",
+        "The blank cell for that summary belongs in the Actual column."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the empty summary cell in the Actual column next to the Total Actual label"
+        }
+      },
+      "action_after_effects": "The Total Actual summary cell becomes active and ready for a formula.",
+      "nl_explanation": "After the row calculations are finished and the summary section is available, click the empty Actual-column cell beside Total Actual so the column total can be entered there."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Enter the formula to total the Actual values",
+      "action_before_state": "The blank Total Actual summary cell is selected.",
+      "action_preconditions": [
+        "The selected cell is the summary cell for Total Actual.",
+        "The Actual values for the utility rows are in cells C2 through C7."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "=SUM(C2:C7)"
+      },
+      "action_after_effects": "The SUM formula appears in the selected summary cell and is ready to be confirmed.",
+      "nl_explanation": "With the Total Actual summary cell selected and the utility Actual values running from C2 to C7, type =SUM(C2:C7) to prepare the overall actual-cost total."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Confirm the Total Actual formula",
+      "action_before_state": "The formula =SUM(C2:C7) is typed in the Total Actual summary cell.",
+      "action_preconditions": [
+        "The SUM formula is visible in the selected summary cell.",
+        "The summary cell is still active."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The Total Actual value is calculated and displayed in the summary cell.",
+      "nl_explanation": "Once the Total Actual formula has been typed into the selected summary cell, press Enter so Calc computes and displays the total actual amount."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Move to the blank summary cell for Total Difference",
+      "action_before_state": "The Total Actual summary value is now filled in, and the Total Difference row is below it.",
+      "action_preconditions": [
+        "A row labeled Total Difference appears below the table.",
+        "The blank summary cell for this row is in the Difference column."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the empty summary cell in the Difference column next to the Total Difference label"
+        }
+      },
+      "action_after_effects": "The Total Difference summary cell becomes active and ready for a formula.",
+      "nl_explanation": "When the Total Difference row is visible and its calculation cell is blank, click the empty Difference-column cell next to that label so the final total can be entered."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Enter the formula to total the Difference values",
+      "action_before_state": "The blank Total Difference summary cell is selected.",
+      "action_preconditions": [
+        "The selected cell is the summary cell for Total Difference.",
+        "The Difference values for the utility rows are in cells D2 through D7."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "=SUM(D2:D7)"
+      },
+      "action_after_effects": "The SUM formula appears in the Total Difference summary cell and is ready to be confirmed.",
+      "nl_explanation": "With the Total Difference summary cell selected and the row differences stored in D2 through D7, type =SUM(D2:D7) to prepare the overall difference total."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Confirm the Total Difference formula",
+      "action_before_state": "The formula =SUM(D2:D7) has been typed into the Total Difference summary cell.",
+      "action_preconditions": [
+        "The typed formula is visible in the selected summary cell.",
+        "The summary cell is still in edit focus."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The Total Difference value is calculated and displayed in the summary cell.",
+      "nl_explanation": "After the Total Difference formula is entered into the selected summary cell, press Enter so the spreadsheet calculates and shows the final difference total."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Save the completed spreadsheet",
+      "action_before_state": "All row-level Difference cells and both summary formulas are filled in.",
+      "action_preconditions": [
+        "The required calculations are complete.",
+        "LibreOffice Calc is still the active window."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "s"
+        ]
+      },
+      "action_after_effects": "The spreadsheet is saved with the completed calculations.",
+      "nl_explanation": "When the Difference column and both summary totals are finished, press Ctrl+S to save the updated spreadsheet without changing any other content."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Bring the utilities budget table back into view so the missing calculation cells can be completed efficiently.",
+      "unit_type": "NAVIGATE_TO_TABLE_START",
+      "unit_before_state": "LibreOffice Calc is open on the home utilities budget sheet, but the active cell and viewport may be somewhere away from the main table.",
+      "unit_after_state": "The worksheet view is repositioned to the top-left area, where the utilities table and its headers Utility, Planned, Actual, and Difference are visible near the top of the sheet.",
+      "unit_precondition": [
+        "LibreOffice Calc is the focused window.",
+        "The utilities budget table is located near the top of the worksheet and can be reached with Ctrl+Home."
+      ],
+      "unit_effect": [
+        "The screen jumps to the beginning of the sheet.",
+        "The main budget table is visible again, making the first empty Difference cell accessible."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "unit_intent": "Populate the entire Difference column with planned-minus-actual results for each utility row.",
+      "unit_type": "FILL_DIFFERENCE_COLUMN",
+      "unit_before_state": "The top of the worksheet is visible with the utilities table on screen, including columns B Planned, C Actual, and D Difference; the Difference cells for the utility rows are still blank.",
+      "unit_after_state": "The Difference cells for the utility rows are filled with formulas and displayed numeric results from D2 through D7, showing planned minus actual for each row.",
+      "unit_precondition": [
+        "The utilities table is visible with the first utility row at row 2.",
+        "Cell D2 is the first blank Difference cell, and columns B and C on the same row contain the Planned and Actual values.",
+        "The rows below D2 through D7 belong to the same utilities table and should use the same relative formula pattern."
+      ],
+      "unit_effect": [
+        "Cell D2 shows a calculated numeric result after the formula =B2-C2 is confirmed.",
+        "Dragging the fill handle copies the formula down, and the remaining Difference cells in the column display their own computed values."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Calculate the combined actual spending for all utility rows in the summary section.",
+      "unit_type": "CALCULATE_TOTAL_ACTUAL",
+      "unit_before_state": "The utilities table now has completed Difference values, and the summary area below the table includes a row labeled Total Actual with an empty cell in the Actual column.",
+      "unit_after_state": "The summary cell in the Actual column next to the Total Actual label displays the computed total of the utility Actual values.",
+      "unit_precondition": [
+        "The Total Actual row is visible below the utilities table.",
+        "The summary cell beside Total Actual in the Actual column is empty and selectable.",
+        "The utility Actual values occupy cells C2 through C7."
+      ],
+      "unit_effect": [
+        "The formula =SUM(C2:C7) is entered into the Total Actual summary cell and confirmed.",
+        "The previously blank Total Actual cell updates to a numeric total."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9,
+        10,
+        11
+      ],
+      "unit_intent": "Calculate the combined planned-minus-actual difference for all utility rows in the summary section.",
+      "unit_type": "CALCULATE_TOTAL_DIFFERENCE",
+      "unit_before_state": "The Total Actual summary value is already filled in, and the summary area also includes a row labeled Total Difference with an empty cell in the Difference column.",
+      "unit_after_state": "The summary cell in the Difference column next to the Total Difference label displays the computed total of the row-level Difference values.",
+      "unit_precondition": [
+        "The Total Difference row is visible below the utilities table.",
+        "The summary cell beside Total Difference in the Difference column is empty and selectable.",
+        "The row-level Difference values occupy cells D2 through D7."
+      ],
+      "unit_effect": [
+        "The formula =SUM(D2:D7) is entered into the Total Difference summary cell and confirmed.",
+        "The previously blank Total Difference cell updates to a numeric total."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        12
+      ],
+      "unit_intent": "Persist the completed budget calculations to the spreadsheet file.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "All utility rows now show Difference values, and both summary cells for Total Actual and Total Difference are filled with calculated results.",
+      "unit_after_state": "The spreadsheet remains open in LibreOffice Calc with the completed calculations saved to disk.",
+      "unit_precondition": [
+        "The required Difference and summary calculations are already completed.",
+        "LibreOffice Calc is still the active application window."
+      ],
+      "unit_effect": [
+        "The save command is issued with Ctrl+S.",
+        "The current spreadsheet file is stored with the new formulas and calculated values."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Bring the utilities budget table back into view so the missing calculation cells can be completed efficiently.",
+      "unit_type": "NAVIGATE_TO_TABLE_START",
+      "unit_before_state": "LibreOffice Calc is open on the home utilities budget sheet, but the active cell and viewport may be somewhere away from the main table.",
+      "unit_after_state": "The worksheet view is repositioned to the top-left area, where the utilities table and its headers Utility, Planned, Actual, and Difference are visible near the top of the sheet.",
+      "unit_precondition": [
+        "LibreOffice Calc is the focused window.",
+        "The utilities budget table is located near the top of the worksheet and can be reached with Ctrl+Home."
+      ],
+      "unit_effect": [
+        "The screen jumps to the beginning of the sheet.",
+        "The main budget table is visible again, making the first empty Difference cell accessible."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Reposition the worksheet view to the start of the sheet so the target table is visible and ready for further edits.",
+      "parameters": {
+        "target_table": "utilities budget table"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'home']}",
+          "action_template": "When the spreadsheet window is focused and {{target_table}} is located near the top of the sheet, press Ctrl+Home to jump to the start of the sheet so {{target_table}} is visible again."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "unit_intent": "Populate the entire Difference column with planned-minus-actual results for each utility row.",
+      "unit_type": "FILL_DIFFERENCE_COLUMN",
+      "unit_before_state": "The top of the worksheet is visible with the utilities table on screen, including columns B Planned, C Actual, and D Difference; the Difference cells for the utility rows are still blank.",
+      "unit_after_state": "The Difference cells for the utility rows are filled with formulas and displayed numeric results from D2 through D7, showing planned minus actual for each row.",
+      "unit_precondition": [
+        "The utilities table is visible with the first utility row at row 2.",
+        "Cell D2 is the first blank Difference cell, and columns B and C on the same row contain the Planned and Actual values.",
+        "The rows below D2 through D7 belong to the same utilities table and should use the same relative formula pattern."
+      ],
+      "unit_effect": [
+        "Cell D2 shows a calculated numeric result after the formula =B2-C2 is confirmed.",
+        "Dragging the fill handle copies the formula down, and the remaining Difference cells in the column display their own computed values."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Populate a worksheet result column by entering the initial row formula in the first empty result cell and autofilling it through the remaining table rows.",
+      "parameters": {
+        "first_formula_cell": "cell D2",
+        "formula_text": "=B2-C2",
+        "last_fill_cell": "cell D7"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the first empty cell in the Difference column for the top utility row'}}",
+          "action_template": "Click {{first_formula_cell}}, the first empty result cell in the target column, when the result column is visible so that the cell becomes active and ready for formula entry."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '=B2-C2'}",
+          "action_template": "Type {{formula_text}} in the active first result cell so the formula appears in the cell editor and is ready to be confirmed."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter after {{formula_text}} is present in the selected cell to commit the formula and display the first calculated result."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the fill handle (small square at the bottom-right corner) of cell D2'}, 'end': {'text': 'cell D7, the last empty Difference cell in the utilities table'}, 'target': {'begin': {'text': 'the fill handle of cell D2'}, 'end': {'text': 'cell D7'}}}",
+          "action_template": "Drag the fill handle of {{first_formula_cell}} down to {{last_fill_cell}} when the first calculated cell is visible and the rows below need the same relative formula so the formula autofills and each row shows its own computed result."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Calculate the combined actual spending for all utility rows in the summary section.",
+      "unit_type": "CALCULATE_TOTAL_ACTUAL",
+      "unit_before_state": "The utilities table now has completed Difference values, and the summary area below the table includes a row labeled Total Actual with an empty cell in the Actual column.",
+      "unit_after_state": "The summary cell in the Actual column next to the Total Actual label displays the computed total of the utility Actual values.",
+      "unit_precondition": [
+        "The Total Actual row is visible below the utilities table.",
+        "The summary cell beside Total Actual in the Actual column is empty and selectable.",
+        "The utility Actual values occupy cells C2 through C7."
+      ],
+      "unit_effect": [
+        "The formula =SUM(C2:C7) is entered into the Total Actual summary cell and confirmed.",
+        "The previously blank Total Actual cell updates to a numeric total."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Calculate the total for a specified cell range and display it in a designated summary cell.",
+      "parameters": {
+        "target_summary_cell": "the empty summary cell in the Actual column next to the Total Actual label",
+        "value_range": "C2:C7"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the empty summary cell in the Actual column next to the Total Actual label'}}",
+          "action_template": "Click {{target_summary_cell}} to activate the designated summary cell after the summary row is visible and the target cell is identified as the correct total field."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '=SUM(C2:C7)'}",
+          "action_template": "Type =SUM({{value_range}}) into the selected summary cell once that cell is active and the values to be totaled are in {{value_range}}."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter to confirm the SUM formula and calculate the displayed total in the selected summary cell."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9,
+        10,
+        11
+      ],
+      "unit_intent": "Calculate the combined planned-minus-actual difference for all utility rows in the summary section.",
+      "unit_type": "CALCULATE_TOTAL_DIFFERENCE",
+      "unit_before_state": "The Total Actual summary value is already filled in, and the summary area also includes a row labeled Total Difference with an empty cell in the Difference column.",
+      "unit_after_state": "The summary cell in the Difference column next to the Total Difference label displays the computed total of the row-level Difference values.",
+      "unit_precondition": [
+        "The Total Difference row is visible below the utilities table.",
+        "The summary cell beside Total Difference in the Difference column is empty and selectable.",
+        "The row-level Difference values occupy cells D2 through D7."
+      ],
+      "unit_effect": [
+        "The formula =SUM(D2:D7) is entered into the Total Difference summary cell and confirmed.",
+        "The previously blank Total Difference cell updates to a numeric total."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Calculate and fill a summary-row total from a specified range of row-level values.",
+      "parameters": {
+        "summary_label": "Total Difference",
+        "target_column": "Difference",
+        "source_range": "D2:D7"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the empty summary cell in the Difference column next to the Total Difference label'}}",
+          "action_template": "When a row labeled {{summary_label}} appears below the table and its blank summary cell is in the {{target_column}} column, click the empty summary cell next to that label so the total can be entered and the cell becomes active for a formula."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '=SUM(D2:D7)'}",
+          "action_template": "With the summary cell for {{summary_label}} selected and the row-level values located in {{source_range}}, type =SUM({{source_range}}) so the total formula appears in the summary cell and is ready to be confirmed."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After =SUM({{source_range}}) is visible in the selected summary cell and the cell is still in edit focus, press Enter so the spreadsheet calculates and displays the final total in that summary cell."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        12
+      ],
+      "unit_intent": "Persist the completed budget calculations to the spreadsheet file.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "All utility rows now show Difference values, and both summary cells for Total Actual and Total Difference are filled with calculated results.",
+      "unit_after_state": "The spreadsheet remains open in LibreOffice Calc with the completed calculations saved to disk.",
+      "unit_precondition": [
+        "The required Difference and summary calculations are already completed.",
+        "LibreOffice Calc is still the active application window."
+      ],
+      "unit_effect": [
+        "The save command is issued with Ctrl+S.",
+        "The current spreadsheet file is stored with the new formulas and calculated values."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the current spreadsheet after completing the required calculations.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 's']}",
+          "action_template": "Press Ctrl+S when the required calculations are complete and LibreOffice Calc is the active window to save the current spreadsheet with the completed calculations, without changing any other content."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

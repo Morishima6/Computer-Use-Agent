@@ -1,0 +1,680 @@
+{
+  "segment_id": "seg_001",
+  "app": "vs_code",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the integrated terminal in VS Code",
+      "action_before_state": "VS Code is already open on the GNOME desktop, and the main editor window is visible with no blocking modal dialog.",
+      "action_preconditions": [
+        "The VS Code window is focused",
+        "No modal pop-up is covering the editor"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "backtick"
+        ]
+      },
+      "action_after_effects": "The integrated terminal panel opens at the bottom of the VS Code window and is ready for input.",
+      "nl_explanation": "When the VS Code window is active and no dialog is blocking input, press Ctrl+` to open the built-in terminal so the next folder-creation command can be entered."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Enter a command to create the notes folder",
+      "action_before_state": "The integrated terminal is open and its cursor is active on a shell prompt.",
+      "action_preconditions": [
+        "The terminal panel is visible",
+        "The text cursor is inside the terminal input line"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "mkdir -p ~/Documents/daily-notes"
+      },
+      "action_after_effects": "The folder-creation command appears in the terminal input, waiting to be executed.",
+      "nl_explanation": "With the terminal focused, type the mkdir command that prepares a daily-notes folder inside Documents so VS Code can open it next."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Run the folder-creation command",
+      "action_before_state": "The terminal contains the mkdir command and is waiting for confirmation.",
+      "action_preconditions": [
+        "The full mkdir command is visible in the terminal input",
+        "The terminal still has keyboard focus"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The shell executes the command and returns to a new prompt; the daily-notes folder now exists in Documents.",
+      "nl_explanation": "Once the mkdir command is fully typed in the terminal, press Enter to create the folder that will hold the new agenda file."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Enter a command to reopen VS Code in the new folder",
+      "action_before_state": "The terminal is still open at a fresh shell prompt after the folder was created.",
+      "action_preconditions": [
+        "The terminal prompt is ready for another command",
+        "VS Code remains focused"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "code -r ~/Documents/daily-notes"
+      },
+      "action_after_effects": "The command to reopen the current VS Code window in the daily-notes folder appears in the terminal.",
+      "nl_explanation": "With the terminal ready for more input, type the code -r command so the current VS Code window switches to the new folder instead of opening a separate window."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Open the new folder in the current VS Code window",
+      "action_before_state": "The terminal shows the code -r command and is waiting to execute it.",
+      "action_preconditions": [
+        "The code -r command is visible in the terminal input",
+        "The terminal has focus"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "VS Code reloads into the ~/Documents/daily-notes folder, and the Explorer updates to show that folder as the current workspace.",
+      "nl_explanation": "When the reopen command is ready in the terminal, press Enter so VS Code switches its workspace to the daily-notes folder."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Focus the Explorer panel",
+      "action_before_state": "The VS Code window now shows the daily-notes workspace, but the terminal may still be visible and focused.",
+      "action_preconditions": [
+        "The folder has been opened in VS Code",
+        "The Explorer view is available in the left sidebar"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "e"
+        ]
+      },
+      "action_after_effects": "The Explorer panel becomes the active area, making its file controls easy to use.",
+      "nl_explanation": "After the workspace loads, press Ctrl+Shift+E to move focus to the Explorer so a new note file can be created from the sidebar."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Start creating the daily agenda file",
+      "action_before_state": "The Explorer panel is active and shows the daily-notes folder with its file controls near the top.",
+      "action_preconditions": [
+        "The Explorer sidebar is visible",
+        "The New File button is present near the top of the file tree"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the New File icon at the top of the Explorer panel"
+        }
+      },
+      "action_after_effects": "An inline filename input appears in the Explorer, ready for the name of the new file.",
+      "nl_explanation": "With the Explorer panel visible, click the New File icon so VS Code opens an inline filename field for the agenda note."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Name the new Markdown file",
+      "action_before_state": "The Explorer shows an editable filename box for the new file.",
+      "action_preconditions": [
+        "The inline filename field is active in the Explorer",
+        "The cursor is blinking inside the filename box"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "today-agenda.md"
+      },
+      "action_after_effects": "The desired Markdown filename is filled into the input box and is ready to be confirmed.",
+      "nl_explanation": "When the new file name field is active in the Explorer, type today-agenda.md so the note is created as a Markdown document."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Confirm creation of the Markdown file",
+      "action_before_state": "The filename today-agenda.md is visible in the Explorer input field.",
+      "action_preconditions": [
+        "The complete filename has been entered",
+        "The inline filename box still has focus"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "VS Code creates today-agenda.md and opens it as a new tab in the editor.",
+      "nl_explanation": "After typing the filename, press Enter to create the Markdown file and open it in the editor for content entry."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Add the daily agenda template content",
+      "action_before_state": "The new today-agenda.md tab is open in the editor with an empty document and a blinking text cursor.",
+      "action_preconditions": [
+        "today-agenda.md is the active editor tab",
+        "The editor cursor is inside the empty file"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "# Today's Agenda\n\n## Top Priorities\n- [ ] Priority 1\n- [ ] Priority 2\n- [ ] Priority 3\n\n## Time Blocks\n- 09:00-11:00 \n- 13:00-15:00 \n- 16:00-17:00 \n\n## Errands\n- [ ] Grocery run\n- [ ] Reply to messages\n\n## Notes\n- "
+      },
+      "action_after_effects": "The editor now contains a structured Markdown agenda with checklist items and sections for the day.",
+      "nl_explanation": "With the empty Markdown file open and focused, type the agenda template so the document includes reusable sections for priorities, schedule blocks, errands, and notes."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Save the new agenda file",
+      "action_before_state": "The agenda template text is visible in today-agenda.md and the file has unsaved changes.",
+      "action_preconditions": [
+        "The editor contains the typed Markdown content",
+        "The file tab shows that the document is modified"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "s"
+        ]
+      },
+      "action_after_effects": "The file is saved to disk inside ~/Documents/daily-notes, and the unsaved indicator disappears from the tab.",
+      "nl_explanation": "Once the Markdown template has been entered, press Ctrl+S to save the note so it is stored in the current workspace folder."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Turn on word wrap for easier note editing",
+      "action_before_state": "The Markdown file remains open in the editor after being saved.",
+      "action_preconditions": [
+        "The editor is focused on today-agenda.md",
+        "No modal window is blocking keyboard input"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "alt",
+          "z"
+        ]
+      },
+      "action_after_effects": "Word wrap is toggled on, so long lines will stay visible within the editor width instead of extending horizontally.",
+      "nl_explanation": "While the Markdown editor is active, press Alt+Z to enable word wrap so longer notes are easier to read without horizontal scrolling."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Open the Command Palette to access Markdown preview",
+      "action_before_state": "The saved Markdown file is visible in the editor and word wrap has already been enabled.",
+      "action_preconditions": [
+        "today-agenda.md is still the active file",
+        "VS Code has keyboard focus"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "p"
+        ]
+      },
+      "action_after_effects": "The Command Palette appears at the top of the window with a text field ready for a command search.",
+      "nl_explanation": "With the Markdown file active, press Ctrl+Shift+P to open the Command Palette so the preview command can be searched quickly."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Search for the command that opens Markdown preview to the side",
+      "action_before_state": "The Command Palette is open and its input box is focused.",
+      "action_preconditions": [
+        "The Command Palette search box is active",
+        "No other menu is covering the palette"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Markdown: Open Preview to the Side"
+      },
+      "action_after_effects": "The matching Markdown preview command is filtered to the top of the Command Palette results.",
+      "nl_explanation": "When the Command Palette input is focused, type the full preview command name so the correct Markdown action is selected."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Open the Markdown preview beside the editor",
+      "action_before_state": "The Command Palette shows Markdown: Open Preview to the Side as the active command result.",
+      "action_preconditions": [
+        "The desired Markdown preview command is highlighted in the palette",
+        "The palette still has focus"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "VS Code opens a rendered Markdown preview in a side-by-side editor group next to today-agenda.md.",
+      "nl_explanation": "After the correct preview command is highlighted in the Command Palette, press Enter so the rendered agenda opens beside the source file for review."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Create the daily-notes folder in Documents so the agenda file has a dedicated storage location.",
+      "unit_type": "CREATE_FOLDER",
+      "unit_before_state": "VS Code is open on the desktop with the main editor visible and no blocking modal dialog; the integrated terminal is not yet open.",
+      "unit_after_state": "The integrated terminal is open at a fresh shell prompt, and the folder ~/Documents/daily-notes has been created.",
+      "unit_precondition": [
+        "The VS Code window is focused.",
+        "No modal dialog or popup is blocking keyboard input.",
+        "A shell can be opened in the integrated terminal."
+      ],
+      "unit_effect": [
+        "The integrated terminal panel opens at the bottom of VS Code.",
+        "The command mkdir -p ~/Documents/daily-notes is executed and the shell returns to a new prompt.",
+        "The folder ~/Documents/daily-notes now exists."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Switch the current VS Code window to the newly created daily-notes folder as the active workspace.",
+      "unit_type": "OPEN_FOLDER_WORKSPACE",
+      "unit_before_state": "The integrated terminal is still open in VS Code at a fresh prompt after folder creation, and the current workspace has not yet switched to daily-notes.",
+      "unit_after_state": "VS Code reloads into ~/Documents/daily-notes, and the Explorer shows daily-notes as the current workspace folder.",
+      "unit_precondition": [
+        "The integrated terminal is focused and ready for another command.",
+        "The folder ~/Documents/daily-notes already exists.",
+        "The code command is available to reopen the current VS Code window."
+      ],
+      "unit_effect": [
+        "The command code -r ~/Documents/daily-notes is submitted in the terminal.",
+        "The Explorer updates to show daily-notes as the workspace root."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "unit_intent": "Create the Markdown file for today's agenda inside the daily-notes workspace and open it for editing.",
+      "unit_type": "CREATE_FILE",
+      "unit_before_state": "VS Code shows the daily-notes workspace, and the Explorer is available in the left sidebar, but today-agenda.md does not exist yet.",
+      "unit_after_state": "The Explorer contains today-agenda.md, and that file is open as the active editor tab with an empty document ready for input.",
+      "unit_precondition": [
+        "The daily-notes folder is the active workspace root.",
+        "The Explorer view and its New File control are visible.",
+        "The user can type a filename into the Explorer's inline input."
+      ],
+      "unit_effect": [
+        "Explorer focus moves to the file tree.",
+        "Clicking New File opens an inline filename field.",
+        "Entering today-agenda.md and pressing Enter creates the file and opens it in the editor."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        10
+      ],
+      "unit_intent": "Populate the new note with a reusable daily agenda template.",
+      "unit_type": "INSERT_TEMPLATE_CONTENT",
+      "unit_before_state": "The today-agenda.md tab is active in the editor, and the document is empty with a blinking text cursor.",
+      "unit_after_state": "The editor shows a Markdown agenda template headed with Today's Agenda and containing sections for Top Priorities, Time Blocks, Errands, and Notes.",
+      "unit_precondition": [
+        "today-agenda.md is the active editor tab.",
+        "The text cursor is inside the empty document."
+      ],
+      "unit_effect": [
+        "The file content changes from blank to a structured Markdown template with checklist items and bullet lists."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        11
+      ],
+      "unit_intent": "Persist the agenda template to disk.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "today-agenda.md contains the typed agenda template, and its tab shows unsaved changes.",
+      "unit_after_state": "today-agenda.md remains open, and the unsaved change indicator is gone because the file has been saved in ~/Documents/daily-notes.",
+      "unit_precondition": [
+        "today-agenda.md is still the active editor.",
+        "The tab indicates the file has unsaved modifications."
+      ],
+      "unit_effect": [
+        "Pressing Ctrl+S writes the file to disk.",
+        "The dirty marker disappears from the editor tab."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        12
+      ],
+      "unit_intent": "Enable wrapped editing so the note stays readable within the editor width.",
+      "unit_type": "ENABLE_WORD_WRAP",
+      "unit_before_state": "The saved today-agenda.md document is open in the editor, and word wrap is not yet enabled for the current view.",
+      "unit_after_state": "The same Markdown file remains active with word wrap enabled, so long lines stay within the editor pane.",
+      "unit_precondition": [
+        "today-agenda.md is the active editor.",
+        "No modal dialog is intercepting keyboard input."
+      ],
+      "unit_effect": [
+        "The editor toggles word wrap on, so long lines would wrap instead of extending horizontally."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        13,
+        14,
+        15
+      ],
+      "unit_intent": "Open a rendered side-by-side Markdown preview to review the agenda layout.",
+      "unit_type": "OPEN_MARKDOWN_PREVIEW_TO_SIDE",
+      "unit_before_state": "today-agenda.md is visible in the editor with word wrap enabled, and no Command Palette is open.",
+      "unit_after_state": "A rendered Markdown preview for today-agenda.md is open in a second editor group beside the source editor.",
+      "unit_precondition": [
+        "today-agenda.md is the active file.",
+        "VS Code accepts keyboard input.",
+        "The Markdown preview command is available from the Command Palette."
+      ],
+      "unit_effect": [
+        "The Command Palette opens and filters Markdown: Open Preview to the Side to the top result.",
+        "Pressing Enter opens the rendered preview beside the Markdown source editor."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Create the daily-notes folder in Documents so the agenda file has a dedicated storage location.",
+      "unit_type": "CREATE_FOLDER",
+      "unit_before_state": "VS Code is open on the desktop with the main editor visible and no blocking modal dialog; the integrated terminal is not yet open.",
+      "unit_after_state": "The integrated terminal is open at a fresh shell prompt, and the folder ~/Documents/daily-notes has been created.",
+      "unit_precondition": [
+        "The VS Code window is focused.",
+        "No modal dialog or popup is blocking keyboard input.",
+        "A shell can be opened in the integrated terminal."
+      ],
+      "unit_effect": [
+        "The integrated terminal panel opens at the bottom of VS Code.",
+        "The command mkdir -p ~/Documents/daily-notes is executed and the shell returns to a new prompt.",
+        "The folder ~/Documents/daily-notes now exists."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a specified folder at a target path using the VS Code integrated terminal.",
+      "parameters": {
+        "target_folder_path": "~/Documents/daily-notes"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'backtick']}",
+          "action_template": "When the VS Code window is focused and no modal pop-up is covering the editor, press Ctrl+` to open the built-in terminal so the folder-creation command can be entered; the integrated terminal panel opens at the bottom of the VS Code window and is ready for input."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'mkdir -p ~/Documents/daily-notes'}",
+          "action_template": "With the terminal panel visible and the text cursor inside the terminal input line, type mkdir -p {{target_folder_path}} to prepare the target folder; the folder-creation command appears in the terminal input, waiting to be executed."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "When the full mkdir command for {{target_folder_path}} is visible in the terminal input and the terminal still has keyboard focus, press Enter to create the folder; the shell executes the command and returns to a new prompt."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Switch the current VS Code window to the newly created daily-notes folder as the active workspace.",
+      "unit_type": "OPEN_FOLDER_WORKSPACE",
+      "unit_before_state": "The integrated terminal is still open in VS Code at a fresh prompt after folder creation, and the current workspace has not yet switched to daily-notes.",
+      "unit_after_state": "VS Code reloads into ~/Documents/daily-notes, and the Explorer shows daily-notes as the current workspace folder.",
+      "unit_precondition": [
+        "The integrated terminal is focused and ready for another command.",
+        "The folder ~/Documents/daily-notes already exists.",
+        "The code command is available to reopen the current VS Code window."
+      ],
+      "unit_effect": [
+        "The command code -r ~/Documents/daily-notes is submitted in the terminal.",
+        "The Explorer updates to show daily-notes as the workspace root."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Switch the current VS Code window to a specified folder as the active workspace.",
+      "parameters": {
+        "target_folder_path": "~/Documents/daily-notes"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'code -r ~/Documents/daily-notes'}",
+          "action_template": "With the terminal prompt ready for another command and VS Code still focused, type code -r {{target_folder_path}} so the current VS Code window switches to the specified folder instead of opening a separate window; afterward, the command to reopen the current VS Code window in {{target_folder_path}} appears in the terminal."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "When the code -r {{target_folder_path}} command is visible in the terminal input and the terminal has focus, press Enter to execute it so VS Code switches its workspace to {{target_folder_path}}; afterward, VS Code reloads into {{target_folder_path}}, and the Explorer updates to show that folder as the current workspace."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "unit_intent": "Create the Markdown file for today's agenda inside the daily-notes workspace and open it for editing.",
+      "unit_type": "CREATE_FILE",
+      "unit_before_state": "VS Code shows the daily-notes workspace, and the Explorer is available in the left sidebar, but today-agenda.md does not exist yet.",
+      "unit_after_state": "The Explorer contains today-agenda.md, and that file is open as the active editor tab with an empty document ready for input.",
+      "unit_precondition": [
+        "The daily-notes folder is the active workspace root.",
+        "The Explorer view and its New File control are visible.",
+        "The user can type a filename into the Explorer's inline input."
+      ],
+      "unit_effect": [
+        "Explorer focus moves to the file tree.",
+        "Clicking New File opens an inline filename field.",
+        "Entering today-agenda.md and pressing Enter creates the file and opens it in the editor."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a specified Markdown file in the active VS Code workspace and open it for editing.",
+      "parameters": {
+        "file_name": "today-agenda.md"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'e']}",
+          "action_template": "After the workspace loads and the Explorer view is available in the left sidebar, press Ctrl+Shift+E to move focus to the Explorer so a new file can be created from the sidebar, making its file controls easy to use."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the New File icon at the top of the Explorer panel'}}",
+          "action_template": "With the Explorer sidebar visible and the New File button present near the top of the file tree, click the New File icon at the top of the Explorer panel to open an inline filename field for the new file."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'today-agenda.md'}",
+          "action_template": "When the inline filename field is active in the Explorer and the cursor is blinking inside the filename box, type {{file_name}} so the desired Markdown filename is filled into the input box and ready to be confirmed."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After {{file_name}} has been entered and the inline filename box still has focus, press Enter to create the Markdown file and open it as a new tab in the editor for content entry."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        10
+      ],
+      "unit_intent": "Populate the new note with a reusable daily agenda template.",
+      "unit_type": "INSERT_TEMPLATE_CONTENT",
+      "unit_before_state": "The today-agenda.md tab is active in the editor, and the document is empty with a blinking text cursor.",
+      "unit_after_state": "The editor shows a Markdown agenda template headed with Today's Agenda and containing sections for Top Priorities, Time Blocks, Errands, and Notes.",
+      "unit_precondition": [
+        "today-agenda.md is the active editor tab.",
+        "The text cursor is inside the empty document."
+      ],
+      "unit_effect": [
+        "The file content changes from blank to a structured Markdown template with checklist items and bullet lists."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Populate an empty Markdown note with a specified reusable agenda template.",
+      "parameters": {
+        "target_file": "today-agenda.md",
+        "template_content": "# Today's Agenda\n\n## Top Priorities\n- [ ] Priority 1\n- [ ] Priority 2\n- [ ] Priority 3\n\n## Time Blocks\n- 09:00-11:00 \n- 13:00-15:00 \n- 16:00-17:00 \n\n## Errands\n- [ ] Grocery run\n- [ ] Reply to messages\n\n## Notes\n- "
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': \"# Today's Agenda\\n\\n## Top Priorities\\n- [ ] Priority 1\\n- [ ] Priority 2\\n- [ ] Priority 3\\n\\n## Time Blocks\\n- 09:00-11:00 \\n- 13:00-15:00 \\n- 16:00-17:00 \\n\\n## Errands\\n- [ ] Grocery run\\n- [ ] Reply to messages\\n\\n## Notes\\n- \"}",
+          "action_template": "With {{target_file}} open and focused as the active editor tab and the text cursor inside the empty file, type {{template_content}} to populate the document with the specified reusable Markdown agenda template. After this action, the editor contains a structured agenda with checklist items and day-planning sections."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        11
+      ],
+      "unit_intent": "Persist the agenda template to disk.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "today-agenda.md contains the typed agenda template, and its tab shows unsaved changes.",
+      "unit_after_state": "today-agenda.md remains open, and the unsaved change indicator is gone because the file has been saved in ~/Documents/daily-notes.",
+      "unit_precondition": [
+        "today-agenda.md is still the active editor.",
+        "The tab indicates the file has unsaved modifications."
+      ],
+      "unit_effect": [
+        "Pressing Ctrl+S writes the file to disk.",
+        "The dirty marker disappears from the editor tab."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the active modified document to disk in its current location.",
+      "parameters": {
+        "target_file": "today-agenda.md",
+        "save_location": "~/Documents/daily-notes"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 's']}",
+          "action_template": "Press Ctrl+S to save {{target_file}} after its content has been entered and its tab shows unsaved changes; this writes the file to disk in {{save_location}} and clears the unsaved indicator from the tab."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        12
+      ],
+      "unit_intent": "Enable wrapped editing so the note stays readable within the editor width.",
+      "unit_type": "ENABLE_WORD_WRAP",
+      "unit_before_state": "The saved today-agenda.md document is open in the editor, and word wrap is not yet enabled for the current view.",
+      "unit_after_state": "The same Markdown file remains active with word wrap enabled, so long lines stay within the editor pane.",
+      "unit_precondition": [
+        "today-agenda.md is the active editor.",
+        "No modal dialog is intercepting keyboard input."
+      ],
+      "unit_effect": [
+        "The editor toggles word wrap on, so long lines would wrap instead of extending horizontally."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Enable word wrap for the active editor so long lines remain readable within the editor pane.",
+      "parameters": {
+        "target_document": "today-agenda.md"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['alt', 'z']}",
+          "action_template": "Press Alt+Z while {{target_document}} is focused in the editor and no modal window is blocking keyboard input to enable word wrap, so long lines stay visible within the editor width instead of extending horizontally."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_07",
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        13,
+        14,
+        15
+      ],
+      "unit_intent": "Open a rendered side-by-side Markdown preview to review the agenda layout.",
+      "unit_type": "OPEN_MARKDOWN_PREVIEW_TO_SIDE",
+      "unit_before_state": "today-agenda.md is visible in the editor with word wrap enabled, and no Command Palette is open.",
+      "unit_after_state": "A rendered Markdown preview for today-agenda.md is open in a second editor group beside the source editor.",
+      "unit_precondition": [
+        "today-agenda.md is the active file.",
+        "VS Code accepts keyboard input.",
+        "The Markdown preview command is available from the Command Palette."
+      ],
+      "unit_effect": [
+        "The Command Palette opens and filters Markdown: Open Preview to the Side to the top result.",
+        "Pressing Enter opens the rendered preview beside the Markdown source editor."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a rendered Markdown preview beside the active Markdown source file for side-by-side review.",
+      "parameters": {
+        "markdown_file": "today-agenda.md"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'p']}",
+          "action_template": "With {{markdown_file}} still active and VS Code focused, press Ctrl+Shift+P to open the Command Palette so the Markdown preview command can be searched, after which the palette appears with a text field ready for command search."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Markdown: Open Preview to the Side'}",
+          "action_template": "When the Command Palette search box is active and unobstructed, type Markdown: Open Preview to the Side so the matching preview command is filtered to the top result."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "When the Markdown preview command is highlighted and the palette still has focus, press Enter to open a rendered Markdown preview in a side-by-side editor group next to {{markdown_file}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

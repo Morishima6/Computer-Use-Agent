@@ -1,0 +1,278 @@
+{
+  "segment_id": "seg_001",
+  "app": "vlc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Navigate to the starting position (15 seconds) on the timeline",
+      "action_before_state": "VLC media player is open and displaying a video. The timeline/scrubber is visible at the bottom of the window, showing the video progress. The video may be at the beginning or any other position.",
+      "action_preconditions": [
+        "VLC media player is open and active",
+        "A video file is loaded and visible",
+        "The timeline control is accessible at the bottom of the window"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": "timeline scrubber at approximately the 15-second mark (roughly one-third of the way along the timeline bar)"
+      },
+      "action_after_effects": "The video playhead jumps to approximately the 15-second mark. The video frame updates to display the scene at that timestamp, and playback may continue or pause depending on the current state.",
+      "nl_explanation": "With VLC open and the video loaded, click on the timeline scrubber at the bottom of the window at approximately the 15-second position to set the starting point for the loop."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Set Point A (the start of the A-B loop) at the current position",
+      "action_before_state": "The video is now positioned at approximately 15 seconds as indicated by the timeline position. The VLC window is in focus showing the video at this timestamp.",
+      "action_preconditions": [
+        "Video is positioned at the desired start time of approximately 15 seconds",
+        "VLC window is focused and active"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "shift",
+          "a"
+        ]
+      },
+      "action_after_effects": "Point A is set for the A-B repeat function. A visual indicator such as the letter 'A' may appear on the timeline or in the status area to confirm that Point A has been marked.",
+      "nl_explanation": "With the video positioned at the 15-second mark, press Shift+A on the keyboard to mark this position as Point A (the start of the loop)."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Navigate to the ending position (25 seconds) on the timeline",
+      "action_before_state": "Point A has been successfully set at the 15-second position, indicated by a marker on the timeline. The video may be paused or playing from the current position.",
+      "action_preconditions": [
+        "Point A is already set and visible on the timeline",
+        "The timeline control remains accessible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": "timeline scrubber at approximately the 25-second mark (further to the right along the timeline, past the Point A marker)"
+      },
+      "action_after_effects": "The video playhead jumps to approximately the 25-second mark, and the video frame updates to show the scene at that timestamp.",
+      "nl_explanation": "Click on the timeline scrubber at approximately the 25-second position to set the ending point for the loop."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Set Point B (the end of the A-B loop) at the current position",
+      "action_before_state": "The video is positioned at approximately 25 seconds. Point A remains set at 15 seconds as indicated by the timeline marker. The video is ready for Point B to be marked.",
+      "action_preconditions": [
+        "Video is positioned at the desired end time of approximately 25 seconds",
+        "Point A has been previously set and is still active",
+        "VLC window is focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "shift",
+          "b"
+        ]
+      },
+      "action_after_effects": "Point B is set, completing the A-B loop configuration. The video should now automatically jump back to Point A (15s) whenever playback reaches Point B (25s), creating a continuous loop. Visual indicators for both A and B should appear on the timeline.",
+      "nl_explanation": "With the video positioned at the 25-second mark and Point A already established, press Shift+B on the keyboard to mark this position as Point B (the end of the loop), which activates the continuous loop between the two points."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Verify the A-B loop is functioning correctly",
+      "action_before_state": "Both Point A and Point B are now set and visible as markers on the timeline. The video is positioned at or near Point B (25 seconds) or between the two points.",
+      "action_preconditions": [
+        "Point A and Point B are both set and visible on the timeline",
+        "The video is ready for playback verification"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "space"
+        ]
+      },
+      "action_after_effects": "The video begins playing (if it was paused). When playback reaches Point B (25 seconds), it automatically jumps back to Point A (15 seconds) and continues playing, confirming that the A-B loop is working correctly.",
+      "nl_explanation": "Press the Space bar to start playback and verify that when the video reaches the 25-second mark (Point B), it automatically loops back to the 15-second mark (Point A) and continues playing in a continuous loop."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Define the start boundary of the repeat segment at around 15 seconds.",
+      "unit_type": "SET_AB_LOOP_START",
+      "unit_before_state": "VLC media player is open with a video loaded. The playback timeline is visible at the bottom, and no A-B repeat start point has been marked yet.",
+      "unit_after_state": "The playhead is positioned at about 15 seconds, and Point A for A-B repeat is marked at that location on the timeline or status area.",
+      "unit_precondition": [
+        "VLC is the active window.",
+        "A video is loaded and its timeline is visible and usable.",
+        "The desired loop start is approximately 15 seconds into the video."
+      ],
+      "unit_effect": [
+        "The displayed video frame changes to the scene around 15 seconds.",
+        "An A-point indicator appears, confirming that the loop start has been set at the current position."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4
+      ],
+      "unit_intent": "Define the end boundary of the repeat segment at around 25 seconds so the 15s-25s range becomes an active loop.",
+      "unit_type": "SET_AB_LOOP_END",
+      "unit_before_state": "Point A is already set at about 15 seconds in VLC, and the video remains open with the timeline visible.",
+      "unit_after_state": "The playhead is positioned at about 25 seconds, Point B is marked there, and the A-B repeat range from about 15 seconds to 25 seconds is fully configured.",
+      "unit_precondition": [
+        "Point A is already set and still active.",
+        "The VLC window remains focused.",
+        "The timeline is visible so the playhead can be moved to approximately 25 seconds."
+      ],
+      "unit_effect": [
+        "The displayed video frame changes to the scene around 25 seconds.",
+        "A B-point indicator appears in addition to the A-point marker.",
+        "VLC now has an active A-B repeat interval bounded by the two markers."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5
+      ],
+      "unit_intent": "Start playback and confirm that the configured A-B repeat segment loops continuously.",
+      "unit_type": "VERIFY_AB_LOOP_PLAYBACK",
+      "unit_before_state": "Both A and B markers are visible for the configured repeat interval, and the video is positioned near or within the 15s-25s segment.",
+      "unit_after_state": "The video is playing and, upon reaching about 25 seconds, jumps back to about 15 seconds and continues within the same segment.",
+      "unit_precondition": [
+        "Both Point A and Point B are already set and visible.",
+        "VLC is focused and ready to accept keyboard playback control.",
+        "Playback can be observed long enough to see the jump from B back to A."
+      ],
+      "unit_effect": [
+        "Playback starts or resumes after pressing Space.",
+        "When the playhead reaches Point B near 25 seconds, it visibly returns to Point A near 15 seconds instead of continuing forward.",
+        "Repeated playback of the same 10-second segment confirms the A-B loop is functioning."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Define the start boundary of the repeat segment at around 15 seconds.",
+      "unit_type": "SET_AB_LOOP_START",
+      "unit_before_state": "VLC media player is open with a video loaded. The playback timeline is visible at the bottom, and no A-B repeat start point has been marked yet.",
+      "unit_after_state": "The playhead is positioned at about 15 seconds, and Point A for A-B repeat is marked at that location on the timeline or status area.",
+      "unit_precondition": [
+        "VLC is the active window.",
+        "A video is loaded and its timeline is visible and usable.",
+        "The desired loop start is approximately 15 seconds into the video."
+      ],
+      "unit_effect": [
+        "The displayed video frame changes to the scene around 15 seconds.",
+        "An A-point indicator appears, confirming that the loop start has been set at the current position."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Set Point A for A-B repeat at {{target_timestamp}} in the current video.",
+      "parameters": {
+        "target_timestamp": "approximately 15 seconds",
+        "timeline_target": "timeline scrubber at approximately the 15-second mark (roughly one-third of the way along the timeline bar)"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': 'timeline scrubber at approximately the 15-second mark (roughly one-third of the way along the timeline bar)'}",
+          "action_template": "With VLC open and a video loaded, click the {{timeline_target}} to move the playhead to {{target_timestamp}}. Preconditions: VLC media player is open and active, a video file is loaded and visible, and the timeline control is accessible at the bottom of the window. Afterward, the video playhead jumps to {{target_timestamp}}, the video frame updates to that timestamp, and playback may continue or pause depending on the current state."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['shift', 'a']}",
+          "action_template": "With the video positioned at {{target_timestamp}}, press Shift+A to mark this position as Point A for the loop. Preconditions: the video is positioned at the desired start time and the VLC window is focused and active. Afterward, Point A is set for the A-B repeat function and an A-point indicator may appear on the timeline or in the status area."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4
+      ],
+      "unit_intent": "Define the end boundary of the repeat segment at around 25 seconds so the 15s-25s range becomes an active loop.",
+      "unit_type": "SET_AB_LOOP_END",
+      "unit_before_state": "Point A is already set at about 15 seconds in VLC, and the video remains open with the timeline visible.",
+      "unit_after_state": "The playhead is positioned at about 25 seconds, Point B is marked there, and the A-B repeat range from about 15 seconds to 25 seconds is fully configured.",
+      "unit_precondition": [
+        "Point A is already set and still active.",
+        "The VLC window remains focused.",
+        "The timeline is visible so the playhead can be moved to approximately 25 seconds."
+      ],
+      "unit_effect": [
+        "The displayed video frame changes to the scene around 25 seconds.",
+        "A B-point indicator appears in addition to the A-point marker.",
+        "VLC now has an active A-B repeat interval bounded by the two markers."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Define the end boundary of an A-B repeat segment at {{loop_end_time}} so the interval from the existing start point at {{loop_start_time}} becomes an active loop.",
+      "parameters": {
+        "loop_start_time": "15 seconds",
+        "loop_end_time": "25 seconds"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': 'timeline scrubber at approximately the 25-second mark (further to the right along the timeline, past the Point A marker)'}",
+          "action_template": "Click on the timeline scrubber at approximately the {{loop_end_time}} position to set the ending point for the loop, when Point A is already set and visible on the timeline and the timeline control remains accessible. The video playhead jumps to approximately {{loop_end_time}}, and the video frame updates to show the scene at that timestamp."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['shift', 'b']}",
+          "action_template": "With the video positioned at the desired end time of approximately {{loop_end_time}}, Point A previously set and still active at {{loop_start_time}}, and the VLC window focused, press Shift+B to mark the current position as Point B and activate the continuous loop between the two points. Point B is set, playback will jump back to {{loop_start_time}} whenever it reaches {{loop_end_time}}, and visual indicators for both A and B appear on the timeline."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5
+      ],
+      "unit_intent": "Start playback and confirm that the configured A-B repeat segment loops continuously.",
+      "unit_type": "VERIFY_AB_LOOP_PLAYBACK",
+      "unit_before_state": "Both A and B markers are visible for the configured repeat interval, and the video is positioned near or within the 15s-25s segment.",
+      "unit_after_state": "The video is playing and, upon reaching about 25 seconds, jumps back to about 15 seconds and continues within the same segment.",
+      "unit_precondition": [
+        "Both Point A and Point B are already set and visible.",
+        "VLC is focused and ready to accept keyboard playback control.",
+        "Playback can be observed long enough to see the jump from B back to A."
+      ],
+      "unit_effect": [
+        "Playback starts or resumes after pressing Space.",
+        "When the playhead reaches Point B near 25 seconds, it visibly returns to Point A near 15 seconds instead of continuing forward.",
+        "Repeated playback of the same 10-second segment confirms the A-B loop is functioning."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Start playback and verify that the configured A-B repeat interval continuously loops from the set end marker back to the set start marker.",
+      "parameters": {
+        "point_a_time": "15 seconds",
+        "point_b_time": "25 seconds"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['space']}",
+          "action_template": "With Point A at {{point_a_time}} and Point B at {{point_b_time}} already set and visible on the timeline and the video ready for playback verification, press Space to start playback and verify that when the video reaches {{point_b_time}} (Point B), it automatically loops back to {{point_a_time}} (Point A) and continues playing, confirming that the A-B loop is working correctly."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

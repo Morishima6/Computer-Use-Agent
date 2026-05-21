@@ -1,0 +1,645 @@
+{
+  "segment_id": "seg_001",
+  "app": "libreoffice_calc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Place the cursor in the first cell where the table will begin",
+      "action_before_state": "LibreOffice Calc is already open on a blank worksheet, and the upper-left corner of the grid with cell A1 is visible.",
+      "action_preconditions": [
+        "A spreadsheet grid is visible on screen",
+        "Cell A1 can be seen and is not blocked by any dialog"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell A1 at the top-left of the worksheet"
+        }
+      },
+      "action_after_effects": "Cell A1 becomes the active cell, ready for table entry.",
+      "nl_explanation": "When the blank sheet is visible and cell A1 is available, click cell A1 so the data table starts in the top-left corner of the worksheet."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Enter the expense table headers and the seven purchase records",
+      "action_before_state": "Cell A1 is selected in the blank worksheet.",
+      "action_preconditions": [
+        "Cell A1 is the active cell",
+        "The sheet is empty in the area from columns A to D and rows 1 to 8"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Date\tItem\tCategory\tAmount\n2026-04-01\tGroceries\tFood\t42.80\n2026-04-02\tDetergent\tHousehold\t13.50\n2026-04-03\tBus Pass\tTransport\t25.00\n2026-04-04\tCoffee Beans\tFood\t18.20\n2026-04-05\tLight Bulbs\tHousehold\t9.90\n2026-04-06\tPharmacy\tPersonal\t16.40\n2026-04-07\tTakeout\tFood\t27.60"
+      },
+      "action_after_effects": "The range A1:D8 is filled with the header row and all seven expense entries.",
+      "nl_explanation": "With A1 active and enough empty space in the sheet, type the tab- and line-separated expense data so Calc fills the table from A1 through D8."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Move to the summary area below the table",
+      "action_before_state": "The expense table is visible in A1:D8, and the area below it is still empty.",
+      "action_preconditions": [
+        "Rows 10 to 12 are visible or reachable without obstruction",
+        "Cell A10 is empty"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell A10 a little below the expense table"
+        }
+      },
+      "action_after_effects": "Cell A10 becomes active so the summary section can be entered separately from the main table.",
+      "nl_explanation": "After the table has been entered and there is blank space below it, click cell A10 to begin the totals section without mixing it into the sortable data range."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Add formulas for the total, average, and highest expense",
+      "action_before_state": "Cell A10 is selected, and rows 10 to 12 are empty.",
+      "action_preconditions": [
+        "The expense amounts are present in cells D2 through D8",
+        "Cell A10 is the active cell"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Total\t\t\t=SUM(D2:D8)\nAverage\t\t\t=AVERAGE(D2:D8)\nHighest\t\t\t=MAX(D2:D8)"
+      },
+      "action_after_effects": "Labels appear in A10:A12 and formulas appear in D10:D12, producing calculated summary values.",
+      "nl_explanation": "Once the data range exists and A10 is selected, type the three summary rows with formulas so Calc computes the total, average, and highest amount below the table."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Select the header row for formatting",
+      "action_before_state": "The table is filled, and the first row contains the four column headers.",
+      "action_preconditions": [
+        "Cells A1 through D1 contain the header labels",
+        "The header row is visible on screen"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell A1 containing the Date header"
+        },
+        "end": {
+          "text": "cell D1 containing the Amount header"
+        },
+        "target": {
+          "begin": {
+            "text": "cell A1 containing the Date header"
+          },
+          "end": {
+            "text": "cell D1 containing the Amount header"
+          }
+        }
+      },
+      "action_after_effects": "The full header row A1:D1 is highlighted.",
+      "nl_explanation": "When the header row is visible, drag from A1 to D1 to select all column headings together for one formatting action."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Make the header row bold",
+      "action_before_state": "Cells A1:D1 are selected.",
+      "action_preconditions": [
+        "The header row selection is active",
+        "LibreOffice Calc is focused and ready for keyboard shortcuts"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "b"
+        ]
+      },
+      "action_after_effects": "The header text becomes bold, making the table structure easier to read.",
+      "nl_explanation": "With the header row selected and Calc focused, press Ctrl+B so the four headers stand out from the rest of the data."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Select the amount cells and summary values for number formatting",
+      "action_before_state": "The data table and summary formulas are visible, and the amount column is in column D.",
+      "action_preconditions": [
+        "Cells D2 through D12 are visible enough to drag across",
+        "The amount values and summary results are already present"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell D2, the first amount value"
+        },
+        "end": {
+          "text": "cell D12, the last summary result"
+        },
+        "target": {
+          "begin": {
+            "text": "cell D2, the first amount value"
+          },
+          "end": {
+            "text": "cell D12, the last summary result"
+          }
+        }
+      },
+      "action_after_effects": "The numeric cells in the amount column and summary area are selected together.",
+      "nl_explanation": "After the values and formulas are in place, drag from D2 down to D12 so all money-related cells can be formatted at once."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Format the selected numeric cells as currency",
+      "action_before_state": "Cells D2:D12 are selected, including the expense amounts and calculated results.",
+      "action_preconditions": [
+        "The selection in column D is still active",
+        "The formatting toolbar is visible and includes the currency button"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Currency button in the formatting toolbar"
+        }
+      },
+      "action_after_effects": "The selected cells display as currency values with monetary formatting.",
+      "nl_explanation": "When the amount cells are selected and the toolbar is available, click the Currency button so the expenses and summary numbers display as money."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Activate the amount column for sorting",
+      "action_before_state": "The table remains visible, and the purchases are still in their original order.",
+      "action_preconditions": [
+        "The contiguous data table is in A1:D8",
+        "At least one value cell in the Amount column is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell D2 inside the Amount column of the main expense table"
+        }
+      },
+      "action_after_effects": "A cell in the Amount column is active, preparing the table to sort by expense amount.",
+      "nl_explanation": "With the data table present and the amount column visible, click one amount cell such as D2 so the next sort action uses that column as the key."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Sort the expense rows from highest amount to lowest",
+      "action_before_state": "A cell in the Amount column is active, and the main table is a single contiguous block above the blank row.",
+      "action_preconditions": [
+        "The active cell is inside the main data table",
+        "The Sort Descending control is visible on the toolbar"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Sort Descending button on the toolbar"
+        }
+      },
+      "action_after_effects": "The expense rows in A2:D8 reorder so the largest amount appears first while the summary rows below remain separate.",
+      "nl_explanation": "Once a value in the Amount column is selected and the table is contiguous, click Sort Descending so the purchases are reordered from the most expensive to the least expensive."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Open the Save As dialog",
+      "action_before_state": "The spreadsheet is complete and still open in LibreOffice Calc.",
+      "action_preconditions": [
+        "LibreOffice Calc is focused",
+        "No modal dialog is currently blocking keyboard input"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "s"
+        ]
+      },
+      "action_after_effects": "The Save As dialog opens in front of the spreadsheet.",
+      "nl_explanation": "After finishing the sheet and ensuring Calc is focused, press Ctrl+Shift+S to open the Save As window."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Switch the save dialog to direct location entry",
+      "action_before_state": "The Save As dialog is open.",
+      "action_preconditions": [
+        "The save dialog is focused",
+        "The dialog supports the standard GNOME location-entry shortcut"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "l"
+        ]
+      },
+      "action_after_effects": "The location field becomes active so a full destination path can be typed directly.",
+      "nl_explanation": "When the Save As dialog is focused, press Ctrl+L to expose the location entry field for typing an absolute save path."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Enter the target path and filename",
+      "action_before_state": "The location field in the save dialog is active and ready for text input.",
+      "action_preconditions": [
+        "The save dialog location entry is focused",
+        "The home directory path is writable"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "/home/user/Weekly_Home_Expenses.ods"
+      },
+      "action_after_effects": "The full output path and filename are filled into the location entry.",
+      "nl_explanation": "With the location field active in the save dialog, type /home/user/Weekly_Home_Expenses.ods so the file will be saved in the home directory with the required name."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Confirm the save operation",
+      "action_before_state": "The full path /home/user/Weekly_Home_Expenses.ods is entered in the save dialog.",
+      "action_preconditions": [
+        "The desired filename and path are already typed",
+        "The save dialog is waiting for confirmation"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The spreadsheet is saved to the home folder as Weekly_Home_Expenses.ods, and the dialog closes.",
+      "nl_explanation": "After the correct path has been entered in the Save As dialog, press Enter to save the completed expense tracker to the home directory."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Create the main weekly expense table with the required headers and seven purchase records.",
+      "unit_type": "CREATE_EXPENSE_TABLE",
+      "unit_before_state": "LibreOffice Calc is open on a blank worksheet, the upper-left grid is visible, and cell A1 can be used as the starting point for data entry.",
+      "unit_after_state": "The worksheet shows a populated expense table in A1:D8, with headers in row 1 and seven purchase rows underneath.",
+      "unit_precondition": [
+        "A spreadsheet grid is visible and no dialog is blocking the sheet.",
+        "Cell A1 is visible and the range A1:D8 is empty enough to receive pasted tabular data."
+      ],
+      "unit_effect": [
+        "Cell A1 becomes active and the typed tab-separated content fills A1:D8.",
+        "The visible table now includes the Date, Item, Category, and Amount columns plus all seven expense entries."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4
+      ],
+      "unit_intent": "Add a separate summary section below the table to calculate total, average, and highest expense.",
+      "unit_type": "CREATE_SUMMARY_FORMULAS",
+      "unit_before_state": "The expense table already occupies A1:D8, and the area around rows 10 to 12 below the table is blank.",
+      "unit_after_state": "A summary block appears below the table, with labels Total, Average, and Highest in A10:A12 and formulas producing results in D10:D12.",
+      "unit_precondition": [
+        "The expense amounts already exist in cells D2:D8.",
+        "Cell A10 is visible, empty, and can be selected without interfering with the main table."
+      ],
+      "unit_effect": [
+        "Cell A10 is activated as the start of a separate summary area.",
+        "Calc displays computed results for SUM(D2:D8), AVERAGE(D2:D8), and MAX(D2:D8) in the summary rows."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Emphasize the table headers so the column structure is easier to read.",
+      "unit_type": "FORMAT_HEADER_ROW",
+      "unit_before_state": "The completed table is visible and the first row A1:D1 contains the four column headers in normal formatting.",
+      "unit_after_state": "The header row A1:D1 remains selected and its text is bolded.",
+      "unit_precondition": [
+        "Cells A1 through D1 contain the table headers and are visible on screen.",
+        "LibreOffice Calc is focused so the Ctrl+B shortcut applies to the current selection."
+      ],
+      "unit_effect": [
+        "Dragging across A1:D1 highlights the full header row.",
+        "After Ctrl+B, the header labels visibly change to bold formatting."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Apply monetary formatting to all expense and summary amount cells.",
+      "unit_type": "FORMAT_VALUES_AS_CURRENCY",
+      "unit_before_state": "The amount values in D2:D8 and the summary results in D10:D12 are visible as plain numeric values.",
+      "unit_after_state": "The selected values in the amount column and summary cells display using currency formatting.",
+      "unit_precondition": [
+        "The worksheet already contains the expense amounts and summary formulas in column D.",
+        "The range from D2 through D12 is visible enough to select, and the toolbar Currency button is available."
+      ],
+      "unit_effect": [
+        "Dragging from D2 to D12 selects the money-related numeric cells together.",
+        "Clicking the Currency button changes the selected cells to a currency display with monetary symbols/formatting."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Reorder the purchase records so the most expensive items appear first.",
+      "unit_type": "SORT_TABLE_DESCENDING",
+      "unit_before_state": "The main expense table in A1:D8 is still in its original entry order, and the summary section remains separated below the blank row.",
+      "unit_after_state": "Rows A2:D8 are reordered by the Amount column from highest expense to lowest, while the summary rows below stay outside the sorted range.",
+      "unit_precondition": [
+        "The main data table is a contiguous block in A1:D8 with Amount values in column D.",
+        "A value cell in the Amount column is visible, and the Sort Descending toolbar control is available."
+      ],
+      "unit_effect": [
+        "Clicking D2 places the active cell inside the Amount column of the main table.",
+        "After Sort Descending, the largest expense row appears first and the purchase order visibly changes."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        11,
+        12,
+        13,
+        14
+      ],
+      "unit_intent": "Save the completed spreadsheet to the home folder with the required filename.",
+      "unit_type": "SAVE_DOCUMENT_AS",
+      "unit_before_state": "The finished expense tracker is open in LibreOffice Calc, with the sorted table and formatted summary visible in the spreadsheet window.",
+      "unit_after_state": "The Save As dialog closes and the spreadsheet is saved as Weekly_Home_Expenses.ods in the home directory, returning focus to the Calc document.",
+      "unit_precondition": [
+        "LibreOffice Calc is focused and no other modal dialog is open before starting the save action.",
+        "The home-directory destination is writable, and the Save As dialog accepts direct path entry through the location field."
+      ],
+      "unit_effect": [
+        "Ctrl+Shift+S opens the Save As dialog, and Ctrl+L activates the location entry field.",
+        "The path /home/user/Weekly_Home_Expenses.ods appears in the dialog, and pressing Enter completes the save and closes the dialog."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Create the main weekly expense table with the required headers and seven purchase records.",
+      "unit_type": "CREATE_EXPENSE_TABLE",
+      "unit_before_state": "LibreOffice Calc is open on a blank worksheet, the upper-left grid is visible, and cell A1 can be used as the starting point for data entry.",
+      "unit_after_state": "The worksheet shows a populated expense table in A1:D8, with headers in row 1 and seven purchase rows underneath.",
+      "unit_precondition": [
+        "A spreadsheet grid is visible and no dialog is blocking the sheet.",
+        "Cell A1 is visible and the range A1:D8 is empty enough to receive pasted tabular data."
+      ],
+      "unit_effect": [
+        "Cell A1 becomes active and the typed tab-separated content fills A1:D8.",
+        "The visible table now includes the Date, Item, Category, and Amount columns plus all seven expense entries."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a structured worksheet table by selecting a specified starting cell and entering prepared tabular data.",
+      "parameters": {
+        "start_cell": "A1",
+        "target_range": "A1:D8",
+        "table_data": "Date\tItem\tCategory\tAmount\n2026-04-01\tGroceries\tFood\t42.80\n2026-04-02\tDetergent\tHousehold\t13.50\n2026-04-03\tBus Pass\tTransport\t25.00\n2026-04-04\tCoffee Beans\tFood\t18.20\n2026-04-05\tLight Bulbs\tHousehold\t9.90\n2026-04-06\tPharmacy\tPersonal\t16.40\n2026-04-07\tTakeout\tFood\t27.60"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell A1 at the top-left of the worksheet'}}",
+          "action_template": "When a spreadsheet grid is visible and cell {{start_cell}} is available, click cell {{start_cell}} so it becomes the active starting point for the table."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Date\\tItem\\tCategory\\tAmount\\n2026-04-01\\tGroceries\\tFood\\t42.80\\n2026-04-02\\tDetergent\\tHousehold\\t13.50\\n2026-04-03\\tBus Pass\\tTransport\\t25.00\\n2026-04-04\\tCoffee Beans\\tFood\\t18.20\\n2026-04-05\\tLight Bulbs\\tHousehold\\t9.90\\n2026-04-06\\tPharmacy\\tPersonal\\t16.40\\n2026-04-07\\tTakeout\\tFood\\t27.60'}",
+          "action_template": "With cell {{start_cell}} active and enough empty space in {{target_range}}, type {{table_data}} so Calc fills {{target_range}} with the table."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4
+      ],
+      "unit_intent": "Add a separate summary section below the table to calculate total, average, and highest expense.",
+      "unit_type": "CREATE_SUMMARY_FORMULAS",
+      "unit_before_state": "The expense table already occupies A1:D8, and the area around rows 10 to 12 below the table is blank.",
+      "unit_after_state": "A summary block appears below the table, with labels Total, Average, and Highest in A10:A12 and formulas producing results in D10:D12.",
+      "unit_precondition": [
+        "The expense amounts already exist in cells D2:D8.",
+        "Cell A10 is visible, empty, and can be selected without interfering with the main table."
+      ],
+      "unit_effect": [
+        "Cell A10 is activated as the start of a separate summary area.",
+        "Calc displays computed results for SUM(D2:D8), AVERAGE(D2:D8), and MAX(D2:D8) in the summary rows."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a separate summary block below a table by selecting a blank starting cell and entering labeled aggregate formulas for a specified data range.",
+      "parameters": {
+        "summary_start_cell": "cell A10 a little below the expense table",
+        "source_data_range": "D2:D8",
+        "summary_formula_input": "Total\t\t\t=SUM(D2:D8)\nAverage\t\t\t=AVERAGE(D2:D8)\nHighest\t\t\t=MAX(D2:D8)"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell A10 a little below the expense table'}}",
+          "action_template": "After the main table is present and blank space below it is available, click {{summary_start_cell}} to activate the start of a separate summary section without mixing it into the main data range."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Total\\t\\t\\t=SUM(D2:D8)\\nAverage\\t\\t\\t=AVERAGE(D2:D8)\\nHighest\\t\\t\\t=MAX(D2:D8)'}",
+          "action_template": "With {{summary_start_cell}} active and expense amounts available in {{source_data_range}}, type {{summary_formula_input}} to enter the labeled summary rows and formulas so Calc computes the aggregate results below the table."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Emphasize the table headers so the column structure is easier to read.",
+      "unit_type": "FORMAT_HEADER_ROW",
+      "unit_before_state": "The completed table is visible and the first row A1:D1 contains the four column headers in normal formatting.",
+      "unit_after_state": "The header row A1:D1 remains selected and its text is bolded.",
+      "unit_precondition": [
+        "Cells A1 through D1 contain the table headers and are visible on screen.",
+        "LibreOffice Calc is focused so the Ctrl+B shortcut applies to the current selection."
+      ],
+      "unit_effect": [
+        "Dragging across A1:D1 highlights the full header row.",
+        "After Ctrl+B, the header labels visibly change to bold formatting."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Apply bold formatting to a specified spreadsheet header row so the column structure is easier to read.",
+      "parameters": {
+        "header_range": "A1:D1",
+        "start_header_cell": "A1",
+        "end_header_cell": "D1"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'cell A1 containing the Date header'}, 'end': {'text': 'cell D1 containing the Amount header'}, 'target': {'begin': {'text': 'cell A1 containing the Date header'}, 'end': {'text': 'cell D1 containing the Amount header'}}}",
+          "action_template": "When the header row is visible, drag from {{start_header_cell}} to {{end_header_cell}} to select {{header_range}} for one formatting action."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'b']}",
+          "action_template": "With {{header_range}} selected and LibreOffice Calc focused, press Ctrl+B so the header labels stand out from the rest of the data."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Apply monetary formatting to all expense and summary amount cells.",
+      "unit_type": "FORMAT_VALUES_AS_CURRENCY",
+      "unit_before_state": "The amount values in D2:D8 and the summary results in D10:D12 are visible as plain numeric values.",
+      "unit_after_state": "The selected values in the amount column and summary cells display using currency formatting.",
+      "unit_precondition": [
+        "The worksheet already contains the expense amounts and summary formulas in column D.",
+        "The range from D2 through D12 is visible enough to select, and the toolbar Currency button is available."
+      ],
+      "unit_effect": [
+        "Dragging from D2 to D12 selects the money-related numeric cells together.",
+        "Clicking the Currency button changes the selected cells to a currency display with monetary symbols/formatting."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Apply currency formatting to a specified range of monetary values.",
+      "parameters": {
+        "target_range": "D2:D12",
+        "target_range_start": "cell D2, the first amount value",
+        "target_range_end": "cell D12, the last summary result"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'cell D2, the first amount value'}, 'end': {'text': 'cell D12, the last summary result'}, 'target': {'begin': {'text': 'cell D2, the first amount value'}, 'end': {'text': 'cell D12, the last summary result'}}}",
+          "action_template": "Drag from {{target_range_start}} to {{target_range_end}} after the numeric values are present and visible so all monetary cells in {{target_range}} can be selected for formatting at once. This requires that the cells across {{target_range}} are visible enough to drag across, and it results in the amount and summary cells being selected together."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Currency button in the formatting toolbar'}}",
+          "action_template": "Click the Currency button in the formatting toolbar while {{target_range}} is still selected so the selected cells display as currency values with monetary formatting. This requires the active selection to remain on {{target_range}} and the formatting toolbar to be visible."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Reorder the purchase records so the most expensive items appear first.",
+      "unit_type": "SORT_TABLE_DESCENDING",
+      "unit_before_state": "The main expense table in A1:D8 is still in its original entry order, and the summary section remains separated below the blank row.",
+      "unit_after_state": "Rows A2:D8 are reordered by the Amount column from highest expense to lowest, while the summary rows below stay outside the sorted range.",
+      "unit_precondition": [
+        "The main data table is a contiguous block in A1:D8 with Amount values in column D.",
+        "A value cell in the Amount column is visible, and the Sort Descending toolbar control is available."
+      ],
+      "unit_effect": [
+        "Clicking D2 places the active cell inside the Amount column of the main table.",
+        "After Sort Descending, the largest expense row appears first and the purchase order visibly changes."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Sort a contiguous data table in descending order by a specified value column.",
+      "parameters": {
+        "target_sort_cell": "cell D2 inside the Amount column of the main expense table",
+        "sort_key_column": "Amount column",
+        "sort_descending_control": "the Sort Descending button on the toolbar"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell D2 inside the Amount column of the main expense table'}}",
+          "action_template": "With the data table present and {{sort_key_column}} visible, click {{target_sort_cell}} so the next sort action uses that column as the key. Preconditions: the contiguous data table is available and at least one value cell in {{sort_key_column}} is visible. After this action, a cell in {{sort_key_column}} is active, preparing the table to sort by that column."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Sort Descending button on the toolbar'}}",
+          "action_template": "Once a value in {{sort_key_column}} is selected and the table is contiguous, click {{sort_descending_control}} so the rows are reordered from the highest to the lowest values in that column. Preconditions: the active cell is inside the main data table and {{sort_descending_control}} is visible on the toolbar. After this action, the expense rows reorder so the largest value appears first while rows outside the table remain separate."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        11,
+        12,
+        13,
+        14
+      ],
+      "unit_intent": "Save the completed spreadsheet to the home folder with the required filename.",
+      "unit_type": "SAVE_DOCUMENT_AS",
+      "unit_before_state": "The finished expense tracker is open in LibreOffice Calc, with the sorted table and formatted summary visible in the spreadsheet window.",
+      "unit_after_state": "The Save As dialog closes and the spreadsheet is saved as Weekly_Home_Expenses.ods in the home directory, returning focus to the Calc document.",
+      "unit_precondition": [
+        "LibreOffice Calc is focused and no other modal dialog is open before starting the save action.",
+        "The home-directory destination is writable, and the Save As dialog accepts direct path entry through the location field."
+      ],
+      "unit_effect": [
+        "Ctrl+Shift+S opens the Save As dialog, and Ctrl+L activates the location entry field.",
+        "The path /home/user/Weekly_Home_Expenses.ods appears in the dialog, and pressing Enter completes the save and closes the dialog."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the current spreadsheet to a specified absolute path using the Save As dialog.",
+      "parameters": {
+        "output_path": "/home/user/Weekly_Home_Expenses.ods"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 's']}",
+          "action_template": "Press Ctrl+Shift+S while LibreOffice Calc is focused and no modal dialog is blocking keyboard input to open the Save As dialog."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'l']}",
+          "action_template": "Press Ctrl+L when the Save As dialog is focused and supports the direct location-entry shortcut to activate the location field for typing a full destination path."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '/home/user/Weekly_Home_Expenses.ods'}",
+          "action_template": "Type {{output_path}} into the focused location entry in the Save As dialog to fill the full output path and filename."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter after {{output_path}} has been entered and the Save As dialog is waiting for confirmation to save the spreadsheet to that path and close the dialog."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

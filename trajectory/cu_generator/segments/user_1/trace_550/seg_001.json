@@ -1,0 +1,636 @@
+{
+  "segment_id": "seg_001",
+  "app": "vs_code",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the Command Palette",
+      "action_before_state": "VS Code is already open on GNOME, with the main editor visible and no modal dialog blocking input.",
+      "action_preconditions": [
+        "The VS Code window is focused.",
+        "No menu or popup is currently capturing the keyboard."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "p"
+        ]
+      },
+      "action_after_effects": "The Command Palette appears at the top of the window with the text cursor active in its input box.",
+      "nl_explanation": "When VS Code is focused and the editor is idle, press Ctrl+Shift+P to open the Command Palette so you can jump directly to the settings file."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Search for the user settings JSON command",
+      "action_before_state": "The Command Palette is open and ready for text input.",
+      "action_preconditions": [
+        "The Command Palette input box is visible.",
+        "The caret is blinking inside the palette search field."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Preferences: Open User Settings (JSON)"
+      },
+      "action_after_effects": "The matching command is filtered in the Command Palette list and becomes the main selectable result.",
+      "nl_explanation": "With the Command Palette open, type the user settings JSON command so VS Code narrows the list to the correct settings file action."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Open the user settings JSON file",
+      "action_before_state": "The Command Palette shows the command for opening the user settings JSON.",
+      "action_preconditions": [
+        "The correct command is highlighted or visible in the Command Palette.",
+        "The palette still has keyboard focus."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "A `settings.json` editor tab opens in VS Code.",
+      "nl_explanation": "Once the correct command is shown in the palette, press Enter to open the editable `settings.json` file."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Focus the settings editor",
+      "action_before_state": "The `settings.json` tab is open in the editor area.",
+      "action_preconditions": [
+        "The `settings.json` tab is visible.",
+        "The editor contents can be clicked."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the main text area inside the settings.json editor"
+        }
+      },
+      "action_after_effects": "The caret is placed inside the settings editor, ensuring the next keyboard action applies to the file contents.",
+      "nl_explanation": "When the `settings.json` tab is open, click inside the editor text area so the file has focus before selecting and replacing its contents."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Select the current settings content",
+      "action_before_state": "The settings editor is focused and its content is visible.",
+      "action_preconditions": [
+        "The text cursor is inside `settings.json`.",
+        "The file is editable."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "a"
+        ]
+      },
+      "action_after_effects": "All text in `settings.json` becomes selected.",
+      "nl_explanation": "With the settings editor focused, press Ctrl+A to highlight the full file so it can be replaced with the required daily-writing configuration."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Insert the daily Markdown writing settings",
+      "action_before_state": "All existing text in `settings.json` is selected.",
+      "action_preconditions": [
+        "The full contents of `settings.json` are highlighted.",
+        "Typing will replace the selected text."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "{\n  \"files.autoSave\": \"afterDelay\",\n  \"files.autoSaveDelay\": 1000,\n  \"[markdown]\": {\n    \"editor.wordWrap\": \"on\"\n  },\n  \"editor.minimap.enabled\": false,\n  \"editor.fontSize\": 16\n}"
+      },
+      "action_after_effects": "The settings file now contains the new JSON configuration for auto-save, Markdown wrapping, minimap visibility, and font size.",
+      "nl_explanation": "After selecting the whole settings file, type the new JSON block so VS Code is configured for daily Markdown journaling with the requested behavior."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Save the updated settings file",
+      "action_before_state": "The new JSON settings are visible in `settings.json`, and the tab shows unsaved changes.",
+      "action_preconditions": [
+        "The edited settings are present in the editor.",
+        "The file has unsaved modifications."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "s"
+        ]
+      },
+      "action_after_effects": "The settings are written to disk, applied immediately, and the unsaved indicator disappears from the tab.",
+      "nl_explanation": "Once the new settings JSON is in place, press Ctrl+S to save the configuration before moving on to keyboard shortcuts."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Open the Command Palette again",
+      "action_before_state": "The saved `settings.json` tab remains open in VS Code.",
+      "action_preconditions": [
+        "The VS Code window is still focused.",
+        "No blocking dialog is open."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "p"
+        ]
+      },
+      "action_after_effects": "The Command Palette opens again at the top of the VS Code window.",
+      "nl_explanation": "With the settings file saved, press Ctrl+Shift+P again to open the Command Palette and jump to the keybindings JSON file."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Search for the keyboard shortcuts JSON command",
+      "action_before_state": "The Command Palette is open and ready to accept a command name.",
+      "action_preconditions": [
+        "The Command Palette input box is active.",
+        "Text entry is available."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Preferences: Open Keyboard Shortcuts (JSON)"
+      },
+      "action_after_effects": "The command for opening the keyboard shortcuts JSON file appears as the relevant result.",
+      "nl_explanation": "Type the keyboard shortcuts JSON command into the palette so VS Code filters the list down to the correct keybinding editor action."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Open the keyboard shortcuts JSON file",
+      "action_before_state": "The Command Palette shows the keyboard shortcuts JSON command.",
+      "action_preconditions": [
+        "The correct command is visible in the Command Palette.",
+        "The palette still has keyboard focus."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "A `keybindings.json` editor tab opens.",
+      "nl_explanation": "When the keyboard shortcuts JSON command is visible, press Enter to open `keybindings.json` for direct editing."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Focus the keybindings editor",
+      "action_before_state": "The `keybindings.json` tab is visible in the editor area.",
+      "action_preconditions": [
+        "The `keybindings.json` editor is open.",
+        "The file contents can be clicked."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the main text area inside the keybindings.json editor"
+        }
+      },
+      "action_after_effects": "The keybindings editor gains focus and the caret appears in the file.",
+      "nl_explanation": "After the keybindings file opens, click inside its editor so the next keyboard action applies to the shortcut definitions."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Select the current keybindings content",
+      "action_before_state": "The caret is active inside `keybindings.json`.",
+      "action_preconditions": [
+        "The editor focus is inside `keybindings.json`.",
+        "The file is editable."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "a"
+        ]
+      },
+      "action_after_effects": "All existing text in `keybindings.json` is highlighted.",
+      "nl_explanation": "With the keybindings editor focused, press Ctrl+A to select the full file so the new shortcut definitions can replace it cleanly."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Insert the Markdown preview and Zen Mode shortcuts",
+      "action_before_state": "The full contents of `keybindings.json` are selected.",
+      "action_preconditions": [
+        "All current keybinding text is highlighted.",
+        "Typing will replace the selected content."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "[\n  {\n    \"key\": \"ctrl+alt+p\",\n    \"command\": \"markdown.showPreviewToSide\"\n  },\n  {\n    \"key\": \"ctrl+alt+m\",\n    \"command\": \"workbench.action.toggleZenMode\"\n  }\n]"
+      },
+      "action_after_effects": "The keybindings file now contains the two requested shortcuts for Markdown preview and Zen Mode.",
+      "nl_explanation": "After selecting the whole keybindings file, type the new JSON array so VS Code adds one shortcut for previewing Markdown beside the editor and another for toggling Zen Mode. In a clean profile, replacing the file content does not remove existing custom shortcuts because none have been added yet."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Save the new keyboard shortcuts",
+      "action_before_state": "The new shortcut definitions are visible in `keybindings.json`, and the file has unsaved changes.",
+      "action_preconditions": [
+        "The edited keybinding JSON is present in the editor.",
+        "The file shows unsaved modifications."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "s"
+        ]
+      },
+      "action_after_effects": "The updated shortcuts are saved to disk and become active, completing the requested VS Code journaling setup.",
+      "nl_explanation": "Once the new keybindings are typed into the editor, press Ctrl+S to save them so the daily Markdown workflow is fully configured."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Open the editable user settings JSON file to configure VS Code's global journaling behavior.",
+      "unit_type": "OPEN_USER_SETTINGS_JSON",
+      "unit_before_state": "VS Code is open with the main editor visible, and no modal dialog or menu is blocking keyboard input.",
+      "unit_after_state": "A settings.json tab is open in the editor area, showing the user settings file ready to be edited.",
+      "unit_precondition": [
+        "The VS Code window is focused.",
+        "The Command Palette can be opened with keyboard input.",
+        "The command \"Preferences: Open User Settings (JSON)\" is available in this VS Code profile."
+      ],
+      "unit_effect": [
+        "The Command Palette appears with focus in its input box.",
+        "The palette filters to the \"Preferences: Open User Settings (JSON)\" command.",
+        "Pressing Enter opens the settings.json editor tab."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Replace the current user settings with the requested Markdown journaling configuration.",
+      "unit_type": "REPLACE_CONTENT",
+      "unit_before_state": "The settings.json tab is open in VS Code, and its existing JSON content is visible in the editor.",
+      "unit_after_state": "The settings.json editor now shows a JSON object that sets auto-save after 1000 ms, enables word wrap for Markdown, disables the minimap, and sets the editor font size to 16.",
+      "unit_precondition": [
+        "The settings.json tab is visible and editable.",
+        "The main text area of settings.json can receive focus.",
+        "Selecting all text and typing will replace the current file contents."
+      ],
+      "unit_effect": [
+        "The caret is placed inside the settings.json editor.",
+        "All existing text in settings.json becomes selected.",
+        "The visible file content is replaced by the new journaling-related JSON configuration."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7
+      ],
+      "unit_intent": "Persist and apply the updated VS Code settings.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The new settings JSON is visible in settings.json, and the tab shows unsaved changes.",
+      "unit_after_state": "The settings.json tab is saved with no unsaved-change indicator, and the updated editor settings are applied in VS Code.",
+      "unit_precondition": [
+        "The settings.json editor contains the intended configuration.",
+        "The file has unsaved modifications.",
+        "The editor still has keyboard focus so Ctrl+S will save the file."
+      ],
+      "unit_effect": [
+        "The unsaved indicator disappears from the settings.json tab.",
+        "The minimap is no longer shown in the editor area.",
+        "The saved settings remain visible in the file."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8,
+        9,
+        10
+      ],
+      "unit_intent": "Open the editable keyboard shortcuts JSON file to define custom journaling shortcuts.",
+      "unit_type": "OPEN_KEYBINDINGS_JSON",
+      "unit_before_state": "VS Code remains open with the saved settings.json tab visible in the editor.",
+      "unit_after_state": "A keybindings.json tab is open in the editor area, showing the keyboard shortcut definitions file ready for editing.",
+      "unit_precondition": [
+        "The VS Code window is focused.",
+        "No blocking dialog is open.",
+        "The command \"Preferences: Open Keyboard Shortcuts (JSON)\" is available from the Command Palette."
+      ],
+      "unit_effect": [
+        "The Command Palette opens again with an active input field.",
+        "The palette filters to the \"Preferences: Open Keyboard Shortcuts (JSON)\" command.",
+        "Pressing Enter opens the keybindings.json editor tab."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        11,
+        12,
+        13
+      ],
+      "unit_intent": "Replace the current keybindings file with the two requested shortcuts for Markdown preview and Zen Mode.",
+      "unit_type": "REPLACE_CONTENT",
+      "unit_before_state": "The keybindings.json tab is open, and its current contents are visible in the editor.",
+      "unit_after_state": "The keybindings.json editor now shows a JSON array containing one shortcut for markdown.showPreviewToSide on Ctrl+Alt+P and one shortcut for workbench.action.toggleZenMode on Ctrl+Alt+M.",
+      "unit_precondition": [
+        "The keybindings.json tab is visible and editable.",
+        "The main text area of keybindings.json can receive focus.",
+        "Selecting all text and typing will replace the current file contents."
+      ],
+      "unit_effect": [
+        "The keybindings editor gains focus with a visible caret.",
+        "All existing text in keybindings.json becomes selected.",
+        "The visible file content is replaced by the two requested shortcut definitions."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        14
+      ],
+      "unit_intent": "Save and activate the new custom keyboard shortcuts.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The new shortcut definitions are visible in keybindings.json, and the tab shows unsaved changes.",
+      "unit_after_state": "The keybindings.json tab is saved with no unsaved-change indicator, and the custom shortcuts are stored as the active user keybindings.",
+      "unit_precondition": [
+        "The keybindings.json editor contains the intended shortcut JSON array.",
+        "The file has unsaved modifications.",
+        "The editor still has keyboard focus so Ctrl+S will save the file."
+      ],
+      "unit_effect": [
+        "The unsaved indicator disappears from the keybindings.json tab.",
+        "The saved shortcut definitions remain visible in the file.",
+        "The VS Code journaling setup is complete with the new keybindings stored."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Open the editable user settings JSON file to configure VS Code's global journaling behavior.",
+      "unit_type": "OPEN_USER_SETTINGS_JSON",
+      "unit_before_state": "VS Code is open with the main editor visible, and no modal dialog or menu is blocking keyboard input.",
+      "unit_after_state": "A settings.json tab is open in the editor area, showing the user settings file ready to be edited.",
+      "unit_precondition": [
+        "The VS Code window is focused.",
+        "The Command Palette can be opened with keyboard input.",
+        "The command \"Preferences: Open User Settings (JSON)\" is available in this VS Code profile."
+      ],
+      "unit_effect": [
+        "The Command Palette appears with focus in its input box.",
+        "The palette filters to the \"Preferences: Open User Settings (JSON)\" command.",
+        "Pressing Enter opens the settings.json editor tab."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open the editable VS Code settings JSON file for the specified settings scope.",
+      "parameters": {
+        "settings_scope": "User",
+        "settings_command": "Preferences: Open User Settings (JSON)",
+        "settings_file": "settings.json"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'p']}",
+          "action_template": "Press Ctrl+Shift+P to open the Command Palette so you can jump directly to the {{settings_scope}} settings JSON file."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Preferences: Open User Settings (JSON)'}",
+          "action_template": "Type {{settings_command}} in the Command Palette to filter the list to the command that opens the {{settings_scope}} settings JSON file."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter to run the highlighted {{settings_command}} command and open the editable {{settings_file}} file."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Replace the current user settings with the requested Markdown journaling configuration.",
+      "unit_type": "REPLACE_CONTENT",
+      "unit_before_state": "The settings.json tab is open in VS Code, and its existing JSON content is visible in the editor.",
+      "unit_after_state": "The settings.json editor now shows a JSON object that sets auto-save after 1000 ms, enables word wrap for Markdown, disables the minimap, and sets the editor font size to 16.",
+      "unit_precondition": [
+        "The settings.json tab is visible and editable.",
+        "The main text area of settings.json can receive focus.",
+        "Selecting all text and typing will replace the current file contents."
+      ],
+      "unit_effect": [
+        "The caret is placed inside the settings.json editor.",
+        "All existing text in settings.json becomes selected.",
+        "The visible file content is replaced by the new journaling-related JSON configuration."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Replace the current editor settings file contents with a specified JSON configuration.",
+      "parameters": {
+        "target_file": "settings.json",
+        "configuration_json": "{\n  \"files.autoSave\": \"afterDelay\",\n  \"files.autoSaveDelay\": 1000,\n  \"[markdown]\": {\n    \"editor.wordWrap\": \"on\"\n  },\n  \"editor.minimap.enabled\": false,\n  \"editor.fontSize\": 16\n}"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the main text area inside the settings.json editor'}}",
+          "action_template": "When {{target_file}} is open and its contents can be clicked, click inside the main editor text area so the file has focus and the caret is placed inside the editor for the next keyboard action."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'a']}",
+          "action_template": "With the text cursor inside {{target_file}} and the file editable, press Ctrl+A to highlight the full file so it can be replaced."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '{\\n  \"files.autoSave\": \"afterDelay\",\\n  \"files.autoSaveDelay\": 1000,\\n  \"[markdown]\": {\\n    \"editor.wordWrap\": \"on\"\\n  },\\n  \"editor.minimap.enabled\": false,\\n  \"editor.fontSize\": 16\\n}'}",
+          "action_template": "After all contents of {{target_file}} are selected and typing will replace the selection, type {{configuration_json}} to replace the selected text with the specified settings configuration."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7
+      ],
+      "unit_intent": "Persist and apply the updated VS Code settings.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The new settings JSON is visible in settings.json, and the tab shows unsaved changes.",
+      "unit_after_state": "The settings.json tab is saved with no unsaved-change indicator, and the updated editor settings are applied in VS Code.",
+      "unit_precondition": [
+        "The settings.json editor contains the intended configuration.",
+        "The file has unsaved modifications.",
+        "The editor still has keyboard focus so Ctrl+S will save the file."
+      ],
+      "unit_effect": [
+        "The unsaved indicator disappears from the settings.json tab.",
+        "The minimap is no longer shown in the editor area.",
+        "The saved settings remain visible in the file."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the edited settings file so the configuration changes persist and take effect in the application.",
+      "parameters": {
+        "settings_file": "settings.json"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 's']}",
+          "action_template": "Press Ctrl+S to save {{settings_file}} once the edited settings are present and the file has unsaved modifications, so the changes are written to disk, applied immediately, and the unsaved indicator disappears from the tab."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8,
+        9,
+        10
+      ],
+      "unit_intent": "Open the editable keyboard shortcuts JSON file to define custom journaling shortcuts.",
+      "unit_type": "OPEN_KEYBINDINGS_JSON",
+      "unit_before_state": "VS Code remains open with the saved settings.json tab visible in the editor.",
+      "unit_after_state": "A keybindings.json tab is open in the editor area, showing the keyboard shortcut definitions file ready for editing.",
+      "unit_precondition": [
+        "The VS Code window is focused.",
+        "No blocking dialog is open.",
+        "The command \"Preferences: Open Keyboard Shortcuts (JSON)\" is available from the Command Palette."
+      ],
+      "unit_effect": [
+        "The Command Palette opens again with an active input field.",
+        "The palette filters to the \"Preferences: Open Keyboard Shortcuts (JSON)\" command.",
+        "Pressing Enter opens the keybindings.json editor tab."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a specified VS Code JSON configuration file from the Command Palette for direct editing.",
+      "parameters": {
+        "command_name": "Preferences: Open Keyboard Shortcuts (JSON)",
+        "target_file": "keybindings.json"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'p']}",
+          "action_template": "Press Ctrl+Shift+P when the VS Code window is focused and no blocking dialog is open to open the Command Palette and begin locating {{command_name}}."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Preferences: Open Keyboard Shortcuts (JSON)'}",
+          "action_template": "Type {{command_name}} into the active Command Palette input while text entry is available so VS Code filters to the command that opens {{target_file}}."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter when {{command_name}} is visible and the Command Palette still has keyboard focus to open {{target_file}} for direct editing."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        11,
+        12,
+        13
+      ],
+      "unit_intent": "Replace the current keybindings file with the two requested shortcuts for Markdown preview and Zen Mode.",
+      "unit_type": "REPLACE_CONTENT",
+      "unit_before_state": "The keybindings.json tab is open, and its current contents are visible in the editor.",
+      "unit_after_state": "The keybindings.json editor now shows a JSON array containing one shortcut for markdown.showPreviewToSide on Ctrl+Alt+P and one shortcut for workbench.action.toggleZenMode on Ctrl+Alt+M.",
+      "unit_precondition": [
+        "The keybindings.json tab is visible and editable.",
+        "The main text area of keybindings.json can receive focus.",
+        "Selecting all text and typing will replace the current file contents."
+      ],
+      "unit_effect": [
+        "The keybindings editor gains focus with a visible caret.",
+        "All existing text in keybindings.json becomes selected.",
+        "The visible file content is replaced by the two requested shortcut definitions."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Replace the current keybindings configuration file content with specified shortcut definitions.",
+      "parameters": {
+        "target_config_file": "keybindings.json",
+        "shortcut_definitions": "[\n  {\n    \"key\": \"ctrl+alt+p\",\n    \"command\": \"markdown.showPreviewToSide\"\n  },\n  {\n    \"key\": \"ctrl+alt+m\",\n    \"command\": \"workbench.action.toggleZenMode\"\n  }\n]"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the main text area inside the keybindings.json editor'}}",
+          "action_template": "Click inside the main text area of {{target_config_file}} after it is open and clickable so the editor gains focus and the caret appears for the next keyboard action."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'a']}",
+          "action_template": "With the editable {{target_config_file}} editor focused, press Ctrl+A to select the full file so all existing text is highlighted for replacement."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '[\\n  {\\n    \"key\": \"ctrl+alt+p\",\\n    \"command\": \"markdown.showPreviewToSide\"\\n  },\\n  {\\n    \"key\": \"ctrl+alt+m\",\\n    \"command\": \"workbench.action.toggleZenMode\"\\n  }\\n]'}",
+          "action_template": "After all current text in {{target_config_file}} is selected, type {{shortcut_definitions}} so the selected content is replaced with the requested shortcut definitions."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        14
+      ],
+      "unit_intent": "Save and activate the new custom keyboard shortcuts.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The new shortcut definitions are visible in keybindings.json, and the tab shows unsaved changes.",
+      "unit_after_state": "The keybindings.json tab is saved with no unsaved-change indicator, and the custom shortcuts are stored as the active user keybindings.",
+      "unit_precondition": [
+        "The keybindings.json editor contains the intended shortcut JSON array.",
+        "The file has unsaved modifications.",
+        "The editor still has keyboard focus so Ctrl+S will save the file."
+      ],
+      "unit_effect": [
+        "The unsaved indicator disappears from the keybindings.json tab.",
+        "The saved shortcut definitions remain visible in the file.",
+        "The VS Code journaling setup is complete with the new keybindings stored."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the edited keyboard shortcut configuration so the new shortcuts are stored and take effect.",
+      "parameters": {
+        "target_config_file": "keybindings.json"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 's']}",
+          "action_template": "Press Ctrl+S to save the edited {{target_config_file}} while it has unsaved changes so the updated shortcuts are saved to disk and become active."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

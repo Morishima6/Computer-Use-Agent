@@ -1,0 +1,397 @@
+{
+  "segment_id": "seg_001",
+  "app": "vlc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the Convert/Save dialog in VLC",
+      "action_before_state": "VLC media player is open and actively playing a video file. The main window shows the video content with the control bar at the bottom.",
+      "action_preconditions": [
+        "VLC window is focused and in the foreground",
+        "A video file is currently loaded and playing",
+        "No dialog boxes are currently open"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "s"
+        ],
+        "target": "keyboard shortcut for Convert/Save"
+      },
+      "action_after_effects": "The 'Convert / Save' dialog opens directly, showing the 'Source' section with the currently playing video file already listed, a 'Settings' section with a 'Profile' dropdown, and a 'Destination' section with a file path field.",
+      "nl_explanation": "Pressing Ctrl+Shift+S opens the Convert/Save dialog directly with the currently playing video already populated as the source, allowing immediate configuration of the output format."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Select the Audio MP3 conversion profile",
+      "action_before_state": "The Convert/Save dialog is open. The Profile dropdown currently shows a default profile (e.g., 'Video - H.264 + MP3 (MP4)'). The dropdown arrow is visible on the right side of the profile field.",
+      "action_preconditions": [
+        "Convert/Save dialog is focused",
+        "Profile dropdown is visible and clickable",
+        "Audio profiles are available in the dropdown list"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": "the Profile dropdown menu in the Convert/Save dialog"
+      },
+      "action_after_effects": "A dropdown list appears below the Profile field, showing various conversion profiles including video and audio options such as 'Video - VP80 + Vorbis (Webm)', 'Audio - MP3', 'Audio - FLAC', etc.",
+      "nl_explanation": "Clicking the Profile dropdown reveals the list of available conversion profiles, allowing selection of an audio-only format."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Select the MP3 audio profile from the dropdown list",
+      "action_before_state": "The Profile dropdown list is expanded, showing various audio and video profile options. The 'Audio - MP3' option is visible in the list.",
+      "action_preconditions": [
+        "Profile dropdown is open",
+        "'Audio - MP3' option is visible in the dropdown list",
+        "The dropdown is not obstructed by other UI elements"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": "the 'Audio - MP3' option in the Profile dropdown list"
+      },
+      "action_after_effects": "The dropdown closes and the Profile field now displays 'Audio - MP3' as the selected profile. The destination file extension may automatically update to .mp3.",
+      "nl_explanation": "Selecting 'Audio - MP3' from the dropdown sets the conversion profile to extract audio only in MP3 format, closing the dropdown and updating the profile display."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Set the destination file path to Desktop with filename 'audio_extract.mp3'",
+      "action_before_state": "The Convert/Save dialog shows 'Audio - MP3' as the selected profile. The Destination section shows a file path field and a 'Browse' button to the right.",
+      "action_preconditions": [
+        "Audio profile is selected",
+        "Destination file field is visible",
+        "Browse button is available",
+        "Desktop folder exists and is writable"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": "the 'Browse' button next to the Destination file field"
+      },
+      "action_after_effects": "A 'Save file...' dialog window opens, defaulting to the Home directory or last used location, with a text field for the filename and folder navigation.",
+      "nl_explanation": "Clicking the Browse button opens the file save dialog, allowing navigation to the Desktop and specification of the output filename."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Navigate to Desktop folder in the save dialog",
+      "action_before_state": "The Save file dialog is open, showing the Home directory contents. The left sidebar shows locations including 'Desktop', 'Documents', etc.",
+      "action_preconditions": [
+        "Save dialog is open",
+        "Desktop is visible in the left sidebar",
+        "User has permission to write to Desktop"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": "the 'Desktop' item in the left sidebar of the Save dialog"
+      },
+      "action_after_effects": "The main area of the Save dialog updates to show the contents of the Desktop folder. The path bar at the top updates to show 'Desktop'.",
+      "nl_explanation": "Clicking on 'Desktop' in the sidebar navigates the save location to the Desktop folder, preparing it as the destination for the extracted audio file."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Enter the filename 'audio_extract.mp3' in the filename field",
+      "action_before_state": "The Save dialog is showing the Desktop folder contents. The filename field at the top is empty or contains default text.",
+      "action_preconditions": [
+        "Desktop folder is active in the save dialog",
+        "Filename text field is visible and editable"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "audio_extract.mp3"
+      },
+      "action_after_effects": "The filename field now displays 'audio_extract.mp3'.",
+      "nl_explanation": "Typing 'audio_extract.mp3' into the filename field sets the name for the output file."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Confirm the save location and filename by clicking Save",
+      "action_before_state": "The Save dialog shows the Desktop location with 'audio_extract.mp3' entered. The 'Save' button is visible in the bottom right.",
+      "action_preconditions": [
+        "Filename 'audio_extract.mp3' is entered",
+        "Desktop location is selected",
+        "Save button is enabled"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": "the 'Save' button in the bottom right of the Save dialog"
+      },
+      "action_after_effects": "The Save dialog closes and returns to the Convert/Save dialog. The Destination file field now displays the full path to '/home/user/Desktop/audio_extract.mp3'.",
+      "nl_explanation": "Clicking the Save button confirms the filename and location, closing the save dialog and updating the destination path."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Start the audio extraction conversion process",
+      "action_before_state": "The Convert/Save dialog is fully configured: Source shows the video, Profile is 'Audio - MP3', and Destination shows the Desktop path. The 'Start' button is visible.",
+      "action_preconditions": [
+        "Audio - MP3 profile is selected",
+        "Destination is set to Desktop/audio_extract.mp3",
+        "Source file is listed",
+        "Start button is visible and enabled"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": "the 'Start' button at the bottom of the Convert/Save dialog"
+      },
+      "action_after_effects": "The Convert/Save dialog shows a progress window. VLC processes the conversion, and upon completion, the file 'audio_extract.mp3' is available on the Desktop.",
+      "nl_explanation": "Clicking the Start button initiates the conversion process. The audio track is extracted from the video and saved as an MP3 file on the Desktop."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Open VLC's conversion workflow for the currently playing video so audio-extraction settings can be configured.",
+      "unit_type": "OPEN_CONVERT_DIALOG",
+      "unit_before_state": "VLC Media Player is in the foreground and actively playing a video in the main player window, with no modal dialog open.",
+      "unit_after_state": "The 'Convert / Save' dialog is open on top of VLC, showing the current video file in the Source area along with the Profile selector and Destination file controls.",
+      "unit_precondition": [
+        "VLC is focused and a video is currently loaded and playing.",
+        "No other dialog is blocking the VLC window."
+      ],
+      "unit_effect": [
+        "A modal 'Convert / Save' window appears.",
+        "The source media is already populated in the dialog, confirming VLC will convert the current video."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3
+      ],
+      "unit_intent": "Switch the conversion output from the default profile to an audio-only MP3 format.",
+      "unit_type": "SELECT_AUDIO_PROFILE",
+      "unit_before_state": "The 'Convert / Save' dialog is open, and the Profile field still shows a default conversion profile rather than the desired audio-only MP3 option.",
+      "unit_after_state": "The Profile field in the 'Convert / Save' dialog now displays 'Audio - MP3', and the profile dropdown list is closed.",
+      "unit_precondition": [
+        "The 'Convert / Save' dialog is open and focused.",
+        "The Profile dropdown is visible and contains an 'Audio - MP3' option."
+      ],
+      "unit_effect": [
+        "The profile list opens and shows available video and audio presets.",
+        "After selection, the visible Profile value changes to 'Audio - MP3'."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Set the MP3 output file to the Desktop and name it 'audio_extract.mp3'.",
+      "unit_type": "SET_OUTPUT_DESTINATION",
+      "unit_before_state": "The 'Convert / Save' dialog is configured with the 'Audio - MP3' profile, and the Destination section still needs a confirmed output file path.",
+      "unit_after_state": "The file chooser has been closed, returning to the 'Convert / Save' dialog with the Destination field filled with the Desktop path for 'audio_extract.mp3' (for example, '/home/user/Desktop/audio_extract.mp3').",
+      "unit_precondition": [
+        "The 'Audio - MP3' profile has already been selected.",
+        "The Destination section and its Browse button are visible.",
+        "The Desktop location exists and is writable."
+      ],
+      "unit_effect": [
+        "A 'Save file...' dialog opens from the Browse button.",
+        "The dialog navigates to Desktop and the filename field shows 'audio_extract.mp3'.",
+        "After clicking Save, the destination path in VLC updates to the Desktop MP3 file path."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8
+      ],
+      "unit_intent": "Launch the configured audio extraction job so VLC creates the MP3 file.",
+      "unit_type": "START_AUDIO_EXTRACTION",
+      "unit_before_state": "The 'Convert / Save' dialog is fully configured: the current video is listed as Source, the Profile is 'Audio - MP3', and the Destination field points to the Desktop file 'audio_extract.mp3'.",
+      "unit_after_state": "VLC leaves the configuration state and begins processing the conversion job for the selected source into the configured MP3 output file.",
+      "unit_precondition": [
+        "The source media is listed in the dialog.",
+        "The Profile field is set to 'Audio - MP3'.",
+        "The Destination field contains the Desktop output path for 'audio_extract.mp3'.",
+        "The Start button is visible and enabled."
+      ],
+      "unit_effect": [
+        "The conversion starts after clicking 'Start'.",
+        "VLC shows processing/progress behavior for the conversion.",
+        "When processing finishes, 'audio_extract.mp3' is present on the Desktop."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Open VLC's conversion workflow for the currently playing video so audio-extraction settings can be configured.",
+      "unit_type": "OPEN_CONVERT_DIALOG",
+      "unit_before_state": "VLC Media Player is in the foreground and actively playing a video in the main player window, with no modal dialog open.",
+      "unit_after_state": "The 'Convert / Save' dialog is open on top of VLC, showing the current video file in the Source area along with the Profile selector and Destination file controls.",
+      "unit_precondition": [
+        "VLC is focused and a video is currently loaded and playing.",
+        "No other dialog is blocking the VLC window."
+      ],
+      "unit_effect": [
+        "A modal 'Convert / Save' window appears.",
+        "The source media is already populated in the dialog, confirming VLC will convert the current video."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open VLC's Convert / Save workflow for the currently loaded media so conversion settings can be configured.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 's'], 'target': 'keyboard shortcut for Convert/Save'}",
+          "action_template": "Press Ctrl+Shift+S while the VLC window is focused, media is currently loaded and playing, and no dialog boxes are open to open the Convert / Save dialog directly with the current media already populated as the source and the conversion settings ready to configure."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3
+      ],
+      "unit_intent": "Switch the conversion output from the default profile to an audio-only MP3 format.",
+      "unit_type": "SELECT_AUDIO_PROFILE",
+      "unit_before_state": "The 'Convert / Save' dialog is open, and the Profile field still shows a default conversion profile rather than the desired audio-only MP3 option.",
+      "unit_after_state": "The Profile field in the 'Convert / Save' dialog now displays 'Audio - MP3', and the profile dropdown list is closed.",
+      "unit_precondition": [
+        "The 'Convert / Save' dialog is open and focused.",
+        "The Profile dropdown is visible and contains an 'Audio - MP3' option."
+      ],
+      "unit_effect": [
+        "The profile list opens and shows available video and audio presets.",
+        "After selection, the visible Profile value changes to 'Audio - MP3'."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Select a specified audio conversion profile in the 'Convert / Save' dialog.",
+      "parameters": {
+        "audio_profile": "Audio - MP3"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': 'the Profile dropdown menu in the Convert/Save dialog'}",
+          "action_template": "Click the Profile dropdown menu in the Convert/Save dialog when the Convert/Save dialog is focused, the Profile dropdown is visible and clickable, and audio profiles are available in the dropdown list, to reveal the list of available conversion profiles for selecting an audio format."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': \"the 'Audio - MP3' option in the Profile dropdown list\"}",
+          "action_template": "Click the {{audio_profile}} option in the Profile dropdown list when the Profile dropdown is open, {{audio_profile}} is visible in the dropdown list, and the dropdown is not obstructed by other UI elements, to set the conversion profile to {{audio_profile}}, close the dropdown, and update the Profile field to the selected audio preset."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Set the MP3 output file to the Desktop and name it 'audio_extract.mp3'.",
+      "unit_type": "SET_OUTPUT_DESTINATION",
+      "unit_before_state": "The 'Convert / Save' dialog is configured with the 'Audio - MP3' profile, and the Destination section still needs a confirmed output file path.",
+      "unit_after_state": "The file chooser has been closed, returning to the 'Convert / Save' dialog with the Destination field filled with the Desktop path for 'audio_extract.mp3' (for example, '/home/user/Desktop/audio_extract.mp3').",
+      "unit_precondition": [
+        "The 'Audio - MP3' profile has already been selected.",
+        "The Destination section and its Browse button are visible.",
+        "The Desktop location exists and is writable."
+      ],
+      "unit_effect": [
+        "A 'Save file...' dialog opens from the Browse button.",
+        "The dialog navigates to Desktop and the filename field shows 'audio_extract.mp3'.",
+        "After clicking Save, the destination path in VLC updates to the Desktop MP3 file path."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Set the output destination to a specified folder and filename using the save dialog.",
+      "parameters": {
+        "target_folder": "Desktop",
+        "output_file_name": "audio_extract.mp3"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': \"the 'Browse' button next to the Destination file field\"}",
+          "action_template": "Click the Browse button next to the Destination file field to open the save dialog, so the output can be saved to {{target_folder}} with the filename {{output_file_name}}. Preconditions: the destination file field is visible, the Browse button is available, and {{target_folder}} exists and is writable. After this action, a save dialog opens with folder navigation and a filename field."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': \"the 'Desktop' item in the left sidebar of the Save dialog\"}",
+          "action_template": "Click the {{target_folder}} item in the left sidebar of the save dialog to navigate to the target save location. Preconditions: the save dialog is open, {{target_folder}} is visible in the sidebar, and the user has permission to write there. After this action, the dialog updates to show the contents of {{target_folder}} and the path bar reflects that folder."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'audio_extract.mp3'}",
+          "action_template": "Type {{output_file_name}} into the filename field to set the output file name. Preconditions: {{target_folder}} is the active location in the save dialog, and the filename field is visible and editable. After this action, the filename field displays {{output_file_name}}."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': \"the 'Save' button in the bottom right of the Save dialog\"}",
+          "action_template": "Click the Save button to confirm saving in {{target_folder}} with the filename {{output_file_name}}. Preconditions: {{output_file_name}} is entered, {{target_folder}} is selected, and the Save button is enabled. After this action, the save dialog closes and the destination field is updated with the full output path for {{output_file_name}} in {{target_folder}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8
+      ],
+      "unit_intent": "Launch the configured audio extraction job so VLC creates the MP3 file.",
+      "unit_type": "START_AUDIO_EXTRACTION",
+      "unit_before_state": "The 'Convert / Save' dialog is fully configured: the current video is listed as Source, the Profile is 'Audio - MP3', and the Destination field points to the Desktop file 'audio_extract.mp3'.",
+      "unit_after_state": "VLC leaves the configuration state and begins processing the conversion job for the selected source into the configured MP3 output file.",
+      "unit_precondition": [
+        "The source media is listed in the dialog.",
+        "The Profile field is set to 'Audio - MP3'.",
+        "The Destination field contains the Desktop output path for 'audio_extract.mp3'.",
+        "The Start button is visible and enabled."
+      ],
+      "unit_effect": [
+        "The conversion starts after clicking 'Start'.",
+        "VLC shows processing/progress behavior for the conversion.",
+        "When processing finishes, 'audio_extract.mp3' is present on the Desktop."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Start the configured audio extraction job so the selected source is processed into the specified output file.",
+      "parameters": {
+        "output_profile": "Audio - MP3",
+        "output_location": "Desktop",
+        "output_file_name": "audio_extract.mp3",
+        "start_button": "the 'Start' button at the bottom of the Convert/Save dialog"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': \"the 'Start' button at the bottom of the Convert/Save dialog\"}",
+          "action_template": "With {{output_profile}} selected, the source file listed, the destination set to {{output_location}}/{{output_file_name}}, and {{start_button}} visible and enabled, click {{start_button}} to initiate the conversion process so VLC shows conversion progress and, upon completion, saves {{output_file_name}} to {{output_location}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

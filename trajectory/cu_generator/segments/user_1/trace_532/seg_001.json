@@ -1,0 +1,525 @@
+{
+  "segment_id": "seg_001",
+  "app": "vs_code",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Show the Explorer panel so file creation controls are available",
+      "action_before_state": "VS Code is already open, but the left sidebar may be hidden or focused on a different view.",
+      "action_preconditions": [
+        "VS Code is the active window",
+        "The editor is visible on screen"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "e"
+        ]
+      },
+      "action_after_effects": "The Explorer view is shown in the left sidebar and the workspace file tree is visible.",
+      "nl_explanation": "When VS Code is focused, press Ctrl+Shift+E to switch to the Explorer. The expected result is that the file tree and the create file/folder controls become visible."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Start creating a new folder for the habit tracker files",
+      "action_before_state": "The Explorer sidebar is open and shows the current workspace contents.",
+      "action_preconditions": [
+        "The Explorer panel is visible",
+        "A writable workspace or folder is open in VS Code"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the New Folder button in the top-right corner of the EXPLORER panel header"
+        }
+      },
+      "action_after_effects": "A folder name input box appears in the Explorer, ready for typing.",
+      "nl_explanation": "With the Explorer open, click the New Folder button in the EXPLORER panel header. This should place an inline text field in the file tree so the new folder can be named."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Enter the new folder name",
+      "action_before_state": "A new folder name field is active in the Explorer tree.",
+      "action_preconditions": [
+        "The inline folder naming field is visible",
+        "The text cursor is inside the folder name field"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "habit_tracker"
+      },
+      "action_after_effects": "The folder name field now contains `habit_tracker`.",
+      "nl_explanation": "Once the inline naming box is active, type `habit_tracker`. The folder name should appear in the Explorer input field."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Confirm creation of the new folder",
+      "action_before_state": "The Explorer shows `habit_tracker` in an editable folder name field.",
+      "action_preconditions": [
+        "The desired folder name has been typed",
+        "The naming field is still active"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The `habit_tracker` folder is created in the workspace and appears in the Explorer.",
+      "nl_explanation": "After typing the folder name, press Enter to confirm it. The expected result is that the new `habit_tracker` folder is added to the file tree."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Begin creating the Python file inside the new folder",
+      "action_before_state": "The `habit_tracker` folder is visible in the Explorer, and hovering over its row reveals inline file-creation controls.",
+      "action_preconditions": [
+        "The `habit_tracker` folder exists in the Explorer",
+        "The folder is visible on screen"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the hover-triggered New File icon that appears on the `habit_tracker` folder row in the Explorer"
+        }
+      },
+      "action_after_effects": "An inline file name field appears under the `habit_tracker` folder.",
+      "nl_explanation": "With the new folder visible in the Explorer, hover over the `habit_tracker` row and click its New File icon. VS Code should open a filename input directly under `habit_tracker`."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Name the new Python script",
+      "action_before_state": "A file name input is active under the `habit_tracker` folder.",
+      "action_preconditions": [
+        "The inline file name field is visible",
+        "The cursor is inside the new file name field"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "habit_tracker.py"
+      },
+      "action_after_effects": "The file name field now contains `habit_tracker.py`.",
+      "nl_explanation": "When the new file input appears below `habit_tracker`, type `habit_tracker.py`. The expected result is that the full file name is entered and ready to be confirmed."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Create and open the new Python script",
+      "action_before_state": "The filename `habit_tracker.py` is still in the active inline input field.",
+      "action_preconditions": [
+        "The file name has been typed correctly",
+        "The naming field is still active"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The file is created, and a new `habit_tracker.py` editor tab opens with the cursor at the top of the empty file.",
+      "nl_explanation": "Press Enter to confirm the filename. VS Code should create the file inside `habit_tracker` and open it in the editor for editing."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Write the habit tracker script",
+      "action_before_state": "An empty `habit_tracker.py` tab is open in the editor and the text cursor is on line 1.",
+      "action_preconditions": [
+        "The `habit_tracker.py` tab is active",
+        "The editor caret is visible in the file"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "questions = [\n    (\"Water\", \"Did you drink enough water today? \"),\n    (\"Exercise\", \"Did you exercise today? \"),\n    (\"Reading\", \"Did you read today? \")\n]\n\nresponses = []\n\nfor label, prompt in questions:\n    answer = input(prompt).strip().lower()\n    responses.append((label, answer in {\"y\", \"yes\"}))\n\ncompleted = [label for label, done in responses if done]\nmissed = [label for label, done in responses if not done]\n\nprint(\"\\nDaily Habit Summary\")\nprint(\"-------------------\")\nfor label, done in responses:\n    status = \"Done\" if done else \"Skipped\"\n    print(f\"{label}: {status}\")\n\nprint(f\"\\nCompleted {len(completed)} of {len(responses)} habits today.\")\nif missed:\n    print(\"Still pending: \" + \", \".join(missed))\nelse:\n    print(\"Great, all tracked habits are complete.\")\n"
+      },
+      "action_after_effects": "The editor now contains a complete Python script that asks three daily habit questions and prints a summary.",
+      "nl_explanation": "With the empty Python file open and ready for input, type the full script into the editor. The result should be a working habit tracker program visible in `habit_tracker.py`."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Save the Python file to disk",
+      "action_before_state": "The script text is present in the editor and the file may show as unsaved.",
+      "action_preconditions": [
+        "The `habit_tracker.py` tab is active",
+        "The script content has been entered"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "s"
+        ]
+      },
+      "action_after_effects": "The file is saved and the unsaved indicator on the tab disappears.",
+      "nl_explanation": "After the script has been typed, press Ctrl+S to save it. The expected behavior is that the file is written to disk and VS Code no longer marks the tab as modified."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Open the integrated terminal to run the script",
+      "action_before_state": "The editor remains open with the saved `habit_tracker.py` file.",
+      "action_preconditions": [
+        "VS Code is still focused",
+        "The workspace containing `habit_tracker` is open"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "`"
+        ]
+      },
+      "action_after_effects": "The integrated terminal opens at the bottom of VS Code with a shell prompt ready.",
+      "nl_explanation": "With the file saved, press Ctrl+` to open the built-in terminal. The expected result is that a shell prompt appears in the lower panel so commands can be run."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Prepare a command that runs the script with sample answers",
+      "action_before_state": "The integrated terminal is open and the prompt is waiting for input.",
+      "action_preconditions": [
+        "The terminal cursor is active",
+        "The `habit_tracker.py` file exists at `habit_tracker/habit_tracker.py` relative to the workspace root"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "printf 'y\\nn\\ny\\n' | python3 habit_tracker/habit_tracker.py"
+      },
+      "action_after_effects": "The terminal command line now contains a full test command that will feed sample answers to the script.",
+      "nl_explanation": "When the terminal prompt is ready, type a command that pipes sample responses into the Python script. This prepares the script to be tested without manual input during execution."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Run the script and verify the daily summary appears",
+      "action_before_state": "The complete test command is visible at the terminal prompt.",
+      "action_preconditions": [
+        "The command has been typed correctly",
+        "Python 3 is available in the terminal environment"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The terminal runs the script, shows the three prompts, and prints a summary indicating Water and Reading are done while Exercise is skipped.",
+      "nl_explanation": "Press Enter to execute the prepared terminal command. The expected result is that the Python script runs successfully and prints a readable daily habit summary in the terminal output."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Create a dedicated workspace folder to hold the habit tracker files.",
+      "unit_type": "CREATE_FOLDER",
+      "unit_before_state": "VS Code is open with the main editor visible, but the left sidebar may be hidden or showing a different view instead of the Explorer.",
+      "unit_after_state": "The Explorer is visible in the left sidebar, and a new folder named `habit_tracker` appears in the workspace file tree as a normal folder entry.",
+      "unit_precondition": [
+        "VS Code is the active window.",
+        "A writable workspace is already open in VS Code."
+      ],
+      "unit_effect": [
+        "The Explorer panel becomes visible with file and folder controls.",
+        "An inline folder naming field appears, accepts `habit_tracker`, and then disappears after confirmation.",
+        "The new `habit_tracker` folder remains listed in the Explorer."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Create the Python script file inside the new folder and open it for editing.",
+      "unit_type": "CREATE_FILE",
+      "unit_before_state": "The `habit_tracker` folder is visible in the Explorer and no file creation input is currently active under it.",
+      "unit_after_state": "A new file named `habit_tracker.py` exists inside the `habit_tracker` folder, and its editor tab is open with an empty document ready for typing.",
+      "unit_precondition": [
+        "The `habit_tracker` folder already exists in the Explorer.",
+        "The folder row is visible so its inline New File control can be used."
+      ],
+      "unit_effect": [
+        "A filename input appears under `habit_tracker`.",
+        "The typed name `habit_tracker.py` is confirmed.",
+        "VS Code opens a new `habit_tracker.py` tab with the caret at the top of the empty file."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        8
+      ],
+      "unit_intent": "Implement the habit tracker logic that asks about daily habits and prints a summary.",
+      "unit_type": "REPLACE_CONTENT",
+      "unit_before_state": "The `habit_tracker.py` tab is active, the file is empty, and the text cursor is on line 1 in the editor.",
+      "unit_after_state": "The editor shows a complete Python script that asks about water, exercise, and reading, stores yes/no results, and prints a daily habit summary; the tab is modified but not yet explicitly saved.",
+      "unit_precondition": [
+        "The `habit_tracker.py` editor tab is active.",
+        "The text caret is inside the editor and ready to accept input."
+      ],
+      "unit_effect": [
+        "Multiple lines of Python code appear in the editor.",
+        "The visible code includes three habit prompts and summary print statements.",
+        "The file tab reflects unsaved changes after the code is entered."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9
+      ],
+      "unit_intent": "Persist the newly written habit tracker script to disk.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The `habit_tracker.py` tab contains the completed script and is still marked as modified in the editor.",
+      "unit_after_state": "The same `habit_tracker.py` tab remains open, but the modified indicator is gone because the file has been saved to disk.",
+      "unit_precondition": [
+        "The `habit_tracker.py` tab is active.",
+        "The script content has already been entered into the editor."
+      ],
+      "unit_effect": [
+        "The unsaved-change indicator on `habit_tracker.py` disappears.",
+        "The saved file remains available at `habit_tracker/habit_tracker.py` in the workspace."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        10,
+        11,
+        12
+      ],
+      "unit_intent": "Run the habit tracker once with sample answers to verify that it works and shows the expected summary.",
+      "unit_type": "RUN_SCRIPT_IN_TERMINAL",
+      "unit_before_state": "The saved `habit_tracker.py` file is open in the editor, and the terminal panel is not yet being used for this test run.",
+      "unit_after_state": "The integrated terminal is open at the bottom of VS Code and shows the executed command output, including the habit prompts and a summary where Water and Reading are marked done and Exercise is skipped.",
+      "unit_precondition": [
+        "VS Code is focused with the workspace containing `habit_tracker/habit_tracker.py` open.",
+        "The script file has already been saved.",
+        "A Python 3 interpreter is available in the terminal environment."
+      ],
+      "unit_effect": [
+        "The integrated terminal opens with a shell prompt.",
+        "The command `printf 'y\\nn\\ny\\n' | python3 habit_tracker/habit_tracker.py` is entered and executed.",
+        "Terminal output displays the three prompts followed by a daily summary confirming two completed habits and one skipped habit."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Create a dedicated workspace folder to hold the habit tracker files.",
+      "unit_type": "CREATE_FOLDER",
+      "unit_before_state": "VS Code is open with the main editor visible, but the left sidebar may be hidden or showing a different view instead of the Explorer.",
+      "unit_after_state": "The Explorer is visible in the left sidebar, and a new folder named `habit_tracker` appears in the workspace file tree as a normal folder entry.",
+      "unit_precondition": [
+        "VS Code is the active window.",
+        "A writable workspace is already open in VS Code."
+      ],
+      "unit_effect": [
+        "The Explorer panel becomes visible with file and folder controls.",
+        "An inline folder naming field appears, accepts `habit_tracker`, and then disappears after confirmation.",
+        "The new `habit_tracker` folder remains listed in the Explorer."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a new folder in the current VS Code workspace using the Explorer panel.",
+      "parameters": {
+        "folder_name": "habit_tracker"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'e']}",
+          "action_template": "Press Ctrl+Shift+E in VS Code to switch to the Explorer when the editor is visible. The Explorer view should appear in the left sidebar and show the workspace file tree and file/folder controls."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the New Folder button in the top-right corner of the EXPLORER panel header'}}",
+          "action_template": "Click the New Folder button in the top-right corner of the EXPLORER panel header when the Explorer panel is visible and a writable workspace or folder is open in VS Code. An inline folder name input box should appear in the Explorer, ready for typing."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'habit_tracker'}",
+          "action_template": "Type {{folder_name}} into the active inline folder naming field when the text cursor is inside it. The folder name field should display {{folder_name}}."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter while the active naming field contains {{folder_name}} to confirm folder creation. The {{folder_name}} folder should be created in the workspace and appear in the Explorer."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Create the Python script file inside the new folder and open it for editing.",
+      "unit_type": "CREATE_FILE",
+      "unit_before_state": "The `habit_tracker` folder is visible in the Explorer and no file creation input is currently active under it.",
+      "unit_after_state": "A new file named `habit_tracker.py` exists inside the `habit_tracker` folder, and its editor tab is open with an empty document ready for typing.",
+      "unit_precondition": [
+        "The `habit_tracker` folder already exists in the Explorer.",
+        "The folder row is visible so its inline New File control can be used."
+      ],
+      "unit_effect": [
+        "A filename input appears under `habit_tracker`.",
+        "The typed name `habit_tracker.py` is confirmed.",
+        "VS Code opens a new `habit_tracker.py` tab with the caret at the top of the empty file."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a new file inside a specified folder in the Explorer and open it for editing.",
+      "parameters": {
+        "target_folder": "habit_tracker",
+        "file_name": "habit_tracker.py"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the hover-triggered New File icon that appears on the `habit_tracker` folder row in the Explorer'}}",
+          "action_template": "With {{target_folder}} visible in the Explorer, hover over the {{target_folder}} folder row and click its New File icon. This uses the folder's inline file-creation control to open a filename input directly under {{target_folder}}."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'habit_tracker.py'}",
+          "action_template": "When the inline filename field is visible and the cursor is active inside it under {{target_folder}}, type {{file_name}} so the full new filename is entered and ready to be confirmed."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter while the active naming field still contains {{file_name}} to confirm the name, create the file inside {{target_folder}}, and open the new file in the editor for editing."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        8
+      ],
+      "unit_intent": "Implement the habit tracker logic that asks about daily habits and prints a summary.",
+      "unit_type": "REPLACE_CONTENT",
+      "unit_before_state": "The `habit_tracker.py` tab is active, the file is empty, and the text cursor is on line 1 in the editor.",
+      "unit_after_state": "The editor shows a complete Python script that asks about water, exercise, and reading, stores yes/no results, and prints a daily habit summary; the tab is modified but not yet explicitly saved.",
+      "unit_precondition": [
+        "The `habit_tracker.py` editor tab is active.",
+        "The text caret is inside the editor and ready to accept input."
+      ],
+      "unit_effect": [
+        "Multiple lines of Python code appear in the editor.",
+        "The visible code includes three habit prompts and summary print statements.",
+        "The file tab reflects unsaved changes after the code is entered."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Enter a complete interactive Python script into the active editor to prompt for tracked habits and print a summary of the results.",
+      "parameters": {
+        "script_content": "questions = [\n    (\"Water\", \"Did you drink enough water today? \"),\n    (\"Exercise\", \"Did you exercise today? \"),\n    (\"Reading\", \"Did you read today? \")\n]\n\nresponses = []\n\nfor label, prompt in questions:\n    answer = input(prompt).strip().lower()\n    responses.append((label, answer in {\"y\", \"yes\"}))\n\ncompleted = [label for label, done in responses if done]\nmissed = [label for label, done in responses if not done]\n\nprint(\"\\nDaily Habit Summary\")\nprint(\"-------------------\")\nfor label, done in responses:\n    status = \"Done\" if done else \"Skipped\"\n    print(f\"{label}: {status}\")\n\nprint(f\"\\nCompleted {len(completed)} of {len(responses)} habits today.\")\nif missed:\n    print(\"Still pending: \" + \", \".join(missed))\nelse:\n    print(\"Great, all tracked habits are complete.\")\n"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'questions = [\\n    (\"Water\", \"Did you drink enough water today? \"),\\n    (\"Exercise\", \"Did you exercise today? \"),\\n    (\"Reading\", \"Did you read today? \")\\n]\\n\\nresponses = []\\n\\nfor label, prompt in questions:\\n    answer = input(prompt).strip().lower()\\n    responses.append((label, answer in {\"y\", \"yes\"}))\\n\\ncompleted = [label for label, done in responses if done]\\nmissed = [label for label, done in responses if not done]\\n\\nprint(\"\\\\nDaily Habit Summary\")\\nprint(\"-------------------\")\\nfor label, done in responses:\\n    status = \"Done\" if done else \"Skipped\"\\n    print(f\"{label}: {status}\")\\n\\nprint(f\"\\\\nCompleted {len(completed)} of {len(responses)} habits today.\")\\nif missed:\\n    print(\"Still pending: \" + \", \".join(missed))\\nelse:\\n    print(\"Great, all tracked habits are complete.\")\\n'}",
+          "action_template": "With the active Python file open and the editor caret visible, type {{script_content}} into the editor so the file contains a complete interactive habit-tracking script that prompts for habits and prints a summary."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9
+      ],
+      "unit_intent": "Persist the newly written habit tracker script to disk.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The `habit_tracker.py` tab contains the completed script and is still marked as modified in the editor.",
+      "unit_after_state": "The same `habit_tracker.py` tab remains open, but the modified indicator is gone because the file has been saved to disk.",
+      "unit_precondition": [
+        "The `habit_tracker.py` tab is active.",
+        "The script content has already been entered into the editor."
+      ],
+      "unit_effect": [
+        "The unsaved-change indicator on `habit_tracker.py` disappears.",
+        "The saved file remains available at `habit_tracker/habit_tracker.py` in the workspace."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the active script file to disk after its content has been entered.",
+      "parameters": {
+        "target_document": "habit_tracker.py"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 's']}",
+          "action_template": "After the script content has been entered and {{target_document}} is active, press Ctrl+S to save it. The expected behavior is that the file is written to disk and VS Code no longer marks the tab as modified."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        10,
+        11,
+        12
+      ],
+      "unit_intent": "Run the habit tracker once with sample answers to verify that it works and shows the expected summary.",
+      "unit_type": "RUN_SCRIPT_IN_TERMINAL",
+      "unit_before_state": "The saved `habit_tracker.py` file is open in the editor, and the terminal panel is not yet being used for this test run.",
+      "unit_after_state": "The integrated terminal is open at the bottom of VS Code and shows the executed command output, including the habit prompts and a summary where Water and Reading are marked done and Exercise is skipped.",
+      "unit_precondition": [
+        "VS Code is focused with the workspace containing `habit_tracker/habit_tracker.py` open.",
+        "The script file has already been saved.",
+        "A Python 3 interpreter is available in the terminal environment."
+      ],
+      "unit_effect": [
+        "The integrated terminal opens with a shell prompt.",
+        "The command `printf 'y\\nn\\ny\\n' | python3 habit_tracker/habit_tracker.py` is entered and executed.",
+        "Terminal output displays the three prompts followed by a daily summary confirming two completed habits and one skipped habit."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Run a saved Python script in the integrated terminal with predefined sample input and verify the expected summary output.",
+      "parameters": {
+        "script_path": "habit_tracker/habit_tracker.py",
+        "test_command": "printf 'y\\nn\\ny\\n' | python3 habit_tracker/habit_tracker.py",
+        "expected_output_summary": "a summary indicating Water and Reading are done while Exercise is skipped"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', '`']}",
+          "action_template": "Press Ctrl+` while VS Code is focused and the workspace containing the target script is open to open the integrated terminal, so a shell prompt is ready in the lower panel."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': \"printf 'y\\\\nn\\\\ny\\\\n' | python3 habit_tracker/habit_tracker.py\"}",
+          "action_template": "With the terminal cursor active and {{script_path}} available relative to the workspace root, type {{test_command}} to prepare a test run that feeds sample responses into the script without manual input."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter after {{test_command}} has been typed correctly and Python 3 is available to run the script, expecting the terminal to show the prompts and {{expected_output_summary}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

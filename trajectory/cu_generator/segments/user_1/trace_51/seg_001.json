@@ -1,0 +1,509 @@
+{
+  "segment_id": "seg_001",
+  "app": "Chrome",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Focus the browser address bar so a new website can be opened",
+      "action_before_state": "Chrome is already open on screen, showing either a new tab page or an existing webpage.",
+      "action_preconditions": [
+        "The Chrome window is active and visible.",
+        "The keyboard input is not currently inside a form field that should be preserved."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "l"
+        ]
+      },
+      "action_after_effects": "The address bar becomes focused and its current contents are selected, ready to be replaced.",
+      "nl_explanation": "When the Chrome window is visible, press Ctrl+L to jump directly to the address bar. The current URL or text is highlighted so the next input can open a different site."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Enter the Google Maps website address",
+      "action_before_state": "The address bar is focused with the current contents selected.",
+      "action_preconditions": [
+        "The address bar caret is active.",
+        "Any existing address text is selected or can be overwritten."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "maps.google.com"
+      },
+      "action_after_effects": "The address bar now contains the Google Maps URL.",
+      "nl_explanation": "With the address bar focused, type maps.google.com so Chrome is ready to open Google Maps."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Open Google Maps",
+      "action_before_state": "The address bar contains maps.google.com.",
+      "action_preconditions": [
+        "The URL has been typed into the address bar.",
+        "Chrome is ready to navigate to the entered address."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "Google Maps loads in the current tab.",
+      "nl_explanation": "After the Google Maps address is entered, press Enter to navigate there. The tab changes from the previous page to the Google Maps interface."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Activate the Maps search field",
+      "action_before_state": "Google Maps is open, with the search field visible near the upper-left area of the page.",
+      "action_preconditions": [
+        "The Google Maps page has finished loading enough to show the search box.",
+        "The search field is visible and clickable."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the main Google Maps search box near the upper-left of the page"
+        }
+      },
+      "action_after_effects": "The Maps search field becomes active and ready for a location query.",
+      "nl_explanation": "Once Google Maps is visible, click the search box near the upper left so the next text entry goes into the place search field."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Type a search for nearby pharmacies in the target area",
+      "action_before_state": "The Maps search field is focused.",
+      "action_preconditions": [
+        "The search box caret is visible.",
+        "The field is ready to accept text input."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "pharmacy near downtown Seattle"
+      },
+      "action_after_effects": "The query appears in the Maps search field.",
+      "nl_explanation": "With the Maps search box active, type pharmacy near downtown Seattle so Google Maps can search for suitable nearby pharmacies."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Run the pharmacy search",
+      "action_before_state": "The Maps search field contains the pharmacy query.",
+      "action_preconditions": [
+        "The search text is fully entered.",
+        "Google Maps is ready to execute the search."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The map updates and a results panel appears with pharmacy listings in or near downtown Seattle.",
+      "nl_explanation": "After entering the pharmacy search, press Enter to show matching places. Google Maps refreshes the map and lists pharmacy results on the left."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Open the hours filter menu",
+      "action_before_state": "The results panel shows pharmacy listings and filter controls near the top of the page.",
+      "action_preconditions": [
+        "Search results are visible.",
+        "A filter control for hours or open status is available."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Hours filter control near the top of the results panel"
+        }
+      },
+      "action_after_effects": "A filter menu opens showing hours-related options, including Open now.",
+      "nl_explanation": "When the pharmacy results and filter controls are visible, click the Hours filter so Google Maps shows the available open-status options."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Select Open now to filter results",
+      "action_before_state": "The hours filter menu is expanded.",
+      "action_preconditions": [
+        "A filter menu with hours options is open.",
+        "Open now is visible as a selectable option."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the \"Open now\" option in the filter menu"
+        }
+      },
+      "action_after_effects": "The visible results are narrowed to pharmacies that are currently open.",
+      "nl_explanation": "With the hours filter menu open, click Open now so the list updates to only show currently open pharmacies."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Bring enough filtered results into view to compare ratings",
+      "action_before_state": "The results list shows open pharmacies, but only the first few entries may be visible.",
+      "action_preconditions": [
+        "The left-side results panel is scrollable.",
+        "At least one open pharmacy listing is already visible."
+      ],
+      "action": {
+        "type": "SCROLL",
+        "direction": "down",
+        "target": {
+          "text": "inside the left-side Google Maps results list"
+        },
+        "stop_reason": "Stop when several open pharmacy listings with star ratings are visible at the same time, making comparison possible."
+      },
+      "action_after_effects": "More open pharmacy listings appear, and enough entries are visible to compare their ratings.",
+      "nl_explanation": "If only a small part of the results list is visible, scroll down inside the left panel until multiple open pharmacy options and their ratings can be compared clearly."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Open the most promising pharmacy listing",
+      "action_before_state": "Several open pharmacy results are visible, each showing a name, rating, and hours information.",
+      "action_preconditions": [
+        "At least two or more open results are visible.",
+        "The ratings can be read well enough to identify the best visible option."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the topmost visible open pharmacy listing among those with the highest star rating"
+        }
+      },
+      "action_after_effects": "The selected pharmacy's detail panel opens, showing more information and action buttons such as Directions.",
+      "nl_explanation": "Compare the visible star ratings, then click the topmost listing among those tied for the highest rating. Google Maps opens that location's detail view with actions for the next step."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Open driving directions for the chosen pharmacy",
+      "action_before_state": "The pharmacy detail panel is open and includes a Directions button.",
+      "action_preconditions": [
+        "The location detail panel for the chosen pharmacy is visible.",
+        "A Directions control is available in the panel."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Directions button in the pharmacy detail panel"
+        }
+      },
+      "action_after_effects": "Google Maps opens the directions interface with the selected pharmacy set as the destination.",
+      "nl_explanation": "After opening the selected pharmacy's details, click Directions. The directions panel opens and prepares a route to that pharmacy."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Open Google Maps in the current Chrome tab to begin place search.",
+      "unit_type": "OPEN_GOOGLE_MAPS",
+      "unit_before_state": "Chrome is open on screen on an existing page or a new tab, and Google Maps is not yet loaded.",
+      "unit_after_state": "The current Chrome tab shows the Google Maps interface with the map canvas and the main search box visible near the upper-left area.",
+      "unit_precondition": [
+        "Chrome is the active window.",
+        "The user can replace the current address bar contents without needing to preserve the current page."
+      ],
+      "unit_effect": [
+        "The address bar becomes focused and is replaced with maps.google.com.",
+        "After pressing Enter, the tab navigates to Google Maps and the Maps search UI appears."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Search Google Maps for pharmacies near downtown Seattle.",
+      "unit_type": "SEARCH_PLACE",
+      "unit_before_state": "Google Maps is open, showing the map and the main search box near the upper-left corner.",
+      "unit_after_state": "Google Maps shows pharmacy search results in or near downtown Seattle, with a left-side results panel and matching markers on the map.",
+      "unit_precondition": [
+        "Google Maps has loaded enough for the main search box to be visible and clickable.",
+        "The search field is available for text entry."
+      ],
+      "unit_effect": [
+        "The search box becomes active and contains the query \"pharmacy near downtown Seattle\".",
+        "After the search is submitted, a results panel with pharmacy listings appears on the left."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Restrict the pharmacy results to locations that are currently open.",
+      "unit_type": "FILTER_RESULTS_OPEN_NOW",
+      "unit_before_state": "The Google Maps results panel shows pharmacy listings and filter controls, including an Hours control near the top.",
+      "unit_after_state": "The results list is filtered to currently open pharmacies, and the visible listings reflect the Open now condition.",
+      "unit_precondition": [
+        "Pharmacy search results are already visible in the Google Maps results panel.",
+        "The Hours filter control is present and its menu contains an \"Open now\" option."
+      ],
+      "unit_effect": [
+        "Clicking Hours opens a menu with hours-related filter choices.",
+        "Selecting \"Open now\" updates the visible results so only pharmacies that are open now remain."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Compare the visible open pharmacy options by rating and open the best visible candidate.",
+      "unit_type": "SELECT_BEST_VISIBLE_RESULT",
+      "unit_before_state": "The filtered Google Maps results panel shows open pharmacy listings, but not enough entries may be visible at once to compare ratings comfortably.",
+      "unit_after_state": "The detail panel for the selected highest-rated visible open pharmacy is open, showing the place name, rating, hours, and action buttons such as Directions.",
+      "unit_precondition": [
+        "The results list is already filtered to open pharmacies.",
+        "The left-side results panel can be scrolled and shows ratings for the listings.",
+        "At least one additional result can be brought into view for comparison if needed."
+      ],
+      "unit_effect": [
+        "Scrolling reveals several open pharmacy listings with star ratings visible at the same time.",
+        "Clicking the topmost visible listing among those with the highest rating opens that pharmacy's detail panel."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        11
+      ],
+      "unit_intent": "Open route planning to the chosen pharmacy so the user can start driving there.",
+      "unit_type": "OPEN_DRIVING_DIRECTIONS",
+      "unit_before_state": "The chosen pharmacy's Google Maps detail panel is open and includes a Directions button.",
+      "unit_after_state": "Google Maps switches to the directions interface with the selected pharmacy set as the destination and route-planning controls visible.",
+      "unit_precondition": [
+        "A pharmacy detail panel is already open for the selected result.",
+        "The Directions button is visible and clickable in that panel."
+      ],
+      "unit_effect": [
+        "The detail view changes to the directions panel.",
+        "The selected pharmacy appears as the destination in the directions interface."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Open Google Maps in the current Chrome tab to begin place search.",
+      "unit_type": "OPEN_GOOGLE_MAPS",
+      "unit_before_state": "Chrome is open on screen on an existing page or a new tab, and Google Maps is not yet loaded.",
+      "unit_after_state": "The current Chrome tab shows the Google Maps interface with the map canvas and the main search box visible near the upper-left area.",
+      "unit_precondition": [
+        "Chrome is the active window.",
+        "The user can replace the current address bar contents without needing to preserve the current page."
+      ],
+      "unit_effect": [
+        "The address bar becomes focused and is replaced with maps.google.com.",
+        "After pressing Enter, the tab navigates to Google Maps and the Maps search UI appears."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a specified website in the current Chrome tab by replacing the address bar contents and navigating to the target URL.",
+      "parameters": {
+        "target_url": "maps.google.com",
+        "target_website": "Google Maps"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'l']}",
+          "action_template": "Press Ctrl+L when the Chrome window is active and visible to focus the address bar and select its current contents so the next input can replace them."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'maps.google.com'}",
+          "action_template": "Type {{target_url}} into the focused address bar when the existing address text is selected or can be overwritten so Chrome is ready to open {{target_website}}."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter after {{target_url}} has been entered in the address bar to navigate the current tab to {{target_website}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Search Google Maps for pharmacies near downtown Seattle.",
+      "unit_type": "SEARCH_PLACE",
+      "unit_before_state": "Google Maps is open, showing the map and the main search box near the upper-left corner.",
+      "unit_after_state": "Google Maps shows pharmacy search results in or near downtown Seattle, with a left-side results panel and matching markers on the map.",
+      "unit_precondition": [
+        "Google Maps has loaded enough for the main search box to be visible and clickable.",
+        "The search field is available for text entry."
+      ],
+      "unit_effect": [
+        "The search box becomes active and contains the query \"pharmacy near downtown Seattle\".",
+        "After the search is submitted, a results panel with pharmacy listings appears on the left."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Search Google Maps for a specified place type near a specified area.",
+      "parameters": {
+        "target_search_field": "the main Google Maps search box near the upper-left of the page",
+        "place_type": "pharmacy",
+        "target_area": "downtown Seattle"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the main Google Maps search box near the upper-left of the page'}}",
+          "action_template": "Once Google Maps has loaded enough to show {{target_search_field}} and it is visible and clickable, click {{target_search_field}} so the place search field becomes active and ready for a location query."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'pharmacy near downtown Seattle'}",
+          "action_template": "With the Maps search box active, the caret visible, and the field ready to accept input, type {{place_type}} near {{target_area}} so the query appears in the Maps search field."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After {{place_type}} near {{target_area}} has been fully entered and Google Maps is ready to execute the search, press Enter so the map updates and a left-side results panel appears with matching place listings."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Restrict the pharmacy results to locations that are currently open.",
+      "unit_type": "FILTER_RESULTS_OPEN_NOW",
+      "unit_before_state": "The Google Maps results panel shows pharmacy listings and filter controls, including an Hours control near the top.",
+      "unit_after_state": "The results list is filtered to currently open pharmacies, and the visible listings reflect the Open now condition.",
+      "unit_precondition": [
+        "Pharmacy search results are already visible in the Google Maps results panel.",
+        "The Hours filter control is present and its menu contains an \"Open now\" option."
+      ],
+      "unit_effect": [
+        "Clicking Hours opens a menu with hours-related filter choices.",
+        "Selecting \"Open now\" updates the visible results so only pharmacies that are open now remain."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Filter the visible location search results to show only places that are currently open.",
+      "parameters": {
+        "target_results": "pharmacy results",
+        "hours_filter_control": "Hours",
+        "open_now_option": "Open now"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Hours filter control near the top of the results panel'}}",
+          "action_template": "When {{target_results}} and filter controls are visible, click the {{hours_filter_control}} filter control near the top of the results panel to open a menu with hours-related options, including {{open_now_option}}."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the \"Open now\" option in the filter menu'}}",
+          "action_template": "With the hours filter menu open and {{open_now_option}} visible, click {{open_now_option}} so the visible {{target_results}} are narrowed to locations that are currently open."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Compare the visible open pharmacy options by rating and open the best visible candidate.",
+      "unit_type": "SELECT_BEST_VISIBLE_RESULT",
+      "unit_before_state": "The filtered Google Maps results panel shows open pharmacy listings, but not enough entries may be visible at once to compare ratings comfortably.",
+      "unit_after_state": "The detail panel for the selected highest-rated visible open pharmacy is open, showing the place name, rating, hours, and action buttons such as Directions.",
+      "unit_precondition": [
+        "The results list is already filtered to open pharmacies.",
+        "The left-side results panel can be scrolled and shows ratings for the listings.",
+        "At least one additional result can be brought into view for comparison if needed."
+      ],
+      "unit_effect": [
+        "Scrolling reveals several open pharmacy listings with star ratings visible at the same time.",
+        "Clicking the topmost visible listing among those with the highest rating opens that pharmacy's detail panel."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Compare visible filtered {{result_set}} by {{comparison_metric}} and open the topmost visible option among those tied for the best {{comparison_metric}}.",
+      "parameters": {
+        "results_panel": "the left-side Google Maps results list",
+        "result_set": "open pharmacy listings",
+        "comparison_metric": "star ratings",
+        "target_listing": "the topmost visible open pharmacy listing among those with the highest star rating"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'SCROLL', 'direction': 'down', 'target': {'text': 'inside the left-side Google Maps results list'}, 'stop_reason': 'Stop when several open pharmacy listings with star ratings are visible at the same time, making comparison possible.'}",
+          "action_template": "Scroll down inside {{results_panel}} while the panel is scrollable and at least one {{result_set}} is already visible, until multiple {{result_set}} and their {{comparison_metric}} are visible at the same time for clear comparison; this brings enough entries into view to compare their {{comparison_metric}}."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the topmost visible open pharmacy listing among those with the highest star rating'}}",
+          "action_template": "When at least two {{result_set}} are visible and their {{comparison_metric}} can be read clearly, compare the visible {{comparison_metric}} and click {{target_listing}} to open that result's detail panel with more information and action buttons."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        11
+      ],
+      "unit_intent": "Open route planning to the chosen pharmacy so the user can start driving there.",
+      "unit_type": "OPEN_DRIVING_DIRECTIONS",
+      "unit_before_state": "The chosen pharmacy's Google Maps detail panel is open and includes a Directions button.",
+      "unit_after_state": "Google Maps switches to the directions interface with the selected pharmacy set as the destination and route-planning controls visible.",
+      "unit_precondition": [
+        "A pharmacy detail panel is already open for the selected result.",
+        "The Directions button is visible and clickable in that panel."
+      ],
+      "unit_effect": [
+        "The detail view changes to the directions panel.",
+        "The selected pharmacy appears as the destination in the directions interface."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open directions for a selected place so the route-planning interface is displayed with that place as the destination.",
+      "parameters": {
+        "target_place": "the chosen pharmacy",
+        "target_panel": "the pharmacy detail panel"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "CLICK",
+          "action_template": "Click the Directions button in {{target_panel}} after opening the details for {{target_place}}. Preconditions: {{target_panel}} for {{target_place}} is visible and a Directions control is available. Effect: Google Maps opens the directions interface with {{target_place}} set as the destination."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

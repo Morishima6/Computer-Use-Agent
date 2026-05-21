@@ -1,0 +1,794 @@
+{
+  "segment_id": "seg_001",
+  "app": "gimp",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the image import dialog in GIMP",
+      "action_before_state": "GIMP is already open on the screen, showing its main window and no file chooser dialog is open yet.",
+      "action_preconditions": [
+        "The GIMP main window is focused",
+        "No modal dialog is blocking keyboard input"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "o"
+        ]
+      },
+      "action_after_effects": "The Open Image dialog appears in front of GIMP.",
+      "nl_explanation": "When the GIMP window is active and no other dialog is blocking input, press Ctrl+O to open the file chooser, and the Open Image dialog should appear."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Focus the location entry in the file chooser",
+      "action_before_state": "The Open Image dialog is visible with the standard GNOME file picker interface.",
+      "action_preconditions": [
+        "The Open Image dialog is open",
+        "Keyboard input is going to the file chooser"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "l"
+        ]
+      },
+      "action_after_effects": "The location entry becomes active so a filesystem path can be typed directly.",
+      "nl_explanation": "With the file chooser open, press Ctrl+L to switch to the location entry, which prepares the dialog for direct path input."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Enter the Desktop path",
+      "action_before_state": "The location entry in the Open Image dialog is focused and ready for text input.",
+      "action_preconditions": [
+        "The location entry is active",
+        "The Desktop folder exists at `/home/user/Desktop`"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "/home/user/Desktop"
+      },
+      "action_after_effects": "The Desktop path is filled into the location entry.",
+      "nl_explanation": "Once the location field is focused, type `/home/user/Desktop` so the file chooser can jump straight to the Desktop folder."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Navigate to the Desktop folder",
+      "action_before_state": "The file chooser shows `/home/user/Desktop` in the location entry.",
+      "action_preconditions": [
+        "The Desktop path has been typed completely",
+        "The file chooser is still focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The file chooser navigates to the Desktop directory and shows the files inside it.",
+      "nl_explanation": "After the Desktop path is entered, press Enter to open that folder in the chooser, and the Desktop contents should become visible."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Open the target photo in GIMP",
+      "action_before_state": "The file chooser is showing files from the Desktop, including `travel_portrait.jpg`.",
+      "action_preconditions": [
+        "The Desktop folder is open in the chooser",
+        "The file `travel_portrait.jpg` is visible in the file list"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 2,
+        "target": {
+          "text": "the `travel_portrait.jpg` file in the Desktop file list"
+        }
+      },
+      "action_after_effects": "The file chooser closes and the photo opens on the GIMP canvas.",
+      "nl_explanation": "When the Desktop file list is visible and `travel_portrait.jpg` appears there, double-click the file to load it into GIMP."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Activate the Crop tool",
+      "action_before_state": "The photo is open on the GIMP canvas, and the toolbox is visible on the left side.",
+      "action_preconditions": [
+        "An image is open in GIMP",
+        "The toolbox with tool icons is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Crop tool icon in the left toolbox"
+        }
+      },
+      "action_after_effects": "The Crop tool becomes active and the pointer changes to a crop cursor.",
+      "nl_explanation": "With the image loaded and the toolbox visible, click the Crop tool so the next drag operation can define the square avatar area."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Draw a square crop around the subject",
+      "action_before_state": "The Crop tool is active and the photo is visible on the canvas.",
+      "action_preconditions": [
+        "The Crop tool is selected",
+        "The subject in the photo is visible and can be framed"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "slightly above and left of the person's head on the image"
+        },
+        "end": {
+          "text": "down and to the right so the crop box becomes a square around the person"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "A square crop rectangle appears over the image with the subject centered inside it.",
+      "nl_explanation": "When the crop cursor is active and the subject is visible, drag from the upper-left area around the person to the lower-right until a square crop box frames the intended avatar region."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Apply the crop",
+      "action_before_state": "A square crop rectangle is visible on the image and the subject is framed correctly.",
+      "action_preconditions": [
+        "A crop selection has already been drawn",
+        "The selection area matches the part of the photo to keep"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "Everything outside the crop rectangle is removed and the canvas becomes square.",
+      "nl_explanation": "Once the square crop box is positioned correctly, press Enter to apply it, and GIMP will trim the image down to that square area."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Open the Image menu",
+      "action_before_state": "The cropped square image is visible on the canvas and the top menu bar is available.",
+      "action_preconditions": [
+        "The crop has already been applied",
+        "The top menu bar is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the `Image` menu in the top menu bar"
+        }
+      },
+      "action_after_effects": "The Image menu drops down with image-wide operations.",
+      "nl_explanation": "After the square crop is finished, click the `Image` menu in the top bar so the image resizing commands become available."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Open the Scale Image dialog",
+      "action_before_state": "The Image menu is open and its options are visible.",
+      "action_preconditions": [
+        "The Image menu dropdown is expanded",
+        "The `Scale Image...` option is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the `Scale Image...` option in the Image menu"
+        }
+      },
+      "action_after_effects": "The Scale Image dialog opens on top of the canvas.",
+      "nl_explanation": "With the Image menu expanded, click `Scale Image...` to open the dialog used for resizing the cropped image."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Focus the width input box",
+      "action_before_state": "The Scale Image dialog is open, showing Width and Height fields.",
+      "action_preconditions": [
+        "The Scale Image dialog is visible",
+        "The Width field can be clicked"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Width value field in the Scale Image dialog"
+        }
+      },
+      "action_after_effects": "The text cursor appears in the Width field, ready to edit the current size.",
+      "nl_explanation": "When the Scale Image dialog is open, click the Width field so the pixel value can be edited directly."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Select all text in the width field",
+      "action_before_state": "The Width field in the Scale Image dialog is focused.",
+      "action_preconditions": [
+        "The Width field is active",
+        "The current width value is displayed"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "a"
+        ]
+      },
+      "action_after_effects": "The existing width value becomes fully selected, ready to be replaced.",
+      "nl_explanation": "Press Ctrl+A to select all text in the Width field so the next typing action will replace the existing value instead of inserting at the cursor position."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Replace the width with 512 pixels",
+      "action_before_state": "The existing width value in the Width field is fully selected.",
+      "action_preconditions": [
+        "The width value text is selected",
+        "The Width field is ready for input"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "512"
+      },
+      "action_after_effects": "The width becomes 512 pixels, and because the image is square, the height updates to 512 as well.",
+      "nl_explanation": "With the existing value selected, type `512` to replace it. The Height field should update automatically to match because the cropped image is already square and the chain link icon maintains proportions."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Apply the new image size",
+      "action_before_state": "The Scale Image dialog shows 512 for the output dimensions.",
+      "action_preconditions": [
+        "The width has been changed to 512",
+        "The dialog is ready to confirm"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The dialog closes and the image is resized to 512 by 512 pixels.",
+      "nl_explanation": "After the desired size is set in the Scale Image dialog, press Enter to confirm, and the canvas will update to the new 512 by 512 dimensions."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Open the Export As dialog",
+      "action_before_state": "The resized image is visible in GIMP and no modal dialog is open.",
+      "action_preconditions": [
+        "The image resize is complete",
+        "The main GIMP window is focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "shift",
+          "ctrl",
+          "e"
+        ]
+      },
+      "action_after_effects": "The Export As dialog opens.",
+      "nl_explanation": "Once the 512 by 512 image is ready, press Shift+Ctrl+E to open GIMP's Export As dialog for saving the finished avatar as a new file."
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Focus the export filename field",
+      "action_before_state": "The Export As dialog is open and shows a filename input area.",
+      "action_preconditions": [
+        "The Export As dialog is visible",
+        "The filename field is available to edit"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the filename field at the bottom of the Export As dialog"
+        }
+      },
+      "action_after_effects": "The filename field becomes active and ready for text selection or replacement.",
+      "nl_explanation": "With the export dialog open, click the filename field so the current name can be replaced with the required export name."
+    },
+    {
+      "step_id": "s17",
+      "step_goal": "Select the existing filename text",
+      "action_before_state": "The filename field is active in the Export As dialog.",
+      "action_preconditions": [
+        "The filename input box is focused",
+        "An existing filename is present in the field"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "a"
+        ]
+      },
+      "action_after_effects": "The current filename text becomes highlighted.",
+      "nl_explanation": "When the filename box is focused, press Ctrl+A to highlight the whole existing name so it can be replaced in one step."
+    },
+    {
+      "step_id": "s18",
+      "step_goal": "Enter the new export filename",
+      "action_before_state": "The old filename text is selected inside the Export As dialog.",
+      "action_preconditions": [
+        "The filename text is highlighted",
+        "The export dialog is still focused"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "avatar_ready.png"
+      },
+      "action_after_effects": "The selected filename is replaced with `avatar_ready.png`.",
+      "nl_explanation": "After the previous filename is selected, type `avatar_ready.png` so the exported avatar will be saved under the requested name."
+    },
+    {
+      "step_id": "s19",
+      "step_goal": "Start exporting the PNG file",
+      "action_before_state": "The Export As dialog shows `avatar_ready.png` as the target file name.",
+      "action_preconditions": [
+        "The filename has been changed to `avatar_ready.png`",
+        "The Export button is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the `Export` button in the Export As dialog"
+        }
+      },
+      "action_after_effects": "The main export dialog closes and a PNG export options dialog appears.",
+      "nl_explanation": "When the correct export name is shown, click the `Export` button to proceed, which should open the PNG options confirmation dialog."
+    },
+    {
+      "step_id": "s20",
+      "step_goal": "Confirm the PNG export options",
+      "action_before_state": "A PNG export options dialog is visible with another Export button.",
+      "action_preconditions": [
+        "The PNG options dialog is open",
+        "The default PNG settings are acceptable"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the `Export` button in the PNG options dialog"
+        }
+      },
+      "action_after_effects": "The PNG options dialog closes and the file `avatar_ready.png` is saved.",
+      "nl_explanation": "With the PNG options dialog open and default settings available, click `Export` again to finish saving the avatar as `avatar_ready.png`."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Navigate the GIMP file chooser to the Desktop so the requested source photo can be selected.",
+      "unit_type": "NAVIGATE_OPEN_DIALOG_TO_FOLDER",
+      "unit_before_state": "GIMP is open in its main editing window, and no file chooser dialog is currently visible.",
+      "unit_after_state": "The Open Image dialog is open and displaying the contents of /home/user/Desktop in its file list.",
+      "unit_precondition": [
+        "The GIMP main window is focused.",
+        "No modal dialog is blocking keyboard input.",
+        "The folder /home/user/Desktop exists and is accessible from the file chooser."
+      ],
+      "unit_effect": [
+        "The Open Image dialog appears in front of GIMP.",
+        "The location entry is activated and filled with /home/user/Desktop.",
+        "After pressing Enter, the dialog updates to show the files inside the Desktop folder."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5
+      ],
+      "unit_intent": "Load the chosen portrait photo into GIMP as the image to edit.",
+      "unit_type": "OPEN_IMAGE_FILE",
+      "unit_before_state": "The Open Image dialog is showing the Desktop folder contents, including the file travel_portrait.jpg.",
+      "unit_after_state": "The file chooser is closed and travel_portrait.jpg is open on the GIMP canvas.",
+      "unit_precondition": [
+        "The Open Image dialog is currently showing the Desktop folder.",
+        "The file travel_portrait.jpg is visible in the file list."
+      ],
+      "unit_effect": [
+        "Double-clicking travel_portrait.jpg closes the chooser.",
+        "The photo appears as the active image on the canvas."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Crop the portrait into a tight square composition suitable for an avatar.",
+      "unit_type": "CROP_IMAGE_TO_SQUARE",
+      "unit_before_state": "The portrait photo is open on the GIMP canvas, and the left toolbox is visible with no crop applied yet.",
+      "unit_after_state": "The image has been cropped down to the selected square area, leaving a square canvas centered on the person.",
+      "unit_precondition": [
+        "An image is open and visible on the GIMP canvas.",
+        "The Crop tool is available in the left toolbox.",
+        "The person in the photo is visible and can be framed inside a square crop area."
+      ],
+      "unit_effect": [
+        "The Crop tool becomes active and the cursor switches to crop mode.",
+        "A square crop rectangle appears over the subject.",
+        "After confirming, the area outside the crop box disappears and the canvas becomes square."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "unit_intent": "Resize the cropped square image to the required 512 by 512 output size.",
+      "unit_type": "RESIZE_IMAGE",
+      "unit_before_state": "A square-cropped portrait is visible on the GIMP canvas, and the top menu bar is available.",
+      "unit_after_state": "The Scale Image dialog is closed and the active image on the canvas has been resized to 512 by 512 pixels.",
+      "unit_precondition": [
+        "The image has already been cropped to the desired square region.",
+        "The active GIMP image window is focused.",
+        "The top menu bar and the Scale Image command are available."
+      ],
+      "unit_effect": [
+        "The Image menu opens and the Scale Image dialog appears.",
+        "The Width field is focused, its old value is selected, and 512 is entered.",
+        "Because proportions are linked on the square image, the Height value updates to 512 as well.",
+        "Pressing Enter closes the dialog and applies the new 512 by 512 size."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        15,
+        16,
+        17,
+        18
+      ],
+      "unit_intent": "Prepare the export dialog with the required output filename for the finished avatar.",
+      "unit_type": "SET_EXPORT_FILENAME",
+      "unit_before_state": "The resized 512 by 512 image is visible in GIMP, and no modal dialog is open.",
+      "unit_after_state": "The Export As dialog remains open with the filename field set to avatar_ready.png.",
+      "unit_precondition": [
+        "The resized image is the active document in GIMP.",
+        "No other modal dialog is blocking input.",
+        "The Export As dialog can be invoked from the main window."
+      ],
+      "unit_effect": [
+        "The Export As dialog opens.",
+        "The filename field becomes active and the existing name is selected.",
+        "The filename text is replaced with avatar_ready.png."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        19,
+        20
+      ],
+      "unit_intent": "Complete the PNG export so the finished avatar is saved to disk.",
+      "unit_type": "EXPORT_PNG_FILE",
+      "unit_before_state": "The Export As dialog is open and shows avatar_ready.png as the target filename.",
+      "unit_after_state": "The export dialogs are closed and the file avatar_ready.png has been saved.",
+      "unit_precondition": [
+        "The Export As dialog shows avatar_ready.png in the filename field.",
+        "The Export button is visible and enabled.",
+        "The default PNG export settings are acceptable if a PNG options dialog appears."
+      ],
+      "unit_effect": [
+        "Clicking Export in the Export As dialog closes that dialog and opens the PNG export options dialog.",
+        "Clicking Export again closes the PNG options dialog.",
+        "The file avatar_ready.png is written as the exported result."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Navigate the GIMP file chooser to the Desktop so the requested source photo can be selected.",
+      "unit_type": "NAVIGATE_OPEN_DIALOG_TO_FOLDER",
+      "unit_before_state": "GIMP is open in its main editing window, and no file chooser dialog is currently visible.",
+      "unit_after_state": "The Open Image dialog is open and displaying the contents of /home/user/Desktop in its file list.",
+      "unit_precondition": [
+        "The GIMP main window is focused.",
+        "No modal dialog is blocking keyboard input.",
+        "The folder /home/user/Desktop exists and is accessible from the file chooser."
+      ],
+      "unit_effect": [
+        "The Open Image dialog appears in front of GIMP.",
+        "The location entry is activated and filled with /home/user/Desktop.",
+        "After pressing Enter, the dialog updates to show the files inside the Desktop folder."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open the GIMP image chooser and navigate it directly to a specified filesystem folder.",
+      "parameters": {
+        "target_folder_path": "/home/user/Desktop"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'o']}",
+          "action_template": "When the GIMP main window is focused and no modal dialog is blocking keyboard input, press Ctrl+O to open the file chooser, and the Open Image dialog should appear."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'l']}",
+          "action_template": "With the Open Image dialog open and keyboard input going to the file chooser, press Ctrl+L to switch to the location entry, which prepares the dialog for direct path input."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '/home/user/Desktop'}",
+          "action_template": "Once the location entry is active, type {{target_folder_path}} so the file chooser can jump straight to that folder."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After {{target_folder_path}} has been typed and the file chooser is still focused, press Enter to open that folder in the chooser, and its contents should become visible."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5
+      ],
+      "unit_intent": "Load the chosen portrait photo into GIMP as the image to edit.",
+      "unit_type": "OPEN_IMAGE_FILE",
+      "unit_before_state": "The Open Image dialog is showing the Desktop folder contents, including the file travel_portrait.jpg.",
+      "unit_after_state": "The file chooser is closed and travel_portrait.jpg is open on the GIMP canvas.",
+      "unit_precondition": [
+        "The Open Image dialog is currently showing the Desktop folder.",
+        "The file travel_portrait.jpg is visible in the file list."
+      ],
+      "unit_effect": [
+        "Double-clicking travel_portrait.jpg closes the chooser.",
+        "The photo appears as the active image on the canvas."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a specified image file from the visible folder in the file chooser so it becomes the active image on the canvas.",
+      "parameters": {
+        "target_folder": "Desktop",
+        "image_file": "travel_portrait.jpg"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "CLICK",
+          "action_template": "When the {{target_folder}} folder is open in the chooser and the file {{image_file}} is visible in the file list, double-click the {{image_file}} file to load it, which closes the file chooser and opens the photo on the canvas."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Crop the portrait into a tight square composition suitable for an avatar.",
+      "unit_type": "CROP_IMAGE_TO_SQUARE",
+      "unit_before_state": "The portrait photo is open on the GIMP canvas, and the left toolbox is visible with no crop applied yet.",
+      "unit_after_state": "The image has been cropped down to the selected square area, leaving a square canvas centered on the person.",
+      "unit_precondition": [
+        "An image is open and visible on the GIMP canvas.",
+        "The Crop tool is available in the left toolbox.",
+        "The person in the photo is visible and can be framed inside a square crop area."
+      ],
+      "unit_effect": [
+        "The Crop tool becomes active and the cursor switches to crop mode.",
+        "A square crop rectangle appears over the subject.",
+        "After confirming, the area outside the crop box disappears and the canvas becomes square."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Crop the open image to a square composition centered on {{target_subject}}.",
+      "parameters": {
+        "target_subject": "the person in the photo",
+        "crop_start_region": "slightly above and left of the person's head on the image",
+        "crop_end_region": "down and to the right so the crop box becomes a square around the person"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Crop tool icon in the left toolbox'}}",
+          "action_template": "With an image open in GIMP and the toolbox visible, click the Crop tool icon in the left toolbox to activate crop mode so the next drag operation can define the square crop area."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': \"slightly above and left of the person's head on the image\"}, 'end': {'text': 'down and to the right so the crop box becomes a square around the person'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "When the Crop tool is selected and {{target_subject}} is visible, drag from {{crop_start_region}} to {{crop_end_region}} until a square crop box frames the intended region with {{target_subject}} centered inside it."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Once the square crop box is positioned correctly and the selected area matches the part of the image to keep, press Enter to apply the crop so everything outside the crop rectangle is removed and the canvas becomes square."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "unit_intent": "Resize the cropped square image to the required 512 by 512 output size.",
+      "unit_type": "RESIZE_IMAGE",
+      "unit_before_state": "A square-cropped portrait is visible on the GIMP canvas, and the top menu bar is available.",
+      "unit_after_state": "The Scale Image dialog is closed and the active image on the canvas has been resized to 512 by 512 pixels.",
+      "unit_precondition": [
+        "The image has already been cropped to the desired square region.",
+        "The active GIMP image window is focused.",
+        "The top menu bar and the Scale Image command are available."
+      ],
+      "unit_effect": [
+        "The Image menu opens and the Scale Image dialog appears.",
+        "The Width field is focused, its old value is selected, and 512 is entered.",
+        "Because proportions are linked on the square image, the Height value updates to 512 as well.",
+        "Pressing Enter closes the dialog and applies the new 512 by 512 size."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Resize the active square image to a specified square pixel dimension using the Scale Image dialog.",
+      "parameters": {
+        "target_size_px": "512"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the `Image` menu in the top menu bar'}}",
+          "action_template": "After the square crop is finished and the top menu bar is visible, click the `Image` menu in the top bar so the image resizing commands become available."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the `Scale Image...` option in the Image menu'}}",
+          "action_template": "With the Image menu expanded and the `Scale Image...` option visible, click `Scale Image...` to open the dialog used for resizing the cropped image."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Width value field in the Scale Image dialog'}}",
+          "action_template": "When the Scale Image dialog is open, click the Width field so the pixel value can be edited directly."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'a']}",
+          "action_template": "With the Width field active and its current value displayed, press Ctrl+A to select all text in the Width field so the next typing action will replace the existing value."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '512'}",
+          "action_template": "With the existing width value selected and the Width field ready for input, type `{{target_size_px}}` to replace it. Because the image is square and proportions remain linked, the Height field updates to `{{target_size_px}}` as well."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After the dialog shows the desired output size, press Enter to confirm, close the dialog, and apply the new `{{target_size_px}}` by `{{target_size_px}}` image dimensions."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        15,
+        16,
+        17,
+        18
+      ],
+      "unit_intent": "Prepare the export dialog with the required output filename for the finished avatar.",
+      "unit_type": "SET_EXPORT_FILENAME",
+      "unit_before_state": "The resized 512 by 512 image is visible in GIMP, and no modal dialog is open.",
+      "unit_after_state": "The Export As dialog remains open with the filename field set to avatar_ready.png.",
+      "unit_precondition": [
+        "The resized image is the active document in GIMP.",
+        "No other modal dialog is blocking input.",
+        "The Export As dialog can be invoked from the main window."
+      ],
+      "unit_effect": [
+        "The Export As dialog opens.",
+        "The filename field becomes active and the existing name is selected.",
+        "The filename text is replaced with avatar_ready.png."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Set the desired export filename in the Export As dialog for the active image.",
+      "parameters": {
+        "export_filename": "avatar_ready.png"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['shift', 'ctrl', 'e']}",
+          "action_template": "Press Shift+Ctrl+E when the main GIMP window is focused and no modal dialog is open to open the Export As dialog for saving the active image under a specified filename."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the filename field at the bottom of the Export As dialog'}}",
+          "action_template": "Click the filename field at the bottom of the Export As dialog when the dialog is visible to make the filename input active and ready for replacement."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'a']}",
+          "action_template": "Press Ctrl+A when the filename input box is focused and contains an existing filename to highlight the current filename text for replacement."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'avatar_ready.png'}",
+          "action_template": "Type {{export_filename}} when the current filename text is highlighted and the Export As dialog is focused to replace the selected filename with the desired export name."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        19,
+        20
+      ],
+      "unit_intent": "Complete the PNG export so the finished avatar is saved to disk.",
+      "unit_type": "EXPORT_PNG_FILE",
+      "unit_before_state": "The Export As dialog is open and shows avatar_ready.png as the target filename.",
+      "unit_after_state": "The export dialogs are closed and the file avatar_ready.png has been saved.",
+      "unit_precondition": [
+        "The Export As dialog shows avatar_ready.png in the filename field.",
+        "The Export button is visible and enabled.",
+        "The default PNG export settings are acceptable if a PNG options dialog appears."
+      ],
+      "unit_effect": [
+        "Clicking Export in the Export As dialog closes that dialog and opens the PNG export options dialog.",
+        "Clicking Export again closes the PNG options dialog.",
+        "The file avatar_ready.png is written as the exported result."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Finalize exporting the current image as a PNG file using the specified filename and the default PNG export settings.",
+      "parameters": {
+        "target_file_name": "avatar_ready.png"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the `Export` button in the Export As dialog'}}",
+          "action_template": "When {{target_file_name}} is shown in the filename field and the Export button is visible, click the `Export` button in the Export As dialog to proceed to the PNG options confirmation dialog."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the `Export` button in the PNG options dialog'}}",
+          "action_template": "With the PNG options dialog open and the default PNG settings acceptable, click the `Export` button to finish saving the file as {{target_file_name}} and close the dialog."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

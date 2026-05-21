@@ -1,0 +1,581 @@
+{
+  "segment_id": "seg_001",
+  "app": "os",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open a terminal window",
+      "action_before_state": "A GNOME desktop window is visible and no terminal is currently focused.",
+      "action_preconditions": [
+        "The keyboard is available",
+        "GNOME is running and accepts global shortcuts"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "alt",
+          "t"
+        ]
+      },
+      "action_after_effects": "A Terminal window opens with a shell prompt ready for input.",
+      "nl_explanation": "When a normal GNOME screen is visible and keyboard shortcuts work, press Ctrl+Alt+T to open Terminal so the file preparation commands can be entered."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Enter the command to create the handoff folder structure",
+      "action_before_state": "Terminal is open and the shell prompt is active.",
+      "action_preconditions": [
+        "The terminal cursor is at an empty command line",
+        "The user has permission to write to the Desktop"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "mkdir -p ~/Desktop/handoff_package/docs ~/Desktop/handoff_package/screenshots"
+      },
+      "action_after_effects": "The full mkdir command appears at the terminal prompt.",
+      "nl_explanation": "With Terminal focused and a prompt ready, type the mkdir command to prepare the main handoff folder and its two subfolders."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Run the folder creation command",
+      "action_before_state": "The mkdir command is fully typed in Terminal.",
+      "action_preconditions": [
+        "The command text is correct and complete",
+        "The terminal prompt is still focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The folders are created on the Desktop and the shell returns to a new prompt.",
+      "nl_explanation": "Once the folder creation command is ready, press Enter so GNOME creates the handoff_package, docs, and screenshots directories."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Enter the command to copy PDF files into the docs folder",
+      "action_before_state": "Terminal shows a fresh prompt after the previous command completed.",
+      "action_preconditions": [
+        "The docs folder already exists",
+        "The terminal is ready for another command"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "find ~/Documents -maxdepth 1 -type f -iname '*.pdf' -exec cp -n '{}' ~/Desktop/handoff_package/docs/ \\;"
+      },
+      "action_after_effects": "The find-and-copy command for PDF files is visible in Terminal.",
+      "nl_explanation": "After the destination folder exists and a fresh prompt is available, type a command that finds PDF files in Documents and copies them into the docs subfolder without overwriting anything."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Run the PDF copy command",
+      "action_before_state": "The PDF copy command is fully typed in Terminal.",
+      "action_preconditions": [
+        "The command line contains the intended find command",
+        "The terminal input focus has not changed"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "Matching PDF files are copied into ~/Desktop/handoff_package/docs and the shell returns to a prompt.",
+      "nl_explanation": "When the PDF copy command is ready, press Enter to collect the Documents PDFs into the handoff package while leaving the originals in place."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Enter the command to copy screenshot PNG files into the screenshots folder",
+      "action_before_state": "Terminal is active with a new shell prompt.",
+      "action_preconditions": [
+        "The screenshots folder already exists",
+        "The Pictures/Screenshots directory is expected to be available"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "find ~/Pictures/Screenshots -maxdepth 1 -type f -iname '*.png' -exec cp -n '{}' ~/Desktop/handoff_package/screenshots/ \\;"
+      },
+      "action_after_effects": "The screenshot copy command is shown in Terminal, waiting to be executed.",
+      "nl_explanation": "With the screenshots destination folder ready and Terminal focused, type the command that copies PNG screenshots into the handoff package."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Run the screenshot copy command",
+      "action_before_state": "The screenshot copy command is visible at the shell prompt.",
+      "action_preconditions": [
+        "The command is complete",
+        "Terminal remains focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "Matching PNG files are copied into ~/Desktop/handoff_package/screenshots and the shell returns to a prompt.",
+      "nl_explanation": "Once the screenshot copy command is prepared, press Enter so the PNG screenshots are added to the package without moving the originals."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Enter the command to compress the handoff folder",
+      "action_before_state": "Terminal shows a fresh prompt after the copy operations.",
+      "action_preconditions": [
+        "The handoff_package folder already exists on the Desktop",
+        "The terminal is ready to accept another command"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "tar -czf ~/Desktop/handoff_package.tar.gz -C ~/Desktop handoff_package"
+      },
+      "action_after_effects": "The tar compression command appears in Terminal.",
+      "nl_explanation": "After the package folder has been populated, type the tar command that will create a compressed archive on the Desktop."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Run the compression command",
+      "action_before_state": "The tar command is fully typed in Terminal.",
+      "action_preconditions": [
+        "The command line is correct",
+        "The handoff_package folder exists and is accessible"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The file ~/Desktop/handoff_package.tar.gz is created and the shell returns to a prompt.",
+      "nl_explanation": "When the compression command is ready, press Enter to generate the final tar.gz archive containing the prepared handoff folder."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Open the Files application to verify the result visually",
+      "action_before_state": "Terminal is still open and the GNOME dock is visible on the left side of the screen.",
+      "action_preconditions": [
+        "The dock is visible",
+        "The Files icon is available in the dock"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Files icon in the GNOME dock"
+        }
+      },
+      "action_after_effects": "The Files application opens in front of Terminal.",
+      "nl_explanation": "If the GNOME dock is available, click the Files icon to switch from command execution to a visual check of the Desktop results."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Navigate to the Desktop location in Files",
+      "action_before_state": "Files is open and showing its current folder view.",
+      "action_preconditions": [
+        "The Files sidebar is visible",
+        "The Desktop shortcut appears in the sidebar"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "Desktop in the Files sidebar"
+        }
+      },
+      "action_after_effects": "Files switches to the Desktop folder view.",
+      "nl_explanation": "With Files open and the sidebar visible, click Desktop so the newly created handoff folder and archive can be checked in their final location."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Confirm that the compressed archive is listed on the Desktop",
+      "action_before_state": "Files is displaying the Desktop contents.",
+      "action_preconditions": [
+        "The Desktop folder view is visible",
+        "The archive name appears among the Desktop items"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the file named handoff_package.tar.gz in the Desktop file list"
+        }
+      },
+      "action_after_effects": "The archive entry is selected in the Desktop file list, and its visible presence confirms that the final compressed handoff package was created.",
+      "nl_explanation": "When the Desktop contents are visible and the archive appears in the list, click handoff_package.tar.gz to select it and visually confirm that the packaging task completed successfully."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Open a shell workspace to carry out the file packaging task.",
+      "unit_type": "OPEN_TERMINAL",
+      "unit_before_state": "A GNOME desktop is visible and no Terminal window is currently focused.",
+      "unit_after_state": "A Terminal window is open in the foreground with a shell prompt ready for input.",
+      "unit_precondition": [
+        "The GNOME desktop session is active.",
+        "Keyboard input is available and the Ctrl+Alt+T shortcut is enabled."
+      ],
+      "unit_effect": [
+        "A new Terminal window appears on screen.",
+        "A blinking cursor is visible at a shell prompt."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3
+      ],
+      "unit_intent": "Prepare the destination folder structure for the handoff package on the Desktop.",
+      "unit_type": "CREATE_FOLDER_STRUCTURE",
+      "unit_before_state": "Terminal is focused with an empty command line, and the Desktop does not yet necessarily contain the full handoff_package/docs/screenshots structure.",
+      "unit_after_state": "The shell returns to a fresh prompt, and the Desktop now contains the folder ~/Desktop/handoff_package with the subfolders docs and screenshots inside it.",
+      "unit_precondition": [
+        "Terminal is focused on a writable shell prompt.",
+        "The user has permission to create folders under ~/Desktop."
+      ],
+      "unit_effect": [
+        "The mkdir -p command is executed and Terminal returns to a new prompt.",
+        "The folders handoff_package, docs, and screenshots now exist in the Desktop path."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Collect all PDF documents from Documents into the handoff package's docs folder without altering the originals.",
+      "unit_type": "COPY_DOCUMENT_PDFS",
+      "unit_before_state": "Terminal is active at a fresh prompt, and ~/Desktop/handoff_package/docs already exists as the destination folder.",
+      "unit_after_state": "The Terminal prompt returns after the copy command runs, and any PDF files found directly under ~/Documents have been copied into ~/Desktop/handoff_package/docs.",
+      "unit_precondition": [
+        "The folder ~/Desktop/handoff_package/docs exists.",
+        "The directory ~/Documents is accessible from the current user account.",
+        "Terminal focus remains on the command line."
+      ],
+      "unit_effect": [
+        "The find-and-copy command completes and the shell returns to a prompt.",
+        "PDF files from ~/Documents are present in the docs subfolder if matching files exist.",
+        "The originals in ~/Documents remain unchanged because the command copies rather than moves files."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        6,
+        7
+      ],
+      "unit_intent": "Collect all PNG screenshots into the handoff package's screenshots folder without altering the originals.",
+      "unit_type": "COPY_SCREENSHOT_PNGS",
+      "unit_before_state": "Terminal is focused at a fresh prompt, and ~/Desktop/handoff_package/screenshots already exists as the destination folder.",
+      "unit_after_state": "The Terminal prompt returns after execution, and any PNG files found directly under ~/Pictures/Screenshots have been copied into ~/Desktop/handoff_package/screenshots.",
+      "unit_precondition": [
+        "The folder ~/Desktop/handoff_package/screenshots exists.",
+        "The directory ~/Pictures/Screenshots is accessible from the current user account.",
+        "Terminal focus remains on the command line."
+      ],
+      "unit_effect": [
+        "The screenshot copy command finishes and the shell returns to a new prompt.",
+        "PNG screenshot files are present in the screenshots subfolder if matching files exist.",
+        "The originals remain in ~/Pictures/Screenshots because the command copies rather than moves files."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        8,
+        9
+      ],
+      "unit_intent": "Create a compressed archive of the prepared handoff package on the Desktop.",
+      "unit_type": "CREATE_TAR_ARCHIVE",
+      "unit_before_state": "Terminal is active at a fresh prompt, and the Desktop already contains the populated folder ~/Desktop/handoff_package.",
+      "unit_after_state": "The shell returns to a prompt, and a new archive file named ~/Desktop/handoff_package.tar.gz exists alongside the original handoff_package folder.",
+      "unit_precondition": [
+        "The folder ~/Desktop/handoff_package exists and is accessible.",
+        "Terminal is focused and ready to accept a command.",
+        "The user has permission to write files to ~/Desktop."
+      ],
+      "unit_effect": [
+        "The tar command completes and Terminal returns to a new prompt.",
+        "The file ~/Desktop/handoff_package.tar.gz is created on the Desktop."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        10,
+        11,
+        12
+      ],
+      "unit_intent": "Visually confirm in the file manager that the final compressed archive was created on the Desktop.",
+      "unit_type": "VERIFY_ARCHIVE_IN_FILES",
+      "unit_before_state": "Terminal is still open, the GNOME dock is visible, and the archive has already been created but has not yet been visually checked in Files.",
+      "unit_after_state": "The Files application is open to the Desktop folder, and the item handoff_package.tar.gz is visible and selected in the file list.",
+      "unit_precondition": [
+        "The GNOME dock is visible and includes the Files icon.",
+        "The Desktop shortcut is available in the Files sidebar after Files opens.",
+        "The archive ~/Desktop/handoff_package.tar.gz has already been created."
+      ],
+      "unit_effect": [
+        "Files opens in front of Terminal.",
+        "The Desktop location is displayed in the Files window.",
+        "The archive handoff_package.tar.gz is visible in the Desktop listing and becomes selected when clicked."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Open a shell workspace to carry out the file packaging task.",
+      "unit_type": "OPEN_TERMINAL",
+      "unit_before_state": "A GNOME desktop is visible and no Terminal window is currently focused.",
+      "unit_after_state": "A Terminal window is open in the foreground with a shell prompt ready for input.",
+      "unit_precondition": [
+        "The GNOME desktop session is active.",
+        "Keyboard input is available and the Ctrl+Alt+T shortcut is enabled."
+      ],
+      "unit_effect": [
+        "A new Terminal window appears on screen.",
+        "A blinking cursor is visible at a shell prompt."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a terminal window to begin command-line work.",
+      "parameters": {
+        "launch_shortcut": "Ctrl+Alt+T"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'alt', 't']}",
+          "action_template": "When a normal desktop screen is visible and keyboard shortcuts work, press {{launch_shortcut}} to open Terminal so command-line work can begin."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3
+      ],
+      "unit_intent": "Prepare the destination folder structure for the handoff package on the Desktop.",
+      "unit_type": "CREATE_FOLDER_STRUCTURE",
+      "unit_before_state": "Terminal is focused with an empty command line, and the Desktop does not yet necessarily contain the full handoff_package/docs/screenshots structure.",
+      "unit_after_state": "The shell returns to a fresh prompt, and the Desktop now contains the folder ~/Desktop/handoff_package with the subfolders docs and screenshots inside it.",
+      "unit_precondition": [
+        "Terminal is focused on a writable shell prompt.",
+        "The user has permission to create folders under ~/Desktop."
+      ],
+      "unit_effect": [
+        "The mkdir -p command is executed and Terminal returns to a new prompt.",
+        "The folders handoff_package, docs, and screenshots now exist in the Desktop path."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a specified package folder and required subfolders under {{target_base_path}} from the terminal.",
+      "parameters": {
+        "target_base_path": "~/Desktop",
+        "root_folder_name": "handoff_package",
+        "first_subfolder_name": "docs",
+        "second_subfolder_name": "screenshots"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'mkdir -p ~/Desktop/handoff_package/docs ~/Desktop/handoff_package/screenshots'}",
+          "action_template": "With Terminal focused and a prompt ready, type the mkdir command to prepare {{target_base_path}}/{{root_folder_name}} and its subfolders {{first_subfolder_name}} and {{second_subfolder_name}} after confirming the terminal cursor is at an empty command line and you have permission to write to {{target_base_path}}. The full mkdir command appears at the terminal prompt."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Once the folder creation command is ready, press Enter after confirming the command text is correct and complete and the terminal prompt is still focused so {{root_folder_name}}, {{first_subfolder_name}}, and {{second_subfolder_name}} are created under {{target_base_path}} and the shell returns to a new prompt."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Collect all PDF documents from Documents into the handoff package's docs folder without altering the originals.",
+      "unit_type": "COPY_DOCUMENT_PDFS",
+      "unit_before_state": "Terminal is active at a fresh prompt, and ~/Desktop/handoff_package/docs already exists as the destination folder.",
+      "unit_after_state": "The Terminal prompt returns after the copy command runs, and any PDF files found directly under ~/Documents have been copied into ~/Desktop/handoff_package/docs.",
+      "unit_precondition": [
+        "The folder ~/Desktop/handoff_package/docs exists.",
+        "The directory ~/Documents is accessible from the current user account.",
+        "Terminal focus remains on the command line."
+      ],
+      "unit_effect": [
+        "The find-and-copy command completes and the shell returns to a prompt.",
+        "PDF files from ~/Documents are present in the docs subfolder if matching files exist.",
+        "The originals in ~/Documents remain unchanged because the command copies rather than moves files."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Copy all files matching {{file_pattern}} from {{source_directory}} into {{destination_folder}} without overwriting existing copies or changing the originals.",
+      "parameters": {
+        "source_directory": "~/Documents",
+        "destination_folder": "~/Desktop/handoff_package/docs",
+        "file_pattern": "*.pdf"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': \"find ~/Documents -maxdepth 1 -type f -iname '*.pdf' -exec cp -n '{}' ~/Desktop/handoff_package/docs/ \\\\;\"}",
+          "action_template": "After {{destination_folder}} already exists and the terminal is ready at a fresh prompt, type a command that finds files matching {{file_pattern}} directly under {{source_directory}} and copies them into {{destination_folder}} without overwriting anything, so the find-and-copy command is visible in Terminal."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "With the intended find command for copying files from {{source_directory}} to {{destination_folder}} already in the command line and terminal focus unchanged, press Enter to run it so matching {{file_pattern}} files are copied and the shell returns to a prompt."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        6,
+        7
+      ],
+      "unit_intent": "Collect all PNG screenshots into the handoff package's screenshots folder without altering the originals.",
+      "unit_type": "COPY_SCREENSHOT_PNGS",
+      "unit_before_state": "Terminal is focused at a fresh prompt, and ~/Desktop/handoff_package/screenshots already exists as the destination folder.",
+      "unit_after_state": "The Terminal prompt returns after execution, and any PNG files found directly under ~/Pictures/Screenshots have been copied into ~/Desktop/handoff_package/screenshots.",
+      "unit_precondition": [
+        "The folder ~/Desktop/handoff_package/screenshots exists.",
+        "The directory ~/Pictures/Screenshots is accessible from the current user account.",
+        "Terminal focus remains on the command line."
+      ],
+      "unit_effect": [
+        "The screenshot copy command finishes and the shell returns to a new prompt.",
+        "PNG screenshot files are present in the screenshots subfolder if matching files exist.",
+        "The originals remain in ~/Pictures/Screenshots because the command copies rather than moves files."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Copy all screenshot files matching {{file_pattern}} from {{source_folder}} into {{destination_folder}} without overwriting existing copies or altering the originals.",
+      "parameters": {
+        "source_folder": "~/Pictures/Screenshots",
+        "destination_folder": "~/Desktop/handoff_package/screenshots",
+        "file_pattern": "*.png"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': \"find ~/Pictures/Screenshots -maxdepth 1 -type f -iname '*.png' -exec cp -n '{}' ~/Desktop/handoff_package/screenshots/ \\\\;\"}",
+          "action_template": "With {{destination_folder}} already created and Terminal focused, type `find {{source_folder}} -maxdepth 1 -type f -iname '{{file_pattern}}' -exec cp -n '{}' {{destination_folder}}/ \\;` to prepare a command that copies matching files into the package without overwriting existing copies. Preconditions: {{destination_folder}} exists and {{source_folder}} is accessible. After effect: the copy command is visible in Terminal, waiting to be executed."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter once the copy command is complete and Terminal remains focused to copy files matching {{file_pattern}} from {{source_folder}} into {{destination_folder}} and return to a shell prompt without moving the originals."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        8,
+        9
+      ],
+      "unit_intent": "Create a compressed archive of the prepared handoff package on the Desktop.",
+      "unit_type": "CREATE_TAR_ARCHIVE",
+      "unit_before_state": "Terminal is active at a fresh prompt, and the Desktop already contains the populated folder ~/Desktop/handoff_package.",
+      "unit_after_state": "The shell returns to a prompt, and a new archive file named ~/Desktop/handoff_package.tar.gz exists alongside the original handoff_package folder.",
+      "unit_precondition": [
+        "The folder ~/Desktop/handoff_package exists and is accessible.",
+        "Terminal is focused and ready to accept a command.",
+        "The user has permission to write files to ~/Desktop."
+      ],
+      "unit_effect": [
+        "The tar command completes and Terminal returns to a new prompt.",
+        "The file ~/Desktop/handoff_package.tar.gz is created on the Desktop."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a compressed tar.gz archive of a specified prepared folder at a specified output location.",
+      "parameters": {
+        "archive_path": "~/Desktop/handoff_package.tar.gz",
+        "source_parent_directory": "~/Desktop",
+        "source_folder_name": "handoff_package"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "TYPING",
+          "action_template": "Type the tar command `tar -czf {{archive_path}} -C {{source_parent_directory}} {{source_folder_name}}` in Terminal to create a compressed archive after the source folder has been prepared. This requires that {{source_folder_name}} already exists in {{source_parent_directory}} and the terminal is ready to accept another command. The tar compression command appears in Terminal."
+        },
+        {
+          "action": "PRESS",
+          "action_template": "Press Enter to run the typed compression command when it is correct and {{source_folder_name}} is accessible. This generates {{archive_path}} and returns the shell to a prompt."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        10,
+        11,
+        12
+      ],
+      "unit_intent": "Visually confirm in the file manager that the final compressed archive was created on the Desktop.",
+      "unit_type": "VERIFY_ARCHIVE_IN_FILES",
+      "unit_before_state": "Terminal is still open, the GNOME dock is visible, and the archive has already been created but has not yet been visually checked in Files.",
+      "unit_after_state": "The Files application is open to the Desktop folder, and the item handoff_package.tar.gz is visible and selected in the file list.",
+      "unit_precondition": [
+        "The GNOME dock is visible and includes the Files icon.",
+        "The Desktop shortcut is available in the Files sidebar after Files opens.",
+        "The archive ~/Desktop/handoff_package.tar.gz has already been created."
+      ],
+      "unit_effect": [
+        "Files opens in front of Terminal.",
+        "The Desktop location is displayed in the Files window.",
+        "The archive handoff_package.tar.gz is visible in the Desktop listing and becomes selected when clicked."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Visually verify in the file manager that {{archive_name}} exists in {{target_folder}}.",
+      "parameters": {
+        "target_folder": "Desktop",
+        "archive_name": "handoff_package.tar.gz"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "CLICK",
+          "action_template": "If the GNOME dock is visible and the Files icon is available, click the Files icon to open the Files application in front of Terminal and switch from command execution to a visual check of the results in {{target_folder}}."
+        },
+        {
+          "action": "CLICK",
+          "action_template": "With the Files sidebar visible and the {{target_folder}} shortcut available, click {{target_folder}} in the Files sidebar to switch the view to that folder so {{archive_name}} can be checked in its final location."
+        },
+        {
+          "action": "CLICK",
+          "action_template": "When the {{target_folder}} folder view is visible and {{archive_name}} appears among the items, click the file named {{archive_name}} in the {{target_folder}} file list to select it and visually confirm that the archive was created."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

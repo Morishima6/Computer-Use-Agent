@@ -1,0 +1,587 @@
+{
+  "segment_id": "seg_001",
+  "app": "libreoffice_calc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Place the cursor in the first cell where the table will start",
+      "action_before_state": "A blank or editable Calc sheet is open, and the cell grid is visible.",
+      "action_preconditions": [
+        "LibreOffice Calc is the active window",
+        "The worksheet is editable",
+        "Cell A1 is visible in the upper-left area of the sheet"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the A1 cell in the top-left corner of the worksheet"
+        }
+      },
+      "action_after_effects": "Cell A1 becomes the active cell, ready for text entry.",
+      "nl_explanation": "When the spreadsheet grid is visible and editable, click cell A1 so the new table begins from the top-left corner. The expected result is that A1 is selected for data entry."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Enter the header row for the expense tracker",
+      "action_before_state": "Cell A1 is selected and the sheet is ready for typing.",
+      "action_preconditions": [
+        "Cell A1 is the active cell",
+        "No dialog or menu is blocking the worksheet"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Date\tVendor\tCategory\tAmount"
+      },
+      "action_after_effects": "The headers are filled across cells A1 through D1.",
+      "nl_explanation": "With cell A1 active, type the four headers separated by tabs so they spread across the first row. After the action, the table has labeled columns for the weekly expense log."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Move to the first data row under the headers",
+      "action_before_state": "The header row exists in row 1.",
+      "action_preconditions": [
+        "Headers are already entered in row 1",
+        "Row 2 is empty and available for the first record"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the A2 cell directly below the Date header"
+        }
+      },
+      "action_after_effects": "Cell A2 becomes active for entering the first expense record.",
+      "nl_explanation": "Once the headers are in place, click cell A2 to start entering the expense records beneath them. The result should be that the first data row is ready for input."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Enter the six lunch expense records",
+      "action_before_state": "Cell A2 is active and the table area under the headers is empty.",
+      "action_preconditions": [
+        "Cell A2 is selected",
+        "Rows 2 through 7 are available for data entry"
+      ],
+      "action": {
+        "type": "CLICK",
+        "text": "Mon\tCampus Cafe\tLunch\t8.50\nTue\tGreen Bowl\tLunch\t11.20\nWed\tBistro 21\tLunch\t9.80\nThu\tNoodle House\tLunch\t12.40\nFri\tDeli Corner\tLunch\t7.90\nSat\tCity Bakery\tSnack\t5.60",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the relevant libreoffice_calc UI element"
+        }
+      },
+      "action_after_effects": "Rows 2 through 7 are populated with six expense entries across columns A to D.",
+      "nl_explanation": "With A2 selected, paste the six tab-separated rows so each record fills one row of the table. The expected result is a completed weekly expense list from row 2 to row 7."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Move to the summary area below the data",
+      "action_before_state": "The expense table fills rows 1 through 7.",
+      "action_preconditions": [
+        "The six records are visible in rows 2 through 7",
+        "Row 8 is blank, and cells C9:D10 and below are empty for summary formulas"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell C9 below the table, leaving one blank row after the data"
+        }
+      },
+      "action_after_effects": "Cell C9 becomes active for entering summary labels and formulas.",
+      "nl_explanation": "After the data table is complete, click cell C9 to start the summary section below the records. This places the cursor where the total and average block will be created."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Add total and average calculations",
+      "action_before_state": "Cell C9 is selected and the summary area is empty.",
+      "action_preconditions": [
+        "Cell C9 is active",
+        "Amounts are stored in cells D2 through D7"
+      ],
+      "action": {
+        "type": "CLICK",
+        "text": "Total\t=SUM(D2:D7)\nAverage\t=AVERAGE(D2:D7)",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the relevant libreoffice_calc UI element"
+        }
+      },
+      "action_after_effects": "Cells C9:D10 contain the labels and formulas, and Calc computes the total and average values.",
+      "nl_explanation": "When C9 is active and the amount column is already filled, paste the two-row summary block so the labels go in column C and the formulas go in column D. The expected result is that Calc displays calculated total and average values next to their labels."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Select the amount cells and the summary values for currency formatting",
+      "action_before_state": "The amount column and summary formulas are visible in column D.",
+      "action_preconditions": [
+        "Cells D2 through D7 contain numeric expenses",
+        "Cells D9 and D10 contain computed numeric results"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell D2 containing the first amount value"
+        },
+        "end": {
+          "text": "cell D10 containing the average result"
+        },
+        "target": {
+          "text": "cells D2 through D10"
+        }
+      },
+      "action_after_effects": "The numeric range D2:D10 is highlighted.",
+      "nl_explanation": "Once the numeric values are visible in column D, drag from the first amount in D2 down to D10 so all money-related cells are selected together. The result should be one continuous highlighted range ready for formatting."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Format the selected numeric values as currency",
+      "action_before_state": "Cells D2 through D10 are selected.",
+      "action_preconditions": [
+        "The range D2:D10 is highlighted",
+        "The standard formatting toolbar is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Number Format: Currency button in the formatting toolbar"
+        }
+      },
+      "action_after_effects": "All selected numeric cells are displayed using currency formatting.",
+      "nl_explanation": "With the amount range selected, click the currency button on the toolbar to apply a money format. The expected behavior is that the amounts, total, and average all show a currency symbol and decimal formatting."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Select the header row for emphasis",
+      "action_before_state": "The table headers are visible in row 1.",
+      "action_preconditions": [
+        "Cells A1 through D1 contain the header labels",
+        "The worksheet is not in formula edit mode"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell A1 with the Date header"
+        },
+        "end": {
+          "text": "cell D1 with the Amount header"
+        },
+        "target": {
+          "text": "cells A1 through D1"
+        }
+      },
+      "action_after_effects": "The full header row range A1:D1 is selected.",
+      "nl_explanation": "After the table content is entered, drag across the first row from A1 to D1 to highlight all column headers. This prepares the labels for a formatting change."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Make the header row bold",
+      "action_before_state": "The header row A1:D1 is selected.",
+      "action_preconditions": [
+        "Cells A1 through D1 are highlighted",
+        "LibreOffice Calc is focused and ready to accept keyboard shortcuts"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "b"
+        ]
+      },
+      "action_after_effects": "The header labels become bold, making the table easier to read.",
+      "nl_explanation": "When the header row is selected, press Ctrl+B to bold the labels. The result should be a more readable table with emphasized column names."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Save the completed spreadsheet",
+      "action_before_state": "The expense tracker is fully entered and formatted.",
+      "action_preconditions": [
+        "The worksheet contains the completed table and summary",
+        "LibreOffice Calc is the active window"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "s"
+        ]
+      },
+      "action_after_effects": "The spreadsheet is saved, or a save dialog appears if the file has not been named yet.",
+      "nl_explanation": "After the weekly expense tracker is finished, press Ctrl+S to save the current spreadsheet. The expected result is that the file is stored with the latest table, formulas, and formatting."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Initialize the lunch expense tracker table with the required column structure.",
+      "unit_type": "CREATE_TABLE_HEADERS",
+      "unit_before_state": "LibreOffice Calc shows an editable worksheet with an empty grid visible, and cell A1 is available at the top-left of the sheet.",
+      "unit_after_state": "Row 1 contains the headers Date, Vendor, Category, and Amount across cells A1 through D1, forming the table header row.",
+      "unit_precondition": [
+        "LibreOffice Calc is the active editable window.",
+        "Cell A1 is visible and not blocked by any dialog or menu.",
+        "The top row cells A1 through D1 are available for new content."
+      ],
+      "unit_effect": [
+        "Cell A1 becomes the active insertion point.",
+        "The labels Date, Vendor, Category, and Amount appear in cells A1, B1, C1, and D1."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4
+      ],
+      "unit_intent": "Populate the tracker with the week's lunch spending records.",
+      "unit_type": "ENTER_TABLE_RECORDS",
+      "unit_before_state": "The header row is already present in A1:D1, and the area below it is empty for data entry.",
+      "unit_after_state": "Rows 2 through 7 are filled with six records, with dates in column A, vendors in column B, categories in column C, and numeric amounts in column D.",
+      "unit_precondition": [
+        "The header row already exists in A1:D1.",
+        "Cell A2 is accessible for starting the data block.",
+        "Rows 2 through 7 are empty and available for entry."
+      ],
+      "unit_effect": [
+        "Cell A2 is activated as the starting point for the first record.",
+        "Six consecutive rows of expense data appear in A2:D7, including amounts such as 8.50, 11.20, and 5.60 in column D."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Add summary calculations below the expense table.",
+      "unit_type": "INSERT_SUMMARY_FORMULAS",
+      "unit_before_state": "The completed expense table occupies rows 1 through 7, row 8 is blank, and the summary area around C9:D10 is empty.",
+      "unit_after_state": "Cells C9:D10 contain a two-row summary block with Total and Average labels in column C and calculated formula results in column D.",
+      "unit_precondition": [
+        "The six expense records are already visible in rows 2 through 7.",
+        "Cell C9 and the adjacent summary cells are empty and available.",
+        "Amounts are stored as numeric values in D2:D7."
+      ],
+      "unit_effect": [
+        "Cell C9 becomes the active cell for the summary block.",
+        "The labels Total and Average appear in C9 and C10.",
+        "Calc displays computed results from =SUM(D2:D7) and =AVERAGE(D2:D7) in D9 and D10."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Format all monetary values consistently as currency.",
+      "unit_type": "FORMAT_CURRENCY_RANGE",
+      "unit_before_state": "The expense amounts are visible in D2:D7 and the summary results are visible in D9:D10, all currently shown as plain numeric values.",
+      "unit_after_state": "The numeric cells in D2:D10 are displayed using currency formatting, including the expense amounts and the summary values.",
+      "unit_precondition": [
+        "Cells D2 through D7 contain numeric expense amounts.",
+        "Cells D9 and D10 contain numeric summary results.",
+        "The currency format control is visible in the Calc toolbar."
+      ],
+      "unit_effect": [
+        "The range D2:D10 becomes highlighted for formatting.",
+        "A currency symbol and currency-style decimal formatting appear on the selected numeric cells."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Emphasize the column labels so the table is easier to scan.",
+      "unit_type": "FORMAT_HEADER_BOLD",
+      "unit_before_state": "The table headers Date, Vendor, Category, and Amount are visible in row 1 with normal text weight.",
+      "unit_after_state": "Cells A1:D1 remain selected and the header labels are shown in bold.",
+      "unit_precondition": [
+        "The header labels are present in A1:D1.",
+        "The worksheet is not in formula edit mode.",
+        "LibreOffice Calc is focused and can accept keyboard shortcuts."
+      ],
+      "unit_effect": [
+        "The range A1:D1 becomes selected.",
+        "The header text visibly changes to bold formatting."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        11
+      ],
+      "unit_intent": "Persist the completed weekly lunch expense tracker to disk.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The worksheet contains the completed expense table, summary formulas, currency formatting, and bold headers.",
+      "unit_after_state": "The spreadsheet is saved with the latest edits, or a save dialog is shown if the file still needs a name or location.",
+      "unit_precondition": [
+        "The worksheet contains the finished tracker content.",
+        "LibreOffice Calc is the active window and able to receive Ctrl+S."
+      ],
+      "unit_effect": [
+        "The current spreadsheet state is committed through the save command.",
+        "If the file was already named, the save completes without changing the worksheet content; otherwise a save dialog appears."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Initialize the lunch expense tracker table with the required column structure.",
+      "unit_type": "CREATE_TABLE_HEADERS",
+      "unit_before_state": "LibreOffice Calc shows an editable worksheet with an empty grid visible, and cell A1 is available at the top-left of the sheet.",
+      "unit_after_state": "Row 1 contains the headers Date, Vendor, Category, and Amount across cells A1 through D1, forming the table header row.",
+      "unit_precondition": [
+        "LibreOffice Calc is the active editable window.",
+        "Cell A1 is visible and not blocked by any dialog or menu.",
+        "The top row cells A1 through D1 are available for new content."
+      ],
+      "unit_effect": [
+        "Cell A1 becomes the active insertion point.",
+        "The labels Date, Vendor, Category, and Amount appear in cells A1, B1, C1, and D1."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a table header row by selecting a specified starting cell and entering a specified set of column labels across adjacent cells.",
+      "parameters": {
+        "start_cell": "A1",
+        "header_row_text": "Date\tVendor\tCategory\tAmount"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the A1 cell in the top-left corner of the worksheet'}}",
+          "action_template": "When LibreOffice Calc is the active editable window, the worksheet is editable, and {{start_cell}} is visible, click {{start_cell}} so the table begins from the specified starting cell. After the action, {{start_cell}} becomes the active cell, ready for text entry."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Date\\tVendor\\tCategory\\tAmount'}",
+          "action_template": "With {{start_cell}} active and no dialog or menu blocking the worksheet, type {{header_row_text}} so the column labels spread across adjacent cells in the first row. After the action, the header row is filled across the table's starting row."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4
+      ],
+      "unit_intent": "Populate the tracker with the week's lunch spending records.",
+      "unit_type": "ENTER_TABLE_RECORDS",
+      "unit_before_state": "The header row is already present in A1:D1, and the area below it is empty for data entry.",
+      "unit_after_state": "Rows 2 through 7 are filled with six records, with dates in column A, vendors in column B, categories in column C, and numeric amounts in column D.",
+      "unit_precondition": [
+        "The header row already exists in A1:D1.",
+        "Cell A2 is accessible for starting the data block.",
+        "Rows 2 through 7 are empty and available for entry."
+      ],
+      "unit_effect": [
+        "Cell A2 is activated as the starting point for the first record.",
+        "Six consecutive rows of expense data appear in A2:D7, including amounts such as 8.50, 11.20, and 5.60 in column D."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Populate a prepared spending tracker table by entering a tabular block of records starting at the first data cell.",
+      "parameters": {
+        "start_cell": "A2",
+        "destination_range": "A2:D7",
+        "record_block": "Mon\tCampus Cafe\tLunch\t8.50\nTue\tGreen Bowl\tLunch\t11.20\nWed\tBistro 21\tLunch\t9.80\nThu\tNoodle House\tLunch\t12.40\nFri\tDeli Corner\tLunch\t7.90\nSat\tCity Bakery\tSnack\t5.60"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the A2 cell directly below the Date header'}}",
+          "action_template": "With the headers already entered and the first data row available, click {{start_cell}} to start entering the records beneath them. The result should be that {{start_cell}} is active and ready for input."
+        },
+        {
+          "action": "{'type': 'CLICK', 'text': 'Mon\\tCampus Cafe\\tLunch\\t8.50\\nTue\\tGreen Bowl\\tLunch\\t11.20\\nWed\\tBistro 21\\tLunch\\t9.80\\nThu\\tNoodle House\\tLunch\\t12.40\\nFri\\tDeli Corner\\tLunch\\t7.90\\nSat\\tCity Bakery\\tSnack\\t5.60', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the relevant libreoffice_calc UI element'}}",
+          "action_template": "With {{start_cell}} selected and the destination rows available for data entry, enter {{record_block}} so each tab-separated record fills one row of the table starting at {{start_cell}}. The expected result is that {{destination_range}} is populated with the records across columns A to D."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Add summary calculations below the expense table.",
+      "unit_type": "INSERT_SUMMARY_FORMULAS",
+      "unit_before_state": "The completed expense table occupies rows 1 through 7, row 8 is blank, and the summary area around C9:D10 is empty.",
+      "unit_after_state": "Cells C9:D10 contain a two-row summary block with Total and Average labels in column C and calculated formula results in column D.",
+      "unit_precondition": [
+        "The six expense records are already visible in rows 2 through 7.",
+        "Cell C9 and the adjacent summary cells are empty and available.",
+        "Amounts are stored as numeric values in D2:D7."
+      ],
+      "unit_effect": [
+        "Cell C9 becomes the active cell for the summary block.",
+        "The labels Total and Average appear in C9 and C10.",
+        "Calc displays computed results from =SUM(D2:D7) and =AVERAGE(D2:D7) in D9 and D10."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Insert a labeled summary block with aggregate formulas into an empty summary area below a completed data table.",
+      "parameters": {
+        "summary_start_cell": "C9",
+        "summary_label_1": "Total",
+        "summary_formula_1": "=SUM(D2:D7)",
+        "summary_label_2": "Average",
+        "summary_formula_2": "=AVERAGE(D2:D7)",
+        "source_amount_range": "D2:D7",
+        "summary_result_range": "C9:D10"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell C9 below the table, leaving one blank row after the data'}}",
+          "action_template": "Click cell {{summary_start_cell}} to start the summary section below the completed records when the data rows are visible and the summary area is empty. This makes cell {{summary_start_cell}} active for entering the summary labels and formulas."
+        },
+        {
+          "action": "{'type': 'CLICK', 'text': 'Total\\t=SUM(D2:D7)\\nAverage\\t=AVERAGE(D2:D7)', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the relevant libreoffice_calc UI element'}}",
+          "action_template": "With cell {{summary_start_cell}} active and numeric amounts available in {{source_amount_range}}, paste the two-row summary block so {{summary_label_1}} and {{summary_label_2}} fill the label column and {{summary_formula_1}} and {{summary_formula_2}} fill the adjacent value column. The result is that cells {{summary_result_range}} contain the labels and formulas, and Calc computes the corresponding summary values."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Format all monetary values consistently as currency.",
+      "unit_type": "FORMAT_CURRENCY_RANGE",
+      "unit_before_state": "The expense amounts are visible in D2:D7 and the summary results are visible in D9:D10, all currently shown as plain numeric values.",
+      "unit_after_state": "The numeric cells in D2:D10 are displayed using currency formatting, including the expense amounts and the summary values.",
+      "unit_precondition": [
+        "Cells D2 through D7 contain numeric expense amounts.",
+        "Cells D9 and D10 contain numeric summary results.",
+        "The currency format control is visible in the Calc toolbar."
+      ],
+      "unit_effect": [
+        "The range D2:D10 becomes highlighted for formatting.",
+        "A currency symbol and currency-style decimal formatting appear on the selected numeric cells."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Apply currency formatting to a specified contiguous range of numeric cells.",
+      "parameters": {
+        "selection_start_cell": "cell D2 containing the first amount value",
+        "selection_end_cell": "cell D10 containing the average result",
+        "target_range": "cells D2 through D10",
+        "currency_format_button": "the Number Format: Currency button in the formatting toolbar"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'cell D2 containing the first amount value'}, 'end': {'text': 'cell D10 containing the average result'}, 'target': {'text': 'cells D2 through D10'}}",
+          "action_template": "When the numeric values are visible and {{selection_start_cell}} through {{selection_end_cell}} contain the relevant numeric entries, drag from {{selection_start_cell}} to {{selection_end_cell}} to select {{target_range}}. The result should be one continuous highlighted range ready for formatting."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Number Format: Currency button in the formatting toolbar'}}",
+          "action_template": "With {{target_range}} highlighted and the standard formatting toolbar visible, click {{currency_format_button}} to apply currency formatting. The selected numeric cells should then display a currency symbol and currency-style decimal formatting."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Emphasize the column labels so the table is easier to scan.",
+      "unit_type": "FORMAT_HEADER_BOLD",
+      "unit_before_state": "The table headers Date, Vendor, Category, and Amount are visible in row 1 with normal text weight.",
+      "unit_after_state": "Cells A1:D1 remain selected and the header labels are shown in bold.",
+      "unit_precondition": [
+        "The header labels are present in A1:D1.",
+        "The worksheet is not in formula edit mode.",
+        "LibreOffice Calc is focused and can accept keyboard shortcuts."
+      ],
+      "unit_effect": [
+        "The range A1:D1 becomes selected.",
+        "The header text visibly changes to bold formatting."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Apply bold formatting to a specified header range so the table is easier to scan.",
+      "parameters": {
+        "range_start_cell": "cell A1 with the Date header",
+        "range_end_cell": "cell D1 with the Amount header",
+        "header_range": "A1:D1"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'cell A1 with the Date header'}, 'end': {'text': 'cell D1 with the Amount header'}, 'target': {'text': 'cells A1 through D1'}}",
+          "action_template": "After the table content is entered, drag across the header row from {{range_start_cell}} to {{range_end_cell}} to highlight {{header_range}}. This prepares the selected headers for bold formatting."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'b']}",
+          "action_template": "When {{header_range}} is selected, press Ctrl+B to bold the header labels and make the table easier to read."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        11
+      ],
+      "unit_intent": "Persist the completed weekly lunch expense tracker to disk.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The worksheet contains the completed expense table, summary formulas, currency formatting, and bold headers.",
+      "unit_after_state": "The spreadsheet is saved with the latest edits, or a save dialog is shown if the file still needs a name or location.",
+      "unit_precondition": [
+        "The worksheet contains the finished tracker content.",
+        "LibreOffice Calc is the active window and able to receive Ctrl+S."
+      ],
+      "unit_effect": [
+        "The current spreadsheet state is committed through the save command.",
+        "If the file was already named, the save completes without changing the worksheet content; otherwise a save dialog appears."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the current spreadsheet so the latest edits are persisted to disk.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 's']}",
+          "action_template": "Press Ctrl+S to save the current spreadsheet when the worksheet is complete and LibreOffice Calc is the active window. The spreadsheet is saved with the latest edits, or a save dialog appears if it does not yet have a file name or save location."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

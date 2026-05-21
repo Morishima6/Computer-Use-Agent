@@ -1,0 +1,685 @@
+{
+  "segment_id": "seg_001",
+  "app": "gimp",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the file chooser so the screenshot can be loaded",
+      "action_before_state": "gimp is ready for step 1 of the task.",
+      "action_preconditions": [
+        "GIMP is already open and its main window is visible",
+        "No modal dialog is currently blocking keyboard input"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "o"
+        ]
+      },
+      "action_after_effects": "An Open Image dialog appears on top of GIMP.",
+      "nl_explanation": "When the main GIMP window is focused and no other dialog is open, press Ctrl+O to open the image picker for loading the screenshot."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Enter the location of the screenshot file",
+      "action_before_state": "gimp is ready for step 2 of the task.",
+      "action_preconditions": [
+        "The Open Image dialog is visible",
+        "The location or filename input field is ready to receive text"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "/home/user/Pictures/checkout_error.png"
+      },
+      "action_after_effects": "The screenshot path is filled into the dialog input.",
+      "nl_explanation": "Once the file chooser is open and the text field is active, type the full path to the screenshot so GIMP knows which image to open."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Load the screenshot into GIMP",
+      "action_before_state": "gimp is ready for step 3 of the task.",
+      "action_preconditions": [
+        "The file path has been entered in the Open Image dialog",
+        "The dialog is waiting for confirmation"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The dialog closes and the screenshot opens on the GIMP canvas.",
+      "nl_explanation": "After the file path is present in the open dialog, press Enter to load the screenshot into the current GIMP window."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Activate the Crop tool",
+      "action_before_state": "gimp is ready for step 4 of the task.",
+      "action_preconditions": [
+        "The screenshot is visible on the canvas",
+        "The canvas is the active work area"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "shift",
+          "c"
+        ]
+      },
+      "action_after_effects": "The Crop tool becomes active and the pointer is ready to define a crop region.",
+      "nl_explanation": "When the image is open and visible, press Shift+C to switch to the Crop tool so the extra margins can be removed."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Draw a crop region around the useful part of the screenshot",
+      "action_before_state": "gimp is ready for step 5 of the task.",
+      "action_preconditions": [
+        "The Crop tool is active",
+        "The screenshot includes visible empty margins around the main content"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "just above and to the left of the meaningful screenshot content"
+        },
+        "end": {
+          "text": "just below and to the right of the meaningful screenshot content"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "A crop preview rectangle appears, keeping the useful screenshot area and excluding the blank margins.",
+      "nl_explanation": "With the Crop tool active and the content area visible, drag from the upper-left edge of the useful content to the lower-right edge to define the crop boundaries."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Apply the crop",
+      "action_before_state": "gimp is ready for step 6 of the task.",
+      "action_preconditions": [
+        "A crop preview rectangle is visible on the image",
+        "The selected crop area looks correct"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The image is cropped and the empty outer margins are removed from the canvas.",
+      "nl_explanation": "After the crop outline is set correctly, press Enter to commit the crop and trim the image down to the selected region."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Activate the Rectangle Select tool for redaction",
+      "action_before_state": "gimp is ready for step 7 of the task.",
+      "action_preconditions": [
+        "The cropped screenshot is visible",
+        "No other tool-specific dialog is blocking the canvas"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "r"
+        ]
+      },
+      "action_after_effects": "The Rectangle Select tool becomes active.",
+      "nl_explanation": "When the cleaned-up screenshot is on screen, press R to switch to Rectangle Select so the private email area can be isolated."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Select the area containing the email address",
+      "action_before_state": "gimp is ready for step 8 of the task.",
+      "action_preconditions": [
+        "The Rectangle Select tool is active",
+        "The email line is visible somewhere in the screenshot"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "slightly above and to the left of the visible email address"
+        },
+        "end": {
+          "text": "slightly below and to the right of the visible email address"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "A rectangular marquee appears around the email address area.",
+      "nl_explanation": "With Rectangle Select enabled and the email line visible, drag a box that fully covers the private text so only that region will be edited."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Switch to the Bucket Fill tool",
+      "action_before_state": "gimp is ready for step 9 of the task.",
+      "action_preconditions": [
+        "A rectangular selection is active around the email address",
+        "The toolbox is visible on the left side of GIMP"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Bucket Fill tool icon in the left toolbox"
+        }
+      },
+      "action_after_effects": "Bucket Fill is selected and ready to apply the current foreground color inside the active selection.",
+      "nl_explanation": "Once the email area is selected and the toolbox is visible, click the Bucket Fill tool so the marked region can be covered quickly."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Cover the email address with a solid fill",
+      "action_before_state": "gimp is ready for step 10 of the task.",
+      "action_preconditions": [
+        "The Bucket Fill tool is active",
+        "The rectangular selection still surrounds the email address",
+        "The default foreground color is available for filling"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "inside the active rectangular selection covering the email line"
+        }
+      },
+      "action_after_effects": "The selected area is filled with a solid color, hiding the email address.",
+      "nl_explanation": "When Bucket Fill is active and the email region is selected, click inside that selected box to cover the private text with a solid block."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Activate the Text tool to add a note",
+      "action_before_state": "gimp is ready for step 11 of the task.",
+      "action_preconditions": [
+        "The redaction fill has already been applied",
+        "The edited image is still visible on the canvas"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "t"
+        ]
+      },
+      "action_after_effects": "The Text tool becomes active and the pointer is ready to place a text box.",
+      "nl_explanation": "After the email has been covered, press T to switch to the Text tool so a short label can be added to the image."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Place a text box in an open part of the screenshot",
+      "action_before_state": "gimp is ready for step 12 of the task.",
+      "action_preconditions": [
+        "The Text tool is active",
+        "There is an uncluttered area of the screenshot where a short note can fit"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "an empty area near the bottom-right corner of the image canvas"
+        }
+      },
+      "action_after_effects": "A text box appears on the image with a blinking cursor inside it.",
+      "nl_explanation": "With the Text tool active and some free space visible on the image, click an open area near the bottom-right to create a text box."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Type the label onto the screenshot",
+      "action_before_state": "gimp is ready for step 13 of the task.",
+      "action_preconditions": [
+        "A text box is open on the canvas",
+        "The text cursor is blinking inside the new text box"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Issue reproduced"
+      },
+      "action_after_effects": "The note appears inside the text box on the screenshot.",
+      "nl_explanation": "After placing the text box and seeing the text cursor, type 'Issue reproduced' so the screenshot includes a clear status note."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Open the export dialog",
+      "action_before_state": "gimp is ready for step 14 of the task.",
+      "action_preconditions": [
+        "The edited screenshot is ready to be saved",
+        "GIMP remains the focused application"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "shift",
+          "ctrl",
+          "e"
+        ]
+      },
+      "action_after_effects": "The Export Image dialog opens.",
+      "nl_explanation": "When the crop, redaction, and label are all in place, press Shift+Ctrl+E to open the export dialog and save the final image."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Enter the export destination and filename",
+      "action_before_state": "gimp is ready for step 15 of the task.",
+      "action_preconditions": [
+        "The Export Image dialog is visible",
+        "The filename or location field is ready for text input"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "/home/user/Desktop/checkout_error_redacted.png"
+      },
+      "action_after_effects": "The Desktop export path and PNG filename are entered in the dialog.",
+      "nl_explanation": "Once the export dialog is open and the input field is active, type the full Desktop path and final PNG name for the edited file."
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Confirm the export path",
+      "action_before_state": "gimp is ready for step 16 of the task.",
+      "action_preconditions": [
+        "The export filename and path are filled in",
+        "The dialog is waiting for confirmation"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "GIMP proceeds to the PNG export options dialog.",
+      "nl_explanation": "After the export destination is entered, press Enter to continue from the filename dialog to the PNG-specific export confirmation."
+    },
+    {
+      "step_id": "s17",
+      "step_goal": "Finish exporting the PNG with the default settings",
+      "action_before_state": "gimp is ready for step 17 of the task.",
+      "action_preconditions": [
+        "The PNG export options dialog is visible",
+        "The default PNG settings are acceptable"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The edited screenshot is exported to the Desktop as checkout_error_redacted.png.",
+      "nl_explanation": "When the PNG export options dialog appears and no extra setting changes are needed, press Enter to save the final image to the Desktop."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Load the checkout error screenshot from the Pictures folder into GIMP so it can be edited.",
+      "unit_type": "OPEN_IMAGE_FROM_PATH",
+      "unit_before_state": "The main GIMP window is open with no modal dialog on screen, and no screenshot image has been loaded yet.",
+      "unit_after_state": "The Open Image dialog has closed, and the checkout_error.png screenshot is displayed on the GIMP canvas as the active image.",
+      "unit_precondition": [
+        "GIMP is already running and focused.",
+        "No modal dialog is blocking keyboard input.",
+        "The screenshot file exists at /home/user/Pictures/checkout_error.png."
+      ],
+      "unit_effect": [
+        "An Open Image dialog appears after Ctrl+O.",
+        "The typed file path /home/user/Pictures/checkout_error.png is accepted.",
+        "The dialog closes and the screenshot becomes visible on the canvas."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Trim away the empty browser margins so only the useful screenshot content remains.",
+      "unit_type": "CROP_IMAGE_CONTENT",
+      "unit_before_state": "The full checkout error screenshot is visible on the GIMP canvas with extra blank margins around the meaningful browser content.",
+      "unit_after_state": "The screenshot on the canvas is cropped down to the useful content area, and the empty outer browser margins are no longer visible.",
+      "unit_precondition": [
+        "The screenshot is already open in GIMP.",
+        "The canvas is active and the blank outer margins are visible.",
+        "No dialog is covering the image area."
+      ],
+      "unit_effect": [
+        "The Crop tool becomes active.",
+        "A crop rectangle preview appears around the intended content area.",
+        "Pressing Enter commits the crop and the canvas resizes to the selected region."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8,
+        9,
+        10
+      ],
+      "unit_intent": "Redact the visible email address so the private information is no longer readable in the screenshot.",
+      "unit_type": "REDACT_SENSITIVE_REGION",
+      "unit_before_state": "The cropped screenshot is visible on the canvas, and the email address line is still readable within the image.",
+      "unit_after_state": "A solid filled rectangle covers the email address area on the screenshot, making the private line unreadable.",
+      "unit_precondition": [
+        "The screenshot has already been cropped and remains visible.",
+        "The email address line can be located on the canvas.",
+        "The toolbox is visible so the Bucket Fill tool can be selected.",
+        "A usable foreground fill color is available."
+      ],
+      "unit_effect": [
+        "The Rectangle Select tool creates a marquee around the email line.",
+        "Bucket Fill becomes the active tool while the selection remains active.",
+        "Clicking inside the selection fills the region with a solid color that hides the email text."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        11,
+        12,
+        13
+      ],
+      "unit_intent": "Add a short status label indicating that the issue was reproduced.",
+      "unit_type": "ADD_TEXT_LABEL",
+      "unit_before_state": "The cropped screenshot is visible with the email line already covered, and there is empty space near the bottom-right where a note can be placed.",
+      "unit_after_state": "A text box containing the words 'Issue reproduced' appears on the screenshot near the bottom-right area.",
+      "unit_precondition": [
+        "The redaction block has already been applied.",
+        "The image canvas is still active in GIMP.",
+        "There is enough uncluttered space on the screenshot to place a small text label."
+      ],
+      "unit_effect": [
+        "The Text tool becomes active.",
+        "Clicking the canvas creates a text box with a blinking insertion cursor.",
+        "Typing inserts the visible label 'Issue reproduced' onto the image."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        14,
+        15,
+        16,
+        17
+      ],
+      "unit_intent": "Export the cleaned screenshot to the Desktop as a PNG file with the required filename.",
+      "unit_type": "EXPORT_IMAGE_AS_PNG",
+      "unit_before_state": "The edited screenshot is open in GIMP with the crop, redaction, and 'Issue reproduced' label already visible on the canvas.",
+      "unit_after_state": "The export dialogs have closed, and the cleaned image has been written to the Desktop as checkout_error_redacted.png.",
+      "unit_precondition": [
+        "The image edits are complete and ready to save.",
+        "GIMP is focused.",
+        "The Desktop path /home/user/Desktop/ is available for export.",
+        "Default PNG export settings are acceptable."
+      ],
+      "unit_effect": [
+        "The Export Image dialog opens after Shift+Ctrl+E.",
+        "The path /home/user/Desktop/checkout_error_redacted.png is entered and accepted.",
+        "A PNG export options dialog appears.",
+        "Pressing Enter on the PNG options dialog saves the final file as checkout_error_redacted.png on the Desktop."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Load the checkout error screenshot from the Pictures folder into GIMP so it can be edited.",
+      "unit_type": "OPEN_IMAGE_FROM_PATH",
+      "unit_before_state": "The main GIMP window is open with no modal dialog on screen, and no screenshot image has been loaded yet.",
+      "unit_after_state": "The Open Image dialog has closed, and the checkout_error.png screenshot is displayed on the GIMP canvas as the active image.",
+      "unit_precondition": [
+        "GIMP is already running and focused.",
+        "No modal dialog is blocking keyboard input.",
+        "The screenshot file exists at /home/user/Pictures/checkout_error.png."
+      ],
+      "unit_effect": [
+        "An Open Image dialog appears after Ctrl+O.",
+        "The typed file path /home/user/Pictures/checkout_error.png is accepted.",
+        "The dialog closes and the screenshot becomes visible on the canvas."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Load a specified image file from a given path into GIMP so it can be edited.",
+      "parameters": {
+        "image_file_path": "/home/user/Pictures/checkout_error.png"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'o']}",
+          "action_template": "When the main GIMP window is focused and no other dialog is open, press Ctrl+O to open the image picker for loading an image. Preconditions: GIMP is already open and its main window is visible, and no modal dialog is currently blocking keyboard input. After this action, an Open Image dialog appears on top of GIMP."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '/home/user/Pictures/checkout_error.png'}",
+          "action_template": "Once the file chooser is open and the text field is active, type {{image_file_path}} so GIMP knows which image to open. Preconditions: the Open Image dialog is visible, and the location or filename input field is ready to receive text. After this action, the image path is filled into the dialog input."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After the file path is present in the open dialog, press Enter to load the image into the current GIMP window. Preconditions: the file path has been entered in the Open Image dialog, and the dialog is waiting for confirmation. After this action, the dialog closes and the image opens on the GIMP canvas."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Trim away the empty browser margins so only the useful screenshot content remains.",
+      "unit_type": "CROP_IMAGE_CONTENT",
+      "unit_before_state": "The full checkout error screenshot is visible on the GIMP canvas with extra blank margins around the meaningful browser content.",
+      "unit_after_state": "The screenshot on the canvas is cropped down to the useful content area, and the empty outer browser margins are no longer visible.",
+      "unit_precondition": [
+        "The screenshot is already open in GIMP.",
+        "The canvas is active and the blank outer margins are visible.",
+        "No dialog is covering the image area."
+      ],
+      "unit_effect": [
+        "The Crop tool becomes active.",
+        "A crop rectangle preview appears around the intended content area.",
+        "Pressing Enter commits the crop and the canvas resizes to the selected region."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Crop an image to keep the useful content area and remove surrounding empty margins.",
+      "parameters": {
+        "crop_start_region": "just above and to the left of the meaningful screenshot content",
+        "crop_end_region": "just below and to the right of the meaningful screenshot content"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['shift', 'c']}",
+          "action_template": "When the screenshot is visible on the canvas and the canvas is the active work area, press Shift+C to switch to the Crop tool so the extra margins can be removed. The Crop tool becomes active and the pointer is ready to define a crop region."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'just above and to the left of the meaningful screenshot content'}, 'end': {'text': 'just below and to the right of the meaningful screenshot content'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "With the Crop tool active and the screenshot showing visible empty margins around the main content, drag from {{crop_start_region}} to {{crop_end_region}} to define the crop boundaries. A crop preview rectangle appears, keeping the useful screenshot area and excluding the blank margins."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After a crop preview rectangle is visible on the image and the selected crop area looks correct, press Enter to commit the crop and trim the image down to the selected region. The image is cropped and the empty outer margins are removed from the canvas."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8,
+        9,
+        10
+      ],
+      "unit_intent": "Redact the visible email address so the private information is no longer readable in the screenshot.",
+      "unit_type": "REDACT_SENSITIVE_REGION",
+      "unit_before_state": "The cropped screenshot is visible on the canvas, and the email address line is still readable within the image.",
+      "unit_after_state": "A solid filled rectangle covers the email address area on the screenshot, making the private line unreadable.",
+      "unit_precondition": [
+        "The screenshot has already been cropped and remains visible.",
+        "The email address line can be located on the canvas.",
+        "The toolbox is visible so the Bucket Fill tool can be selected.",
+        "A usable foreground fill color is available."
+      ],
+      "unit_effect": [
+        "The Rectangle Select tool creates a marquee around the email line.",
+        "Bucket Fill becomes the active tool while the selection remains active.",
+        "Clicking inside the selection fills the region with a solid color that hides the email text."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Redact a visible sensitive text region in the image so the private information is no longer readable.",
+      "parameters": {
+        "target_region": "the email address line"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['r']}",
+          "action_template": "When the image is visible and no tool-specific dialog is blocking the canvas, press R to switch to Rectangle Select so {{target_region}} can be isolated. The Rectangle Select tool becomes active."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'slightly above and to the left of the visible email address'}, 'end': {'text': 'slightly below and to the right of the visible email address'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "With Rectangle Select active and {{target_region}} visible somewhere in the image, drag a box from slightly above and to the left of {{target_region}} to slightly below and to the right of {{target_region}} so only that region will be edited. A rectangular marquee appears around {{target_region}}."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Bucket Fill tool icon in the left toolbox'}}",
+          "action_template": "Once a rectangular selection is active around {{target_region}} and the toolbox is visible on the left side of GIMP, click the Bucket Fill tool icon in the left toolbox so the marked region can be covered quickly. Bucket Fill is selected and ready to apply the current foreground color inside the active selection."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'inside the active rectangular selection covering the email line'}}",
+          "action_template": "When the Bucket Fill tool is active, the rectangular selection still surrounds {{target_region}}, and the default foreground color is available for filling, click inside the active rectangular selection covering {{target_region}} to cover the private text with a solid block. The selected area is filled with a solid color, hiding {{target_region}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        11,
+        12,
+        13
+      ],
+      "unit_intent": "Add a short status label indicating that the issue was reproduced.",
+      "unit_type": "ADD_TEXT_LABEL",
+      "unit_before_state": "The cropped screenshot is visible with the email line already covered, and there is empty space near the bottom-right where a note can be placed.",
+      "unit_after_state": "A text box containing the words 'Issue reproduced' appears on the screenshot near the bottom-right area.",
+      "unit_precondition": [
+        "The redaction block has already been applied.",
+        "The image canvas is still active in GIMP.",
+        "There is enough uncluttered space on the screenshot to place a small text label."
+      ],
+      "unit_effect": [
+        "The Text tool becomes active.",
+        "Clicking the canvas creates a text box with a blinking insertion cursor.",
+        "Typing inserts the visible label 'Issue reproduced' onto the image."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Add a specified short status text label to the image in an available open area.",
+      "parameters": {
+        "placement_area": "an empty area near the bottom-right corner of the image canvas",
+        "label_text": "Issue reproduced"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['t']}",
+          "action_template": "After the relevant image edit is complete and the canvas is visible, press T to switch to the Text tool so a short label can be added to the image."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'an empty area near the bottom-right corner of the image canvas'}}",
+          "action_template": "With the Text tool active and free space visible on the image, click {{placement_area}} to create a text box."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Issue reproduced'}",
+          "action_template": "After placing the text box and seeing the text cursor, type {{label_text}} so the screenshot includes a clear status note."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        14,
+        15,
+        16,
+        17
+      ],
+      "unit_intent": "Export the cleaned screenshot to the Desktop as a PNG file with the required filename.",
+      "unit_type": "EXPORT_IMAGE_AS_PNG",
+      "unit_before_state": "The edited screenshot is open in GIMP with the crop, redaction, and 'Issue reproduced' label already visible on the canvas.",
+      "unit_after_state": "The export dialogs have closed, and the cleaned image has been written to the Desktop as checkout_error_redacted.png.",
+      "unit_precondition": [
+        "The image edits are complete and ready to save.",
+        "GIMP is focused.",
+        "The Desktop path /home/user/Desktop/ is available for export.",
+        "Default PNG export settings are acceptable."
+      ],
+      "unit_effect": [
+        "The Export Image dialog opens after Shift+Ctrl+E.",
+        "The path /home/user/Desktop/checkout_error_redacted.png is entered and accepted.",
+        "A PNG export options dialog appears.",
+        "Pressing Enter on the PNG options dialog saves the final file as checkout_error_redacted.png on the Desktop."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Export the current edited image as a PNG file to a specified destination using the default PNG export settings.",
+      "parameters": {
+        "export_path": "/home/user/Desktop/checkout_error_redacted.png",
+        "output_file_name": "checkout_error_redacted.png"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['shift', 'ctrl', 'e']}",
+          "action_template": "When the edited image is ready to be saved and GIMP is focused, press Shift+Ctrl+E to open the Export Image dialog for the current image."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '/home/user/Desktop/checkout_error_redacted.png'}",
+          "action_template": "Once the Export Image dialog is visible and the filename or location field is ready for text input, type {{export_path}} to enter the export destination and PNG filename."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After the export filename and path are filled in and the dialog is waiting for confirmation, press Enter to continue to the PNG export options dialog."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "When the PNG export options dialog is visible and the default PNG settings are acceptable, press Enter to save the final image as {{output_file_name}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

@@ -1,0 +1,911 @@
+{
+  "segment_id": "seg_001",
+  "app": "gimp",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the image chooser",
+      "action_before_state": "GIMP is already open and focused on the GNOME desktop, and no modal dialog is covering the main window.",
+      "action_preconditions": [
+        "The main GIMP window is active",
+        "Keyboard shortcuts are going to GIMP",
+        "No file chooser is currently open"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "o"
+        ]
+      },
+      "action_after_effects": "The Open Image dialog appears in front of GIMP.",
+      "nl_explanation": "When the main GIMP window is focused and nothing is blocking it, press Ctrl+O to open the file chooser. The expected result is that the Open Image dialog appears."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Go to the Pictures folder",
+      "action_before_state": "The Open Image dialog is visible with a sidebar of common folders on the left.",
+      "action_preconditions": [
+        "The Open Image dialog is open",
+        "The sidebar is visible",
+        "The Pictures shortcut is available"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Pictures folder in the file chooser sidebar"
+        }
+      },
+      "action_after_effects": "The file list changes to show the contents of the Pictures folder.",
+      "nl_explanation": "Once the file chooser is open and the sidebar is visible, click Pictures so the dialog switches to that folder and shows its image files."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Open the whiteboard photo",
+      "action_before_state": "The file chooser is displaying files from the Pictures folder.",
+      "action_preconditions": [
+        "The Pictures folder is open in the dialog",
+        "The file whiteboard_notes.jpg is visible",
+        "The dialog is ready to open a selected image"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 2,
+        "target": {
+          "text": "the file named whiteboard_notes.jpg in the file list"
+        }
+      },
+      "action_after_effects": "The file chooser closes and the photo opens on the GIMP canvas.",
+      "nl_explanation": "When the Pictures folder is visible and whiteboard_notes.jpg can be seen in the file list, double-click it to load the image into the canvas."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Open the Image menu",
+      "action_before_state": "The whiteboard photo is visible on the canvas and is still sideways.",
+      "action_preconditions": [
+        "The image has finished loading",
+        "The menu bar is visible",
+        "No dialog is covering the canvas"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Image menu in the top menu bar"
+        }
+      },
+      "action_after_effects": "The Image menu opens and shows image-wide editing commands.",
+      "nl_explanation": "With the sideways photo loaded and the top menu visible, click Image to open the menu that contains rotation commands."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Rotate the photo upright",
+      "action_before_state": "The Image menu is open and transform options are available.",
+      "action_preconditions": [
+        "The Image menu is expanded",
+        "The rotate command is available in the transform submenu",
+        "The image is still sideways"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "Transform > the 90-degree rotation command that makes the whiteboard upright"
+        }
+      },
+      "action_after_effects": "The canvas updates and the whiteboard photo becomes upright.",
+      "nl_explanation": "When the Image menu is open and the photo still needs correction, choose the 90-degree rotation command in Transform that makes the whiteboard upright."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Activate the Crop tool",
+      "action_before_state": "The upright whiteboard photo is visible on the canvas, including some extra surroundings outside the board.",
+      "action_preconditions": [
+        "The image is active on the canvas",
+        "Keyboard shortcuts are going to GIMP",
+        "The crop area has not been drawn yet"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "shift",
+          "c"
+        ]
+      },
+      "action_after_effects": "The Crop tool becomes active and the pointer is ready to define a crop area.",
+      "nl_explanation": "After the image is upright and ready to edit, press Shift+C to switch to the Crop tool so a tighter frame can be drawn around the board."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Draw a crop around the whiteboard only",
+      "action_before_state": "The Crop tool is active and the full photo is visible.",
+      "action_preconditions": [
+        "The Crop tool is selected",
+        "The whiteboard edges are visible on the canvas",
+        "The canvas accepts drag input"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "near the upper-left corner of the visible whiteboard"
+        },
+        "end": {
+          "text": "near the lower-right corner of the visible whiteboard"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "A crop rectangle appears and previews a frame that keeps only the whiteboard area.",
+      "nl_explanation": "With the Crop tool active and the board clearly visible, drag from the upper-left edge of the whiteboard toward the lower-right edge so the crop box excludes most of the surrounding room."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Apply the crop",
+      "action_before_state": "A crop rectangle is already positioned around the whiteboard.",
+      "action_preconditions": [
+        "The crop rectangle is visible",
+        "The crop frame is placed correctly",
+        "The canvas is still focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The image is cropped and only the whiteboard area remains on the canvas.",
+      "nl_explanation": "Once the crop box is positioned correctly around the board, press Enter to commit it. The expected result is that the extra surroundings are removed."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Open the Colors menu",
+      "action_before_state": "The cropped whiteboard photo is visible and the writing is still shown in color.",
+      "action_preconditions": [
+        "The crop has been applied",
+        "The menu bar is visible",
+        "No adjustment dialog is open"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Colors menu in the top menu bar"
+        }
+      },
+      "action_after_effects": "The Colors menu opens and shows color adjustment options.",
+      "nl_explanation": "After cropping is finished and the menu bar is available, click Colors to open the image color tools."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Open the desaturation dialog",
+      "action_before_state": "The Colors menu is expanded.",
+      "action_preconditions": [
+        "The Colors menu is open",
+        "The desaturation command is available",
+        "The cursor can select menu items"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "Desaturate > Desaturate... in the Colors menu"
+        }
+      },
+      "action_after_effects": "A Desaturate dialog appears with a preview of the grayscale conversion.",
+      "nl_explanation": "When the Colors menu is open and the desaturation command is available, click Desaturate so GIMP opens the grayscale conversion dialog."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Confirm the grayscale conversion",
+      "action_before_state": "The Desaturate dialog is open and the preview shows the whiteboard in grayscale.",
+      "action_preconditions": [
+        "The Desaturate dialog is visible",
+        "The preview already looks acceptable",
+        "The OK button is available"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the OK button in the Desaturate dialog"
+        }
+      },
+      "action_after_effects": "The dialog closes and the image on the canvas becomes grayscale.",
+      "nl_explanation": "With the desaturation preview visible and the default grayscale conversion looking fine, click OK to apply it to the whiteboard image."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Open the Colors menu again",
+      "action_before_state": "The whiteboard photo is now grayscale and visible on the canvas.",
+      "action_preconditions": [
+        "The Desaturate dialog has closed",
+        "The image is visible",
+        "The menu bar is accessible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Colors menu in the top menu bar"
+        }
+      },
+      "action_after_effects": "The Colors menu opens again.",
+      "nl_explanation": "After the image has been converted to grayscale and the canvas is active again, click Colors to open the menu for contrast adjustment."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Open the Brightness-Contrast dialog",
+      "action_before_state": "The Colors menu is open with adjustment tools visible.",
+      "action_preconditions": [
+        "The Colors menu is expanded",
+        "Brightness-Contrast is listed in the menu",
+        "The image is ready for tonal adjustment"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Brightness-Contrast... item in the Colors menu"
+        }
+      },
+      "action_after_effects": "A Brightness-Contrast dialog appears with sliders and a live preview.",
+      "nl_explanation": "When the Colors menu is open and the brightness and contrast tool is listed, click Brightness-Contrast to open the adjustment dialog."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Increase the contrast slightly",
+      "action_before_state": "The Brightness-Contrast dialog is open on top of the grayscale image.",
+      "action_preconditions": [
+        "The Brightness-Contrast dialog is visible",
+        "The Contrast slider handle can be dragged",
+        "Preview updates are enabled"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the Contrast slider handle at its current position"
+        },
+        "end": {
+          "text": "a little to the right on the Contrast slider track"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "The preview updates and the writing on the whiteboard appears more distinct.",
+      "nl_explanation": "With the Brightness-Contrast dialog open and the Contrast slider visible, drag the contrast handle slightly to the right so the whiteboard writing becomes easier to read."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Apply the contrast adjustment",
+      "action_before_state": "The Brightness-Contrast dialog is still open and the preview already shows clearer writing.",
+      "action_preconditions": [
+        "The contrast has been adjusted to a suitable level",
+        "The OK button is visible",
+        "The dialog remains active"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the OK button in the Brightness-Contrast dialog"
+        }
+      },
+      "action_after_effects": "The dialog closes and the higher-contrast grayscale image remains on the canvas.",
+      "nl_explanation": "After the preview shows a readable whiteboard with slightly stronger contrast, click OK to commit the adjustment and return to the canvas."
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Open the export dialog",
+      "action_before_state": "The cleaned whiteboard image is visible on the canvas with no modal dialogs open.",
+      "action_preconditions": [
+        "The editing steps are complete",
+        "GIMP is focused",
+        "No dialog is blocking shortcuts"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "e"
+        ]
+      },
+      "action_after_effects": "The Export Image dialog opens.",
+      "nl_explanation": "When the cleaned image is ready and GIMP is focused, press Ctrl+Shift+E to open the export dialog for saving the edited copy."
+    },
+    {
+      "step_id": "s17",
+      "step_goal": "Focus the export location entry",
+      "action_before_state": "The Export Image dialog is visible in front of the main window.",
+      "action_preconditions": [
+        "The Export Image dialog is open",
+        "Keyboard input is going to the dialog",
+        "Direct location entry is available"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "l"
+        ]
+      },
+      "action_after_effects": "The location entry field becomes active in the export dialog.",
+      "nl_explanation": "With the export dialog open, press Ctrl+L to switch focus to the location field so the full desktop path can be typed directly."
+    },
+    {
+      "step_id": "s18",
+      "step_goal": "Enter the export path and file name",
+      "action_before_state": "The export location field is active and ready for typing.",
+      "action_preconditions": [
+        "The location field is focused",
+        "Typing will go into the path entry",
+        "The Linux desktop path is valid"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "/home/user/Desktop/whiteboard_notes_clean.png"
+      },
+      "action_after_effects": "The full destination path appears in the location field.",
+      "nl_explanation": "Once the export location field is focused, type /home/user/Desktop/whiteboard_notes_clean.png so both the save location and file name are specified."
+    },
+    {
+      "step_id": "s19",
+      "step_goal": "Accept the typed export path",
+      "action_before_state": "The full desktop path is visible in the export dialog's location field.",
+      "action_preconditions": [
+        "The destination path has been fully entered",
+        "The export dialog is still active",
+        "The path is ready to be accepted"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The export dialog accepts the destination and prepares to save the file there.",
+      "nl_explanation": "After the full output path is visible in the location field, press Enter so the dialog accepts that desktop destination and file name."
+    },
+    {
+      "step_id": "s20",
+      "step_goal": "Start exporting the PNG file",
+      "action_before_state": "The Export Image dialog is ready with whiteboard_notes_clean.png as the output file.",
+      "action_preconditions": [
+        "The export path has been accepted",
+        "The main Export button is visible",
+        "No validation error is shown"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Export button in the Export Image dialog"
+        }
+      },
+      "action_after_effects": "A PNG export options dialog appears.",
+      "nl_explanation": "When the export dialog shows the correct file path and no errors are blocking the action, click Export to proceed to the PNG-specific export options."
+    },
+    {
+      "step_id": "s21",
+      "step_goal": "Confirm the PNG export options",
+      "action_before_state": "The PNG export options dialog is open with the final Export button visible.",
+      "action_preconditions": [
+        "The PNG options dialog is visible",
+        "The final Export button is available",
+        "The default PNG settings are acceptable"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Export button in the PNG export options dialog"
+        }
+      },
+      "action_after_effects": "The dialog closes and the cleaned image is saved to /home/user/Desktop/whiteboard_notes_clean.png.",
+      "nl_explanation": "With the PNG options visible and the default settings acceptable, click the final Export button to save the cleaned whiteboard image to the desktop."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Load the whiteboard photo into GIMP so editing can begin.",
+      "unit_type": "OPEN_IMAGE_FILE",
+      "unit_before_state": "The main GIMP window is focused on the desktop, and no modal dialog is open over it.",
+      "unit_after_state": "The file chooser has closed, and whiteboard_notes.jpg is open on the GIMP canvas, still displayed sideways.",
+      "unit_precondition": [
+        "GIMP is the active application and keyboard input goes to it.",
+        "No file chooser or other modal dialog is already open.",
+        "The Pictures shortcut is available in the file chooser and whiteboard_notes.jpg exists there."
+      ],
+      "unit_effect": [
+        "The Open Image dialog appears.",
+        "The file list switches to the Pictures folder.",
+        "After double-clicking whiteboard_notes.jpg, the dialog closes and the image appears on the canvas."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Correct the photo orientation so the whiteboard is upright.",
+      "unit_type": "ROTATE_IMAGE_UPRIGHT",
+      "unit_before_state": "The sideways whiteboard photo is visible on the GIMP canvas, with the top menu bar available.",
+      "unit_after_state": "The same photo is now rotated upright on the canvas.",
+      "unit_precondition": [
+        "The image has finished loading and is the active canvas.",
+        "The top menu bar is visible.",
+        "No dialog is blocking the canvas or menus."
+      ],
+      "unit_effect": [
+        "The Image menu opens and shows image transformation commands.",
+        "After the transform command is chosen, the canvas redraws with the whiteboard upright."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Trim away the surrounding room so only the whiteboard remains.",
+      "unit_type": "CROP_TO_WHITEBOARD",
+      "unit_before_state": "The upright photo is visible on the canvas, and extra surroundings outside the whiteboard are still included.",
+      "unit_after_state": "The image is cropped down to the whiteboard area only.",
+      "unit_precondition": [
+        "The rotated image is active on the canvas.",
+        "The whiteboard edges are visible enough to place a crop accurately.",
+        "Keyboard shortcuts and drag input are going to GIMP."
+      ],
+      "unit_effect": [
+        "The Crop tool becomes active.",
+        "A crop rectangle appears around the whiteboard as a live preview.",
+        "After confirming, the outside surroundings disappear and only the whiteboard remains on the canvas."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9,
+        10,
+        11
+      ],
+      "unit_intent": "Remove color from the cropped whiteboard image to simplify the notes visually.",
+      "unit_type": "CONVERT_TO_GRAYSCALE",
+      "unit_before_state": "The cropped whiteboard photo is visible on the canvas and is still in color.",
+      "unit_after_state": "The whiteboard image on the canvas is grayscale, and the desaturation dialog is closed.",
+      "unit_precondition": [
+        "The crop has already been applied.",
+        "No adjustment dialog is currently open.",
+        "The Colors menu is accessible from the menu bar."
+      ],
+      "unit_effect": [
+        "The Colors menu opens.",
+        "The Desaturate dialog appears with a grayscale preview.",
+        "After confirming, the dialog closes and the canvas shows the image in grayscale."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "unit_intent": "Increase contrast slightly so the writing on the whiteboard is easier to read.",
+      "unit_type": "INCREASE_CONTRAST",
+      "unit_before_state": "The grayscale whiteboard image is visible on the canvas, and the writing is readable but not yet emphasized.",
+      "unit_after_state": "The canvas shows the same grayscale whiteboard image with slightly stronger contrast, and the Brightness-Contrast dialog is closed.",
+      "unit_precondition": [
+        "The image has already been converted to grayscale.",
+        "The Colors menu and Brightness-Contrast tool are available.",
+        "The live preview in the adjustment dialog can be used to judge readability."
+      ],
+      "unit_effect": [
+        "The Brightness-Contrast dialog opens with sliders and a live preview.",
+        "Dragging the Contrast slider slightly to the right makes the writing appear more distinct in the preview.",
+        "After clicking OK, the dialog closes and the adjusted higher-contrast image remains on the canvas."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "unit_intent": "Set the output filename and Desktop destination for the cleaned copy.",
+      "unit_type": "SET_EXPORT_PATH",
+      "unit_before_state": "The cleaned whiteboard image is visible on the GIMP canvas, and no modal dialogs are open.",
+      "unit_after_state": "The Export Image dialog remains open, now set to save as /home/user/Desktop/whiteboard_notes_clean.png and ready for the export action.",
+      "unit_precondition": [
+        "Editing is complete and GIMP is focused.",
+        "The Export Image dialog can be opened with the keyboard shortcut.",
+        "The Desktop path /home/user/Desktop is valid and writable."
+      ],
+      "unit_effect": [
+        "The Export Image dialog opens.",
+        "The location entry field becomes active.",
+        "The full path /home/user/Desktop/whiteboard_notes_clean.png appears in the dialog.",
+        "After pressing Enter, the dialog accepts that destination and prepares to export there."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        20,
+        21
+      ],
+      "unit_intent": "Save the cleaned whiteboard image as a PNG file on the desktop.",
+      "unit_type": "EXPORT_PNG_FILE",
+      "unit_before_state": "The Export Image dialog is open with whiteboard_notes_clean.png selected as the output file on the Desktop.",
+      "unit_after_state": "The export dialogs are closed, and the cleaned image has been saved as /home/user/Desktop/whiteboard_notes_clean.png.",
+      "unit_precondition": [
+        "The export path has already been accepted in the Export Image dialog.",
+        "No validation error is blocking the Export button.",
+        "The default PNG export settings are acceptable."
+      ],
+      "unit_effect": [
+        "Clicking Export in the Export Image dialog opens the PNG export options dialog.",
+        "Clicking the final Export button closes the dialog and writes whiteboard_notes_clean.png to the Desktop."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Load the whiteboard photo into GIMP so editing can begin.",
+      "unit_type": "OPEN_IMAGE_FILE",
+      "unit_before_state": "The main GIMP window is focused on the desktop, and no modal dialog is open over it.",
+      "unit_after_state": "The file chooser has closed, and whiteboard_notes.jpg is open on the GIMP canvas, still displayed sideways.",
+      "unit_precondition": [
+        "GIMP is the active application and keyboard input goes to it.",
+        "No file chooser or other modal dialog is already open.",
+        "The Pictures shortcut is available in the file chooser and whiteboard_notes.jpg exists there."
+      ],
+      "unit_effect": [
+        "The Open Image dialog appears.",
+        "The file list switches to the Pictures folder.",
+        "After double-clicking whiteboard_notes.jpg, the dialog closes and the image appears on the canvas."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Load a specified image file from a chosen folder into GIMP so it is ready for editing.",
+      "parameters": {
+        "folder_name": "Pictures",
+        "file_name": "whiteboard_notes.jpg"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'o']}",
+          "action_template": "Press Ctrl+O when the main GIMP window is active, keyboard shortcuts are going to GIMP, and no file chooser is currently open to open the Open Image dialog."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Pictures folder in the file chooser sidebar'}}",
+          "action_template": "Click {{folder_name}} in the file chooser sidebar when the Open Image dialog is open, the sidebar is visible, and the folder shortcut is available so the file list switches to that folder."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 2, 'target': {'text': 'the file named whiteboard_notes.jpg in the file list'}}",
+          "action_template": "Double-click {{file_name}} in the file list when {{folder_name}} is open in the dialog, the file is visible, and the dialog is ready to open a selected image so the chooser closes and the image opens on the GIMP canvas."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Correct the photo orientation so the whiteboard is upright.",
+      "unit_type": "ROTATE_IMAGE_UPRIGHT",
+      "unit_before_state": "The sideways whiteboard photo is visible on the GIMP canvas, with the top menu bar available.",
+      "unit_after_state": "The same photo is now rotated upright on the canvas.",
+      "unit_precondition": [
+        "The image has finished loading and is the active canvas.",
+        "The top menu bar is visible.",
+        "No dialog is blocking the canvas or menus."
+      ],
+      "unit_effect": [
+        "The Image menu opens and shows image transformation commands.",
+        "After the transform command is chosen, the canvas redraws with the whiteboard upright."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Correct the active image orientation by applying {{rotation_command}} from the Image > Transform menu.",
+      "parameters": {
+        "rotation_command": "the 90-degree rotation command that makes the whiteboard upright"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Image menu in the top menu bar'}}",
+          "action_template": "With the active image loaded, the menu bar visible, and no dialog covering the canvas, click Image to open the menu that contains rotation commands and shows image-wide editing commands."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'Transform > the 90-degree rotation command that makes the whiteboard upright'}}",
+          "action_template": "When the Image menu is expanded, the transform submenu is available, and the image still needs correction, click Transform > {{rotation_command}} to rotate the active image upright and update the canvas."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Trim away the surrounding room so only the whiteboard remains.",
+      "unit_type": "CROP_TO_WHITEBOARD",
+      "unit_before_state": "The upright photo is visible on the canvas, and extra surroundings outside the whiteboard are still included.",
+      "unit_after_state": "The image is cropped down to the whiteboard area only.",
+      "unit_precondition": [
+        "The rotated image is active on the canvas.",
+        "The whiteboard edges are visible enough to place a crop accurately.",
+        "Keyboard shortcuts and drag input are going to GIMP."
+      ],
+      "unit_effect": [
+        "The Crop tool becomes active.",
+        "A crop rectangle appears around the whiteboard as a live preview.",
+        "After confirming, the outside surroundings disappear and only the whiteboard remains on the canvas."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Crop the image so that only a specified target area remains visible.",
+      "parameters": {
+        "target_area": "whiteboard"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['shift', 'c']}",
+          "action_template": "With the image active on the canvas, keyboard shortcuts going to GIMP, and no crop area drawn yet, press Shift+C to switch to the Crop tool so a tighter frame can be drawn around {{target_area}}. The Crop tool becomes active and the pointer is ready to define a crop area."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'near the upper-left corner of the visible whiteboard'}, 'end': {'text': 'near the lower-right corner of the visible whiteboard'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "With the Crop tool selected, the edges of {{target_area}} visible on the canvas, and drag input available, drag from near the upper-left corner of the visible {{target_area}} to near the lower-right corner of the visible {{target_area}} so the crop box excludes most of the surroundings. A crop rectangle appears and previews a frame that keeps only {{target_area}}."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "When the crop rectangle is visible, positioned correctly around {{target_area}}, and the canvas is still focused, press Enter to apply the crop. The image is cropped and only {{target_area}} remains on the canvas."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9,
+        10,
+        11
+      ],
+      "unit_intent": "Remove color from the cropped whiteboard image to simplify the notes visually.",
+      "unit_type": "CONVERT_TO_GRAYSCALE",
+      "unit_before_state": "The cropped whiteboard photo is visible on the canvas and is still in color.",
+      "unit_after_state": "The whiteboard image on the canvas is grayscale, and the desaturation dialog is closed.",
+      "unit_precondition": [
+        "The crop has already been applied.",
+        "No adjustment dialog is currently open.",
+        "The Colors menu is accessible from the menu bar."
+      ],
+      "unit_effect": [
+        "The Colors menu opens.",
+        "The Desaturate dialog appears with a grayscale preview.",
+        "After confirming, the dialog closes and the canvas shows the image in grayscale."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Convert {{target_image}} to grayscale using the desaturation tool.",
+      "parameters": {
+        "target_image": "the cropped whiteboard image"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "CLICK",
+          "action_template": "After the crop has been applied, the menu bar is visible, and no adjustment dialog is open, click the Colors menu to open the image color tools and show color adjustment options."
+        },
+        {
+          "action": "CLICK",
+          "action_template": "When the Colors menu is open, the desaturation command is available, and the cursor can select menu items, click Desaturate > Desaturate... to open the grayscale conversion dialog and show a grayscale preview."
+        },
+        {
+          "action": "CLICK",
+          "action_template": "With the Desaturate dialog visible, the preview of {{target_image}} looking acceptable, and the OK button available, click the OK button to apply the grayscale conversion so the dialog closes and the image on the canvas becomes grayscale."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "unit_intent": "Increase contrast slightly so the writing on the whiteboard is easier to read.",
+      "unit_type": "INCREASE_CONTRAST",
+      "unit_before_state": "The grayscale whiteboard image is visible on the canvas, and the writing is readable but not yet emphasized.",
+      "unit_after_state": "The canvas shows the same grayscale whiteboard image with slightly stronger contrast, and the Brightness-Contrast dialog is closed.",
+      "unit_precondition": [
+        "The image has already been converted to grayscale.",
+        "The Colors menu and Brightness-Contrast tool are available.",
+        "The live preview in the adjustment dialog can be used to judge readability."
+      ],
+      "unit_effect": [
+        "The Brightness-Contrast dialog opens with sliders and a live preview.",
+        "Dragging the Contrast slider slightly to the right makes the writing appear more distinct in the preview.",
+        "After clicking OK, the dialog closes and the adjusted higher-contrast image remains on the canvas."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Increase image contrast {{contrast_adjustment_amount}} so {{target_content}} is easier to read.",
+      "parameters": {
+        "contrast_adjustment_amount": "slightly",
+        "target_content": "the writing on the whiteboard"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Colors menu in the top menu bar'}}",
+          "action_template": "With the Desaturate dialog closed, the image visible, and the menu bar accessible, click the Colors menu in the top menu bar to open the menu for contrast adjustment; the Colors menu opens again."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Brightness-Contrast... item in the Colors menu'}}",
+          "action_template": "When the Colors menu is expanded, Brightness-Contrast is listed, and the image is ready for tonal adjustment, click the Brightness-Contrast item in the Colors menu to open the adjustment dialog; a Brightness-Contrast dialog appears with sliders and a live preview."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the Contrast slider handle at its current position'}, 'end': {'text': 'a little to the right on the Contrast slider track'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "With the Brightness-Contrast dialog visible, the Contrast slider handle draggable, and preview updates enabled, drag the Contrast slider handle {{contrast_adjustment_amount}} to the right so {{target_content}} becomes easier to read; the preview updates and {{target_content}} appears more distinct."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the OK button in the Brightness-Contrast dialog'}}",
+          "action_template": "After the contrast has been adjusted to a suitable level, with the OK button visible and the dialog still active, click the OK button in the Brightness-Contrast dialog to commit the adjustment; the dialog closes and the higher-contrast grayscale image remains on the canvas."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "unit_intent": "Set the output filename and Desktop destination for the cleaned copy.",
+      "unit_type": "SET_EXPORT_PATH",
+      "unit_before_state": "The cleaned whiteboard image is visible on the GIMP canvas, and no modal dialogs are open.",
+      "unit_after_state": "The Export Image dialog remains open, now set to save as /home/user/Desktop/whiteboard_notes_clean.png and ready for the export action.",
+      "unit_precondition": [
+        "Editing is complete and GIMP is focused.",
+        "The Export Image dialog can be opened with the keyboard shortcut.",
+        "The Desktop path /home/user/Desktop is valid and writable."
+      ],
+      "unit_effect": [
+        "The Export Image dialog opens.",
+        "The location entry field becomes active.",
+        "The full path /home/user/Desktop/whiteboard_notes_clean.png appears in the dialog.",
+        "After pressing Enter, the dialog accepts that destination and prepares to export there."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Set and confirm the destination directory and filename for exporting the edited image in the export dialog.",
+      "parameters": {
+        "target_directory": "/home/user/Desktop",
+        "file_name": "whiteboard_notes_clean.png",
+        "full_destination_path": "/home/user/Desktop/whiteboard_notes_clean.png"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'e']}",
+          "action_template": "When editing is complete, GIMP is focused, and no dialog is blocking shortcuts, press Ctrl+Shift+E to open the Export Image dialog for saving the edited copy."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'l']}",
+          "action_template": "With the Export Image dialog open and keyboard input going to it, press Ctrl+L to focus the location entry field so {{full_destination_path}} can be entered directly."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '/home/user/Desktop/whiteboard_notes_clean.png'}",
+          "action_template": "Once the location field is focused and ready for typing, type {{full_destination_path}} to specify the export destination in {{target_directory}} with the filename {{file_name}}."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After {{full_destination_path}} is fully visible in the location field and the export dialog is still active, press Enter so the dialog accepts that destination and prepares to save the file there."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_07",
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        20,
+        21
+      ],
+      "unit_intent": "Save the cleaned whiteboard image as a PNG file on the desktop.",
+      "unit_type": "EXPORT_PNG_FILE",
+      "unit_before_state": "The Export Image dialog is open with whiteboard_notes_clean.png selected as the output file on the Desktop.",
+      "unit_after_state": "The export dialogs are closed, and the cleaned image has been saved as /home/user/Desktop/whiteboard_notes_clean.png.",
+      "unit_precondition": [
+        "The export path has already been accepted in the Export Image dialog.",
+        "No validation error is blocking the Export button.",
+        "The default PNG export settings are acceptable."
+      ],
+      "unit_effect": [
+        "Clicking Export in the Export Image dialog opens the PNG export options dialog.",
+        "Clicking the final Export button closes the dialog and writes whiteboard_notes_clean.png to the Desktop."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Complete the PNG export workflow to save the current image to the specified output path.",
+      "parameters": {
+        "output_file_path": "/home/user/Desktop/whiteboard_notes_clean.png"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Export button in the Export Image dialog'}}",
+          "action_template": "When the export path {{output_file_path}} has been accepted in the Export Image dialog and no validation error is shown, click the Export button to proceed to the PNG export options dialog."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Export button in the PNG export options dialog'}}",
+          "action_template": "With the PNG export options dialog visible, the final Export button available, and the default PNG settings acceptable, click the Export button to close the dialog and save the image to {{output_file_path}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

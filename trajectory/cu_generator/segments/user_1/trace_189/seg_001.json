@@ -1,0 +1,747 @@
+{
+  "segment_id": "seg_001",
+  "app": "libreoffice_calc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Place the cursor at the start of the sheet",
+      "action_before_state": "A blank LibreOffice Calc sheet is visible, and the cell focus may be anywhere in the grid.",
+      "action_preconditions": [
+        "The Calc window is open and unobstructed",
+        "The spreadsheet grid is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the top-left cell A1 in the worksheet grid"
+        }
+      },
+      "action_after_effects": "Cell A1 becomes the active cell, ready for data entry.",
+      "nl_explanation": "When the blank sheet is visible, click cell A1 so the first row can be filled from the beginning of the table."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Create the header row",
+      "action_before_state": "Cell A1 is active in an empty worksheet.",
+      "action_preconditions": [
+        "A1 is selected",
+        "Cells A1 through D1 are empty"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Date\tStore\tCategory\tAmount"
+      },
+      "action_after_effects": "The first row is filled with the four column headers from A1 to D1.",
+      "nl_explanation": "With A1 active and the top row empty, type the tab-separated headers so the table structure appears across columns A through D."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Move to the first data row",
+      "action_before_state": "The header row is present in A1:D1.",
+      "action_preconditions": [
+        "The headers are visible in row 1",
+        "Row 2 is still empty"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell A2 directly below the Date header"
+        }
+      },
+      "action_after_effects": "Cell A2 becomes active for entering the grocery records.",
+      "nl_explanation": "Once the header row is in place, click A2 to begin entering the weekly purchase records underneath it."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Enter the grocery spending records",
+      "action_before_state": "Cell A2 is active and the table body is empty.",
+      "action_preconditions": [
+        "A2 is selected",
+        "Rows 2 through 8 are available for data entry"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "2026-04-01\tGreenMart\tProduce\t18.50\n2026-04-01\tCorner Shop\tSnacks\t6.20\n2026-04-02\tSuperSave\tDairy\t12.40\n2026-04-03\tSuperSave\tCleaning\t9.99\n2026-04-04\tDaily Bakery\tBread\t5.75\n2026-04-05\tSuperSave\tMeat\t22.10\n2026-04-06\tGreenMart\tFruit\t14.30\n"
+      },
+      "action_after_effects": "Rows A2:D8 are populated with the seven grocery entries.",
+      "nl_explanation": "With A2 active and enough empty rows below, paste the tab- and line-separated records so the full weekly grocery table fills rows 2 through 8."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Position the cursor for the summary rows",
+      "action_before_state": "The grocery table fills rows 1 through 8.",
+      "action_preconditions": [
+        "The data table is visible",
+        "Cells C9:D10 are empty"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell C9 below the table, in the Category column area"
+        }
+      },
+      "action_after_effects": "Cell C9 is active and ready for summary labels and formulas.",
+      "nl_explanation": "After the data rows are entered, click C9 so the total and average summary can be added directly beneath the table."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Add total and average calculations",
+      "action_before_state": "Cell C9 is selected below the main table.",
+      "action_preconditions": [
+        "C9 is active",
+        "The amount values are present in D2:D8"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Total\t=SUM(D2:D8)\nAverage\t=AVERAGE(D2:D8)\n"
+      },
+      "action_after_effects": "Cells C9:D10 now show the Total and Average labels with calculated values beside them.",
+      "nl_explanation": "When C9 is active and the amount column already contains numbers, type the two-row summary block so Calc computes the total and average automatically."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Select the numeric amount cells for formatting",
+      "action_before_state": "The table and summary values are visible, with numbers in D2:D10.",
+      "action_preconditions": [
+        "The amount values exist in D2:D10",
+        "No dialog is covering the sheet"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell D2, the first amount value under Amount"
+        },
+        "end": {
+          "text": "cell D10, the Average result at the bottom of the amount section"
+        },
+        "target": {
+          "begin": {
+            "text": "cell D2 in the amount column"
+          },
+          "end": {
+            "text": "cell D10 at the bottom of the amount section"
+          }
+        }
+      },
+      "action_after_effects": "The full amount range D2:D10 is highlighted.",
+      "nl_explanation": "With all amount values visible, drag from D2 down to D10 so the spending values and summary numbers are selected together for formatting."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Format the amounts as currency",
+      "action_before_state": "Cells D2:D10 are selected.",
+      "action_preconditions": [
+        "The amount range D2:D10 is highlighted",
+        "The standard formatting toolbar is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the currency format button on the toolbar"
+        }
+      },
+      "action_after_effects": "The selected numbers change to currency formatting, showing money values consistently.",
+      "nl_explanation": "When the amount cells are selected, click the currency button so all spending and summary figures display in a money format."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Return the focus to the top of the table",
+      "action_before_state": "The formatted amount cells are still selected near the bottom of the table.",
+      "action_preconditions": [
+        "The sheet is active",
+        "Keyboard shortcuts are available"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "home"
+        ]
+      },
+      "action_after_effects": "The active view jumps back to the top-left area of the sheet near cell A1.",
+      "nl_explanation": "After formatting the amount column, press Ctrl+Home to quickly return to the top of the sheet before selecting the chart source range."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Select the table data that will feed the chart",
+      "action_before_state": "The top portion of the worksheet is visible again, including the header row and data rows.",
+      "action_preconditions": [
+        "Rows 1 through 8 are visible",
+        "The table in A1:D8 is complete"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell A1 at the top-left of the table"
+        },
+        "end": {
+          "text": "cell D8 at the bottom-right corner of the data table"
+        },
+        "target": {
+          "begin": {
+            "text": "cell A1 at the top-left of the table"
+          },
+          "end": {
+            "text": "cell D8 at the bottom-right corner of the data table"
+          }
+        }
+      },
+      "action_after_effects": "The full table range A1:D8 is highlighted for chart creation.",
+      "nl_explanation": "With the full dataset visible, drag from A1 to D8 so the headers and all seven rows are selected as the chart source."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Open the Insert menu",
+      "action_before_state": "The data range A1:D8 is selected in the worksheet.",
+      "action_preconditions": [
+        "A1:D8 is highlighted",
+        "The Calc menu bar is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Insert menu in the top menu bar"
+        }
+      },
+      "action_after_effects": "The Insert dropdown menu opens.",
+      "nl_explanation": "When the chart source range is selected, click Insert in the menu bar to access the chart creation option."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Start the chart wizard",
+      "action_before_state": "The Insert dropdown is open above the worksheet.",
+      "action_preconditions": [
+        "The Insert menu is expanded",
+        "The Chart option is visible in the menu"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Chart option in the Insert menu"
+        }
+      },
+      "action_after_effects": "The chart wizard opens, and a default column chart preview appears using the selected table.",
+      "nl_explanation": "With the Insert menu open and Chart visible, click Chart so Calc opens the chart wizard using the selected data range."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Open the chart title settings",
+      "action_before_state": "The chart wizard is open with a preview and several setup tabs.",
+      "action_preconditions": [
+        "The chart wizard is active and visible",
+        "The Chart Elements tab may not yet be selected"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Chart Elements tab in the chart wizard"
+        }
+      },
+      "action_after_effects": "The Chart Elements tab is now selected, and the chart title and related text fields become visible.",
+      "nl_explanation": "Once the chart wizard is open, click the Chart Elements tab so the title field can be edited."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Focus the chart title field",
+      "action_before_state": "The Chart Elements section is visible in the wizard.",
+      "action_preconditions": [
+        "The title input field is visible",
+        "The wizard is still active"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the chart Title input box in the Chart Elements section"
+        }
+      },
+      "action_after_effects": "The cursor appears in the chart title field.",
+      "nl_explanation": "When the Chart Elements panel is showing, click the Title field so the chart name can be entered directly."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Set the chart title",
+      "action_before_state": "The title input box is active in the chart wizard.",
+      "action_preconditions": [
+        "The title field has focus",
+        "The chart wizard remains open"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Weekly Grocery Spending"
+      },
+      "action_after_effects": "The chart title field now contains Weekly Grocery Spending, and the preview updates accordingly.",
+      "nl_explanation": "With the title box focused, type Weekly Grocery Spending so the chart preview shows the correct heading."
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Insert the finished chart into the sheet",
+      "action_before_state": "The chart wizard shows the updated title and a valid column chart preview.",
+      "action_preconditions": [
+        "The chart preview is visible",
+        "The Finish button is available"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Finish button in the chart wizard"
+        }
+      },
+      "action_after_effects": "The wizard closes and the completed column chart is inserted into the worksheet.",
+      "nl_explanation": "After the preview shows the correct titled column chart, click Finish to place the chart onto the spreadsheet and complete the task."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Establish the table structure for the weekly grocery tracker by adding the column headers.",
+      "unit_type": "CREATE_TABLE_HEADERS",
+      "unit_before_state": "A blank LibreOffice Calc worksheet is open, the spreadsheet grid is visible, and row 1 does not yet contain any table headers.",
+      "unit_after_state": "Cells A1 through D1 display the headers Date, Store, Category, and Amount at the top of the sheet.",
+      "unit_precondition": [
+        "The LibreOffice Calc worksheet is active and unobstructed.",
+        "Cells A1 through D1 are empty and available for entry."
+      ],
+      "unit_effect": [
+        "Cell A1 becomes the active starting point for entry.",
+        "The first row visibly shows the four header labels across columns A through D."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4
+      ],
+      "unit_intent": "Populate the grocery tracker with the weekly spending records under the headers.",
+      "unit_type": "POPULATE_TABLE_ROWS",
+      "unit_before_state": "The header row is already present in A1:D1, and the area starting at A2 is empty.",
+      "unit_after_state": "Rows 2 through 8 are filled with seven grocery records across columns A through D beneath the header row.",
+      "unit_precondition": [
+        "The headers in A1:D1 are already visible.",
+        "Cells A2 through D8 are empty and ready for data entry."
+      ],
+      "unit_effect": [
+        "Cell A2 is activated as the insertion point for the table body.",
+        "The full weekly grocery dataset appears in A2:D8."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Add summary calculations below the table to show the total and average spending.",
+      "unit_type": "ADD_SUMMARY_FORMULAS",
+      "unit_before_state": "The completed grocery table occupies A1:D8, and the cells C9:D10 below it are still empty.",
+      "unit_after_state": "Cells C9:C10 contain the labels Total and Average, and D9:D10 display the calculated sum and average of the Amount column.",
+      "unit_precondition": [
+        "The grocery data in D2:D8 is already present.",
+        "Cells C9 through D10 are empty and visible below the table."
+      ],
+      "unit_effect": [
+        "Cell C9 is positioned as the starting point for the summary block.",
+        "The worksheet shows computed summary values next to Total and Average."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Standardize all spending figures and summary values as currency amounts.",
+      "unit_type": "FORMAT_AS_CURRENCY",
+      "unit_before_state": "The worksheet shows numeric values in D2:D10 for the seven purchases plus the Total and Average results, but they are not yet formatted as currency.",
+      "unit_after_state": "Cells D2 through D10 display the amount entries and summary numbers in currency format.",
+      "unit_precondition": [
+        "Values are visible in cells D2 through D10.",
+        "The currency formatting control is available on the Calc toolbar."
+      ],
+      "unit_effect": [
+        "The full range D2:D10 is highlighted for formatting.",
+        "The selected values visibly change to a money format."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "unit_intent": "Launch chart creation for the weekly grocery table using the completed dataset as the source range.",
+      "unit_type": "OPEN_CHART_WIZARD",
+      "unit_before_state": "The worksheet still has the formatted amount area selected near the bottom of the table, while the completed dataset with headers remains in A1:D8.",
+      "unit_after_state": "The chart wizard is open with a default column chart preview generated from the selected table range A1:D8.",
+      "unit_precondition": [
+        "The spreadsheet is active and keyboard shortcuts are available.",
+        "The full dataset in A1:D8 is complete and visible.",
+        "The Calc menu bar is visible so the Insert menu can be used."
+      ],
+      "unit_effect": [
+        "The view returns to the top-left part of the sheet.",
+        "Range A1:D8 becomes highlighted as the chart source.",
+        "The Insert menu opens and the Chart command starts the chart wizard."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        13,
+        14,
+        15
+      ],
+      "unit_intent": "Set the chart title so the new visualization is labeled as the weekly grocery spending chart.",
+      "unit_type": "SET_CHART_TITLE",
+      "unit_before_state": "The chart wizard is open with a default preview, and the title field is not yet filled with the desired chart name.",
+      "unit_after_state": "The Chart Elements tab is active, the Title field contains Weekly Grocery Spending, and the chart preview reflects that title.",
+      "unit_precondition": [
+        "The chart wizard is already open and responsive.",
+        "The Chart Elements controls and title input field are available."
+      ],
+      "unit_effect": [
+        "The Chart Elements tab is selected and the title field receives focus.",
+        "The chart preview visibly updates to show the title Weekly Grocery Spending."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        16
+      ],
+      "unit_intent": "Finalize the chart and place it onto the worksheet.",
+      "unit_type": "INSERT_CHART",
+      "unit_before_state": "The chart wizard shows a valid column chart preview titled Weekly Grocery Spending, and the Finish button is available.",
+      "unit_after_state": "The wizard closes and the worksheet contains an inserted column chart titled Weekly Grocery Spending.",
+      "unit_precondition": [
+        "The chart wizard preview is visible and correctly configured.",
+        "The Finish button can be clicked."
+      ],
+      "unit_effect": [
+        "The chart wizard closes.",
+        "A new chart object appears on the Calc sheet with the title Weekly Grocery Spending."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Establish the table structure for the weekly grocery tracker by adding the column headers.",
+      "unit_type": "CREATE_TABLE_HEADERS",
+      "unit_before_state": "A blank LibreOffice Calc worksheet is open, the spreadsheet grid is visible, and row 1 does not yet contain any table headers.",
+      "unit_after_state": "Cells A1 through D1 display the headers Date, Store, Category, and Amount at the top of the sheet.",
+      "unit_precondition": [
+        "The LibreOffice Calc worksheet is active and unobstructed.",
+        "Cells A1 through D1 are empty and available for entry."
+      ],
+      "unit_effect": [
+        "Cell A1 becomes the active starting point for entry.",
+        "The first row visibly shows the four header labels across columns A through D."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a table header row by selecting a starting cell and entering the specified tab-separated column labels.",
+      "parameters": {
+        "target_start_cell": "the top-left cell A1 in the worksheet grid",
+        "header_text": "Date\tStore\tCategory\tAmount",
+        "header_range": "cells A1 through D1"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the top-left cell A1 in the worksheet grid'}}",
+          "action_template": "When the blank sheet is visible and the spreadsheet grid is available, click {{target_start_cell}} so entry can begin from the start of the header row and the target cell becomes active for data entry."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Date\\tStore\\tCategory\\tAmount'}",
+          "action_template": "With {{target_start_cell}} active and {{header_range}} empty, type {{header_text}} so the header row is filled across the target columns."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4
+      ],
+      "unit_intent": "Populate the grocery tracker with the weekly spending records under the headers.",
+      "unit_type": "POPULATE_TABLE_ROWS",
+      "unit_before_state": "The header row is already present in A1:D1, and the area starting at A2 is empty.",
+      "unit_after_state": "Rows 2 through 8 are filled with seven grocery records across columns A through D beneath the header row.",
+      "unit_precondition": [
+        "The headers in A1:D1 are already visible.",
+        "Cells A2 through D8 are empty and ready for data entry."
+      ],
+      "unit_effect": [
+        "Cell A2 is activated as the insertion point for the table body.",
+        "The full weekly grocery dataset appears in A2:D8."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Populate the table body beneath an existing header row by entering a structured multi-row dataset starting from the first target cell.",
+      "parameters": {
+        "target_start_cell": "cell A2 directly below the Date header",
+        "dataset_text": "2026-04-01\tGreenMart\tProduce\t18.50\n2026-04-01\tCorner Shop\tSnacks\t6.20\n2026-04-02\tSuperSave\tDairy\t12.40\n2026-04-03\tSuperSave\tCleaning\t9.99\n2026-04-04\tDaily Bakery\tBread\t5.75\n2026-04-05\tSuperSave\tMeat\t22.10\n2026-04-06\tGreenMart\tFruit\t14.30\n"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell A2 directly below the Date header'}}",
+          "action_template": "Once the header row is in place, click {{target_start_cell}} to begin entering the records underneath it. Preconditions: the headers are visible in row 1 and the destination row is still empty. After this action, {{target_start_cell}} becomes active for data entry."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '2026-04-01\\tGreenMart\\tProduce\\t18.50\\n2026-04-01\\tCorner Shop\\tSnacks\\t6.20\\n2026-04-02\\tSuperSave\\tDairy\\t12.40\\n2026-04-03\\tSuperSave\\tCleaning\\t9.99\\n2026-04-04\\tDaily Bakery\\tBread\\t5.75\\n2026-04-05\\tSuperSave\\tMeat\\t22.10\\n2026-04-06\\tGreenMart\\tFruit\\t14.30\\n'}",
+          "action_template": "With {{target_start_cell}} active and enough empty rows below, type or paste {{dataset_text}} so the structured table body is filled from the starting cell. Preconditions: {{target_start_cell}} is selected and the required rows are available for data entry. After this action, the target table range is populated with the dataset."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Add summary calculations below the table to show the total and average spending.",
+      "unit_type": "ADD_SUMMARY_FORMULAS",
+      "unit_before_state": "The completed grocery table occupies A1:D8, and the cells C9:D10 below it are still empty.",
+      "unit_after_state": "Cells C9:C10 contain the labels Total and Average, and D9:D10 display the calculated sum and average of the Amount column.",
+      "unit_precondition": [
+        "The grocery data in D2:D8 is already present.",
+        "Cells C9 through D10 are empty and visible below the table."
+      ],
+      "unit_effect": [
+        "Cell C9 is positioned as the starting point for the summary block.",
+        "The worksheet shows computed summary values next to Total and Average."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Insert a two-row summary block below a table that labels and calculates the total and average for a specified numeric data range.",
+      "parameters": {
+        "summary_start_cell": "C9",
+        "value_range": "D2:D8",
+        "total_label": "Total",
+        "average_label": "Average",
+        "summary_block_text": "Total\t=SUM(D2:D8)\nAverage\t=AVERAGE(D2:D8)\n"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "CLICK",
+          "action_template": "Click {{summary_start_cell}} below the table to activate the starting cell for the summary block when the data table is visible and the summary cells are empty."
+        },
+        {
+          "action": "TYPING",
+          "action_template": "Type {{summary_block_text}} into the active summary start cell to add the {{total_label}} and {{average_label}} rows with formulas computed from {{value_range}} once the numeric values are present."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Standardize all spending figures and summary values as currency amounts.",
+      "unit_type": "FORMAT_AS_CURRENCY",
+      "unit_before_state": "The worksheet shows numeric values in D2:D10 for the seven purchases plus the Total and Average results, but they are not yet formatted as currency.",
+      "unit_after_state": "Cells D2 through D10 display the amount entries and summary numbers in currency format.",
+      "unit_precondition": [
+        "Values are visible in cells D2 through D10.",
+        "The currency formatting control is available on the Calc toolbar."
+      ],
+      "unit_effect": [
+        "The full range D2:D10 is highlighted for formatting.",
+        "The selected values visibly change to a money format."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Apply currency formatting to a specified range of numeric cells.",
+      "parameters": {
+        "start_cell": "cell D2, the first amount value under Amount",
+        "end_cell": "cell D10, the Average result at the bottom of the amount section",
+        "cell_range": "D2:D10",
+        "format_control": "the currency format button on the toolbar"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'cell D2, the first amount value under Amount'}, 'end': {'text': 'cell D10, the Average result at the bottom of the amount section'}, 'target': {'begin': {'text': 'cell D2 in the amount column'}, 'end': {'text': 'cell D10 at the bottom of the amount section'}}}",
+          "action_template": "With the numeric values visible and no dialog covering the sheet, drag from {{start_cell}} to {{end_cell}} so the full range {{cell_range}} is selected together for formatting. After this action, the full amount range {{cell_range}} is highlighted."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the currency format button on the toolbar'}}",
+          "action_template": "When the range {{cell_range}} is highlighted and the standard formatting toolbar is visible, click {{format_control}} so the selected numbers change to currency formatting and display as money values consistently."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "unit_intent": "Launch chart creation for the weekly grocery table using the completed dataset as the source range.",
+      "unit_type": "OPEN_CHART_WIZARD",
+      "unit_before_state": "The worksheet still has the formatted amount area selected near the bottom of the table, while the completed dataset with headers remains in A1:D8.",
+      "unit_after_state": "The chart wizard is open with a default column chart preview generated from the selected table range A1:D8.",
+      "unit_precondition": [
+        "The spreadsheet is active and keyboard shortcuts are available.",
+        "The full dataset in A1:D8 is complete and visible.",
+        "The Calc menu bar is visible so the Insert menu can be used."
+      ],
+      "unit_effect": [
+        "The view returns to the top-left part of the sheet.",
+        "Range A1:D8 becomes highlighted as the chart source.",
+        "The Insert menu opens and the Chart command starts the chart wizard."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open the chart wizard for a completed data table by selecting the full chart source range and launching the chart command from the Insert menu.",
+      "parameters": {
+        "source_range": "A1:D8",
+        "source_range_start": "cell A1 at the top-left of the table",
+        "source_range_end": "cell D8 at the bottom-right corner of the data table"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'home']}",
+          "action_template": "Press Ctrl+Home to return to the top-left area of the active sheet before selecting the chart source range. Preconditions: the sheet is active and keyboard shortcuts are available. After this action, the active view jumps back to the top-left area of the sheet near cell A1."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'cell A1 at the top-left of the table'}, 'end': {'text': 'cell D8 at the bottom-right corner of the data table'}, 'target': {'begin': {'text': 'cell A1 at the top-left of the table'}, 'end': {'text': 'cell D8 at the bottom-right corner of the data table'}}}",
+          "action_template": "Drag from {{source_range_start}} to {{source_range_end}} to select the full dataset as the chart source. Preconditions: the relevant rows are visible and the table in {{source_range}} is complete. After this action, the full table range {{source_range}} is highlighted for chart creation."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Insert menu in the top menu bar'}}",
+          "action_template": "Click the Insert menu in the top menu bar to access chart creation options. Preconditions: {{source_range}} is highlighted and the Calc menu bar is visible. After this action, the Insert dropdown menu opens."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Chart option in the Insert menu'}}",
+          "action_template": "Click the Chart option in the Insert menu to open the chart wizard using the selected data range. Preconditions: the Insert menu is expanded and the Chart option is visible in the menu. After this action, the chart wizard opens and a default column chart preview appears using the selected table."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        13,
+        14,
+        15
+      ],
+      "unit_intent": "Set the chart title so the new visualization is labeled as the weekly grocery spending chart.",
+      "unit_type": "SET_CHART_TITLE",
+      "unit_before_state": "The chart wizard is open with a default preview, and the title field is not yet filled with the desired chart name.",
+      "unit_after_state": "The Chart Elements tab is active, the Title field contains Weekly Grocery Spending, and the chart preview reflects that title.",
+      "unit_precondition": [
+        "The chart wizard is already open and responsive.",
+        "The Chart Elements controls and title input field are available."
+      ],
+      "unit_effect": [
+        "The Chart Elements tab is selected and the title field receives focus.",
+        "The chart preview visibly updates to show the title Weekly Grocery Spending."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Set a specified chart title in the chart wizard so the preview reflects the desired heading.",
+      "parameters": {
+        "title_text": "Weekly Grocery Spending"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "CLICK",
+          "action_template": "Click the Chart Elements tab in the chart wizard when the wizard is active and the tab may not yet be selected, so the title and related text fields become visible for editing."
+        },
+        {
+          "action": "CLICK",
+          "action_template": "Click the chart Title input box in the Chart Elements section when the title input field is visible and the wizard is still active, so the cursor appears in the title field and the chart name can be entered directly."
+        },
+        {
+          "action": "TYPING",
+          "action_template": "Type {{title_text}} into the focused chart title field while the chart wizard remains open, so the title field contains {{title_text}} and the preview updates accordingly."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_07",
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        16
+      ],
+      "unit_intent": "Finalize the chart and place it onto the worksheet.",
+      "unit_type": "INSERT_CHART",
+      "unit_before_state": "The chart wizard shows a valid column chart preview titled Weekly Grocery Spending, and the Finish button is available.",
+      "unit_after_state": "The wizard closes and the worksheet contains an inserted column chart titled Weekly Grocery Spending.",
+      "unit_precondition": [
+        "The chart wizard preview is visible and correctly configured.",
+        "The Finish button can be clicked."
+      ],
+      "unit_effect": [
+        "The chart wizard closes.",
+        "A new chart object appears on the Calc sheet with the title Weekly Grocery Spending."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Finalize a configured chart in the chart wizard and insert it into the worksheet.",
+      "parameters": {
+        "chart_title": "Weekly Grocery Spending",
+        "chart_type": "column chart",
+        "confirm_button": "Finish button"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "CLICK",
+          "action_template": "After the preview shows the correct titled {{chart_type}}, click the {{confirm_button}} to place the chart onto the spreadsheet and complete the task. Preconditions: the {{chart_type}} preview is visible and the {{confirm_button}} is available. Effects: the wizard closes and the completed {{chart_type}} titled {{chart_title}} is inserted into the worksheet."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

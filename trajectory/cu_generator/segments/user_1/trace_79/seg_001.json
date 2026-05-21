@@ -1,0 +1,576 @@
+{
+  "segment_id": "seg_001",
+  "app": "Chrome",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Focus the browser address bar",
+      "action_before_state": "Chrome is already open on an arbitrary webpage, and the current tab is visible on the screen.",
+      "action_preconditions": [
+        "The Chrome window is active",
+        "A browser tab is open and ready to receive keyboard input"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "l"
+        ]
+      },
+      "action_after_effects": "The omnibox/address bar becomes focused and the current URL is highlighted.",
+      "nl_explanation": "When Chrome is the active window and a page is visible, press Ctrl+L to move focus to the address bar. The existing address is selected so the next text input replaces it."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Enter a search query for a simple salmon recipe",
+      "action_before_state": "The address bar is focused and its current contents are highlighted.",
+      "action_preconditions": [
+        "The text cursor is active in the address bar",
+        "The previous URL is selected or ready to be replaced"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "easy baked salmon recipe"
+      },
+      "action_after_effects": "The search query appears in the address bar.",
+      "nl_explanation": "With the address bar focused, type the query easy baked salmon recipe. The typed text replaces the previous URL and prepares the browser for a search."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Run the search",
+      "action_before_state": "The search query is visible in the address bar.",
+      "action_preconditions": [
+        "The search text has been entered",
+        "The address bar still has input focus"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "Chrome loads a search results page for baked salmon recipes.",
+      "nl_explanation": "Once the search phrase is present in the omnibox, press Enter to submit it. The browser navigates to the search results page."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Bring a suitable recipe result into view",
+      "action_before_state": "A search results page is loaded, showing multiple links and snippets.",
+      "action_preconditions": [
+        "The search results page has finished loading enough to scroll",
+        "At least one recipe result is available on the page"
+      ],
+      "action": {
+        "type": "SCROLL",
+        "direction": "down",
+        "target": {
+          "text": "the middle of the search results page"
+        },
+        "stop_condition": "Stop when a recipe result from a cooking website is fully visible and looks like a complete recipe page rather than an ad or video."
+      },
+      "action_after_effects": "A promising baked salmon recipe result is clearly visible on screen.",
+      "nl_explanation": "After the search results load, scroll down through the results list until a clear recipe result from a cooking website is fully visible. This positions the page so the next click can open a usable recipe."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Open a recipe page",
+      "action_before_state": "A recipe result title and snippet are visible in the search results.",
+      "action_preconditions": [
+        "A recipe result is fully visible",
+        "The result title is clickable"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the title of a baked salmon recipe result from a recipe website"
+        }
+      },
+      "action_after_effects": "The selected recipe page opens in the current tab.",
+      "nl_explanation": "When a full recipe result is visible in the search results, left-click its title to open the recipe page. Chrome navigates to that site in the same tab."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Open the in-page find bar",
+      "action_before_state": "The recipe page is open and its main content is visible.",
+      "action_preconditions": [
+        "The recipe page has loaded",
+        "Chrome is still the active window"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "f"
+        ]
+      },
+      "action_after_effects": "The page find bar appears and its input field is focused.",
+      "nl_explanation": "With the recipe page open, press Ctrl+F to open Chrome's find bar. The search box is focused so a keyword can be entered immediately."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Jump to the ingredients section",
+      "action_before_state": "The find bar is open and ready for text input.",
+      "action_preconditions": [
+        "The find bar is visible",
+        "Its text field has keyboard focus"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "ingredients"
+      },
+      "action_after_effects": "Chrome highlights the first match for ingredients and jumps the page near that section.",
+      "nl_explanation": "When the find bar is active, type ingredients. Chrome searches the current page as you type and moves the view close to the ingredients heading or list."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Close the find bar after locating the section",
+      "action_before_state": "The page is positioned near the ingredients section, and the find bar is still open.",
+      "action_preconditions": [
+        "The ingredients section has been found",
+        "The find bar remains visible on the page"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "esc"
+        ]
+      },
+      "action_after_effects": "The find bar closes while the page stays near the ingredients section.",
+      "nl_explanation": "After Chrome has jumped to the ingredients area, press Esc to dismiss the find bar. The page remains positioned near the matched section for review."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Adjust the page so the ingredients area is comfortably visible",
+      "action_before_state": "The recipe page is near the ingredients section, but the exact layout may need a small adjustment.",
+      "action_preconditions": [
+        "The page is already near the ingredients section",
+        "The page content can be scrolled"
+      ],
+      "action": {
+        "type": "SCROLL",
+        "direction": "down",
+        "target": {
+          "text": "the ingredients section area"
+        },
+        "stop_condition": "Stop when the ingredients list is clearly readable and at least the start of the cooking directions is also visible or nearby."
+      },
+      "action_after_effects": "The ingredients list is clearly in view, confirming the recipe looks usable.",
+      "nl_explanation": "Once the page is near the ingredients area, scroll slightly as needed while keeping that section in view until the ingredient list is clearly readable and the recipe content looks practical. This confirms the page is the one to save."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Open the bookmark dialog for the recipe page",
+      "action_before_state": "The recipe page is visible and ready to be saved.",
+      "action_preconditions": [
+        "The correct recipe page is open",
+        "Chrome is the active window"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "d"
+        ]
+      },
+      "action_after_effects": "Chrome opens the bookmark dialog for the current page.",
+      "nl_explanation": "When the recipe page is open and confirmed, press Ctrl+D to bookmark the current tab. A bookmark dialog appears on top of the page."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Expand the bookmark dialog options",
+      "action_before_state": "The bookmark dialog is open with its compact view visible.",
+      "action_preconditions": [
+        "The bookmark dialog is visible",
+        "A More or similar expand control is available in the dialog"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the More button in the bookmark dialog"
+        }
+      },
+      "action_after_effects": "The dialog expands to show additional bookmark management controls, including folder options.",
+      "nl_explanation": "After the bookmark dialog appears, click the More control to expand it. This exposes the folder management area needed to create a new bookmark folder."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Start creating a new bookmark folder",
+      "action_before_state": "The expanded bookmark dialog is visible with folder controls.",
+      "action_preconditions": [
+        "The expanded bookmark dialog is open",
+        "A New folder button is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the New folder button in the expanded bookmark dialog"
+        }
+      },
+      "action_after_effects": "Chrome creates an editable new folder entry and places the text cursor in its name field.",
+      "nl_explanation": "With the expanded bookmark options visible, click New folder. Chrome adds a new folder entry and makes its name editable immediately."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Name the new bookmark folder",
+      "action_before_state": "A new folder name field is active in the bookmark dialog.",
+      "action_preconditions": [
+        "The new folder entry is editable",
+        "The text cursor is inside the folder name field"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Dinner Ideas"
+      },
+      "action_after_effects": "The new folder is named Dinner Ideas and remains selected for saving the bookmark.",
+      "nl_explanation": "When the new folder name field is active, type Dinner Ideas. The folder entry is renamed and is ready to receive the current bookmark."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Save the bookmark into the new folder",
+      "action_before_state": "The bookmark dialog is still open, and the new folder Dinner Ideas is available.",
+      "action_preconditions": [
+        "The bookmark dialog is visible",
+        "The folder Dinner Ideas has been created and selected or is available to save into"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Done or Save button in the bookmark dialog"
+        }
+      },
+      "action_after_effects": "The dialog closes, and the recipe page is bookmarked in the Dinner Ideas folder.",
+      "nl_explanation": "After the new folder has been named, click the dialog's Done or Save button to finish. Chrome closes the dialog and stores the recipe bookmark inside Dinner Ideas."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Start a web search for an easy baked salmon recipe.",
+      "unit_type": "SUBMIT_RECIPE_SEARCH",
+      "unit_before_state": "Chrome is open on an arbitrary webpage in an active tab, and the current page is visible on screen.",
+      "unit_after_state": "Chrome shows a search results page for \"easy baked salmon recipe,\" with recipe-related search results loaded in the tab.",
+      "unit_precondition": [
+        "Chrome is the active window.",
+        "An open browser tab is available and can accept keyboard input."
+      ],
+      "unit_effect": [
+        "The omnibox becomes focused with the previous URL selected.",
+        "The query \"easy baked salmon recipe\" is submitted and a search results page appears."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Open a promising baked salmon recipe from the search results.",
+      "unit_type": "OPEN_RECIPE_RESULT",
+      "unit_before_state": "A search results page for baked salmon recipes is visible, with multiple result links and snippets on the page.",
+      "unit_after_state": "A recipe page from a cooking website is open in the current tab.",
+      "unit_precondition": [
+        "The search results page has loaded enough to scroll.",
+        "At least one recipe-style result is visible and clickable."
+      ],
+      "unit_effect": [
+        "A suitable recipe result is brought fully into view.",
+        "Clicking the result navigates the current tab from the search results page to the recipe page."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "unit_intent": "Jump to the ingredients section and verify the recipe looks practical for dinner.",
+      "unit_type": "LOCATE_AND_REVIEW_INGREDIENTS",
+      "unit_before_state": "The selected recipe page is open, showing its main content, but the ingredients section is not yet guaranteed to be centered on screen.",
+      "unit_after_state": "The ingredients list is clearly visible on the recipe page, the find bar is closed, and the page is positioned for easy review of the ingredients.",
+      "unit_precondition": [
+        "The recipe page has loaded in Chrome.",
+        "The page contains searchable text for the ingredients section.",
+        "The page can be scrolled after the in-page search jump."
+      ],
+      "unit_effect": [
+        "Chrome's find bar opens and searches for \"ingredients,\" moving the page near the matching section.",
+        "After the find bar is dismissed, the ingredients list remains in view and is readable enough to judge the recipe's practicality."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        10,
+        11,
+        12,
+        13
+      ],
+      "unit_intent": "Create a new bookmark folder named Dinner Ideas and set it as the bookmark destination.",
+      "unit_type": "CREATE_BOOKMARK_FOLDER",
+      "unit_before_state": "The recipe page is visible in Chrome near the ingredients section, and no bookmark dialog is currently open.",
+      "unit_after_state": "The expanded bookmark dialog is open with a newly created folder named \"Dinner Ideas\" shown as the destination for the bookmark.",
+      "unit_precondition": [
+        "The desired recipe page is open in the current tab.",
+        "Chrome bookmark controls are available for the page.",
+        "The bookmark dialog includes expandable folder management options."
+      ],
+      "unit_effect": [
+        "Pressing Ctrl+D opens the bookmark dialog for the current page.",
+        "The dialog expands to show folder controls, a new folder entry is created, and its name is changed to \"Dinner Ideas.\""
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        14
+      ],
+      "unit_intent": "Save the current recipe page into the Dinner Ideas bookmark folder.",
+      "unit_type": "SAVE_BOOKMARK",
+      "unit_before_state": "The bookmark dialog is still open, and the folder \"Dinner Ideas\" is available as the selected or active save location.",
+      "unit_after_state": "The bookmark dialog is closed, the recipe page remains open, and the page is saved as a bookmark inside the Dinner Ideas folder.",
+      "unit_precondition": [
+        "The bookmark dialog is open.",
+        "The folder \"Dinner Ideas\" exists and is selected or ready to receive the bookmark."
+      ],
+      "unit_effect": [
+        "Clicking the dialog's Done or Save button closes the bookmark dialog.",
+        "The current recipe page is stored as a bookmark in the Dinner Ideas folder."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Start a web search for an easy baked salmon recipe.",
+      "unit_type": "SUBMIT_RECIPE_SEARCH",
+      "unit_before_state": "Chrome is open on an arbitrary webpage in an active tab, and the current page is visible on screen.",
+      "unit_after_state": "Chrome shows a search results page for \"easy baked salmon recipe,\" with recipe-related search results loaded in the tab.",
+      "unit_precondition": [
+        "Chrome is the active window.",
+        "An open browser tab is available and can accept keyboard input."
+      ],
+      "unit_effect": [
+        "The omnibox becomes focused with the previous URL selected.",
+        "The query \"easy baked salmon recipe\" is submitted and a search results page appears."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Submit a specified web search query from the browser address bar.",
+      "parameters": {
+        "search_query": "easy baked salmon recipe"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'l']}",
+          "action_template": "When the browser window is active and a page is visible, press Ctrl+L to focus the address bar so the current URL is highlighted and ready to be replaced."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'easy baked salmon recipe'}",
+          "action_template": "With the address bar focused and its current contents selected, type {{search_query}} so the query replaces the previous URL and appears in the address bar."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After {{search_query}} has been entered and the address bar still has focus, press Enter to submit the query and load the corresponding search results page."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Open a promising baked salmon recipe from the search results.",
+      "unit_type": "OPEN_RECIPE_RESULT",
+      "unit_before_state": "A search results page for baked salmon recipes is visible, with multiple result links and snippets on the page.",
+      "unit_after_state": "A recipe page from a cooking website is open in the current tab.",
+      "unit_precondition": [
+        "The search results page has loaded enough to scroll.",
+        "At least one recipe-style result is visible and clickable."
+      ],
+      "unit_effect": [
+        "A suitable recipe result is brought fully into view.",
+        "Clicking the result navigates the current tab from the search results page to the recipe page."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a suitable recipe page for a specified dish from the search results.",
+      "parameters": {
+        "search_topic": "baked salmon",
+        "source_site_type": "cooking website"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'SCROLL', 'direction': 'down', 'target': {'text': 'the middle of the search results page'}, 'stop_condition': 'Stop when a recipe result from a cooking website is fully visible and looks like a complete recipe page rather than an ad or video.'}",
+          "action_template": "Scroll down through the search results page after it has loaded enough to scroll, and stop when a clear {{search_topic}} recipe result from a {{source_site_type}} is fully visible. This brings a suitable result into view so it can be opened."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the title of a baked salmon recipe result from a recipe website'}}",
+          "action_template": "When a {{search_topic}} recipe result from a {{source_site_type}} is fully visible and its title is clickable, left-click the result title to open the recipe page in the current tab."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "unit_intent": "Jump to the ingredients section and verify the recipe looks practical for dinner.",
+      "unit_type": "LOCATE_AND_REVIEW_INGREDIENTS",
+      "unit_before_state": "The selected recipe page is open, showing its main content, but the ingredients section is not yet guaranteed to be centered on screen.",
+      "unit_after_state": "The ingredients list is clearly visible on the recipe page, the find bar is closed, and the page is positioned for easy review of the ingredients.",
+      "unit_precondition": [
+        "The recipe page has loaded in Chrome.",
+        "The page contains searchable text for the ingredients section.",
+        "The page can be scrolled after the in-page search jump."
+      ],
+      "unit_effect": [
+        "Chrome's find bar opens and searches for \"ingredients,\" moving the page near the matching section.",
+        "After the find bar is dismissed, the ingredients list remains in view and is readable enough to judge the recipe's practicality."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Use in-page search to locate {{target_section}} on a webpage, dismiss the search UI, and adjust the view so the section can be reviewed comfortably.",
+      "parameters": {
+        "target_section": "ingredients section",
+        "search_keyword": "ingredients",
+        "target_content": "ingredients list",
+        "nearby_reference_content": "the start of the cooking directions"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'f']}",
+          "action_template": "With the webpage open and active in Chrome, press Ctrl+F to open Chrome's find bar. The find bar appears and its input field is focused so {{search_keyword}} can be entered immediately."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'ingredients'}",
+          "action_template": "When the find bar is visible and focused, type {{search_keyword}} to search the current page. Chrome highlights the first match and jumps the page near {{target_section}}."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['esc']}",
+          "action_template": "After {{target_section}} has been found and the find bar is still visible, press Esc to dismiss the find bar. The page remains positioned near {{target_section}} for review."
+        },
+        {
+          "action": "{'type': 'SCROLL', 'direction': 'down', 'target': {'text': 'the ingredients section area'}, 'stop_condition': 'Stop when the ingredients list is clearly readable and at least the start of the cooking directions is also visible or nearby.'}",
+          "action_template": "Once the page is near {{target_section}} and can be scrolled, scroll slightly downward while keeping {{target_section}} in view until {{target_content}} is clearly readable and {{nearby_reference_content}} is also visible or nearby. This leaves the page positioned for comfortable review."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        10,
+        11,
+        12,
+        13
+      ],
+      "unit_intent": "Create a new bookmark folder named Dinner Ideas and set it as the bookmark destination.",
+      "unit_type": "CREATE_BOOKMARK_FOLDER",
+      "unit_before_state": "The recipe page is visible in Chrome near the ingredients section, and no bookmark dialog is currently open.",
+      "unit_after_state": "The expanded bookmark dialog is open with a newly created folder named \"Dinner Ideas\" shown as the destination for the bookmark.",
+      "unit_precondition": [
+        "The desired recipe page is open in the current tab.",
+        "Chrome bookmark controls are available for the page.",
+        "The bookmark dialog includes expandable folder management options."
+      ],
+      "unit_effect": [
+        "Pressing Ctrl+D opens the bookmark dialog for the current page.",
+        "The dialog expands to show folder controls, a new folder entry is created, and its name is changed to \"Dinner Ideas.\""
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a new bookmark folder with a specified name in Chrome's bookmark dialog and set it as the destination for the current page bookmark.",
+      "parameters": {
+        "folder_name": "Dinner Ideas"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'd']}",
+          "action_template": "When the target page is open and Chrome is the active window, press Ctrl+D to bookmark the current tab. Chrome opens the bookmark dialog for the current page."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the More button in the bookmark dialog'}}",
+          "action_template": "When the bookmark dialog is visible and an expand control is available, click the More button in the bookmark dialog to expand it. The dialog shows additional bookmark management controls, including folder options."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the New folder button in the expanded bookmark dialog'}}",
+          "action_template": "When the expanded bookmark dialog is open and the New folder button is visible, click the New folder button in the expanded bookmark dialog to create a new editable folder entry. Chrome places the text cursor in its name field."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Dinner Ideas'}",
+          "action_template": "When the new folder entry is editable and the text cursor is inside the folder name field, type {{folder_name}} to name the new bookmark folder. The folder is renamed to {{folder_name}} and remains selected for saving the bookmark."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        14
+      ],
+      "unit_intent": "Save the current recipe page into the Dinner Ideas bookmark folder.",
+      "unit_type": "SAVE_BOOKMARK",
+      "unit_before_state": "The bookmark dialog is still open, and the folder \"Dinner Ideas\" is available as the selected or active save location.",
+      "unit_after_state": "The bookmark dialog is closed, the recipe page remains open, and the page is saved as a bookmark inside the Dinner Ideas folder.",
+      "unit_precondition": [
+        "The bookmark dialog is open.",
+        "The folder \"Dinner Ideas\" exists and is selected or ready to receive the bookmark."
+      ],
+      "unit_effect": [
+        "Clicking the dialog's Done or Save button closes the bookmark dialog.",
+        "The current recipe page is stored as a bookmark in the Dinner Ideas folder."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the current page as a bookmark in the specified bookmark folder.",
+      "parameters": {
+        "folder_name": "Dinner Ideas",
+        "confirm_button": "the Done or Save button in the bookmark dialog"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Done or Save button in the bookmark dialog'}}",
+          "action_template": "Click {{confirm_button}} when the bookmark dialog is visible and {{folder_name}} has been created and selected or is available to save into. This finishes the bookmark save, closes the dialog, and stores the current page bookmark in {{folder_name}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

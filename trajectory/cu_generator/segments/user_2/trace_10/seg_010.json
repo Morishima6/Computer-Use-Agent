@@ -1,0 +1,223 @@
+{
+  "segment_id": "seg_010",
+  "app": "LibreOffice Calc",
+  "env": {
+    "os": "linux",
+    "screen": "1920x1080",
+    "url": "",
+    "locale": "en_US"
+  },
+  "steps": [
+    {
+      "step_id": "s110",
+      "step_goal": "Focus formula input line",
+      "now_state": {
+        "screenshot_path_before": "screenshots/s110_before_click.png",
+        "screenshot_path_before_part": "screenshots/s110_before_click(part).png",
+        "screenshot_path_before_raw": "screenshots/s110_before_click(raw).png",
+        "screenshot_path_after": "screenshots/s110_after_click.png",
+        "screenshot_time_before": "2026-04-26 14:03:40",
+        "screenshot_time_after": "2026-04-26 14:03:40",
+        "app_title_before": "libreoffice — BoomerangSales.xlsx - LibreOffice Calc",
+        "app_title_after": "libreoffice — BoomerangSales.xlsx - LibreOffice Calc"
+      },
+      "action_preconditions": [
+        "LibreOffice Calc is focused with `BoomerangSales.xlsx` open on `Sheet1`.",
+        "The `Revenue` header is present in cell `G1`.",
+        "The blank cell `G2` is selected as the intended destination for the first revenue formula.",
+        "The formula input line above the spreadsheet grid is visible."
+      ],
+      "action": {
+        "type": "click",
+        "target": {
+          "position": [
+            969,
+            204
+          ],
+          "nl_position": [
+            "the empty formula input line above the spreadsheet grid, to the right of the `fx` and equals controls"
+          ]
+        },
+        "param": {
+          "button": "left",
+          "num_click": 1
+        }
+      },
+      "action_before_state": "LibreOffice Calc shows `BoomerangSales.xlsx` on `Sheet1`. Cell `G2` is the active blank cell directly below the `Revenue` header in column `G`, and the formula input line above the sheet is empty and not yet focused.",
+      "action_after_effects": [
+        "The formula input line receives keyboard focus and shows a text caret near its left edge.",
+        "Cell `G2` remains the active spreadsheet cell, with column `G` and row `2` still highlighted.",
+        "The cancel and accept formula controls appear next to the formula input area, indicating Calc is ready for formula entry.",
+        "A tooltip labeled `Input line` is visible near the formula bar area."
+      ],
+      "nl_explanation": "The user clicks inside the formula input line to place the text cursor there while keeping `G2` selected, preparing to type the revenue calculation formula for that cell."
+    },
+    {
+      "step_id": "s111",
+      "step_goal": "Type revenue formula for G2",
+      "now_state": {
+        "screenshot_path_before": "screenshots/s111_before_typing.png",
+        "screenshot_path_before_part": null,
+        "screenshot_path_before_raw": "",
+        "screenshot_path_after": "screenshots/s111_after_typing.png",
+        "screenshot_time_before": "2026-04-26 13:43:34",
+        "screenshot_time_after": "2026-04-26 13:43:35",
+        "app_title_before": "libreoffice — BoomerangSales.xlsx - LibreOffice Calc",
+        "app_title_after": "libreoffice — BoomerangSales.xlsx - LibreOffice Calc"
+      },
+      "action_preconditions": [
+        "LibreOffice Calc is focused with `BoomerangSales.xlsx` open on `Sheet1`.",
+        "Cell `G2` is selected as the intended destination for the revenue calculation.",
+        "The formula input line above the spreadsheet grid has keyboard focus from the previous click.",
+        "The referenced columns are present on the current sheet, including product code in `C2`, quantity in `E2`, and discount in `F2`, and the `Retail Price` sheet is available for the lookup range."
+      ],
+      "action": {
+        "type": "typing",
+        "target": {},
+        "param": {
+          "text": "=VLOOKUP(C2,'Retail Price'.$A$2:$B$23,2,0)*E2*(1-F2)"
+        }
+      },
+      "action_before_state": "LibreOffice Calc shows `BoomerangSales.xlsx` on `Sheet1` with cell `G2` selected under the `Revenue` header, and the formula input line is focused with an insertion caret ready for text entry.",
+      "action_after_effects": [
+        "The formula input line now contains the typed formula `=VLOOKUP(C2,'Retail Price'.$A$2:$B$23,2,0)*E2*(1-F2)`.",
+        "Cell `G2` remains the active destination cell for the formula, with the formula not yet committed because the next step is pressing Enter.",
+        "The formula editing controls remain visible near the formula bar, indicating Calc is still in formula entry mode."
+      ],
+      "nl_explanation": "The user types the revenue formula into the focused formula input line so that `G2` can calculate the row's product price lookup multiplied by quantity and adjusted for discount."
+    },
+    {
+      "step_id": "s112",
+      "step_goal": "Commit revenue formula in G2",
+      "now_state": {
+        "screenshot_path_before": "screenshots/s112_before_press.png",
+        "screenshot_path_before_part": null,
+        "screenshot_path_before_raw": "",
+        "screenshot_path_after": "screenshots/s112_after_press.png",
+        "screenshot_time_before": "2026-04-26 13:43:39",
+        "screenshot_time_after": "2026-04-26 13:43:40",
+        "app_title_before": "libreoffice — BoomerangSales.xlsx - LibreOffice Calc",
+        "app_title_after": "libreoffice — BoomerangSales.xlsx - LibreOffice Calc"
+      },
+      "action_preconditions": [
+        "LibreOffice Calc is focused with BoomerangSales.xlsx open on Sheet1.",
+        "Cell G2 is the active destination cell under the Revenue header.",
+        "The formula input line contains the typed revenue formula for row 2.",
+        "Calc is still in formula entry mode, waiting for the formula to be committed."
+      ],
+      "action": {
+        "type": "press",
+        "target": {
+          "position": [
+            969,
+            204
+          ]
+        },
+        "param": {
+          "press_list": [
+            "enter"
+          ]
+        }
+      },
+      "action_before_state": "LibreOffice Calc shows BoomerangSales.xlsx on Sheet1 with cell G2 as the active revenue cell, and the formula input line contains the uncommitted formula =VLOOKUP(C2,'Retail Price'.$A$2:$B$23,2,0)*E2*(1-F2) from the previous typing step.",
+      "action_after_effects": [
+        "The typed formula is committed and calculated in row 2.",
+        "Cell G2 now displays the computed revenue value 604.83225 under the Revenue column.",
+        "The active selection moves down from G2 to G3, as shown by the name box displaying G3 and the orange selection border around the blank cell below the calculated result.",
+        "Formula entry mode ends and the formula input line is empty again."
+      ],
+      "nl_explanation": "The user presses Enter to commit the revenue formula for G2, causing Calc to evaluate it and advance the active selection to the next row in the Revenue column."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_010_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Create the first Revenue calculation in cell G2 using a price lookup, quantity, and discount adjustment.",
+      "unit_type": "ENTER_AND_COMMIT_FORMULA",
+      "unit_before_state": "LibreOffice Calc is open to BoomerangSales.xlsx on Sheet1. The Revenue header is visible in cell G1, cell G2 directly below it is selected and blank, and the formula input line above the spreadsheet grid is empty and not focused.",
+      "unit_after_state": "Cell G2 in the Revenue column contains the calculated result 604.83225. Formula entry mode has ended, the formula input line is empty again, and the active selection has moved down to the blank cell G3.",
+      "unit_precondition": [
+        "BoomerangSales.xlsx is open in LibreOffice Calc on Sheet1.",
+        "Cell G2 is selected as the blank destination cell under the Revenue header.",
+        "The formula input line above the grid is visible and can receive keyboard input.",
+        "The row 2 source values are available, including product code in C2, quantity in E2, and discount in F2.",
+        "The Retail Price sheet exists and contains the lookup range A2:B23 used by the revenue formula."
+      ],
+      "unit_effect": [
+        "The formula input line is focused while G2 remains the active destination cell.",
+        "The formula =VLOOKUP(C2,'Retail Price'.$A$2:$B$23,2,0)*E2*(1-F2) is entered for the selected revenue cell.",
+        "After pressing Enter, Calc evaluates the formula and displays 604.83225 in G2.",
+        "The active selection advances from G2 to G3, confirming the formula was committed."
+      ],
+      "phase1_status": "done",
+      "unit_denoise_meta": {
+        "chosen_step_ids": [],
+        "chosen_all": false,
+        "reason": "No step reached unanimous VLM choosing consensus.",
+        "backend": "qwen",
+        "model": "qwen3.6-plus",
+        "screenshot_count": 5,
+        "required_repeat_count": 3
+      }
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_010_01",
+      "unit_id": "u_seg_010_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Create the first Revenue calculation in cell G2 using a price lookup, quantity, and discount adjustment.",
+      "unit_type": "ENTER_AND_COMMIT_FORMULA",
+      "unit_before_state": "LibreOffice Calc is open to BoomerangSales.xlsx on Sheet1. The Revenue header is visible in cell G1, cell G2 directly below it is selected and blank, and the formula input line above the spreadsheet grid is empty and not focused.",
+      "unit_after_state": "Cell G2 in the Revenue column contains the calculated result 604.83225. Formula entry mode has ended, the formula input line is empty again, and the active selection has moved down to the blank cell G3.",
+      "unit_precondition": [
+        "BoomerangSales.xlsx is open in LibreOffice Calc on Sheet1.",
+        "Cell G2 is selected as the blank destination cell under the Revenue header.",
+        "The formula input line above the grid is visible and can receive keyboard input.",
+        "The row 2 source values are available, including product code in C2, quantity in E2, and discount in F2.",
+        "The Retail Price sheet exists and contains the lookup range A2:B23 used by the revenue formula."
+      ],
+      "unit_effect": [
+        "The formula input line is focused while G2 remains the active destination cell.",
+        "The formula =VLOOKUP(C2,'Retail Price'.$A$2:$B$23,2,0)*E2*(1-F2) is entered for the selected revenue cell.",
+        "After pressing Enter, Calc evaluates the formula and displays 604.83225 in G2.",
+        "The active selection advances from G2 to G3, confirming the formula was committed."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Enter and commit a specified revenue calculation formula in a selected destination cell so the spreadsheet evaluates the result and advances the active selection.",
+      "parameters": {
+        "formula_input_line": "the empty formula input line above the spreadsheet grid, to the right of the `fx` and equals controls",
+        "destination_cell": "G2",
+        "target_column_header": "Revenue",
+        "formula_text": "=VLOOKUP(C2,'Retail Price'.$A$2:$B$23,2,0)*E2*(1-F2)",
+        "calculated_result": "604.83225",
+        "next_cell": "G3"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'click', 'target': {'position': [969, 204], 'nl_position': ['the empty formula input line above the spreadsheet grid, to the right of the `fx` and equals controls']}, 'param': {'button': 'left', 'num_click': 1}}",
+          "action_template": "Click inside {{formula_input_line}} to place the text cursor there while keeping {{destination_cell}} selected under the {{target_column_header}} header, so Calc is ready for formula entry and the formula editing controls appear."
+        },
+        {
+          "action": "{'type': 'typing', 'target': {}, 'param': {'text': \"=VLOOKUP(C2,'Retail Price'.$A$2:$B$23,2,0)*E2*(1-F2)\"}}",
+          "action_template": "Type {{formula_text}} into the focused formula input line for {{destination_cell}}, using the available row values and lookup range to define the revenue calculation while leaving the formula uncommitted."
+        },
+        {
+          "action": "{'type': 'press', 'target': {'position': [969, 204]}, 'param': {'press_list': ['enter']}}",
+          "action_template": "Press Enter to commit {{formula_text}} in {{destination_cell}}, causing Calc to evaluate it, display {{calculated_result}}, end formula entry mode, clear the formula input line, and move the active selection to {{next_cell}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

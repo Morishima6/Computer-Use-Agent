@@ -1,0 +1,496 @@
+{
+  "segment_id": "seg_001",
+  "app": "os",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open a terminal window",
+      "action_before_state": "The GNOME desktop or another normal window is visible, and no terminal is currently open in front.",
+      "action_preconditions": [
+        "A GNOME session is active.",
+        "The keyboard is available.",
+        "No modal dialog is blocking global shortcuts."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "alt",
+          "t"
+        ]
+      },
+      "action_after_effects": "A Terminal window opens with a shell prompt ready for input.",
+      "nl_explanation": "When the GNOME desktop is active and shortcuts are available, press Ctrl+Alt+T to open Terminal. The expected result is a new shell window with the cursor at a prompt."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Prepare the command that creates the review folder and copies all PDF bills into it",
+      "action_before_state": "Terminal is focused, and the prompt is waiting for a command.",
+      "action_preconditions": [
+        "The Terminal window is active.",
+        "The shell prompt is visible.",
+        "The source folder ~/Documents/bills exists or is expected to exist."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "mkdir -p ~/Desktop/april_bill_review && find ~/Documents/bills -type f -iname '*.pdf' -exec cp -n -t ~/Desktop/april_bill_review {} +"
+      },
+      "action_after_effects": "The full command appears at the prompt, ready to run.",
+      "nl_explanation": "With Terminal focused and the prompt ready, type the command that creates the Desktop destination folder and recursively copies every PDF from Documents/bills into it. The command should now be visible but not yet executed."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Run the recursive copy command",
+      "action_before_state": "The copy command is fully typed in Terminal and waiting at the prompt.",
+      "action_preconditions": [
+        "The command text is present in Terminal.",
+        "Terminal still has keyboard focus."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The shell runs the command, creates ~/Desktop/april_bill_review if needed, and copies matching PDF files into that folder.",
+      "nl_explanation": "Once the recursive copy command is typed and Terminal is focused, press Enter to execute it. The expected result is that the destination folder is created and the PDF bills are copied there."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Prepare a command to open the destination folder in the file manager",
+      "action_before_state": "Terminal is still open after the copy command finishes, and the prompt has returned.",
+      "action_preconditions": [
+        "The previous command has completed.",
+        "A new shell prompt is visible."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "xdg-open ~/Desktop/april_bill_review"
+      },
+      "action_after_effects": "The folder-opening command is visible in Terminal and ready to run.",
+      "nl_explanation": "After the copy finishes and a fresh prompt is available, type the command to open the new Desktop folder in the file manager. The command should appear in Terminal, waiting for execution."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Open the review folder in Files",
+      "action_before_state": "The xdg-open command is typed in Terminal.",
+      "action_preconditions": [
+        "The command to open ~/Desktop/april_bill_review is present.",
+        "Terminal remains focused."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "GNOME Files opens to the april_bill_review folder on the Desktop.",
+      "nl_explanation": "When the open-folder command is ready in Terminal, press Enter to launch the destination folder in Files. The expected behavior is that Files opens directly to april_bill_review."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Visually confirm that copied PDF files are present",
+      "action_before_state": "Files is open to ~/Desktop/april_bill_review, and one or more PDF files are visible in the file list or grid.",
+      "action_preconditions": [
+        "The april_bill_review folder is open in Files.",
+        "At least one PDF item is visible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "one of the visible PDF files inside the april_bill_review folder"
+        }
+      },
+      "action_after_effects": "The clicked PDF becomes selected, confirming the folder contains copied bill files.",
+      "nl_explanation": "With the destination folder open and PDF files visible, single-click one of the listed PDF files. The expected result is that the file is highlighted, confirming that the copied documents are present in the review folder."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Open the GNOME overview to start launching Settings",
+      "action_before_state": "Files is still open in front, showing the april_bill_review folder.",
+      "action_preconditions": [
+        "The keyboard is available.",
+        "No dialog is blocking the desktop overview shortcut."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "super"
+        ]
+      },
+      "action_after_effects": "The GNOME overview appears with the search field ready for app search.",
+      "nl_explanation": "When Files is open and nothing is blocking shortcuts, press the Super key to open the GNOME overview. The expected result is that the search interface appears so Settings can be launched."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Search for the Settings application",
+      "action_before_state": "The GNOME overview is visible, and the search field is active.",
+      "action_preconditions": [
+        "Overview search is focused.",
+        "Keyboard input will go to the search field."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "settings"
+      },
+      "action_after_effects": "The Settings application appears in the search results.",
+      "nl_explanation": "With the GNOME overview open and search focused, type settings. The expected result is that the Settings app icon and label appear in the search results."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Launch the Settings app",
+      "action_before_state": "The Settings app is visible as the main search result in the overview.",
+      "action_preconditions": [
+        "The Settings result is shown.",
+        "Keyboard focus is still in the overview."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "GNOME Settings opens.",
+      "nl_explanation": "Once Settings is shown in the overview search results, press Enter to launch it. The expected behavior is that the Settings window opens in front."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Open the Displays section in Settings",
+      "action_before_state": "The Settings window is open, showing either the main categories list or a sidebar of settings sections.",
+      "action_preconditions": [
+        "Settings is fully loaded.",
+        "The Displays option is visible in the main area or sidebar."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Displays option in Settings"
+        }
+      },
+      "action_after_effects": "The Displays settings page opens.",
+      "nl_explanation": "When the Settings window is open and the Displays section is visible, click Displays. The expected result is that the display configuration page opens."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Open the Night Light controls",
+      "action_before_state": "The Displays page is open, and the Night Light control or row is visible.",
+      "action_preconditions": [
+        "The Displays settings page is active.",
+        "A Night Light row, tab, or button is visible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Night Light row or button on the Displays page"
+        }
+      },
+      "action_after_effects": "The Night Light settings panel opens.",
+      "nl_explanation": "With the Displays page open and the Night Light control visible, click the Night Light entry. The expected behavior is that the Night Light settings panel appears."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Turn on Night Light",
+      "action_before_state": "The Night Light settings panel is open, and the Night Light switch is visible and currently off.",
+      "action_preconditions": [
+        "The Night Light settings panel is visible.",
+        "The toggle switch is present.",
+        "Night Light is currently disabled."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Night Light toggle switch"
+        }
+      },
+      "action_after_effects": "Night Light is enabled, and the display shifts to a warmer color tone.",
+      "nl_explanation": "When the Night Light panel is open and the toggle is off, click the Night Light switch. The expected result is that Night Light turns on and the screen becomes warmer for easier evening reading."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Create a dedicated Desktop review folder and copy all PDF bills from the Documents bills tree into it.",
+      "unit_type": "COLLECT_PDF_BILLS",
+      "unit_before_state": "The GNOME desktop or another regular window is visible, and no Terminal window is open in front.",
+      "unit_after_state": "A Terminal window is open in front after the command runs, and the folder ~/Desktop/april_bill_review has been created and populated with matching PDF files copied from ~/Documents/bills.",
+      "unit_precondition": [
+        "A GNOME session is active and keyboard shortcuts are available.",
+        "No modal dialog is blocking global keyboard input.",
+        "The source location ~/Documents/bills exists or is expected to contain bill PDFs."
+      ],
+      "unit_effect": [
+        "A Terminal window opens with a shell prompt.",
+        "The full mkdir/find/cp command is entered and executed.",
+        "The destination folder ~/Desktop/april_bill_review is created and bill PDFs are copied into it."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Open the new review folder and confirm that copied PDF bills are present for review.",
+      "unit_type": "VERIFY_REVIEW_FOLDER_CONTENTS",
+      "unit_before_state": "Terminal is still open after the copy command, and a fresh shell prompt is visible.",
+      "unit_after_state": "GNOME Files is open to ~/Desktop/april_bill_review, and one visible PDF bill inside that folder is selected.",
+      "unit_precondition": [
+        "The previous copy command has finished and Terminal still has focus.",
+        "The folder ~/Desktop/april_bill_review now exists.",
+        "At least one PDF bill was copied into the destination folder."
+      ],
+      "unit_effect": [
+        "The command xdg-open ~/Desktop/april_bill_review is executed from Terminal.",
+        "GNOME Files opens directly to the april_bill_review folder.",
+        "A PDF item in the folder becomes highlighted, confirming the bills are present."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8,
+        9
+      ],
+      "unit_intent": "Open the GNOME Settings application so display comfort settings can be changed.",
+      "unit_type": "LAUNCH_SETTINGS_APP",
+      "unit_before_state": "GNOME Files is in front showing the april_bill_review folder, with a copied PDF selected.",
+      "unit_after_state": "The GNOME Settings window is open in front and ready for navigation.",
+      "unit_precondition": [
+        "The keyboard is available.",
+        "No dialog is blocking the GNOME overview shortcut.",
+        "Overview search input will accept typed text."
+      ],
+      "unit_effect": [
+        "The GNOME overview opens with search ready.",
+        "Typing settings shows the Settings application in the search results.",
+        "Pressing Enter launches GNOME Settings."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        10,
+        11,
+        12
+      ],
+      "unit_intent": "Enable Night Light so the screen is warmer and easier to read while reviewing bills at night.",
+      "unit_type": "ENABLE_NIGHT_LIGHT",
+      "unit_before_state": "GNOME Settings is open, showing the main settings categories or sidebar, and Night Light is not yet enabled.",
+      "unit_after_state": "The Night Light settings panel is open in Settings, the Night Light toggle is switched on, and the display has shifted to a warmer color tone.",
+      "unit_precondition": [
+        "GNOME Settings has fully loaded.",
+        "The Displays section is visible and can be opened.",
+        "The Night Light controls are available and the toggle is currently off."
+      ],
+      "unit_effect": [
+        "The Displays settings page opens.",
+        "The Night Light controls panel opens from Displays.",
+        "The Night Light switch changes to on and the screen visibly becomes warmer."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Create a dedicated Desktop review folder and copy all PDF bills from the Documents bills tree into it.",
+      "unit_type": "COLLECT_PDF_BILLS",
+      "unit_before_state": "The GNOME desktop or another regular window is visible, and no Terminal window is open in front.",
+      "unit_after_state": "A Terminal window is open in front after the command runs, and the folder ~/Desktop/april_bill_review has been created and populated with matching PDF files copied from ~/Documents/bills.",
+      "unit_precondition": [
+        "A GNOME session is active and keyboard shortcuts are available.",
+        "No modal dialog is blocking global keyboard input.",
+        "The source location ~/Documents/bills exists or is expected to contain bill PDFs."
+      ],
+      "unit_effect": [
+        "A Terminal window opens with a shell prompt.",
+        "The full mkdir/find/cp command is entered and executed.",
+        "The destination folder ~/Desktop/april_bill_review is created and bill PDFs are copied into it."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a specified Desktop review folder and copy all PDF bills from a specified source bills directory tree into it.",
+      "parameters": {
+        "destination_folder_path": "~/Desktop/april_bill_review",
+        "source_folder_path": "~/Documents/bills"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'alt', 't']}",
+          "action_template": "When a GNOME session is active, the keyboard is available, and no modal dialog is blocking global shortcuts, press Ctrl+Alt+T to open Terminal. The expected result is a new shell window with the cursor at a prompt."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': \"mkdir -p ~/Desktop/april_bill_review && find ~/Documents/bills -type f -iname '*.pdf' -exec cp -n -t ~/Desktop/april_bill_review {} +\"}",
+          "action_template": "With Terminal focused, the shell prompt visible, and {{source_folder_path}} existing or expected to exist, type the command that creates {{destination_folder_path}} and recursively copies every PDF from {{source_folder_path}} into it. The full command should then be visible at the prompt, ready to run."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Once the recursive copy command is present in Terminal and Terminal still has keyboard focus, press Enter to execute it. The shell runs the command, creates {{destination_folder_path}} if needed, and copies matching PDF files from {{source_folder_path}} into that folder."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Open the new review folder and confirm that copied PDF bills are present for review.",
+      "unit_type": "VERIFY_REVIEW_FOLDER_CONTENTS",
+      "unit_before_state": "Terminal is still open after the copy command, and a fresh shell prompt is visible.",
+      "unit_after_state": "GNOME Files is open to ~/Desktop/april_bill_review, and one visible PDF bill inside that folder is selected.",
+      "unit_precondition": [
+        "The previous copy command has finished and Terminal still has focus.",
+        "The folder ~/Desktop/april_bill_review now exists.",
+        "At least one PDF bill was copied into the destination folder."
+      ],
+      "unit_effect": [
+        "The command xdg-open ~/Desktop/april_bill_review is executed from Terminal.",
+        "GNOME Files opens directly to the april_bill_review folder.",
+        "A PDF item in the folder becomes highlighted, confirming the bills are present."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a specified review folder in the file manager and verify that copied files of the expected type are present.",
+      "parameters": {
+        "target_folder_path": "~/Desktop/april_bill_review",
+        "target_folder_name": "april_bill_review",
+        "file_type": "PDF"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'xdg-open ~/Desktop/april_bill_review'}",
+          "action_template": "After the previous command has completed and a new shell prompt is visible, type the command to open {{target_folder_path}} in the file manager. The command should appear in Terminal, waiting for execution so that {{target_folder_name}} can be opened."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "When the command to open {{target_folder_path}} is present and Terminal remains focused, press Enter to launch {{target_folder_name}} in Files. The expected behavior is that Files opens directly to {{target_folder_name}}."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'one of the visible PDF files inside the april_bill_review folder'}}",
+          "action_template": "With {{target_folder_name}} open in Files and at least one {{file_type}} item visible, single-click one of the visible {{file_type}} files. The clicked file becomes selected, confirming that copied {{file_type}} files are present in the review folder."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8,
+        9
+      ],
+      "unit_intent": "Open the GNOME Settings application so display comfort settings can be changed.",
+      "unit_type": "LAUNCH_SETTINGS_APP",
+      "unit_before_state": "GNOME Files is in front showing the april_bill_review folder, with a copied PDF selected.",
+      "unit_after_state": "The GNOME Settings window is open in front and ready for navigation.",
+      "unit_precondition": [
+        "The keyboard is available.",
+        "No dialog is blocking the GNOME overview shortcut.",
+        "Overview search input will accept typed text."
+      ],
+      "unit_effect": [
+        "The GNOME overview opens with search ready.",
+        "Typing settings shows the Settings application in the search results.",
+        "Pressing Enter launches GNOME Settings."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Launch {{target_application}} from the GNOME overview using keyboard search.",
+      "parameters": {
+        "target_application": "Settings",
+        "search_query": "settings"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['super']}",
+          "action_template": "When the keyboard is available and no dialog is blocking the desktop overview shortcut, press the Super key to open the GNOME overview. The expected result is that the search interface appears so {{target_application}} can be launched."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'settings'}",
+          "action_template": "With the GNOME overview open, search focused, and keyboard input going to the search field, type {{search_query}}. The expected result is that {{target_application}} appears in the search results."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Once {{target_application}} is shown in the overview search results and keyboard focus is still in the overview, press Enter to launch it. The expected behavior is that the {{target_application}} window opens in front."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        10,
+        11,
+        12
+      ],
+      "unit_intent": "Enable Night Light so the screen is warmer and easier to read while reviewing bills at night.",
+      "unit_type": "ENABLE_NIGHT_LIGHT",
+      "unit_before_state": "GNOME Settings is open, showing the main settings categories or sidebar, and Night Light is not yet enabled.",
+      "unit_after_state": "The Night Light settings panel is open in Settings, the Night Light toggle is switched on, and the display has shifted to a warmer color tone.",
+      "unit_precondition": [
+        "GNOME Settings has fully loaded.",
+        "The Displays section is visible and can be opened.",
+        "The Night Light controls are available and the toggle is currently off."
+      ],
+      "unit_effect": [
+        "The Displays settings page opens.",
+        "The Night Light controls panel opens from Displays.",
+        "The Night Light switch changes to on and the screen visibly becomes warmer."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Enable the system's night-display mode by opening the display settings, accessing the night-light controls, and switching the feature on.",
+      "parameters": {
+        "display_section": "the Displays option in Settings",
+        "night_light_entry": "the Night Light row or button on the Displays page",
+        "night_light_toggle": "the Night Light toggle switch"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Displays option in Settings'}}",
+          "action_template": "When the Settings window is open and {{display_section}} is visible, click {{display_section}}. Preconditions: Settings is fully loaded, and {{display_section}} is visible in the main area or sidebar. Expected result: the Displays settings page opens."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Night Light row or button on the Displays page'}}",
+          "action_template": "With the Displays page open and {{night_light_entry}} visible, click {{night_light_entry}}. Preconditions: the Displays settings page is active, and {{night_light_entry}} is visible. Expected result: the Night Light settings panel opens."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Night Light toggle switch'}}",
+          "action_template": "When the Night Light panel is open and {{night_light_toggle}} is off, click {{night_light_toggle}}. Preconditions: the Night Light settings panel is visible, {{night_light_toggle}} is present, and Night Light is currently disabled. Expected result: Night Light is enabled, and the display shifts to a warmer color tone."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

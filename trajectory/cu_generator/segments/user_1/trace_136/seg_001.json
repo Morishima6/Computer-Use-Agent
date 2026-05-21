@@ -1,0 +1,884 @@
+{
+  "segment_id": "seg_001",
+  "app": "gimp",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Activate the Crop tool",
+      "action_before_state": "The delivery confirmation screenshot is already open on the GIMP canvas, and the main toolbox and menu bar are visible.",
+      "action_preconditions": [
+        "GIMP is the focused window.",
+        "The image canvas is visible and ready for editing."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "shift",
+          "c"
+        ]
+      },
+      "action_after_effects": "The Crop tool becomes active, so the next drag on the canvas will define a new image boundary.",
+      "nl_explanation": "When the screenshot is visible in GIMP and nothing is blocking input, press Shift+C to switch to the Crop tool and prepare to trim away the extra interface area."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Draw a crop box around the useful order content",
+      "action_before_state": "The Crop tool is active and the full screenshot, including extra chrome or margins, is visible on the canvas.",
+      "action_preconditions": [
+        "The Crop tool is selected.",
+        "The order details that should remain are visible."
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the upper-left edge of the order details area, just inside the extra window chrome"
+        },
+        "end": {
+          "text": "the lower-right edge of the order details area, excluding the unnecessary margins"
+        },
+        "target": {
+          "begin": {
+            "text": "the canvas near the top-left of the useful confirmation content"
+          },
+          "end": {
+            "text": "the canvas near the bottom-right of the useful confirmation content"
+          }
+        }
+      },
+      "action_after_effects": "A crop rectangle appears over the screenshot, previewing a tighter view with the unnecessary outer area excluded.",
+      "nl_explanation": "With the Crop tool active and the confirmation details visible, drag across the canvas so the crop box keeps the relevant content and leaves out the extra window frame or margins."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Apply the crop",
+      "action_before_state": "A crop rectangle is visible around the useful confirmation content, and the area outside the crop rectangle is shaded differently to indicate exclusion.",
+      "action_preconditions": [
+        "A crop region has already been drawn.",
+        "The crop preview matches the intended framing."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The canvas is reduced to the selected area, removing the extra interface and margins.",
+      "nl_explanation": "Once the crop box is positioned correctly around the order content, press Enter to apply it and simplify the screenshot before redacting the private details."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Reset the foreground and background colors to their defaults",
+      "action_before_state": "The cropped screenshot is visible on the canvas, and the toolbox color swatches are available.",
+      "action_preconditions": [
+        "The image is still open and editable.",
+        "Keyboard shortcuts are accepted by GIMP."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "d"
+        ]
+      },
+      "action_after_effects": "The foreground color returns to black and the background color returns to white, preparing a solid black fill for redaction.",
+      "nl_explanation": "When the cropped image is ready, press D so GIMP resets to the default black foreground color, which is useful for covering private information with solid black blocks."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Activate the Rectangle Select tool",
+      "action_before_state": "The cropped screenshot is visible and the default colors are set.",
+      "action_preconditions": [
+        "The canvas is visible.",
+        "The next action needs a precise rectangular selection."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "r"
+        ]
+      },
+      "action_after_effects": "The Rectangle Select tool becomes active so a sensitive region can be selected precisely.",
+      "nl_explanation": "With the image prepared for redaction, press R to switch to the Rectangle Select tool so the first private field can be outlined cleanly."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Select the full name area",
+      "action_before_state": "The Rectangle Select tool is active and the customer's full name is visible in the screenshot.",
+      "action_preconditions": [
+        "The Rectangle Select tool is selected.",
+        "The full name text is visible on the canvas."
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "just above and to the left of the full name text"
+        },
+        "end": {
+          "text": "just below and to the right of the full name text"
+        },
+        "target": {
+          "begin": {
+            "text": "the canvas near the top-left corner of the name block"
+          },
+          "end": {
+            "text": "the canvas near the bottom-right corner of the name block"
+          }
+        }
+      },
+      "action_after_effects": "A rectangular selection surrounds the full name field.",
+      "nl_explanation": "With the Rectangle Select tool active, drag around the visible full name so only that personal detail is selected and ready to be covered."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Activate the Bucket Fill tool",
+      "action_before_state": "The full name region is selected, and the foreground color is black.",
+      "action_preconditions": [
+        "A selection is active around the name.",
+        "The foreground color is black."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "shift",
+          "b"
+        ]
+      },
+      "action_after_effects": "The Bucket Fill tool becomes active and is ready to fill the selected region.",
+      "nl_explanation": "After selecting the name block, press Shift+B to switch to the Bucket Fill tool so the selected private text can be replaced with a solid black rectangle."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Fill the selected full name area with black",
+      "action_before_state": "The Bucket Fill tool is active and the name block is still selected.",
+      "action_preconditions": [
+        "The Bucket Fill tool is selected.",
+        "A rectangular selection surrounds the full name."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "inside the selected full name rectangle on the canvas"
+        }
+      },
+      "action_after_effects": "The selected full name area turns into a solid black block, hiding the text.",
+      "nl_explanation": "When the name area is selected and the fill tool is active, left-click inside that selection. GIMP fills the selected region with black and redacts the full name."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Return to the Rectangle Select tool for the next redaction",
+      "action_before_state": "The name is already blacked out, and the Bucket Fill tool is still active.",
+      "action_preconditions": [
+        "The first redaction has been completed.",
+        "Another sensitive field still needs to be selected."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "r"
+        ]
+      },
+      "action_after_effects": "The Rectangle Select tool becomes active again so another private field can be outlined.",
+      "nl_explanation": "After covering the name, press R to go back to the Rectangle Select tool and prepare to mark the street address area next."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Select the street address area",
+      "action_before_state": "The Rectangle Select tool is active, and the street address is visible in the screenshot.",
+      "action_preconditions": [
+        "The Rectangle Select tool is selected.",
+        "The street address text is visible on the canvas."
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "just above and to the left of the street address lines"
+        },
+        "end": {
+          "text": "just below and to the right of the street address lines"
+        },
+        "target": {
+          "begin": {
+            "text": "the canvas near the top-left corner of the address block"
+          },
+          "end": {
+            "text": "the canvas near the bottom-right corner of the address block"
+          }
+        }
+      },
+      "action_after_effects": "A rectangular selection now surrounds the street address block.",
+      "nl_explanation": "With the selection tool active, drag around the street address so the full address block is isolated and ready to be hidden."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Switch back to the Bucket Fill tool",
+      "action_before_state": "The address block is selected on the canvas.",
+      "action_preconditions": [
+        "A selection is active around the address.",
+        "The foreground color is still black."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "shift",
+          "b"
+        ]
+      },
+      "action_after_effects": "The Bucket Fill tool becomes active again for filling the selected address area.",
+      "nl_explanation": "Once the address is selected, press Shift+B to return to the Bucket Fill tool so the selected address block can be covered in black."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Fill the selected street address area with black",
+      "action_before_state": "The Bucket Fill tool is active and the address block is selected.",
+      "action_preconditions": [
+        "The Bucket Fill tool is active.",
+        "The street address selection is visible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "inside the selected street address rectangle on the canvas"
+        }
+      },
+      "action_after_effects": "The street address is replaced by a solid black block.",
+      "nl_explanation": "When the address block is selected, click inside that selection with the fill tool. The address area turns black, hiding the private location details."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Switch back to the Rectangle Select tool for the final redaction",
+      "action_before_state": "The name and address are already blacked out, and the Bucket Fill tool is still active.",
+      "action_preconditions": [
+        "The previous redaction has finished.",
+        "The order number is still visible."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "r"
+        ]
+      },
+      "action_after_effects": "The Rectangle Select tool becomes active again so the order number can be selected.",
+      "nl_explanation": "After covering the address, press R to reactivate the Rectangle Select tool and prepare to mark the order number field."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Select the order number area",
+      "action_before_state": "The Rectangle Select tool is active and the order number is visible somewhere in the confirmation details.",
+      "action_preconditions": [
+        "The Rectangle Select tool is selected.",
+        "The order number text is visible on the canvas."
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "just above and to the left of the order number text"
+        },
+        "end": {
+          "text": "just below and to the right of the order number text"
+        },
+        "target": {
+          "begin": {
+            "text": "the canvas near the top-left corner of the order number field"
+          },
+          "end": {
+            "text": "the canvas near the bottom-right corner of the order number field"
+          }
+        }
+      },
+      "action_after_effects": "A rectangular selection surrounds the order number field.",
+      "nl_explanation": "With the selection tool active and the order number visible, drag around that field so the final piece of sensitive information is isolated."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Activate the Bucket Fill tool one more time",
+      "action_before_state": "The order number field is selected on the canvas.",
+      "action_preconditions": [
+        "A selection is active around the order number.",
+        "The black foreground color is still available."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "shift",
+          "b"
+        ]
+      },
+      "action_after_effects": "The Bucket Fill tool is active and ready to fill the selected order number region.",
+      "nl_explanation": "Once the order number is selected, press Shift+B again so the selected order number block can be covered with black."
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Fill the selected order number area with black",
+      "action_before_state": "The Bucket Fill tool is active and the order number is selected.",
+      "action_preconditions": [
+        "The Bucket Fill tool is selected.",
+        "The order number selection is still visible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "inside the selected order number rectangle on the canvas"
+        }
+      },
+      "action_after_effects": "The order number is hidden under a solid black rectangle, completing the redactions.",
+      "nl_explanation": "When the order number block is selected and the fill tool is active, click inside it to cover the order number with black and finish the privacy cleanup."
+    },
+    {
+      "step_id": "s17",
+      "step_goal": "Open the export dialog",
+      "action_before_state": "The cropped screenshot is visible with all three private fields redacted.",
+      "action_preconditions": [
+        "The edits are complete.",
+        "GIMP is still the focused window."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "e"
+        ]
+      },
+      "action_after_effects": "The Export Image dialog opens in front of the canvas.",
+      "nl_explanation": "After the screenshot has been cropped and the private details are blacked out, press Ctrl+Shift+E to open the export dialog and save a separate safe copy."
+    },
+    {
+      "step_id": "s18",
+      "step_goal": "Choose the Desktop as the export location",
+      "action_before_state": "The Export Image dialog is open with the file browser sidebar visible.",
+      "action_preconditions": [
+        "The Export Image dialog is open.",
+        "The Places sidebar is visible in the dialog."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Desktop folder in the sidebar of the Export Image dialog"
+        }
+      },
+      "action_after_effects": "The dialog now points to the Desktop folder for saving the exported file.",
+      "nl_explanation": "In the export dialog, click Desktop in the sidebar so the cleaned screenshot will be saved to an easy-to-find location."
+    },
+    {
+      "step_id": "s19",
+      "step_goal": "Enter the filename for the safe copy",
+      "action_before_state": "The Export Image dialog is open with the Desktop selected and the filename field ready for input.",
+      "action_preconditions": [
+        "The Desktop folder is selected.",
+        "Typing will go into the export name field."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "delivery_confirmation_safe.png"
+      },
+      "action_after_effects": "The export name field contains delivery_confirmation_safe.png.",
+      "nl_explanation": "With the Desktop selected in the export dialog, type delivery_confirmation_safe.png so the cleaned screenshot is saved with the requested new name."
+    },
+    {
+      "step_id": "s20",
+      "step_goal": "Proceed from the export dialog",
+      "action_before_state": "The Export Image dialog shows the Desktop location and the new PNG filename.",
+      "action_preconditions": [
+        "The filename has been entered correctly.",
+        "The Export button is visible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Export button in the Export Image dialog"
+        }
+      },
+      "action_after_effects": "GIMP opens the PNG export options dialog where compression and other settings can be adjusted before final export.",
+      "nl_explanation": "After the Desktop location and filename are set, click Export to continue to the PNG export options dialog."
+    },
+    {
+      "step_id": "s21",
+      "step_goal": "Confirm the PNG export settings",
+      "action_before_state": "A PNG export options dialog is visible with the default settings available.",
+      "action_preconditions": [
+        "The PNG export options dialog is open.",
+        "The default PNG settings are acceptable."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Export button in the PNG export options dialog"
+        }
+      },
+      "action_after_effects": "The cleaned image is exported to the Desktop as delivery_confirmation_safe.png, and the task is complete.",
+      "nl_explanation": "When the PNG options dialog appears, click Export again to accept the default settings and finish saving the redacted delivery confirmation screenshot."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Trim the screenshot so only the relevant delivery confirmation content remains.",
+      "unit_type": "CROP_IMAGE_CONTENT",
+      "unit_before_state": "GIMP shows the full delivery confirmation screenshot on the canvas, including extra window chrome or margins around the useful order details, with the toolbox and menu bar visible.",
+      "unit_after_state": "The canvas now shows a tighter cropped version of the screenshot containing the useful confirmation content, and the extra outer chrome or margins have been removed.",
+      "unit_precondition": [
+        "GIMP is the focused window and the screenshot canvas is editable.",
+        "The useful confirmation content is fully visible so a crop boundary can be drawn around it."
+      ],
+      "unit_effect": [
+        "The Crop tool becomes active and a crop rectangle appears over the screenshot as the new bounds are dragged.",
+        "After confirming the crop, the canvas shrinks to the selected area and the excluded outer area disappears."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Prepare a precise black redaction setup before covering private text.",
+      "unit_type": "PREPARE_RECTANGULAR_REDACTION",
+      "unit_before_state": "The cropped delivery confirmation is visible on the canvas, and the toolbox color swatches and selection tools are available.",
+      "unit_after_state": "The toolbox shows the default black foreground and white background colors, and the Rectangle Select tool is active for drawing a precise redaction area.",
+      "unit_precondition": [
+        "The cropped image is still open and editable.",
+        "GIMP is accepting keyboard shortcuts."
+      ],
+      "unit_effect": [
+        "The foreground/background swatches reset to black and white.",
+        "The Rectangle Select tool becomes active, indicating the next drag will create a rectangular selection."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Redact the customer's full name with a solid black block.",
+      "unit_type": "REDACT_FULL_NAME",
+      "unit_before_state": "The cropped screenshot is visible, the Rectangle Select tool is active, the foreground color is black, and the full name is still readable on the canvas.",
+      "unit_after_state": "The full name area is covered by a solid black rectangle on the screenshot, and the Bucket Fill tool remains active after the fill.",
+      "unit_precondition": [
+        "The Rectangle Select tool is active.",
+        "The foreground color is black.",
+        "The full name text is visible and unobstructed on the canvas."
+      ],
+      "unit_effect": [
+        "A rectangular selection appears around the full name field.",
+        "Clicking inside the selection fills that selected region with solid black and hides the text."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "unit_intent": "Redact the street address with a solid black block.",
+      "unit_type": "REDACT_STREET_ADDRESS",
+      "unit_before_state": "The full name is already blacked out on the cropped screenshot, the Bucket Fill tool is active, and the street address is still visible.",
+      "unit_after_state": "Both the full name and the street address are covered by solid black rectangles on the screenshot, and the Bucket Fill tool remains active after the second fill.",
+      "unit_precondition": [
+        "The first redaction is already complete.",
+        "The street address text is still visible on the canvas.",
+        "The foreground color is still black."
+      ],
+      "unit_effect": [
+        "The Rectangle Select tool is reactivated and a rectangular selection appears around the street address block.",
+        "Clicking inside that selection fills the address area with solid black."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        13,
+        14,
+        15,
+        16
+      ],
+      "unit_intent": "Redact the order number so all sensitive fields are hidden.",
+      "unit_type": "REDACT_ORDER_NUMBER",
+      "unit_before_state": "The cropped screenshot already shows black redactions over the full name and street address, the Bucket Fill tool is active, and the order number is still visible.",
+      "unit_after_state": "The screenshot shows solid black redactions over the full name, street address, and order number, completing the privacy edits.",
+      "unit_precondition": [
+        "The full name and street address have already been redacted.",
+        "The order number is still visible on the canvas.",
+        "The foreground color is black."
+      ],
+      "unit_effect": [
+        "The Rectangle Select tool is reactivated and a rectangular selection appears around the order number field.",
+        "Clicking inside that selection fills the order number area with solid black, leaving all three sensitive fields hidden."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        17
+      ],
+      "unit_intent": "Enter export mode to save a sanitized copy without overwriting the working image.",
+      "unit_type": "OPEN_EXPORT_DIALOG",
+      "unit_before_state": "The cropped and fully redacted delivery confirmation is visible on the GIMP canvas with all three sensitive fields covered.",
+      "unit_after_state": "The Export Image dialog is open in front of the canvas, showing a file browser for choosing where and how to save the cleaned image.",
+      "unit_precondition": [
+        "The crop and all three redactions are already complete.",
+        "GIMP is the focused window and accepts keyboard shortcuts."
+      ],
+      "unit_effect": [
+        "The Export Image dialog appears over the editing canvas."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        18,
+        19,
+        20,
+        21
+      ],
+      "unit_intent": "Export the sanitized screenshot to the Desktop with the requested PNG filename.",
+      "unit_type": "EXPORT_SAFE_PNG",
+      "unit_before_state": "The Export Image dialog is open with its sidebar and filename field visible, ready to choose a destination and file name.",
+      "unit_after_state": "The export dialogs close after confirmation, and the cleaned screenshot has been saved to the Desktop as delivery_confirmation_safe.png.",
+      "unit_precondition": [
+        "The Export Image dialog is open.",
+        "The Desktop location can be selected from the dialog sidebar.",
+        "The filename field is editable and default PNG export settings are acceptable."
+      ],
+      "unit_effect": [
+        "The Desktop folder becomes the active save location in the Export Image dialog.",
+        "The filename field shows delivery_confirmation_safe.png.",
+        "After the first Export click, the PNG export options dialog opens.",
+        "After the final Export click, the PNG file is written to the Desktop."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Trim the screenshot so only the relevant delivery confirmation content remains.",
+      "unit_type": "CROP_IMAGE_CONTENT",
+      "unit_before_state": "GIMP shows the full delivery confirmation screenshot on the canvas, including extra window chrome or margins around the useful order details, with the toolbox and menu bar visible.",
+      "unit_after_state": "The canvas now shows a tighter cropped version of the screenshot containing the useful confirmation content, and the extra outer chrome or margins have been removed.",
+      "unit_precondition": [
+        "GIMP is the focused window and the screenshot canvas is editable.",
+        "The useful confirmation content is fully visible so a crop boundary can be drawn around it."
+      ],
+      "unit_effect": [
+        "The Crop tool becomes active and a crop rectangle appears over the screenshot as the new bounds are dragged.",
+        "After confirming the crop, the canvas shrinks to the selected area and the excluded outer area disappears."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Crop an image so only the relevant content area remains.",
+      "parameters": {
+        "target_content_area": "useful confirmation content",
+        "crop_start_area": "the canvas near the top-left of the useful confirmation content",
+        "crop_end_area": "the canvas near the bottom-right of the useful confirmation content"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['shift', 'c']}",
+          "action_template": "When the image is visible in GIMP and nothing is blocking input, press Shift+C to switch to the Crop tool and prepare to trim the image. Preconditions: GIMP is the focused window, and the image canvas is visible and ready for editing. After this action, the Crop tool becomes active, so the next drag on the canvas will define a new image boundary."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the upper-left edge of the order details area, just inside the extra window chrome'}, 'end': {'text': 'the lower-right edge of the order details area, excluding the unnecessary margins'}, 'target': {'begin': {'text': 'the canvas near the top-left of the useful confirmation content'}, 'end': {'text': 'the canvas near the bottom-right of the useful confirmation content'}}}",
+          "action_template": "With the Crop tool active and {{target_content_area}} visible, drag across the canvas from {{crop_start_area}} to {{crop_end_area}} so the crop box keeps {{target_content_area}}. Preconditions: the Crop tool is selected, and the content that should remain is visible. After this action, a crop rectangle appears over the image, previewing a tighter view."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Once the crop box is positioned correctly around {{target_content_area}}, press Enter to apply it. Preconditions: a crop region has already been drawn, and the crop preview matches the intended framing. After this action, the canvas is reduced to the selected area."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Prepare a precise black redaction setup before covering private text.",
+      "unit_type": "PREPARE_RECTANGULAR_REDACTION",
+      "unit_before_state": "The cropped delivery confirmation is visible on the canvas, and the toolbox color swatches and selection tools are available.",
+      "unit_after_state": "The toolbox shows the default black foreground and white background colors, and the Rectangle Select tool is active for drawing a precise redaction area.",
+      "unit_precondition": [
+        "The cropped image is still open and editable.",
+        "GIMP is accepting keyboard shortcuts."
+      ],
+      "unit_effect": [
+        "The foreground/background swatches reset to black and white.",
+        "The Rectangle Select tool becomes active, indicating the next drag will create a rectangular selection."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Set GIMP to the default black-and-white color state and activate the Rectangle Select tool for precise rectangular redaction.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['d']}",
+          "action_template": "Press D when the image is still open and editable and GIMP is accepting keyboard shortcuts to reset the foreground and background colors to the default black and white values, preparing a solid black fill for redaction."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['r']}",
+          "action_template": "Press R when the canvas is visible and the next action needs a precise rectangular selection to activate the Rectangle Select tool so a sensitive region can be selected precisely."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Redact the customer's full name with a solid black block.",
+      "unit_type": "REDACT_FULL_NAME",
+      "unit_before_state": "The cropped screenshot is visible, the Rectangle Select tool is active, the foreground color is black, and the full name is still readable on the canvas.",
+      "unit_after_state": "The full name area is covered by a solid black rectangle on the screenshot, and the Bucket Fill tool remains active after the fill.",
+      "unit_precondition": [
+        "The Rectangle Select tool is active.",
+        "The foreground color is black.",
+        "The full name text is visible and unobstructed on the canvas."
+      ],
+      "unit_effect": [
+        "A rectangular selection appears around the full name field.",
+        "Clicking inside the selection fills that selected region with solid black and hides the text."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Redact a specified visible text field with a solid color block.",
+      "parameters": {
+        "target_text_region": "the customer's full name",
+        "cover_color": "black"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'just above and to the left of the full name text'}, 'end': {'text': 'just below and to the right of the full name text'}, 'target': {'begin': {'text': 'the canvas near the top-left corner of the name block'}, 'end': {'text': 'the canvas near the bottom-right corner of the name block'}}}",
+          "action_template": "With the Rectangle Select tool active and {{target_text_region}} visible on the canvas, drag around the visible {{target_text_region}} so only that sensitive detail is selected and ready to be covered. This creates a rectangular selection surrounding {{target_text_region}}."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['shift', 'b']}",
+          "action_template": "After {{target_text_region}} is selected and the foreground color is {{cover_color}}, press Shift+B to switch to the Bucket Fill tool so the selected private text can be replaced with a solid {{cover_color}} rectangle. The Bucket Fill tool becomes active and ready to fill the selected region."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'inside the selected full name rectangle on the canvas'}}",
+          "action_template": "When the Bucket Fill tool is active and a rectangular selection surrounds {{target_text_region}}, left-click inside that selection on the canvas to fill the selected region with {{cover_color}} and hide the text. The selected {{target_text_region}} area turns into a solid {{cover_color}} block."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "unit_intent": "Redact the street address with a solid black block.",
+      "unit_type": "REDACT_STREET_ADDRESS",
+      "unit_before_state": "The full name is already blacked out on the cropped screenshot, the Bucket Fill tool is active, and the street address is still visible.",
+      "unit_after_state": "Both the full name and the street address are covered by solid black rectangles on the screenshot, and the Bucket Fill tool remains active after the second fill.",
+      "unit_precondition": [
+        "The first redaction is already complete.",
+        "The street address text is still visible on the canvas.",
+        "The foreground color is still black."
+      ],
+      "unit_effect": [
+        "The Rectangle Select tool is reactivated and a rectangular selection appears around the street address block.",
+        "Clicking inside that selection fills the address area with solid black."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Redact a specified visible sensitive text region by selecting it and filling the selection with a solid block.",
+      "parameters": {
+        "target_sensitive_region": "street address"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['r']}",
+          "action_template": "After the first redaction is complete and another sensitive field still needs to be selected, press R to reactivate the Rectangle Select tool so {{target_sensitive_region}} can be outlined."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'just above and to the left of the street address lines'}, 'end': {'text': 'just below and to the right of the street address lines'}, 'target': {'begin': {'text': 'the canvas near the top-left corner of the address block'}, 'end': {'text': 'the canvas near the bottom-right corner of the address block'}}}",
+          "action_template": "With the Rectangle Select tool active and {{target_sensitive_region}} visible on the canvas, drag around {{target_sensitive_region}} to create a rectangular selection that surrounds the full region."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['shift', 'b']}",
+          "action_template": "Once a selection is active around {{target_sensitive_region}} and the foreground color is still black, press Shift+B to switch back to the Bucket Fill tool so the selected region can be filled."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'inside the selected street address rectangle on the canvas'}}",
+          "action_template": "When the Bucket Fill tool is active and the selection around {{target_sensitive_region}} is visible, click inside the selected region to fill {{target_sensitive_region}} with solid black."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        13,
+        14,
+        15,
+        16
+      ],
+      "unit_intent": "Redact the order number so all sensitive fields are hidden.",
+      "unit_type": "REDACT_ORDER_NUMBER",
+      "unit_before_state": "The cropped screenshot already shows black redactions over the full name and street address, the Bucket Fill tool is active, and the order number is still visible.",
+      "unit_after_state": "The screenshot shows solid black redactions over the full name, street address, and order number, completing the privacy edits.",
+      "unit_precondition": [
+        "The full name and street address have already been redacted.",
+        "The order number is still visible on the canvas.",
+        "The foreground color is black."
+      ],
+      "unit_effect": [
+        "The Rectangle Select tool is reactivated and a rectangular selection appears around the order number field.",
+        "Clicking inside that selection fills the order number area with solid black, leaving all three sensitive fields hidden."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Redact a remaining sensitive field by selecting its region and filling it with a specified redaction color.",
+      "parameters": {
+        "target_field": "order number",
+        "redaction_color": "black"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['r']}",
+          "action_template": "After the previous redaction has finished and {{target_field}} is still visible, press R to reactivate the Rectangle Select tool and prepare to mark the {{target_field}} field. Preconditions: the previous redaction has finished, and {{target_field}} is still visible. Effect: the Rectangle Select tool becomes active again so the {{target_field}} can be selected."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'just above and to the left of the order number text'}, 'end': {'text': 'just below and to the right of the order number text'}, 'target': {'begin': {'text': 'the canvas near the top-left corner of the order number field'}, 'end': {'text': 'the canvas near the bottom-right corner of the order number field'}}}",
+          "action_template": "With the Rectangle Select tool active and {{target_field}} visible on the canvas, drag around that field so the remaining sensitive information is isolated. Preconditions: the Rectangle Select tool is selected, and the {{target_field}} text is visible on the canvas. Effect: a rectangular selection surrounds the {{target_field}} field."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['shift', 'b']}",
+          "action_template": "Once {{target_field}} is selected, press Shift+B so the selected {{target_field}} region can be covered with {{redaction_color}}. Preconditions: a selection is active around {{target_field}}, and the {{redaction_color}} foreground color is still available. Effect: the Bucket Fill tool is active and ready to fill the selected {{target_field}} region."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'inside the selected order number rectangle on the canvas'}}",
+          "action_template": "When the {{target_field}} region is selected and the Bucket Fill tool is active, click inside it to cover the {{target_field}} with {{redaction_color}} and complete the privacy cleanup. Preconditions: the Bucket Fill tool is selected, and the {{target_field}} selection is still visible. Effect: the {{target_field}} is hidden under a solid {{redaction_color}} rectangle, completing the redactions."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        17
+      ],
+      "unit_intent": "Enter export mode to save a sanitized copy without overwriting the working image.",
+      "unit_type": "OPEN_EXPORT_DIALOG",
+      "unit_before_state": "The cropped and fully redacted delivery confirmation is visible on the GIMP canvas with all three sensitive fields covered.",
+      "unit_after_state": "The Export Image dialog is open in front of the canvas, showing a file browser for choosing where and how to save the cleaned image.",
+      "unit_precondition": [
+        "The crop and all three redactions are already complete.",
+        "GIMP is the focused window and accepts keyboard shortcuts."
+      ],
+      "unit_effect": [
+        "The Export Image dialog appears over the editing canvas."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open the export dialog to save a separate sanitized copy of the edited image without overwriting the working file.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'e']}",
+          "action_template": "With the edits complete and GIMP focused, press Ctrl+Shift+E to open the Export Image dialog for saving a separate sanitized copy."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_07",
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        18,
+        19,
+        20,
+        21
+      ],
+      "unit_intent": "Export the sanitized screenshot to the Desktop with the requested PNG filename.",
+      "unit_type": "EXPORT_SAFE_PNG",
+      "unit_before_state": "The Export Image dialog is open with its sidebar and filename field visible, ready to choose a destination and file name.",
+      "unit_after_state": "The export dialogs close after confirmation, and the cleaned screenshot has been saved to the Desktop as delivery_confirmation_safe.png.",
+      "unit_precondition": [
+        "The Export Image dialog is open.",
+        "The Desktop location can be selected from the dialog sidebar.",
+        "The filename field is editable and default PNG export settings are acceptable."
+      ],
+      "unit_effect": [
+        "The Desktop folder becomes the active save location in the Export Image dialog.",
+        "The filename field shows delivery_confirmation_safe.png.",
+        "After the first Export click, the PNG export options dialog opens.",
+        "After the final Export click, the PNG file is written to the Desktop."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Export the prepared image to a specified folder with a specified PNG filename using the default PNG export settings.",
+      "parameters": {
+        "save_location": "Desktop",
+        "output_file_name": "delivery_confirmation_safe.png"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Desktop folder in the sidebar of the Export Image dialog'}}",
+          "action_template": "With the Export Image dialog open and the Places sidebar visible, click {{save_location}} in the sidebar of the Export Image dialog to make {{save_location}} the active save location."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'delivery_confirmation_safe.png'}",
+          "action_template": "With {{save_location}} selected and typing directed to the export name field, type {{output_file_name}} so the filename field contains {{output_file_name}}."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Export button in the Export Image dialog'}}",
+          "action_template": "After {{output_file_name}} has been entered correctly and the Export button is visible, click the Export button in the Export Image dialog to open the PNG export options dialog."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Export button in the PNG export options dialog'}}",
+          "action_template": "When the PNG export options dialog is open and the default PNG settings are acceptable, click the Export button in the PNG export options dialog to save the image to {{save_location}} as {{output_file_name}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

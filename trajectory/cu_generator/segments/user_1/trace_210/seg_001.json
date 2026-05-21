@@ -1,0 +1,676 @@
+{
+  "segment_id": "seg_001",
+  "app": "libreoffice_calc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Move to the top-left of the sheet so data entry starts in the correct place",
+      "action_before_state": "LibreOffice Calc is open, but the active cell may be somewhere else in the spreadsheet.",
+      "action_preconditions": [
+        "The Calc window is focused",
+        "A worksheet is visible and ready for editing"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "home"
+        ]
+      },
+      "action_after_effects": "The selection moves to cell A1 at the top-left corner of the current sheet.",
+      "nl_explanation": "When the spreadsheet is open and focused, press Ctrl+Home so the cursor jumps to A1 and the table can be entered from the correct starting cell."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Enter the main table headers and daily expense values",
+      "action_before_state": "Cell A1 is active and the upper-left area of the blank sheet is visible.",
+      "action_preconditions": [
+        "Cell A1 is selected",
+        "The cells from A1 downward are empty or safe to fill"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Day\tGroceries\tTransport\tCoffee\tMisc\nMonday\t18.50\t4.20\t3.80\t6.00\nTuesday\t22.00\t0\t4.50\t2.00\nWednesday\t16.75\t5.10\t0\t8.00\nThursday\t19.40\t4.20\t3.80\t1.50\nFriday\t28.00\t6.80\t5.20\t9.00\nSaturday\t31.25\t3.50\t4.60\t12.00\nSunday\t24.10\t0\t0\t7.80"
+      },
+      "action_after_effects": "The pasted table fills row 1 from A1 to E1 with headers, and rows 2 through 8 with the seven days of expense data.",
+      "nl_explanation": "With A1 active, paste the tab-separated table so the headers and the seven days of expense values populate columns A through E."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Create the Total column header and the first daily total formula",
+      "action_before_state": "The expense table is visible in columns A to E, and column F is still empty.",
+      "action_preconditions": [
+        "The data table has been entered through row 8",
+        "Cell F1 is empty and visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell F1, the empty header cell immediately to the right of Misc"
+        }
+      },
+      "action_after_effects": "Cell F1 becomes the active cell, ready for typing.",
+      "nl_explanation": "Once the table is in place and column F is empty, click cell F1 so the Total column can be added beside the existing expense columns."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Fill in the Total header and the formula for the first day",
+      "action_before_state": "Cell F1 is selected and the first row of the table is visible.",
+      "action_preconditions": [
+        "Cell F1 is active",
+        "Rows 1 and 2 in column F are empty"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Total\n=SUM(B2:E2)"
+      },
+      "action_after_effects": "F1 shows the header Total, and F2 contains a formula summing the Monday expenses.",
+      "nl_explanation": "With F1 selected, paste the two-line entry so F1 gets the Total header and F2 gets the first SUM formula."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Copy the total formula down for the rest of the week",
+      "action_before_state": "Cell F2 contains the first total formula, and rows 3 to 8 in column F are empty.",
+      "action_preconditions": [
+        "F2 displays a valid formula result",
+        "The fill handle on the selected cell is available"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the fill handle at the bottom-right corner of cell F2"
+        },
+        "end": {
+          "text": "the bottom-right corner of cell F8"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "The formula is copied from F2 down through F8, giving each day its own total.",
+      "nl_explanation": "When F2 already has the first total, drag its fill handle down to F8 so the same row-based sum formula is applied to the remaining days."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Add summary formulas for the whole week",
+      "action_before_state": "The daily table now includes totals in column F, and the area below the table is blank.",
+      "action_preconditions": [
+        "Rows 10 and 11 are empty in columns E and F",
+        "The table data extends only through row 8"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell E10, a blank cell a couple of rows below the table"
+        }
+      },
+      "action_after_effects": "Cell E10 becomes active for entering the summary block.",
+      "nl_explanation": "After the daily totals are finished, click E10 in the empty area below the table so the weekly summary can be placed there without disturbing the main data."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Enter the weekly total and average daily spend formulas",
+      "action_before_state": "Cell E10 is selected, and the empty summary area under the table is ready.",
+      "action_preconditions": [
+        "Cell E10 is active",
+        "Cells E10:F11 are blank"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Weekly Total\t=SUM(F2:F8)\nAverage Daily Spend\t=AVERAGE(F2:F8)"
+      },
+      "action_after_effects": "A two-row summary block appears with labels in column E and formulas in column F.",
+      "nl_explanation": "With E10 active, paste the two-row tab-separated summary so the labels land in column E and the formulas land in column F."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Select the numeric expense area for formatting",
+      "action_before_state": "The table and summary are visible, and the money values occupy columns B through F for rows 2 through 8.",
+      "action_preconditions": [
+        "The numeric expense cells from B2 to F8 are visible",
+        "No important data outside that block needs to be selected"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell B2, the first numeric value under Groceries"
+        },
+        "end": {
+          "text": "cell F8, the last daily total at the bottom-right of the table"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "The rectangular range B2:F8 is highlighted.",
+      "nl_explanation": "Once all calculations are in place, drag from B2 to F8 to select the full block of money values that should share the same number format."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Apply currency formatting to the money values",
+      "action_before_state": "The numeric range B2:F8 is selected, and the formatting toolbar is visible near the top of Calc.",
+      "action_preconditions": [
+        "The numeric range is highlighted",
+        "The currency format control is available in the toolbar"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Currency Format button in the top formatting toolbar"
+        }
+      },
+      "action_after_effects": "The selected cells change to currency formatting, making the expense values easier to read.",
+      "nl_explanation": "When the money cells are selected, click the Currency Format button so all of the daily expense figures and totals display as currency."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Select the header row so it can be emphasized",
+      "action_before_state": "The table remains visible, with headers in row 1 from A1 through F1.",
+      "action_preconditions": [
+        "The header row is visible",
+        "Cells A1 through F1 contain the table labels"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell A1, the Day header"
+        },
+        "end": {
+          "text": "cell F1, the Total header"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "The entire header row from A1 to F1 is selected.",
+      "nl_explanation": "After formatting the numeric values, drag across the first row from A1 to F1 so the table headers can be styled together."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Make the header row stand out visually",
+      "action_before_state": "The header row A1:F1 is selected and the toolbar is visible.",
+      "action_preconditions": [
+        "The header cells are highlighted",
+        "The Bold formatting button is available"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Bold button in the formatting toolbar"
+        }
+      },
+      "action_after_effects": "The header labels become bold, making the table easier to scan.",
+      "nl_explanation": "With the header row selected, click Bold so the column names stand out from the rest of the sheet."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Open the Save As dialog to save the completed spreadsheet",
+      "action_before_state": "The spreadsheet is complete and still open in Calc.",
+      "action_preconditions": [
+        "The Calc window is focused",
+        "The user wants to keep the finished workbook"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "s"
+        ]
+      },
+      "action_after_effects": "The Save As dialog opens with the filename field ready for input.",
+      "nl_explanation": "Once the tracker is finished, press Ctrl+Shift+S, which opens Save As specifically rather than the ordinary Save command, so the file can be stored with the requested name."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Enter the filename for the workbook",
+      "action_before_state": "The Save As dialog is open and the filename field is active.",
+      "action_preconditions": [
+        "The Save As window is in front",
+        "The filename text box is focused or ready to replace the existing name"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "weekly_expense_tracker.ods"
+      },
+      "action_after_effects": "The filename field now contains weekly_expense_tracker.ods.",
+      "nl_explanation": "When the Save As dialog is open and the filename box is ready, type weekly_expense_tracker.ods so the workbook will be saved under the requested name."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Confirm the save operation",
+      "action_before_state": "The Save As dialog shows the desired filename and is ready to confirm.",
+      "action_preconditions": [
+        "The filename is correct",
+        "The Save button or default confirmation action is available"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The dialog closes and the spreadsheet is saved as weekly_expense_tracker.ods.",
+      "nl_explanation": "After the filename is entered correctly, press Enter to confirm the save so the finished weekly expense tracker is stored."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Create the base weekly expense table at the top of the sheet so the tracker has its main data structure.",
+      "unit_type": "CREATE_EXPENSE_TABLE",
+      "unit_before_state": "LibreOffice Calc is open on a worksheet, but the current active cell may be somewhere else and the top-left area is not yet populated with the tracker table.",
+      "unit_after_state": "The selection has been moved to the top-left region and cells A1:E8 now contain the table, with headers Day, Groceries, Transport, Coffee, and Misc in row 1 and Monday through Sunday expense entries in rows 2 through 8.",
+      "unit_precondition": [
+        "The LibreOffice Calc window is focused.",
+        "A worksheet is visible and editable.",
+        "The range starting at A1 is empty or safe to overwrite with the new table."
+      ],
+      "unit_effect": [
+        "Cell A1 becomes the insertion point for data entry.",
+        "Headers appear across A1:E1.",
+        "Rows 2 through 8 display the seven daily expense records under the five headers."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4,
+        5
+      ],
+      "unit_intent": "Add a per-day total column that automatically sums each row of expenses.",
+      "unit_type": "ADD_TOTAL_COLUMN",
+      "unit_before_state": "The main expense table is visible in columns A through E, and column F beside it is empty.",
+      "unit_after_state": "Column F is added as a Total column, with F1 labeled Total and F2:F8 filled with row-wise sum formulas for each day.",
+      "unit_precondition": [
+        "The expense table in A1:E8 has already been entered.",
+        "Cell F1 is visible and available for new content.",
+        "Rows 1 through 8 in column F are empty or safe to fill."
+      ],
+      "unit_effect": [
+        "F1 shows the header Total.",
+        "F2 displays the first daily total based on cells B2:E2.",
+        "The formula is filled down so every row from F2 to F8 shows a daily total."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7
+      ],
+      "unit_intent": "Add a summary block under the table to show weekly total spending and average daily spending.",
+      "unit_type": "ADD_SUMMARY_FORMULAS",
+      "unit_before_state": "The daily table with totals is complete through row 8, and the area around E10:F11 below the table is blank.",
+      "unit_after_state": "A two-row summary block appears under the table, with Weekly Total in E10 and Average Daily Spend in E11, and corresponding formulas in F10 and F11.",
+      "unit_precondition": [
+        "The daily totals in F2:F8 already exist.",
+        "Cells E10:F11 are visible and empty or safe to overwrite.",
+        "The user can place the cursor in the blank area below the table."
+      ],
+      "unit_effect": [
+        "Cell E10 becomes active for summary entry.",
+        "The label Weekly Total appears with a summed result in F10.",
+        "The label Average Daily Spend appears with an average result in F11."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8,
+        9
+      ],
+      "unit_intent": "Format the daily expense numbers and totals as money so the tracker is easier to read.",
+      "unit_type": "APPLY_CURRENCY_FORMAT",
+      "unit_before_state": "The table and summary are visible, and the numeric cells in B2:F8 are populated but not yet formatted as currency.",
+      "unit_after_state": "The numeric range B2:F8 remains selected and now displays using Calc's currency number format.",
+      "unit_precondition": [
+        "The numeric block B2:F8 is visible on screen.",
+        "The cells in B2:F8 contain numeric values or formula results.",
+        "The Currency Format control is available in the toolbar."
+      ],
+      "unit_effect": [
+        "Range B2:F8 becomes highlighted.",
+        "After the toolbar action, the selected values redraw in currency formatting, making the money entries visually distinct from plain numbers."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        10,
+        11
+      ],
+      "unit_intent": "Emphasize the header row so the table structure stands out clearly.",
+      "unit_type": "FORMAT_HEADER_ROW",
+      "unit_before_state": "The completed table is visible with labels in A1:F1, and the header text is still in its normal weight.",
+      "unit_after_state": "Cells A1:F1 remain selected and the header labels are shown in bold, making the top row more prominent than the data rows.",
+      "unit_precondition": [
+        "The header row A1:F1 is present and visible.",
+        "The user can select the full header row.",
+        "The Bold formatting button is available in the toolbar."
+      ],
+      "unit_effect": [
+        "Range A1:F1 becomes highlighted.",
+        "The header text changes to a heavier bold style after the toolbar action."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        12,
+        13,
+        14
+      ],
+      "unit_intent": "Save the finished spreadsheet under the requested filename as a new LibreOffice Calc document.",
+      "unit_type": "SAVE_DOCUMENT_AS",
+      "unit_before_state": "The weekly expense tracker is complete in Calc, and the workbook is still open in the editing window.",
+      "unit_after_state": "The Save As dialog has been dismissed and the spreadsheet is saved as weekly_expense_tracker.ods.",
+      "unit_precondition": [
+        "The LibreOffice Calc window is focused.",
+        "The workbook is ready to be saved.",
+        "The user can open the Save As dialog and enter a filename."
+      ],
+      "unit_effect": [
+        "The Save As dialog opens with the filename field ready.",
+        "The filename field shows weekly_expense_tracker.ods.",
+        "After confirmation, the dialog closes and the workbook is stored under that name."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Create the base weekly expense table at the top of the sheet so the tracker has its main data structure.",
+      "unit_type": "CREATE_EXPENSE_TABLE",
+      "unit_before_state": "LibreOffice Calc is open on a worksheet, but the current active cell may be somewhere else and the top-left area is not yet populated with the tracker table.",
+      "unit_after_state": "The selection has been moved to the top-left region and cells A1:E8 now contain the table, with headers Day, Groceries, Transport, Coffee, and Misc in row 1 and Monday through Sunday expense entries in rows 2 through 8.",
+      "unit_precondition": [
+        "The LibreOffice Calc window is focused.",
+        "A worksheet is visible and editable.",
+        "The range starting at A1 is empty or safe to overwrite with the new table."
+      ],
+      "unit_effect": [
+        "Cell A1 becomes the insertion point for data entry.",
+        "Headers appear across A1:E1.",
+        "Rows 2 through 8 display the seven daily expense records under the five headers."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Populate the worksheet's top-left table area with a specified tabular dataset.",
+      "parameters": {
+        "table_content": "Day\tGroceries\tTransport\tCoffee\tMisc\nMonday\t18.50\t4.20\t3.80\t6.00\nTuesday\t22.00\t0\t4.50\t2.00\nWednesday\t16.75\t5.10\t0\t8.00\nThursday\t19.40\t4.20\t3.80\t1.50\nFriday\t28.00\t6.80\t5.20\t9.00\nSaturday\t31.25\t3.50\t4.60\t12.00\nSunday\t24.10\t0\t0\t7.80",
+        "table_range": "A1:E8"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'home']}",
+          "action_template": "When the Calc window is focused and a worksheet is visible and ready for editing, press Ctrl+Home so the cursor jumps to A1 and the selection moves to the top-left corner of the current sheet, establishing the correct starting point for entering the table."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Day\\tGroceries\\tTransport\\tCoffee\\tMisc\\nMonday\\t18.50\\t4.20\\t3.80\\t6.00\\nTuesday\\t22.00\\t0\\t4.50\\t2.00\\nWednesday\\t16.75\\t5.10\\t0\\t8.00\\nThursday\\t19.40\\t4.20\\t3.80\\t1.50\\nFriday\\t28.00\\t6.80\\t5.20\\t9.00\\nSaturday\\t31.25\\t3.50\\t4.60\\t12.00\\nSunday\\t24.10\\t0\\t0\\t7.80'}",
+          "action_template": "With A1 active and the destination cells empty or safe to fill, type {{table_content}} so the headers and records populate {{table_range}} with the complete table."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4,
+        5
+      ],
+      "unit_intent": "Add a per-day total column that automatically sums each row of expenses.",
+      "unit_type": "ADD_TOTAL_COLUMN",
+      "unit_before_state": "The main expense table is visible in columns A through E, and column F beside it is empty.",
+      "unit_after_state": "Column F is added as a Total column, with F1 labeled Total and F2:F8 filled with row-wise sum formulas for each day.",
+      "unit_precondition": [
+        "The expense table in A1:E8 has already been entered.",
+        "Cell F1 is visible and available for new content.",
+        "Rows 1 through 8 in column F are empty or safe to fill."
+      ],
+      "unit_effect": [
+        "F1 shows the header Total.",
+        "F2 displays the first daily total based on cells B2:E2.",
+        "The formula is filled down so every row from F2 to F8 shows a daily total."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Add a total column beside an existing table by entering the column header, creating the first row total formula, and filling that formula down the remaining rows.",
+      "parameters": {
+        "target_header_cell": "cell F1, the empty header cell immediately to the right of Misc",
+        "header_text": "Total",
+        "first_sum_formula": "=SUM(B2:E2)",
+        "source_formula_cell": "cell F2",
+        "fill_handle": "the fill handle at the bottom-right corner of cell F2",
+        "target_end_cell": "cell F8"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell F1, the empty header cell immediately to the right of Misc'}}",
+          "action_template": "Click {{target_header_cell}} once the table is in place and the destination column is empty so the total column can be added beside the existing data columns. Preconditions: the data table has been entered through the needed rows, and {{target_header_cell}} is empty and visible. Effect: {{target_header_cell}} becomes the active cell, ready for typing."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Total\\n=SUM(B2:E2)'}",
+          "action_template": "Type {{header_text}}, insert a newline, and type {{first_sum_formula}} with the header cell selected so the total column header and the first row total formula are entered together. Preconditions: the header cell is active, and the first two cells in the target total column are empty. Effect: the header cell shows {{header_text}}, and the cell below contains the first total formula."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the fill handle at the bottom-right corner of cell F2'}, 'end': {'text': 'the bottom-right corner of cell F8'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "Drag {{fill_handle}} from {{source_formula_cell}} down to {{target_end_cell}} once the first total formula is present so the same row-based sum formula is applied to the remaining rows. Preconditions: {{source_formula_cell}} displays a valid formula result, and its fill handle is available. Effect: the formula is copied from {{source_formula_cell}} down through {{target_end_cell}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7
+      ],
+      "unit_intent": "Add a summary block under the table to show weekly total spending and average daily spending.",
+      "unit_type": "ADD_SUMMARY_FORMULAS",
+      "unit_before_state": "The daily table with totals is complete through row 8, and the area around E10:F11 below the table is blank.",
+      "unit_after_state": "A two-row summary block appears under the table, with Weekly Total in E10 and Average Daily Spend in E11, and corresponding formulas in F10 and F11.",
+      "unit_precondition": [
+        "The daily totals in F2:F8 already exist.",
+        "Cells E10:F11 are visible and empty or safe to overwrite.",
+        "The user can place the cursor in the blank area below the table."
+      ],
+      "unit_effect": [
+        "Cell E10 becomes active for summary entry.",
+        "The label Weekly Total appears with a summed result in F10.",
+        "The label Average Daily Spend appears with an average result in F11."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Insert a two-row summary block below a completed table to display the total and average for a specified value range.",
+      "parameters": {
+        "summary_start_cell": "E10",
+        "source_value_range": "F2:F8",
+        "total_label": "Weekly Total",
+        "average_label": "Average Daily Spend"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell E10, a blank cell a couple of rows below the table'}}",
+          "action_template": "Click {{summary_start_cell}} in the empty area below the table so the summary block can be inserted without disturbing the main data."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Weekly Total\\t=SUM(F2:F8)\\nAverage Daily Spend\\t=AVERAGE(F2:F8)'}",
+          "action_template": "Type \"{{total_label}}\\t=SUM({{source_value_range}})\\n{{average_label}}\\t=AVERAGE({{source_value_range}})\" with {{summary_start_cell}} active so the labels fill the left column and the formulas fill the right column."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8,
+        9
+      ],
+      "unit_intent": "Format the daily expense numbers and totals as money so the tracker is easier to read.",
+      "unit_type": "APPLY_CURRENCY_FORMAT",
+      "unit_before_state": "The table and summary are visible, and the numeric cells in B2:F8 are populated but not yet formatted as currency.",
+      "unit_after_state": "The numeric range B2:F8 remains selected and now displays using Calc's currency number format.",
+      "unit_precondition": [
+        "The numeric block B2:F8 is visible on screen.",
+        "The cells in B2:F8 contain numeric values or formula results.",
+        "The Currency Format control is available in the toolbar."
+      ],
+      "unit_effect": [
+        "Range B2:F8 becomes highlighted.",
+        "After the toolbar action, the selected values redraw in currency formatting, making the money entries visually distinct from plain numbers."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Apply currency formatting to a specified rectangular range of numeric cells in the active spreadsheet.",
+      "parameters": {
+        "selection_start_cell": "cell B2, the first numeric value under Groceries",
+        "selection_end_cell": "cell F8, the last daily total at the bottom-right of the table",
+        "target_range": "B2:F8"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'cell B2, the first numeric value under Groceries'}, 'end': {'text': 'cell F8, the last daily total at the bottom-right of the table'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "Once all calculations are in place, drag from {{selection_start_cell}} to {{selection_end_cell}} to select the full block of numeric values that should share the same number format. Preconditions: The numeric expense cells from {{selection_start_cell}} to {{selection_end_cell}} are visible, and no important data outside that block needs to be selected. Afterward, the rectangular range {{target_range}} is highlighted."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Currency Format button in the top formatting toolbar'}}",
+          "action_template": "When the numeric cells in {{target_range}} are selected, click the Currency Format button so the selected values display as currency. Preconditions: The numeric range is highlighted, and the currency format control is available in the toolbar. Afterward, the selected cells change to currency formatting, making the expense values easier to read."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        10,
+        11
+      ],
+      "unit_intent": "Emphasize the header row so the table structure stands out clearly.",
+      "unit_type": "FORMAT_HEADER_ROW",
+      "unit_before_state": "The completed table is visible with labels in A1:F1, and the header text is still in its normal weight.",
+      "unit_after_state": "Cells A1:F1 remain selected and the header labels are shown in bold, making the top row more prominent than the data rows.",
+      "unit_precondition": [
+        "The header row A1:F1 is present and visible.",
+        "The user can select the full header row.",
+        "The Bold formatting button is available in the toolbar."
+      ],
+      "unit_effect": [
+        "Range A1:F1 becomes highlighted.",
+        "The header text changes to a heavier bold style after the toolbar action."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Apply bold formatting to a specified header row so it stands out from the data rows.",
+      "parameters": {
+        "selection_start_cell": "cell A1, the Day header",
+        "selection_end_cell": "cell F1, the Total header",
+        "selected_range": "A1:F1",
+        "formatting_button": "the Bold button in the formatting toolbar"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'cell A1, the Day header'}, 'end': {'text': 'cell F1, the Total header'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "Drag with the left mouse button from {{selection_start_cell}} to {{selection_end_cell}} while the header row is visible and cells in {{selected_range}} contain the table labels, so the entire header row is selected for styling together."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Bold button in the formatting toolbar'}}",
+          "action_template": "Click {{formatting_button}} while the header cells are highlighted and the formatting control is available, so the header labels in {{selected_range}} become bold and easier to scan."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        12,
+        13,
+        14
+      ],
+      "unit_intent": "Save the finished spreadsheet under the requested filename as a new LibreOffice Calc document.",
+      "unit_type": "SAVE_DOCUMENT_AS",
+      "unit_before_state": "The weekly expense tracker is complete in Calc, and the workbook is still open in the editing window.",
+      "unit_after_state": "The Save As dialog has been dismissed and the spreadsheet is saved as weekly_expense_tracker.ods.",
+      "unit_precondition": [
+        "The LibreOffice Calc window is focused.",
+        "The workbook is ready to be saved.",
+        "The user can open the Save As dialog and enter a filename."
+      ],
+      "unit_effect": [
+        "The Save As dialog opens with the filename field ready.",
+        "The filename field shows weekly_expense_tracker.ods.",
+        "After confirmation, the dialog closes and the workbook is stored under that name."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the current spreadsheet as a new LibreOffice Calc document with a specified filename.",
+      "parameters": {
+        "file_name": "weekly_expense_tracker.ods"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 's']}",
+          "action_template": "Press Ctrl+Shift+S to open the Save As dialog instead of the ordinary Save command so the current workbook can be stored with {{file_name}} when the Calc window is focused and the workbook should be kept; afterward, the Save As dialog opens with the filename field ready for input."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'weekly_expense_tracker.ods'}",
+          "action_template": "Type {{file_name}} into the filename field when the Save As window is in front and the filename text box is focused or ready to replace the existing name; afterward, the filename field contains {{file_name}}."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter to confirm the save after {{file_name}} has been entered correctly and the Save button or default confirmation action is available; afterward, the dialog closes and the spreadsheet is saved as {{file_name}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

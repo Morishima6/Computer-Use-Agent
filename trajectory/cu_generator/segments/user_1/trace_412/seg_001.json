@@ -1,0 +1,445 @@
+{
+  "segment_id": "seg_001",
+  "app": "thunderbird",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open Thunderbird menu to access account settings",
+      "action_before_state": "Thunderbird main window is visible with menu bar accessible.",
+      "action_preconditions": [
+        "Thunderbird is open and displayed on the screen",
+        "The main Thunderbird window is visible with menu bar accessible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "Menu button (hamburger menu) in the top-right corner of Thunderbird window"
+        }
+      },
+      "action_after_effects": "A dropdown menu appears with various options including Settings/Preferences, Account Settings..., Add-ons, etc.",
+      "nl_explanation": "When Thunderbird is open, click on the hamburger menu button in the top-right corner to access account settings and other configuration options."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Navigate to Account Settings from the menu",
+      "action_before_state": "Hamburger menu dropdown is visible with Account Settings... option listed.",
+      "action_preconditions": [
+        "The hamburger menu dropdown is open",
+        "Account Settings... option is visible in the menu"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "Account Settings... option in the dropdown menu"
+        }
+      },
+      "action_after_effects": "The Account Settings window opens, showing the account configuration panel with the email account listed in the left sidebar",
+      "nl_explanation": "With the menu dropdown visible, click on 'Account Settings...' to open the account configuration panel where signature settings can be found."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Access the signature configuration for the default email account",
+      "action_before_state": "Account Settings window is open with account list visible in left sidebar.",
+      "action_preconditions": [
+        "Account Settings window is open",
+        "The email account is visible in the left sidebar",
+        "Account settings categories are displayed in the right panel"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "The email account name in the left sidebar of Account Settings"
+        }
+      },
+      "action_after_effects": "The account-specific settings are displayed in the right panel. Look for the Default Identity section which contains signature text area and signature file options.",
+      "nl_explanation": "When the Account Settings window is open, click on the email account in the left sidebar. In the right panel, scroll down to find the Default Identity section where the signature text area is located."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Ensure text input mode is selected for signature (not file attachment)",
+      "action_before_state": "Default Identity section is visible with signature options displayed.",
+      "action_preconditions": [
+        "Default Identity section is visible in Account Settings",
+        "The signature text area is visible",
+        "The 'Attach the signature from a file instead' checkbox is present"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "Ensure the 'Attach the signature from a file instead' checkbox is NOT checked (so you can type the signature directly)"
+        }
+      },
+      "action_after_effects": "The signature text area is ready for direct text input. If the checkbox was checked, unchecking it enables the text input field.",
+      "nl_explanation": "In the Default Identity section, make sure the 'Attach the signature from a file instead' checkbox is NOT checked. This allows you to type the signature directly into the text area below. If it's already unchecked, proceed to the next step."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Input the signature text with name, title, and email",
+      "action_before_state": "Default Identity section is visible with signature text area ready for input.",
+      "action_preconditions": [
+        "Default Identity section is visible",
+        "Signature text area is visible and ready for typing",
+        "The 'Attach from file' checkbox is unchecked"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "John Smith\nSoftware Engineer\njohn.smith@company.com"
+      },
+      "action_after_effects": "The signature text appears in the text area, formatted with three lines containing the name, job title, and email address",
+      "nl_explanation": "When the signature text area is active (not in file attachment mode), type the professional signature with three lines: name, job title, and email address. Press Enter after each line to create separate lines."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Note: HTML formatting for signatures requires a different approach",
+      "action_before_state": "Signature text has been entered in plain text format.",
+      "action_preconditions": [
+        "Signature text has been entered",
+        "The signature is stored as plain text"
+      ],
+      "action": {
+        "type": "CLICK",
+        "note": "Thunderbird's signature text area in Account Settings accepts plain text only. For HTML-formatted signatures, you must create an HTML file and use the 'Attach the signature from a file instead' option in step s4, pointing to your HTML file.",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the relevant thunderbird UI element"
+        }
+      },
+      "action_after_effects": "The signature will be added as plain text. If HTML formatting is required, close Account Settings, create an HTML file with your formatted signature, then return to Account Settings > Default Identity, check 'Attach the signature from a file instead', and select your HTML file.",
+      "nl_explanation": "Note: The signature is entered as plain text. Thunderbird does not have a 'Use HTML' checkbox in the Account Settings signature section. For HTML signatures, use the file attachment option instead."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Save the account settings and close the dialog",
+      "action_before_state": "Signature has been entered (plain text). The OK button is visible at the bottom of the Account Settings window.",
+      "action_preconditions": [
+        "Signature text has been entered in the text area",
+        "The OK button is visible at the bottom of the Account Settings window"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "OK button at the bottom of the Account Settings window"
+        }
+      },
+      "action_after_effects": "The Account Settings window closes and the signature settings are saved. The main Thunderbird window is displayed.",
+      "nl_explanation": "With the signature properly configured, click the OK button to save the settings and close the Account Settings window."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Verify the signature setup by opening a new message",
+      "action_before_state": "Back at the main Thunderbird window. The New Message button or Ctrl+N shortcut is available.",
+      "action_preconditions": [
+        "Back at the main Thunderbird window",
+        "The New Message button is available in the toolbar or Ctrl+N shortcut works"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "n"
+        ]
+      },
+      "action_after_effects": "A new Write window opens. The configured signature is automatically populated at the bottom of the message body area.",
+      "nl_explanation": "To verify the signature is working, press Ctrl+N to open a new Write window. Confirm that the signature appears automatically at the bottom of the message. If using plain text signature, it will appear as plain text. For HTML, it will only render as HTML if you attached an HTML file."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Open Thunderbird's account configuration window to start editing signature settings.",
+      "unit_type": "OPEN_ACCOUNT_SETTINGS",
+      "unit_before_state": "The Thunderbird main window is open, and the top-right hamburger menu button is visible in the application chrome.",
+      "unit_after_state": "The Account Settings window is open with the account list visible in the left sidebar and account configuration content available in the main panel.",
+      "unit_precondition": [
+        "Thunderbird is running and its main window is the active visible window.",
+        "The hamburger menu button is visible and clickable in the top-right corner."
+      ],
+      "unit_effect": [
+        "A Thunderbird application menu opens from the hamburger button.",
+        "Selecting 'Account Settings...' opens the Account Settings window."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3
+      ],
+      "unit_intent": "Focus the work email account so its signature options can be edited.",
+      "unit_type": "SELECT_ACCOUNT_SETTINGS_SECTION",
+      "unit_before_state": "The Account Settings window is open, showing one or more mail accounts in the left sidebar.",
+      "unit_after_state": "The selected email account's settings are displayed in the right panel, including the Default Identity area where signature options are available.",
+      "unit_precondition": [
+        "The Account Settings window is open.",
+        "The target email account is listed in the left sidebar."
+      ],
+      "unit_effect": [
+        "The chosen account is highlighted in the sidebar.",
+        "The right panel updates to show that account's settings, including the Default Identity section."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Set up a direct plain-text signature containing the sender's name, role, and email address.",
+      "unit_type": "CONFIGURE_PLAIN_TEXT_SIGNATURE",
+      "unit_before_state": "The Default Identity section for the selected account is visible, with a signature text area and an option to attach a signature from a file instead.",
+      "unit_after_state": "The 'Attach the signature from a file instead' option is left disabled, and the signature text box contains three lines: 'John Smith', 'Software Engineer', and 'john.smith@company.com', indicating a plain-text signature configuration.",
+      "unit_precondition": [
+        "The Default Identity section is visible in the Account Settings window.",
+        "The signature text area is present and can accept typing when file-attachment mode is off.",
+        "The user intends to use a directly typed signature rather than an attached HTML signature file."
+      ],
+      "unit_effect": [
+        "The signature text area is enabled for direct editing.",
+        "The three-line signature text is visible in the signature field.",
+        "The configuration remains in plain-text mode rather than switching to an attached signature file."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7
+      ],
+      "unit_intent": "Save the signature configuration so it applies to future outgoing emails.",
+      "unit_type": "SAVE_ACCOUNT_SETTINGS",
+      "unit_before_state": "The Account Settings window remains open, and the signature field already contains the completed plain-text signature.",
+      "unit_after_state": "The Account Settings window closes, returning Thunderbird to the main window with the updated signature settings stored for the account.",
+      "unit_precondition": [
+        "The desired signature text is already present in the signature area.",
+        "The OK button is visible and enabled in the Account Settings window."
+      ],
+      "unit_effect": [
+        "Clicking OK closes the Account Settings window.",
+        "The application returns to the main Thunderbird window with the changes saved."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        8
+      ],
+      "unit_intent": "Verify that the saved signature is inserted automatically into new outgoing messages.",
+      "unit_type": "VERIFY_SIGNATURE_IN_COMPOSE_WINDOW",
+      "unit_before_state": "Thunderbird is back on the main window after saving account settings, and no compose window is open yet.",
+      "unit_after_state": "A new Write/Compose window is open, and the configured signature appears automatically at the bottom of the message body area.",
+      "unit_precondition": [
+        "The main Thunderbird window is active after saving settings.",
+        "The new message command is available through Ctrl+N or the toolbar."
+      ],
+      "unit_effect": [
+        "A new compose window opens.",
+        "The message body shows the inserted signature lines automatically without manual re-entry."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Open Thunderbird's account configuration window to start editing signature settings.",
+      "unit_type": "OPEN_ACCOUNT_SETTINGS",
+      "unit_before_state": "The Thunderbird main window is open, and the top-right hamburger menu button is visible in the application chrome.",
+      "unit_after_state": "The Account Settings window is open with the account list visible in the left sidebar and account configuration content available in the main panel.",
+      "unit_precondition": [
+        "Thunderbird is running and its main window is the active visible window.",
+        "The hamburger menu button is visible and clickable in the top-right corner."
+      ],
+      "unit_effect": [
+        "A Thunderbird application menu opens from the hamburger button.",
+        "Selecting 'Account Settings...' opens the Account Settings window."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open the application's account settings window to access account configuration options.",
+      "parameters": {
+        "menu_button": "Menu button (hamburger menu) in the top-right corner of Thunderbird window",
+        "account_settings_option": "Account Settings... option in the dropdown menu",
+        "settings_window": "Account Settings window"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'Menu button (hamburger menu) in the top-right corner of Thunderbird window'}}",
+          "action_template": "Click {{menu_button}} to open the application menu for accessing account configuration options when the main application window is visible."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'Account Settings... option in the dropdown menu'}}",
+          "action_template": "Click {{account_settings_option}} in the open application menu to open the {{settings_window}} for account configuration."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3
+      ],
+      "unit_intent": "Focus the work email account so its signature options can be edited.",
+      "unit_type": "SELECT_ACCOUNT_SETTINGS_SECTION",
+      "unit_before_state": "The Account Settings window is open, showing one or more mail accounts in the left sidebar.",
+      "unit_after_state": "The selected email account's settings are displayed in the right panel, including the Default Identity area where signature options are available.",
+      "unit_precondition": [
+        "The Account Settings window is open.",
+        "The target email account is listed in the left sidebar."
+      ],
+      "unit_effect": [
+        "The chosen account is highlighted in the sidebar.",
+        "The right panel updates to show that account's settings, including the Default Identity section."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open the settings view for a specified email account so its signature options can be edited.",
+      "parameters": {
+        "target_account": "The email account name in the left sidebar of Account Settings"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "CLICK",
+          "action_template": "Click {{target_account}} in the left sidebar when the Account Settings window is open, the account is visible in the sidebar, and account settings categories are displayed in the right panel. The right panel updates to show that account's settings; if needed, scroll to the Default Identity section where the signature text area and signature file options are available."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Set up a direct plain-text signature containing the sender's name, role, and email address.",
+      "unit_type": "CONFIGURE_PLAIN_TEXT_SIGNATURE",
+      "unit_before_state": "The Default Identity section for the selected account is visible, with a signature text area and an option to attach a signature from a file instead.",
+      "unit_after_state": "The 'Attach the signature from a file instead' option is left disabled, and the signature text box contains three lines: 'John Smith', 'Software Engineer', and 'john.smith@company.com', indicating a plain-text signature configuration.",
+      "unit_precondition": [
+        "The Default Identity section is visible in the Account Settings window.",
+        "The signature text area is present and can accept typing when file-attachment mode is off.",
+        "The user intends to use a directly typed signature rather than an attached HTML signature file."
+      ],
+      "unit_effect": [
+        "The signature text area is enabled for direct editing.",
+        "The three-line signature text is visible in the signature field.",
+        "The configuration remains in plain-text mode rather than switching to an attached signature file."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Configure a directly typed plain-text email signature by keeping file-attachment mode off and entering the sender's identifying details.",
+      "parameters": {
+        "file_attachment_option": "Attach the signature from a file instead",
+        "sender_name": "John Smith",
+        "sender_role": "Software Engineer",
+        "sender_email": "john.smith@company.com"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{\"type\":\"CLICK\",\"button\":\"left\",\"num_clicks\":1,\"target\":{\"text\":\"Ensure the 'Attach the signature from a file instead' checkbox is NOT checked (so you can type the signature directly)\"}}",
+          "action_template": "When the Default Identity section is visible, the signature text area is visible, and the {{file_attachment_option}} checkbox is present, click to ensure {{file_attachment_option}} is not checked. If it is already unchecked, leave it unchanged so the signature text area remains ready for direct text input."
+        },
+        {
+          "action": "{\"type\":\"TYPING\",\"text\":\"John Smith\\nSoftware Engineer\\njohn.smith@company.com\"}",
+          "action_template": "With the signature text area active and {{file_attachment_option}} unchecked, type a three-line plain-text signature containing {{sender_name}}, {{sender_role}}, and {{sender_email}} so those three lines appear in the signature field."
+        },
+        {
+          "action": "{\"type\":\"CLICK\",\"note\":\"Thunderbird's signature text area in Account Settings accepts plain text only. For HTML-formatted signatures, you must create an HTML file and use the 'Attach the signature from a file instead' option in step s4, pointing to your HTML file.\",\"button\":\"left\",\"num_clicks\":1,\"target\":{\"text\":\"the relevant thunderbird UI element\"}}",
+          "action_template": "After the plain-text signature has been entered, click the relevant Thunderbird UI element to continue while noting that Thunderbird stores this signature as plain text; if HTML formatting is required instead, use {{file_attachment_option}} to attach an HTML signature file."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7
+      ],
+      "unit_intent": "Save the signature configuration so it applies to future outgoing emails.",
+      "unit_type": "SAVE_ACCOUNT_SETTINGS",
+      "unit_before_state": "The Account Settings window remains open, and the signature field already contains the completed plain-text signature.",
+      "unit_after_state": "The Account Settings window closes, returning Thunderbird to the main window with the updated signature settings stored for the account.",
+      "unit_precondition": [
+        "The desired signature text is already present in the signature area.",
+        "The OK button is visible and enabled in the Account Settings window."
+      ],
+      "unit_effect": [
+        "Clicking OK closes the Account Settings window.",
+        "The application returns to the main Thunderbird window with the changes saved."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the configured account settings and close {{settings_window}}.",
+      "parameters": {
+        "settings_window": "Account Settings window",
+        "confirm_button": "OK button at the bottom of the Account Settings window"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'OK button at the bottom of the Account Settings window'}}",
+          "action_template": "Click {{confirm_button}} after the desired signature text has been entered and the button is visible to save the configured settings, close {{settings_window}}, and return to the main application window."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        8
+      ],
+      "unit_intent": "Verify that the saved signature is inserted automatically into new outgoing messages.",
+      "unit_type": "VERIFY_SIGNATURE_IN_COMPOSE_WINDOW",
+      "unit_before_state": "Thunderbird is back on the main window after saving account settings, and no compose window is open yet.",
+      "unit_after_state": "A new Write/Compose window is open, and the configured signature appears automatically at the bottom of the message body area.",
+      "unit_precondition": [
+        "The main Thunderbird window is active after saving settings.",
+        "The new message command is available through Ctrl+N or the toolbar."
+      ],
+      "unit_effect": [
+        "A new compose window opens.",
+        "The message body shows the inserted signature lines automatically without manual re-entry."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Verify that the configured signature is inserted automatically when opening a new outgoing message.",
+      "parameters": {
+        "new_message_shortcut": "Ctrl+N"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'n']}",
+          "action_template": "Press {{new_message_shortcut}} from the main Thunderbird window to open a new Write window and verify that the configured signature appears automatically at the bottom of the message body area."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

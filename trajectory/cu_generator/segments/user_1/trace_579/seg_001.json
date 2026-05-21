@@ -1,0 +1,458 @@
+{
+  "segment_id": "seg_001",
+  "app": "vs_code",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Show the Explorer sidebar so a new file can be created",
+      "action_before_state": "VS Code is already open, and the editor area is visible. The Explorer sidebar may or may not currently be focused.",
+      "action_preconditions": [
+        "The VS Code window is focused.",
+        "No modal dialog is blocking the interface."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "e"
+        ]
+      },
+      "action_after_effects": "The Explorer sidebar becomes visible or focused, showing the workspace files and the toolbar with file creation controls.",
+      "nl_explanation": "When VS Code is focused and no popup is blocking the screen, press Ctrl+Shift+E to bring up the Explorer. The expected result is that the file tree and the new-file controls are visible for the next step."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Start creating a new Python file",
+      "action_before_state": "The Explorer sidebar is visible, and its toolbar is shown near the top of the file list.",
+      "action_preconditions": [
+        "The Explorer sidebar is open.",
+        "The New File button is visible in the Explorer toolbar."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the New File icon at the top of the Explorer sidebar"
+        }
+      },
+      "action_after_effects": "An inline filename input box appears in the Explorer, ready for the new file name.",
+      "nl_explanation": "Once the Explorer is open and the toolbar is visible, left-click the New File icon. VS Code should open an inline text field so the filename can be entered immediately."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Enter the new file name",
+      "action_before_state": "The inline filename field is active in the Explorer and waiting for text input.",
+      "action_preconditions": [
+        "The filename input field is focused.",
+        "Typing will go into the new file name field instead of the editor."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "expense_summary.py"
+      },
+      "action_after_effects": "The filename field now contains expense_summary.py.",
+      "nl_explanation": "When the inline filename box is active, type expense_summary.py. The filename should appear in the field so it can be confirmed in the next step."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Confirm the file creation",
+      "action_before_state": "The filename expense_summary.py is fully entered in the inline field.",
+      "action_preconditions": [
+        "The new filename has been typed completely.",
+        "The inline filename field is still focused."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "VS Code creates the file and opens expense_summary.py in a new editor tab.",
+      "nl_explanation": "After the filename is entered and the inline field is still active, press Enter to create the file. The expected result is that a new editor tab opens for expense_summary.py."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Add the Python code for the daily expense summary tool",
+      "action_before_state": "The new expense_summary.py tab is open in the editor, and the cursor is in an empty file.",
+      "action_preconditions": [
+        "The expense_summary.py editor tab is active.",
+        "The text cursor is inside the file."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "amounts = input(\"Enter expense amounts separated by commas: \")\nvalues = [float(item.strip()) for item in amounts.split(\",\") if item.strip()]\ntotal = sum(values)\naverage = total / len(values) if values else 0\n\nprint(f\"Entries: {len(values)}\")\nprint(f\"Total: {total:.2f}\")\nprint(f\"Average: {average:.2f}\")"
+      },
+      "action_after_effects": "The editor now contains a complete Python script that reads comma-separated amounts and prints the count, total, and average.",
+      "nl_explanation": "With the new Python file open and the cursor inside it, type the script content into the editor. The result should be a runnable utility that accepts expense values and calculates a simple summary."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Save the script file",
+      "action_before_state": "The Python code is visible in the editor, and the tab shows unsaved changes.",
+      "action_preconditions": [
+        "The script has been entered into the editor.",
+        "The expense_summary.py tab is still active."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "s"
+        ]
+      },
+      "action_after_effects": "The file is saved, and the unsaved-change indicator on the tab disappears.",
+      "nl_explanation": "Once the script content is present in the active editor, press Ctrl+S to save it. The expected behavior is that the file is written to disk and no longer marked as unsaved."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Open the integrated terminal inside VS Code",
+      "action_before_state": "The saved Python file is open in the editor, and the bottom panel may be hidden.",
+      "action_preconditions": [
+        "VS Code is still focused.",
+        "No modal dialog is blocking keyboard shortcuts."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "backtick"
+        ]
+      },
+      "action_after_effects": "The integrated terminal panel opens at the bottom of VS Code with a shell prompt ready for input.",
+      "nl_explanation": "When the editor is active and shortcuts are available, press Ctrl+Backtick to open the integrated terminal. The result should be a shell prompt inside the bottom panel for running the script."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Enter the command to run the Python script",
+      "action_before_state": "The integrated terminal is open and shows a ready shell prompt.",
+      "action_preconditions": [
+        "The terminal input cursor is active.",
+        "The current working directory is the same folder that contains expense_summary.py."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "python3 expense_summary.py"
+      },
+      "action_after_effects": "The terminal command line now contains python3 expense_summary.py, ready to execute.",
+      "nl_explanation": "With the terminal open and focused in the folder where the file was created, type python3 expense_summary.py. The command should appear at the prompt so it can be run next."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Start the script",
+      "action_before_state": "The run command is fully typed at the terminal prompt.",
+      "action_preconditions": [
+        "The terminal is focused.",
+        "The command python3 expense_summary.py is visible at the prompt."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The script starts running and prompts for expense amounts separated by commas.",
+      "nl_explanation": "After the command is fully entered in the active terminal, press Enter to run it. The expected result is a prompt asking for comma-separated expense amounts."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Provide sample daily expense values to the script",
+      "action_before_state": "The terminal is waiting for input after printing the expense prompt.",
+      "action_preconditions": [
+        "The script is running.",
+        "The terminal cursor is on the input line after the prompt."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "12.50, 7.99, 3.50"
+      },
+      "action_after_effects": "The sample expense values appear on the terminal input line.",
+      "nl_explanation": "When the script is prompting for values and the terminal cursor is ready, type 12.50, 7.99, 3.50 as sample expenses. The numbers should appear on the current input line."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Submit the sample input and view the calculated summary",
+      "action_before_state": "The sample expense values are typed into the running script's input line in the terminal.",
+      "action_preconditions": [
+        "The script is still waiting for input.",
+        "The sample values have been entered completely."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The script processes the input and prints a summary such as Entries: 3, Total: 23.99, and Average: 8.00, completing the task.",
+      "nl_explanation": "Once the sample expense values are fully typed and the script is waiting for submission, press Enter. The expected result is that the terminal shows the number of entries, the total expense amount, and the average value, confirming the script works."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Create a new Python script file in the current VS Code workspace so the helper can be authored.",
+      "unit_type": "CREATE_NEW_SCRIPT_FILE",
+      "unit_before_state": "VS Code is open with the editor area visible, but the Explorer sidebar may not be focused. No file-creation input is currently active.",
+      "unit_after_state": "The Explorer has created a new file named expense_summary.py, and an editor tab for expense_summary.py is open with the cursor ready inside the new file.",
+      "unit_precondition": [
+        "The VS Code window is focused.",
+        "No modal dialog is blocking the interface.",
+        "The current workspace is open and allows creating files from the Explorer."
+      ],
+      "unit_effect": [
+        "The Explorer sidebar becomes visible or focused with file controls available.",
+        "An inline filename field appears, receives the name expense_summary.py, and disappears after confirmation.",
+        "A new editor tab titled expense_summary.py opens."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Author and save the daily expense summary helper so it is ready to run.",
+      "unit_type": "WRITE_AND_SAVE_SCRIPT",
+      "unit_before_state": "The expense_summary.py tab is active in VS Code, and the file is empty with the text cursor placed in the editor.",
+      "unit_after_state": "The editor contains the full Python script for reading comma-separated expense amounts and printing Entries, Total, and Average, and the tab is saved with no unsaved-change indicator.",
+      "unit_precondition": [
+        "The expense_summary.py editor tab is active.",
+        "The text cursor is inside the file.",
+        "The file is editable."
+      ],
+      "unit_effect": [
+        "The script text appears in the editor.",
+        "After saving, the tab's unsaved marker disappears, indicating the file has been written to disk."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8,
+        9
+      ],
+      "unit_intent": "Launch the new expense summary script from VS Code's integrated terminal.",
+      "unit_type": "RUN_SCRIPT_IN_TERMINAL",
+      "unit_before_state": "The saved expense_summary.py file is open in the editor, and the integrated terminal panel may be hidden.",
+      "unit_after_state": "The integrated terminal is open and the command python3 expense_summary.py has been executed, leaving the script running and prompting for expense amounts separated by commas.",
+      "unit_precondition": [
+        "VS Code is focused and accepts keyboard shortcuts.",
+        "The integrated terminal can be opened.",
+        "The terminal's working directory matches the folder containing expense_summary.py."
+      ],
+      "unit_effect": [
+        "The terminal panel opens with a shell prompt.",
+        "The command python3 expense_summary.py is entered and executed.",
+        "The terminal displays the script's input prompt asking for comma-separated expense amounts."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        10,
+        11
+      ],
+      "unit_intent": "Provide sample expenses and verify that the script prints the expected summary output.",
+      "unit_type": "VERIFY_SCRIPT_WITH_SAMPLE_INPUT",
+      "unit_before_state": "The integrated terminal is waiting for user input after the script's prompt for expense amounts separated by commas.",
+      "unit_after_state": "The terminal shows the entered sample values and then prints the completed summary output, including Entries: 3, Total: 23.99, and Average: 8.00.",
+      "unit_precondition": [
+        "The script is still running in the integrated terminal.",
+        "The terminal cursor is active on the input line after the expense prompt."
+      ],
+      "unit_effect": [
+        "The sample input 12.50, 7.99, 3.50 appears on the terminal input line.",
+        "After submission, the terminal prints a summary with 3 entries, total 23.99, and average 8.00."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Create a new Python script file in the current VS Code workspace so the helper can be authored.",
+      "unit_type": "CREATE_NEW_SCRIPT_FILE",
+      "unit_before_state": "VS Code is open with the editor area visible, but the Explorer sidebar may not be focused. No file-creation input is currently active.",
+      "unit_after_state": "The Explorer has created a new file named expense_summary.py, and an editor tab for expense_summary.py is open with the cursor ready inside the new file.",
+      "unit_precondition": [
+        "The VS Code window is focused.",
+        "No modal dialog is blocking the interface.",
+        "The current workspace is open and allows creating files from the Explorer."
+      ],
+      "unit_effect": [
+        "The Explorer sidebar becomes visible or focused with file controls available.",
+        "An inline filename field appears, receives the name expense_summary.py, and disappears after confirmation.",
+        "A new editor tab titled expense_summary.py opens."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a specified new file from the VS Code Explorer and open it in the editor.",
+      "parameters": {
+        "file_name": "expense_summary.py"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'e']}",
+          "action_template": "When VS Code is focused and no modal dialog is blocking the interface, press Ctrl+Shift+E to show or focus the Explorer sidebar so the workspace files and new-file controls are visible."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the New File icon at the top of the Explorer sidebar'}}",
+          "action_template": "With the Explorer sidebar open and the New File button visible, left-click the New File icon in the Explorer toolbar to open an inline filename input box."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'expense_summary.py'}",
+          "action_template": "When the inline filename field is focused, type {{file_name}} so the new filename appears in the field."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After {{file_name}} has been fully entered and the inline filename field remains focused, press Enter to create the file and open {{file_name}} in a new editor tab."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Author and save the daily expense summary helper so it is ready to run.",
+      "unit_type": "WRITE_AND_SAVE_SCRIPT",
+      "unit_before_state": "The expense_summary.py tab is active in VS Code, and the file is empty with the text cursor placed in the editor.",
+      "unit_after_state": "The editor contains the full Python script for reading comma-separated expense amounts and printing Entries, Total, and Average, and the tab is saved with no unsaved-change indicator.",
+      "unit_precondition": [
+        "The expense_summary.py editor tab is active.",
+        "The text cursor is inside the file.",
+        "The file is editable."
+      ],
+      "unit_effect": [
+        "The script text appears in the editor.",
+        "After saving, the tab's unsaved marker disappears, indicating the file has been written to disk."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Enter the intended Python script into the active file and save it so it is ready to run.",
+      "parameters": {
+        "target_file": "expense_summary.py",
+        "script_content": "amounts = input(\"Enter expense amounts separated by commas: \")\nvalues = [float(item.strip()) for item in amounts.split(\",\") if item.strip()]\ntotal = sum(values)\naverage = total / len(values) if values else 0\n\nprint(f\"Entries: {len(values)}\")\nprint(f\"Total: {total:.2f}\")\nprint(f\"Average: {average:.2f}\")"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'amounts = input(\"Enter expense amounts separated by commas: \")\\nvalues = [float(item.strip()) for item in amounts.split(\",\") if item.strip()]\\ntotal = sum(values)\\naverage = total / len(values) if values else 0\\n\\nprint(f\"Entries: {len(values)}\")\\nprint(f\"Total: {total:.2f}\")\\nprint(f\"Average: {average:.2f}\")'}",
+          "action_template": "With the {{target_file}} editor tab active and the cursor inside the file, type {{script_content}} into the editor so the file contains the complete runnable Python script."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 's']}",
+          "action_template": "After the script has been entered into {{target_file}} and the tab is still active, press Ctrl+S to save it so the file is written to disk and the unsaved-change indicator disappears."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8,
+        9
+      ],
+      "unit_intent": "Launch the new expense summary script from VS Code's integrated terminal.",
+      "unit_type": "RUN_SCRIPT_IN_TERMINAL",
+      "unit_before_state": "The saved expense_summary.py file is open in the editor, and the integrated terminal panel may be hidden.",
+      "unit_after_state": "The integrated terminal is open and the command python3 expense_summary.py has been executed, leaving the script running and prompting for expense amounts separated by commas.",
+      "unit_precondition": [
+        "VS Code is focused and accepts keyboard shortcuts.",
+        "The integrated terminal can be opened.",
+        "The terminal's working directory matches the folder containing expense_summary.py."
+      ],
+      "unit_effect": [
+        "The terminal panel opens with a shell prompt.",
+        "The command python3 expense_summary.py is entered and executed.",
+        "The terminal displays the script's input prompt asking for comma-separated expense amounts."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Run a specified script from VS Code's integrated terminal and reach its initial prompt.",
+      "parameters": {
+        "script_name": "expense_summary.py",
+        "run_command": "python3 expense_summary.py",
+        "initial_prompt": "expense amounts separated by commas"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'backtick']}",
+          "action_template": "When the editor is active and shortcuts are available, press Ctrl+Backtick to open the integrated terminal. The result should be a shell prompt inside the bottom panel for running {{script_name}}."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'python3 expense_summary.py'}",
+          "action_template": "With the terminal open and focused in the folder where {{script_name}} was created, type {{run_command}}. The command should appear at the prompt so it can be run next."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After {{run_command}} is fully entered in the active terminal, press Enter to run it. The expected result is a prompt asking for {{initial_prompt}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        10,
+        11
+      ],
+      "unit_intent": "Provide sample expenses and verify that the script prints the expected summary output.",
+      "unit_type": "VERIFY_SCRIPT_WITH_SAMPLE_INPUT",
+      "unit_before_state": "The integrated terminal is waiting for user input after the script's prompt for expense amounts separated by commas.",
+      "unit_after_state": "The terminal shows the entered sample values and then prints the completed summary output, including Entries: 3, Total: 23.99, and Average: 8.00.",
+      "unit_precondition": [
+        "The script is still running in the integrated terminal.",
+        "The terminal cursor is active on the input line after the expense prompt."
+      ],
+      "unit_effect": [
+        "The sample input 12.50, 7.99, 3.50 appears on the terminal input line.",
+        "After submission, the terminal prints a summary with 3 entries, total 23.99, and average 8.00."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Provide sample expense values to a running script and verify that it prints the expected summary statistics.",
+      "parameters": {
+        "sample_expense_values": "12.50, 7.99, 3.50",
+        "expected_entries": "3",
+        "expected_total": "23.99",
+        "expected_average": "8.00"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': '12.50, 7.99, 3.50'}",
+          "action_template": "When the script is prompting for values and the terminal cursor is ready, type {{sample_expense_values}} as sample expenses. The numbers should appear on the current input line."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Once {{sample_expense_values}} are fully typed and the script is waiting for submission, press Enter. The expected result is that the terminal shows Entries: {{expected_entries}}, Total: {{expected_total}}, and Average: {{expected_average}}, confirming the script works."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

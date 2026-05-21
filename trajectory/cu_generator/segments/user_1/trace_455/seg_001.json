@@ -1,0 +1,639 @@
+{
+  "segment_id": "seg_001",
+  "app": "thunderbird",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open a new message composition window using a keyboard shortcut",
+      "action_before_state": "The Thunderbird main window is open and active, displaying the inbox or folder pane. No composition window is currently open.",
+      "action_preconditions": [
+        "Thunderbird application is running and focused",
+        "No modal dialogs are blocking the interface",
+        "The main mail window is active"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "n"
+        ]
+      },
+      "action_after_effects": "A new 'Write' (Compose) window opens on top of the main Thunderbird window. The cursor is positioned in the 'To:' field, ready for input. The window contains fields for To, Subject, and a main body area for the message content.",
+      "nl_explanation": "When the Thunderbird main window is active, pressing Ctrl+N opens a new message composition window, allowing the user to start drafting a new email. The cursor automatically focuses in the recipient (To:) field."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Enter the recipient email address and navigate to the subject field",
+      "action_before_state": "The composition window is open with the cursor blinking in the empty 'To:' field. The subject field and body area are empty.",
+      "action_preconditions": [
+        "Composition window is focused",
+        "Cursor is in the 'To:' field",
+        "The field is empty and ready for input"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "john.doe@example.com"
+      },
+      "action_after_effects": "The text 'john.doe@example.com' appears in the 'To:' field. The cursor is positioned at the end of the typed email address.",
+      "nl_explanation": "With the cursor positioned in the recipient field, typing 'john.doe@example.com' populates the 'To:' field with the intended recipient's email address."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Move focus to the Subject field and enter the subject text",
+      "action_before_state": "The recipient field contains 'john.doe@example.com'. The cursor is still at the end of the text in the 'To:' field. The Subject field is empty and located below the To field.",
+      "action_preconditions": [
+        "Composition window is active",
+        "Recipient field is filled",
+        "Subject field is accessible"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "tab"
+        ]
+      },
+      "action_after_effects": "The cursor moves from the 'To:' field to the 'Subject:' field. The subject field becomes active with a blinking cursor, ready for text input.",
+      "nl_explanation": "Pressing the Tab key moves the focus from the recipient field to the subject field, preparing it for text entry."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Type the subject line text",
+      "action_before_state": "The cursor is blinking in the empty Subject field. The To: field contains the email address from previous steps.",
+      "action_preconditions": [
+        "Subject field is focused",
+        "Field is empty and ready for input"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Project Update"
+      },
+      "action_after_effects": "The text 'Project Update' appears in the Subject field. The cursor is positioned at the end of the text.",
+      "nl_explanation": "Typing 'Project Update' populates the subject field with the intended subject line for the email."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Click the Attach button to open the file selection dialog for attaching the PDF",
+      "action_before_state": "The composition window shows the recipient, subject, and an empty body. The Attach button (paperclip icon) is visible in the toolbar, typically near the top of the window.",
+      "action_preconditions": [
+        "Composition window is fully loaded",
+        "The Attach button is visible and clickable",
+        "The report.pdf file exists in the Documents folder"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": "The Attach button (paperclip icon) in the composition toolbar"
+      },
+      "action_after_effects": "A file selection dialog window opens, titled 'Attach File(s)' or similar. The dialog shows the file system, typically starting in the Home directory or last used location. The dialog includes navigation controls, a file list area, and 'Open'/'Cancel' buttons.",
+      "nl_explanation": "Clicking the Attach button (paperclip icon) opens the system's file selection dialog, allowing the user to browse for and select the file to attach to the email."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Navigate to the Documents folder and select the report.pdf file",
+      "action_before_state": "The file selection dialog is open. It may be showing the Home directory or another location. The Documents folder should be visible in the navigation pane or main area.",
+      "action_preconditions": [
+        "File dialog is focused",
+        "Documents folder exists and is accessible",
+        "report.pdf exists in Documents"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": "The 'Documents' folder in the file dialog's navigation pane or main file list"
+      },
+      "action_after_effects": "The Documents folder opens, displaying its contents including the 'report.pdf' file. The path bar at the top updates to show 'Home/Documents' or similar.",
+      "nl_explanation": "Clicking on the Documents folder navigates into that directory, revealing its contents including the target report.pdf file."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Select the report.pdf file and confirm attachment",
+      "action_before_state": "The Documents folder contents are displayed, showing report.pdf among other files. The file is not yet selected (not highlighted).",
+      "action_preconditions": [
+        "report.pdf is visible in the file list",
+        "The file dialog is active"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": "The 'report.pdf' file in the Documents folder list"
+      },
+      "action_after_effects": "The report.pdf file becomes highlighted/selected in the file list, indicating it is selected. The 'Open' button in the dialog becomes active (if it wasn't already).",
+      "nl_explanation": "Clicking on the report.pdf file selects it for attachment, highlighting it in the file list and preparing it for confirmation."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Click the Open button to confirm and attach the selected file",
+      "action_before_state": "The report.pdf file is selected (highlighted) in the file dialog. The Open button is visible at the bottom right of the dialog.",
+      "action_preconditions": [
+        "report.pdf is selected",
+        "The Open button is active/clickable"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": "The 'Open' button in the file attachment dialog"
+      },
+      "action_after_effects": "The file dialog closes. The composition window now shows 'report.pdf' in the attachment area, at the bottom of the composition window, above the status bar. The attachment is listed with its filename and file size.",
+      "nl_explanation": "Clicking the Open button confirms the selection and attaches the report.pdf file to the email. The dialog closes and the filename appears in the attachment list of the compose window."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Access the File menu to find the Send Later feature",
+      "action_before_state": "The composition window is complete with recipient, subject, body (optional), and the report.pdf attachment visible. The menu bar is visible at the top of the window.",
+      "action_preconditions": [
+        "Email is fully composed with attachment",
+        "File menu is accessible in the menu bar",
+        "Send Later functionality is accessible (via File menu or toolbar depending on version)"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": "The 'File' menu in the composition window's menu bar (in Thunderbird 78+, Send Later is typically under File > Send Later)"
+      },
+      "action_after_effects": "A dropdown menu appears below the File menu item, showing various message options including 'Send Later' or 'Deliver Later' (depending on Thunderbird version).",
+      "nl_explanation": "Clicking the File menu opens the dropdown menu containing email composition options, including the 'Send Later' functionality needed to schedule the email delivery. Note: In newer Thunderbird versions (115+), this may also be accessible via a toolbar button."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Click on Send Later to open the scheduling dialog",
+      "action_before_state": "The File dropdown menu is open, displaying various options including 'Send Later' (which may also be labeled as 'Deliver Later' in some versions).",
+      "action_preconditions": [
+        "File menu is open",
+        "Send Later option is visible in the menu"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": "The 'Send Later' option in the File dropdown menu"
+      },
+      "action_after_effects": "The File menu closes and a 'Send Later' dialog window opens. This dialog contains date and time pickers or input fields for scheduling when the email should be sent, along with 'Schedule Send' and 'Cancel' buttons.",
+      "nl_explanation": "Selecting 'Send Later' from the File menu opens the scheduling dialog where the specific date and time for the delayed email delivery can be configured."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Set the scheduled date to tomorrow in the date picker",
+      "action_before_state": "The Send Later dialog is open. It contains a date field (possibly showing today's date or empty) and a time field. The date picker/input is accessible.",
+      "action_preconditions": [
+        "Send Later dialog is active",
+        "Date field is accessible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": "The date input field or date picker button in the Send Later dialog"
+      },
+      "action_after_effects": "A date picker calendar widget appears, or the date field becomes active for editing. The current date (today, January 14, 2024) is highlighted in the calendar if a calendar widget opened.",
+      "nl_explanation": "Clicking on the date field activates it for input or opens a calendar picker, allowing the user to select tomorrow's date (January 15, 2024) for the scheduled email delivery."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Select tomorrow's date in the calendar or type it",
+      "action_before_state": "The date picker calendar is open showing the current month, with today's date (January 14, 2024) highlighted. Tomorrow's date (January 15, 2024) is visible and selectable. Alternatively, if it's a text field, it's ready for input.",
+      "action_preconditions": [
+        "Date picker is open or field is active",
+        "Tomorrow's date (January 15, 2024) is selectable"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": "Tomorrow's date (January 15, 2024) in the calendar picker"
+      },
+      "action_after_effects": "The calendar picker closes (if it was open) and the date field is populated with January 15, 2024 in the format appropriate for the locale (e.g., '2024-01-15' or '01/15/2024').",
+      "nl_explanation": "Clicking on January 15, 2024 in the calendar picker selects that date for the scheduled delivery, populating the date field with the chosen date."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Set the time to 9:00 AM in the time field",
+      "action_before_state": "The date field now shows January 15, 2024. The time field is visible next to or below the date field, possibly showing the current time or a default value like '12:00'.",
+      "action_preconditions": [
+        "Date has been set successfully",
+        "Time input field is accessible"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "09:00"
+      },
+      "action_after_effects": "The time field now displays '09:00' or '9:00 AM' (depending on time format settings), replacing any previous value. The date and time for scheduled delivery are now both set to January 15, 2024 at 9:00 AM.",
+      "nl_explanation": "Typing '09:00' into the time field sets the scheduled delivery time to 9:00 AM, completing the date and time configuration for the delayed email sending."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Click the Schedule Send button to queue the email for later delivery",
+      "action_before_state": "The Send Later dialog shows the correctly configured date (January 15, 2024) and time (9:00 AM). The 'Schedule Send' button (or similarly labeled button like 'Queue Message') is visible at the bottom of the dialog.",
+      "action_preconditions": [
+        "Date and time are correctly set to January 15, 2024 at 9:00 AM",
+        "Schedule Send button is active and clickable",
+        "The email composition is complete with recipient, subject, and attachment"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": "The 'Schedule Send' button in the Send Later dialog"
+      },
+      "action_after_effects": "The Send Later dialog closes. The composition window typically remains open. A brief notification or status message may appear indicating the message has been queued. The email is saved to the Outbox or Scheduled folder with the timestamp for January 15, 2024 at 9:00 AM, and it will be sent automatically at that time.",
+      "nl_explanation": "Clicking the 'Schedule Send' button confirms the scheduling settings, closes the dialog, and queues the email in the Outbox to be automatically sent on January 15, 2024 at 9:00 AM. The compose window typically stays open so the user can continue working or close it manually."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Open a fresh email draft so the message can be composed.",
+      "unit_type": "OPEN_COMPOSE_WINDOW",
+      "unit_before_state": "The Thunderbird main mail window is active, showing the regular mailbox interface with no compose window open.",
+      "unit_after_state": "A separate Write/Compose window is open in front of Thunderbird, with empty header fields and the text cursor active in the To field.",
+      "unit_precondition": [
+        "Thunderbird is running and focused.",
+        "The main mail window is the active window.",
+        "No modal dialog is blocking keyboard shortcuts."
+      ],
+      "unit_effect": [
+        "A new compose window appears.",
+        "The To field is focused and ready for typing."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Fill in the message header with the intended recipient and subject.",
+      "unit_type": "ENTER_EMAIL_METADATA",
+      "unit_before_state": "The compose window is open with the cursor in the empty To field, and the Subject field is still blank.",
+      "unit_after_state": "The To field contains john.doe@example.com, the Subject field contains Project Update, and the cursor remains at the end of the subject text in the compose window.",
+      "unit_precondition": [
+        "The compose window is focused.",
+        "The To field is active and editable.",
+        "The recipient and subject fields are visible and empty or ready to be filled."
+      ],
+      "unit_effect": [
+        "john.doe@example.com is visible in the To field.",
+        "Project Update is visible in the Subject field.",
+        "Focus successfully moves from To to Subject during the entry flow."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Attach the required PDF file from the Documents folder to the draft email.",
+      "unit_type": "ATTACH_FILE",
+      "unit_before_state": "The compose window shows the filled recipient and subject fields, no attachment is listed yet, and the Attach button is visible in the toolbar.",
+      "unit_after_state": "The file picker has closed and the compose window shows report.pdf in the attachment area, confirming the file is attached to the draft.",
+      "unit_precondition": [
+        "The compose window is active.",
+        "The Attach button is visible and clickable.",
+        "The Documents folder is accessible and contains report.pdf."
+      ],
+      "unit_effect": [
+        "An Attach File dialog opens after clicking Attach.",
+        "The Documents folder view displays report.pdf.",
+        "report.pdf becomes selected in the dialog and the Open button is enabled.",
+        "After confirmation, report.pdf appears in Thunderbird's attachment list."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Open Thunderbird's delayed-delivery interface so the email can be scheduled instead of sent immediately.",
+      "unit_type": "OPEN_SEND_LATER_DIALOG",
+      "unit_before_state": "The compose window is active with john.doe@example.com in the To field, Project Update in the Subject field, and report.pdf visible as an attachment.",
+      "unit_after_state": "The Send Later scheduling dialog is open on top of the compose window, showing controls for selecting a send date and time plus a Schedule Send button.",
+      "unit_precondition": [
+        "The compose window is active and the message draft is prepared.",
+        "The File menu is visible in the compose window menu bar.",
+        "The Send Later option is available from the File menu."
+      ],
+      "unit_effect": [
+        "The File menu dropdown opens and shows Send Later.",
+        "Selecting Send Later closes the menu and opens the scheduling dialog."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        11,
+        12,
+        13
+      ],
+      "unit_intent": "Set the scheduled delivery time to tomorrow at 9:00 AM.",
+      "unit_type": "CONFIGURE_SCHEDULE_TIME",
+      "unit_before_state": "The Send Later dialog is open with editable date and time controls, but the target delivery time has not yet been fully configured.",
+      "unit_after_state": "The Send Later dialog shows the scheduled send time set to January 15, 2024 at 9:00 AM, with the date field populated for January 15, 2024 and the time field showing 09:00 or 9:00 AM.",
+      "unit_precondition": [
+        "The Send Later dialog is the active window.",
+        "The date control can be opened or edited.",
+        "January 15, 2024 is selectable in the date picker.",
+        "The time input field is editable."
+      ],
+      "unit_effect": [
+        "The date picker or date field becomes active.",
+        "January 15, 2024 is inserted into the dialog's date field.",
+        "The time field updates to 09:00 or 9:00 AM.",
+        "The dialog now visibly shows the complete target schedule of January 15, 2024 at 9:00 AM."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        14
+      ],
+      "unit_intent": "Confirm the delayed-delivery settings and queue the email for automatic sending at the scheduled time.",
+      "unit_type": "SCHEDULE_SEND",
+      "unit_before_state": "The Send Later dialog is open and visibly configured for January 15, 2024 at 9:00 AM, with the Schedule Send button enabled.",
+      "unit_after_state": "The Send Later dialog is closed, and the draft has been queued for later delivery in Thunderbird, typically appearing in Outbox or a scheduled queue with the planned send time.",
+      "unit_precondition": [
+        "The Send Later dialog is active.",
+        "The date is set to January 15, 2024.",
+        "The time is set to 9:00 AM.",
+        "The Schedule Send button is enabled."
+      ],
+      "unit_effect": [
+        "The scheduling dialog closes after confirmation.",
+        "Thunderbird shows the message as queued for later delivery, such as via a status notification or an entry in Outbox/Scheduled mail.",
+        "The email is no longer pending immediate manual send from the dialog."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Open a fresh email draft so the message can be composed.",
+      "unit_type": "OPEN_COMPOSE_WINDOW",
+      "unit_before_state": "The Thunderbird main mail window is active, showing the regular mailbox interface with no compose window open.",
+      "unit_after_state": "A separate Write/Compose window is open in front of Thunderbird, with empty header fields and the text cursor active in the To field.",
+      "unit_precondition": [
+        "Thunderbird is running and focused.",
+        "The main mail window is the active window.",
+        "No modal dialog is blocking keyboard shortcuts."
+      ],
+      "unit_effect": [
+        "A new compose window appears.",
+        "The To field is focused and ready for typing."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a new email composition window so a message can be drafted.",
+      "parameters": {
+        "compose_shortcut": "Ctrl+N"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'n']}",
+          "action_template": "Press {{compose_shortcut}} while the email client's main window is active and no modal dialog is blocking the interface to open a new compose window with focus placed in the recipient field."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Fill in the message header with the intended recipient and subject.",
+      "unit_type": "ENTER_EMAIL_METADATA",
+      "unit_before_state": "The compose window is open with the cursor in the empty To field, and the Subject field is still blank.",
+      "unit_after_state": "The To field contains john.doe@example.com, the Subject field contains Project Update, and the cursor remains at the end of the subject text in the compose window.",
+      "unit_precondition": [
+        "The compose window is focused.",
+        "The To field is active and editable.",
+        "The recipient and subject fields are visible and empty or ready to be filled."
+      ],
+      "unit_effect": [
+        "john.doe@example.com is visible in the To field.",
+        "Project Update is visible in the Subject field.",
+        "Focus successfully moves from To to Subject during the entry flow."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Fill in the email header with a specified recipient address and subject line.",
+      "parameters": {
+        "recipient_email": "john.doe@example.com",
+        "subject_text": "Project Update"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'john.doe@example.com'}",
+          "action_template": "With the composition window focused, the cursor in the empty To field, and the field ready for input, type {{recipient_email}} to populate the To field; {{recipient_email}} appears in the To field and the cursor is positioned at the end of the typed address."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['tab']}",
+          "action_template": "When the composition window is active, the recipient field is filled, and the Subject field is accessible, press Tab to move focus from the To field to the Subject field; the Subject field becomes active with a blinking cursor, ready for text input."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Project Update'}",
+          "action_template": "With the Subject field focused and ready for input, type {{subject_text}} to populate the subject line; {{subject_text}} appears in the Subject field and the cursor is positioned at the end of the text."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Attach the required PDF file from the Documents folder to the draft email.",
+      "unit_type": "ATTACH_FILE",
+      "unit_before_state": "The compose window shows the filled recipient and subject fields, no attachment is listed yet, and the Attach button is visible in the toolbar.",
+      "unit_after_state": "The file picker has closed and the compose window shows report.pdf in the attachment area, confirming the file is attached to the draft.",
+      "unit_precondition": [
+        "The compose window is active.",
+        "The Attach button is visible and clickable.",
+        "The Documents folder is accessible and contains report.pdf."
+      ],
+      "unit_effect": [
+        "An Attach File dialog opens after clicking Attach.",
+        "The Documents folder view displays report.pdf.",
+        "report.pdf becomes selected in the dialog and the Open button is enabled.",
+        "After confirmation, report.pdf appears in Thunderbird's attachment list."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Attach a specified file from a specified folder to the current draft email.",
+      "parameters": {
+        "source_folder": "Documents",
+        "file_name": "report.pdf"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': 'The Attach button (paperclip icon) in the composition toolbar'}",
+          "action_template": "Click the Attach button (paperclip icon) in the composition toolbar to open the system file selection dialog for attaching {{file_name}}; requires the composition window to be fully loaded, the Attach button to be visible and clickable, and {{file_name}} to exist in {{source_folder}}. Afterward, a file selection dialog opens with navigation controls, a file list, and Open/Cancel buttons."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': \"The 'Documents' folder in the file dialog's navigation pane or main file list\"}",
+          "action_template": "Click the {{source_folder}} folder in the file dialog's navigation pane or main file list to navigate into that directory; requires the file dialog to be focused, {{source_folder}} to exist and be accessible, and {{file_name}} to be present there. Afterward, the {{source_folder}} folder opens and displays its contents including {{file_name}}."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': \"The 'report.pdf' file in the Documents folder list\"}",
+          "action_template": "Click {{file_name}} in the {{source_folder}} folder list to select it for attachment; requires {{file_name}} to be visible in the file list and the file dialog to be active. Afterward, {{file_name}} becomes highlighted and the Open button is enabled."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': \"The 'Open' button in the file attachment dialog\"}",
+          "action_template": "Click the Open button in the file attachment dialog to confirm the selected {{file_name}}; requires {{file_name}} to be selected and the Open button to be active. Afterward, the dialog closes and {{file_name}} appears in the compose window's attachment list."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Open Thunderbird's delayed-delivery interface so the email can be scheduled instead of sent immediately.",
+      "unit_type": "OPEN_SEND_LATER_DIALOG",
+      "unit_before_state": "The compose window is active with john.doe@example.com in the To field, Project Update in the Subject field, and report.pdf visible as an attachment.",
+      "unit_after_state": "The Send Later scheduling dialog is open on top of the compose window, showing controls for selecting a send date and time plus a Schedule Send button.",
+      "unit_precondition": [
+        "The compose window is active and the message draft is prepared.",
+        "The File menu is visible in the compose window menu bar.",
+        "The Send Later option is available from the File menu."
+      ],
+      "unit_effect": [
+        "The File menu dropdown opens and shows Send Later.",
+        "Selecting Send Later closes the menu and opens the scheduling dialog."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open the email scheduling dialog from the compose window so the message can be scheduled for later delivery.",
+      "parameters": {
+        "menu_name": "File",
+        "schedule_option": "Send Later"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': \"The 'File' menu in the composition window's menu bar (in Thunderbird 78+, Send Later is typically under File > Send Later)\"}",
+          "action_template": "Click the {{menu_name}} menu in the compose window menu bar when the draft is prepared and the menu is accessible to open the dropdown containing the delayed-send option."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': \"The 'Send Later' option in the File dropdown menu\"}",
+          "action_template": "Click {{schedule_option}} in the open {{menu_name}} dropdown when the option is visible to close the menu and open the scheduling dialog with date, time, and send controls."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        11,
+        12,
+        13
+      ],
+      "unit_intent": "Set the scheduled delivery time to tomorrow at 9:00 AM.",
+      "unit_type": "CONFIGURE_SCHEDULE_TIME",
+      "unit_before_state": "The Send Later dialog is open with editable date and time controls, but the target delivery time has not yet been fully configured.",
+      "unit_after_state": "The Send Later dialog shows the scheduled send time set to January 15, 2024 at 9:00 AM, with the date field populated for January 15, 2024 and the time field showing 09:00 or 9:00 AM.",
+      "unit_precondition": [
+        "The Send Later dialog is the active window.",
+        "The date control can be opened or edited.",
+        "January 15, 2024 is selectable in the date picker.",
+        "The time input field is editable."
+      ],
+      "unit_effect": [
+        "The date picker or date field becomes active.",
+        "January 15, 2024 is inserted into the dialog's date field.",
+        "The time field updates to 09:00 or 9:00 AM.",
+        "The dialog now visibly shows the complete target schedule of January 15, 2024 at 9:00 AM."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Set a specified scheduled delivery date and time in the Send Later dialog.",
+      "parameters": {
+        "target_date": "January 15, 2024",
+        "target_time": "09:00"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': 'The date input field or date picker button in the Send Later dialog'}",
+          "action_template": "Click the date input field or date picker button in the Send Later dialog when the Send Later dialog is active and the date field is accessible to activate the date field for input or open a calendar picker for selecting {{target_date}}."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': \"Tomorrow's date (January 15, 2024) in the calendar picker\"}",
+          "action_template": "Click {{target_date}} in the calendar picker when the date picker is open or the field is active and {{target_date}} is selectable to populate the date field with {{target_date}}."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '09:00'}",
+          "action_template": "Type {{target_time}} into the time field after the date has been set successfully and the time input field is accessible to set the scheduled delivery time to {{target_time}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        14
+      ],
+      "unit_intent": "Confirm the delayed-delivery settings and queue the email for automatic sending at the scheduled time.",
+      "unit_type": "SCHEDULE_SEND",
+      "unit_before_state": "The Send Later dialog is open and visibly configured for January 15, 2024 at 9:00 AM, with the Schedule Send button enabled.",
+      "unit_after_state": "The Send Later dialog is closed, and the draft has been queued for later delivery in Thunderbird, typically appearing in Outbox or a scheduled queue with the planned send time.",
+      "unit_precondition": [
+        "The Send Later dialog is active.",
+        "The date is set to January 15, 2024.",
+        "The time is set to 9:00 AM.",
+        "The Schedule Send button is enabled."
+      ],
+      "unit_effect": [
+        "The scheduling dialog closes after confirmation.",
+        "Thunderbird shows the message as queued for later delivery, such as via a status notification or an entry in Outbox/Scheduled mail.",
+        "The email is no longer pending immediate manual send from the dialog."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Confirm the configured delayed-delivery settings and queue the email for automatic sending at the specified scheduled time.",
+      "parameters": {
+        "confirm_button": "Schedule Send",
+        "scheduled_date": "January 15, 2024",
+        "scheduled_time": "9:00 AM"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': \"The 'Schedule Send' button in the Send Later dialog\"}",
+          "action_template": "With the email composition complete and the Send Later dialog active, click the {{confirm_button}} button once after verifying the scheduled date is {{scheduled_date}} and the scheduled time is {{scheduled_time}}. This confirms the scheduling settings, closes the dialog, and queues the email for automatic delivery at the specified time."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

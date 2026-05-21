@@ -1,0 +1,656 @@
+{
+  "segment_id": "seg_001",
+  "app": "gimp",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Activate the crop tool",
+      "action_before_state": "gimp is ready for step 1 of the task.",
+      "action_preconditions": [
+        "GIMP is already open on GNOME",
+        "The image canvas is visible",
+        "The left toolbox is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Crop Tool icon in the left toolbox"
+        }
+      },
+      "action_after_effects": "The mouse pointer changes to the crop cursor, so the image is ready for defining a crop area.",
+      "nl_explanation": "When the image and toolbox are visible, click the Crop Tool on the left. The canvas should enter crop mode so the next action can define the square framing."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Draw a square crop around the main subject",
+      "action_before_state": "gimp is ready for step 2 of the task.",
+      "action_preconditions": [
+        "The Crop Tool is active",
+        "The full image is visible on the canvas"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "a point near the upper-left area of the part of the photo you want to keep"
+        },
+        "end": {
+          "text": "a point near the lower-right area so the crop box becomes a centered square"
+        },
+        "target": {
+          "begin": {
+            "text": "the image canvas"
+          },
+          "end": {
+            "text": "the image canvas"
+          }
+        }
+      },
+      "action_after_effects": "A square crop box appears over the image, showing what will be kept after cropping.",
+      "nl_explanation": "With the crop tool active, drag from the upper-left part of the desired composition toward the lower-right until a square crop box covers the main subject. The image is now staged for the crop to be applied."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Apply the crop",
+      "action_before_state": "gimp is ready for step 3 of the task.",
+      "action_preconditions": [
+        "A square crop box is visible on the canvas"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The image is cropped to the selected square area.",
+      "nl_explanation": "Once the square crop box looks correct, press Enter. GIMP applies the crop and the canvas becomes a square image."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Reset the foreground and background colors to the default pair",
+      "action_before_state": "gimp is ready for step 4 of the task.",
+      "action_preconditions": [
+        "The canvas is active",
+        "You are not typing inside a text field"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "d"
+        ]
+      },
+      "action_after_effects": "GIMP resets the colors to the default black foreground and white background.",
+      "nl_explanation": "With the canvas focused, press D to restore the default black and white colors. This gives a known starting point before filling the banner."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Make white the foreground color for the banner fill",
+      "action_before_state": "gimp is ready for step 5 of the task.",
+      "action_preconditions": [
+        "The default black/white colors are active"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "x"
+        ]
+      },
+      "action_after_effects": "The foreground color becomes white, ready for a white fill.",
+      "nl_explanation": "After resetting the colors, press X to swap them. The foreground color becomes white so the bottom strip can be filled in white."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Choose the rectangle selection tool",
+      "action_before_state": "gimp is ready for step 6 of the task.",
+      "action_preconditions": [
+        "The square image is visible",
+        "The toolbox is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Rectangle Select Tool icon in the toolbox"
+        }
+      },
+      "action_after_effects": "The pointer changes to selection mode, allowing a banner area to be marked.",
+      "nl_explanation": "Click the Rectangle Select Tool in the toolbox so you can mark the bottom strip where the text banner will go."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Select a horizontal strip across the bottom of the image",
+      "action_before_state": "gimp is ready for step 7 of the task.",
+      "action_preconditions": [
+        "The Rectangle Select Tool is active",
+        "The square image is visible"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the lower-left edge of the image"
+        },
+        "end": {
+          "text": "the lower-right area of the image, stopping after creating a short horizontal strip along the bottom"
+        },
+        "target": {
+          "begin": {
+            "text": "the image canvas"
+          },
+          "end": {
+            "text": "the image canvas"
+          }
+        }
+      },
+      "action_after_effects": "A rectangular selection outline appears across the lower portion of the image.",
+      "nl_explanation": "With rectangle selection active, drag across the bottom part of the image to create a short banner-shaped selection. This defines where the white strip will be placed."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Activate the bucket fill tool",
+      "action_before_state": "gimp is ready for step 8 of the task.",
+      "action_preconditions": [
+        "A bottom rectangular selection is visible",
+        "The foreground color is white"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Bucket Fill icon in the toolbox"
+        }
+      },
+      "action_after_effects": "The pointer switches to fill mode, ready to fill the selected strip.",
+      "nl_explanation": "When the bottom strip is selected and white is the foreground color, click the Bucket Fill Tool. The next click will fill the selected area."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Fill the selected strip with white",
+      "action_before_state": "gimp is ready for step 9 of the task.",
+      "action_preconditions": [
+        "The Bucket Fill Tool is active",
+        "The bottom strip is still selected",
+        "The foreground color is white"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "any point inside the selected bottom strip"
+        }
+      },
+      "action_after_effects": "The selected banner area becomes white while the rest of the image stays unchanged.",
+      "nl_explanation": "Click inside the selected strip to fill it with the current foreground color. The image now has a clean white banner at the bottom for text."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Switch the foreground color back to black for the text",
+      "action_before_state": "gimp is ready for step 10 of the task.",
+      "action_preconditions": [
+        "The white banner is visible on the image",
+        "The foreground color is currently white"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "x"
+        ]
+      },
+      "action_after_effects": "The foreground color becomes black, which is suitable for readable text on the white strip.",
+      "nl_explanation": "After filling the banner, press X again to swap the colors back. Black becomes the foreground color so the banner text will have good contrast."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Choose the text tool",
+      "action_before_state": "gimp is ready for step 11 of the task.",
+      "action_preconditions": [
+        "The banner is visible",
+        "The toolbox is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Text Tool icon in the toolbox"
+        }
+      },
+      "action_after_effects": "The pointer changes to text-entry mode.",
+      "nl_explanation": "Click the Text Tool in the toolbox so you can place the event label over the white banner."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Create a text box on the white banner",
+      "action_before_state": "gimp is ready for step 12 of the task.",
+      "action_preconditions": [
+        "The Text Tool is active",
+        "The white banner at the bottom is visible"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the left side of the white banner"
+        },
+        "end": {
+          "text": "the right side of the white banner, leaving a small margin on both sides"
+        },
+        "target": {
+          "begin": {
+            "text": "the white banner area on the canvas"
+          },
+          "end": {
+            "text": "the white banner area on the canvas"
+          }
+        }
+      },
+      "action_after_effects": "A text box appears across the banner and is ready for typing.",
+      "nl_explanation": "Drag across the white strip from left to right to create a text box that spans most of the banner. GIMP is then ready to accept the banner text."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Enter the sale text",
+      "action_before_state": "gimp is ready for step 13 of the task.",
+      "action_preconditions": [
+        "A text box is active on the banner",
+        "The text cursor is visible inside the text box"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "BAKE SALE SAT 10 AM"
+      },
+      "action_after_effects": "The text appears inside the banner on the image.",
+      "nl_explanation": "With the text box active, type BAKE SALE SAT 10 AM. The banner now displays the event label directly on the image."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Open the export dialog",
+      "action_before_state": "gimp is ready for step 14 of the task.",
+      "action_preconditions": [
+        "The edited image is visible",
+        "No blocking dialog is open"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "shift",
+          "ctrl",
+          "e"
+        ]
+      },
+      "action_after_effects": "The Export Image dialog opens so a filename can be entered.",
+      "nl_explanation": "Once the crop, banner, and text are in place, press Shift+Ctrl+E to open GIMP's export dialog."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Provide the export filename",
+      "action_before_state": "gimp is ready for step 15 of the task.",
+      "action_preconditions": [
+        "The Export Image dialog is open",
+        "The filename field is active or ready to be edited"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "bake_sale_square.png"
+      },
+      "action_after_effects": "The export dialog now contains the desired PNG filename.",
+      "nl_explanation": "When the export dialog appears, type bake_sale_square.png as the output name so the finished poster will be saved as a PNG file."
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Confirm the export destination",
+      "action_before_state": "gimp is ready for step 16 of the task.",
+      "action_preconditions": [
+        "The export filename has been entered",
+        "The Export Image dialog is still open"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Export button in the Export Image dialog"
+        }
+      },
+      "action_after_effects": "The PNG export settings dialog opens, ready for final confirmation.",
+      "nl_explanation": "After the filename is entered, click the Export button in the file dialog to move to GIMP's PNG export settings."
+    },
+    {
+      "step_id": "s17",
+      "step_goal": "Finish exporting the PNG",
+      "action_before_state": "gimp is ready for step 17 of the task.",
+      "action_preconditions": [
+        "The PNG export settings dialog is open",
+        "The default PNG export options are acceptable"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Export button in the PNG export settings dialog"
+        }
+      },
+      "action_after_effects": "GIMP exports the edited image to bake_sale_square.png.",
+      "nl_explanation": "When the PNG export settings dialog appears, click Export again to save the finished square bake-sale poster as bake_sale_square.png."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Crop the opened photo into a square composition centered on the main subject.",
+      "unit_type": "CROP_TO_SQUARE",
+      "unit_before_state": "GIMP is open with the original photo visible on the canvas in the main editing window, and the left toolbox is available. No crop box is currently applied to the image.",
+      "unit_after_state": "The canvas now shows only the selected square portion of the photo, with the crop applied and the image itself reduced to a square format.",
+      "unit_precondition": [
+        "The target photo is already open in GIMP and visible on the canvas.",
+        "The left toolbox is visible so the Crop Tool can be chosen.",
+        "The user can see enough of the image to draw the intended square framing."
+      ],
+      "unit_effect": [
+        "The Crop Tool becomes active and the pointer changes to crop mode.",
+        "A square crop rectangle appears over the photo to show the kept area.",
+        "After pressing Enter, the canvas updates to the cropped square image."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "unit_intent": "Add a solid white strip across the bottom of the square photo to create a banner area.",
+      "unit_type": "ADD_BOTTOM_BANNER",
+      "unit_before_state": "The square-cropped photo is visible on the GIMP canvas with no white banner yet added. The toolbox is visible, and the image is ready for further editing.",
+      "unit_after_state": "A horizontal white strip is filled across the bottom portion of the square image, while the rest of the photo remains unchanged. The filled strip is still the active selected region.",
+      "unit_precondition": [
+        "The square-cropped image is visible and the canvas is focused so keyboard shortcuts affect GIMP.",
+        "No text input field is active when pressing D and X.",
+        "The toolbox is visible so the Rectangle Select Tool and Bucket Fill Tool can be selected."
+      ],
+      "unit_effect": [
+        "The color swatches are reset to the default black foreground and white background, then swapped so white becomes the foreground color.",
+        "A rectangular selection outline appears across the lower part of the image.",
+        "Using Bucket Fill inside that selection turns the selected bottom strip white."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        10,
+        11,
+        12,
+        13
+      ],
+      "unit_intent": "Place the event text on the white banner in a readable black text layer.",
+      "unit_type": "INSERT_BANNER_TEXT",
+      "unit_before_state": "The edited image shows a white strip along the bottom of the square photo. The foreground color is still white, and no banner text has been entered yet.",
+      "unit_after_state": "The white strip contains the text \"BAKE SALE SAT 10 AM\" in black inside a text box spanning most of the banner.",
+      "unit_precondition": [
+        "The white banner is already visible on the image.",
+        "The toolbox is visible so the Text Tool can be selected.",
+        "No blocking dialog is open, and the banner area is available for placing a text box."
+      ],
+      "unit_effect": [
+        "Pressing X changes the foreground color back to black for high-contrast text.",
+        "Dragging on the banner creates an active text box with a visible insertion point.",
+        "Typing the phrase makes \"BAKE SALE SAT 10 AM\" appear on the white strip."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        14,
+        15,
+        16,
+        17
+      ],
+      "unit_intent": "Export the finished poster as a PNG file named bake_sale_square.png.",
+      "unit_type": "EXPORT_PNG",
+      "unit_before_state": "The finished square poster is visible in GIMP with the white bottom banner and the text already added. No export dialog is open yet.",
+      "unit_after_state": "The export flow is completed and the poster has been written out as the PNG file bake_sale_square.png.",
+      "unit_precondition": [
+        "The edited poster is complete on the GIMP canvas.",
+        "No blocking dialog is open before invoking export.",
+        "The export filename field can be edited when the Export Image dialog appears.",
+        "The default PNG export settings are acceptable for final output."
+      ],
+      "unit_effect": [
+        "Shift+Ctrl+E opens the Export Image dialog.",
+        "The filename field is populated with \"bake_sale_square.png\".",
+        "Clicking Export in the first dialog opens the PNG export settings dialog.",
+        "Clicking Export again completes the file export as bake_sale_square.png."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Crop the opened photo into a square composition centered on the main subject.",
+      "unit_type": "CROP_TO_SQUARE",
+      "unit_before_state": "GIMP is open with the original photo visible on the canvas in the main editing window, and the left toolbox is available. No crop box is currently applied to the image.",
+      "unit_after_state": "The canvas now shows only the selected square portion of the photo, with the crop applied and the image itself reduced to a square format.",
+      "unit_precondition": [
+        "The target photo is already open in GIMP and visible on the canvas.",
+        "The left toolbox is visible so the Crop Tool can be chosen.",
+        "The user can see enough of the image to draw the intended square framing."
+      ],
+      "unit_effect": [
+        "The Crop Tool becomes active and the pointer changes to crop mode.",
+        "A square crop rectangle appears over the photo to show the kept area.",
+        "After pressing Enter, the canvas updates to the cropped square image."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Crop the opened image into a square composition centered on {{target_subject}}.",
+      "parameters": {
+        "target_subject": "the main subject",
+        "crop_tool": "the Crop Tool icon in the left toolbox",
+        "crop_start_region": "a point near the upper-left area of the part of the photo you want to keep",
+        "crop_end_region": "a point near the lower-right area so the crop box becomes a centered square"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Crop Tool icon in the left toolbox'}}",
+          "action_template": "When the image and toolbox are visible, click {{crop_tool}}. Preconditions: GIMP is already open on GNOME, the image canvas is visible, and the left toolbox is visible. The canvas should enter crop mode so the next action can define the square framing. Afterward, the mouse pointer changes to the crop cursor, so the image is ready for defining a crop area."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'a point near the upper-left area of the part of the photo you want to keep'}, 'end': {'text': 'a point near the lower-right area so the crop box becomes a centered square'}, 'target': {'begin': {'text': 'the image canvas'}, 'end': {'text': 'the image canvas'}}}",
+          "action_template": "With the Crop Tool active, drag on the image canvas from {{crop_start_region}} toward {{crop_end_region}} until a square crop box covers {{target_subject}}. Preconditions: the Crop Tool is active and the full image is visible on the canvas. The image is then staged for the crop to be applied, and a square crop box appears over the image, showing what will be kept after cropping."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Once the square crop box looks correct, press Enter. Preconditions: a square crop box is visible on the canvas. GIMP applies the crop and the canvas becomes a square image, leaving the image cropped to the selected square area."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "unit_intent": "Add a solid white strip across the bottom of the square photo to create a banner area.",
+      "unit_type": "ADD_BOTTOM_BANNER",
+      "unit_before_state": "The square-cropped photo is visible on the GIMP canvas with no white banner yet added. The toolbox is visible, and the image is ready for further editing.",
+      "unit_after_state": "A horizontal white strip is filled across the bottom portion of the square image, while the rest of the photo remains unchanged. The filled strip is still the active selected region.",
+      "unit_precondition": [
+        "The square-cropped image is visible and the canvas is focused so keyboard shortcuts affect GIMP.",
+        "No text input field is active when pressing D and X.",
+        "The toolbox is visible so the Rectangle Select Tool and Bucket Fill Tool can be selected."
+      ],
+      "unit_effect": [
+        "The color swatches are reset to the default black foreground and white background, then swapped so white becomes the foreground color.",
+        "A rectangular selection outline appears across the lower part of the image.",
+        "Using Bucket Fill inside that selection turns the selected bottom strip white."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Add a white banner strip to a specified area of the image.",
+      "parameters": {
+        "selection_start_point": "the lower-left edge of the image",
+        "selection_end_point": "the lower-right area of the image, stopping after creating a short horizontal strip along the bottom"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['d']}",
+          "action_template": "Press D with the canvas focused and no text field active to restore the default black and white colors before filling the banner area."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['x']}",
+          "action_template": "Press X after the default black and white colors are active to swap them so white becomes the foreground color for the banner fill."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Rectangle Select Tool icon in the toolbox'}}",
+          "action_template": "Click the Rectangle Select Tool icon in the toolbox while the image and toolbox are visible to enter selection mode for marking the banner area."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the lower-left edge of the image'}, 'end': {'text': 'the lower-right area of the image, stopping after creating a short horizontal strip along the bottom'}, 'target': {'begin': {'text': 'the image canvas'}, 'end': {'text': 'the image canvas'}}}",
+          "action_template": "Drag on the image canvas from {{selection_start_point}} to {{selection_end_point}} with the Rectangle Select Tool active to create the strip selection where the white banner will be placed."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Bucket Fill icon in the toolbox'}}",
+          "action_template": "Click the Bucket Fill icon in the toolbox when the strip selection is visible and white is the foreground color to switch to fill mode."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'any point inside the selected bottom strip'}}",
+          "action_template": "Click inside the selected strip with the Bucket Fill Tool active and white as the foreground color to fill the selected banner area while leaving the rest of the image unchanged."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        10,
+        11,
+        12,
+        13
+      ],
+      "unit_intent": "Place the event text on the white banner in a readable black text layer.",
+      "unit_type": "INSERT_BANNER_TEXT",
+      "unit_before_state": "The edited image shows a white strip along the bottom of the square photo. The foreground color is still white, and no banner text has been entered yet.",
+      "unit_after_state": "The white strip contains the text \"BAKE SALE SAT 10 AM\" in black inside a text box spanning most of the banner.",
+      "unit_precondition": [
+        "The white banner is already visible on the image.",
+        "The toolbox is visible so the Text Tool can be selected.",
+        "No blocking dialog is open, and the banner area is available for placing a text box."
+      ],
+      "unit_effect": [
+        "Pressing X changes the foreground color back to black for high-contrast text.",
+        "Dragging on the banner creates an active text box with a visible insertion point.",
+        "Typing the phrase makes \"BAKE SALE SAT 10 AM\" appear on the white strip."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Place specified text onto a banner area in a readable text layer.",
+      "parameters": {
+        "banner_area": "the white banner area on the canvas",
+        "text_color": "black",
+        "banner_text": "BAKE SALE SAT 10 AM"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['x']}",
+          "action_template": "Press X while {{banner_area}} is visible and the foreground color is currently white to swap the colors so {{text_color}} becomes the foreground color for readable banner text."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Text Tool icon in the toolbox'}}",
+          "action_template": "Click the Text Tool icon in the toolbox while {{banner_area}} and the toolbox are visible to enter text-entry mode for placing text on the banner."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the left side of the white banner'}, 'end': {'text': 'the right side of the white banner, leaving a small margin on both sides'}, 'target': {'begin': {'text': 'the white banner area on the canvas'}, 'end': {'text': 'the white banner area on the canvas'}}}",
+          "action_template": "Drag across {{banner_area}} from the left side to the right side, leaving a small margin on both sides, to create a text box spanning most of the banner and make it ready for typing."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'BAKE SALE SAT 10 AM'}",
+          "action_template": "Type {{banner_text}} into the active text box while the text cursor is visible so the specified text appears inside the banner on the image."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        14,
+        15,
+        16,
+        17
+      ],
+      "unit_intent": "Export the finished poster as a PNG file named bake_sale_square.png.",
+      "unit_type": "EXPORT_PNG",
+      "unit_before_state": "The finished square poster is visible in GIMP with the white bottom banner and the text already added. No export dialog is open yet.",
+      "unit_after_state": "The export flow is completed and the poster has been written out as the PNG file bake_sale_square.png.",
+      "unit_precondition": [
+        "The edited poster is complete on the GIMP canvas.",
+        "No blocking dialog is open before invoking export.",
+        "The export filename field can be edited when the Export Image dialog appears.",
+        "The default PNG export settings are acceptable for final output."
+      ],
+      "unit_effect": [
+        "Shift+Ctrl+E opens the Export Image dialog.",
+        "The filename field is populated with \"bake_sale_square.png\".",
+        "Clicking Export in the first dialog opens the PNG export settings dialog.",
+        "Clicking Export again completes the file export as bake_sale_square.png."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Export the completed image as a PNG file with a specified output filename.",
+      "parameters": {
+        "output_file_name": "bake_sale_square.png"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['shift', 'ctrl', 'e']}",
+          "action_template": "Press Shift+Ctrl+E to open GIMP's Export Image dialog when the edited image is visible and no blocking dialog is open, so a filename can be entered."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'bake_sale_square.png'}",
+          "action_template": "Type {{output_file_name}} in the filename field when the Export Image dialog is open and the filename field is active or ready to be edited, so the export dialog contains the desired PNG filename."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Export button in the Export Image dialog'}}",
+          "action_template": "Click the Export button in the Export Image dialog after the export filename has been entered and while the dialog is still open, so the PNG export settings dialog opens for final confirmation."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Export button in the PNG export settings dialog'}}",
+          "action_template": "Click the Export button in the PNG export settings dialog when the dialog is open and the default PNG export options are acceptable, so GIMP exports the edited image to {{output_file_name}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

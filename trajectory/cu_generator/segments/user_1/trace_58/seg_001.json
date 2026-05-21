@@ -1,0 +1,570 @@
+{
+  "segment_id": "seg_001",
+  "app": "Chrome",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Focus the browser address bar",
+      "action_before_state": "Chrome is already open, and the current page is visible with the address bar at the top.",
+      "action_preconditions": [
+        "The Chrome window is active.",
+        "The address bar is visible."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "l"
+        ]
+      },
+      "action_after_effects": "The address bar becomes focused and the current URL is selected.",
+      "nl_explanation": "When Chrome is active and the address bar is visible, press Ctrl+L so the current address is highlighted and ready to be replaced."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Enter the Google Maps website address",
+      "action_before_state": "The address bar is focused and ready for text input.",
+      "action_preconditions": [
+        "The address bar cursor is active.",
+        "Any existing URL is selected or can be overwritten."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "https://maps.google.com"
+      },
+      "action_after_effects": "The Google Maps URL appears in the address bar.",
+      "nl_explanation": "With the address bar focused, type the Google Maps URL so the browser is prepared to open the maps site."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Open Google Maps",
+      "action_before_state": "The Google Maps URL is visible in the address bar.",
+      "action_preconditions": [
+        "A valid URL has been typed into the address bar."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "Google Maps loads in the current tab, showing the map area and the search box.",
+      "nl_explanation": "Once the Google Maps address is typed, press Enter to load the site and display the map interface."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Activate the Maps search field",
+      "action_before_state": "Google Maps is open, and the search box is visible near the upper-left area.",
+      "action_preconditions": [
+        "The Google Maps page has finished loading.",
+        "The search box is visible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Google Maps search box near the top-left corner"
+        }
+      },
+      "action_after_effects": "The text cursor appears inside the Maps search field.",
+      "nl_explanation": "After Google Maps finishes loading, click the search box in the upper-left area so the location query can be entered."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Enter the store search query",
+      "action_before_state": "The Maps search field is active and ready for typing.",
+      "action_preconditions": [
+        "The cursor is inside the Maps search box."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "grocery stores in downtown Seattle"
+      },
+      "action_after_effects": "The full grocery-store query appears in the search field and autocomplete suggestions display below the input.",
+      "nl_explanation": "With the Maps search field active, type the grocery-store search phrase so Maps knows what businesses and area to look for."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Run the search",
+      "action_before_state": "The search text is visible inside the Maps search box.",
+      "action_preconditions": [
+        "A complete query has been typed in the Maps search box."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The left panel updates to show grocery store results in downtown Seattle.",
+      "nl_explanation": "After the grocery-store query is entered, press Enter to display matching locations in the results list."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Open the hours filter for the results",
+      "action_before_state": "The search results panel is visible, with filter drop-down menus below the search box.",
+      "action_preconditions": [
+        "The Maps results list has loaded.",
+        "An 'Hours' filter drop-down is visible below the search box."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the 'Hours' filter drop-down below the search box"
+        }
+      },
+      "action_after_effects": "A filter menu opens with time-based options including 'Open now'.",
+      "nl_explanation": "When the results panel is visible, click the Hours filter so the time-based filtering options appear."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Select the 'Open now' filter option",
+      "action_before_state": "The hours filter menu is open with available time-based options visible.",
+      "action_preconditions": [
+        "The filter dropdown menu is displayed.",
+        "An 'Open now' option is visible in the menu."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the 'Open now' option in the hours filter dropdown"
+        }
+      },
+      "action_after_effects": "The results update to show open status for each store, with currently open stores emphasized and closed stores showing their hours.",
+      "nl_explanation": "Select 'Open now' from the Hours filter menu to narrow the results to businesses that are currently operating."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Bring a qualifying result into view",
+      "action_before_state": "The filtered results list is shown in the left panel.",
+      "action_preconditions": [
+        "The results list is scrollable.",
+        "At least one store result is visible."
+      ],
+      "action": {
+        "type": "SCROLL",
+        "scroll_type": "down",
+        "target": {
+          "text": "the results list in the left sidebar"
+        },
+        "stop_reason": "Stop when a grocery store card with a visible rating of 4.0 or higher is fully visible.",
+        "direction": "down"
+      },
+      "action_after_effects": "A result card with a visible rating of at least 4.0 is in view and ready to be selected.",
+      "nl_explanation": "If a suitable store is not already visible, scroll down through the results panel until a grocery store with a 4.0-or-higher rating can be clearly seen."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Open the details for a suitable grocery store",
+      "action_before_state": "A grocery store result with a visible 4.0+ rating is shown in the results panel.",
+      "action_preconditions": [
+        "A result card is visible in the list.",
+        "The selected card shows a rating of at least 4.0 if one is available."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the grocery store result card in the left panel that shows a rating of 4.0 or higher"
+        }
+      },
+      "action_after_effects": "The store's details panel opens, showing buttons such as Directions, Website, and store information.",
+      "nl_explanation": "When a suitable result is visible, click that store card so its full business details open in Maps."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Open directions for the selected store",
+      "action_before_state": "The business details panel for the selected store is open.",
+      "action_preconditions": [
+        "The store detail view is displayed.",
+        "A 'Directions' button is visible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the 'Directions' button in the business details panel"
+        }
+      },
+      "action_after_effects": "Google Maps switches to the directions interface for the selected destination.",
+      "nl_explanation": "Once the store details are open, click 'Directions' to move from the place page into route planning for that destination."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Switch the route to walking mode",
+      "action_before_state": "The directions interface is visible with transportation mode options near the top.",
+      "action_preconditions": [
+        "The directions panel has loaded.",
+        "A walking mode icon or button is visible among the route options."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the walking mode icon in the directions options row"
+        }
+      },
+      "action_after_effects": "The displayed route updates to walking directions for the selected grocery store.",
+      "nl_explanation": "After the directions panel appears, click the walking option so the route is recalculated for going on foot instead of another travel mode."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Open Google Maps as the workspace for finding a grocery store.",
+      "unit_type": "OPEN_MAPS_SITE",
+      "unit_before_state": "Chrome is open on an existing page, with the browser address bar visible at the top and no Maps interface shown yet.",
+      "unit_after_state": "Google Maps is loaded in the current tab, with the map canvas visible and the search box shown in the upper-left area.",
+      "unit_precondition": [
+        "The Chrome window is active.",
+        "The browser address bar is visible and can receive keyboard focus."
+      ],
+      "unit_effect": [
+        "The current URL in the address bar is replaced with https://maps.google.com.",
+        "The Google Maps page finishes loading and shows the search interface."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Search Google Maps for grocery stores in downtown Seattle.",
+      "unit_type": "SEARCH_PLACE_CATEGORY",
+      "unit_before_state": "Google Maps is open with the search box visible near the top-left corner and no grocery-store results list displayed yet.",
+      "unit_after_state": "The left sidebar shows search results for grocery stores in downtown Seattle, and the map updates to the matching area.",
+      "unit_precondition": [
+        "Google Maps has finished loading.",
+        "The search box is visible and available for input."
+      ],
+      "unit_effect": [
+        "The query text 'grocery stores in downtown Seattle' appears in the search field before submission.",
+        "After pressing Enter, the results panel populates with matching grocery store listings."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Filter the grocery store results to places that are currently open.",
+      "unit_type": "APPLY_OPEN_NOW_FILTER",
+      "unit_before_state": "The Google Maps results panel is visible with grocery store listings and filter controls under the search box, including an Hours filter.",
+      "unit_after_state": "The results remain in the left panel with the open-now condition applied, so currently open stores are emphasized in the list.",
+      "unit_precondition": [
+        "The grocery store search results have loaded in the left panel.",
+        "The Hours filter control is visible and contains an 'Open now' option."
+      ],
+      "unit_effect": [
+        "Clicking Hours opens a dropdown menu with time-based filter choices.",
+        "Selecting 'Open now' refreshes the results to reflect stores that are open at the current time."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Choose a currently open downtown Seattle grocery store that meets the rating target.",
+      "unit_type": "SELECT_QUALIFIED_RESULT",
+      "unit_before_state": "The left sidebar shows grocery store results filtered to open-now status, but the desired result card may not yet be centered in view.",
+      "unit_after_state": "A selected grocery store's business details panel is open, showing place information and action buttons such as Directions.",
+      "unit_precondition": [
+        "The open-now filtered results list is visible and scrollable.",
+        "A grocery store result with a visible rating of at least 4.0 is available in the list."
+      ],
+      "unit_effect": [
+        "Scrolling brings a result card with a 4.0-or-higher rating into view.",
+        "Clicking that card replaces the list focus with the store's detail panel."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        11
+      ],
+      "unit_intent": "Open route planning for the selected grocery store.",
+      "unit_type": "OPEN_DIRECTIONS",
+      "unit_before_state": "The selected grocery store's place details are open in the left panel, and a visible 'Directions' button is available among the action controls.",
+      "unit_after_state": "Google Maps switches to the directions interface for the selected grocery store destination, showing route-planning controls and travel-mode options.",
+      "unit_precondition": [
+        "The business details panel for the selected store is open.",
+        "The 'Directions' button is visible and clickable."
+      ],
+      "unit_effect": [
+        "The place details view changes into the directions planning view.",
+        "The selected grocery store is set as the route destination."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        12
+      ],
+      "unit_intent": "View the route to the selected grocery store in walking mode.",
+      "unit_type": "SWITCH_TO_WALKING_MODE",
+      "unit_before_state": "The Google Maps directions interface is open with transportation mode icons near the top, and the route is not yet confirmed as walking.",
+      "unit_after_state": "The directions view is set to walking mode, and the map and route details reflect a walking route to the selected grocery store.",
+      "unit_precondition": [
+        "The directions interface has finished loading.",
+        "The walking mode icon is visible among the transportation options."
+      ],
+      "unit_effect": [
+        "The walking icon becomes the selected travel mode.",
+        "The route display updates to show walking directions for the chosen grocery store."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Open Google Maps as the workspace for finding a grocery store.",
+      "unit_type": "OPEN_MAPS_SITE",
+      "unit_before_state": "Chrome is open on an existing page, with the browser address bar visible at the top and no Maps interface shown yet.",
+      "unit_after_state": "Google Maps is loaded in the current tab, with the map canvas visible and the search box shown in the upper-left area.",
+      "unit_precondition": [
+        "The Chrome window is active.",
+        "The browser address bar is visible and can receive keyboard focus."
+      ],
+      "unit_effect": [
+        "The current URL in the address bar is replaced with https://maps.google.com.",
+        "The Google Maps page finishes loading and shows the search interface."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a specified web mapping site in the current browser tab so its map and search interface are available.",
+      "parameters": {
+        "target_site_name": "Google Maps",
+        "target_url": "https://maps.google.com"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'l']}",
+          "action_template": "When the Chrome window is active and the address bar is visible, press Ctrl+L so the current address is highlighted and ready to be replaced."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'https://maps.google.com'}",
+          "action_template": "With the address bar focused and any existing URL selected or overwriteable, type {{target_url}} so the browser is prepared to open {{target_site_name}}."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Once {{target_url}} is typed in the address bar, press Enter to load {{target_site_name}} and display its map interface."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Search Google Maps for grocery stores in downtown Seattle.",
+      "unit_type": "SEARCH_PLACE_CATEGORY",
+      "unit_before_state": "Google Maps is open with the search box visible near the top-left corner and no grocery-store results list displayed yet.",
+      "unit_after_state": "The left sidebar shows search results for grocery stores in downtown Seattle, and the map updates to the matching area.",
+      "unit_precondition": [
+        "Google Maps has finished loading.",
+        "The search box is visible and available for input."
+      ],
+      "unit_effect": [
+        "The query text 'grocery stores in downtown Seattle' appears in the search field before submission.",
+        "After pressing Enter, the results panel populates with matching grocery store listings."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Search Google Maps for a specified place category within a specified area.",
+      "parameters": {
+        "place_category": "grocery stores",
+        "search_area": "downtown Seattle"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Google Maps search box near the top-left corner'}}",
+          "action_template": "After Google Maps finishes loading, click the search box in the upper-left area so the query for {{place_category}} in {{search_area}} can be entered. Preconditions: the Google Maps page has finished loading and the search box is visible. Effect: the text cursor appears inside the Maps search field."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'grocery stores in downtown Seattle'}",
+          "action_template": "With the Maps search field active, type {{place_category}} in {{search_area}} so Maps knows what businesses and area to look for. Preconditions: the cursor is inside the Maps search box. Effect: the full query appears in the search field and autocomplete suggestions display below the input."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After the query for {{place_category}} in {{search_area}} is entered, press Enter to display matching locations in the results list. Preconditions: a complete query has been typed in the Maps search box. Effect: the left panel updates to show results for {{place_category}} in {{search_area}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Filter the grocery store results to places that are currently open.",
+      "unit_type": "APPLY_OPEN_NOW_FILTER",
+      "unit_before_state": "The Google Maps results panel is visible with grocery store listings and filter controls under the search box, including an Hours filter.",
+      "unit_after_state": "The results remain in the left panel with the open-now condition applied, so currently open stores are emphasized in the list.",
+      "unit_precondition": [
+        "The grocery store search results have loaded in the left panel.",
+        "The Hours filter control is visible and contains an 'Open now' option."
+      ],
+      "unit_effect": [
+        "Clicking Hours opens a dropdown menu with time-based filter choices.",
+        "Selecting 'Open now' refreshes the results to reflect stores that are open at the current time."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Apply a specified hours-based availability filter to the current place search results.",
+      "parameters": {
+        "filter_control": "Hours",
+        "filter_option": "Open now"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': \"the 'Hours' filter drop-down below the search box\"}}",
+          "action_template": "When the results panel is visible, click the {{filter_control}} filter so the time-based filtering options appear. Preconditions: The results list has loaded, and a {{filter_control}} filter drop-down is visible below the search box. Effect: A filter menu opens with time-based options including {{filter_option}}."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': \"the 'Open now' option in the hours filter dropdown\"}}",
+          "action_template": "Select {{filter_option}} from the {{filter_control}} filter menu to narrow the results to places that match the current availability condition. Preconditions: The filter dropdown menu is displayed, and a {{filter_option}} option is visible in the menu. Effect: The results update to reflect the selected hours-based filter, emphasizing places that currently satisfy it."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Choose a currently open downtown Seattle grocery store that meets the rating target.",
+      "unit_type": "SELECT_QUALIFIED_RESULT",
+      "unit_before_state": "The left sidebar shows grocery store results filtered to open-now status, but the desired result card may not yet be centered in view.",
+      "unit_after_state": "A selected grocery store's business details panel is open, showing place information and action buttons such as Directions.",
+      "unit_precondition": [
+        "The open-now filtered results list is visible and scrollable.",
+        "A grocery store result with a visible rating of at least 4.0 is available in the list."
+      ],
+      "unit_effect": [
+        "Scrolling brings a result card with a 4.0-or-higher rating into view.",
+        "Clicking that card replaces the list focus with the store's detail panel."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Select a result of the desired type from the filtered results list that meets a specified minimum rating and open its details.",
+      "parameters": {
+        "result_type": "grocery store",
+        "minimum_rating": "4.0"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'SCROLL', 'scroll_type': 'down', 'target': {'text': 'the results list in the left sidebar'}, 'stop_reason': 'Stop when a grocery store card with a visible rating of 4.0 or higher is fully visible.', 'direction': 'down'}",
+          "action_template": "If a suitable {{result_type}} is not already visible and the results list is scrollable with at least one store result shown, scroll down through the results panel until a {{result_type}} card with a visible rating of {{minimum_rating}} or higher is clearly in view and ready to be selected."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the grocery store result card in the left panel that shows a rating of 4.0 or higher'}}",
+          "action_template": "When a visible {{result_type}} result card shows a rating of {{minimum_rating}} or higher, click that card to open its full business details in Maps, showing buttons such as Directions, Website, and store information."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        11
+      ],
+      "unit_intent": "Open route planning for the selected grocery store.",
+      "unit_type": "OPEN_DIRECTIONS",
+      "unit_before_state": "The selected grocery store's place details are open in the left panel, and a visible 'Directions' button is available among the action controls.",
+      "unit_after_state": "Google Maps switches to the directions interface for the selected grocery store destination, showing route-planning controls and travel-mode options.",
+      "unit_precondition": [
+        "The business details panel for the selected store is open.",
+        "The 'Directions' button is visible and clickable."
+      ],
+      "unit_effect": [
+        "The place details view changes into the directions planning view.",
+        "The selected grocery store is set as the route destination."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open route planning for {{target_place}} from its details panel.",
+      "parameters": {
+        "target_place": "the selected grocery store"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': \"the 'Directions' button in the business details panel\"}}",
+          "action_template": "When the detail view for {{target_place}} is displayed and a visible Directions button is available, click the Directions button in the business details panel to move from the place page into route planning for {{target_place}}, switching Google Maps to the directions interface for that destination."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        12
+      ],
+      "unit_intent": "View the route to the selected grocery store in walking mode.",
+      "unit_type": "SWITCH_TO_WALKING_MODE",
+      "unit_before_state": "The Google Maps directions interface is open with transportation mode icons near the top, and the route is not yet confirmed as walking.",
+      "unit_after_state": "The directions view is set to walking mode, and the map and route details reflect a walking route to the selected grocery store.",
+      "unit_precondition": [
+        "The directions interface has finished loading.",
+        "The walking mode icon is visible among the transportation options."
+      ],
+      "unit_effect": [
+        "The walking icon becomes the selected travel mode.",
+        "The route display updates to show walking directions for the chosen grocery store."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "View the route to the selected destination in walking mode.",
+      "parameters": {
+        "target_destination": "selected grocery store"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the walking mode icon in the directions options row'}}",
+          "action_template": "After the directions panel appears and a walking mode icon is visible among the route options, click the walking option so the route is recalculated for going on foot to the {{target_destination}} and the displayed route updates to walking directions."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

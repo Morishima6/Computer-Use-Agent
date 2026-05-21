@@ -1,0 +1,321 @@
+{
+  "segment_id": "seg_001",
+  "app": "vlc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Navigate to the 30-second mark in the video timeline",
+      "action_before_state": "VLC is open and playing a video. The timeline/seek bar is visible at the bottom of the window showing the current playback position and time markers.",
+      "action_preconditions": [
+        "VLC media player is active and displayed",
+        "A video file is loaded and ready to play or playing",
+        "The timeline/seek bar is visible at the bottom with time markers"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "Timeline/seek bar at the :30 time marker position"
+        }
+      },
+      "action_after_effects": "The video jumps to the 30-second mark. The timeline indicator moves to that position and the video frame updates to show the scene at 30 seconds.",
+      "nl_explanation": "Click on the timeline/seek bar at the :30 marker position to jump precisely to the 30-second mark. The seek bar in VLC displays time markers, so clicking at the :30 marker ensures accurate positioning for recording."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Start recording the video segment",
+      "action_before_state": "The video is positioned at the 30-second mark and is either playing or paused. The control bar at the bottom shows various buttons including the record button (red circle or equivalent icon).",
+      "action_preconditions": [
+        "Video is positioned at the desired start time (30 seconds)",
+        "The VLC control bar is visible with the record button accessible",
+        "The record button is visible in the control bar"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "Record button in the bottom control bar"
+        }
+      },
+      "action_after_effects": "The record button appears pressed or highlighted, indicating that recording has started. A recording indicator may appear in the interface, and VLC begins saving the video stream to the default Videos folder.",
+      "nl_explanation": "Click the record button in the VLC control bar to start recording the video segment. This initiates the capture of the video from the current 30-second position."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Wait for 10 seconds of recording while video plays",
+      "action_before_state": "Recording is active as indicated by the pressed record button. The video is playing from the 30-second mark.",
+      "action_preconditions": [
+        "Recording is currently active",
+        "Video is playing from the 30-second position",
+        "The timeline is progressing"
+      ],
+      "action": {
+        "type": "CLICK",
+        "duration_seconds": 10,
+        "note": "Waiting period to allow the video to play from 30s to 40s while recording",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the relevant vlc UI element"
+        }
+      },
+      "action_after_effects": "The video timeline advances from 30 seconds to approximately 40 seconds. The recording continues capturing this 10-second segment.",
+      "nl_explanation": "Allow the video to play for approximately 10 seconds while recording is active. This captures the segment from 30 seconds to 40 seconds. No active interaction is needed during this waiting period."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Stop the recording to finalize the clip",
+      "action_before_state": "The video has played to approximately the 40-second mark. The record button is still in an active/pressed state, indicating that recording is ongoing.",
+      "action_preconditions": [
+        "Approximately 10 seconds have elapsed since recording started",
+        "The record button is currently active/pressed",
+        "Video has reached approximately the 40-second mark"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "Active/pressed record button in the control bar to toggle recording off"
+        }
+      },
+      "action_after_effects": "The record button returns to its normal unpressed state. Recording stops and the 10-second video clip is saved to the default Videos folder (typically ~/Videos/). A brief save indicator may appear.",
+      "nl_explanation": "Click the record button again (which is currently in an active state) to stop the recording. This finalizes the 10-second clip capture and saves the file to the default Videos directory."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Open the file manager to verify the recorded clip",
+      "action_before_state": "Recording has been stopped and the clip should be saved. The VLC window is still the active window.",
+      "action_preconditions": [
+        "Recording has been successfully stopped",
+        "The system file manager is accessible",
+        "VLC saves recordings to ~/Videos/ by default"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "super",
+          "e"
+        ]
+      },
+      "action_after_effects": "The file manager (GNOME Files) opens, typically showing the home folder or recent locations.",
+      "nl_explanation": "Open the file manager using the Super+E keyboard shortcut (standard GNOME shortcut) to navigate to the Videos folder and verify the recorded file."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Navigate to and list the contents of the Videos directory to confirm the recording",
+      "action_before_state": "The file manager is open and ready for navigation.",
+      "action_preconditions": [
+        "File manager is active and focused",
+        "VLC typically saves recordings with a timestamp or 'vlc-record' prefix"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "Videos folder in the file manager sidebar or main pane"
+        }
+      },
+      "action_after_effects": "The file manager navigates to ~/Videos/ and displays its contents, including the newly recorded video clip with details such as file size, name (typically with 'vlc-record' prefix and timestamp), and modification time.",
+      "nl_explanation": "Navigate to the Videos folder in the file manager to verify that the 10-second clip was successfully saved. VLC typically names recordings with a 'vlc-record-' prefix followed by the original filename and timestamp."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Position playback exactly at the intended clip start time before recording.",
+      "unit_type": "SEEK_TO_TIMESTAMP",
+      "unit_before_state": "VLC media player is open with a video loaded and the playback timeline visible at the bottom of the window at some position other than the target start point.",
+      "unit_after_state": "The playback head is positioned at the 30-second mark on the VLC timeline, and the video preview shows the frame corresponding to 00:30.",
+      "unit_precondition": [
+        "VLC is the active window.",
+        "A video is loaded in VLC.",
+        "The timeline or seek bar is visible and can be clicked."
+      ],
+      "unit_effect": [
+        "The timeline indicator jumps to 00:30.",
+        "The displayed video frame updates to the scene at the 30-second position."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Capture a 10-second highlight clip from the video starting at 30 seconds and finalize the saved recording.",
+      "unit_type": "RECORD_VIDEO_CLIP",
+      "unit_before_state": "VLC is at the 30-second position with the control bar visible, and the record button is available but not yet active.",
+      "unit_after_state": "Playback has advanced to about the 40-second mark, the record button has returned to its normal inactive appearance, and the recorded clip has been finalized for saving in the default Videos folder.",
+      "unit_precondition": [
+        "Playback is already positioned at 00:30.",
+        "The VLC record control is visible and usable.",
+        "The video can continue playing while recording is active."
+      ],
+      "unit_effect": [
+        "Clicking the record button makes it appear active or pressed, indicating recording has started.",
+        "During the wait interval, the playback timeline advances from about 00:30 to about 00:40 while recording remains active.",
+        "Clicking the record button again turns recording off and VLC saves the captured clip to the default Videos directory."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Open the saved-recordings location and confirm that the newly captured clip is present.",
+      "unit_type": "VERIFY_SAVED_CLIP",
+      "unit_before_state": "Recording has stopped in VLC, the clip should already be saved, and the VLC window is still in the foreground.",
+      "unit_after_state": "The file manager is open to the Videos folder and its contents are visible, including the newly recorded VLC clip entry.",
+      "unit_precondition": [
+        "The recording process has been stopped successfully.",
+        "A file manager shortcut or launcher is available from the desktop session.",
+        "VLC is configured to save recordings to the default Videos folder."
+      ],
+      "unit_effect": [
+        "The file manager window opens from the desktop environment.",
+        "Selecting Videos changes the main pane to show the contents of ~/Videos/.",
+        "A newly created recording file, typically with a VLC-generated name and recent modification time, is visible in the folder listing."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Position playback exactly at the intended clip start time before recording.",
+      "unit_type": "SEEK_TO_TIMESTAMP",
+      "unit_before_state": "VLC media player is open with a video loaded and the playback timeline visible at the bottom of the window at some position other than the target start point.",
+      "unit_after_state": "The playback head is positioned at the 30-second mark on the VLC timeline, and the video preview shows the frame corresponding to 00:30.",
+      "unit_precondition": [
+        "VLC is the active window.",
+        "A video is loaded in VLC.",
+        "The timeline or seek bar is visible and can be clicked."
+      ],
+      "unit_effect": [
+        "The timeline indicator jumps to 00:30.",
+        "The displayed video frame updates to the scene at the 30-second position."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Seek playback to a specified timestamp on the video timeline before recording.",
+      "parameters": {
+        "target_time_marker": ":30 time marker position",
+        "target_timestamp": "00:30"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'Timeline/seek bar at the :30 time marker position'}}",
+          "action_template": "With VLC media player active, a video loaded, and the timeline/seek bar visible at the bottom with time markers, click the timeline/seek bar at the {{target_time_marker}} to jump precisely to {{target_timestamp}}. The timeline indicator moves to that position and the video frame updates to show the scene at {{target_timestamp}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Capture a 10-second highlight clip from the video starting at 30 seconds and finalize the saved recording.",
+      "unit_type": "RECORD_VIDEO_CLIP",
+      "unit_before_state": "VLC is at the 30-second position with the control bar visible, and the record button is available but not yet active.",
+      "unit_after_state": "Playback has advanced to about the 40-second mark, the record button has returned to its normal inactive appearance, and the recorded clip has been finalized for saving in the default Videos folder.",
+      "unit_precondition": [
+        "Playback is already positioned at 00:30.",
+        "The VLC record control is visible and usable.",
+        "The video can continue playing while recording is active."
+      ],
+      "unit_effect": [
+        "Clicking the record button makes it appear active or pressed, indicating recording has started.",
+        "During the wait interval, the playback timeline advances from about 00:30 to about 00:40 while recording remains active.",
+        "Clicking the record button again turns recording off and VLC saves the captured clip to the default Videos directory."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Capture and save a video clip of a specified duration from a specified playback start point in VLC.",
+      "parameters": {
+        "clip_start_time": "00:30",
+        "clip_duration": "10 seconds",
+        "clip_end_time": "00:40",
+        "record_control": "Record button in the bottom control bar",
+        "save_location": "default Videos folder"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'Record button in the bottom control bar'}}",
+          "action_template": "Click {{record_control}} in the VLC control bar when playback is already positioned at {{clip_start_time}} and the control is visible, to start recording the clip from the current playback position. After this action, the record control appears active or highlighted and VLC begins saving the video stream to {{save_location}}."
+        },
+        {
+          "action": "{'type': 'CLICK', 'duration_seconds': 10, 'note': 'Waiting period to allow the video to play from 30s to 40s while recording', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the relevant vlc UI element'}}",
+          "action_template": "Allow the video to continue playing for approximately {{clip_duration}} while recording remains active. This requires that recording has already started and the playback timeline is progressing, and results in the timeline advancing from about {{clip_start_time}} to about {{clip_end_time}} while the clip continues to be captured."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'Active/pressed record button in the control bar to toggle recording off'}}",
+          "action_template": "After approximately {{clip_duration}} have elapsed and playback has reached about {{clip_end_time}}, click the active {{record_control}} again to stop recording. This returns the control to its normal inactive state and finalizes the recorded clip for saving in {{save_location}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Open the saved-recordings location and confirm that the newly captured clip is present.",
+      "unit_type": "VERIFY_SAVED_CLIP",
+      "unit_before_state": "Recording has stopped in VLC, the clip should already be saved, and the VLC window is still in the foreground.",
+      "unit_after_state": "The file manager is open to the Videos folder and its contents are visible, including the newly recorded VLC clip entry.",
+      "unit_precondition": [
+        "The recording process has been stopped successfully.",
+        "A file manager shortcut or launcher is available from the desktop session.",
+        "VLC is configured to save recordings to the default Videos folder."
+      ],
+      "unit_effect": [
+        "The file manager window opens from the desktop environment.",
+        "Selecting Videos changes the main pane to show the contents of ~/Videos/.",
+        "A newly created recording file, typically with a VLC-generated name and recent modification time, is visible in the folder listing."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open the file manager, navigate to the recording save folder, and verify that the newly recorded clip is present.",
+      "parameters": {
+        "file_manager_shortcut": "Super+E",
+        "target_folder": "Videos",
+        "target_folder_path": "~/Videos/",
+        "target_folder_item": "Videos folder in the file manager sidebar or main pane",
+        "expected_file_prefix": "vlc-record-"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['super', 'e']}",
+          "action_template": "Press {{file_manager_shortcut}} after recording has been stopped to open the file manager so you can navigate to {{target_folder}} and verify the recorded file. The file manager then opens, typically showing the home folder or recent locations."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'Videos folder in the file manager sidebar or main pane'}}",
+          "action_template": "Click {{target_folder_item}} in the file manager to open {{target_folder_path}} and display its contents, including the newly recorded clip, which is typically identifiable by the {{expected_file_prefix}} prefix, timestamp, file size, and recent modification time."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

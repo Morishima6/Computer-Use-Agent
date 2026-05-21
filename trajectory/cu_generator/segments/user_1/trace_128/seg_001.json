@@ -1,0 +1,809 @@
+{
+  "segment_id": "seg_001",
+  "app": "gimp",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the image selection dialog",
+      "action_before_state": "GIMP is already open on GNOME, showing its main editing window with the top menu bar and toolbox visible.",
+      "action_preconditions": [
+        "The GIMP window is focused.",
+        "No modal dialog is currently blocking the interface."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "o"
+        ]
+      },
+      "action_after_effects": "The Open Image dialog appears in front of the GIMP window.",
+      "nl_explanation": "When GIMP is focused and no other dialog is open, press Ctrl+O to bring up the Open Image dialog so a photo can be loaded."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Move focus to the location entry in the file chooser",
+      "action_before_state": "The Open Image dialog is visible with the file browser area and sidebar.",
+      "action_preconditions": [
+        "The Open Image dialog is active.",
+        "The dialog supports keyboard focus for the location field."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "l"
+        ]
+      },
+      "action_after_effects": "The location/path entry in the file chooser becomes active and ready for text input.",
+      "nl_explanation": "With the Open Image dialog active, press Ctrl+L to focus the path field so the image location can be entered directly."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Enter the photo path",
+      "action_before_state": "The file chooser location field is focused and waiting for input.",
+      "action_preconditions": [
+        "The path entry is active.",
+        "The cat photo exists at the specified path."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "/home/user/Pictures/lost_cat.jpg"
+      },
+      "action_after_effects": "The image path appears in the location field.",
+      "nl_explanation": "Once the location field is focused, type the full image path so GIMP knows which file to open."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Load the cat photo into GIMP",
+      "action_before_state": "The file path is fully entered in the Open Image dialog.",
+      "action_preconditions": [
+        "A valid image path is present in the location field.",
+        "The Open Image dialog is still focused."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The dialog closes and the cat photo opens on the GIMP canvas.",
+      "nl_explanation": "After the correct path is entered, press Enter to confirm the selection and load the file into GIMP."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Activate the crop tool",
+      "action_before_state": "The cat photo is visible in the canvas area, and the toolbox is shown on the side.",
+      "action_preconditions": [
+        "An image is open in GIMP.",
+        "The toolbox is visible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Crop Tool icon in the toolbox"
+        }
+      },
+      "action_after_effects": "GIMP switches to crop mode and the tool options update for cropping.",
+      "nl_explanation": "When the image is open and the toolbox is visible, click the Crop Tool so the photo can be trimmed to focus on the cat."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Draw a tighter crop around the cat",
+      "action_before_state": "The Crop Tool is active and the cat photo fills the main canvas.",
+      "action_preconditions": [
+        "Crop mode is active.",
+        "The cat is clearly visible on the canvas."
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "a point slightly above and left of the cat on the canvas"
+        },
+        "end": {
+          "text": "a point slightly below and right of the cat so most empty background is excluded"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "A crop rectangle appears around the cat, previewing the tighter framing.",
+      "nl_explanation": "With the Crop Tool active and the cat visible, drag across the photo to create a crop box that keeps the cat prominent and removes extra background."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Apply the crop",
+      "action_before_state": "A crop rectangle is visible on top of the photo.",
+      "action_preconditions": [
+        "The crop rectangle is positioned correctly.",
+        "The canvas is still in crop confirmation mode."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The crop is applied and the canvas updates to the tighter composition.",
+      "nl_explanation": "Once the crop box is positioned correctly, press Enter to commit the crop and update the image framing."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Open the Colors menu",
+      "action_before_state": "The cropped cat photo is visible with the top menu bar above it.",
+      "action_preconditions": [
+        "The image is open and editable.",
+        "The top menu bar is visible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "Colors in the top menu bar"
+        }
+      },
+      "action_after_effects": "The Colors dropdown menu opens.",
+      "nl_explanation": "After cropping is finished, click the Colors menu to access quick color correction tools."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Open the Auto submenu",
+      "action_before_state": "The Colors menu is expanded with multiple color adjustment options visible.",
+      "action_preconditions": [
+        "The Colors menu is open.",
+        "The Auto submenu entry is visible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "Auto in the Colors menu"
+        }
+      },
+      "action_after_effects": "The Auto submenu opens next to the Colors menu.",
+      "nl_explanation": "With the Colors menu open, click Auto to reveal the automatic correction options."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Apply automatic white balance correction",
+      "action_before_state": "The Auto submenu is open beside the Colors menu.",
+      "action_preconditions": [
+        "The Auto submenu is visible.",
+        "The image is ready for an automatic tonal correction."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "White Balance in the Auto submenu"
+        }
+      },
+      "action_after_effects": "The menu closes and the image colors are automatically corrected to look clearer and more balanced.",
+      "nl_explanation": "When the Auto submenu is visible, click White Balance to apply a quick automatic correction that makes the photo clearer without manual slider work."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Switch to the text tool",
+      "action_before_state": "The corrected cat photo is visible and the toolbox remains available.",
+      "action_preconditions": [
+        "The photo is still active on the canvas.",
+        "The toolbox is visible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Text Tool icon in the toolbox"
+        }
+      },
+      "action_after_effects": "GIMP activates the Text Tool so a text box can be inserted onto the image.",
+      "nl_explanation": "After the photo looks right, click the Text Tool in the toolbox so the poster heading can be added."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Place a text box near the top of the poster",
+      "action_before_state": "The Text Tool is active and the upper area of the image is visible.",
+      "action_preconditions": [
+        "The Text Tool is selected.",
+        "There is visible space near the top of the image for a heading."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "an empty area near the top center of the image"
+        }
+      },
+      "action_after_effects": "A new editable text box appears near the top of the image with a blinking cursor.",
+      "nl_explanation": "With the Text Tool active, click near the top center of the image to create a text box for the main poster heading."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Add the main heading",
+      "action_before_state": "A text box is active near the top of the image with a blinking text cursor.",
+      "action_preconditions": [
+        "The top text box is active.",
+        "Keyboard input is directed to that text box."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "LOST CAT"
+      },
+      "action_after_effects": "The heading text appears in the upper text box on the image.",
+      "nl_explanation": "When the top text box is active, type \"LOST CAT\" so the poster has a clear and prominent heading."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Commit the heading text",
+      "action_before_state": "The text \"LOST CAT\" has been typed into the top text box.",
+      "action_preconditions": [
+        "The heading text is visible in the text box.",
+        "The text cursor is still in the text box."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "enter"
+        ]
+      },
+      "action_after_effects": "The heading text is committed and rendered on the image.",
+      "nl_explanation": "Press Ctrl+Enter to commit the heading text and finalize it on the image."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Create a second text box for contact details",
+      "action_before_state": "The heading is visible near the top, and the Text Tool is still active.",
+      "action_preconditions": [
+        "The Text Tool remains selected.",
+        "There is open space near the bottom of the image."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "an empty area near the bottom center of the image"
+        }
+      },
+      "action_after_effects": "A second editable text box appears near the bottom of the poster.",
+      "nl_explanation": "After placing the heading, click near the bottom center of the image to create another text box for contact information."
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Add the contact line",
+      "action_before_state": "The bottom text box is active with the text cursor visible.",
+      "action_preconditions": [
+        "The lower text box is active.",
+        "Keyboard input is focused inside that text box."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Call Mia: 555-0147"
+      },
+      "action_after_effects": "The contact details appear near the bottom of the poster image.",
+      "nl_explanation": "With the lower text box active, type the contact line so anyone who sees the poster knows how to respond."
+    },
+    {
+      "step_id": "s17",
+      "step_goal": "Commit the contact text",
+      "action_before_state": "The contact text has been typed into the bottom text box.",
+      "action_preconditions": [
+        "The contact text is visible in the text box.",
+        "The text cursor is still in the text box."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "enter"
+        ]
+      },
+      "action_after_effects": "The contact text is committed and rendered on the image.",
+      "nl_explanation": "Press Ctrl+Enter to commit the contact text and finalize it on the image."
+    },
+    {
+      "step_id": "s18",
+      "step_goal": "Open the export dialog",
+      "action_before_state": "The completed poster is visible with both text elements added.",
+      "action_preconditions": [
+        "The image edits are finished.",
+        "No other modal dialog is open."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "e"
+        ]
+      },
+      "action_after_effects": "The Export As dialog opens in front of the editor.",
+      "nl_explanation": "Once the poster content is finished, press Ctrl+Shift+E (equivalent to File → Export As) to open the export dialog and save the edited version as a new file."
+    },
+    {
+      "step_id": "s19",
+      "step_goal": "Enter the export filename and path",
+      "action_before_state": "The Export As dialog is open with the filename field ready to edit.",
+      "action_preconditions": [
+        "The export dialog is active.",
+        "The filename field accepts text input."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "/home/user/Pictures/lost_cat_flyer.png"
+      },
+      "action_after_effects": "The export destination and filename are filled in as a PNG output file.",
+      "nl_explanation": "With the export dialog open, type the full output path and PNG filename so the original image stays untouched."
+    },
+    {
+      "step_id": "s20",
+      "step_goal": "Proceed to PNG export options",
+      "action_before_state": "The export path and filename are entered in the dialog.",
+      "action_preconditions": [
+        "A valid PNG filename is present.",
+        "The Export As dialog is still focused."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "GIMP advances to the PNG export options dialog.",
+      "nl_explanation": "After the new filename is entered, press Enter to proceed to the PNG-specific export options."
+    },
+    {
+      "step_id": "s21",
+      "step_goal": "Finish exporting the final poster image",
+      "action_before_state": "The PNG export options dialog is visible.",
+      "action_preconditions": [
+        "The PNG export dialog is open.",
+        "The default PNG settings are acceptable."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Export button in the PNG export dialog"
+        }
+      },
+      "action_after_effects": "The PNG file is written to disk and the finished lost-pet poster remains open in GIMP.",
+      "nl_explanation": "When the PNG options dialog appears, click the Export button to accept the default settings and export the final poster image."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Load the cat photo into GIMP so editing can begin on the correct source image.",
+      "unit_type": "OPEN_IMAGE_FILE",
+      "unit_before_state": "GIMP's main window is visible with the menu bar and toolbox, and no modal dialog is open over the editor.",
+      "unit_after_state": "The Open Image dialog has closed, and the cat photo from /home/user/Pictures/lost_cat.jpg is displayed on the main GIMP canvas as the active image.",
+      "unit_precondition": [
+        "GIMP is focused and ready to receive keyboard shortcuts.",
+        "The source file /home/user/Pictures/lost_cat.jpg exists and is accessible.",
+        "No other modal dialog is blocking the interface."
+      ],
+      "unit_effect": [
+        "An Open Image dialog appears, its location field is focused, the file path is entered, and then the dialog disappears.",
+        "The cat photo becomes visible on the canvas as the current editable image."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Tighten the composition so the cat is the main visual focus of the poster.",
+      "unit_type": "CROP_IMAGE",
+      "unit_before_state": "The cat photo is open on the canvas at its original framing, with the toolbox visible and no crop box yet drawn.",
+      "unit_after_state": "The image is cropped to a tighter framing around the cat, and the crop overlay is no longer visible.",
+      "unit_precondition": [
+        "An image is open and editable on the canvas.",
+        "The toolbox is visible.",
+        "The cat is clearly visible so a tighter crop can be chosen."
+      ],
+      "unit_effect": [
+        "The Crop tool becomes active and a crop rectangle is drawn around the cat.",
+        "After confirming the crop, the canvas redraws with less background and a tighter composition."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        8,
+        9,
+        10
+      ],
+      "unit_intent": "Improve the photo's clarity quickly using GIMP's automatic color correction.",
+      "unit_type": "APPLY_AUTO_COLOR_CORRECTION",
+      "unit_before_state": "The cropped cat photo is visible on the canvas, and the top menu bar is available for image adjustments.",
+      "unit_after_state": "The Colors and Auto menus are closed, and the cropped photo remains visible with automatic white balance correction applied.",
+      "unit_precondition": [
+        "The cropped image is active and editable.",
+        "The top menu bar is visible.",
+        "No modal dialog is blocking menu interaction."
+      ],
+      "unit_effect": [
+        "The Colors menu opens, then the Auto submenu opens.",
+        "Selecting White Balance closes the menus and the image appearance updates to a clearer, more balanced color rendering."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        11,
+        12,
+        13,
+        14
+      ],
+      "unit_intent": "Add a prominent title at the top so the image immediately reads as a lost-pet poster.",
+      "unit_type": "ADD_HEADING_TEXT",
+      "unit_before_state": "The corrected cat photo is visible on the canvas without any poster text yet, and the toolbox is available.",
+      "unit_after_state": "A committed text layer reading \"LOST CAT\" is visible near the top of the image, and the text is no longer in active editing mode.",
+      "unit_precondition": [
+        "The image remains open and editable.",
+        "The toolbox is visible so the Text tool can be selected.",
+        "There is space near the top of the image for a heading."
+      ],
+      "unit_effect": [
+        "The Text tool is activated and a new text box appears near the top with a blinking cursor.",
+        "The text \"LOST CAT\" appears in that box and is committed onto the poster after Ctrl+Enter."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        15,
+        16,
+        17
+      ],
+      "unit_intent": "Add contact information near the bottom so viewers know how to respond.",
+      "unit_type": "ADD_CONTACT_TEXT",
+      "unit_before_state": "The heading \"LOST CAT\" is already visible near the top, the Text tool is still active, and the lower area of the image is free for another text box.",
+      "unit_after_state": "A committed text line reading \"Call Mia: 555-0147\" is visible near the bottom of the poster.",
+      "unit_precondition": [
+        "The heading has already been added.",
+        "The Text tool remains selected or available for placing another text box.",
+        "There is open space near the bottom of the image for contact details."
+      ],
+      "unit_effect": [
+        "A second editable text box appears near the bottom of the image.",
+        "The contact line is typed and then committed so it remains rendered on the poster."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        18,
+        19,
+        20,
+        21
+      ],
+      "unit_intent": "Export the finished poster as a new PNG file without overwriting the original photo.",
+      "unit_type": "EXPORT_AS_PNG",
+      "unit_before_state": "The completed poster is visible in GIMP with both text elements present on the edited image, and no export dialog is open yet.",
+      "unit_after_state": "The export dialogs are closed, the edited poster remains open in GIMP, and a PNG file has been written to /home/user/Pictures/lost_cat_flyer.png.",
+      "unit_precondition": [
+        "All intended edits to the poster are complete.",
+        "No other modal dialog is open.",
+        "The destination path /home/user/Pictures/ is writable.",
+        "Default PNG export settings are acceptable."
+      ],
+      "unit_effect": [
+        "The Export As dialog opens, the output path /home/user/Pictures/lost_cat_flyer.png is entered, and GIMP advances to the PNG export options dialog.",
+        "Clicking Export writes the PNG file to disk and returns focus to the edited poster in GIMP."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Load the cat photo into GIMP so editing can begin on the correct source image.",
+      "unit_type": "OPEN_IMAGE_FILE",
+      "unit_before_state": "GIMP's main window is visible with the menu bar and toolbox, and no modal dialog is open over the editor.",
+      "unit_after_state": "The Open Image dialog has closed, and the cat photo from /home/user/Pictures/lost_cat.jpg is displayed on the main GIMP canvas as the active image.",
+      "unit_precondition": [
+        "GIMP is focused and ready to receive keyboard shortcuts.",
+        "The source file /home/user/Pictures/lost_cat.jpg exists and is accessible.",
+        "No other modal dialog is blocking the interface."
+      ],
+      "unit_effect": [
+        "An Open Image dialog appears, its location field is focused, the file path is entered, and then the dialog disappears.",
+        "The cat photo becomes visible on the canvas as the current editable image."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a specified image file in GIMP so it becomes the active editable image on the canvas.",
+      "parameters": {
+        "image_file_path": "/home/user/Pictures/lost_cat.jpg"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'o']}",
+          "action_template": "When GIMP is focused and no other dialog is open, press Ctrl+O to bring up the Open Image dialog so an image file can be loaded."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'l']}",
+          "action_template": "With the Open Image dialog active, press Ctrl+L to focus the path field so {{image_file_path}} can be entered directly."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '/home/user/Pictures/lost_cat.jpg'}",
+          "action_template": "Once the location field is focused, type {{image_file_path}} so GIMP knows which file to open."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After {{image_file_path}} is entered, press Enter to confirm the selection and load the image into GIMP."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Tighten the composition so the cat is the main visual focus of the poster.",
+      "unit_type": "CROP_IMAGE",
+      "unit_before_state": "The cat photo is open on the canvas at its original framing, with the toolbox visible and no crop box yet drawn.",
+      "unit_after_state": "The image is cropped to a tighter framing around the cat, and the crop overlay is no longer visible.",
+      "unit_precondition": [
+        "An image is open and editable on the canvas.",
+        "The toolbox is visible.",
+        "The cat is clearly visible so a tighter crop can be chosen."
+      ],
+      "unit_effect": [
+        "The Crop tool becomes active and a crop rectangle is drawn around the cat.",
+        "After confirming the crop, the canvas redraws with less background and a tighter composition."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Crop an image to a tighter framing around a specified main subject.",
+      "parameters": {
+        "target_subject": "the cat",
+        "crop_start_region": "a point slightly above and left of the cat on the canvas",
+        "crop_end_region": "a point slightly below and right of the cat so most empty background is excluded"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Crop Tool icon in the toolbox'}}",
+          "action_template": "When an image is open in GIMP and the toolbox is visible, click the Crop Tool icon in the toolbox to enter crop mode so the photo can be trimmed to focus on {{target_subject}}."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'a point slightly above and left of the cat on the canvas'}, 'end': {'text': 'a point slightly below and right of the cat so most empty background is excluded'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "With crop mode active and {{target_subject}} clearly visible on the canvas, drag from {{crop_start_region}} to {{crop_end_region}} to create a crop box that keeps {{target_subject}} prominent and removes extra background."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Once the crop rectangle is positioned correctly and the canvas is still in crop confirmation mode, press Enter to commit the crop and update the image framing around {{target_subject}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        8,
+        9,
+        10
+      ],
+      "unit_intent": "Improve the photo's clarity quickly using GIMP's automatic color correction.",
+      "unit_type": "APPLY_AUTO_COLOR_CORRECTION",
+      "unit_before_state": "The cropped cat photo is visible on the canvas, and the top menu bar is available for image adjustments.",
+      "unit_after_state": "The Colors and Auto menus are closed, and the cropped photo remains visible with automatic white balance correction applied.",
+      "unit_precondition": [
+        "The cropped image is active and editable.",
+        "The top menu bar is visible.",
+        "No modal dialog is blocking menu interaction."
+      ],
+      "unit_effect": [
+        "The Colors menu opens, then the Auto submenu opens.",
+        "Selecting White Balance closes the menus and the image appearance updates to a clearer, more balanced color rendering."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Apply a specified automatic color correction from GIMP's Colors > Auto menu to the active image.",
+      "parameters": {
+        "auto_correction_option": "White Balance",
+        "correction_result": "clearer, more balanced color rendering"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'Colors in the top menu bar'}}",
+          "action_template": "When the image is open and editable and the top menu bar is visible, click Colors in the top menu bar to access quick color correction tools. This opens the Colors dropdown menu."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'Auto in the Colors menu'}}",
+          "action_template": "With the Colors menu open and the Auto submenu entry visible, click Auto in the Colors menu to reveal the automatic correction options. This opens the Auto submenu next to the Colors menu."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'White Balance in the Auto submenu'}}",
+          "action_template": "When the Auto submenu is visible and the image is ready for an automatic tonal correction, click {{auto_correction_option}} in the Auto submenu to apply a quick automatic correction without manual slider work. This closes the menus and updates the image to a {{correction_result}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        11,
+        12,
+        13,
+        14
+      ],
+      "unit_intent": "Add a prominent title at the top so the image immediately reads as a lost-pet poster.",
+      "unit_type": "ADD_HEADING_TEXT",
+      "unit_before_state": "The corrected cat photo is visible on the canvas without any poster text yet, and the toolbox is available.",
+      "unit_after_state": "A committed text layer reading \"LOST CAT\" is visible near the top of the image, and the text is no longer in active editing mode.",
+      "unit_precondition": [
+        "The image remains open and editable.",
+        "The toolbox is visible so the Text tool can be selected.",
+        "There is space near the top of the image for a heading."
+      ],
+      "unit_effect": [
+        "The Text tool is activated and a new text box appears near the top with a blinking cursor.",
+        "The text \"LOST CAT\" appears in that box and is committed onto the poster after Ctrl+Enter."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Add and commit a specified main heading near the top of the image.",
+      "parameters": {
+        "heading_text": "LOST CAT",
+        "text_box_location": "an empty area near the top center of the image"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Text Tool icon in the toolbox'}}",
+          "action_template": "Click the Text Tool icon in the toolbox when the photo is active on the canvas and the toolbox is visible to activate the Text Tool so a text box can be inserted onto the image."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'an empty area near the top center of the image'}}",
+          "action_template": "Click {{text_box_location}} with the Text Tool selected and space available there to create a new editable text box with a blinking cursor for the main heading."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'LOST CAT'}",
+          "action_template": "Type {{heading_text}} into the active heading text box while keyboard input is directed to it so the heading text appears on the image."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'enter']}",
+          "action_template": "Press Ctrl+Enter when {{heading_text}} is visible in the text box and the text cursor is still there to commit the heading text and render it on the image."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        15,
+        16,
+        17
+      ],
+      "unit_intent": "Add contact information near the bottom so viewers know how to respond.",
+      "unit_type": "ADD_CONTACT_TEXT",
+      "unit_before_state": "The heading \"LOST CAT\" is already visible near the top, the Text tool is still active, and the lower area of the image is free for another text box.",
+      "unit_after_state": "A committed text line reading \"Call Mia: 555-0147\" is visible near the bottom of the poster.",
+      "unit_precondition": [
+        "The heading has already been added.",
+        "The Text tool remains selected or available for placing another text box.",
+        "There is open space near the bottom of the image for contact details."
+      ],
+      "unit_effect": [
+        "A second editable text box appears near the bottom of the image.",
+        "The contact line is typed and then committed so it remains rendered on the poster."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Add and commit a specified contact information line in a designated open area of the image.",
+      "parameters": {
+        "target_region": "an empty area near the bottom center of the image",
+        "contact_text": "Call Mia: 555-0147"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'an empty area near the bottom center of the image'}}",
+          "action_template": "Click {{target_region}} to create another text box for contact information after confirming the Text Tool remains selected and there is open space there; the result is a second editable text box appearing near the bottom of the poster."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Call Mia: 555-0147'}",
+          "action_template": "Type {{contact_text}} into the active lower text box once keyboard input is focused there so the contact details appear near the bottom of the poster image."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'enter']}",
+          "action_template": "Press Ctrl+Enter to commit the contact text after {{contact_text}} is visible in the text box and the cursor is still active there; the text is then finalized and rendered on the image."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        18,
+        19,
+        20,
+        21
+      ],
+      "unit_intent": "Export the finished poster as a new PNG file without overwriting the original photo.",
+      "unit_type": "EXPORT_AS_PNG",
+      "unit_before_state": "The completed poster is visible in GIMP with both text elements present on the edited image, and no export dialog is open yet.",
+      "unit_after_state": "The export dialogs are closed, the edited poster remains open in GIMP, and a PNG file has been written to /home/user/Pictures/lost_cat_flyer.png.",
+      "unit_precondition": [
+        "All intended edits to the poster are complete.",
+        "No other modal dialog is open.",
+        "The destination path /home/user/Pictures/ is writable.",
+        "Default PNG export settings are acceptable."
+      ],
+      "unit_effect": [
+        "The Export As dialog opens, the output path /home/user/Pictures/lost_cat_flyer.png is entered, and GIMP advances to the PNG export options dialog.",
+        "Clicking Export writes the PNG file to disk and returns focus to the edited poster in GIMP."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Export the completed edited image as a new PNG file to a specified output path without overwriting the original file.",
+      "parameters": {
+        "output_file_path": "/home/user/Pictures/lost_cat_flyer.png"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'e']}",
+          "action_template": "Once the editing is finished, press Ctrl+Shift+E to open the Export As dialog and begin saving the edited image as a new file, provided the image edits are finished and no other modal dialog is open."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '/home/user/Pictures/lost_cat_flyer.png'}",
+          "action_template": "With the export dialog open, type {{output_file_path}} into the filename field so the edited image is exported as a new PNG file without overwriting the original, provided the export dialog is active and the filename field accepts text input."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After entering a valid PNG output path, press Enter to proceed from the Export As dialog to the PNG export options, provided a valid PNG filename is present and the Export As dialog is still focused."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Export button in the PNG export dialog'}}",
+          "action_template": "When the PNG export dialog appears, click the Export button to accept the default PNG settings and write the file to disk, provided the PNG export dialog is open and the default PNG settings are acceptable."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

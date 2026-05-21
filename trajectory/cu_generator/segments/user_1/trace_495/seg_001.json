@@ -1,0 +1,300 @@
+{
+  "segment_id": "seg_001",
+  "app": "vlc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the playlist view to verify the current video is in the playlist",
+      "action_before_state": "VLC media player is open and playing a video in the main window. The playlist panel is not visible, showing only the video content with playback controls at the bottom.",
+      "action_preconditions": [
+        "VLC is running with a video currently loaded and playing",
+        "The playlist panel is currently closed/hidden",
+        "The main window is focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "l"
+        ]
+      },
+      "action_after_effects": "The playlist panel appears on the right side of the VLC window, displaying the current video file in the playlist list view.",
+      "nl_explanation": "When VLC is playing a video, press Ctrl+L to toggle the playlist view open so you can see and manage the current playlist contents."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Open the Media menu to access save playlist option",
+      "action_before_state": "VLC window shows the video on the left and the playlist panel on the right. The menu bar at the top shows Media, Playback, Audio, Video, Subtitle, Tools, View, and Help menus.",
+      "action_preconditions": [
+        "Playlist panel is open and visible",
+        "Menu bar is accessible at the top of the VLC window",
+        "The Media menu is available in the menu bar"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": "Media menu in the top menu bar of VLC"
+      },
+      "action_after_effects": "The Media dropdown menu opens, displaying options including Open File..., Open Multiple Files..., Open Folder..., Open Disc..., Open Network Stream..., Open Capture Device..., Open Location from clipboard, Open Recent Media, Save Playlist to File..., and Quit at the very bottom (with separators grouping related options).",
+      "nl_explanation": "Click on the Media menu in the top menu bar to access playlist management options including the save playlist functionality."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Click on Save Playlist to File option",
+      "action_before_state": "The Media dropdown menu is open showing various options. The 'Save Playlist to File...' option is visible in the menu, typically located in the middle section of the dropdown.",
+      "action_preconditions": [
+        "Media dropdown menu is open and visible",
+        "Save Playlist to File... option is available in the menu",
+        "The menu is interactive and ready for selection"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": "Save Playlist to File... option in the Media dropdown menu"
+      },
+      "action_after_effects": "The Media menu closes and a file save dialog window opens with the title 'Save Playlist'. The dialog shows the current directory (usually Home), a filename input field at the top, and navigation elements including a left sidebar with locations like Home, Desktop, Documents, etc.",
+      "nl_explanation": "Select 'Save Playlist to File...' from the Media menu to open the file save dialog where you can specify the location and filename for the playlist."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Navigate to Desktop folder",
+      "action_before_state": "The Save Playlist dialog is open showing the file browser interface. The left sidebar shows shortcuts including Home, Desktop, Documents, Downloads, Music, Pictures, Videos. The current location is typically the Home folder (/home/user).",
+      "action_preconditions": [
+        "Save Playlist dialog is open and active",
+        "Desktop shortcut is visible in the left sidebar",
+        "Currently in a different directory (typically Home)"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": "Desktop item in the left sidebar of the save dialog"
+      },
+      "action_after_effects": "The file browser navigates to the Desktop folder. The path bar at the top updates to show 'Desktop' or '/home/user/Desktop'. The main area of the dialog shows the contents of the Desktop folder (which may be empty or contain existing files).",
+      "nl_explanation": "Click on Desktop in the left sidebar to navigate to the Desktop folder where the playlist file should be saved."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Enter filename as current_playlist.m3u",
+      "action_before_state": "The save dialog is now showing the Desktop folder contents. At the top of the dialog, there is a 'Name' or filename input field that currently shows either a default name like 'playlist.m3u' or is empty.",
+      "action_preconditions": [
+        "Desktop folder is selected as the save location",
+        "Filename input field is visible and accessible at the top of the dialog",
+        "The input field is ready for text entry"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "current_playlist.m3u"
+      },
+      "action_after_effects": "The filename field now displays 'current_playlist.m3u' as the name for the file to be saved. The text appears in the input field at the top of the save dialog.",
+      "nl_explanation": "Type 'current_playlist.m3u' into the filename field to set the name for the playlist file that will be saved on the Desktop."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Click Save button to save the playlist",
+      "action_before_state": "The save dialog shows the Desktop location selected, and the filename field contains 'current_playlist.m3u'. At the bottom right or top right of the dialog, there is a 'Save' button (may also be labeled 'Save Playlist' depending on the VLC version).",
+      "action_preconditions": [
+        "Filename has been entered as 'current_playlist.m3u'",
+        "Desktop folder is selected as the destination",
+        "Save button is visible and enabled in the dialog"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": "Save button in the bottom right of the save dialog"
+      },
+      "action_after_effects": "The save dialog closes. The playlist file 'current_playlist.m3u' is created on the Desktop. VLC returns to the normal playback view with the playlist panel still visible or closed depending on the previous state. A brief confirmation may appear or the dialog simply closes indicating success.",
+      "nl_explanation": "Click the Save button to finalize saving the playlist file to the Desktop with the specified filename."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Expose the current playlist so the user can confirm they are saving the playlist that contains the currently playing video.",
+      "unit_type": "OPEN_PLAYLIST_VIEW",
+      "unit_before_state": "VLC media player is playing a video in the main window, and the playlist sidebar is hidden so only the video area and playback controls are visible.",
+      "unit_after_state": "The VLC window now shows the playlist sidebar on the right, with the current video listed in the playlist while playback remains visible on the left.",
+      "unit_precondition": [
+        "VLC is open with a video already loaded and playing.",
+        "The VLC main window is focused.",
+        "The playlist sidebar is currently hidden."
+      ],
+      "unit_effect": [
+        "The playlist panel becomes visible on the right side of the VLC window.",
+        "The current video file appears in the playlist list view."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3
+      ],
+      "unit_intent": "Open the playlist export workflow so the current playlist can be saved to a file.",
+      "unit_type": "OPEN_SAVE_PLAYLIST_DIALOG",
+      "unit_before_state": "VLC shows the video on the left and the playlist panel on the right, with the top menu bar available but no dropdown menu open.",
+      "unit_after_state": "A Save Playlist file dialog is open in front of VLC, showing a filename field, a file browser area, and sidebar shortcuts such as Home and Desktop.",
+      "unit_precondition": [
+        "The playlist panel is visible in VLC.",
+        "The menu bar is accessible and the Media menu can be opened.",
+        "The Save Playlist to File... command is available in the Media menu."
+      ],
+      "unit_effect": [
+        "The Media dropdown opens and exposes the Save Playlist to File... option.",
+        "Selecting Save Playlist to File... closes the menu and opens the Save Playlist dialog."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Save the current playlist to the Desktop with the requested filename so it can be reloaded later.",
+      "unit_type": "SAVE_PLAYLIST_FILE",
+      "unit_before_state": "The Save Playlist dialog is open, initially showing another folder such as Home, with sidebar shortcuts including Desktop and a filename field ready to be edited.",
+      "unit_after_state": "The save dialog closes and VLC returns to the playback window; the playlist file current_playlist.m3u has been saved on the Desktop.",
+      "unit_precondition": [
+        "The Save Playlist dialog is open and active.",
+        "The Desktop shortcut is visible in the dialog sidebar.",
+        "The filename input field is editable.",
+        "The Save button is enabled after the destination and filename are set."
+      ],
+      "unit_effect": [
+        "The file browser switches to the Desktop location.",
+        "The filename field shows current_playlist.m3u.",
+        "Clicking Save closes the dialog, indicating the playlist was written to Desktop as current_playlist.m3u."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Expose the current playlist so the user can confirm they are saving the playlist that contains the currently playing video.",
+      "unit_type": "OPEN_PLAYLIST_VIEW",
+      "unit_before_state": "VLC media player is playing a video in the main window, and the playlist sidebar is hidden so only the video area and playback controls are visible.",
+      "unit_after_state": "The VLC window now shows the playlist sidebar on the right, with the current video listed in the playlist while playback remains visible on the left.",
+      "unit_precondition": [
+        "VLC is open with a video already loaded and playing.",
+        "The VLC main window is focused.",
+        "The playlist sidebar is currently hidden."
+      ],
+      "unit_effect": [
+        "The playlist panel becomes visible on the right side of the VLC window.",
+        "The current video file appears in the playlist list view."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open the playlist view so the user can inspect the contents of the current playlist while media playback remains visible.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'l']}",
+          "action_template": "Press Ctrl+L to toggle the playlist view open when VLC is running with media loaded and playing, the playlist panel is hidden, and the main window is focused; this opens the playlist panel on the right side of the VLC window and displays the current media item in the playlist list view."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3
+      ],
+      "unit_intent": "Open the playlist export workflow so the current playlist can be saved to a file.",
+      "unit_type": "OPEN_SAVE_PLAYLIST_DIALOG",
+      "unit_before_state": "VLC shows the video on the left and the playlist panel on the right, with the top menu bar available but no dropdown menu open.",
+      "unit_after_state": "A Save Playlist file dialog is open in front of VLC, showing a filename field, a file browser area, and sidebar shortcuts such as Home and Desktop.",
+      "unit_precondition": [
+        "The playlist panel is visible in VLC.",
+        "The menu bar is accessible and the Media menu can be opened.",
+        "The Save Playlist to File... command is available in the Media menu."
+      ],
+      "unit_effect": [
+        "The Media dropdown opens and exposes the Save Playlist to File... option.",
+        "Selecting Save Playlist to File... closes the menu and opens the Save Playlist dialog."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open the playlist save dialog from the application menu so the current playlist can be exported to a file.",
+      "parameters": {
+        "menu_name": "Media",
+        "menu_option": "Save Playlist to File...",
+        "dialog_title": "Save Playlist"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': 'Media menu in the top menu bar of VLC'}",
+          "action_template": "Click the {{menu_name}} menu in the top menu bar to access playlist management options including the save playlist command. Preconditions: the playlist panel is visible, the menu bar is accessible, and the {{menu_name}} menu is available. Afterward, the {{menu_name}} dropdown opens and displays options including {{menu_option}}."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': 'Save Playlist to File... option in the Media dropdown menu'}",
+          "action_template": "Click the {{menu_option}} option in the {{menu_name}} dropdown menu to open the file save dialog for the playlist. Preconditions: the {{menu_name}} dropdown is open, the {{menu_option}} option is visible, and the menu is ready for selection. Afterward, the menu closes and the {{dialog_title}} dialog opens."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Save the current playlist to the Desktop with the requested filename so it can be reloaded later.",
+      "unit_type": "SAVE_PLAYLIST_FILE",
+      "unit_before_state": "The Save Playlist dialog is open, initially showing another folder such as Home, with sidebar shortcuts including Desktop and a filename field ready to be edited.",
+      "unit_after_state": "The save dialog closes and VLC returns to the playback window; the playlist file current_playlist.m3u has been saved on the Desktop.",
+      "unit_precondition": [
+        "The Save Playlist dialog is open and active.",
+        "The Desktop shortcut is visible in the dialog sidebar.",
+        "The filename input field is editable.",
+        "The Save button is enabled after the destination and filename are set."
+      ],
+      "unit_effect": [
+        "The file browser switches to the Desktop location.",
+        "The filename field shows current_playlist.m3u.",
+        "Clicking Save closes the dialog, indicating the playlist was written to Desktop as current_playlist.m3u."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the current playlist to a specified destination folder with a specified filename so it can be reloaded later.",
+      "parameters": {
+        "target_folder": "Desktop",
+        "file_name": "current_playlist.m3u"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': 'Desktop item in the left sidebar of the save dialog'}",
+          "action_template": "Click on {{target_folder}} in the left sidebar to navigate to the destination folder where the playlist file should be saved. Preconditions: the Save Playlist dialog is open and active, {{target_folder}} is visible in the left sidebar, and the dialog is currently in a different directory. After the click, the file browser navigates to {{target_folder}} and the dialog updates to show that folder's contents."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'current_playlist.m3u'}",
+          "action_template": "Type {{file_name}} into the filename field to set the name for the playlist file to be saved in {{target_folder}}. Preconditions: {{target_folder}} is selected as the save location, the filename input field is visible and accessible, and the input field is ready for text entry. After typing, the filename field displays {{file_name}}."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': 'Save button in the bottom right of the save dialog'}",
+          "action_template": "Click the Save button to finalize saving the playlist file to {{target_folder}} with the filename {{file_name}}. Preconditions: the filename has been entered as {{file_name}}, {{target_folder}} is selected as the destination, and the Save button is visible and enabled. After the click, the save dialog closes and the playlist file is created in {{target_folder}} with the specified filename."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

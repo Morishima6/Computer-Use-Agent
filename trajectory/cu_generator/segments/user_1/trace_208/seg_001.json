@@ -1,0 +1,873 @@
+{
+  "segment_id": "seg_001",
+  "app": "libreoffice_calc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Move the active selection to the first cell of the sheet",
+      "action_before_state": "A blank Calc worksheet is open on the screen, and the active cell may be somewhere other than the top-left corner.",
+      "action_preconditions": [
+        "LibreOffice Calc is already open and focused",
+        "The worksheet grid is visible",
+        "No modal dialog is blocking input"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "home"
+        ]
+      },
+      "action_after_effects": "Cell A1 becomes the active cell, which is ready for table entry from the top-left corner.",
+      "nl_explanation": "When the blank worksheet is visible and ready for input, press Ctrl+Home to jump to A1 so the budget table can be entered from the correct starting position."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Enter the header row and the daily expense data",
+      "action_before_state": "Cell A1 is selected on the blank worksheet.",
+      "action_preconditions": [
+        "A1 is the active cell",
+        "The sheet is empty in the area where the table will be placed"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Date\tGroceries\tTransport\tTakeout\tTotal\n2026-04-07\t48\t12\t20\t\n2026-04-08\t35\t15\t18\t\n2026-04-09\t52\t10\t0\t\n2026-04-10\t40\t14\t22\t\n2026-04-11\t60\t8\t25\t\n2026-04-12\t28\t16\t19\t\n2026-04-13\t45\t11\t17\t"
+      },
+      "action_after_effects": "A table fills columns A through E, with dates and three expense categories entered for seven days, and the Total column left empty for formulas.",
+      "nl_explanation": "With A1 selected, type the full tab-separated table so the dates and expense amounts populate the sheet in one action, leaving the Total column available for calculation."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Select the first Total cell for formula entry",
+      "action_before_state": "The daily expense table is visible, and the Total column header is in E1.",
+      "action_preconditions": [
+        "The table data has been entered successfully",
+        "Cell E2 is visible on the screen"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the cell in column E and row 2, directly under the Total header"
+        }
+      },
+      "action_after_effects": "Cell E2 becomes active and is ready to receive the first daily total formula.",
+      "nl_explanation": "Once the table is on the sheet, click the first empty Total cell at E2 so the daily sum formula can be entered in the right place."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Calculate the first day's total",
+      "action_before_state": "Cell E2 is active and empty.",
+      "action_preconditions": [
+        "E2 is selected",
+        "The values for Groceries, Transport, and Takeout are present in B2 through D2"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "=B2+C2+D2"
+      },
+      "action_after_effects": "E2 shows the computed total for April 7, 2026, and the cell now contains a reusable formula pattern.",
+      "nl_explanation": "When E2 is selected and the first row of expense values exists, type the formula to add the three spending columns so the first total is calculated."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Fill the total formula down for the rest of the week",
+      "action_before_state": "E2 contains the daily total formula, and rows 3 through 8 still have empty cells in the Total column.",
+      "action_preconditions": [
+        "The formula in E2 is correct",
+        "The fill handle for E2 is visible",
+        "Rows through E8 are on screen"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the small fill handle at the bottom-right corner of cell E2"
+        },
+        "end": {
+          "text": "the bottom-right corner of cell E8 in the same Total column"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "The formula is copied from E2 down to E8, and each day now has its own calculated total.",
+      "nl_explanation": "After the first total formula is in E2, drag the fill handle down to E8 so Calc copies the same pattern for every remaining day in the week."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Move to the row where the weekly total will be placed",
+      "action_before_state": "The daily totals are filled through row 8, and lower rows are empty.",
+      "action_preconditions": [
+        "The data table and Total column are complete through row 8",
+        "Row 10 is visible or reachable on the current screen"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell A10 below the table"
+        }
+      },
+      "action_after_effects": "Cell A10 becomes active, ready for the weekly summary row.",
+      "nl_explanation": "With the daily table finished, click A10 under the data so the weekly total row can be added without disturbing the table."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Add the weekly total label and formula",
+      "action_before_state": "Cell A10 is active, and row 10 is empty.",
+      "action_preconditions": [
+        "A10 is selected",
+        "Daily totals exist in E2 through E8"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Weekly Total\t\t\t\t=SUM(E2:E8)"
+      },
+      "action_after_effects": "A10 displays the label Weekly Total, and E10 shows the sum of all daily totals for the week.",
+      "nl_explanation": "When A10 is selected and the daily totals are available, type the summary row with tabs so the label lands in column A and the weekly total formula lands in E10."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Start renaming the first worksheet",
+      "action_before_state": "The first sheet tab is still named Sheet1 near the bottom of the Calc window.",
+      "action_preconditions": [
+        "The sheet tab bar is visible",
+        "The current sheet is Sheet1"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 2,
+        "target": {
+          "text": "the Sheet1 tab at the bottom of the workbook"
+        }
+      },
+      "action_after_effects": "The Sheet1 tab enters rename mode with its current name editable.",
+      "nl_explanation": "After the weekly table is complete, double-click the Sheet1 tab so its name can be replaced with a more descriptive label."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Type the new name for the first worksheet",
+      "action_before_state": "The Sheet1 tab is in rename mode and its text is editable.",
+      "action_preconditions": [
+        "The first sheet tab is actively being edited"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Daily_Log"
+      },
+      "action_after_effects": "The editable tab text changes from Sheet1 to Daily_Log, waiting to be confirmed.",
+      "nl_explanation": "When the first tab is editable, type Daily_Log so the worksheet name reflects that it contains the day-by-day spending log."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Confirm the renamed first worksheet",
+      "action_before_state": "The new tab name Daily_Log has been typed but not yet committed.",
+      "action_preconditions": [
+        "The sheet tab rename field is active"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The first worksheet is renamed to Daily_Log and returns to normal tab display.",
+      "nl_explanation": "Press Enter while the tab name is being edited to confirm the new worksheet name and return to normal workbook navigation."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Create a second worksheet for the summary",
+      "action_before_state": "The workbook currently shows the renamed Daily_Log tab and the add-sheet control nearby.",
+      "action_preconditions": [
+        "The sheet tab area is visible",
+        "No sheet rename field is active"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the plus button next to the sheet tabs to insert a new sheet"
+        }
+      },
+      "action_after_effects": "A new blank worksheet is created and its default tab, usually Sheet2, becomes active.",
+      "nl_explanation": "Once the first sheet is properly named, click the plus button in the sheet tab bar to add a blank worksheet for the budget summary."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Start renaming the new worksheet",
+      "action_before_state": "The newly added worksheet is active and its tab shows the default name, typically Sheet2.",
+      "action_preconditions": [
+        "The new sheet tab is visible",
+        "The new sheet is the active worksheet"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 2,
+        "target": {
+          "text": "the new sheet tab named Sheet2 at the bottom"
+        }
+      },
+      "action_after_effects": "The second sheet tab enters rename mode.",
+      "nl_explanation": "Double-click the new sheet tab so you can replace the default name with the summary sheet name."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Type the name for the summary worksheet",
+      "action_before_state": "The second sheet tab is in rename mode.",
+      "action_preconditions": [
+        "The tab text for the second sheet is editable"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Budget_Summary"
+      },
+      "action_after_effects": "The new tab text changes to Budget_Summary and awaits confirmation.",
+      "nl_explanation": "When the second tab is editable, type Budget_Summary so the sheet clearly indicates that it contains the higher-level budget check."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Confirm the summary worksheet name",
+      "action_before_state": "Budget_Summary has been typed into the tab rename field.",
+      "action_preconditions": [
+        "The second sheet tab rename field is active"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The second worksheet is renamed to Budget_Summary and remains the active sheet.",
+      "nl_explanation": "Press Enter to finalize the new worksheet name and keep working on the freshly renamed summary sheet."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Place the cursor at the top-left of the summary sheet",
+      "action_before_state": "Budget_Summary is active, and the selected cell may not be A1.",
+      "action_preconditions": [
+        "The Budget_Summary sheet is open",
+        "The grid is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell A1 on the Budget_Summary sheet"
+        }
+      },
+      "action_after_effects": "A1 becomes active and ready for the summary table.",
+      "nl_explanation": "On the summary sheet, click A1 so the budget comparison table starts at the top-left corner in a clean position."
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Enter the budget summary table and formulas",
+      "action_before_state": "Cell A1 is selected on the Budget_Summary sheet.",
+      "action_preconditions": [
+        "A1 is active on Budget_Summary",
+        "The Daily_Log sheet contains the weekly total in E10"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Budget Item\tAmount\nWeekly Budget\t450\nActual Spend\t=Daily_Log.E10\nRemaining\t=B2-B3"
+      },
+      "action_after_effects": "A two-column summary table appears, with a fixed weekly budget, a linked actual total from Daily_Log, and a remaining-balance formula.",
+      "nl_explanation": "With A1 selected on Budget_Summary, type the tab-separated summary table so the labels go into column A and the budget, linked total, and remaining formula go into column B."
+    },
+    {
+      "step_id": "s17",
+      "step_goal": "Select the amount cells for formatting",
+      "action_before_state": "The summary table is visible in columns A and B, with numeric values and formulas in B2 through B4.",
+      "action_preconditions": [
+        "The summary table has been entered successfully",
+        "Cells B2 through B4 are visible"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell B2 in the Amount column"
+        },
+        "end": {
+          "text": "cell B4 in the Amount column"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "The amount range B2:B4 is selected together, ready for number formatting.",
+      "nl_explanation": "After the summary table is on the sheet, drag from B2 down to B4 so all budget figures are selected for the same formatting change."
+    },
+    {
+      "step_id": "s18",
+      "step_goal": "Format the summary amounts as currency",
+      "action_before_state": "Cells B2 through B4 are selected on the Budget_Summary sheet.",
+      "action_preconditions": [
+        "The amount cells B2:B4 are highlighted",
+        "The formatting toolbar is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the currency format button on the formatting toolbar"
+        }
+      },
+      "action_after_effects": "The values in B2:B4 are displayed in currency format, making the summary easier to read.",
+      "nl_explanation": "When the amount cells are selected, click the currency button on the toolbar so the budget, actual spend, and remaining balance are shown as money values."
+    },
+    {
+      "step_id": "s19",
+      "step_goal": "Save the completed workbook",
+      "action_before_state": "Both worksheets are complete, and the workbook has unsaved changes.",
+      "action_preconditions": [
+        "The workbook contains the Daily_Log and Budget_Summary sheets",
+        "No text-edit field is currently active"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "s"
+        ]
+      },
+      "action_after_effects": "LibreOffice Calc saves the current workbook state, preserving the tracker and the summary sheet.",
+      "nl_explanation": "After finishing the weekly tracker and summary, press Ctrl+S to save all spreadsheet changes to the workbook."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Create the daily spending table at the top of the first worksheet so the tracker has the required dates and expense categories.",
+      "unit_type": "ENTER_TABLE_DATA",
+      "unit_before_state": "A blank LibreOffice Calc worksheet is open, the grid is visible, and the active cell may be somewhere other than the top-left corner.",
+      "unit_after_state": "The first worksheet shows a table in A1:E8 with headers Date, Groceries, Transport, Takeout, and Total. Rows 2 through 8 contain the dates 2026-04-07 through 2026-04-13 and the entered grocery, transport, and takeout amounts, while E2:E8 remain empty for formulas.",
+      "unit_precondition": [
+        "LibreOffice Calc is open and focused.",
+        "The worksheet grid is visible and no modal dialog is blocking input.",
+        "The target area starting at A1 is empty enough to receive the table."
+      ],
+      "unit_effect": [
+        "The active selection moves to A1.",
+        "Typing the tab-separated text populates columns A through E with the weekly errand data, leaving the Total cells blank."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4,
+        5
+      ],
+      "unit_intent": "Calculate daily totals for every date in the spending log.",
+      "unit_type": "CALCULATE_DAILY_TOTALS",
+      "unit_before_state": "The daily spending table is visible on the first worksheet, and cells E2 through E8 in the Total column are empty.",
+      "unit_after_state": "Cells E2 through E8 contain daily totals for each date, with the first row formula entered in E2 and copied down the column so every day has a calculated total.",
+      "unit_precondition": [
+        "The daily log table has already been entered correctly in A1:E8.",
+        "Cell E2 and the rows down to E8 are visible.",
+        "Values exist in B2:D8 so the total formulas can evaluate."
+      ],
+      "unit_effect": [
+        "Cell E2 is selected and receives the formula =B2+C2+D2.",
+        "Dragging the fill handle copies the formula pattern through E8, producing visible totals for all seven days."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7
+      ],
+      "unit_intent": "Add a weekly roll-up row beneath the daily log to summarize the full week's spending.",
+      "unit_type": "ADD_WEEKLY_TOTAL_ROW",
+      "unit_before_state": "The first worksheet shows completed daily totals through row 8, and row 10 below the table is empty.",
+      "unit_after_state": "Row 10 contains a weekly summary row: A10 shows Weekly Total and E10 shows the sum of the daily totals from E2:E8.",
+      "unit_precondition": [
+        "The daily totals in E2:E8 are already present.",
+        "Cell A10 is visible and empty.",
+        "The user is still working on the first worksheet that contains the daily log."
+      ],
+      "unit_effect": [
+        "A10 becomes the active cell.",
+        "Entering the tab-separated summary row places the label in A10 and a SUM formula in E10, creating a visible weekly total."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8,
+        9,
+        10
+      ],
+      "unit_intent": "Rename the first worksheet so it clearly represents the day-by-day expense log.",
+      "unit_type": "RENAME_SHEET",
+      "unit_before_state": "The workbook's first sheet tab is visible at the bottom of Calc and is still named Sheet1.",
+      "unit_after_state": "The first worksheet tab returns to normal display and is labeled Daily_Log.",
+      "unit_precondition": [
+        "The sheet tab bar is visible.",
+        "The first sheet is the current worksheet.",
+        "No modal dialog or other edit field is blocking sheet-tab editing."
+      ],
+      "unit_effect": [
+        "Double-clicking the tab opens inline rename mode for Sheet1.",
+        "Typing and confirming the new name changes the visible tab label to Daily_Log."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        11,
+        12,
+        13,
+        14
+      ],
+      "unit_intent": "Create the second worksheet and label it for the budget comparison summary.",
+      "unit_type": "CREATE_NAMED_SHEET",
+      "unit_before_state": "The workbook contains the renamed Daily_Log sheet, and there is no second sheet yet named Budget_Summary.",
+      "unit_after_state": "A new blank second worksheet exists, it is the active sheet, and its tab name is Budget_Summary.",
+      "unit_precondition": [
+        "The sheet tab bar and add-sheet control are visible.",
+        "No sheet rename field is currently active.",
+        "The workbook is in normal navigation mode after renaming the first sheet."
+      ],
+      "unit_effect": [
+        "Clicking the plus button inserts a new worksheet and activates it.",
+        "Renaming and confirming the new tab changes its visible name from the default Sheet2 to Budget_Summary."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        15,
+        16
+      ],
+      "unit_intent": "Build the summary table that compares the planned weekly budget against actual spending from the daily log.",
+      "unit_type": "ENTER_BUDGET_SUMMARY_TABLE",
+      "unit_before_state": "The newly created Budget_Summary sheet is open, the grid is visible, and the active cell may not be A1.",
+      "unit_after_state": "Budget_Summary contains a two-column table in A1:B4: headers Budget Item and Amount, a Weekly Budget row with 450, an Actual Spend row linked to Daily_Log.E10, and a Remaining row that subtracts actual spend from the budget.",
+      "unit_precondition": [
+        "The active worksheet is Budget_Summary.",
+        "The Daily_Log sheet already contains the weekly total in E10.",
+        "Cells A1:B4 are available for entering the summary table."
+      ],
+      "unit_effect": [
+        "A1 becomes active on Budget_Summary.",
+        "Typing the tab-separated content populates the table and formulas, making the actual spend and remaining balance appear from linked calculations."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        17,
+        18
+      ],
+      "unit_intent": "Format the summary amounts so the budget comparison reads as monetary values.",
+      "unit_type": "FORMAT_AS_CURRENCY",
+      "unit_before_state": "The Budget_Summary table is visible, and cells B2 through B4 contain the budget amount and calculated values in the Amount column.",
+      "unit_after_state": "Cells B2 through B4 remain selected and their displayed values use currency formatting rather than plain numbers.",
+      "unit_precondition": [
+        "The summary table has already been entered on Budget_Summary.",
+        "Cells B2 through B4 are visible and can be selected as one range.",
+        "The formatting toolbar with the currency button is available."
+      ],
+      "unit_effect": [
+        "Dragging across B2:B4 highlights the three amount cells together.",
+        "Clicking the currency format control changes the visible display of those cells to currency-formatted values."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_08",
+      "step_indices": [
+        19
+      ],
+      "unit_intent": "Persist the completed tracker workbook with both sheets and formulas.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The workbook contains the completed Daily_Log and Budget_Summary sheets and still has unsaved changes.",
+      "unit_after_state": "The current workbook state is saved with the tracker data, formulas, renamed sheets, and summary formatting preserved.",
+      "unit_precondition": [
+        "The workbook already includes both completed worksheets.",
+        "No sheet-tab rename field or cell text edit mode is still active.",
+        "LibreOffice Calc is focused so the save shortcut will apply to the workbook."
+      ],
+      "unit_effect": [
+        "Pressing Ctrl+S triggers LibreOffice Calc's save action.",
+        "The workbook's modified state clears, indicating the changes have been saved."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Create the daily spending table at the top of the first worksheet so the tracker has the required dates and expense categories.",
+      "unit_type": "ENTER_TABLE_DATA",
+      "unit_before_state": "A blank LibreOffice Calc worksheet is open, the grid is visible, and the active cell may be somewhere other than the top-left corner.",
+      "unit_after_state": "The first worksheet shows a table in A1:E8 with headers Date, Groceries, Transport, Takeout, and Total. Rows 2 through 8 contain the dates 2026-04-07 through 2026-04-13 and the entered grocery, transport, and takeout amounts, while E2:E8 remain empty for formulas.",
+      "unit_precondition": [
+        "LibreOffice Calc is open and focused.",
+        "The worksheet grid is visible and no modal dialog is blocking input.",
+        "The target area starting at A1 is empty enough to receive the table."
+      ],
+      "unit_effect": [
+        "The active selection moves to A1.",
+        "Typing the tab-separated text populates columns A through E with the weekly errand data, leaving the Total cells blank."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Populate a worksheet table starting at a specified top-left cell by entering a provided tab-separated dataset in one block, leaving intended formula cells blank for later calculation.",
+      "parameters": {
+        "target_start_cell": "A1",
+        "table_text": "Date\tGroceries\tTransport\tTakeout\tTotal\n2026-04-07\t48\t12\t20\t\n2026-04-08\t35\t15\t18\t\n2026-04-09\t52\t10\t0\t\n2026-04-10\t40\t14\t22\t\n2026-04-11\t60\t8\t25\t\n2026-04-12\t28\t16\t19\t\n2026-04-13\t45\t11\t17\t"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'home']}",
+          "action_template": "When LibreOffice Calc is already open and focused, the worksheet grid is visible, and no modal dialog is blocking input, press Ctrl+Home to jump to {{target_start_cell}} so the table can be entered from the correct starting position; {{target_start_cell}} becomes the active cell ready for table entry."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Date\\tGroceries\\tTransport\\tTakeout\\tTotal\\n2026-04-07\\t48\\t12\\t20\\t\\n2026-04-08\\t35\\t15\\t18\\t\\n2026-04-09\\t52\\t10\\t0\\t\\n2026-04-10\\t40\\t14\\t22\\t\\n2026-04-11\\t60\\t8\\t25\\t\\n2026-04-12\\t28\\t16\\t19\\t\\n2026-04-13\\t45\\t11\\t17\\t'}",
+          "action_template": "With {{target_start_cell}} selected and the sheet empty in the area where the table will be placed, type {{table_text}} to populate the sheet with the full tab-separated table in one action, leaving the final column available for later formulas."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4,
+        5
+      ],
+      "unit_intent": "Calculate daily totals for every date in the spending log.",
+      "unit_type": "CALCULATE_DAILY_TOTALS",
+      "unit_before_state": "The daily spending table is visible on the first worksheet, and cells E2 through E8 in the Total column are empty.",
+      "unit_after_state": "Cells E2 through E8 contain daily totals for each date, with the first row formula entered in E2 and copied down the column so every day has a calculated total.",
+      "unit_precondition": [
+        "The daily log table has already been entered correctly in A1:E8.",
+        "Cell E2 and the rows down to E8 are visible.",
+        "Values exist in B2:D8 so the total formulas can evaluate."
+      ],
+      "unit_effect": [
+        "Cell E2 is selected and receives the formula =B2+C2+D2.",
+        "Dragging the fill handle copies the formula pattern through E8, producing visible totals for all seven days."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Populate a totals column by entering the first row formula in the initial result cell and filling it down through the remaining rows.",
+      "parameters": {
+        "target_cell": "the cell in column E and row 2, directly under the Total header",
+        "formula_entry_cell": "E2",
+        "input_formula": "=B2+C2+D2",
+        "source_value_range": "B2 through D2",
+        "fill_handle": "the small fill handle at the bottom-right corner of cell E2",
+        "fill_destination": "the bottom-right corner of cell E8 in the same Total column"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the cell in column E and row 2, directly under the Total header'}}",
+          "action_template": "Click {{target_cell}} when the table data has been entered successfully and {{formula_entry_cell}} is visible on the screen, so the first total cell becomes active and ready to receive the initial total formula."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '=B2+C2+D2'}",
+          "action_template": "Type {{input_formula}} when {{formula_entry_cell}} is selected and the contributing values in {{source_value_range}} are present, so the first row total is calculated and the cell contains a reusable formula pattern."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the small fill handle at the bottom-right corner of cell E2'}, 'end': {'text': 'the bottom-right corner of cell E8 in the same Total column'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "Drag from {{fill_handle}} to {{fill_destination}} after the formula in {{formula_entry_cell}} is correct and the fill handle is visible, so Calc copies the formula down the totals column for the remaining rows."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7
+      ],
+      "unit_intent": "Add a weekly roll-up row beneath the daily log to summarize the full week's spending.",
+      "unit_type": "ADD_WEEKLY_TOTAL_ROW",
+      "unit_before_state": "The first worksheet shows completed daily totals through row 8, and row 10 below the table is empty.",
+      "unit_after_state": "Row 10 contains a weekly summary row: A10 shows Weekly Total and E10 shows the sum of the daily totals from E2:E8.",
+      "unit_precondition": [
+        "The daily totals in E2:E8 are already present.",
+        "Cell A10 is visible and empty.",
+        "The user is still working on the first worksheet that contains the daily log."
+      ],
+      "unit_effect": [
+        "A10 becomes the active cell.",
+        "Entering the tab-separated summary row places the label in A10 and a SUM formula in E10, creating a visible weekly total."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Add a summary row beneath an existing table to label the aggregate and calculate the total from a specified value range.",
+      "parameters": {
+        "target_summary_cell": "cell A10 below the table",
+        "summary_row_input": "Weekly Total\t\t\t\t=SUM(E2:E8)",
+        "source_total_range": "E2:E8",
+        "formula_target_cell": "E10"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell A10 below the table'}}",
+          "action_template": "Click {{target_summary_cell}} after the data table is complete and the destination row is visible so the summary row can be added without disturbing the table; this makes the cell active and ready for the summary entry."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Weekly Total\\t\\t\\t\\t=SUM(E2:E8)'}",
+          "action_template": "Type {{summary_row_input}} when {{target_summary_cell}} is selected and daily totals exist in {{source_total_range}} so the label is placed in column A and the formula lands in {{formula_target_cell}}, creating the visible summary total."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8,
+        9,
+        10
+      ],
+      "unit_intent": "Rename the first worksheet so it clearly represents the day-by-day expense log.",
+      "unit_type": "RENAME_SHEET",
+      "unit_before_state": "The workbook's first sheet tab is visible at the bottom of Calc and is still named Sheet1.",
+      "unit_after_state": "The first worksheet tab returns to normal display and is labeled Daily_Log.",
+      "unit_precondition": [
+        "The sheet tab bar is visible.",
+        "The first sheet is the current worksheet.",
+        "No modal dialog or other edit field is blocking sheet-tab editing."
+      ],
+      "unit_effect": [
+        "Double-clicking the tab opens inline rename mode for Sheet1.",
+        "Typing and confirming the new name changes the visible tab label to Daily_Log."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Rename a specified worksheet tab to a specified descriptive name.",
+      "parameters": {
+        "target_sheet_tab": "the Sheet1 tab at the bottom of the workbook",
+        "current_sheet_name": "Sheet1",
+        "new_sheet_name": "Daily_Log"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 2, 'target': {'text': 'the Sheet1 tab at the bottom of the workbook'}}",
+          "action_template": "Double-click {{target_sheet_tab}} after the sheet tab bar is visible and {{current_sheet_name}} is the current sheet to enter rename mode so the current tab name becomes editable."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Daily_Log'}",
+          "action_template": "Type {{new_sheet_name}} while the worksheet tab is actively being edited so the editable tab text changes from {{current_sheet_name}} to {{new_sheet_name}}, waiting to be confirmed."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter while the sheet tab rename field is active to confirm {{new_sheet_name}} and return the worksheet tab to normal display."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        11,
+        12,
+        13,
+        14
+      ],
+      "unit_intent": "Create the second worksheet and label it for the budget comparison summary.",
+      "unit_type": "CREATE_NAMED_SHEET",
+      "unit_before_state": "The workbook contains the renamed Daily_Log sheet, and there is no second sheet yet named Budget_Summary.",
+      "unit_after_state": "A new blank second worksheet exists, it is the active sheet, and its tab name is Budget_Summary.",
+      "unit_precondition": [
+        "The sheet tab bar and add-sheet control are visible.",
+        "No sheet rename field is currently active.",
+        "The workbook is in normal navigation mode after renaming the first sheet."
+      ],
+      "unit_effect": [
+        "Clicking the plus button inserts a new worksheet and activates it.",
+        "Renaming and confirming the new tab changes its visible name from the default Sheet2 to Budget_Summary."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a new worksheet and rename its tab to a specified sheet name.",
+      "parameters": {
+        "sheet_name": "Budget_Summary"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the plus button next to the sheet tabs to insert a new sheet'}}",
+          "action_template": "Click the plus button in the sheet tab bar to add a new blank worksheet, provided the sheet tab area is visible and no sheet rename field is active. This creates a new worksheet and activates its default tab."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 2, 'target': {'text': 'the new sheet tab named Sheet2 at the bottom'}}",
+          "action_template": "Double-click the newly created sheet tab to enter rename mode, once the new sheet tab is visible and the new worksheet is active. This makes the sheet tab name editable."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Budget_Summary'}",
+          "action_template": "Type {{sheet_name}} into the editable sheet tab when rename mode is active. This changes the pending worksheet tab text to {{sheet_name}} and waits for confirmation."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter to confirm {{sheet_name}} as the worksheet tab name while the sheet tab rename field is active. This finalizes the rename and keeps the worksheet active."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        15,
+        16
+      ],
+      "unit_intent": "Build the summary table that compares the planned weekly budget against actual spending from the daily log.",
+      "unit_type": "ENTER_BUDGET_SUMMARY_TABLE",
+      "unit_before_state": "The newly created Budget_Summary sheet is open, the grid is visible, and the active cell may not be A1.",
+      "unit_after_state": "Budget_Summary contains a two-column table in A1:B4: headers Budget Item and Amount, a Weekly Budget row with 450, an Actual Spend row linked to Daily_Log.E10, and a Remaining row that subtracts actual spend from the budget.",
+      "unit_precondition": [
+        "The active worksheet is Budget_Summary.",
+        "The Daily_Log sheet already contains the weekly total in E10.",
+        "Cells A1:B4 are available for entering the summary table."
+      ],
+      "unit_effect": [
+        "A1 becomes active on Budget_Summary.",
+        "Typing the tab-separated content populates the table and formulas, making the actual spend and remaining balance appear from linked calculations."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a two-column budget summary table on a target worksheet using header labels, a fixed planned budget value, a linked actual-spend formula, and a remaining-balance formula.",
+      "parameters": {
+        "target_sheet": "Budget_Summary",
+        "start_cell": "A1",
+        "header_item": "Budget Item",
+        "header_amount": "Amount",
+        "planned_label": "Weekly Budget",
+        "planned_amount": "450",
+        "actual_label": "Actual Spend",
+        "actual_formula": "=Daily_Log.E10",
+        "remaining_label": "Remaining",
+        "remaining_formula": "=B2-B3"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell A1 on the Budget_Summary sheet'}}",
+          "action_template": "On {{target_sheet}}, click {{start_cell}} while the sheet is open and the grid is visible so the summary table starts in a clean top-left position and {{start_cell}} becomes active."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Budget Item\\tAmount\\nWeekly Budget\\t450\\nActual Spend\\t=Daily_Log.E10\\nRemaining\\t=B2-B3'}",
+          "action_template": "With {{start_cell}} active on {{target_sheet}} and the referenced total already available, type a tab-separated two-column table with headers {{header_item}} and {{header_amount}}, then enter {{planned_label}} with {{planned_amount}}, {{actual_label}} with {{actual_formula}}, and {{remaining_label}} with {{remaining_formula}} so the linked actual total and remaining balance populate automatically."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_07",
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        17,
+        18
+      ],
+      "unit_intent": "Format the summary amounts so the budget comparison reads as monetary values.",
+      "unit_type": "FORMAT_AS_CURRENCY",
+      "unit_before_state": "The Budget_Summary table is visible, and cells B2 through B4 contain the budget amount and calculated values in the Amount column.",
+      "unit_after_state": "Cells B2 through B4 remain selected and their displayed values use currency formatting rather than plain numbers.",
+      "unit_precondition": [
+        "The summary table has already been entered on Budget_Summary.",
+        "Cells B2 through B4 are visible and can be selected as one range.",
+        "The formatting toolbar with the currency button is available."
+      ],
+      "unit_effect": [
+        "Dragging across B2:B4 highlights the three amount cells together.",
+        "Clicking the currency format control changes the visible display of those cells to currency-formatted values."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Apply currency formatting to a specified range of amount cells in a summary table.",
+      "parameters": {
+        "target_range": "B2:B4",
+        "range_start_cell": "cell B2 in the Amount column",
+        "range_end_cell": "cell B4 in the Amount column",
+        "format_button": "the currency format button on the formatting toolbar"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'cell B2 in the Amount column'}, 'end': {'text': 'cell B4 in the Amount column'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "After the summary table is on the sheet, and with {{target_range}} visible, drag from {{range_start_cell}} down to {{range_end_cell}} so all values in {{target_range}} are selected together and ready for number formatting."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the currency format button on the formatting toolbar'}}",
+          "action_template": "When {{target_range}} is highlighted and the formatting toolbar is visible, click {{format_button}} so the selected values are displayed in currency format."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_08",
+      "unit_id": "u_seg_001_08",
+      "step_indices": [
+        19
+      ],
+      "unit_intent": "Persist the completed tracker workbook with both sheets and formulas.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The workbook contains the completed Daily_Log and Budget_Summary sheets and still has unsaved changes.",
+      "unit_after_state": "The current workbook state is saved with the tracker data, formulas, renamed sheets, and summary formatting preserved.",
+      "unit_precondition": [
+        "The workbook already includes both completed worksheets.",
+        "No sheet-tab rename field or cell text edit mode is still active.",
+        "LibreOffice Calc is focused so the save shortcut will apply to the workbook."
+      ],
+      "unit_effect": [
+        "Pressing Ctrl+S triggers LibreOffice Calc's save action.",
+        "The workbook's modified state clears, indicating the changes have been saved."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the current workbook so completed worksheet content and formulas are preserved.",
+      "parameters": {
+        "completed_sheets": "Daily_Log and Budget_Summary sheets"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 's']}",
+          "action_template": "Press Ctrl+S to save all spreadsheet changes to the workbook after {{completed_sheets}} are complete and no text-edit field is active, preserving the current workbook state."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

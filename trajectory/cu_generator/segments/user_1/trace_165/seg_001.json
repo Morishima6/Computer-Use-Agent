@@ -1,0 +1,811 @@
+{
+  "segment_id": "seg_001",
+  "app": "libreoffice_calc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Move to the starting cell of the sheet",
+      "action_before_state": "A blank or mostly empty Calc sheet is open, and the active cell may be somewhere other than the top-left corner.",
+      "action_preconditions": [
+        "LibreOffice Calc is open and editable.",
+        "The spreadsheet grid is visible.",
+        "No dialog window is blocking keyboard input."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "home"
+        ]
+      },
+      "action_after_effects": "The active cell moves to A1, giving a clean starting point for entering the table.",
+      "nl_explanation": "When the sheet is visible and ready for input, press Ctrl+Home to jump to cell A1. This ensures the expense table starts in the top-left area of the sheet."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Create the header row for the expense table",
+      "action_before_state": "Cell A1 is active at the top-left of the sheet.",
+      "action_preconditions": [
+        "Cell A1 is selected.",
+        "The first row is empty or available for new headers."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Date\tCategory\tDescription\tAmount"
+      },
+      "action_after_effects": "The labels Date, Category, Description, and Amount appear in cells A1 through D1. Column A is Date, column B is Category, column C is Description, and column D is Amount.",
+      "nl_explanation": "With cell A1 active, type the four headers separated by tabs so they fill across the first row. This creates the structure for the spending list."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Enter the first four spending records",
+      "action_before_state": "The header row is in place, and the main table area below it is empty.",
+      "action_preconditions": [
+        "Rows 2 through 5 are empty.",
+        "The user can place the cursor into the first data row."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell A2, directly below the Date header"
+        }
+      },
+      "action_after_effects": "Cell A2 becomes active and ready for the first block of expense data.",
+      "nl_explanation": "Click cell A2 so the first expense record starts directly under the headers. This positions the insertion point at the top of the data area."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Fill rows 2 through 5 with expense data",
+      "action_before_state": "Cell A2 is selected at the top of the table.",
+      "action_preconditions": [
+        "Cell A2 is active.",
+        "Rows 2 through 5 are available for entry."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "2026-04-01\tGroceries\tSupermarket\t42.80\n2026-04-02\tTransport\tMetro card\t18.00\n2026-04-03\tDining\tLunch with team\t15.50\n2026-04-04\tBills\tInternet bill\t49.99"
+      },
+      "action_after_effects": "Rows 2 through 5 are populated with four expense entries across columns A to D.",
+      "nl_explanation": "With A2 active, type the first four expense rows as tab-separated records on separate lines. The sheet now contains the first part of the weekly spending log."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Add the remaining three spending records",
+      "action_before_state": "The first four records are already in the table, and the next empty row begins at row 6.",
+      "action_preconditions": [
+        "Row 6 is empty.",
+        "The insertion point is ready for the next block of rows."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "2026-04-05\tGroceries\tFarmers market\t23.40\n2026-04-06\tTransport\tTaxi home\t12.70\n2026-04-06\tDining\tCoffee and snack\t8.90"
+      },
+      "action_after_effects": "Rows 6 through 8 are filled, completing the seven-row expense table.",
+      "nl_explanation": "Continue typing the remaining three tab-separated rows so the weekly expense list runs from row 2 through row 8. At this point, the main dataset is complete."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Select the header row for formatting",
+      "action_before_state": "The table is complete, and the header row is still plain text.",
+      "action_preconditions": [
+        "Row 1 contains the four column headers.",
+        "The left-side row number area is visible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the row number 1 header on the far left of the sheet"
+        }
+      },
+      "action_after_effects": "The entire first row is selected.",
+      "nl_explanation": "Click the row label for row 1 to select the full header row. This prepares the headers for one-step formatting."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Make the headers stand out",
+      "action_before_state": "Row 1 is selected.",
+      "action_preconditions": [
+        "The first row is highlighted.",
+        "Keyboard shortcuts are accepted by the sheet."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "b"
+        ]
+      },
+      "action_after_effects": "The text in the first row becomes bold, making the headers easier to distinguish from the data.",
+      "nl_explanation": "With the full header row selected, press Ctrl+B to bold it. This improves readability for the spending table."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Move to the summary area on the right side of the sheet",
+      "action_before_state": "The expense table is on the left, and columns F and G are empty.",
+      "action_preconditions": [
+        "The right side of the sheet is visible.",
+        "Cells F1 through G7 are available for a summary block."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell F1, a few columns to the right of the expense table"
+        }
+      },
+      "action_after_effects": "Cell F1 becomes active for entering the summary labels.",
+      "nl_explanation": "Click cell F1 to start building the summary area away from the raw expense data. This keeps the sheet organized into a table section and a summary section."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Add the summary labels",
+      "action_before_state": "Cell F1 is active and the summary area is empty.",
+      "action_preconditions": [
+        "Cell F1 is selected.",
+        "Cells F1 through F7 are empty."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Summary\nTotal Spent\nLargest Expense\nGroceries\nTransport\nDining\nBills"
+      },
+      "action_after_effects": "The labels fill cells F1 through F7, defining the summary structure.",
+      "nl_explanation": "Type the summary headings line by line starting in F1 so each label lands in its own row. This creates placeholders for totals and category breakdowns."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Enter the overall total and maximum formulas",
+      "action_before_state": "The summary labels are present in column F, and column G is empty.",
+      "action_preconditions": [
+        "Cells G2 and G3 are empty.",
+        "The expense amounts are in D2 through D8."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell G2, next to the Total Spent label"
+        }
+      },
+      "action_after_effects": "Cell G2 is ready for formulas tied to the summary labels.",
+      "nl_explanation": "Click G2 so the numeric summary values can be entered next to their labels. This places the cursor at the first result cell."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Calculate total spent and largest expense",
+      "action_before_state": "Cell G2 is active, and the amount column contains seven numeric values.",
+      "action_preconditions": [
+        "Cell G2 is selected.",
+        "The amounts in D2 through D8 are available for formulas."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "=SUM(D2:D8)\n=MAX(D2:D8)"
+      },
+      "action_after_effects": "Cell G2 shows the total spent, and cell G3 shows the highest single expense.",
+      "nl_explanation": "With G2 selected, type the SUM formula and then the MAX formula on the next line. This fills the first two summary results automatically from the expense amounts."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Start the category total formulas",
+      "action_before_state": "The summary labels for Groceries, Transport, Dining, and Bills are in F4 through F7.",
+      "action_preconditions": [
+        "Cell G4 is empty.",
+        "Column B contains categories and column D contains matching amounts."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell G4, next to the Groceries label"
+        }
+      },
+      "action_after_effects": "Cell G4 is active and ready for the first category formula.",
+      "nl_explanation": "Click G4 to begin the per-category breakdown beside the Groceries label. This is the starting point for a fill-down formula."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Enter a reusable category total formula",
+      "action_before_state": "Cell G4 is selected, and the category labels are listed in F4 through F7.",
+      "action_preconditions": [
+        "Cell G4 is active.",
+        "The expense category range is B2:B8.",
+        "The expense amount range is D2:D8."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "=SUMIF($B$2:$B$8;F4;$D$2:$D$8)"
+      },
+      "action_after_effects": "Cell G4 calculates the total for Groceries using the label in F4.",
+      "nl_explanation": "Type a SUMIF formula in G4 that searches column B for the category name in F4 and sums the matching values from column D. This creates the template for the other category totals."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Fill the category formula down through the remaining summary rows",
+      "action_before_state": "Cell G4 contains the correct SUMIF formula, and cells G5 through G7 are still empty.",
+      "action_preconditions": [
+        "Cell G4 has a formula.",
+        "The small fill handle at the bottom-right corner of G4 is visible.",
+        "Cells G5 through G7 are empty."
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the fill handle at the bottom-right corner of cell G4"
+        },
+        "end": {
+          "text": "cell G7"
+        },
+        "target": {
+          "begin": {
+            "text": "the fill handle at the bottom-right corner of cell G4"
+          },
+          "end": {
+            "text": "cell G7"
+          }
+        }
+      },
+      "action_after_effects": "The formula is copied into G5 through G7, and each row calculates the total for its category label.",
+      "nl_explanation": "Drag the fill handle from G4 down to G7 so the SUMIF formula is reused for Transport, Dining, and Bills. The summary block now contains all category totals."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Enable filter dropdowns on the expense table",
+      "action_before_state": "The table is complete, but the headers do not yet have filter controls.",
+      "action_preconditions": [
+        "The expense table spans A1:D8.",
+        "Any cell inside the table can be selected."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell A1 or any other cell inside the expense table"
+        }
+      },
+      "action_after_effects": "A cell inside the data range becomes active, which is enough for Calc to identify the table area.",
+      "nl_explanation": "Click anywhere inside the expense table so Calc knows which data range should receive filters. This prepares the sheet for adding header dropdowns."
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Turn on AutoFilter for the table",
+      "action_before_state": "A cell inside the expense table is selected.",
+      "action_preconditions": [
+        "The cursor is inside the data range A1:D8.",
+        "The sheet is still editable."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "l"
+        ]
+      },
+      "action_after_effects": "Filter dropdown arrows appear in the header row, allowing the data to be sorted or filtered later.",
+      "nl_explanation": "With the cursor inside the table, press Ctrl+Shift+L to enable AutoFilter. The header row now has dropdown controls for sorting and filtering the weekly expense list."
+    },
+    {
+      "step_id": "s17",
+      "step_goal": "Save the completed tracker",
+      "action_before_state": "The sheet contains the expense table, summary formulas, and filter controls.",
+      "action_preconditions": [
+        "The workbook is open.",
+        "No save-blocking dialog is present."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "s"
+        ]
+      },
+      "action_after_effects": "The workbook is saved with the completed weekly spending tracker.",
+      "nl_explanation": "Press Ctrl+S after the table and summary are finished. This saves the updated spreadsheet with all entered data and formulas."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Initialize the spending tracker table by placing the cursor at the sheet origin and creating the table headers.",
+      "unit_type": "CREATE_TABLE_HEADERS",
+      "unit_before_state": "LibreOffice Calc shows an editable blank or mostly empty worksheet, and the active cell is not guaranteed to be at the top-left corner.",
+      "unit_after_state": "Cells A1 through D1 contain the headers Date, Category, Description, and Amount, forming the top row of the expense table.",
+      "unit_precondition": [
+        "LibreOffice Calc is open with the worksheet grid visible.",
+        "The sheet is editable and no modal dialog is blocking keyboard input.",
+        "The top-left area of the sheet is available for creating a new table."
+      ],
+      "unit_effect": [
+        "The active cell jumps to A1.",
+        "The first row visibly shows the four column labels across A1:D1."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4,
+        5
+      ],
+      "unit_intent": "Populate the expense table with the full set of seven weekly spending records.",
+      "unit_type": "ENTER_EXPENSE_RECORDS",
+      "unit_before_state": "The header row is present in A1:D1, and the data area below it is empty.",
+      "unit_after_state": "Rows 2 through 8 are filled with seven expense records under the Date, Category, Description, and Amount columns.",
+      "unit_precondition": [
+        "The expense headers already exist in A1:D1.",
+        "Cell A2 can be selected and rows 2 through 8 are empty or available for input.",
+        "The user can paste or type tab-separated multi-row data into the sheet."
+      ],
+      "unit_effect": [
+        "Cell A2 becomes the starting point for data entry.",
+        "Seven populated records appear in A2:D8, including categories Groceries, Transport, Dining, and Bills."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7
+      ],
+      "unit_intent": "Format the table header row so the column labels are visually distinct from the data.",
+      "unit_type": "FORMAT_HEADER_ROW",
+      "unit_before_state": "The expense table is filled, but the header text in row 1 is still plain formatting.",
+      "unit_after_state": "The entire first row remains selected or formatted, and the header text in A1:D1 is bold.",
+      "unit_precondition": [
+        "Row 1 already contains the table headers.",
+        "The row header area on the left side of the sheet is visible.",
+        "Keyboard shortcuts for formatting are accepted by Calc."
+      ],
+      "unit_effect": [
+        "Row 1 becomes selected.",
+        "The text of Date, Category, Description, and Amount is visibly bold."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8,
+        9
+      ],
+      "unit_intent": "Create the label structure for a summary block beside the expense table.",
+      "unit_type": "CREATE_SUMMARY_SECTION",
+      "unit_before_state": "The expense table occupies columns A through D, and the summary area in columns F and G is empty.",
+      "unit_after_state": "Cells F1 through F7 contain the labels Summary, Total Spent, Largest Expense, Groceries, Transport, Dining, and Bills.",
+      "unit_precondition": [
+        "Columns F and G are visible and available for use.",
+        "Cells F1 through F7 are empty or ready to receive the summary labels.",
+        "The expense table on the left is already in place."
+      ],
+      "unit_effect": [
+        "Cell F1 becomes active.",
+        "A vertical list of summary labels appears in F1:F7."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        10,
+        11
+      ],
+      "unit_intent": "Compute the overall spending metrics for the dataset.",
+      "unit_type": "CALCULATE_OVERALL_SUMMARY",
+      "unit_before_state": "The summary labels are present in F1:F7, while G2 and G3 are empty and the expense amounts are listed in D2:D8.",
+      "unit_after_state": "Cell G2 shows the total spent and cell G3 shows the largest single expense for the seven entered records.",
+      "unit_precondition": [
+        "The amount values are already entered in D2:D8.",
+        "The summary labels Total Spent and Largest Expense exist in F2 and F3.",
+        "Cells G2 and G3 are empty and ready for formulas."
+      ],
+      "unit_effect": [
+        "Cell G2 receives a SUM formula and displays 171.29.",
+        "Cell G3 receives a MAX formula and displays 49.99."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        12,
+        13,
+        14
+      ],
+      "unit_intent": "Generate category-wise totals in the summary by creating one reusable formula and filling it down.",
+      "unit_type": "CALCULATE_CATEGORY_TOTALS",
+      "unit_before_state": "Labels for Groceries, Transport, Dining, and Bills are visible in F4:F7, and cells G4:G7 are empty.",
+      "unit_after_state": "Cells G4 through G7 show totals for Groceries, Transport, Dining, and Bills based on the expense table.",
+      "unit_precondition": [
+        "Category names are present in B2:B8 and matching amounts are present in D2:D8.",
+        "Summary labels exist in F4:F7.",
+        "Cell G4 is empty and the fill handle can be used to copy formulas into G5:G7."
+      ],
+      "unit_effect": [
+        "Cell G4 displays the Groceries total using a SUMIF formula.",
+        "The filled formulas produce visible results in G4:G7: 66.20, 30.70, 24.40, and 49.99."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        15,
+        16
+      ],
+      "unit_intent": "Enable filtering controls on the expense table so the records can be sorted or filtered later.",
+      "unit_type": "ENABLE_TABLE_FILTERS",
+      "unit_before_state": "The expense table spans A1:D8 and is complete, but the header row does not yet show filter dropdown arrows.",
+      "unit_after_state": "The table header cells in A1:D1 show AutoFilter dropdown controls.",
+      "unit_precondition": [
+        "The expense table already exists in A1:D8.",
+        "At least one cell inside the table can be selected.",
+        "The sheet remains editable and no dialog blocks the shortcut."
+      ],
+      "unit_effect": [
+        "A cell inside the expense table becomes active.",
+        "Dropdown arrows appear in the header row, indicating AutoFilter is enabled."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_08",
+      "step_indices": [
+        17
+      ],
+      "unit_intent": "Persist the completed budget tracker workbook to disk.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The worksheet contains the filled expense table, the completed summary block, and active filter controls in the header row.",
+      "unit_after_state": "The workbook remains open with the same visible content, now saved with the weekly spending tracker changes.",
+      "unit_precondition": [
+        "The workbook is open in Calc.",
+        "No save confirmation or blocking modal dialog is currently interrupting input.",
+        "The document has a writable save location or can be saved normally with Ctrl+S."
+      ],
+      "unit_effect": [
+        "The save command is issued.",
+        "The document's current spreadsheet state is stored, preserving the tracker data, formulas, and filters."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Initialize the spending tracker table by placing the cursor at the sheet origin and creating the table headers.",
+      "unit_type": "CREATE_TABLE_HEADERS",
+      "unit_before_state": "LibreOffice Calc shows an editable blank or mostly empty worksheet, and the active cell is not guaranteed to be at the top-left corner.",
+      "unit_after_state": "Cells A1 through D1 contain the headers Date, Category, Description, and Amount, forming the top row of the expense table.",
+      "unit_precondition": [
+        "LibreOffice Calc is open with the worksheet grid visible.",
+        "The sheet is editable and no modal dialog is blocking keyboard input.",
+        "The top-left area of the sheet is available for creating a new table."
+      ],
+      "unit_effect": [
+        "The active cell jumps to A1.",
+        "The first row visibly shows the four column labels across A1:D1."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Initialize a worksheet table by moving to a designated starting cell and entering the specified column headers across the first row.",
+      "parameters": {
+        "start_cell": "A1",
+        "header_sequence": "Date\tCategory\tDescription\tAmount"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'home']}",
+          "action_template": "When LibreOffice Calc is open, the spreadsheet grid is visible, and no dialog is blocking input, press Ctrl+Home to jump to {{start_cell}} and establish the starting point for the table."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Date\\tCategory\\tDescription\\tAmount'}",
+          "action_template": "With {{start_cell}} selected and the first row available, type {{header_sequence}} using tab separators so the column headers fill across the row and create the table structure."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4,
+        5
+      ],
+      "unit_intent": "Populate the expense table with the full set of seven weekly spending records.",
+      "unit_type": "ENTER_EXPENSE_RECORDS",
+      "unit_before_state": "The header row is present in A1:D1, and the data area below it is empty.",
+      "unit_after_state": "Rows 2 through 8 are filled with seven expense records under the Date, Category, Description, and Amount columns.",
+      "unit_precondition": [
+        "The expense headers already exist in A1:D1.",
+        "Cell A2 can be selected and rows 2 through 8 are empty or available for input.",
+        "The user can paste or type tab-separated multi-row data into the sheet."
+      ],
+      "unit_effect": [
+        "Cell A2 becomes the starting point for data entry.",
+        "Seven populated records appear in A2:D8, including categories Groceries, Transport, Dining, and Bills."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Populate an expense table by entering provided tab-separated spending records starting from the first data cell.",
+      "parameters": {
+        "target_start_cell": "cell A2, directly below the Date header",
+        "first_record_block": "2026-04-01\tGroceries\tSupermarket\t42.80\n2026-04-02\tTransport\tMetro card\t18.00\n2026-04-03\tDining\tLunch with team\t15.50\n2026-04-04\tBills\tInternet bill\t49.99",
+        "remaining_record_block": "2026-04-05\tGroceries\tFarmers market\t23.40\n2026-04-06\tTransport\tTaxi home\t12.70\n2026-04-06\tDining\tCoffee and snack\t8.90"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell A2, directly below the Date header'}}",
+          "action_template": "Click {{target_start_cell}} when the first data rows are empty to position the insertion point at the top of the data area; {{target_start_cell}} becomes active and ready for the first block of expense data."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '2026-04-01\\tGroceries\\tSupermarket\\t42.80\\n2026-04-02\\tTransport\\tMetro card\\t18.00\\n2026-04-03\\tDining\\tLunch with team\\t15.50\\n2026-04-04\\tBills\\tInternet bill\\t49.99'}",
+          "action_template": "With {{target_start_cell}} active and the next rows available for entry, type {{first_record_block}} as tab-separated records on separate lines to populate the first set of expense entries across columns A to D."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '2026-04-05\\tGroceries\\tFarmers market\\t23.40\\n2026-04-06\\tTransport\\tTaxi home\\t12.70\\n2026-04-06\\tDining\\tCoffee and snack\\t8.90'}",
+          "action_template": "When the insertion point is ready for the next empty row, type {{remaining_record_block}} as tab-separated records on separate lines to fill the remaining expense entries and complete the table."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7
+      ],
+      "unit_intent": "Format the table header row so the column labels are visually distinct from the data.",
+      "unit_type": "FORMAT_HEADER_ROW",
+      "unit_before_state": "The expense table is filled, but the header text in row 1 is still plain formatting.",
+      "unit_after_state": "The entire first row remains selected or formatted, and the header text in A1:D1 is bold.",
+      "unit_precondition": [
+        "Row 1 already contains the table headers.",
+        "The row header area on the left side of the sheet is visible.",
+        "Keyboard shortcuts for formatting are accepted by Calc."
+      ],
+      "unit_effect": [
+        "Row 1 becomes selected.",
+        "The text of Date, Category, Description, and Amount is visibly bold."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Apply bold formatting to a specified table header row so its column labels are visually distinct from the data.",
+      "parameters": {
+        "target_row_header": "the row number 1 header on the far left of the sheet",
+        "target_row": "first row",
+        "header_cell_range": "A1:D1"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the row number 1 header on the far left of the sheet'}}",
+          "action_template": "Click {{target_row_header}} to select the full {{target_row}} for formatting after confirming that the header row contains the table headers and the row number area is visible. This prepares the row for one-step formatting and results in the entire {{target_row}} being selected."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'b']}",
+          "action_template": "With {{target_row}} highlighted and keyboard shortcuts accepted by the sheet, press Ctrl+B to bold the headers in {{header_cell_range}}. This makes the header labels easier to distinguish from the data."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8,
+        9
+      ],
+      "unit_intent": "Create the label structure for a summary block beside the expense table.",
+      "unit_type": "CREATE_SUMMARY_SECTION",
+      "unit_before_state": "The expense table occupies columns A through D, and the summary area in columns F and G is empty.",
+      "unit_after_state": "Cells F1 through F7 contain the labels Summary, Total Spent, Largest Expense, Groceries, Transport, Dining, and Bills.",
+      "unit_precondition": [
+        "Columns F and G are visible and available for use.",
+        "Cells F1 through F7 are empty or ready to receive the summary labels.",
+        "The expense table on the left is already in place."
+      ],
+      "unit_effect": [
+        "Cell F1 becomes active.",
+        "A vertical list of summary labels appears in F1:F7."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a vertical list of summary labels in a designated summary area beside an existing table.",
+      "parameters": {
+        "target_start_cell": "F1",
+        "summary_labels": "Summary\nTotal Spent\nLargest Expense\nGroceries\nTransport\nDining\nBills"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "CLICK",
+          "action_template": "Click {{target_start_cell}} to start building the summary area away from the raw table data. The summary area should be visible and available so {{target_start_cell}} becomes active for entering the summary labels."
+        },
+        {
+          "action": "TYPING",
+          "action_template": "With {{target_start_cell}} selected and the destination label cells empty, type {{summary_labels}} line by line starting in {{target_start_cell}} so each label lands in its own row and defines the summary structure."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        10,
+        11
+      ],
+      "unit_intent": "Compute the overall spending metrics for the dataset.",
+      "unit_type": "CALCULATE_OVERALL_SUMMARY",
+      "unit_before_state": "The summary labels are present in F1:F7, while G2 and G3 are empty and the expense amounts are listed in D2:D8.",
+      "unit_after_state": "Cell G2 shows the total spent and cell G3 shows the largest single expense for the seven entered records.",
+      "unit_precondition": [
+        "The amount values are already entered in D2:D8.",
+        "The summary labels Total Spent and Largest Expense exist in F2 and F3.",
+        "Cells G2 and G3 are empty and ready for formulas."
+      ],
+      "unit_effect": [
+        "Cell G2 receives a SUM formula and displays 171.29.",
+        "Cell G3 receives a MAX formula and displays 49.99."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Calculate total and maximum summary metrics for a specified numeric data range and place the results into consecutive summary cells.",
+      "parameters": {
+        "first_result_cell": "cell G2, next to the Total Spent label",
+        "source_value_range": "D2:D8",
+        "formula_block": "=SUM(D2:D8)\n=MAX(D2:D8)"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell G2, next to the Total Spent label'}}",
+          "action_template": "When {{first_result_cell}} and the next summary cell are empty and the values in {{source_value_range}} are available, click {{first_result_cell}} so the summary formulas can be entered in the first result cell."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '=SUM(D2:D8)\\n=MAX(D2:D8)'}",
+          "action_template": "With {{first_result_cell}} selected and the values in {{source_value_range}} available for formulas, type {{formula_block}} to populate the first summary cell with the total and the next summary cell with the maximum value."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        12,
+        13,
+        14
+      ],
+      "unit_intent": "Generate category-wise totals in the summary by creating one reusable formula and filling it down.",
+      "unit_type": "CALCULATE_CATEGORY_TOTALS",
+      "unit_before_state": "Labels for Groceries, Transport, Dining, and Bills are visible in F4:F7, and cells G4:G7 are empty.",
+      "unit_after_state": "Cells G4 through G7 show totals for Groceries, Transport, Dining, and Bills based on the expense table.",
+      "unit_precondition": [
+        "Category names are present in B2:B8 and matching amounts are present in D2:D8.",
+        "Summary labels exist in F4:F7.",
+        "Cell G4 is empty and the fill handle can be used to copy formulas into G5:G7."
+      ],
+      "unit_effect": [
+        "Cell G4 displays the Groceries total using a SUMIF formula.",
+        "The filled formulas produce visible results in G4:G7: 66.20, 30.70, 24.40, and 49.99."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Generate totals for each summary label by entering a reusable SUMIF formula in the first summary result cell and filling it down through the remaining summary rows.",
+      "parameters": {
+        "summary_start_cell": "cell G4, next to the Groceries label",
+        "criterion_reference_cell": "F4",
+        "criteria_range": "$B$2:$B$8",
+        "sum_range": "$D$2:$D$8",
+        "reusable_formula": "=SUMIF($B$2:$B$8;F4;$D$2:$D$8)",
+        "fill_destination_cell": "cell G7"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell G4, next to the Groceries label'}}",
+          "action_template": "Click {{summary_start_cell}} to begin the per-category breakdown in the first summary result cell. This starts the fill-down formula workflow when the cell is empty and the category and amount columns are populated; afterward, {{summary_start_cell}} is active and ready for the first category formula."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '=SUMIF($B$2:$B$8;F4;$D$2:$D$8)'}",
+          "action_template": "Type {{reusable_formula}} in {{summary_start_cell}} to create a SUMIF template that searches {{criteria_range}} for the category name in {{criterion_reference_cell}} and sums the matching values from {{sum_range}}. This requires {{summary_start_cell}} to be active; afterward, the first summary total is calculated from the referenced label."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the fill handle at the bottom-right corner of cell G4'}, 'end': {'text': 'cell G7'}, 'target': {'begin': {'text': 'the fill handle at the bottom-right corner of cell G4'}, 'end': {'text': 'cell G7'}}}",
+          "action_template": "Drag the fill handle at the bottom-right corner of {{summary_start_cell}} down to {{fill_destination_cell}} to reuse the SUMIF formula for the remaining summary rows. This requires a formula to already be present in {{summary_start_cell}} and the destination cells to be empty; afterward, each row calculates the total for its own category label."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_07",
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        15,
+        16
+      ],
+      "unit_intent": "Enable filtering controls on the expense table so the records can be sorted or filtered later.",
+      "unit_type": "ENABLE_TABLE_FILTERS",
+      "unit_before_state": "The expense table spans A1:D8 and is complete, but the header row does not yet show filter dropdown arrows.",
+      "unit_after_state": "The table header cells in A1:D1 show AutoFilter dropdown controls.",
+      "unit_precondition": [
+        "The expense table already exists in A1:D8.",
+        "At least one cell inside the table can be selected.",
+        "The sheet remains editable and no dialog blocks the shortcut."
+      ],
+      "unit_effect": [
+        "A cell inside the expense table becomes active.",
+        "Dropdown arrows appear in the header row, indicating AutoFilter is enabled."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Enable AutoFilter controls for a specified data table so its header row shows sorting and filtering dropdowns.",
+      "parameters": {
+        "target_table": "expense table",
+        "data_range": "A1:D8",
+        "target_cell": "cell A1 or any other cell inside the expense table"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell A1 or any other cell inside the expense table'}}",
+          "action_template": "Click {{target_cell}} inside {{target_table}} so Calc can identify the data range {{data_range}} for filtering. This requires that {{target_table}} already exists and results in an active cell inside the range."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'l']}",
+          "action_template": "With the cursor inside {{data_range}}, press Ctrl+Shift+L to enable AutoFilter for {{target_table}}. The header row then shows dropdown controls for sorting and filtering."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_08",
+      "unit_id": "u_seg_001_08",
+      "step_indices": [
+        17
+      ],
+      "unit_intent": "Persist the completed budget tracker workbook to disk.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The worksheet contains the filled expense table, the completed summary block, and active filter controls in the header row.",
+      "unit_after_state": "The workbook remains open with the same visible content, now saved with the weekly spending tracker changes.",
+      "unit_precondition": [
+        "The workbook is open in Calc.",
+        "No save confirmation or blocking modal dialog is currently interrupting input.",
+        "The document has a writable save location or can be saved normally with Ctrl+S."
+      ],
+      "unit_effect": [
+        "The save command is issued.",
+        "The document's current spreadsheet state is stored, preserving the tracker data, formulas, and filters."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the current workbook to persist the latest spreadsheet changes.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 's']}",
+          "action_template": "Press Ctrl+S when the workbook is open and no save-blocking dialog is present to save the current spreadsheet with its entered data and formulas."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

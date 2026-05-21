@@ -1,0 +1,753 @@
+{
+  "segment_id": "seg_001",
+  "app": "libreoffice_calc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Place the cursor at the first cell so the table can start from the top-left corner",
+      "action_before_state": "A blank Calc worksheet is open and the cell grid is visible.",
+      "action_preconditions": [
+        "LibreOffice Calc is the active window",
+        "The worksheet is editable",
+        "Cell A1 is visible on screen"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the A1 cell at the top-left of the worksheet"
+        }
+      },
+      "action_after_effects": "Cell A1 becomes the active cell with a visible selection border.",
+      "nl_explanation": "When the blank sheet is ready and A1 is visible, click the A1 cell so the spreadsheet content starts in the correct place."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Create the header row for the expense tracker",
+      "action_before_state": "Cell A1 is selected and the first row is empty.",
+      "action_preconditions": [
+        "Cell A1 is active",
+        "Cells A1 through E1 are empty"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Date\tCategory\tItem\tCost\tPayment Method"
+      },
+      "action_after_effects": "The headers fill cells A1 through E1 in a single row.",
+      "nl_explanation": "With A1 active and the top row empty, type the tab-separated headers so the tracker columns are created from A1 to E1."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Move to the first data row to enter the weekly expenses",
+      "action_before_state": "The header row is filled, and the rows below are still blank.",
+      "action_preconditions": [
+        "Headers are present in row 1",
+        "Cell A2 is visible and empty"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the A2 cell directly under the Date header"
+        }
+      },
+      "action_after_effects": "Cell A2 becomes the active cell for data entry.",
+      "nl_explanation": "After the headers are in place, click A2 so the expense records can be entered starting on the second row."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Enter all seven weekly expense records",
+      "action_before_state": "Cell A2 is active and the area below the headers is empty.",
+      "action_preconditions": [
+        "Cell A2 is selected",
+        "Rows 2 through 8 are available for entry"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "2026-04-01\tGroceries\tVegetables\t18.40\tCard\n2026-04-01\tTransport\tMetro top-up\t12.00\tMobile Pay\n2026-04-02\tCoffee\tCafe latte\t4.80\tCard\n2026-04-03\tLunch\tNoodles\t13.50\tCash\n2026-04-04\tHousehold\tLaundry detergent\t22.90\tCard\n2026-04-05\tTransport\tTaxi\t16.00\tCard\n2026-04-05\tGroceries\tFruit\t9.60\tCash"
+      },
+      "action_after_effects": "The seven records populate cells A2 through E8 as a complete table.",
+      "nl_explanation": "With A2 selected and enough empty rows available, type the tab- and newline-separated expense data so the full weekly log appears in rows 2 to 8."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Add labels for the summary rows",
+      "action_before_state": "The expense table ends at row 8, and rows 9 and 10 are empty.",
+      "action_preconditions": [
+        "Rows 9 and 10 are blank",
+        "Cell A9 is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the A9 cell below the expense table"
+        }
+      },
+      "action_after_effects": "Cell A9 becomes active and ready for the summary labels.",
+      "nl_explanation": "Once the table is filled and row 9 is empty, click A9 so the summary section can be added directly under the data."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Fill in the Total and Average Expense row labels",
+      "action_before_state": "Cell A9 is selected and cells A9 and A10 are empty.",
+      "action_preconditions": [
+        "Cell A9 is active",
+        "Cells A9 and A10 are blank"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Total\nAverage Expense"
+      },
+      "action_after_effects": "Cell A9 shows Total and cell A10 shows Average Expense.",
+      "nl_explanation": "With A9 selected and the summary label cells empty, type the two labels on separate lines so the summary rows are clearly named."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Enter formulas to calculate the total and average cost",
+      "action_before_state": "The summary labels are in A9 and A10, and the Cost column values are in D2 through D8.",
+      "action_preconditions": [
+        "Cells D2 through D8 contain numeric costs",
+        "Cells D9 and D10 are empty"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the D9 cell in the Cost column beside the Total label"
+        }
+      },
+      "action_after_effects": "Cell D9 becomes active for formula entry.",
+      "nl_explanation": "After the summary labels are present and the Cost values exist, click D9 so the summary formulas can be placed in the same column as the expense amounts."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Calculate the total and average expense values",
+      "action_before_state": "Cell D9 is selected, and cells D9 and D10 are ready for formulas.",
+      "action_preconditions": [
+        "Cell D9 is active",
+        "The cost values are present in D2 through D8"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "=SUM(D2:D8)\n=AVERAGE(D2:D8)"
+      },
+      "action_after_effects": "Calc computes the total in D9 and the average expense in D10.",
+      "nl_explanation": "With D9 active and the Cost column filled, type the two formulas on separate lines so Calc calculates both the total and the average automatically."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Return to the top of the sheet before formatting the header",
+      "action_before_state": "The summary formulas are entered and the active area is near the bottom of the table.",
+      "action_preconditions": [
+        "The worksheet still has focus",
+        "The header row may no longer be the current focus"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "home"
+        ]
+      },
+      "action_after_effects": "The active cell jumps back to A1 at the top of the worksheet.",
+      "nl_explanation": "Once the formulas are finished, press Ctrl+Home to move back to the top quickly so the header row can be formatted."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Select the header row so it can be emphasized",
+      "action_before_state": "The top of the sheet is visible, and the headers are in cells A1 through E1.",
+      "action_preconditions": [
+        "Cells A1 through E1 are visible",
+        "The worksheet is not in edit mode"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the A1 header cell"
+        },
+        "end": {
+          "text": "the E1 header cell"
+        },
+        "target": {
+          "begin": {
+            "text": "the A1 header cell"
+          },
+          "end": {
+            "text": "the E1 header cell"
+          }
+        }
+      },
+      "action_after_effects": "The full header range A1:E1 becomes selected.",
+      "nl_explanation": "When the header row is visible and ready to format, drag from A1 to E1 to highlight the entire set of column names."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Make the header row bold",
+      "action_before_state": "Cells A1 through E1 are selected.",
+      "action_preconditions": [
+        "The header range A1:E1 is highlighted",
+        "The formatting toolbar is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Bold button on the formatting toolbar"
+        }
+      },
+      "action_after_effects": "The header text becomes bold, making the table easier to read.",
+      "nl_explanation": "With the header cells selected, click the Bold toolbar button so the column names stand out from the data rows."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Select the cost values and summary amounts for currency formatting",
+      "action_before_state": "The table is complete, and the money values are in column D.",
+      "action_preconditions": [
+        "Cells D2 through D10 are visible or selectable",
+        "The worksheet is still in normal editing mode"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the D2 cell containing the first cost value"
+        },
+        "end": {
+          "text": "the D10 cell containing the average formula result"
+        },
+        "target": {
+          "begin": {
+            "text": "the D2 cell containing the first cost value"
+          },
+          "end": {
+            "text": "the D10 cell containing the average formula result"
+          }
+        }
+      },
+      "action_after_effects": "The range D2:D10 is selected for numeric formatting.",
+      "nl_explanation": "After the content is finished, drag from D2 to D10 so all expense amounts and summary values can be formatted together."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Format the cost column as currency",
+      "action_before_state": "Cells D2 through D10 are selected.",
+      "action_preconditions": [
+        "The range D2:D10 is highlighted",
+        "A currency formatting control is available on the toolbar"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Currency format button on the toolbar"
+        }
+      },
+      "action_after_effects": "The selected values display with currency formatting.",
+      "nl_explanation": "When the cost cells are selected, click the Currency button so the expenses, total, and average all display as money values."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Open the save dialog for the new spreadsheet",
+      "action_before_state": "The worksheet is complete and ready to be stored.",
+      "action_preconditions": [
+        "LibreOffice Calc is focused",
+        "The document has unsaved changes"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "s"
+        ]
+      },
+      "action_after_effects": "A save dialog appears for naming the spreadsheet file.",
+      "nl_explanation": "Once the sheet is finished, press Ctrl+S to open the save dialog and prepare the file for saving."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Provide the target filename",
+      "action_before_state": "The save dialog is open and the filename field is ready for input.",
+      "action_preconditions": [
+        "The save dialog is visible",
+        "The filename input field is active or ready to receive text"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "weekly_expense_summary.ods"
+      },
+      "action_after_effects": "The save dialog now shows weekly_expense_summary.ods as the filename.",
+      "nl_explanation": "With the save window open and the name field ready, type weekly_expense_summary.ods so the spreadsheet is saved with the requested filename."
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Confirm the save operation",
+      "action_before_state": "The save dialog shows the desired filename.",
+      "action_preconditions": [
+        "The save dialog is still open",
+        "The filename field contains weekly_expense_summary.ods"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The dialog closes and the spreadsheet is saved as weekly_expense_summary.ods.",
+      "nl_explanation": "After the correct filename is entered in the save dialog, press Enter to save the completed weekly expense tracker and close the dialog."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Set up the expense tracker's column structure at the top of the sheet.",
+      "unit_type": "CREATE_HEADER_ROW",
+      "unit_before_state": "LibreOffice Calc shows a blank editable worksheet with cell A1 visible in the upper-left corner and row 1 empty.",
+      "unit_after_state": "Cells A1 through E1 contain the headers Date, Category, Item, Cost, and Payment Method, with the data entry area starting below them still empty.",
+      "unit_precondition": [
+        "LibreOffice Calc is the active window.",
+        "The worksheet is editable.",
+        "Cell A1 is visible and cells A1 through E1 are empty."
+      ],
+      "unit_effect": [
+        "A1 becomes the active starting cell.",
+        "The text Date, Category, Item, Cost, and Payment Method appears across A1:E1."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4
+      ],
+      "unit_intent": "Populate the tracker with the full set of weekly expense records.",
+      "unit_type": "POPULATE_TABLE_ROWS",
+      "unit_before_state": "The header row is already present in A1:E1, and the area from row 2 downward is blank.",
+      "unit_after_state": "Rows 2 through 8 are filled with seven expense entries across columns A through E, forming the main expense table.",
+      "unit_precondition": [
+        "The header row already exists in A1:E1.",
+        "Cell A2 is visible and available for entry.",
+        "Rows 2 through 8 are empty and editable."
+      ],
+      "unit_effect": [
+        "Cell A2 is activated for entry.",
+        "The seven specified expense records appear in A2:E8."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Add labeled summary rows below the expense table.",
+      "unit_type": "ADD_SUMMARY_LABELS",
+      "unit_before_state": "The expense table ends at row 8, and cells A9 and A10 below it are blank.",
+      "unit_after_state": "Cell A9 shows Total and cell A10 shows Average Expense, creating a labeled summary section under the table.",
+      "unit_precondition": [
+        "The expense data already fills rows 2 through 8.",
+        "Rows 9 and 10 are visible and empty.",
+        "Cell A9 can be selected."
+      ],
+      "unit_effect": [
+        "A9 becomes the active cell for summary entry.",
+        "The labels Total and Average Expense are visible in A9 and A10."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Compute the total and average of the recorded expenses.",
+      "unit_type": "CALCULATE_SUMMARY_VALUES",
+      "unit_before_state": "Summary labels are present in A9 and A10, numeric costs are listed in D2 through D8, and cells D9 and D10 are empty.",
+      "unit_after_state": "Cells D9 and D10 display calculated results for the total and average expense beside their corresponding summary labels.",
+      "unit_precondition": [
+        "The summary labels exist in A9 and A10.",
+        "The expense amounts in D2 through D8 are numeric.",
+        "Cells D9 and D10 are empty and editable."
+      ],
+      "unit_effect": [
+        "D9 is selected for formula entry.",
+        "Calc evaluates =SUM(D2:D8) in D9 and =AVERAGE(D2:D8) in D10."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        9,
+        10,
+        11
+      ],
+      "unit_intent": "Emphasize the header row so the table structure is easier to scan.",
+      "unit_type": "FORMAT_HEADER_BOLD",
+      "unit_before_state": "The completed table and summary formulas exist, and the active area is near the lower summary rows rather than the top header row.",
+      "unit_after_state": "The view is back at the top of the worksheet, range A1:E1 is selected, and the header text is visibly bold.",
+      "unit_precondition": [
+        "The worksheet still has focus and is not in cell edit mode.",
+        "The header row exists in A1:E1.",
+        "The formatting toolbar with the Bold control is available."
+      ],
+      "unit_effect": [
+        "Ctrl+Home returns focus to cell A1 at the top of the sheet.",
+        "The header range A1:E1 becomes selected.",
+        "The header labels display in bold formatting."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        12,
+        13
+      ],
+      "unit_intent": "Format all expense and summary amounts as currency values.",
+      "unit_type": "APPLY_CURRENCY_FORMAT",
+      "unit_before_state": "The worksheet contains completed expense data and summary formulas, and the monetary values are in cells D2 through D10 without currency formatting applied yet.",
+      "unit_after_state": "Range D2:D10 is formatted as currency, so each expense amount, total, and average displays in a money format.",
+      "unit_precondition": [
+        "Cells D2 through D10 contain the cost values and summary results.",
+        "The worksheet is in normal editing mode.",
+        "A currency formatting control is available on the toolbar."
+      ],
+      "unit_effect": [
+        "The range D2:D10 becomes selected.",
+        "The selected numeric values change to currency-formatted display."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        14,
+        15,
+        16
+      ],
+      "unit_intent": "Store the finished spreadsheet under the requested filename.",
+      "unit_type": "SAVE_DOCUMENT_AS",
+      "unit_before_state": "The weekly expense tracker is complete in LibreOffice Calc and the document has unsaved changes.",
+      "unit_after_state": "The save dialog is closed and the spreadsheet is saved as weekly_expense_summary.ods.",
+      "unit_precondition": [
+        "LibreOffice Calc is focused.",
+        "The worksheet contains the completed tracker and unsaved edits.",
+        "The standard save dialog can be opened from the current state."
+      ],
+      "unit_effect": [
+        "Ctrl+S opens the save dialog.",
+        "The filename field shows weekly_expense_summary.ods.",
+        "Pressing Enter confirms the save and closes the dialog."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Set up the expense tracker's column structure at the top of the sheet.",
+      "unit_type": "CREATE_HEADER_ROW",
+      "unit_before_state": "LibreOffice Calc shows a blank editable worksheet with cell A1 visible in the upper-left corner and row 1 empty.",
+      "unit_after_state": "Cells A1 through E1 contain the headers Date, Category, Item, Cost, and Payment Method, with the data entry area starting below them still empty.",
+      "unit_precondition": [
+        "LibreOffice Calc is the active window.",
+        "The worksheet is editable.",
+        "Cell A1 is visible and cells A1 through E1 are empty."
+      ],
+      "unit_effect": [
+        "A1 becomes the active starting cell.",
+        "The text Date, Category, Item, Cost, and Payment Method appears across A1:E1."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a header row at a specified starting cell by entering a tab-separated set of column labels.",
+      "parameters": {
+        "starting_cell": "the A1 cell at the top-left of the worksheet",
+        "header_text": "Date\tCategory\tItem\tCost\tPayment Method",
+        "header_range": "A1:E1"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the A1 cell at the top-left of the worksheet'}}",
+          "action_template": "When the worksheet is editable and {{starting_cell}} is visible, click {{starting_cell}} so the header row starts in the correct place and that cell becomes active."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Date\\tCategory\\tItem\\tCost\\tPayment Method'}",
+          "action_template": "With {{starting_cell}} active and {{header_range}} empty, type {{header_text}} so the column labels fill {{header_range}} in a single row."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4
+      ],
+      "unit_intent": "Populate the tracker with the full set of weekly expense records.",
+      "unit_type": "POPULATE_TABLE_ROWS",
+      "unit_before_state": "The header row is already present in A1:E1, and the area from row 2 downward is blank.",
+      "unit_after_state": "Rows 2 through 8 are filled with seven expense entries across columns A through E, forming the main expense table.",
+      "unit_precondition": [
+        "The header row already exists in A1:E1.",
+        "Cell A2 is visible and available for entry.",
+        "Rows 2 through 8 are empty and editable."
+      ],
+      "unit_effect": [
+        "Cell A2 is activated for entry.",
+        "The seven specified expense records appear in A2:E8."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Populate spreadsheet rows beneath an existing header row by entering a specified set of tabular records starting from the first data cell.",
+      "parameters": {
+        "start_cell": "A2",
+        "input_records": "2026-04-01\tGroceries\tVegetables\t18.40\tCard\n2026-04-01\tTransport\tMetro top-up\t12.00\tMobile Pay\n2026-04-02\tCoffee\tCafe latte\t4.80\tCard\n2026-04-03\tLunch\tNoodles\t13.50\tCash\n2026-04-04\tHousehold\tLaundry detergent\t22.90\tCard\n2026-04-05\tTransport\tTaxi\t16.00\tCard\n2026-04-05\tGroceries\tFruit\t9.60\tCash"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the A2 cell directly under the Date header'}}",
+          "action_template": "After the headers are in place and {{start_cell}} is visible and empty, click {{start_cell}} to activate the first data cell so the records can be entered starting on that row. After this action, {{start_cell}} becomes the active cell for data entry."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '2026-04-01\\tGroceries\\tVegetables\\t18.40\\tCard\\n2026-04-01\\tTransport\\tMetro top-up\\t12.00\\tMobile Pay\\n2026-04-02\\tCoffee\\tCafe latte\\t4.80\\tCard\\n2026-04-03\\tLunch\\tNoodles\\t13.50\\tCash\\n2026-04-04\\tHousehold\\tLaundry detergent\\t22.90\\tCard\\n2026-04-05\\tTransport\\tTaxi\\t16.00\\tCard\\n2026-04-05\\tGroceries\\tFruit\\t9.60\\tCash'}",
+          "action_template": "With {{start_cell}} selected and enough empty rows available for entry, type {{input_records}} so the tab- and newline-separated records populate the spreadsheet as a complete table below the headers. After this action, the entered records fill the corresponding table cells as one contiguous data block."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Add labeled summary rows below the expense table.",
+      "unit_type": "ADD_SUMMARY_LABELS",
+      "unit_before_state": "The expense table ends at row 8, and cells A9 and A10 below it are blank.",
+      "unit_after_state": "Cell A9 shows Total and cell A10 shows Average Expense, creating a labeled summary section under the table.",
+      "unit_precondition": [
+        "The expense data already fills rows 2 through 8.",
+        "Rows 9 and 10 are visible and empty.",
+        "Cell A9 can be selected."
+      ],
+      "unit_effect": [
+        "A9 becomes the active cell for summary entry.",
+        "The labels Total and Average Expense are visible in A9 and A10."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Add specified summary row labels below a completed data table.",
+      "parameters": {
+        "target_start_cell": "A9",
+        "summary_labels_text": "Total\nAverage Expense"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the A9 cell below the expense table'}}",
+          "action_template": "Click {{target_start_cell}} when the summary rows below the completed table are blank so the summary section can be added starting from that cell."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Total\\nAverage Expense'}",
+          "action_template": "Type {{summary_labels_text}} with one label per line into the active starting cell so the summary rows are clearly labeled."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Compute the total and average of the recorded expenses.",
+      "unit_type": "CALCULATE_SUMMARY_VALUES",
+      "unit_before_state": "Summary labels are present in A9 and A10, numeric costs are listed in D2 through D8, and cells D9 and D10 are empty.",
+      "unit_after_state": "Cells D9 and D10 display calculated results for the total and average expense beside their corresponding summary labels.",
+      "unit_precondition": [
+        "The summary labels exist in A9 and A10.",
+        "The expense amounts in D2 through D8 are numeric.",
+        "Cells D9 and D10 are empty and editable."
+      ],
+      "unit_effect": [
+        "D9 is selected for formula entry.",
+        "Calc evaluates =SUM(D2:D8) in D9 and =AVERAGE(D2:D8) in D10."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Calculate total and average summary values for a numeric data range in designated summary cells.",
+      "parameters": {
+        "summary_entry_cell": "D9",
+        "data_range": "D2:D8",
+        "total_formula": "=SUM(D2:D8)",
+        "average_formula": "=AVERAGE(D2:D8)",
+        "formula_input": "=SUM(D2:D8)\n=AVERAGE(D2:D8)"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "CLICK",
+          "action_template": "Click {{summary_entry_cell}} after the numeric values in {{data_range}} are present and the summary cells are empty, so the summary formulas can be entered in the target summary area and {{summary_entry_cell}} becomes active for formula entry."
+        },
+        {
+          "action": "TYPING",
+          "action_template": "With {{summary_entry_cell}} active and the values in {{data_range}} available, type {{formula_input}} on separate lines so Calc computes the total using {{total_formula}} and the average using {{average_formula}} automatically."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        9,
+        10,
+        11
+      ],
+      "unit_intent": "Emphasize the header row so the table structure is easier to scan.",
+      "unit_type": "FORMAT_HEADER_BOLD",
+      "unit_before_state": "The completed table and summary formulas exist, and the active area is near the lower summary rows rather than the top header row.",
+      "unit_after_state": "The view is back at the top of the worksheet, range A1:E1 is selected, and the header text is visibly bold.",
+      "unit_precondition": [
+        "The worksheet still has focus and is not in cell edit mode.",
+        "The header row exists in A1:E1.",
+        "The formatting toolbar with the Bold control is available."
+      ],
+      "unit_effect": [
+        "Ctrl+Home returns focus to cell A1 at the top of the sheet.",
+        "The header range A1:E1 becomes selected.",
+        "The header labels display in bold formatting."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Apply bold formatting to a worksheet header row so the table structure is easier to scan.",
+      "parameters": {
+        "header_start_cell": "A1",
+        "header_end_cell": "E1",
+        "header_range": "A1:E1"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'home']}",
+          "action_template": "When the worksheet still has focus and the header row may no longer be the current focus, press Ctrl+Home to move back to the top quickly so the header row can be formatted; the active cell jumps back to {{header_start_cell}} at the top of the worksheet."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the A1 header cell'}, 'end': {'text': 'the E1 header cell'}, 'target': {'begin': {'text': 'the A1 header cell'}, 'end': {'text': 'the E1 header cell'}}}",
+          "action_template": "When cells {{header_start_cell}} through {{header_end_cell}} are visible and the worksheet is not in edit mode, drag from {{header_start_cell}} to {{header_end_cell}} to highlight the entire set of column names; the full header range {{header_range}} becomes selected."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Bold button on the formatting toolbar'}}",
+          "action_template": "With the header range {{header_range}} highlighted and the formatting toolbar visible, click the Bold button on the formatting toolbar so the column names stand out from the data rows; the header text becomes bold."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        12,
+        13
+      ],
+      "unit_intent": "Format all expense and summary amounts as currency values.",
+      "unit_type": "APPLY_CURRENCY_FORMAT",
+      "unit_before_state": "The worksheet contains completed expense data and summary formulas, and the monetary values are in cells D2 through D10 without currency formatting applied yet.",
+      "unit_after_state": "Range D2:D10 is formatted as currency, so each expense amount, total, and average displays in a money format.",
+      "unit_precondition": [
+        "Cells D2 through D10 contain the cost values and summary results.",
+        "The worksheet is in normal editing mode.",
+        "A currency formatting control is available on the toolbar."
+      ],
+      "unit_effect": [
+        "The range D2:D10 becomes selected.",
+        "The selected numeric values change to currency-formatted display."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Apply currency formatting to a specified range of numeric cells.",
+      "parameters": {
+        "target_range": "D2:D10",
+        "range_start_cell": "D2",
+        "range_end_cell": "D10"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the D2 cell containing the first cost value'}, 'end': {'text': 'the D10 cell containing the average formula result'}, 'target': {'begin': {'text': 'the D2 cell containing the first cost value'}, 'end': {'text': 'the D10 cell containing the average formula result'}}}",
+          "action_template": "Drag from {{range_start_cell}} to {{range_end_cell}} to select {{target_range}} so all expense amounts and summary values can be formatted together, when the cells are visible or selectable and the worksheet is still in normal editing mode. This selects {{target_range}} for numeric formatting."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Currency format button on the toolbar'}}",
+          "action_template": "Click the Currency format button on the toolbar when {{target_range}} is highlighted and a currency formatting control is available on the toolbar so the selected values display with currency formatting."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_07",
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        14,
+        15,
+        16
+      ],
+      "unit_intent": "Store the finished spreadsheet under the requested filename.",
+      "unit_type": "SAVE_DOCUMENT_AS",
+      "unit_before_state": "The weekly expense tracker is complete in LibreOffice Calc and the document has unsaved changes.",
+      "unit_after_state": "The save dialog is closed and the spreadsheet is saved as weekly_expense_summary.ods.",
+      "unit_precondition": [
+        "LibreOffice Calc is focused.",
+        "The worksheet contains the completed tracker and unsaved edits.",
+        "The standard save dialog can be opened from the current state."
+      ],
+      "unit_effect": [
+        "Ctrl+S opens the save dialog.",
+        "The filename field shows weekly_expense_summary.ods.",
+        "Pressing Enter confirms the save and closes the dialog."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the current spreadsheet under a specified filename.",
+      "parameters": {
+        "file_name": "weekly_expense_summary.ods"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 's']}",
+          "action_template": "Press Ctrl+S to open the save dialog and prepare the spreadsheet for saving. Preconditions: LibreOffice Calc is focused and the document has unsaved changes. After this action, a save dialog appears for naming the spreadsheet file."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'weekly_expense_summary.ods'}",
+          "action_template": "Type {{file_name}} into the filename field so the spreadsheet will be saved with the specified filename. Preconditions: the save dialog is visible and the filename input field is active or ready to receive text. After this action, the save dialog shows {{file_name}} as the filename."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter to confirm saving the spreadsheet as {{file_name}} and close the save dialog. Preconditions: the save dialog is still open and the filename field contains {{file_name}}. After this action, the dialog closes and the spreadsheet is saved as {{file_name}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

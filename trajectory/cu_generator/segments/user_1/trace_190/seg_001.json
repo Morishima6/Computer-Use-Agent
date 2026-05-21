@@ -1,0 +1,646 @@
+{
+  "segment_id": "seg_001",
+  "app": "libreoffice_calc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Place the cursor at the top-left of the sheet so the table can start in A1",
+      "action_before_state": "A LibreOffice Calc workbook is already open, and the blank cell grid is visible with cell A1 near the upper-left corner.",
+      "action_preconditions": [
+        "The Calc window is active on screen",
+        "The worksheet grid is visible",
+        "Cell A1 can be reached without scrolling"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell A1 near the top-left corner of the worksheet"
+        }
+      },
+      "action_after_effects": "Cell A1 becomes the active cell, so the next typed content will begin the table there.",
+      "nl_explanation": "When the worksheet grid is visible and cell A1 is available, click cell A1 so the grocery budget table starts from the top-left of the sheet."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Enter the header row and the five grocery categories with planned and actual values",
+      "action_before_state": "Cell A1 is active in a blank area of the worksheet.",
+      "action_preconditions": [
+        "Cell A1 is selected",
+        "The area from A1 to D6 is empty or ready to receive pasted tabular data"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Category\tPlanned\tActual\tDifference\nProduce\t45\t52\t\nDairy\t18\t16\t\nBread\t12\t14\t\nSnacks\t20\t19\t\nDrinks\t15\t21\t"
+      },
+      "action_after_effects": "The range A1:D6 is populated with the table headers and five rows of grocery data, while the Difference column remains blank for calculation.",
+      "nl_explanation": "With A1 selected and enough empty cells available, type the tab-separated table so Calc fills the headers and grocery rows across columns A to D."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Select the first cell in the Difference column for formula entry",
+      "action_before_state": "The grocery table is visible, and column D is labeled Difference with D2 empty.",
+      "action_preconditions": [
+        "The entered table is visible",
+        "Cell D2 is empty and visible on screen"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell D2 in the first data row under the Difference header"
+        }
+      },
+      "action_after_effects": "Cell D2 becomes active and ready for a formula.",
+      "nl_explanation": "Once the table is in place and D2 is visible, click D2 so the first row's difference formula can be entered there."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Calculate the difference for the first grocery category",
+      "action_before_state": "Cell D2 is active, and the values in B2 and C2 are visible in the same row.",
+      "action_preconditions": [
+        "Cell D2 is selected",
+        "Planned and Actual values already exist in B2 and C2"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "=C2-B2"
+      },
+      "action_after_effects": "Calc evaluates the formula in D2 and shows the difference between the actual and planned amount for Produce.",
+      "nl_explanation": "When D2 is selected and the row already has planned and actual values, type =C2-B2 so the sheet calculates the first difference automatically."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Fill the difference formula down for the remaining grocery rows",
+      "action_before_state": "D2 contains the correct formula result, and cells D3 through D6 are still empty.",
+      "action_preconditions": [
+        "Cell D2 has a formula",
+        "The small fill handle on the bottom-right of D2 is visible",
+        "Rows 3 through 6 are visible"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the small fill handle at the bottom-right corner of cell D2"
+        },
+        "end": {
+          "text": "the matching fill-handle position aligned with cell D6"
+        },
+        "target": {
+          "begin": {
+            "text": "the fill handle on cell D2"
+          },
+          "end": {
+            "text": "cell D6"
+          }
+        }
+      },
+      "action_after_effects": "The formula is copied into D3:D6, and each grocery row now shows its own difference value.",
+      "nl_explanation": "After D2 shows the first computed difference and the fill handle is visible, drag that handle down to D6 so Calc copies the same formula pattern to the remaining rows."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Move to the row below the data to add a total line",
+      "action_before_state": "Rows 1 through 6 are filled, and row 7 is empty directly under the grocery list.",
+      "action_preconditions": [
+        "Row 7 is visible",
+        "Cell A7 is empty and available for the total row label"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell A7 directly below the last grocery category"
+        }
+      },
+      "action_after_effects": "Cell A7 becomes active, ready to receive the total row label and formulas.",
+      "nl_explanation": "When the table ends at row 6 and the next row is open, click A7 so the total row can be inserted immediately beneath the grocery entries."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Enter the total row with formulas for the three numeric columns",
+      "action_before_state": "Cell A7 is active and the cells across row 7 are empty.",
+      "action_preconditions": [
+        "Cell A7 is selected",
+        "The data range from rows 2 to 6 is already filled"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Total\t=SUM(B2:B6)\t=SUM(C2:C6)\t=SUM(D2:D6)"
+      },
+      "action_after_effects": "Row 7 is filled with the Total label and formulas summing the Planned, Actual, and Difference columns.",
+      "nl_explanation": "With A7 selected and the grocery data already entered above, type the tab-separated total row so Calc places the label in column A and the SUM formulas in columns B through D."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Select the money values and totals so they can be formatted as currency",
+      "action_before_state": "The table is complete through row 7, and the numeric values are in columns B through D.",
+      "action_preconditions": [
+        "Cells B2 through D7 are visible",
+        "The values in those cells should be displayed as money"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell B2, the first planned amount"
+        },
+        "end": {
+          "text": "cell D7, the bottom-right cell of the totals area"
+        },
+        "target": {
+          "begin": {
+            "text": "cell B2"
+          },
+          "end": {
+            "text": "cell D7"
+          }
+        }
+      },
+      "action_after_effects": "The range B2:D7 is highlighted, preparing all planned, actual, difference, and total values for number formatting.",
+      "nl_explanation": "Once the table is complete and the amount cells are visible, drag from B2 to D7 to select the full block of values that should use currency formatting."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Apply currency formatting to the selected amount cells",
+      "action_before_state": "The range B2:D7 is selected, and the formatting toolbar is visible above the sheet.",
+      "action_preconditions": [
+        "B2:D7 is highlighted",
+        "The toolbar includes the currency format button"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Number Format button with a currency symbol on the Formatting toolbar"
+        }
+      },
+      "action_after_effects": "All selected numeric cells switch to a currency display, making the budget values easier to read.",
+      "nl_explanation": "When the amount range is already selected and the toolbar is visible, click the currency-format Number Format button so the planned, actual, difference, and total values appear as money."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Select the category names and the planned versus actual data for chart creation",
+      "action_before_state": "The completed table is visible, and the chart should compare category labels with the Planned and Actual columns.",
+      "action_preconditions": [
+        "Cells A1 through C6 are visible",
+        "The table headers and five category rows are already populated"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell A1 at the top-left of the table"
+        },
+        "end": {
+          "text": "cell C6 at the bottom-right corner of the category, planned, and actual data"
+        },
+        "target": {
+          "begin": {
+            "text": "cell A1"
+          },
+          "end": {
+            "text": "cell C6"
+          }
+        }
+      },
+      "action_after_effects": "The range A1:C6 is selected, giving Calc the labels and two value series needed for a comparison chart.",
+      "nl_explanation": "With the grocery table complete and the chart meant to compare planned and actual amounts by category, drag from A1 to C6 to select the exact chart source data."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Start inserting a chart from the selected data",
+      "action_before_state": "The range A1:C6 is highlighted, and the standard toolbar is visible.",
+      "action_preconditions": [
+        "A1:C6 is selected",
+        "The chart insertion button is visible on the toolbar"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Insert Chart button with the small bar-chart icon on the toolbar"
+        }
+      },
+      "action_after_effects": "LibreOffice opens the chart wizard using the selected data, with a column chart layout ready to confirm.",
+      "nl_explanation": "After selecting the category and amount data and confirming the chart button is visible, click the Insert Chart icon so Calc opens chart creation based on the selected range."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Finish the chart insertion with the default column chart settings",
+      "action_before_state": "The chart wizard is open and the selected data preview is shown.",
+      "action_preconditions": [
+        "The chart wizard dialog is visible",
+        "The default chart type is acceptable for comparing planned and actual amounts"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Finish button in the chart wizard"
+        }
+      },
+      "action_after_effects": "A column chart is inserted into the sheet, showing planned and actual grocery amounts by category.",
+      "nl_explanation": "When the chart wizard is already open and the default column chart works for this comparison, click Finish so the chart is placed into the spreadsheet."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Save the completed grocery budget workbook",
+      "action_before_state": "The table, formulas, formatting, and chart are all visible in the workbook.",
+      "action_preconditions": [
+        "LibreOffice Calc is still the active window",
+        "The spreadsheet changes are complete and ready to save"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "s"
+        ]
+      },
+      "action_after_effects": "Calc saves the workbook with the new weekly grocery budget summary and chart.",
+      "nl_explanation": "Once the spreadsheet work is finished and the Calc window is active, press Ctrl+S to save the completed grocery budget summary."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Create the initial grocery budget table with the required headers and category amounts.",
+      "unit_type": "ENTER_TABLE_DATA",
+      "unit_before_state": "LibreOffice Calc is open on a worksheet showing an empty cell grid, with cell A1 visible in the upper-left corner and no grocery summary table on the sheet yet.",
+      "unit_after_state": "A table now fills A1:D6 with the headers Category, Planned, Actual, and Difference plus five grocery rows from Produce through Drinks. The Difference cells D2:D6 are still blank.",
+      "unit_precondition": [
+        "The LibreOffice Calc worksheet is the active window.",
+        "Cell A1 is visible and selectable without scrolling.",
+        "The range A1:D6 is empty or available for new table data."
+      ],
+      "unit_effect": [
+        "Cell A1 becomes the insertion point for the new table.",
+        "The pasted tabular text populates cells A1:D6 with the grocery categories and planned and actual values."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4,
+        5
+      ],
+      "unit_intent": "Compute the difference between actual and planned spending for every grocery category.",
+      "unit_type": "CALCULATE_DIFFERENCE_COLUMN",
+      "unit_before_state": "The grocery table is visible in A1:D6, column D is labeled Difference, and cells D2:D6 are empty.",
+      "unit_after_state": "Cells D2:D6 all contain calculated difference results for Produce, Dairy, Bread, Snacks, and Drinks based on Actual minus Planned.",
+      "unit_precondition": [
+        "The table data in columns A through C has already been entered.",
+        "Cell D2 is visible and empty.",
+        "Cells B2:C6 contain the planned and actual amounts needed for the formulas."
+      ],
+      "unit_effect": [
+        "D2 shows the computed result of the formula =C2-B2 for the Produce row.",
+        "Dragging the fill handle copies the same relative formula pattern through D6, and each row in the Difference column displays a value."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7
+      ],
+      "unit_intent": "Add a totals row that summarizes the planned, actual, and difference columns.",
+      "unit_type": "ADD_TOTAL_ROW",
+      "unit_before_state": "Rows 1 through 6 contain the completed grocery entries, and row 7 is empty directly below the table.",
+      "unit_after_state": "Row 7 contains a Total label in A7 and SUM formulas in B7, C7, and D7 that aggregate the values above.",
+      "unit_precondition": [
+        "The grocery data table already occupies rows 1 through 6.",
+        "Cell A7 is visible, empty, and available for the summary row.",
+        "The numeric ranges B2:B6, C2:C6, and D2:D6 are populated."
+      ],
+      "unit_effect": [
+        "A7 displays the text Total.",
+        "B7, C7, and D7 show summed totals for Planned, Actual, and Difference respectively."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8,
+        9
+      ],
+      "unit_intent": "Format all budget amounts and totals as currency so the sheet reads like a financial summary.",
+      "unit_type": "FORMAT_CURRENCY_RANGE",
+      "unit_before_state": "The worksheet shows the completed table through row 7, and the numeric amounts in B2:D7 are displayed as plain numbers.",
+      "unit_after_state": "The entire numeric block B2:D7 remains selected or recently formatted, and the planned, actual, difference, and total cells all display currency formatting.",
+      "unit_precondition": [
+        "The full table including the totals row has already been created.",
+        "Cells B2 through D7 are visible on screen.",
+        "The toolbar contains the currency number-format control."
+      ],
+      "unit_effect": [
+        "The range B2:D7 is highlighted for formatting.",
+        "After the toolbar click, the numbers in B2:D7 change to a currency display with monetary symbols and currency-style formatting."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        10,
+        11,
+        12
+      ],
+      "unit_intent": "Insert a column chart that compares planned and actual grocery spending by category.",
+      "unit_type": "INSERT_COLUMN_CHART",
+      "unit_before_state": "The finished grocery table is visible on the sheet, including category names in column A and planned and actual values in columns B and C, but no comparison chart has been inserted yet.",
+      "unit_after_state": "A column chart is placed in the worksheet using the selected data from A1:C6, showing grocery categories along with planned and actual series.",
+      "unit_precondition": [
+        "The table headers and category rows in A1:C6 are already populated.",
+        "The range A1:C6 is visible and can be selected.",
+        "The Insert Chart toolbar button is available, and the chart wizard can be confirmed with the default column chart settings."
+      ],
+      "unit_effect": [
+        "The range A1:C6 becomes selected as the chart source.",
+        "Clicking the chart button opens the chart wizard with the selected data preview.",
+        "Clicking Finish inserts a visible column chart into the spreadsheet."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        13
+      ],
+      "unit_intent": "Persist the completed weekly grocery budget summary and chart to the workbook file.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The worksheet shows the completed grocery budget table with calculated differences, totals, currency formatting, and the inserted comparison chart.",
+      "unit_after_state": "The workbook remains open in LibreOffice Calc after the save command, with the current grocery budget summary stored to disk.",
+      "unit_precondition": [
+        "LibreOffice Calc is the active application window.",
+        "All intended table, formula, formatting, and chart edits are complete.",
+        "The document is in a state that can be saved."
+      ],
+      "unit_effect": [
+        "Pressing Ctrl+S triggers Calc's save action.",
+        "The workbook's current spreadsheet changes are written to the file."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Create the initial grocery budget table with the required headers and category amounts.",
+      "unit_type": "ENTER_TABLE_DATA",
+      "unit_before_state": "LibreOffice Calc is open on a worksheet showing an empty cell grid, with cell A1 visible in the upper-left corner and no grocery summary table on the sheet yet.",
+      "unit_after_state": "A table now fills A1:D6 with the headers Category, Planned, Actual, and Difference plus five grocery rows from Produce through Drinks. The Difference cells D2:D6 are still blank.",
+      "unit_precondition": [
+        "The LibreOffice Calc worksheet is the active window.",
+        "Cell A1 is visible and selectable without scrolling.",
+        "The range A1:D6 is empty or available for new table data."
+      ],
+      "unit_effect": [
+        "Cell A1 becomes the insertion point for the new table.",
+        "The pasted tabular text populates cells A1:D6 with the grocery categories and planned and actual values."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Insert a structured budget table into a worksheet starting at a specified top-left cell using tabular text.",
+      "parameters": {
+        "start_cell": "cell A1 near the top-left corner of the worksheet",
+        "table_data": "Category\tPlanned\tActual\tDifference\nProduce\t45\t52\t\nDairy\t18\t16\t\nBread\t12\t14\t\nSnacks\t20\t19\t\nDrinks\t15\t21\t",
+        "target_range": "A1:D6"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell A1 near the top-left corner of the worksheet'}}",
+          "action_template": "When the worksheet grid is visible and {{start_cell}} is available, click {{start_cell}} so the table starts from the top-left insertion cell. Preconditions: The Calc window is active on screen, the worksheet grid is visible, and {{start_cell}} can be reached without scrolling. After this action, {{start_cell}} becomes the active cell, so the next typed content will begin the table there."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Category\\tPlanned\\tActual\\tDifference\\nProduce\\t45\\t52\\t\\nDairy\\t18\\t16\\t\\nBread\\t12\\t14\\t\\nSnacks\\t20\\t19\\t\\nDrinks\\t15\\t21\\t'}",
+          "action_template": "With {{start_cell}} selected and enough empty cells available, type {{table_data}} so Calc fills the table across the target area. Preconditions: {{start_cell}} is selected, and the area from {{target_range}} is empty or ready to receive pasted tabular data. After this action, the range {{target_range}} is populated with the table headers and rows of data."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4,
+        5
+      ],
+      "unit_intent": "Compute the difference between actual and planned spending for every grocery category.",
+      "unit_type": "CALCULATE_DIFFERENCE_COLUMN",
+      "unit_before_state": "The grocery table is visible in A1:D6, column D is labeled Difference, and cells D2:D6 are empty.",
+      "unit_after_state": "Cells D2:D6 all contain calculated difference results for Produce, Dairy, Bread, Snacks, and Drinks based on Actual minus Planned.",
+      "unit_precondition": [
+        "The table data in columns A through C has already been entered.",
+        "Cell D2 is visible and empty.",
+        "Cells B2:C6 contain the planned and actual amounts needed for the formulas."
+      ],
+      "unit_effect": [
+        "D2 shows the computed result of the formula =C2-B2 for the Produce row.",
+        "Dragging the fill handle copies the same relative formula pattern through D6, and each row in the Difference column displays a value."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Populate a difference column by entering the initial row formula in the first target cell and filling it down through the remaining rows.",
+      "parameters": {
+        "target_start_cell": "D2",
+        "formula_text": "=C2-B2",
+        "fill_end_cell": "D6"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell D2 in the first data row under the Difference header'}}",
+          "action_template": "Click {{target_start_cell}} when the table is visible and the cell is empty so the first formula can be entered there."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '=C2-B2'}",
+          "action_template": "Type {{formula_text}} in {{target_start_cell}} after it is selected so the sheet calculates the first row's difference automatically."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the small fill handle at the bottom-right corner of cell D2'}, 'end': {'text': 'the matching fill-handle position aligned with cell D6'}, 'target': {'begin': {'text': 'the fill handle on cell D2'}, 'end': {'text': 'cell D6'}}}",
+          "action_template": "Drag the fill handle from {{target_start_cell}} down to {{fill_end_cell}} after the first formula is present so the same relative formula pattern is copied to the remaining rows."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7
+      ],
+      "unit_intent": "Add a totals row that summarizes the planned, actual, and difference columns.",
+      "unit_type": "ADD_TOTAL_ROW",
+      "unit_before_state": "Rows 1 through 6 contain the completed grocery entries, and row 7 is empty directly below the table.",
+      "unit_after_state": "Row 7 contains a Total label in A7 and SUM formulas in B7, C7, and D7 that aggregate the values above.",
+      "unit_precondition": [
+        "The grocery data table already occupies rows 1 through 6.",
+        "Cell A7 is visible, empty, and available for the summary row.",
+        "The numeric ranges B2:B6, C2:C6, and D2:D6 are populated."
+      ],
+      "unit_effect": [
+        "A7 displays the text Total.",
+        "B7, C7, and D7 show summed totals for Planned, Actual, and Difference respectively."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Add a summary row immediately below a completed table with a label and aggregate formulas for the adjacent numeric columns.",
+      "parameters": {
+        "target_cell": "cell A7 directly below the last grocery category",
+        "summary_row_input": "Total\t=SUM(B2:B6)\t=SUM(C2:C6)\t=SUM(D2:D6)"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "CLICK",
+          "action_template": "Click {{target_cell}} when the row below the completed table is visible and empty so the summary row can be inserted there."
+        },
+        {
+          "action": "TYPING",
+          "action_template": "Type {{summary_row_input}} with the target cell selected so the label and aggregate formulas fill the summary row across the adjacent columns."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8,
+        9
+      ],
+      "unit_intent": "Format all budget amounts and totals as currency so the sheet reads like a financial summary.",
+      "unit_type": "FORMAT_CURRENCY_RANGE",
+      "unit_before_state": "The worksheet shows the completed table through row 7, and the numeric amounts in B2:D7 are displayed as plain numbers.",
+      "unit_after_state": "The entire numeric block B2:D7 remains selected or recently formatted, and the planned, actual, difference, and total cells all display currency formatting.",
+      "unit_precondition": [
+        "The full table including the totals row has already been created.",
+        "Cells B2 through D7 are visible on screen.",
+        "The toolbar contains the currency number-format control."
+      ],
+      "unit_effect": [
+        "The range B2:D7 is highlighted for formatting.",
+        "After the toolbar click, the numbers in B2:D7 change to a currency display with monetary symbols and currency-style formatting."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Apply currency formatting to a specified numeric cell range so the values display as monetary amounts.",
+      "parameters": {
+        "range_start_cell": "B2",
+        "range_end_cell": "D7",
+        "target_range": "B2:D7"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "DRAG_TO",
+          "action_template": "When {{target_range}} is visible and those values should be displayed as money, drag from {{range_start_cell}} to {{range_end_cell}} to select the full block of values that should use currency formatting, so {{target_range}} is highlighted and prepared for number formatting."
+        },
+        {
+          "action": "CLICK",
+          "action_template": "When {{target_range}} is highlighted and the toolbar is visible, click the currency-format Number Format button so the selected numeric cells in {{target_range}} switch to a currency display."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        10,
+        11,
+        12
+      ],
+      "unit_intent": "Insert a column chart that compares planned and actual grocery spending by category.",
+      "unit_type": "INSERT_COLUMN_CHART",
+      "unit_before_state": "The finished grocery table is visible on the sheet, including category names in column A and planned and actual values in columns B and C, but no comparison chart has been inserted yet.",
+      "unit_after_state": "A column chart is placed in the worksheet using the selected data from A1:C6, showing grocery categories along with planned and actual series.",
+      "unit_precondition": [
+        "The table headers and category rows in A1:C6 are already populated.",
+        "The range A1:C6 is visible and can be selected.",
+        "The Insert Chart toolbar button is available, and the chart wizard can be confirmed with the default column chart settings."
+      ],
+      "unit_effect": [
+        "The range A1:C6 becomes selected as the chart source.",
+        "Clicking the chart button opens the chart wizard with the selected data preview.",
+        "Clicking Finish inserts a visible column chart into the spreadsheet."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Insert a column chart from a specified table range to compare category labels with two data series.",
+      "parameters": {
+        "selection_start_cell": "A1",
+        "selection_end_cell": "C6",
+        "source_range": "A1:C6"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "DRAG_TO",
+          "action_template": "With the relevant comparison table complete and {{source_range}} visible, drag from {{selection_start_cell}} to {{selection_end_cell}} to select the exact chart source data needed for the column chart."
+        },
+        {
+          "action": "CLICK",
+          "action_template": "After {{source_range}} is selected and the chart insertion control is visible, click the Insert Chart button so Calc opens chart creation based on the selected range."
+        },
+        {
+          "action": "CLICK",
+          "action_template": "When the chart wizard is open and the default column chart is suitable for the comparison, click the Finish button to insert the chart into the spreadsheet."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        13
+      ],
+      "unit_intent": "Persist the completed weekly grocery budget summary and chart to the workbook file.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The worksheet shows the completed grocery budget table with calculated differences, totals, currency formatting, and the inserted comparison chart.",
+      "unit_after_state": "The workbook remains open in LibreOffice Calc after the save command, with the current grocery budget summary stored to disk.",
+      "unit_precondition": [
+        "LibreOffice Calc is the active application window.",
+        "All intended table, formula, formatting, and chart edits are complete.",
+        "The document is in a state that can be saved."
+      ],
+      "unit_effect": [
+        "Pressing Ctrl+S triggers Calc's save action.",
+        "The workbook's current spreadsheet changes are written to the file."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the active spreadsheet document to persist completed worksheet changes.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 's']}",
+          "action_template": "Once the spreadsheet work is finished and the spreadsheet application window is active, press Ctrl+S to save the completed document."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

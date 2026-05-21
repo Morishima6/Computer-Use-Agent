@@ -1,0 +1,504 @@
+{
+  "segment_id": "seg_001",
+  "app": "multi_apps",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Activate terminal and navigate to Desktop directory",
+      "action_before_state": "The desktop environment is visible with a terminal window already open but possibly not in focus, or the terminal icon is available in the dock/sidebar.",
+      "action_preconditions": [
+        "Terminal application is installed and accessible",
+        "User has permission to access /home/user/Desktop",
+        "The sales_data.csv file exists on Desktop"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "alt",
+          "t"
+        ],
+        "target": "Keyboard shortcut to open/focus terminal"
+      },
+      "action_after_effects": "The terminal window comes to the foreground with the prompt ready for input, showing the current directory (likely /home/user).",
+      "nl_explanation": "When the terminal is not in focus or needs to be opened, press Ctrl+Alt+T to ensure the terminal window is active and ready for typing commands."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Use awk command to calculate total and average sales from CSV",
+      "action_before_state": "Terminal is active at the home directory prompt (~$).",
+      "action_preconditions": [
+        "Terminal has focus with cursor ready",
+        "sales_data.csv exists in ~/Desktop with comma-separated values",
+        "awk utility is installed (standard in Ubuntu)"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "cd ~/Desktop && awk -F, 'NR>1 {sum+=$2; count++} END {printf \"Total Sales: %.2f\\nAverage Sales: %.2f\\n\", sum, sum/count}' sales_data.csv",
+        "target": "Terminal command line"
+      },
+      "action_after_effects": "The terminal displays the calculated total sales and average sales values based on the data in sales_data.csv, and the prompt returns to ~/Desktop$.",
+      "nl_explanation": "Type the awk command to navigate to Desktop, read the CSV file (skipping header), sum up the second column (sales), count the rows, and print the total and average sales values."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Open sales_data.csv in LibreOffice Calc",
+      "action_before_state": "Terminal is at ~/Desktop$ prompt showing the previous command output.",
+      "action_preconditions": [
+        "Currently in ~/Desktop directory in terminal",
+        "sales_data.csv exists in current directory",
+        "LibreOffice Calc is installed"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "libreoffice --calc sales_data.csv &",
+        "target": "Terminal command line"
+      },
+      "action_after_effects": "LibreOffice Calc launches in a new window. Since sales_data.csv is a text/CSV file, LibreOffice first shows the 'Text Import' dialog where you can confirm the import settings (delimiter, format, etc.), then displays the data in spreadsheet columns.",
+      "nl_explanation": "Type the command to open sales_data.csv in LibreOffice Calc from the terminal, running it in the background so the terminal remains usable."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Confirm CSV import settings in LibreOffice",
+      "action_before_state": "LibreOffice Calc is open with the 'Text Import' dialog visible, showing options for delimiter type (comma), text delimiter, and data type settings for each column.",
+      "action_preconditions": [
+        "LibreOffice Calc is running with sales_data.csv loaded",
+        "Text Import dialog is visible",
+        "Data includes Month column and Sales column"
+      ],
+      "action": {
+        "type": "CLICK",
+        "target": {
+          "text": "OK button in Text Import dialog"
+        },
+        "button": "left",
+        "num_clicks": 1
+      },
+      "action_after_effects": "The Text Import dialog closes and the CSV data is displayed in the spreadsheet with Month values in column A and Sales values in column B, with row 1 containing headers.",
+      "nl_explanation": "Click the OK button to accept the default import settings (comma delimiter) and load the CSV data into the spreadsheet. Adjust settings only if the data does not appear correctly parsed."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Select data range for chart (excluding header row)",
+      "action_before_state": "LibreOffice Calc is open with sales_data.csv loaded, showing data in columns A (Month) and B (Sales) with headers in row 1.",
+      "action_preconditions": [
+        "LibreOffice Calc has focus",
+        "Data is visible in columns A and B with headers in row 1",
+        "Chart wizard is accessible via Insert menu or toolbar"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "Cell A2 (first data row, January or similar)"
+        },
+        "end": {
+          "text": "Cell B[last_row] (last sales data cell)"
+        },
+        "target": {
+          "begin": {
+            "text": "Cell A2 in the spreadsheet grid"
+          },
+          "end": {
+            "text": "Cell B[last_row] in the spreadsheet grid"
+          }
+        }
+      },
+      "action_after_effects": "The data range from A2 to the last row of column B is highlighted in blue, indicating selection. The header row (A1:B1) is not selected.",
+      "nl_explanation": "Click and drag from cell A2 (first data row after the Month header) down to the last sales data cell in column B to select the actual data values for charting, excluding the header row which contains text."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Insert chart via Insert menu and select Column chart type",
+      "action_before_state": "The data range A2:B[last] is selected (highlighted) in LibreOffice Calc.",
+      "action_preconditions": [
+        "Data range is selected (excluding header)",
+        "Insert menu is accessible in menu bar",
+        "Chart option is available in Insert menu"
+      ],
+      "action": {
+        "type": "CLICK",
+        "target": {
+          "text": "Insert menu in menu bar"
+        },
+        "button": "left",
+        "num_clicks": 1
+      },
+      "action_after_effects": "The Insert dropdown menu opens, displaying various options including 'Chart...' option.",
+      "nl_explanation": "Click on the 'Insert' menu in the menu bar to access the chart insertion options."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Select Chart option to open Chart Wizard",
+      "action_before_state": "The Insert dropdown menu is open showing options including Chart.",
+      "action_preconditions": [
+        "Insert menu is open",
+        "Chart option is visible in the dropdown",
+        "Data selection is still active in background"
+      ],
+      "action": {
+        "type": "CLICK",
+        "target": {
+          "text": "Chart... option in Insert dropdown"
+        },
+        "button": "left",
+        "num_clicks": 1
+      },
+      "action_after_effects": "The Chart Wizard dialog opens, showing Step 1 of 4 with Column chart type pre-selected (as default). The data range is shown in the preview area.",
+      "nl_explanation": "Click on the 'Chart...' option in the Insert menu to open the Chart Wizard for creating a column chart from the selected data."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Finish chart creation and embed chart in spreadsheet",
+      "action_before_state": "Chart Wizard is open at Step 1 with Column chart selected, showing preview of the data.",
+      "action_preconditions": [
+        "Chart Wizard is open",
+        "Column chart type is selected (default)",
+        "Data range is correctly interpreted in preview"
+      ],
+      "action": {
+        "type": "CLICK",
+        "target": {
+          "text": "Finish button in Chart Wizard"
+        },
+        "button": "left",
+        "num_clicks": 1
+      },
+      "action_after_effects": "The Chart Wizard closes and a column chart appears embedded in the spreadsheet. The chart displays Month labels along the X-axis and Sales values represented as vertical bars for each month, positioned at the center of the sheet.",
+      "nl_explanation": "Click the 'Finish' button in the Chart Wizard to complete the chart creation and embed the column chart into the spreadsheet with default settings."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Save the spreadsheet as sales_report.ods on Desktop",
+      "action_before_state": "LibreOffice Calc shows the spreadsheet with data and embedded chart.",
+      "action_preconditions": [
+        "Spreadsheet has been modified with chart",
+        "File was originally opened as .csv and not yet saved in .ods format",
+        "Desktop location is writable"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "s"
+        ],
+        "target": "Keyboard shortcut for Save As"
+      },
+      "action_after_effects": "The Save As dialog opens, showing current location as Desktop (or /home/user/Desktop), with filename field highlighted. The file type field should show ODF Spreadsheet (.ods) or a similar format option.",
+      "nl_explanation": "Press Ctrl+Shift+S to open the Save As dialog to save the file with a new name and format (.ods) on the Desktop."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Enter filename sales_report.ods and verify file type",
+      "action_before_state": "Save As dialog is open with cursor in filename field, current location shown as Desktop.",
+      "action_preconditions": [
+        "Save As dialog is active",
+        "Current directory is Desktop",
+        "Filename field is editable"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "sales_report.ods",
+        "target": "Filename field in Save As dialog"
+      },
+      "action_after_effects": "The text 'sales_report.ods' appears in the filename field. Verify that the file type dropdown shows 'ODF Spreadsheet (.ods)' - if not, click the dropdown and select the correct format.",
+      "nl_explanation": "Type 'sales_report.ods' into the filename field. Verify that the file type dropdown shows 'ODF Spreadsheet (.ods)' - if not, select it from the dropdown to ensure the correct format is saved."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Click Save button to finalize saving",
+      "action_before_state": "Save As dialog shows filename as 'sales_report.ods', location as Desktop, and file type as ODF Spreadsheet.",
+      "action_preconditions": [
+        "Filename is set to sales_report.ods",
+        "File type is set to ODF Spreadsheet (.ods)",
+        "Location is Desktop",
+        "Save button is available"
+      ],
+      "action": {
+        "type": "CLICK",
+        "target": {
+          "text": "Save button in Save As dialog"
+        },
+        "button": "left",
+        "num_clicks": 1
+      },
+      "action_after_effects": "The Save As dialog closes, the spreadsheet remains open with the title bar now showing 'sales_report.ods', and the file is saved to the Desktop. If LibreOffice prompts about overwriting or format, confirm the action.",
+      "nl_explanation": "Click the Save button to save the spreadsheet with the chart as 'sales_report.ods' on the Desktop, completing the task. The file is now available on the Desktop in ODF Spreadsheet format."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Calculate the total and average sales from the Desktop CSV in the terminal.",
+      "unit_type": "CALCULATE_CSV_SUMMARY_IN_TERMINAL",
+      "unit_before_state": "The desktop session is visible, and a terminal can be opened or focused. The sales_data.csv file is available on the Desktop but no sales summary has been shown yet.",
+      "unit_after_state": "A terminal window is active at the ~/Desktop prompt after running an awk command, and the terminal output shows numeric lines for total sales and average sales computed from sales_data.csv.",
+      "unit_precondition": [
+        "A terminal can be launched or focused from the current desktop session.",
+        "The file sales_data.csv exists in ~/Desktop and contains a header row plus numeric sales values in the second column.",
+        "The terminal is ready to accept keyboard input once focused."
+      ],
+      "unit_effect": [
+        "The terminal comes to the foreground and accepts input.",
+        "The command output visibly prints both a total sales value and an average sales value.",
+        "The shell prompt returns in ~/Desktop after the calculation completes."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4
+      ],
+      "unit_intent": "Load the sales CSV into LibreOffice Calc as a spreadsheet.",
+      "unit_type": "OPEN_CSV_IN_CALC",
+      "unit_before_state": "The terminal is still open at the ~/Desktop prompt with the sales summary already displayed, and LibreOffice Calc is not yet showing the spreadsheet grid for this file.",
+      "unit_after_state": "LibreOffice Calc displays the imported sales_data.csv content in a sheet, with Month in column A, Sales in column B, and the header row visible in row 1.",
+      "unit_precondition": [
+        "The terminal is currently in ~/Desktop or can access sales_data.csv by name.",
+        "LibreOffice Calc is installed and can be launched from the terminal.",
+        "When the CSV opens, the Text Import dialog is available for confirmation."
+      ],
+      "unit_effect": [
+        "LibreOffice Calc opens for sales_data.csv.",
+        "The Text Import dialog appears and then closes after confirmation.",
+        "The spreadsheet grid becomes visible with the CSV parsed into separate Month and Sales columns."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Create an embedded column chart from the monthly sales data.",
+      "unit_type": "CREATE_COLUMN_CHART",
+      "unit_before_state": "LibreOffice Calc shows the imported sales data in columns A and B with headers in row 1, and no embedded chart has been inserted yet.",
+      "unit_after_state": "An embedded column chart appears on the spreadsheet, showing month labels on the horizontal axis and vertical bars representing sales values.",
+      "unit_precondition": [
+        "The sheet with Month and Sales data is open and visible in LibreOffice Calc.",
+        "The data rows from A2 through the last populated cell in column B can be selected.",
+        "The Insert menu and Chart Wizard are available in the current Calc window."
+      ],
+      "unit_effect": [
+        "The data range excluding the header row becomes highlighted.",
+        "The Insert menu opens and the Chart Wizard appears with Column chart selected.",
+        "After finishing the wizard, a visible column chart is embedded in the sheet."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9,
+        10,
+        11
+      ],
+      "unit_intent": "Save the analyzed spreadsheet as an ODS report on the Desktop.",
+      "unit_type": "SAVE_SPREADSHEET_AS_ODS",
+      "unit_before_state": "LibreOffice Calc shows the spreadsheet with the embedded chart, and the document is still based on the original CSV rather than a saved ODS report named sales_report.ods.",
+      "unit_after_state": "The Save As dialog has closed, the Calc window title shows sales_report.ods, and the spreadsheet is saved on the Desktop in ODF Spreadsheet format.",
+      "unit_precondition": [
+        "The spreadsheet with the inserted chart is open in LibreOffice Calc.",
+        "The Desktop location is writable.",
+        "The Save As dialog can be opened and the filename field can be edited.",
+        "The file type can be set or verified as ODF Spreadsheet (.ods)."
+      ],
+      "unit_effect": [
+        "The Save As dialog opens with the filename field active.",
+        "The filename field shows sales_report.ods and the format is ODF Spreadsheet (.ods).",
+        "After clicking Save, the dialog disappears and the open document reflects the new .ods filename."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Calculate the total and average sales from the Desktop CSV in the terminal.",
+      "unit_type": "CALCULATE_CSV_SUMMARY_IN_TERMINAL",
+      "unit_before_state": "The desktop session is visible, and a terminal can be opened or focused. The sales_data.csv file is available on the Desktop but no sales summary has been shown yet.",
+      "unit_after_state": "A terminal window is active at the ~/Desktop prompt after running an awk command, and the terminal output shows numeric lines for total sales and average sales computed from sales_data.csv.",
+      "unit_precondition": [
+        "A terminal can be launched or focused from the current desktop session.",
+        "The file sales_data.csv exists in ~/Desktop and contains a header row plus numeric sales values in the second column.",
+        "The terminal is ready to accept keyboard input once focused."
+      ],
+      "unit_effect": [
+        "The terminal comes to the foreground and accepts input.",
+        "The command output visibly prints both a total sales value and an average sales value.",
+        "The shell prompt returns in ~/Desktop after the calculation completes."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Calculate and display the total and average for a numeric data column in a specified CSV file from a specified directory using the terminal.",
+      "parameters": {
+        "target_directory": "~/Desktop",
+        "csv_file_name": "sales_data.csv",
+        "numeric_column": "the second column"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'alt', 't'], 'target': 'Keyboard shortcut to open/focus terminal'}",
+          "action_template": "When the terminal is not in focus or needs to be opened, press Ctrl+Alt+T to ensure the terminal window is active and ready for typing commands. Afterward, the terminal window comes to the foreground with the prompt ready for input."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'cd ~/Desktop && awk -F, \\'NR>1 {sum+=$2; count++} END {printf \"Total Sales: %.2f\\\\nAverage Sales: %.2f\\\\n\", sum, sum/count}\\' sales_data.csv', 'target': 'Terminal command line'}",
+          "action_template": "With the terminal focused and {{csv_file_name}} available in {{target_directory}}, type a terminal command that changes to {{target_directory}}, reads {{csv_file_name}}, skips the header row, sums the values in {{numeric_column}}, counts the data rows, and prints the total and average values. Afterward, the terminal displays the calculated summary and returns to the {{target_directory}} prompt."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4
+      ],
+      "unit_intent": "Load the sales CSV into LibreOffice Calc as a spreadsheet.",
+      "unit_type": "OPEN_CSV_IN_CALC",
+      "unit_before_state": "The terminal is still open at the ~/Desktop prompt with the sales summary already displayed, and LibreOffice Calc is not yet showing the spreadsheet grid for this file.",
+      "unit_after_state": "LibreOffice Calc displays the imported sales_data.csv content in a sheet, with Month in column A, Sales in column B, and the header row visible in row 1.",
+      "unit_precondition": [
+        "The terminal is currently in ~/Desktop or can access sales_data.csv by name.",
+        "LibreOffice Calc is installed and can be launched from the terminal.",
+        "When the CSV opens, the Text Import dialog is available for confirmation."
+      ],
+      "unit_effect": [
+        "LibreOffice Calc opens for sales_data.csv.",
+        "The Text Import dialog appears and then closes after confirmation.",
+        "The spreadsheet grid becomes visible with the CSV parsed into separate Month and Sales columns."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a specified CSV file in LibreOffice Calc and confirm the import so it loads as a spreadsheet.",
+      "parameters": {
+        "csv_file": "sales_data.csv",
+        "confirm_button": "OK button in Text Import dialog"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'libreoffice --calc sales_data.csv &', 'target': 'Terminal command line'}",
+          "action_template": "Type the command to open {{csv_file}} in LibreOffice Calc from the terminal, running it in the background so the terminal remains usable. Preconditions: currently in the terminal directory where {{csv_file}} is accessible, {{csv_file}} exists, and LibreOffice Calc is installed. After this action, LibreOffice Calc launches in a new window and shows the Text Import dialog so the CSV can be confirmed and imported into spreadsheet columns."
+        },
+        {
+          "action": "{'type': 'CLICK', 'target': {'text': 'OK button in Text Import dialog'}, 'button': 'left', 'num_clicks': 1}",
+          "action_template": "Click {{confirm_button}} to accept the default CSV import settings and load the data into the spreadsheet. Preconditions: LibreOffice Calc is running with {{csv_file}} loaded and the Text Import dialog is visible. After this action, the dialog closes and the CSV data appears in the spreadsheet grid with parsed columns and the header row visible."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Create an embedded column chart from the monthly sales data.",
+      "unit_type": "CREATE_COLUMN_CHART",
+      "unit_before_state": "LibreOffice Calc shows the imported sales data in columns A and B with headers in row 1, and no embedded chart has been inserted yet.",
+      "unit_after_state": "An embedded column chart appears on the spreadsheet, showing month labels on the horizontal axis and vertical bars representing sales values.",
+      "unit_precondition": [
+        "The sheet with Month and Sales data is open and visible in LibreOffice Calc.",
+        "The data rows from A2 through the last populated cell in column B can be selected.",
+        "The Insert menu and Chart Wizard are available in the current Calc window."
+      ],
+      "unit_effect": [
+        "The data range excluding the header row becomes highlighted.",
+        "The Insert menu opens and the Chart Wizard appears with Column chart selected.",
+        "After finishing the wizard, a visible column chart is embedded in the sheet."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create an embedded column chart from a specified spreadsheet data range.",
+      "parameters": {
+        "data_range_start_cell": "Cell A2",
+        "data_range_end_cell": "Cell B[last_row]"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'Cell A2 (first data row, January or similar)'}, 'end': {'text': 'Cell B[last_row] (last sales data cell)'}, 'target': {'begin': {'text': 'Cell A2 in the spreadsheet grid'}, 'end': {'text': 'Cell B[last_row] in the spreadsheet grid'}}}",
+          "action_template": "Click and drag from {{data_range_start_cell}} to {{data_range_end_cell}} in the spreadsheet grid to select the source data for charting while excluding the header row. Preconditions: LibreOffice Calc has focus and the relevant data is visible in the sheet. After this action, the selected range is highlighted and the header row remains unselected."
+        },
+        {
+          "action": "{'type': 'CLICK', 'target': {'text': 'Insert menu in menu bar'}, 'button': 'left', 'num_clicks': 1}",
+          "action_template": "Click the Insert menu in the menu bar to access chart insertion options for the currently selected data range. Preconditions: the data range is already selected and the Insert menu is available. After this action, the Insert dropdown opens and displays the Chart option."
+        },
+        {
+          "action": "{'type': 'CLICK', 'target': {'text': 'Chart... option in Insert dropdown'}, 'button': 'left', 'num_clicks': 1}",
+          "action_template": "Click the Chart... option in the Insert menu to open the Chart Wizard for the selected data. Preconditions: the Insert menu is open and the data selection is still active. After this action, the Chart Wizard opens with Column chart pre-selected and the data preview visible."
+        },
+        {
+          "action": "{'type': 'CLICK', 'target': {'text': 'Finish button in Chart Wizard'}, 'button': 'left', 'num_clicks': 1}",
+          "action_template": "Click the Finish button in the Chart Wizard to complete creation of the embedded column chart with default settings. Preconditions: the Chart Wizard is open, Column chart is selected, and the preview correctly reflects the selected data. After this action, the wizard closes and the column chart appears embedded in the sheet."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9,
+        10,
+        11
+      ],
+      "unit_intent": "Save the analyzed spreadsheet as an ODS report on the Desktop.",
+      "unit_type": "SAVE_SPREADSHEET_AS_ODS",
+      "unit_before_state": "LibreOffice Calc shows the spreadsheet with the embedded chart, and the document is still based on the original CSV rather than a saved ODS report named sales_report.ods.",
+      "unit_after_state": "The Save As dialog has closed, the Calc window title shows sales_report.ods, and the spreadsheet is saved on the Desktop in ODF Spreadsheet format.",
+      "unit_precondition": [
+        "The spreadsheet with the inserted chart is open in LibreOffice Calc.",
+        "The Desktop location is writable.",
+        "The Save As dialog can be opened and the filename field can be edited.",
+        "The file type can be set or verified as ODF Spreadsheet (.ods)."
+      ],
+      "unit_effect": [
+        "The Save As dialog opens with the filename field active.",
+        "The filename field shows sales_report.ods and the format is ODF Spreadsheet (.ods).",
+        "After clicking Save, the dialog disappears and the open document reflects the new .ods filename."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the current spreadsheet as a specified ODS file in a target location.",
+      "parameters": {
+        "target_file_name": "sales_report.ods",
+        "target_location": "Desktop"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 's'], 'target': 'Keyboard shortcut for Save As'}",
+          "action_template": "Press Ctrl+Shift+S to open the Save As dialog so the current spreadsheet can be saved as {{target_file_name}} in {{target_location}} in ODF Spreadsheet (.ods) format. Preconditions: the spreadsheet has been modified, it was originally opened as a .csv and not yet saved in .ods format, and {{target_location}} is writable. After this action, the Save As dialog opens with the filename field highlighted and the ODF Spreadsheet (.ods) file type available."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'sales_report.ods', 'target': 'Filename field in Save As dialog'}",
+          "action_template": "Type {{target_file_name}} into the filename field in the active Save As dialog while {{target_location}} is the current directory and the filename field is editable. Then verify that the file type dropdown shows ODF Spreadsheet (.ods), selecting it if needed. After this action, the filename field contains {{target_file_name}} and the format is set for ODF Spreadsheet (.ods)."
+        },
+        {
+          "action": "{'type': 'CLICK', 'target': {'text': 'Save button in Save As dialog'}, 'button': 'left', 'num_clicks': 1}",
+          "action_template": "Click the Save button in the Save As dialog to save the spreadsheet as {{target_file_name}} in {{target_location}} after the filename and ODF Spreadsheet (.ods) format are set. After this action, the dialog closes, the document title updates to {{target_file_name}}, and the file is saved in {{target_location}}; confirm any overwrite or format prompt if it appears."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

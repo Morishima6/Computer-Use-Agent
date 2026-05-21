@@ -1,0 +1,555 @@
+{
+  "segment_id": "seg_001",
+  "app": "libreoffice_writer",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Select the current heading line at the top of the document",
+      "action_before_state": "The Writer document is open on GNOME, and the first line is a plain-text heading above the date line and chore items.",
+      "action_preconditions": [
+        "The document window is focused",
+        "The heading line is visible near the top of the page",
+        "The heading text is on a single line"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the start of the first line containing the current heading"
+        },
+        "end": {
+          "text": "the end of the same heading line"
+        },
+        "target": {
+          "begin": {
+            "text": "the first character of the heading line"
+          },
+          "end": {
+            "text": "the last character of the heading line"
+          }
+        }
+      },
+      "action_after_effects": "The full heading line becomes selected and is ready for formatting or replacement.",
+      "nl_explanation": "When the top heading line is visible and the document has focus, drag from the beginning of that line to its end so the whole heading is selected."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Apply bold formatting to the selected heading text",
+      "action_before_state": "The heading line is selected in the document.",
+      "action_preconditions": [
+        "The entire heading line is selected",
+        "LibreOffice Writer is still the active window"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "b"
+        ]
+      },
+      "action_after_effects": "Bold formatting is applied to the selected heading, and any replacement text typed immediately afterward will keep the bold style.",
+      "nl_explanation": "With the heading still selected, press Ctrl+B to make that heading bold before replacing the text."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Replace the old heading text with the new title",
+      "action_before_state": "The old heading is still selected and bold formatting is active for the selection.",
+      "action_preconditions": [
+        "The heading text remains selected",
+        "Typing will replace the selected text"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Apartment Cleaning Schedule"
+      },
+      "action_after_effects": "The old heading is replaced with the new bold title, and the cursor moves to the end of that title line.",
+      "nl_explanation": "Since the original heading is selected, type the new title text to overwrite it, leaving a bold replacement heading in place."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Center the title line",
+      "action_before_state": "The new title text is on the first line, and the cursor is positioned within that title paragraph.",
+      "action_preconditions": [
+        "The cursor is on the title line",
+        "The title is in its own paragraph"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "e"
+        ]
+      },
+      "action_after_effects": "The title paragraph becomes center-aligned.",
+      "nl_explanation": "When the cursor is still on the title line, press Ctrl+E so the heading is centered across the page."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Select the date line below the title",
+      "action_before_state": "The centered title appears at the top, and the next line contains the schedule date range in plain text.",
+      "action_preconditions": [
+        "The date line is visible under the title",
+        "The date is on a single line"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the start of the date line directly under the title"
+        },
+        "end": {
+          "text": "the end of that same date line"
+        },
+        "target": {
+          "begin": {
+            "text": "the first character of the date line"
+          },
+          "end": {
+            "text": "the last character of the date line"
+          }
+        }
+      },
+      "action_after_effects": "Only the date line is selected.",
+      "nl_explanation": "Once the title is formatted, drag across the date line underneath it so that only the schedule date text is selected."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Italicize the date line",
+      "action_before_state": "The date line is selected.",
+      "action_preconditions": [
+        "The full date line is selected",
+        "Writer remains the focused application"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "i"
+        ]
+      },
+      "action_after_effects": "The date line is displayed in italics.",
+      "nl_explanation": "With the date text selected, press Ctrl+I to make that line italic and visually separate it from the rest of the notice."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Select the three chore lines that should become a list",
+      "action_before_state": "Below the date line, there are three plain-text chore items shown as separate lines.",
+      "action_preconditions": [
+        "All three chore lines are visible together",
+        "They appear as normal text, not yet as bullets"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the start of the first chore line under the date"
+        },
+        "end": {
+          "text": "the end of the third chore line"
+        },
+        "target": {
+          "begin": {
+            "text": "the first character of the first chore line"
+          },
+          "end": {
+            "text": "the last character of the third chore line"
+          }
+        }
+      },
+      "action_after_effects": "The full block of three chore lines is selected.",
+      "nl_explanation": "When the three chore items are visible, drag from the first chore line through the third one so the whole block is selected for list formatting."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Convert the selected chores into a bulleted list",
+      "action_before_state": "The three chore lines are selected, and the formatting toolbar is visible at the top of Writer.",
+      "action_preconditions": [
+        "The chore block is selected",
+        "The Bullets control is visible in the toolbar"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Bullets button in the top formatting toolbar"
+        }
+      },
+      "action_after_effects": "Each of the three chore lines becomes a separate bullet item.",
+      "nl_explanation": "With the chore lines selected, click the Bullets button on the formatting toolbar so the plain lines are converted into a bulleted list."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Select the final reminder sentence at the bottom of the notice",
+      "action_before_state": "A reminder sentence appears below the bulleted chores as a normal line of text.",
+      "action_preconditions": [
+        "The reminder sentence is visible below the list",
+        "It is separate from the bullet items"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the start of the final reminder sentence below the bullet list"
+        },
+        "end": {
+          "text": "the end of that reminder sentence"
+        },
+        "target": {
+          "begin": {
+            "text": "the first character of the reminder sentence"
+          },
+          "end": {
+            "text": "the last character of the reminder sentence"
+          }
+        }
+      },
+      "action_after_effects": "The reminder sentence is selected and ready for character formatting.",
+      "nl_explanation": "After the chore list is created, drag across the final reminder line underneath it so that only the reminder sentence is selected."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Underline the reminder sentence",
+      "action_before_state": "The final reminder sentence is selected.",
+      "action_preconditions": [
+        "Only the reminder sentence is selected",
+        "The document window is still active"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "u"
+        ]
+      },
+      "action_after_effects": "The reminder sentence becomes underlined.",
+      "nl_explanation": "With the reminder line selected, press Ctrl+U to underline it and make the final instruction stand out."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Save the formatted notice",
+      "action_before_state": "All requested formatting changes are visible in the document.",
+      "action_preconditions": [
+        "The document shows the updated title, italic date, bullet list, and underlined reminder",
+        "Writer is ready to accept keyboard shortcuts"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "s"
+        ]
+      },
+      "action_after_effects": "The current document is saved with the new formatting changes.",
+      "nl_explanation": "Once the title, date, chores, and reminder have all been formatted correctly, press Ctrl+S to save the updated notice."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Replace the plain heading with a properly formatted centered title for the notice.",
+      "unit_type": "REPLACE_AND_FORMAT_TITLE",
+      "unit_before_state": "LibreOffice Writer is open with the notice visible near the top of the page. The first line is the old plain-text heading, with the date line and chore text directly below it.",
+      "unit_after_state": "The first paragraph now reads \"Apartment Cleaning Schedule\" in bold and is centered at the top of the document. The text cursor remains in the title paragraph after the centered heading is created.",
+      "unit_precondition": [
+        "The Writer document window is focused.",
+        "The existing heading line is visible at the top of the page and occupies a single paragraph.",
+        "Typing into the selected heading will replace its current text."
+      ],
+      "unit_effect": [
+        "The original heading text is replaced by \"Apartment Cleaning Schedule\".",
+        "The title appears bold.",
+        "The title paragraph is visibly centered on the page."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Emphasize the schedule date line as supporting metadata under the title.",
+      "unit_type": "ITALICIZE_DATE_LINE",
+      "unit_before_state": "The new centered bold title is visible at the top of the document, and the next line underneath shows the schedule date range in normal text.",
+      "unit_after_state": "The date line directly below the title remains in the same position but is now italicized.",
+      "unit_precondition": [
+        "The formatted title is already in place above the date line.",
+        "The full date line is visible and can be selected as a single line.",
+        "LibreOffice Writer is still the active application."
+      ],
+      "unit_effect": [
+        "Only the date line is selected before formatting is applied.",
+        "The date text is visibly shown in italics after the shortcut is used."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Turn the three plain chore lines into a reusable bulleted task list.",
+      "unit_type": "CREATE_BULLETED_LIST",
+      "unit_before_state": "Below the italicized date line, three chore entries appear as separate plain-text lines without bullets. The formatting toolbar is visible in the Writer window.",
+      "unit_after_state": "The same three chore entries are displayed as a bulleted list, with one bullet marker in front of each chore line.",
+      "unit_precondition": [
+        "The three chore lines are visible together below the date line.",
+        "The chore text is not already formatted as a bulleted list.",
+        "The Bullets control is available in the top formatting toolbar."
+      ],
+      "unit_effect": [
+        "The full three-line chore block becomes selected.",
+        "Three bullet markers appear, one for each chore line."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Make the final reminder sentence stand out as a distinct closing instruction.",
+      "unit_type": "UNDERLINE_REMINDER",
+      "unit_before_state": "A normal-text reminder sentence appears below the newly created bulleted list at the bottom of the notice.",
+      "unit_after_state": "The reminder sentence below the bullet list is visibly underlined while remaining in the same location.",
+      "unit_precondition": [
+        "The reminder sentence is visible below the bullet list and separate from the bullet items.",
+        "Only the reminder sentence can be selected without including list items above it.",
+        "The document window remains focused for keyboard formatting shortcuts."
+      ],
+      "unit_effect": [
+        "The reminder sentence is selected on its own.",
+        "An underline appears beneath the full reminder sentence after formatting is applied."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        11
+      ],
+      "unit_intent": "Persist all formatting changes to the notice document.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The document shows the completed formatting changes: a centered bold title, an italic date line, a bulleted chore list, and an underlined reminder sentence.",
+      "unit_after_state": "The document remains open in Writer with the same formatted content, and the current version is saved to disk.",
+      "unit_precondition": [
+        "All requested formatting edits are already visible in the document.",
+        "LibreOffice Writer is ready to receive keyboard shortcuts.",
+        "The file is in a savable state."
+      ],
+      "unit_effect": [
+        "The save command is issued with Ctrl+S.",
+        "The formatted version of the notice is stored as the current saved document state."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Replace the plain heading with a properly formatted centered title for the notice.",
+      "unit_type": "REPLACE_AND_FORMAT_TITLE",
+      "unit_before_state": "LibreOffice Writer is open with the notice visible near the top of the page. The first line is the old plain-text heading, with the date line and chore text directly below it.",
+      "unit_after_state": "The first paragraph now reads \"Apartment Cleaning Schedule\" in bold and is centered at the top of the document. The text cursor remains in the title paragraph after the centered heading is created.",
+      "unit_precondition": [
+        "The Writer document window is focused.",
+        "The existing heading line is visible at the top of the page and occupies a single paragraph.",
+        "Typing into the selected heading will replace its current text."
+      ],
+      "unit_effect": [
+        "The original heading text is replaced by \"Apartment Cleaning Schedule\".",
+        "The title appears bold.",
+        "The title paragraph is visibly centered on the page."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Replace an existing heading line with a bold, centered title.",
+      "parameters": {
+        "title_text": "Apartment Cleaning Schedule"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the start of the first line containing the current heading'}, 'end': {'text': 'the end of the same heading line'}, 'target': {'begin': {'text': 'the first character of the heading line'}, 'end': {'text': 'the last character of the heading line'}}}",
+          "action_template": "When the top heading line is visible and the document has focus, drag from the beginning of that line to its end so the whole heading is selected. Action: drag to with the left button. Preconditions: The document window is focused, the heading line is visible near the top of the page, and the heading text is on a single line. After effect: The full heading line becomes selected and is ready for formatting or replacement."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'b']}",
+          "action_template": "With the heading still selected, press Ctrl+B to make that heading bold before replacing the text. Action: press Ctrl+B. Preconditions: The entire heading line is selected and LibreOffice Writer is still the active window. After effect: Bold formatting is applied to the selected heading, and any replacement text typed immediately afterward will keep the bold style."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Apartment Cleaning Schedule'}",
+          "action_template": "Since the original heading is selected, type {{title_text}} to overwrite it, leaving a bold replacement heading in place. Action: type {{title_text}}. Preconditions: The heading text remains selected and typing will replace the selected text. After effect: The old heading is replaced with the new bold title, and the cursor moves to the end of that title line."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'e']}",
+          "action_template": "When the cursor is still on the title line, press Ctrl+E so the heading is centered across the page. Action: press Ctrl+E. Preconditions: The cursor is on the title line and the title is in its own paragraph. After effect: The title paragraph becomes center-aligned."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Emphasize the schedule date line as supporting metadata under the title.",
+      "unit_type": "ITALICIZE_DATE_LINE",
+      "unit_before_state": "The new centered bold title is visible at the top of the document, and the next line underneath shows the schedule date range in normal text.",
+      "unit_after_state": "The date line directly below the title remains in the same position but is now italicized.",
+      "unit_precondition": [
+        "The formatted title is already in place above the date line.",
+        "The full date line is visible and can be selected as a single line.",
+        "LibreOffice Writer is still the active application."
+      ],
+      "unit_effect": [
+        "Only the date line is selected before formatting is applied.",
+        "The date text is visibly shown in italics after the shortcut is used."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Emphasize a supporting metadata line beneath a document title by italicizing it.",
+      "parameters": {
+        "target_text_line": "the date line below the title"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "DRAG_TO",
+          "action_template": "Drag across {{target_text_line}} while it is visible on a single line so that only that line is selected."
+        },
+        {
+          "action": "PRESS",
+          "action_template": "Press Ctrl+I with {{target_text_line}} selected in Writer to display that line in italics."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Turn the three plain chore lines into a reusable bulleted task list.",
+      "unit_type": "CREATE_BULLETED_LIST",
+      "unit_before_state": "Below the italicized date line, three chore entries appear as separate plain-text lines without bullets. The formatting toolbar is visible in the Writer window.",
+      "unit_after_state": "The same three chore entries are displayed as a bulleted list, with one bullet marker in front of each chore line.",
+      "unit_precondition": [
+        "The three chore lines are visible together below the date line.",
+        "The chore text is not already formatted as a bulleted list.",
+        "The Bullets control is available in the top formatting toolbar."
+      ],
+      "unit_effect": [
+        "The full three-line chore block becomes selected.",
+        "Three bullet markers appear, one for each chore line."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Convert a visible block of plain-text list entries into a bulleted list.",
+      "parameters": {
+        "selection_start": "the start of the first chore line under the date",
+        "selection_end": "the end of the third chore line",
+        "list_item_count": 3
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the start of the first chore line under the date'}, 'end': {'text': 'the end of the third chore line'}, 'target': {'begin': {'text': 'the first character of the first chore line'}, 'end': {'text': 'the last character of the third chore line'}}}",
+          "action_template": "When the plain-text list entries are visible together and not yet formatted as bullets, drag from {{selection_start}} to {{selection_end}} so the whole block is selected for list formatting. This requires all target lines to be visible together, and the result is that the full block becomes selected."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Bullets button in the top formatting toolbar'}}",
+          "action_template": "With the selected text block highlighted and the Bullets control visible in the toolbar, click the Bullets button in the top formatting toolbar so the plain lines are converted into a bulleted list. This requires the block to remain selected, and the result is that {{list_item_count}} bullet markers appear, one for each line."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Make the final reminder sentence stand out as a distinct closing instruction.",
+      "unit_type": "UNDERLINE_REMINDER",
+      "unit_before_state": "A normal-text reminder sentence appears below the newly created bulleted list at the bottom of the notice.",
+      "unit_after_state": "The reminder sentence below the bullet list is visibly underlined while remaining in the same location.",
+      "unit_precondition": [
+        "The reminder sentence is visible below the bullet list and separate from the bullet items.",
+        "Only the reminder sentence can be selected without including list items above it.",
+        "The document window remains focused for keyboard formatting shortcuts."
+      ],
+      "unit_effect": [
+        "The reminder sentence is selected on its own.",
+        "An underline appears beneath the full reminder sentence after formatting is applied."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Underline a specified standalone reminder sentence to emphasize it as an instruction.",
+      "parameters": {
+        "target_sentence": "the final reminder sentence below the bullet list"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the start of the final reminder sentence below the bullet list'}, 'end': {'text': 'the end of that reminder sentence'}, 'target': {'begin': {'text': 'the first character of the reminder sentence'}, 'end': {'text': 'the last character of the reminder sentence'}}}",
+          "action_template": "Drag across {{target_sentence}} from its start to its end so that only {{target_sentence}} is selected and ready for character formatting."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'u']}",
+          "action_template": "Press Ctrl+U while {{target_sentence}} is selected to underline it and make the instruction stand out."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        11
+      ],
+      "unit_intent": "Persist all formatting changes to the notice document.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The document shows the completed formatting changes: a centered bold title, an italic date line, a bulleted chore list, and an underlined reminder sentence.",
+      "unit_after_state": "The document remains open in Writer with the same formatted content, and the current version is saved to disk.",
+      "unit_precondition": [
+        "All requested formatting edits are already visible in the document.",
+        "LibreOffice Writer is ready to receive keyboard shortcuts.",
+        "The file is in a savable state."
+      ],
+      "unit_effect": [
+        "The save command is issued with Ctrl+S.",
+        "The formatted version of the notice is stored as the current saved document state."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the current document after completing the intended edits.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 's']}",
+          "action_template": "Press Ctrl+S to save the current document after the requested edits have been completed and the application is ready to accept keyboard shortcuts."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

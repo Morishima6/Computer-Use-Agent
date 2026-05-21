@@ -1,0 +1,125 @@
+{
+  "segment_id": "seg_021",
+  "app": "Mozilla Thunderbird",
+  "env": {
+    "os": "linux",
+    "screen": "1920x1080",
+    "url": "",
+    "locale": "en_US"
+  },
+  "steps": [
+    {
+      "step_id": "s107",
+      "step_goal": "Retry configuration after authentication warning",
+      "now_state": {
+        "screenshot_path_before": "screenshots/s107_before_click.png",
+        "screenshot_path_before_part": "screenshots/s107_before_click(part).png",
+        "screenshot_path_before_raw": "screenshots/s107_before_click(raw).png",
+        "screenshot_path_after": "screenshots/s107_after_click.png",
+        "screenshot_time_before": "2026-04-29 00:19:15",
+        "screenshot_time_after": "2026-04-29 00:19:15",
+        "app_title_before": "Mail — Account Setup - Mozilla Thunderbird",
+        "app_title_after": "Mail — Account Setup - Mozilla Thunderbird"
+      },
+      "action_preconditions": [
+        "Mozilla Thunderbird is the active foreground application.",
+        "The Account Setup tab is open on the existing email setup page.",
+        "Thunderbird has already found a configuration in the Mozilla ISP database.",
+        "An authentication failed warning is displayed under the green configuration-found message.",
+        "The Continue button below the warning is visible and enabled."
+      ],
+      "action": {
+        "type": "click",
+        "target": {
+          "position": [
+            706,
+            953
+          ],
+          "nl_position": [
+            "the blue Continue button near the bottom of the Account Setup form, to the right of Cancel"
+          ]
+        },
+        "param": {
+          "button": "left",
+          "num_click": 1
+        }
+      },
+      "action_before_state": "Mozilla Thunderbird is on the Account Setup page after finding server configuration in the Mozilla ISP database. The full name, email address, and password fields are filled, Remember password is checked, a blank \"Your login\" field is visible, a green success banner says \"Configuration found in Mozilla ISP database.\", and a yellow warning says authentication failed because the entered credentials may be incorrect or a separate username may be required. The Continue button is visible and enabled near the bottom.",
+      "action_after_effects": [
+        "Thunderbird starts another configuration lookup and shows a gray progress bar labeled \"Looking up configuration...\" below the authentication warning.",
+        "A Stop button appears at the lower left of the setup controls.",
+        "The Continue button becomes disabled/darker while the lookup is running.",
+        "The account input fields remain filled but are visually disabled during processing."
+      ],
+      "nl_explanation": "The user clicks the enabled Continue button despite the authentication warning to retry or proceed with the account configuration check."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_021_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Retry the email account configuration check after Thunderbird reports an authentication warning.",
+      "unit_type": "RETRY_ACCOUNT_CONFIGURATION",
+      "unit_before_state": "Mozilla Thunderbird is showing the Mail Account Setup page with the full name, email address, and password already filled in, Remember password checked, and a blank \"Your login\" field visible. A green message states that configuration was found in the Mozilla ISP database, while a yellow warning below it says authentication failed because the credentials may be incorrect or a separate username may be required. The blue Continue button near the bottom of the form is visible and enabled.",
+      "unit_after_state": "Mozilla Thunderbird remains on the Mail Account Setup page, but the setup form is in a processing state. A gray progress bar labeled \"Looking up configuration...\" appears below the authentication warning, a Stop button is shown, the Continue button is disabled, and the filled account input fields are visually disabled while the lookup runs.",
+      "unit_precondition": [
+        "Mozilla Thunderbird is the active foreground application.",
+        "The Account Setup tab is open on the existing email setup page.",
+        "Thunderbird has already found a server configuration in the Mozilla ISP database.",
+        "An authentication failed warning is visible under the configuration-found message.",
+        "The Continue button below the warning is visible and enabled."
+      ],
+      "unit_effect": [
+        "A new configuration lookup starts.",
+        "The progress indicator labeled \"Looking up configuration...\" becomes visible.",
+        "The Stop button appears as the available interruption control.",
+        "The Continue button becomes disabled while Thunderbird processes the retry."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_021_01",
+      "unit_id": "u_seg_021_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Retry the email account configuration check after Thunderbird reports an authentication warning.",
+      "unit_type": "RETRY_ACCOUNT_CONFIGURATION",
+      "unit_before_state": "Mozilla Thunderbird is showing the Mail Account Setup page with the full name, email address, and password already filled in, Remember password checked, and a blank \"Your login\" field visible. A green message states that configuration was found in the Mozilla ISP database, while a yellow warning below it says authentication failed because the credentials may be incorrect or a separate username may be required. The blue Continue button near the bottom of the form is visible and enabled.",
+      "unit_after_state": "Mozilla Thunderbird remains on the Mail Account Setup page, but the setup form is in a processing state. A gray progress bar labeled \"Looking up configuration...\" appears below the authentication warning, a Stop button is shown, the Continue button is disabled, and the filled account input fields are visually disabled while the lookup runs.",
+      "unit_precondition": [
+        "Mozilla Thunderbird is the active foreground application.",
+        "The Account Setup tab is open on the existing email setup page.",
+        "Thunderbird has already found a server configuration in the Mozilla ISP database.",
+        "An authentication failed warning is visible under the configuration-found message.",
+        "The Continue button below the warning is visible and enabled."
+      ],
+      "unit_effect": [
+        "A new configuration lookup starts.",
+        "The progress indicator labeled \"Looking up configuration...\" becomes visible.",
+        "The Stop button appears as the available interruption control.",
+        "The Continue button becomes disabled while Thunderbird processes the retry."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Retry an email account configuration check after the setup page reports that authentication failed.",
+      "parameters": {
+        "retry_button": "Continue button",
+        "setup_page": "Account Setup page",
+        "lookup_status_text": "Looking up configuration...",
+        "interruption_control": "Stop button"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'click', 'target': {'position': [706, 953], 'nl_position': ['the blue Continue button near the bottom of the Account Setup form, to the right of Cancel']}, 'param': {'button': 'left', 'num_click': 1}}",
+          "action_template": "Click the enabled {{retry_button}} on the {{setup_page}} to retry the account configuration check after the page reports that authentication failed. This starts another configuration lookup, shows the progress label {{lookup_status_text}}, displays the {{interruption_control}}, disables the retry control, and visually disables the filled account input fields while processing runs."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

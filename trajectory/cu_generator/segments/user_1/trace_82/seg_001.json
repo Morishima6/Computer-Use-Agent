@@ -1,0 +1,431 @@
+{
+  "segment_id": "seg_001",
+  "app": "Chrome",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Focus the address bar so a Chrome settings page can be opened directly",
+      "action_before_state": "Chrome is already open on some webpage, and the browser window is visible on the GNOME desktop.",
+      "action_preconditions": [
+        "The Chrome window is focused",
+        "The address bar is visible at the top of the window"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "l"
+        ]
+      },
+      "action_after_effects": "The address bar becomes active and the current URL is highlighted, ready to be replaced.",
+      "nl_explanation": "When Chrome is focused and the address bar is visible, press Ctrl+L to put the cursor in the URL bar. The current address should become selected so the next input can open a settings page directly."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Enter the Chrome startup settings address",
+      "action_before_state": "The address bar is focused and the current URL text is highlighted.",
+      "action_preconditions": [
+        "The omnibox is active",
+        "Any existing URL text is selected or ready to be overwritten"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "chrome://settings/onStartup"
+      },
+      "action_after_effects": "The startup settings URL appears in the address bar.",
+      "nl_explanation": "With the address bar already selected, type chrome://settings/onStartup so Chrome is prepared to jump straight to the startup behavior settings."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Open the startup settings page",
+      "action_before_state": "The address bar contains chrome://settings/onStartup.",
+      "action_preconditions": [
+        "The full internal settings URL is typed in the address bar"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "Chrome navigates to the On startup settings page and shows the available startup options.",
+      "nl_explanation": "After the internal settings address is typed, press Enter to load Chrome's startup settings page. The browser should display the startup choices for future launches."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Set Chrome to open a fresh New Tab page on launch",
+      "action_before_state": "The On startup settings page is open, showing options such as continuing where you left off or opening a specific page.",
+      "action_preconditions": [
+        "The On startup page is visible",
+        "The option labeled Open the New Tab page is present on screen"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the radio button next to 'Open the New Tab page'"
+        }
+      },
+      "action_after_effects": "The New Tab startup option becomes selected and Chrome saves the preference automatically.",
+      "nl_explanation": "When the startup choices are visible, click the radio button for Open the New Tab page. Chrome should immediately switch the selected startup behavior to a clean new tab."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Open the Clear browsing data dialog",
+      "action_before_state": "Chrome is still focused, and the startup settings page remains open.",
+      "action_preconditions": [
+        "The Chrome window is active",
+        "No modal dialog is currently blocking keyboard shortcuts"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "delete"
+        ]
+      },
+      "action_after_effects": "A Clear browsing data dialog opens, usually on the Basic tab.",
+      "nl_explanation": "With Chrome focused, press Ctrl+Shift+Delete to open the built-in Clear browsing data dialog. This should bring up the cleanup window without leaving the browser."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Open the time range selector",
+      "action_before_state": "The Clear browsing data dialog is visible, and the time range field is shown near the top.",
+      "action_preconditions": [
+        "The Clear browsing data dialog is open",
+        "The Time range dropdown is visible and clickable"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the 'Time range' dropdown in the Clear browsing data dialog"
+        }
+      },
+      "action_after_effects": "The list of available time ranges expands.",
+      "nl_explanation": "Once the Clear browsing data dialog is open, click the Time range dropdown to reveal the available cleanup periods."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Choose to clear only the last hour of browsing data",
+      "action_before_state": "The time range menu is expanded and shows several options such as Last hour and Last 24 hours.",
+      "action_preconditions": [
+        "The time range options are visible",
+        "The option Last hour is listed in the dropdown"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the 'Last hour' option in the time range list"
+        }
+      },
+      "action_after_effects": "The dialog updates so the selected time range reads Last hour.",
+      "nl_explanation": "When the time range list is expanded, click Last hour so Chrome limits the cleanup to recent browsing activity instead of older data."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Clear the recent browsing data",
+      "action_before_state": "The Clear browsing data dialog is still open, and Last hour is selected.",
+      "action_preconditions": [
+        "The selected time range is Last hour",
+        "The Clear data button is enabled"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the 'Clear data' button at the bottom of the dialog"
+        }
+      },
+      "action_after_effects": "Chrome clears the selected browsing data from the last hour and closes the dialog or returns focus to the browser window.",
+      "nl_explanation": "After confirming the time range is set to Last hour, click Clear data. Chrome should remove the recent browsing data and finish the cleanup task."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Open Chrome's startup settings so the launch behavior can be changed.",
+      "unit_type": "OPEN_STARTUP_SETTINGS_PAGE",
+      "unit_before_state": "Chrome is open on an existing webpage, with the browser window focused and the address bar visible at the top.",
+      "unit_after_state": "Chrome displays the On startup settings page, showing startup behavior options such as opening the New Tab page or continuing where the user left off.",
+      "unit_precondition": [
+        "The Chrome window is active on screen.",
+        "The address bar can be focused and accepts typed input."
+      ],
+      "unit_effect": [
+        "The current page URL is replaced with chrome://settings/onStartup in the omnibox.",
+        "The browser navigates to the On startup settings page and the startup options become visible."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4
+      ],
+      "unit_intent": "Set Chrome to launch with a blank New Tab page instead of restoring prior tabs.",
+      "unit_type": "SET_STARTUP_TO_NEW_TAB",
+      "unit_before_state": "The On startup settings page is open, and the available startup radio options are visible on screen.",
+      "unit_after_state": "The radio option for Open the New Tab page is selected on the On startup settings page.",
+      "unit_precondition": [
+        "The On startup settings page is already open.",
+        "The option labeled Open the New Tab page is visible and clickable."
+      ],
+      "unit_effect": [
+        "The selection indicator moves to Open the New Tab page.",
+        "The startup preference is updated immediately without opening another page or dialog."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5
+      ],
+      "unit_intent": "Open Chrome's browsing-data removal dialog to begin cleaning recent history.",
+      "unit_type": "OPEN_CLEAR_BROWSING_DATA_DIALOG",
+      "unit_before_state": "Chrome remains focused on the startup settings page after the new startup option has been selected.",
+      "unit_after_state": "A Clear browsing data dialog is open in front of the browser, typically showing the Basic tab contents.",
+      "unit_precondition": [
+        "The Chrome window is focused.",
+        "No other modal dialog is blocking keyboard shortcuts."
+      ],
+      "unit_effect": [
+        "The Clear browsing data dialog appears.",
+        "The dialog shows controls such as Time range and the Clear data button."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        6,
+        7
+      ],
+      "unit_intent": "Limit the cleanup scope to browsing data from only the last hour.",
+      "unit_type": "SET_BROWSING_DATA_TIME_RANGE",
+      "unit_before_state": "The Clear browsing data dialog is open, with the Time range field visible near the top of the dialog.",
+      "unit_after_state": "The Time range field in the Clear browsing data dialog is set to Last hour and the dropdown list is closed.",
+      "unit_precondition": [
+        "The Clear browsing data dialog is open and interactive.",
+        "The Time range dropdown and its Last hour option are available."
+      ],
+      "unit_effect": [
+        "The Time range dropdown expands to show available time periods.",
+        "After selection, the dialog displays Last hour as the chosen range."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        8
+      ],
+      "unit_intent": "Remove Chrome browsing data accumulated during the last hour.",
+      "unit_type": "CLEAR_BROWSING_DATA",
+      "unit_before_state": "The Clear browsing data dialog is still open, and Last hour is selected as the time range.",
+      "unit_after_state": "The dialog closes or returns focus to the main Chrome window after the browser finishes the clearing action.",
+      "unit_precondition": [
+        "The Clear browsing data dialog is open.",
+        "The selected time range reads Last hour.",
+        "The Clear data button is enabled."
+      ],
+      "unit_effect": [
+        "Clicking Clear data starts the cleanup operation.",
+        "The browsing data for the last hour is cleared and the dialog no longer remains in its pre-action state."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Open Chrome's startup settings so the launch behavior can be changed.",
+      "unit_type": "OPEN_STARTUP_SETTINGS_PAGE",
+      "unit_before_state": "Chrome is open on an existing webpage, with the browser window focused and the address bar visible at the top.",
+      "unit_after_state": "Chrome displays the On startup settings page, showing startup behavior options such as opening the New Tab page or continuing where the user left off.",
+      "unit_precondition": [
+        "The Chrome window is active on screen.",
+        "The address bar can be focused and accepts typed input."
+      ],
+      "unit_effect": [
+        "The current page URL is replaced with chrome://settings/onStartup in the omnibox.",
+        "The browser navigates to the On startup settings page and the startup options become visible."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a specified internal Chrome settings page directly through the address bar.",
+      "parameters": {
+        "settings_url": "chrome://settings/onStartup",
+        "target_settings_page": "On startup settings page"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'l']}",
+          "action_template": "When Chrome is focused and the address bar is visible, press Ctrl+L to activate the URL bar and select the current address so {{settings_url}} can be entered to open {{target_settings_page}}."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'chrome://settings/onStartup'}",
+          "action_template": "With the omnibox active and any existing URL ready to be overwritten, type {{settings_url}} so Chrome is prepared to open {{target_settings_page}}."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After {{settings_url}} is fully entered in the address bar, press Enter to load {{target_settings_page}} and display its available options."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4
+      ],
+      "unit_intent": "Set Chrome to launch with a blank New Tab page instead of restoring prior tabs.",
+      "unit_type": "SET_STARTUP_TO_NEW_TAB",
+      "unit_before_state": "The On startup settings page is open, and the available startup radio options are visible on screen.",
+      "unit_after_state": "The radio option for Open the New Tab page is selected on the On startup settings page.",
+      "unit_precondition": [
+        "The On startup settings page is already open.",
+        "The option labeled Open the New Tab page is visible and clickable."
+      ],
+      "unit_effect": [
+        "The selection indicator moves to Open the New Tab page.",
+        "The startup preference is updated immediately without opening another page or dialog."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Configure the browser startup setting to open the new tab page on launch.",
+      "parameters": {
+        "startup_option": "Open the New Tab page",
+        "target_element": "the radio button next to 'Open the New Tab page'"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': \"the radio button next to 'Open the New Tab page'\"}}",
+          "action_template": "When the startup choices are visible, click {{target_element}} to select {{startup_option}}. Preconditions: The On startup page is visible and the option labeled {{startup_option}} is present on screen. After the click, the {{startup_option}} startup option becomes selected and the browser saves the preference automatically."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5
+      ],
+      "unit_intent": "Open Chrome's browsing-data removal dialog to begin cleaning recent history.",
+      "unit_type": "OPEN_CLEAR_BROWSING_DATA_DIALOG",
+      "unit_before_state": "Chrome remains focused on the startup settings page after the new startup option has been selected.",
+      "unit_after_state": "A Clear browsing data dialog is open in front of the browser, typically showing the Basic tab contents.",
+      "unit_precondition": [
+        "The Chrome window is focused.",
+        "No other modal dialog is blocking keyboard shortcuts."
+      ],
+      "unit_effect": [
+        "The Clear browsing data dialog appears.",
+        "The dialog shows controls such as Time range and the Clear data button."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open Chrome's built-in Clear browsing data dialog to begin a browsing-data cleanup task.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'delete']}",
+          "action_template": "Press Ctrl+Shift+Delete while Chrome is active and no modal dialog is blocking keyboard shortcuts to open Chrome's built-in Clear browsing data dialog, which then appears in front of the browser, usually on the Basic tab."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        6,
+        7
+      ],
+      "unit_intent": "Limit the cleanup scope to browsing data from only the last hour.",
+      "unit_type": "SET_BROWSING_DATA_TIME_RANGE",
+      "unit_before_state": "The Clear browsing data dialog is open, with the Time range field visible near the top of the dialog.",
+      "unit_after_state": "The Time range field in the Clear browsing data dialog is set to Last hour and the dropdown list is closed.",
+      "unit_precondition": [
+        "The Clear browsing data dialog is open and interactive.",
+        "The Time range dropdown and its Last hour option are available."
+      ],
+      "unit_effect": [
+        "The Time range dropdown expands to show available time periods.",
+        "After selection, the dialog displays Last hour as the chosen range."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Set the browsing data cleanup time range to a specified option.",
+      "parameters": {
+        "time_range_dropdown": "the 'Time range' dropdown in the Clear browsing data dialog",
+        "time_range_option": "Last hour"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': \"the 'Time range' dropdown in the Clear browsing data dialog\"}}",
+          "action_template": "When the Clear browsing data dialog is open and {{time_range_dropdown}} is visible and clickable, click {{time_range_dropdown}} to reveal the available cleanup periods and expand the list of available time ranges."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': \"the 'Last hour' option in the time range list\"}}",
+          "action_template": "When the time range options are visible and {{time_range_option}} is listed in the dropdown, click {{time_range_option}} in the time range list so Chrome limits the cleanup to that period and updates the dialog to show {{time_range_option}} as the selected time range."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        8
+      ],
+      "unit_intent": "Remove Chrome browsing data accumulated during the last hour.",
+      "unit_type": "CLEAR_BROWSING_DATA",
+      "unit_before_state": "The Clear browsing data dialog is still open, and Last hour is selected as the time range.",
+      "unit_after_state": "The dialog closes or returns focus to the main Chrome window after the browser finishes the clearing action.",
+      "unit_precondition": [
+        "The Clear browsing data dialog is open.",
+        "The selected time range reads Last hour.",
+        "The Clear data button is enabled."
+      ],
+      "unit_effect": [
+        "Clicking Clear data starts the cleanup operation.",
+        "The browsing data for the last hour is cleared and the dialog no longer remains in its pre-action state."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Clear Chrome browsing data for a specified time range.",
+      "parameters": {
+        "time_range": "Last hour"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': \"the 'Clear data' button at the bottom of the dialog\"}}",
+          "action_template": "After confirming the selected time range is {{time_range}} and the Clear data button is enabled, click the Clear data button at the bottom of the dialog to start clearing the selected browsing data. Chrome clears the selected browsing data for {{time_range}} and closes the dialog or returns focus to the browser window."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

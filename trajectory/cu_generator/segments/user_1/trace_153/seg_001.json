@@ -1,0 +1,793 @@
+{
+  "segment_id": "seg_001",
+  "app": "gimp",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the image-open dialog",
+      "action_before_state": "The GIMP main window is already open on GNOME, and no file chooser dialog is visible.",
+      "action_preconditions": [
+        "GIMP is the focused application",
+        "The main editing window is visible"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "o"
+        ]
+      },
+      "action_after_effects": "An Open Image file chooser dialog appears in front of GIMP.",
+      "nl_explanation": "When the GIMP window is focused and no dialog is open, press Ctrl+O to bring up the Open Image dialog so a source photo can be selected."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Show the location entry in the file chooser",
+      "action_before_state": "The Open Image dialog is visible with the standard GNOME file chooser layout.",
+      "action_preconditions": [
+        "The Open Image dialog is open",
+        "The dialog has keyboard focus"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "l"
+        ]
+      },
+      "action_after_effects": "The file chooser switches to a location-entry mode where a full path can be typed.",
+      "nl_explanation": "Once the Open Image dialog is active, press Ctrl+L to expose the location bar so the file path can be entered directly."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Enter the source image path",
+      "action_before_state": "The location entry in the Open Image dialog is focused and empty or highlighted.",
+      "action_preconditions": [
+        "The location bar is visible",
+        "Text input is focused in the path field"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "/home/user/Pictures/profile_photo.jpg"
+      },
+      "action_after_effects": "The full source image path is filled into the location entry.",
+      "nl_explanation": "With the location field focused, type the full path to the photo so the file chooser knows exactly which image to open."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Load the photo into GIMP",
+      "action_before_state": "The location entry contains \"/home/user/Pictures/profile_photo.jpg\".",
+      "action_preconditions": [
+        "A valid image path has been entered",
+        "The Open Image dialog is still focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The file chooser closes and the selected photo opens on the GIMP canvas.",
+      "nl_explanation": "After the image path is entered, press Enter to open that file and bring it onto the editing canvas."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Activate the Crop tool",
+      "action_before_state": "The photo is visible on the canvas, and the standard toolbox is shown on the left.",
+      "action_preconditions": [
+        "An image is open in GIMP",
+        "The canvas is visible"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "shift",
+          "c"
+        ]
+      },
+      "action_after_effects": "The Crop tool becomes active, ready for drawing a crop area on the image.",
+      "nl_explanation": "When the photo is open and visible, press Shift+C to switch to the Crop tool so the avatar framing can be defined."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Draw a square crop around the face",
+      "action_before_state": "The Crop tool is active and the full photo is displayed on the canvas.",
+      "action_preconditions": [
+        "The Crop tool is selected",
+        "The face area is visible in the current zoom level"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the upper-left area slightly above and left of the face on the image canvas"
+        },
+        "end": {
+          "text": "the lower-right area below and right of the face so the crop box forms a square portrait framing"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "A square crop rectangle appears over the image, centered on the face area.",
+      "nl_explanation": "With the Crop tool active and the face visible, drag from the upper-left of the desired framing to the lower-right so a square crop box surrounds the subject cleanly."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Apply the crop",
+      "action_before_state": "A square crop rectangle is visible over the image and positioned around the face.",
+      "action_preconditions": [
+        "A crop rectangle has already been drawn",
+        "The crop area is positioned correctly"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "Everything outside the crop is removed, leaving only the square portrait area on the canvas.",
+      "nl_explanation": "After the crop box is placed correctly, press Enter to commit the crop and reduce the image to the selected square area."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Open the Image menu",
+      "action_before_state": "The square-cropped portrait is visible on the canvas and the top menu bar is accessible.",
+      "action_preconditions": [
+        "The cropped image is displayed",
+        "The top menu bar is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Image menu in the top menu bar"
+        }
+      },
+      "action_after_effects": "The Image menu dropdown opens.",
+      "nl_explanation": "Once the crop is complete and the menu bar is available, click the Image menu to access resizing commands."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Open the Scale Image dialog",
+      "action_before_state": "The Image menu dropdown is open and shows image-related commands.",
+      "action_preconditions": [
+        "The Image menu is expanded",
+        "The Scale Image option is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Scale Image... menu item"
+        }
+      },
+      "action_after_effects": "A Scale Image dialog opens on top of the canvas.",
+      "nl_explanation": "When the Image menu is open and the resize option is listed, click Scale Image to adjust the avatar dimensions."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Focus the width field",
+      "action_before_state": "The Scale Image dialog is open with width and height fields visible.",
+      "action_preconditions": [
+        "The Scale Image dialog is open",
+        "The width entry box is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Width input box in the Scale Image dialog"
+        }
+      },
+      "action_after_effects": "The width field becomes active and ready for editing.",
+      "nl_explanation": "With the Scale Image dialog open, click the width field so the new pixel size can be typed directly."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Set the avatar size to 512 pixels wide",
+      "action_before_state": "The Width input box in the Scale Image dialog is focused.",
+      "action_preconditions": [
+        "The width field is active",
+        "The chain link for proportional scaling remains enabled"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "512"
+      },
+      "action_after_effects": "The width changes to 512, and because the image is square and linked proportionally, the height also becomes 512.",
+      "nl_explanation": "After focusing the width field, type 512 so the square avatar scales to 512 by 512 pixels."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Apply the new image size",
+      "action_before_state": "The Scale Image dialog shows 512 for width and 512 for height.",
+      "action_preconditions": [
+        "The desired dimensions are set",
+        "The Scale button is visible in the dialog"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Scale button in the Scale Image dialog"
+        }
+      },
+      "action_after_effects": "The dialog closes and the image is resized to 512 by 512 pixels.",
+      "nl_explanation": "Once the size values are correct, click Scale to apply the new 512 by 512 dimensions to the image."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Open the Colors menu",
+      "action_before_state": "The resized portrait image is visible on the canvas with the top menu bar available.",
+      "action_preconditions": [
+        "The image is loaded and resized",
+        "The menu bar is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Colors menu in the top menu bar"
+        }
+      },
+      "action_after_effects": "The Colors menu dropdown opens.",
+      "nl_explanation": "With the resized portrait on screen, click the Colors menu to access image adjustment tools."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Open the Brightness-Contrast adjustment dialog",
+      "action_before_state": "The Colors menu dropdown is open and color-adjustment options are listed.",
+      "action_preconditions": [
+        "The Colors menu is open",
+        "The Brightness-Contrast option is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Brightness-Contrast... menu item"
+        }
+      },
+      "action_after_effects": "A Brightness-Contrast dialog opens with live preview controls.",
+      "nl_explanation": "After opening the Colors menu, click Brightness-Contrast to make a small lighting improvement to the portrait."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Increase the brightness slightly",
+      "action_before_state": "The Brightness-Contrast dialog is open and the brightness slider is visible.",
+      "action_preconditions": [
+        "The Brightness-Contrast dialog is open",
+        "The brightness slider handle is visible and draggable"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the current brightness slider handle in the Brightness-Contrast dialog"
+        },
+        "end": {
+          "text": "a point slightly to the right on the brightness slider to create a mild brightening effect"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "The preview updates and the portrait looks a little brighter.",
+      "nl_explanation": "When the brightness adjustment dialog is open, drag the brightness slider a short distance to the right so the face becomes slightly brighter without overexposure."
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Apply the brightness adjustment",
+      "action_before_state": "The preview shows a slightly brighter portrait and the adjustment dialog remains open.",
+      "action_preconditions": [
+        "The brightness preview looks acceptable",
+        "The OK button is visible in the dialog"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the OK button in the Brightness-Contrast dialog"
+        }
+      },
+      "action_after_effects": "The dialog closes and the brightness change is applied to the image.",
+      "nl_explanation": "Once the brightness level looks right in the preview, click OK to commit the adjustment to the portrait."
+    },
+    {
+      "step_id": "s17",
+      "step_goal": "Open the Export Image dialog",
+      "action_before_state": "The edited square portrait is visible on the canvas and no modal dialog is open.",
+      "action_preconditions": [
+        "Editing changes are complete",
+        "The GIMP window is focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "e"
+        ]
+      },
+      "action_after_effects": "The Export Image dialog appears.",
+      "nl_explanation": "After finishing the crop, resize, and brightness adjustments, press Ctrl+Shift+E to start exporting the final avatar file."
+    },
+    {
+      "step_id": "s18",
+      "step_goal": "Show the location entry in the export dialog",
+      "action_before_state": "The Export Image dialog is open in the GNOME file chooser style.",
+      "action_preconditions": [
+        "The Export Image dialog is open",
+        "The dialog has keyboard focus"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "l"
+        ]
+      },
+      "action_after_effects": "A location entry appears so a full output path can be entered directly.",
+      "nl_explanation": "With the Export Image dialog focused, press Ctrl+L to switch to path-entry mode for the output file location."
+    },
+    {
+      "step_id": "s19",
+      "step_goal": "Enter the output file path",
+      "action_before_state": "The location entry in the Export Image dialog is focused and ready for typing.",
+      "action_preconditions": [
+        "The export dialog location bar is visible",
+        "Text input is active in the path field"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "/home/user/Pictures/profile_avatar.png"
+      },
+      "action_after_effects": "The desired export path and filename are filled into the export dialog.",
+      "nl_explanation": "After the location entry is active, type the full output path so the edited avatar will be saved to the intended file name and folder."
+    },
+    {
+      "step_id": "s20",
+      "step_goal": "Proceed to the PNG export options",
+      "action_before_state": "The Export Image dialog contains \"/home/user/Pictures/profile_avatar.png\" in the location entry.",
+      "action_preconditions": [
+        "A valid output path has been entered",
+        "The export dialog is still focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The main export dialog closes and a PNG export options dialog appears.",
+      "nl_explanation": "Once the target path is entered, press Enter to continue and open the PNG-specific export options."
+    },
+    {
+      "step_id": "s21",
+      "step_goal": "Finish exporting the avatar",
+      "action_before_state": "The PNG export options dialog is visible with its final Export button available.",
+      "action_preconditions": [
+        "The PNG export options dialog is open",
+        "The final Export button is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Export button in the PNG export options dialog"
+        }
+      },
+      "action_after_effects": "The PNG file is written to \"/home/user/Pictures/profile_avatar.png\", and the dialog closes.",
+      "nl_explanation": "When the PNG export options dialog appears, click Export to save the finished square avatar to the specified PNG file."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Load the source profile photo into GIMP so editing can begin on the correct image.",
+      "unit_type": "OPEN_SOURCE_IMAGE",
+      "unit_before_state": "The GIMP main window is visible on GNOME with no file chooser dialog open, and the editing workspace is ready to open an image.",
+      "unit_after_state": "The Open Image dialog has closed, and /home/user/Pictures/profile_photo.jpg is displayed on the GIMP canvas as the active image.",
+      "unit_precondition": [
+        "GIMP is the focused application.",
+        "The main GIMP window is visible and able to open files.",
+        "The source file /home/user/Pictures/profile_photo.jpg exists and is accessible from the file chooser."
+      ],
+      "unit_effect": [
+        "An Open Image file chooser appears.",
+        "The file chooser switches into direct path-entry mode.",
+        "The path /home/user/Pictures/profile_photo.jpg is entered in the location field.",
+        "The dialog closes and the selected photo becomes visible on the canvas."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Crop the photo to a square composition centered on the face for avatar use.",
+      "unit_type": "CROP_IMAGE_TO_SQUARE",
+      "unit_before_state": "The full profile photo is open in GIMP, the canvas shows the uncropped image, and the toolbox is visible.",
+      "unit_after_state": "The image on the canvas has been reduced to a square portrait crop, with the area outside the face-centered crop removed.",
+      "unit_precondition": [
+        "The source image is already open in GIMP.",
+        "The face area is visible on the canvas well enough to frame a square crop.",
+        "The canvas is active so the Crop tool can be used."
+      ],
+      "unit_effect": [
+        "The Crop tool becomes active.",
+        "A square crop rectangle is drawn around the face.",
+        "Pressing Enter commits the crop and removes everything outside the selected square."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "unit_intent": "Resize the cropped avatar image to the required 512 by 512 pixel dimensions.",
+      "unit_type": "RESIZE_IMAGE",
+      "unit_before_state": "A square-cropped portrait is visible on the GIMP canvas, and the top menu bar is available.",
+      "unit_after_state": "The Scale Image dialog has closed, and the image displayed on the canvas has been resized to 512 by 512 pixels.",
+      "unit_precondition": [
+        "The image has already been cropped to a square.",
+        "The top menu bar is visible and interactive.",
+        "The image can be proportionally scaled from the Scale Image dialog."
+      ],
+      "unit_effect": [
+        "The Image menu opens and the Scale Image dialog appears.",
+        "The Width field is focused for editing.",
+        "Entering 512 updates the image size to 512 pixels wide and 512 pixels high.",
+        "Clicking Scale closes the dialog and applies the new dimensions."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        13,
+        14,
+        15,
+        16
+      ],
+      "unit_intent": "Slightly brighten the resized avatar so the face appears clearer without overexposure.",
+      "unit_type": "ADJUST_BRIGHTNESS",
+      "unit_before_state": "The resized 512 by 512 portrait is visible on the canvas, and no modal adjustment dialog is open.",
+      "unit_after_state": "The Brightness-Contrast dialog has closed, and the portrait on the canvas is slightly brighter than before.",
+      "unit_precondition": [
+        "The resized image is open and visible on the canvas.",
+        "The Colors menu is accessible from the menu bar.",
+        "A small brightness adjustment can be previewed before applying it."
+      ],
+      "unit_effect": [
+        "The Colors menu opens and the Brightness-Contrast dialog appears.",
+        "Dragging the brightness slider updates the live preview to a slightly brighter portrait.",
+        "Clicking OK commits the adjustment and closes the dialog."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        17,
+        18,
+        19,
+        20,
+        21
+      ],
+      "unit_intent": "Export the finished avatar as a PNG file to the requested output path.",
+      "unit_type": "EXPORT_IMAGE_AS_PNG",
+      "unit_before_state": "The edited square portrait is visible on the GIMP canvas with crop, resize, and brightness changes already applied, and no modal dialog is open.",
+      "unit_after_state": "The export dialogs have closed, and the finished avatar has been written to /home/user/Pictures/profile_avatar.png.",
+      "unit_precondition": [
+        "Image editing is complete and GIMP is focused.",
+        "The Export Image command is available.",
+        "The destination folder /home/user/Pictures is writable.",
+        "The final file should be saved as a PNG named profile_avatar.png."
+      ],
+      "unit_effect": [
+        "The Export Image dialog opens.",
+        "The export dialog switches into direct path-entry mode.",
+        "The path /home/user/Pictures/profile_avatar.png is entered.",
+        "Pressing Enter advances to the PNG export options dialog.",
+        "Clicking the final Export button writes the PNG file and closes the dialog."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Load the source profile photo into GIMP so editing can begin on the correct image.",
+      "unit_type": "OPEN_SOURCE_IMAGE",
+      "unit_before_state": "The GIMP main window is visible on GNOME with no file chooser dialog open, and the editing workspace is ready to open an image.",
+      "unit_after_state": "The Open Image dialog has closed, and /home/user/Pictures/profile_photo.jpg is displayed on the GIMP canvas as the active image.",
+      "unit_precondition": [
+        "GIMP is the focused application.",
+        "The main GIMP window is visible and able to open files.",
+        "The source file /home/user/Pictures/profile_photo.jpg exists and is accessible from the file chooser."
+      ],
+      "unit_effect": [
+        "An Open Image file chooser appears.",
+        "The file chooser switches into direct path-entry mode.",
+        "The path /home/user/Pictures/profile_photo.jpg is entered in the location field.",
+        "The dialog closes and the selected photo becomes visible on the canvas."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a specified image file in GIMP by entering its full file path in the Open Image dialog.",
+      "parameters": {
+        "source_image_path": "/home/user/Pictures/profile_photo.jpg"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'o']}",
+          "action_template": "When GIMP is focused and the main editing window is visible with no file chooser dialog open, press Ctrl+O to open the Open Image dialog."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'l']}",
+          "action_template": "When the Open Image dialog is open and has keyboard focus, press Ctrl+L to switch the file chooser into location-entry mode so a full file path can be entered directly."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '/home/user/Pictures/profile_photo.jpg'}",
+          "action_template": "With the location bar visible and text input focused in the path field, type {{source_image_path}} to fill the location entry with the source image path."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After {{source_image_path}} has been entered and the Open Image dialog remains focused, press Enter to close the dialog and open the selected image on the GIMP canvas."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Crop the photo to a square composition centered on the face for avatar use.",
+      "unit_type": "CROP_IMAGE_TO_SQUARE",
+      "unit_before_state": "The full profile photo is open in GIMP, the canvas shows the uncropped image, and the toolbox is visible.",
+      "unit_after_state": "The image on the canvas has been reduced to a square portrait crop, with the area outside the face-centered crop removed.",
+      "unit_precondition": [
+        "The source image is already open in GIMP.",
+        "The face area is visible on the canvas well enough to frame a square crop.",
+        "The canvas is active so the Crop tool can be used."
+      ],
+      "unit_effect": [
+        "The Crop tool becomes active.",
+        "A square crop rectangle is drawn around the face.",
+        "Pressing Enter commits the crop and removes everything outside the selected square."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Crop an open image to a square composition centered on a specified subject area.",
+      "parameters": {
+        "subject_area": "face"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['shift', 'c']}",
+          "action_template": "When an image is open in GIMP and the canvas is visible, press Shift+C to switch to the Crop tool so the square framing can be defined."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the upper-left area slightly above and left of the face on the image canvas'}, 'end': {'text': 'the lower-right area below and right of the face so the crop box forms a square portrait framing'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "With the Crop tool selected and {{subject_area}} visible at the current zoom level, drag from the upper-left of the desired framing to the lower-right so a square crop box surrounds {{subject_area}} cleanly and appears centered on it."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After a square crop rectangle has already been drawn and positioned correctly, press Enter to commit the crop so everything outside the selected square area is removed."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "unit_intent": "Resize the cropped avatar image to the required 512 by 512 pixel dimensions.",
+      "unit_type": "RESIZE_IMAGE",
+      "unit_before_state": "A square-cropped portrait is visible on the GIMP canvas, and the top menu bar is available.",
+      "unit_after_state": "The Scale Image dialog has closed, and the image displayed on the canvas has been resized to 512 by 512 pixels.",
+      "unit_precondition": [
+        "The image has already been cropped to a square.",
+        "The top menu bar is visible and interactive.",
+        "The image can be proportionally scaled from the Scale Image dialog."
+      ],
+      "unit_effect": [
+        "The Image menu opens and the Scale Image dialog appears.",
+        "The Width field is focused for editing.",
+        "Entering 512 updates the image size to 512 pixels wide and 512 pixels high.",
+        "Clicking Scale closes the dialog and applies the new dimensions."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Resize a square-cropped image to a specified square pixel dimension using the Scale Image dialog.",
+      "parameters": {
+        "target_dimension": "512"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Image menu in the top menu bar'}}",
+          "action_template": "Click the Image menu in the top menu bar to access resizing commands when the cropped image is displayed and the top menu bar is visible, causing the Image menu dropdown to open."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Scale Image... menu item'}}",
+          "action_template": "Click the Scale Image menu item to open the Scale Image dialog when the Image menu is expanded and the Scale Image option is visible, causing the dialog to appear on top of the canvas."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Width input box in the Scale Image dialog'}}",
+          "action_template": "Click the Width input box in the Scale Image dialog to activate it for editing when the dialog is open and the width entry box is visible, making the field ready for input."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '512'}",
+          "action_template": "Type {{target_dimension}} into the active Width field when proportional scaling remains enabled, updating the square image to {{target_dimension}} pixels wide and {{target_dimension}} pixels high."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Scale button in the Scale Image dialog'}}",
+          "action_template": "Click the Scale button in the Scale Image dialog to apply the configured dimensions when the desired size is set and the button is visible, closing the dialog and resizing the image."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        13,
+        14,
+        15,
+        16
+      ],
+      "unit_intent": "Slightly brighten the resized avatar so the face appears clearer without overexposure.",
+      "unit_type": "ADJUST_BRIGHTNESS",
+      "unit_before_state": "The resized 512 by 512 portrait is visible on the canvas, and no modal adjustment dialog is open.",
+      "unit_after_state": "The Brightness-Contrast dialog has closed, and the portrait on the canvas is slightly brighter than before.",
+      "unit_precondition": [
+        "The resized image is open and visible on the canvas.",
+        "The Colors menu is accessible from the menu bar.",
+        "A small brightness adjustment can be previewed before applying it."
+      ],
+      "unit_effect": [
+        "The Colors menu opens and the Brightness-Contrast dialog appears.",
+        "Dragging the brightness slider updates the live preview to a slightly brighter portrait.",
+        "Clicking OK commits the adjustment and closes the dialog."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Slightly increase the brightness of a {{target_image}} using the Brightness-Contrast dialog so the {{subject_region}} appears clearer without overexposure.",
+      "parameters": {
+        "target_image": "portrait",
+        "subject_region": "face",
+        "brightness_level": "slight",
+        "slider_target_position": "a point slightly to the right on the brightness slider",
+        "brightness_result": "slightly brighter"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Colors menu in the top menu bar'}}",
+          "action_template": "Click the Colors menu in the top menu bar to access image adjustment tools for the {{target_image}} when the image is loaded and the menu bar is visible, causing the Colors menu dropdown to open."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Brightness-Contrast... menu item'}}",
+          "action_template": "Click the Brightness-Contrast menu item after the Colors menu is open and the option is visible to open the Brightness-Contrast dialog with live preview controls for a {{brightness_level}} lighting improvement."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the current brightness slider handle in the Brightness-Contrast dialog'}, 'end': {'text': 'a point slightly to the right on the brightness slider to create a mild brightening effect'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "Drag the brightness slider handle to {{slider_target_position}} when the Brightness-Contrast dialog is open and the slider is visible and draggable so the preview updates and the {{subject_region}} looks {{brightness_result}}."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the OK button in the Brightness-Contrast dialog'}}",
+          "action_template": "Click the OK button in the Brightness-Contrast dialog once the preview looks acceptable and the button is visible to apply the {{brightness_level}} brightness adjustment to the {{target_image}} and close the dialog."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        17,
+        18,
+        19,
+        20,
+        21
+      ],
+      "unit_intent": "Export the finished avatar as a PNG file to the requested output path.",
+      "unit_type": "EXPORT_IMAGE_AS_PNG",
+      "unit_before_state": "The edited square portrait is visible on the GIMP canvas with crop, resize, and brightness changes already applied, and no modal dialog is open.",
+      "unit_after_state": "The export dialogs have closed, and the finished avatar has been written to /home/user/Pictures/profile_avatar.png.",
+      "unit_precondition": [
+        "Image editing is complete and GIMP is focused.",
+        "The Export Image command is available.",
+        "The destination folder /home/user/Pictures is writable.",
+        "The final file should be saved as a PNG named profile_avatar.png."
+      ],
+      "unit_effect": [
+        "The Export Image dialog opens.",
+        "The export dialog switches into direct path-entry mode.",
+        "The path /home/user/Pictures/profile_avatar.png is entered.",
+        "Pressing Enter advances to the PNG export options dialog.",
+        "Clicking the final Export button writes the PNG file and closes the dialog."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Export the finished image as a PNG file to a specified output path.",
+      "parameters": {
+        "output_file_path": "/home/user/Pictures/profile_avatar.png"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'e']}",
+          "action_template": "Press Ctrl+Shift+E to open the Export Image dialog after editing changes are complete and the GIMP window is focused."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'l']}",
+          "action_template": "Press Ctrl+L in the focused Export Image dialog to switch to direct path-entry mode so a full output path can be entered."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '/home/user/Pictures/profile_avatar.png'}",
+          "action_template": "Type {{output_file_path}} into the active location entry after the export dialog path field is visible and ready for text input to fill the desired export path and filename."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter after {{output_file_path}} has been entered in the focused export dialog to proceed to the PNG export options dialog."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Export button in the PNG export options dialog'}}",
+          "action_template": "Click the Export button in the PNG export options dialog when it is visible to write the PNG file to {{output_file_path}} and close the dialog."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

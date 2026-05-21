@@ -1,0 +1,685 @@
+{
+  "segment_id": "seg_001",
+  "app": "gimp",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the image picker from GIMP",
+      "action_before_state": "The GIMP main window is already open on the GNOME desktop, and no modal dialog is covering it.",
+      "action_preconditions": [
+        "GIMP is the active window.",
+        "Keyboard shortcuts are available.",
+        "No other dialog is currently blocking input."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "o"
+        ]
+      },
+      "action_after_effects": "The Open Image dialog appears on top of the GIMP window.",
+      "nl_explanation": "When the main GIMP window is focused and no dialog is in the way, press Ctrl+O to bring up the Open Image dialog so a source photo can be selected."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Navigate to the Pictures folder",
+      "action_before_state": "The Open Image dialog is visible, with a sidebar showing common locations such as Home, Desktop, and Pictures.",
+      "action_preconditions": [
+        "The Open Image dialog is open.",
+        "The sidebar with folders is visible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Pictures folder in the left sidebar of the file chooser"
+        }
+      },
+      "action_after_effects": "The file list updates to show the contents of the Pictures folder.",
+      "nl_explanation": "Once the file chooser is open and the sidebar is visible, click Pictures so the dialog shows the images stored in that folder."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Open the source photo",
+      "action_before_state": "The Pictures folder is open in the file chooser, and one or more image thumbnails or filenames are visible.",
+      "action_preconditions": [
+        "A photo to edit is visible in the file list.",
+        "The file chooser is still active."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 2,
+        "target": {
+          "text": "the photo you want to edit, such as weekend_walk.jpg, in the file list"
+        }
+      },
+      "action_after_effects": "The file chooser closes and the selected photo opens on the GIMP canvas.",
+      "nl_explanation": "When the target image is visible in the Pictures folder, double-click it to load that photo directly into GIMP."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Activate the Crop tool",
+      "action_before_state": "The chosen photo is open in the main editing area, with the toolbox visible on the left.",
+      "action_preconditions": [
+        "An image is open on the canvas.",
+        "The canvas is ready for editing."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "shift",
+          "c"
+        ]
+      },
+      "action_after_effects": "The Crop tool becomes active, and the pointer is ready to draw a crop region.",
+      "nl_explanation": "After the image is open, press Shift+C to switch to the Crop tool so the unwanted outer areas can be removed."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Draw the crop area around the main subject",
+      "action_before_state": "The Crop tool is active and the full photo is visible on the canvas.",
+      "action_preconditions": [
+        "The Crop tool is selected.",
+        "The parts of the image to keep are visible."
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the upper-left corner of the area you want to keep in the photo"
+        },
+        "end": {
+          "text": "the lower-right corner of the area you want to keep, leaving out the distracting edges"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "A crop rectangle appears over the image, framing the kept portion of the photo.",
+      "nl_explanation": "With the Crop tool active and the image visible, drag from the top-left of the useful content to the bottom-right of the useful content so only the main subject remains inside the crop box."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Apply the crop",
+      "action_before_state": "A crop rectangle is visible on the image and the kept region is correctly framed.",
+      "action_preconditions": [
+        "A crop selection has already been drawn.",
+        "The crop area looks correct."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "GIMP commits the crop and removes the excluded outer areas from the canvas.",
+      "nl_explanation": "Once the crop box is positioned correctly, press Enter to apply it and trim the image down to the selected area."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Apply an automatic white balance correction",
+      "action_before_state": "The cropped photo is visible, and the top menu bar is available.",
+      "action_preconditions": [
+        "The image is open and cropped.",
+        "The Colors menu is accessible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the White Balance command in the Colors > Auto menu"
+        }
+      },
+      "action_after_effects": "The image colors update automatically to a more balanced tone.",
+      "nl_explanation": "After cropping is finished and the image is visible, click White Balance under Colors > Auto to quickly improve the overall color balance."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Open the Scale Image dialog",
+      "action_before_state": "The corrected photo is visible on the canvas, and the top menu bar is still accessible.",
+      "action_preconditions": [
+        "The image remains open in GIMP.",
+        "The Image menu is available."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Scale Image item in the Image menu"
+        }
+      },
+      "action_after_effects": "A Scale Image dialog opens with width and height input fields.",
+      "nl_explanation": "When the edited image is ready for resizing, open Image > Scale Image so the output dimensions can be adjusted."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Select the width value for replacement",
+      "action_before_state": "The Scale Image dialog is open and shows the current width and height values.",
+      "action_preconditions": [
+        "The Scale Image dialog is active.",
+        "The Width input box is visible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 2,
+        "target": {
+          "text": "the Width input box in the Scale Image dialog"
+        }
+      },
+      "action_after_effects": "The current width value is highlighted and ready to be replaced.",
+      "nl_explanation": "With the Scale Image dialog open, double-click the Width field so the existing number is selected before entering the new size."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Set the image width to 1080 pixels",
+      "action_before_state": "The width field is active and its current value is highlighted.",
+      "action_preconditions": [
+        "The Width box is focused.",
+        "The existing width value is selected."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "1080"
+      },
+      "action_after_effects": "The Width field changes to 1080, and the linked height updates automatically if aspect ratio locking is enabled.",
+      "nl_explanation": "After the Width field is selected, type 1080 so the image will be resized to a web-friendly width while keeping its proportions."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Confirm the new image size",
+      "action_before_state": "The Scale Image dialog shows 1080 in the Width field and the new dimensions look correct.",
+      "action_preconditions": [
+        "The desired width has been entered.",
+        "The Scale button is visible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Scale button at the bottom-right of the Scale Image dialog"
+        }
+      },
+      "action_after_effects": "The dialog closes and the image is resized on the canvas.",
+      "nl_explanation": "When the new width has been entered and the size preview looks right, click Scale to resize the image."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Open the Export Image dialog",
+      "action_before_state": "The edited and resized photo is visible in the main GIMP window.",
+      "action_preconditions": [
+        "The image has already been resized.",
+        "No other dialog is open."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "shift",
+          "ctrl",
+          "e"
+        ]
+      },
+      "action_after_effects": "The Export Image dialog opens, allowing a location and filename to be chosen.",
+      "nl_explanation": "Once the image is fully edited, press Shift+Ctrl+E to open the export workflow for saving a finished copy."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Choose the Desktop as the export location",
+      "action_before_state": "The Export Image dialog is open, with a sidebar showing folders such as Home, Pictures, and Desktop.",
+      "action_preconditions": [
+        "The Export Image dialog is active.",
+        "The folder sidebar is visible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Desktop folder in the left sidebar of the Export Image dialog"
+        }
+      },
+      "action_after_effects": "The export destination changes to the Desktop folder.",
+      "nl_explanation": "When the export dialog is open and the folder list is visible, click Desktop so the final file will be saved there."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Select the current filename text",
+      "action_before_state": "The Export Image dialog is pointing to Desktop, and the filename input box is visible near the bottom.",
+      "action_preconditions": [
+        "The export filename field is visible.",
+        "The dialog is still focused."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 2,
+        "target": {
+          "text": "the filename text box near the bottom of the Export Image dialog"
+        }
+      },
+      "action_after_effects": "The existing filename text is highlighted and ready to be replaced.",
+      "nl_explanation": "With the export destination set, double-click the filename box so the current name is selected before entering a new one."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Enter the new export filename",
+      "action_before_state": "The filename box is active and its current contents are selected.",
+      "action_preconditions": [
+        "The filename field has focus.",
+        "The current filename text is selected."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "clean_post_photo.png"
+      },
+      "action_after_effects": "The filename field now contains clean_post_photo.png.",
+      "nl_explanation": "After selecting the old filename, type clean_post_photo.png so the edited image will be exported under the requested name."
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Start the export",
+      "action_before_state": "The Export Image dialog shows Desktop as the location and clean_post_photo.png as the filename.",
+      "action_preconditions": [
+        "The filename has been entered.",
+        "The Export button is visible in the dialog."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Export button in the bottom-right of the Export Image dialog"
+        }
+      },
+      "action_after_effects": "GIMP opens the PNG export settings dialog for final confirmation.",
+      "nl_explanation": "When the export path and filename are correct, click Export to proceed to the final PNG export options."
+    },
+    {
+      "step_id": "s17",
+      "step_goal": "Finish exporting the edited image",
+      "action_before_state": "A PNG export options dialog is visible, showing format settings and a final Export button.",
+      "action_preconditions": [
+        "The PNG export options dialog is open.",
+        "The final Export button is available."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the final Export button in the PNG export options dialog"
+        }
+      },
+      "action_after_effects": "The dialog closes and the finished file is saved to the Desktop as clean_post_photo.png.",
+      "nl_explanation": "Once the PNG options window appears, click the final Export button to save the completed image to the Desktop."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Load the source photo from the Pictures folder into GIMP for editing.",
+      "unit_type": "OPEN_IMAGE_FROM_FOLDER",
+      "unit_before_state": "The GIMP main window is visible on the desktop with no modal dialog open, and the editor is ready to receive keyboard input.",
+      "unit_after_state": "The file chooser is closed and the selected photo from the Pictures folder is open on the GIMP canvas as the active image.",
+      "unit_precondition": [
+        "GIMP is the active application window.",
+        "No blocking dialog is already open.",
+        "The target photo exists in the Pictures folder and is visible or reachable from the file chooser."
+      ],
+      "unit_effect": [
+        "An Open Image dialog appears after the shortcut is pressed.",
+        "The file list switches to the Pictures folder contents.",
+        "After double-clicking the image, the chosen photo appears on the canvas in GIMP."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Remove distracting outer edges from the photo by cropping to the desired framing.",
+      "unit_type": "CROP_IMAGE",
+      "unit_before_state": "The opened photo is fully visible in the GIMP editing area, and no crop region has been committed yet.",
+      "unit_after_state": "The canvas shows only the selected cropped portion of the photo, with the unwanted outer edges removed.",
+      "unit_precondition": [
+        "An image is already open on the GIMP canvas.",
+        "The area to keep is visible so a crop box can be drawn accurately.",
+        "The canvas is in a normal editable state."
+      ],
+      "unit_effect": [
+        "The Crop tool becomes active.",
+        "A crop rectangle appears over the image while dragging.",
+        "Pressing Enter commits the crop and the canvas redraws with reduced image bounds."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7
+      ],
+      "unit_intent": "Improve the photo's overall color balance using GIMP's automatic correction.",
+      "unit_type": "APPLY_AUTO_COLOR_CORRECTION",
+      "unit_before_state": "The cropped photo is visible on the canvas, and the top menu bar is available for image adjustments.",
+      "unit_after_state": "The same cropped photo remains open, but its colors are automatically adjusted to a more balanced appearance.",
+      "unit_precondition": [
+        "The cropped image is the active image in GIMP.",
+        "The Colors menu and its Auto submenu are accessible."
+      ],
+      "unit_effect": [
+        "The White Balance command is applied.",
+        "The image colors visibly update on the canvas without opening a separate editing dialog."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "unit_intent": "Resize the edited photo to a web-friendly width of 1080 pixels while preserving its proportions.",
+      "unit_type": "RESIZE_IMAGE",
+      "unit_before_state": "The color-corrected photo is visible on the GIMP canvas at its current dimensions, and no resize dialog is open yet.",
+      "unit_after_state": "The Scale Image dialog is closed and the active image on the canvas has been resized to 1080 pixels wide.",
+      "unit_precondition": [
+        "The edited image is open and active in GIMP.",
+        "The Image menu is available.",
+        "The Scale Image dialog's width field can be focused and edited."
+      ],
+      "unit_effect": [
+        "The Scale Image dialog opens with width and height fields.",
+        "The current width value becomes selected for replacement.",
+        "The Width field changes to 1080 and the linked height updates if aspect ratio locking is enabled.",
+        "Clicking Scale closes the dialog and the image is redrawn at the new size."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        12,
+        13,
+        14,
+        15,
+        16,
+        17
+      ],
+      "unit_intent": "Export the finished edited photo to the Desktop as a PNG file named clean_post_photo.png.",
+      "unit_type": "EXPORT_IMAGE_AS_PNG",
+      "unit_before_state": "The cropped, color-corrected, and resized photo is visible in the main GIMP window, and no export dialog is currently open.",
+      "unit_after_state": "All export dialogs are closed and the finished file clean_post_photo.png has been saved to the Desktop.",
+      "unit_precondition": [
+        "The final edited image is active in GIMP.",
+        "No other modal dialog is blocking the export workflow.",
+        "The Desktop location is available in the export dialog sidebar."
+      ],
+      "unit_effect": [
+        "The Export Image dialog opens after the export shortcut is pressed.",
+        "The destination switches to the Desktop folder.",
+        "The filename field is selected and replaced with clean_post_photo.png.",
+        "Clicking Export opens the PNG export options dialog.",
+        "Confirming the final Export closes the dialog and creates clean_post_photo.png on the Desktop."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Load the source photo from the Pictures folder into GIMP for editing.",
+      "unit_type": "OPEN_IMAGE_FROM_FOLDER",
+      "unit_before_state": "The GIMP main window is visible on the desktop with no modal dialog open, and the editor is ready to receive keyboard input.",
+      "unit_after_state": "The file chooser is closed and the selected photo from the Pictures folder is open on the GIMP canvas as the active image.",
+      "unit_precondition": [
+        "GIMP is the active application window.",
+        "No blocking dialog is already open.",
+        "The target photo exists in the Pictures folder and is visible or reachable from the file chooser."
+      ],
+      "unit_effect": [
+        "An Open Image dialog appears after the shortcut is pressed.",
+        "The file list switches to the Pictures folder contents.",
+        "After double-clicking the image, the chosen photo appears on the canvas in GIMP."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a specified image from a designated folder into GIMP for editing.",
+      "parameters": {
+        "target_folder": "Pictures",
+        "target_image": "the photo you want to edit, such as weekend_walk.jpg"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'o']}",
+          "action_template": "When the GIMP main window is focused, keyboard shortcuts are available, and no other dialog is blocking input, press Ctrl+O to open the Open Image dialog so an image from {{target_folder}} can be selected."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Pictures folder in the left sidebar of the file chooser'}}",
+          "action_template": "Once the Open Image dialog is open and the sidebar is visible, click {{target_folder}} in the left sidebar to update the file list to that folder's contents."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 2, 'target': {'text': 'the photo you want to edit, such as weekend_walk.jpg, in the file list'}}",
+          "action_template": "When {{target_image}} is visible in the file list and the file chooser is still active, double-click {{target_image}} to close the chooser and open the image on the GIMP canvas."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Remove distracting outer edges from the photo by cropping to the desired framing.",
+      "unit_type": "CROP_IMAGE",
+      "unit_before_state": "The opened photo is fully visible in the GIMP editing area, and no crop region has been committed yet.",
+      "unit_after_state": "The canvas shows only the selected cropped portion of the photo, with the unwanted outer edges removed.",
+      "unit_precondition": [
+        "An image is already open on the GIMP canvas.",
+        "The area to keep is visible so a crop box can be drawn accurately.",
+        "The canvas is in a normal editable state."
+      ],
+      "unit_effect": [
+        "The Crop tool becomes active.",
+        "A crop rectangle appears over the image while dragging.",
+        "Pressing Enter commits the crop and the canvas redraws with reduced image bounds."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Crop an open image to a desired framing by selecting the region to keep and applying the crop.",
+      "parameters": {
+        "crop_start_point": "the upper-left corner of the area you want to keep in the photo",
+        "crop_end_point": "the lower-right corner of the area you want to keep, leaving out the distracting edges"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['shift', 'c']}",
+          "action_template": "With an image open on the canvas and ready for editing, press Shift+C to switch to the Crop tool so the image can be cropped. This makes the Crop tool active and prepares the pointer to draw a crop region."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the upper-left corner of the area you want to keep in the photo'}, 'end': {'text': 'the lower-right corner of the area you want to keep, leaving out the distracting edges'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "With the Crop tool selected and the parts of the image to keep visible, drag from {{crop_start_point}} to {{crop_end_point}} to define the kept portion of the image. This displays a crop rectangle over the image framing the selected area."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Once a crop selection has been drawn and the crop area looks correct, press Enter to apply the crop. This commits the crop and removes the excluded outer areas from the canvas."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7
+      ],
+      "unit_intent": "Improve the photo's overall color balance using GIMP's automatic correction.",
+      "unit_type": "APPLY_AUTO_COLOR_CORRECTION",
+      "unit_before_state": "The cropped photo is visible on the canvas, and the top menu bar is available for image adjustments.",
+      "unit_after_state": "The same cropped photo remains open, but its colors are automatically adjusted to a more balanced appearance.",
+      "unit_precondition": [
+        "The cropped image is the active image in GIMP.",
+        "The Colors menu and its Auto submenu are accessible."
+      ],
+      "unit_effect": [
+        "The White Balance command is applied.",
+        "The image colors visibly update on the canvas without opening a separate editing dialog."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Apply a specified automatic color correction command from GIMP's Colors > Auto menu to the active image.",
+      "parameters": {
+        "auto_correction_command": "White Balance"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the White Balance command in the Colors > Auto menu'}}",
+          "action_template": "Click {{auto_correction_command}} under Colors > Auto after the image is open and the Colors menu is accessible to apply the automatic color correction and update the image colors on the canvas."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "unit_intent": "Resize the edited photo to a web-friendly width of 1080 pixels while preserving its proportions.",
+      "unit_type": "RESIZE_IMAGE",
+      "unit_before_state": "The color-corrected photo is visible on the GIMP canvas at its current dimensions, and no resize dialog is open yet.",
+      "unit_after_state": "The Scale Image dialog is closed and the active image on the canvas has been resized to 1080 pixels wide.",
+      "unit_precondition": [
+        "The edited image is open and active in GIMP.",
+        "The Image menu is available.",
+        "The Scale Image dialog's width field can be focused and edited."
+      ],
+      "unit_effect": [
+        "The Scale Image dialog opens with width and height fields.",
+        "The current width value becomes selected for replacement.",
+        "The Width field changes to 1080 and the linked height updates if aspect ratio locking is enabled.",
+        "Clicking Scale closes the dialog and the image is redrawn at the new size."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Resize the active image to a specified width while preserving its proportions.",
+      "parameters": {
+        "target_width": "1080"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Scale Image item in the Image menu'}}",
+          "action_template": "Click the Scale Image item in the Image menu to open the Scale Image dialog so the output dimensions can be adjusted when the image remains open in GIMP and the Image menu is available."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 2, 'target': {'text': 'the Width input box in the Scale Image dialog'}}",
+          "action_template": "Double-click the Width input box in the Scale Image dialog to select the current width value for replacement when the Scale Image dialog is active and the Width input box is visible."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '1080'}",
+          "action_template": "Type {{target_width}} into the selected Width field to set the image to the specified width while keeping its proportions after the Width box is focused and the existing width value is selected."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Scale button at the bottom-right of the Scale Image dialog'}}",
+          "action_template": "Click the Scale button at the bottom-right of the Scale Image dialog to apply width {{target_width}}, close the dialog, and resize the image on the canvas after the desired width has been entered and the Scale button is visible."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        12,
+        13,
+        14,
+        15,
+        16,
+        17
+      ],
+      "unit_intent": "Export the finished edited photo to the Desktop as a PNG file named clean_post_photo.png.",
+      "unit_type": "EXPORT_IMAGE_AS_PNG",
+      "unit_before_state": "The cropped, color-corrected, and resized photo is visible in the main GIMP window, and no export dialog is currently open.",
+      "unit_after_state": "All export dialogs are closed and the finished file clean_post_photo.png has been saved to the Desktop.",
+      "unit_precondition": [
+        "The final edited image is active in GIMP.",
+        "No other modal dialog is blocking the export workflow.",
+        "The Desktop location is available in the export dialog sidebar."
+      ],
+      "unit_effect": [
+        "The Export Image dialog opens after the export shortcut is pressed.",
+        "The destination switches to the Desktop folder.",
+        "The filename field is selected and replaced with clean_post_photo.png.",
+        "Clicking Export opens the PNG export options dialog.",
+        "Confirming the final Export closes the dialog and creates clean_post_photo.png on the Desktop."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Export the finished edited image to a specified folder as a PNG file with a specified filename.",
+      "parameters": {
+        "destination_folder": "Desktop",
+        "export_file_name": "clean_post_photo.png"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['shift', 'ctrl', 'e']}",
+          "action_template": "When the image is already resized and no other dialog is open, press Shift+Ctrl+E to open the export workflow so a save location and filename can be chosen."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Desktop folder in the left sidebar of the Export Image dialog'}}",
+          "action_template": "With the Export Image dialog active and the folder sidebar visible, click the {{destination_folder}} folder in the left sidebar of the Export Image dialog so the export destination changes to {{destination_folder}}."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 2, 'target': {'text': 'the filename text box near the bottom of the Export Image dialog'}}",
+          "action_template": "With the export filename field visible and the dialog focused, double-click the filename text box near the bottom of the Export Image dialog to highlight the existing filename text so it is ready to be replaced."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'clean_post_photo.png'}",
+          "action_template": "After the filename field has focus and the current filename text is selected, type {{export_file_name}} so the filename field contains {{export_file_name}}."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Export button in the bottom-right of the Export Image dialog'}}",
+          "action_template": "When the filename has been entered and the Export button is visible, click the Export button in the bottom-right of the Export Image dialog to proceed to the PNG export settings dialog for final confirmation."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the final Export button in the PNG export options dialog'}}",
+          "action_template": "With the PNG export options dialog open and the final Export button available, click the final Export button to close the dialog and save the finished file to the {{destination_folder}} as {{export_file_name}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

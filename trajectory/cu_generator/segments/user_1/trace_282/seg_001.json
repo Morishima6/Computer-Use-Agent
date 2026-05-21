@@ -1,0 +1,792 @@
+{
+  "segment_id": "seg_001",
+  "app": "libreoffice_writer",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Move the cursor to the start of the document",
+      "action_before_state": "LibreOffice Writer is open with a plain text note visible, and the insertion point may be somewhere in the middle of the page.",
+      "action_preconditions": [
+        "The document window is active",
+        "The document is editable",
+        "Keyboard input is going to the Writer document"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "home"
+        ]
+      },
+      "action_after_effects": "The text cursor jumps to the very beginning of the document.",
+      "nl_explanation": "When the Writer document is active and editable, press Ctrl+Home to move directly to the start so the new title can be inserted above the existing notes."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Add the new document title at the top",
+      "action_before_state": "The cursor is at the top-left of the document before the first existing line of text.",
+      "action_preconditions": [
+        "The cursor is at the beginning of the document",
+        "No modal dialog is open"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Weekend Errand Plan\n\n"
+      },
+      "action_after_effects": "A new title line is inserted at the top, followed by a blank line, and the original note content shifts downward.",
+      "nl_explanation": "With the cursor at the top of the page, type the new title followed by two line breaks so the rest of the note stays separated underneath it."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Select the first section heading",
+      "action_before_state": "The top portion of the note is visible, including the section heading \"Shopping List\" and its items.",
+      "action_preconditions": [
+        "The \"Shopping List\" heading is visible",
+        "There is no active text selection that needs to be preserved"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the first character of the line that says \"Shopping List\""
+        },
+        "end": {
+          "text": "the last character of the same \"Shopping List\" line"
+        },
+        "target": null
+      },
+      "action_after_effects": "Only the \"Shopping List\" heading is highlighted.",
+      "nl_explanation": "When the shopping section is visible, drag across just the heading line so it can be formatted without affecting the list items below it."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Make the first section heading bold",
+      "action_before_state": "The \"Shopping List\" heading is selected.",
+      "action_preconditions": [
+        "The heading text is selected",
+        "Formatting toolbar shortcuts are available"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "b"
+        ]
+      },
+      "action_after_effects": "The selected heading becomes bold.",
+      "nl_explanation": "With only the heading selected, press Ctrl+B so the section label is visually separated from the items underneath it."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Select the shopping items",
+      "action_before_state": "The shopping heading is bold, and the plain text shopping lines remain directly below it.",
+      "action_preconditions": [
+        "The shopping items are visible on screen",
+        "The list items are on consecutive lines"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the start of the first shopping item under \"Shopping List\""
+        },
+        "end": {
+          "text": "the end of the last shopping item before the next section or blank line"
+        },
+        "target": null
+      },
+      "action_after_effects": "All shopping item lines are highlighted together.",
+      "nl_explanation": "Drag from the first shopping item to the last one in that block so the whole shopping section can be turned into a bulleted list at once."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Convert the shopping items into bullets",
+      "action_before_state": "The shopping item lines are selected and the formatting toolbar is visible.",
+      "action_preconditions": [
+        "The shopping lines are selected",
+        "The Bulleted List button is visible in the toolbar"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Bulleted List button in the formatting toolbar"
+        }
+      },
+      "action_after_effects": "Each selected shopping line becomes a bullet point.",
+      "nl_explanation": "After selecting the shopping items, click the Bulleted List button so the plain lines are reformatted into an easy-to-read bulleted list."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Move down to the errands section",
+      "action_before_state": "The top section is still on screen, while the lower part of the document may not yet show the errands content.",
+      "action_preconditions": [
+        "The document contains an errands section lower on the page",
+        "The pointer is over the document canvas"
+      ],
+      "action": {
+        "type": "SCROLL",
+        "direction": "down",
+        "target": {
+          "text": "the document body in the center of the page"
+        }
+      },
+      "action_after_effects": "The document scrolls down until the \"Errands\" heading and all of its task lines are visible, so no further scrolling is needed.",
+      "nl_explanation": "Scroll down over the document area until the errands section is fully visible, then stop because that is the next block that needs formatting."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Select the errands section heading",
+      "action_before_state": "The lower part of the document is visible, including the heading \"Errands\" and the related task lines below it.",
+      "action_preconditions": [
+        "The \"Errands\" heading is visible",
+        "The heading is on its own line"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the first character of the line that says \"Errands\""
+        },
+        "end": {
+          "text": "the last character of the same \"Errands\" line"
+        },
+        "target": null
+      },
+      "action_after_effects": "Only the errands heading is highlighted.",
+      "nl_explanation": "When the errands section is on screen, drag across just its heading line so the label can be formatted separately from the tasks below."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Make the errands heading bold",
+      "action_before_state": "The \"Errands\" heading is selected.",
+      "action_preconditions": [
+        "Only the heading is highlighted",
+        "The document is still focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "b"
+        ]
+      },
+      "action_after_effects": "The errands heading becomes bold.",
+      "nl_explanation": "With the heading selected, press Ctrl+B so it matches the formatting style used for the first section heading."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Select the errands task lines",
+      "action_before_state": "The errands heading is bold, and the plain-text errand items remain below it.",
+      "action_preconditions": [
+        "The errand items are visible",
+        "The items are listed on consecutive lines"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the start of the first errand item under \"Errands\""
+        },
+        "end": {
+          "text": "the end of the last errand item in that section"
+        },
+        "target": null
+      },
+      "action_after_effects": "All errand lines are selected together.",
+      "nl_explanation": "Drag across the full errands block so all of the task lines are selected and ready to be converted into a numbered list."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Convert the errands into a numbered list",
+      "action_before_state": "The errands task lines are highlighted and the toolbar remains visible.",
+      "action_preconditions": [
+        "The errand items are selected",
+        "The Numbered List button is visible in the formatting toolbar"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Numbered List button in the formatting toolbar"
+        }
+      },
+      "action_after_effects": "The selected errand lines are reformatted as an ordered list with visible numbering.",
+      "nl_explanation": "Click the Numbered List button while the errands are selected so the task sequence becomes a clearly ordered list."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Open the Save As dialog",
+      "action_before_state": "The document has been reformatted and is still open in Writer.",
+      "action_preconditions": [
+        "No modal dialog is currently open",
+        "The document window is active"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "s"
+        ]
+      },
+      "action_after_effects": "The Save As dialog opens on top of the document.",
+      "nl_explanation": "After finishing the formatting work, press Ctrl+Shift+S to open Save As so the cleaned document can be stored with the requested filename."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Choose the Desktop as the save location",
+      "action_before_state": "The Save As dialog is open, with folders listed in a left sidebar and the main file area on the right.",
+      "action_preconditions": [
+        "The Save As dialog is visible",
+        "The Desktop folder appears in the sidebar"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Desktop entry in the left sidebar of the Save As dialog"
+        }
+      },
+      "action_after_effects": "The dialog switches to the Desktop folder as the destination location.",
+      "nl_explanation": "In the Save As window, click Desktop in the sidebar so the file will be stored in the requested location."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Place the cursor in the filename field",
+      "action_before_state": "The Save As dialog is showing the Desktop folder, and the filename field is available near the bottom.",
+      "action_preconditions": [
+        "The Desktop location is selected",
+        "The filename field is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the filename input box near the bottom of the Save As dialog"
+        }
+      },
+      "action_after_effects": "The text cursor appears in the filename field, ready for typing.",
+      "nl_explanation": "Click inside the filename box so the next typed text goes into the document name field rather than the folder view."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Enter the requested file name",
+      "action_before_state": "The filename input field is active in the Save As dialog.",
+      "action_preconditions": [
+        "The text cursor is in the filename field",
+        "No existing selected filename needs to be preserved"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "weekend_errand_plan.odt"
+      },
+      "action_after_effects": "The filename field now contains the requested document name.",
+      "nl_explanation": "With the name field active, type the requested filename so the saved document uses the correct title and extension."
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Save the finished document",
+      "action_before_state": "The Save As dialog shows Desktop as the location and weekend_errand_plan.odt as the filename.",
+      "action_preconditions": [
+        "The destination folder is Desktop",
+        "The filename field contains weekend_errand_plan.odt",
+        "The Save button is enabled"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Save button in the Save As dialog"
+        }
+      },
+      "action_after_effects": "The dialog closes and the formatted document is saved to the Desktop as weekend_errand_plan.odt.",
+      "nl_explanation": "After confirming the Desktop location and the correct filename, click Save to finish the task and store the cleaned document."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Insert the requested document title above the existing note content.",
+      "unit_type": "INSERT_DOCUMENT_TITLE",
+      "unit_before_state": "LibreOffice Writer shows the weekend errand note as plain text, and the text cursor may be somewhere below the top of the page.",
+      "unit_after_state": "The first line of the document now reads \"Weekend Errand Plan\" with a blank line beneath it, and the original note content starts lower on the page.",
+      "unit_precondition": [
+        "LibreOffice Writer is the active window.",
+        "The document is editable.",
+        "Keyboard input is focused in the document body."
+      ],
+      "unit_effect": [
+        "The insertion point moves to the start of the document.",
+        "A new top line with \"Weekend Errand Plan\" appears, followed by an empty line before the original content."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4
+      ],
+      "unit_intent": "Emphasize the shopping section heading so it stands out from the list items.",
+      "unit_type": "FORMAT_SECTION_HEADING_BOLD",
+      "unit_before_state": "The top of the note is visible, including the line \"Shopping List\" and the plain shopping entries underneath it.",
+      "unit_after_state": "The \"Shopping List\" heading is displayed in bold while the shopping item lines below remain unchanged.",
+      "unit_precondition": [
+        "The \"Shopping List\" heading is visible on screen.",
+        "The heading can be selected without including the item lines below it.",
+        "The document still accepts formatting shortcuts."
+      ],
+      "unit_effect": [
+        "Only the \"Shopping List\" line becomes highlighted during selection.",
+        "The heading text changes to bold weight after Ctrl+B."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Turn the shopping entries into a bulleted list for clearer formatting.",
+      "unit_type": "APPLY_BULLETED_LIST",
+      "unit_before_state": "The \"Shopping List\" heading is already bold, and the shopping entries beneath it are still plain lines of text.",
+      "unit_after_state": "The shopping entries under \"Shopping List\" are formatted as bullet points.",
+      "unit_precondition": [
+        "All shopping item lines are visible together.",
+        "The shopping lines can be selected as one block.",
+        "The Bulleted List control is available in the formatting toolbar."
+      ],
+      "unit_effect": [
+        "The shopping item lines become highlighted as a group.",
+        "A bullet marker appears at the start of each selected shopping line."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7
+      ],
+      "unit_intent": "Bring the errands section fully into view to continue formatting the lower part of the note.",
+      "unit_type": "NAVIGATE_TO_SECTION",
+      "unit_before_state": "The upper portion of the document is on screen, and the errands section is lower in the document and may not yet be visible.",
+      "unit_after_state": "The document view is scrolled so the \"Errands\" heading and all of its task lines are visible in the Writer window.",
+      "unit_precondition": [
+        "The document contains an errands section below the current view.",
+        "The pointer is over the document area so scrolling affects the page."
+      ],
+      "unit_effect": [
+        "The page scrolls downward.",
+        "The \"Errands\" heading and its related lines are brought fully into view without needing further scrolling."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        8,
+        9
+      ],
+      "unit_intent": "Emphasize the errands section heading to match the other section heading.",
+      "unit_type": "FORMAT_SECTION_HEADING_BOLD",
+      "unit_before_state": "The lower section of the note is visible, including the line \"Errands\" and the plain errand entries below it.",
+      "unit_after_state": "The \"Errands\" heading is shown in bold while the errand item lines below remain unchanged.",
+      "unit_precondition": [
+        "The \"Errands\" heading is visible on screen.",
+        "The heading is on its own line and can be selected by itself.",
+        "The document remains focused for keyboard formatting input."
+      ],
+      "unit_effect": [
+        "Only the \"Errands\" line is highlighted during selection.",
+        "The heading text changes to bold weight after Ctrl+B."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        10,
+        11
+      ],
+      "unit_intent": "Convert the errand entries into an ordered list so their sequence is explicit.",
+      "unit_type": "APPLY_NUMBERED_LIST",
+      "unit_before_state": "The \"Errands\" heading is bold, and the errand entries below it are still plain text lines.",
+      "unit_after_state": "The errand entries under \"Errands\" are reformatted as a numbered list.",
+      "unit_precondition": [
+        "All errand lines are visible together.",
+        "The errand lines can be selected as one consecutive block.",
+        "The Numbered List control is available in the formatting toolbar."
+      ],
+      "unit_effect": [
+        "The errand lines become highlighted as a group.",
+        "Visible list numbers appear beside the selected errand lines."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        12
+      ],
+      "unit_intent": "Open the save workflow needed to store the cleaned document under a new name and location.",
+      "unit_type": "OPEN_SAVE_AS_DIALOG",
+      "unit_before_state": "The reformatted document is still open in LibreOffice Writer with no modal dialog covering it.",
+      "unit_after_state": "A Save As dialog is open above the Writer document, showing folder navigation and filename controls.",
+      "unit_precondition": [
+        "The Writer document window is active.",
+        "No other modal dialog is open."
+      ],
+      "unit_effect": [
+        "The Save As window appears on screen and takes focus away from the document canvas."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_08",
+      "step_indices": [
+        13,
+        14,
+        15,
+        16
+      ],
+      "unit_intent": "Save the formatted document to the Desktop with the required filename.",
+      "unit_type": "SAVE_DOCUMENT_AS",
+      "unit_before_state": "The Save As dialog is open over Writer, with a folder sidebar on the left, a file area on the right, and a filename field near the bottom.",
+      "unit_after_state": "The Save As dialog closes, Writer returns to the foreground, and the document is saved on the Desktop as \"weekend_errand_plan.odt\".",
+      "unit_precondition": [
+        "The Save As dialog is open and interactive.",
+        "The Desktop entry is available in the dialog sidebar.",
+        "The filename field can be focused for editing.",
+        "The Save button becomes enabled after a valid filename is entered."
+      ],
+      "unit_effect": [
+        "The Desktop location becomes selected in the dialog.",
+        "The filename field shows \"weekend_errand_plan.odt\".",
+        "Clicking Save closes the dialog and completes the save to the Desktop."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Insert the requested document title above the existing note content.",
+      "unit_type": "INSERT_DOCUMENT_TITLE",
+      "unit_before_state": "LibreOffice Writer shows the weekend errand note as plain text, and the text cursor may be somewhere below the top of the page.",
+      "unit_after_state": "The first line of the document now reads \"Weekend Errand Plan\" with a blank line beneath it, and the original note content starts lower on the page.",
+      "unit_precondition": [
+        "LibreOffice Writer is the active window.",
+        "The document is editable.",
+        "Keyboard input is focused in the document body."
+      ],
+      "unit_effect": [
+        "The insertion point moves to the start of the document.",
+        "A new top line with \"Weekend Errand Plan\" appears, followed by an empty line before the original content."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Insert a specified document title at the top of the document above the existing content.",
+      "parameters": {
+        "title_text": "Weekend Errand Plan"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'home']}",
+          "action_template": "When the Writer document is active, editable, and receiving keyboard input, press Ctrl+Home to move the cursor to the beginning of the document so {{title_text}} can be inserted above the existing content."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Weekend Errand Plan\\n\\n'}",
+          "action_template": "With the cursor at the beginning of the document and no modal dialog open, type {{title_text}} followed by two line breaks to insert the title on the first line and leave a blank line before the original content."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4
+      ],
+      "unit_intent": "Emphasize the shopping section heading so it stands out from the list items.",
+      "unit_type": "FORMAT_SECTION_HEADING_BOLD",
+      "unit_before_state": "The top of the note is visible, including the line \"Shopping List\" and the plain shopping entries underneath it.",
+      "unit_after_state": "The \"Shopping List\" heading is displayed in bold while the shopping item lines below remain unchanged.",
+      "unit_precondition": [
+        "The \"Shopping List\" heading is visible on screen.",
+        "The heading can be selected without including the item lines below it.",
+        "The document still accepts formatting shortcuts."
+      ],
+      "unit_effect": [
+        "Only the \"Shopping List\" line becomes highlighted during selection.",
+        "The heading text changes to bold weight after Ctrl+B."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Apply bold formatting to a specified section heading so it stands out from the content below it.",
+      "parameters": {
+        "target_heading": "Shopping List"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the first character of the line that says \"Shopping List\"'}, 'end': {'text': 'the last character of the same \"Shopping List\" line'}, 'target': None}",
+          "action_template": "When {{target_heading}} is visible and there is no active text selection that needs to be preserved, drag with the left mouse button across just the {{target_heading}} heading line from its first character to its last character so it can be formatted without affecting the list items below it; only the {{target_heading}} heading is highlighted."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'b']}",
+          "action_template": "With the {{target_heading}} heading selected and formatting toolbar shortcuts available, press Ctrl+B so the section label is visually separated from the items underneath it; the selected heading becomes bold."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Turn the shopping entries into a bulleted list for clearer formatting.",
+      "unit_type": "APPLY_BULLETED_LIST",
+      "unit_before_state": "The \"Shopping List\" heading is already bold, and the shopping entries beneath it are still plain lines of text.",
+      "unit_after_state": "The shopping entries under \"Shopping List\" are formatted as bullet points.",
+      "unit_precondition": [
+        "All shopping item lines are visible together.",
+        "The shopping lines can be selected as one block.",
+        "The Bulleted List control is available in the formatting toolbar."
+      ],
+      "unit_effect": [
+        "The shopping item lines become highlighted as a group.",
+        "A bullet marker appears at the start of each selected shopping line."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Convert a consecutive block of text entries into a bulleted list for clearer formatting.",
+      "parameters": {
+        "first_item_anchor": "the start of the first shopping item under \"Shopping List\"",
+        "last_item_anchor": "the end of the last shopping item before the next section or blank line",
+        "target_entries": "shopping item lines",
+        "bulleted_list_button": "the Bulleted List button in the formatting toolbar"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the start of the first shopping item under \"Shopping List\"'}, 'end': {'text': 'the end of the last shopping item before the next section or blank line'}, 'target': None}",
+          "action_template": "Drag from {{first_item_anchor}} to {{last_item_anchor}} while {{target_entries}} are visible on consecutive lines to select the full block for bulleted-list formatting; this highlights all {{target_entries}} together."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Bulleted List button in the formatting toolbar'}}",
+          "action_template": "Click {{bulleted_list_button}} after {{target_entries}} are selected and the toolbar control is visible to reformat the selected lines into bullet points."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7
+      ],
+      "unit_intent": "Bring the errands section fully into view to continue formatting the lower part of the note.",
+      "unit_type": "NAVIGATE_TO_SECTION",
+      "unit_before_state": "The upper portion of the document is on screen, and the errands section is lower in the document and may not yet be visible.",
+      "unit_after_state": "The document view is scrolled so the \"Errands\" heading and all of its task lines are visible in the Writer window.",
+      "unit_precondition": [
+        "The document contains an errands section below the current view.",
+        "The pointer is over the document area so scrolling affects the page."
+      ],
+      "unit_effect": [
+        "The page scrolls downward.",
+        "The \"Errands\" heading and its related lines are brought fully into view without needing further scrolling."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Scroll within the document to bring a specified lower section fully into view so work can continue on that section.",
+      "parameters": {
+        "target_section": "Errands",
+        "target_section_content": "the \"Errands\" heading and all of its task lines",
+        "scroll_area": "the document body in the center of the page"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'SCROLL', 'direction': 'down', 'target': {'text': 'the document body in the center of the page'}}",
+          "action_template": "Scroll down over {{scroll_area}} until {{target_section_content}} are fully visible, then stop because {{target_section}} is the next section that needs editing or formatting."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        8,
+        9
+      ],
+      "unit_intent": "Emphasize the errands section heading to match the other section heading.",
+      "unit_type": "FORMAT_SECTION_HEADING_BOLD",
+      "unit_before_state": "The lower section of the note is visible, including the line \"Errands\" and the plain errand entries below it.",
+      "unit_after_state": "The \"Errands\" heading is shown in bold while the errand item lines below remain unchanged.",
+      "unit_precondition": [
+        "The \"Errands\" heading is visible on screen.",
+        "The heading is on its own line and can be selected by itself.",
+        "The document remains focused for keyboard formatting input."
+      ],
+      "unit_effect": [
+        "Only the \"Errands\" line is highlighted during selection.",
+        "The heading text changes to bold weight after Ctrl+B."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Apply bold formatting to a specified section heading without changing the content below it.",
+      "parameters": {
+        "target_heading_text": "Errands",
+        "format_shortcut": "Ctrl+B"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the first character of the line that says \"Errands\"'}, 'end': {'text': 'the last character of the same \"Errands\" line'}, 'target': None}",
+          "action_template": "When {{target_heading_text}} is visible and on its own line, drag across just the {{target_heading_text}} heading from its first character to its last character so it can be formatted separately from the content below; after the drag, only the {{target_heading_text}} heading is highlighted."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'b']}",
+          "action_template": "With only the {{target_heading_text}} heading highlighted and the document still focused, press {{format_shortcut}} to make the {{target_heading_text}} heading bold."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        10,
+        11
+      ],
+      "unit_intent": "Convert the errand entries into an ordered list so their sequence is explicit.",
+      "unit_type": "APPLY_NUMBERED_LIST",
+      "unit_before_state": "The \"Errands\" heading is bold, and the errand entries below it are still plain text lines.",
+      "unit_after_state": "The errand entries under \"Errands\" are reformatted as a numbered list.",
+      "unit_precondition": [
+        "All errand lines are visible together.",
+        "The errand lines can be selected as one consecutive block.",
+        "The Numbered List control is available in the formatting toolbar."
+      ],
+      "unit_effect": [
+        "The errand lines become highlighted as a group.",
+        "Visible list numbers appear beside the selected errand lines."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Convert a consecutive block of plain-text entries in a section into a numbered list so their order is explicit.",
+      "parameters": {
+        "target_entries_block": "the errand entries under \"Errands\""
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "DRAG_TO",
+          "action_template": "Drag across the full {{target_entries_block}} while the items are visible on consecutive lines so all of the lines are selected together and ready to be converted into a numbered list."
+        },
+        {
+          "action": "CLICK",
+          "action_template": "Click the Numbered List button in the formatting toolbar while {{target_entries_block}} are selected and the button is visible so the selected lines are reformatted as an ordered list with visible numbering."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_07",
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        12
+      ],
+      "unit_intent": "Open the save workflow needed to store the cleaned document under a new name and location.",
+      "unit_type": "OPEN_SAVE_AS_DIALOG",
+      "unit_before_state": "The reformatted document is still open in LibreOffice Writer with no modal dialog covering it.",
+      "unit_after_state": "A Save As dialog is open above the Writer document, showing folder navigation and filename controls.",
+      "unit_precondition": [
+        "The Writer document window is active.",
+        "No other modal dialog is open."
+      ],
+      "unit_effect": [
+        "The Save As window appears on screen and takes focus away from the document canvas."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open the Save As dialog so the current document can be saved under a different name or in a different location.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 's']}",
+          "action_template": "With the document window active and no modal dialog open, press Ctrl+Shift+S to open the Save As dialog on top of the current document."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_08",
+      "unit_id": "u_seg_001_08",
+      "step_indices": [
+        13,
+        14,
+        15,
+        16
+      ],
+      "unit_intent": "Save the formatted document to the Desktop with the required filename.",
+      "unit_type": "SAVE_DOCUMENT_AS",
+      "unit_before_state": "The Save As dialog is open over Writer, with a folder sidebar on the left, a file area on the right, and a filename field near the bottom.",
+      "unit_after_state": "The Save As dialog closes, Writer returns to the foreground, and the document is saved on the Desktop as \"weekend_errand_plan.odt\".",
+      "unit_precondition": [
+        "The Save As dialog is open and interactive.",
+        "The Desktop entry is available in the dialog sidebar.",
+        "The filename field can be focused for editing.",
+        "The Save button becomes enabled after a valid filename is entered."
+      ],
+      "unit_effect": [
+        "The Desktop location becomes selected in the dialog.",
+        "The filename field shows \"weekend_errand_plan.odt\".",
+        "Clicking Save closes the dialog and completes the save to the Desktop."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the current document to a specified folder with a specified filename using the Save As dialog.",
+      "parameters": {
+        "target_folder": "Desktop",
+        "file_name": "weekend_errand_plan.odt"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Desktop entry in the left sidebar of the Save As dialog'}}",
+          "action_template": "When the Save As dialog is visible and the {{target_folder}} folder appears in the sidebar, click the {{target_folder}} entry in the left sidebar of the Save As dialog so the dialog switches to that folder as the destination location."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the filename input box near the bottom of the Save As dialog'}}",
+          "action_template": "Once {{target_folder}} is selected and the filename field is visible, click inside the filename input box near the bottom of the Save As dialog so the text cursor appears there and the next typed text goes into the document name field."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'weekend_errand_plan.odt'}",
+          "action_template": "With the text cursor in the filename field and no existing selected filename that needs to be preserved, type {{file_name}} so the filename field contains the requested document name."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Save button in the Save As dialog'}}",
+          "action_template": "After confirming {{target_folder}} as the destination folder and {{file_name}} in the filename field, and with the Save button enabled, click the Save button in the Save As dialog so the dialog closes and the document is saved to {{target_folder}} as {{file_name}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

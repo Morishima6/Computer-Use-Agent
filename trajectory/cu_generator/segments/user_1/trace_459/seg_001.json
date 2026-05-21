@@ -1,0 +1,405 @@
+{
+  "segment_id": "seg_001",
+  "app": "thunderbird",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the Account Settings dialog from the main menu",
+      "action_before_state": "The main Thunderbird window is visible with the folder pane on the left showing email accounts and folders, and the main content area showing the inbox or welcome screen. The menu bar at the top shows 'File', 'Edit', 'View', 'Go', 'Message', 'Events and Tasks', 'Tools', and 'Help' (or an application menu button in the top-right area of the title bar/header bar).",
+      "action_preconditions": [
+        "Thunderbird is running and focused",
+        "The main application window is visible",
+        "The menu bar or application menu is accessible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": "The 'Edit' menu in the menu bar (or the application menu button if using the modern UI)"
+      },
+      "action_after_effects": "A dropdown menu appears showing various options including 'Undo', 'Redo', 'Cut', 'Copy', 'Paste', 'Select All', 'Find', 'Preferences...', and 'Account Settings...' (in modern Thunderbird) or similar structure.",
+      "nl_explanation": "Click the 'Edit' menu in the menu bar to access account configuration options, then select 'Account Settings' from the dropdown."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Click on Account Settings to open the account configuration dialog",
+      "action_before_state": "The Edit menu dropdown is open showing various menu items. The 'Account Settings...' option is visible in the menu list.",
+      "action_preconditions": [
+        "The Edit menu dropdown is open and visible",
+        "The Account Settings menu item is visible and clickable"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": "The 'Account Settings...' menu item in the Edit dropdown menu"
+      },
+      "action_after_effects": "The Account Settings dialog window opens, displaying a left sidebar with the account name (e.g., 'user@example.com') and options like 'Default Identity', 'Copies & Folders', 'Composition & Addressing', 'Offline', 'Disk Space', 'Security', 'Synchronization & Storage' (for IMAP accounts), and 'End-To-End Encryption'. The right pane shows the Default Identity settings including 'Your Name', 'Email Address', 'Reply-to Address', 'Organization', and 'Signature text'.",
+      "nl_explanation": "Click on 'Account Settings' in the Edit menu to open the account configuration dialog where signature settings can be accessed and modified."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Enable the option to use a file instead of typing the signature directly",
+      "action_before_state": "The Account Settings dialog is open with the Default Identity section displayed. In the Signature section at the bottom of the right pane, there is plain text in a text box, and below it is an unchecked checkbox labeled 'Use HTML' and another unchecked checkbox labeled 'Attach the signature from a file instead (text, HTML, or image)'.",
+      "action_preconditions": [
+        "The Account Settings dialog is focused",
+        "The Default Identity section is visible",
+        "The signature file checkbox is visible and currently unchecked"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": "The checkbox labeled 'Attach the signature from a file instead (text, HTML, or image)' in the Signature section"
+      },
+      "action_after_effects": "The checkbox becomes checked. The text area above it becomes grayed out/disabled, and a 'Choose...' button appears to the right of the checkbox, allowing selection of the signature file.",
+      "nl_explanation": "Click the checkbox 'Attach the signature from a file instead' to enable file-based signatures. This disables the text input area and reveals the file selection button needed to specify the signature file path."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Open the file chooser dialog to select the signature file",
+      "action_before_state": "The 'Attach the signature from a file instead' checkbox is now checked. A 'Choose...' button has appeared to the right of the checkbox. The text input area for direct signature entry is now grayed out and disabled.",
+      "action_preconditions": [
+        "The signature file option is enabled (checkbox is checked)",
+        "The 'Choose...' button is visible and clickable"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": "The 'Choose...' button next to the signature file checkbox"
+      },
+      "action_after_effects": "A file chooser dialog window opens, titled 'Select Signature File'. It shows the user's home directory by default with folders like 'Desktop', 'Documents', 'Downloads', etc. The location bar shows '/home/user'. There is a text field for the filename at the top and buttons for 'Cancel' and 'Open' at the bottom.",
+      "nl_explanation": "Click the 'Choose...' button to open the file selection dialog, which will allow navigation to and selection of the .signature file located in the home directory."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Navigate to the home directory and select the .signature file",
+      "action_before_state": "The file chooser dialog is open showing the home directory (/home/user). The file list shows standard folders like Desktop, Documents, Downloads, Music, Pictures, etc. The .signature file is not immediately visible because it is a hidden file (starts with a dot). The file type filter at the bottom might be set to 'All Files' or similar.",
+      "action_preconditions": [
+        "The file chooser is open",
+        "Currently in /home/user directory",
+        "Need to show hidden files or navigate to find .signature"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "h"
+        ]
+      },
+      "action_after_effects": "The file chooser now displays hidden files (those starting with a dot). The .signature file becomes visible in the file list among other hidden files like .bashrc, .profile, .bash_history, etc. The .signature file is now selectable.",
+      "nl_explanation": "Press Ctrl+H to toggle the display of hidden files in the file chooser, revealing the .signature file which is a hidden file located in the home directory."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Select the .signature file and confirm the selection",
+      "action_before_state": "The file chooser is displaying hidden files including the .signature file in the /home/user directory. The .signature file is visible in the list but not yet selected (not highlighted).",
+      "action_preconditions": [
+        "The .signature file is visible in the file list",
+        "The file is not yet selected"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": "The '.signature' file in the file list of the chooser dialog"
+      },
+      "action_after_effects": "The .signature file becomes highlighted/selected in the file list, and its name '.signature' appears in the filename field at the top of the dialog.",
+      "nl_explanation": "Click on the .signature file in the file list to select it as the signature file to be used."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Confirm the file selection and close the dialog",
+      "action_before_state": "The .signature file is selected (highlighted) in the file chooser dialog. The filename field at the top shows '.signature'. The dialog has 'Cancel' and 'Open' buttons at the bottom right.",
+      "action_preconditions": [
+        "The .signature file is selected",
+        "The Open button is visible and active"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": "The 'Open' button at the bottom right of the file chooser dialog"
+      },
+      "action_after_effects": "The file chooser dialog closes. Back in the Account Settings dialog, the path '/home/user/.signature' now appears next to the 'Choose...' button, indicating the signature file has been selected.",
+      "nl_explanation": "Click the 'Open' button to confirm the selection of the .signature file and return to the Account Settings dialog."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Save the account settings and close the dialog",
+      "action_before_state": "The Account Settings dialog shows the Default Identity section with the signature file path '/home/user/.signature' displayed next to the 'Choose...' button. The 'Attach the signature from a file instead' checkbox remains checked. At the bottom of the dialog are 'OK' and 'Cancel' buttons.",
+      "action_preconditions": [
+        "The signature file path is correctly displayed",
+        "The Account Settings dialog is active",
+        "The OK button is available"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": "The 'OK' button at the bottom of the Account Settings dialog"
+      },
+      "action_after_effects": "The Account Settings dialog closes. The main Thunderbird window is visible again. The signature configuration is now saved and will be automatically appended to outgoing emails from this account.",
+      "nl_explanation": "Click the 'OK' button to save the account settings including the configured signature file, completing the setup process."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Open the account configuration area where the email identity's signature settings can be changed.",
+      "unit_type": "OPEN_ACCOUNT_SETTINGS",
+      "unit_before_state": "The main Thunderbird window is in focus, showing the standard mail interface with the menu bar available at the top and no settings dialog open.",
+      "unit_after_state": "The Account Settings dialog is open on the selected mail account. The left sidebar lists account sections, and the right pane shows the Default Identity settings including the signature area.",
+      "unit_precondition": [
+        "Thunderbird is running and the main window is focused.",
+        "The menu bar or equivalent application menu is visible and can be opened.",
+        "The Account Settings command is available from the menu."
+      ],
+      "unit_effect": [
+        "The Edit menu opens and shows an 'Account Settings...' entry.",
+        "The Account Settings dialog appears with Default Identity settings visible for the account."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4
+      ],
+      "unit_intent": "Switch the account from typed signature text to file-based signature selection and enter the file-picking workflow.",
+      "unit_type": "OPEN_SIGNATURE_FILE_CHOOSER",
+      "unit_before_state": "The Account Settings dialog is focused on Default Identity. In the Signature section, the direct signature text box is enabled, the 'Attach the signature from a file instead' checkbox is unchecked, and no file chooser is open.",
+      "unit_after_state": "A 'Select Signature File' file chooser dialog is open on /home/user. The Account Settings dialog remains behind it with file-based signature mode enabled.",
+      "unit_precondition": [
+        "The Account Settings dialog is open and focused on the correct account.",
+        "The Default Identity section and Signature controls are visible.",
+        "The file-based signature checkbox is currently unchecked and the 'Choose...' button is not yet in use."
+      ],
+      "unit_effect": [
+        "The 'Attach the signature from a file instead' checkbox becomes checked.",
+        "The direct signature text area is disabled and a 'Choose...' button becomes available.",
+        "The 'Select Signature File' dialog opens in the user's home directory."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Choose the hidden .signature file from the home directory as the account's signature source.",
+      "unit_type": "SELECT_SIGNATURE_FILE",
+      "unit_before_state": "The 'Select Signature File' dialog is open in /home/user. Hidden files are not currently shown, so the .signature file is not yet visible or selected.",
+      "unit_after_state": "The file chooser has closed, returning to the Account Settings dialog. In the Signature section, the selected file path '/home/user/.signature' is displayed next to the file selection control.",
+      "unit_precondition": [
+        "The file chooser dialog is open and focused.",
+        "The current folder is /home/user.",
+        "No signature file has been confirmed yet.",
+        "The dialog supports showing hidden files and opening a selected file."
+      ],
+      "unit_effect": [
+        "Hidden files become visible in the chooser after the shortcut is used.",
+        "The '.signature' file appears in the file list and becomes highlighted when selected.",
+        "The chooser closes after confirmation, and '/home/user/.signature' is shown in Account Settings as the chosen signature file."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8
+      ],
+      "unit_intent": "Commit the signature-file configuration for the account and return to the main mail window.",
+      "unit_type": "SAVE_ACCOUNT_SETTINGS",
+      "unit_before_state": "The Account Settings dialog is active. The file-based signature checkbox is checked, and the path '/home/user/.signature' is visible in the Signature section. The dialog's OK button is available.",
+      "unit_after_state": "The Account Settings dialog is closed and the main Thunderbird window is visible again. The account is configured to use the selected signature file for outgoing messages.",
+      "unit_precondition": [
+        "The Account Settings dialog is open.",
+        "The intended signature file path '/home/user/.signature' is already displayed.",
+        "The OK button is enabled and clickable."
+      ],
+      "unit_effect": [
+        "The Account Settings dialog closes.",
+        "Thunderbird returns to the main mail interface.",
+        "The selected signature file remains configured for the account."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Open the account configuration area where the email identity's signature settings can be changed.",
+      "unit_type": "OPEN_ACCOUNT_SETTINGS",
+      "unit_before_state": "The main Thunderbird window is in focus, showing the standard mail interface with the menu bar available at the top and no settings dialog open.",
+      "unit_after_state": "The Account Settings dialog is open on the selected mail account. The left sidebar lists account sections, and the right pane shows the Default Identity settings including the signature area.",
+      "unit_precondition": [
+        "Thunderbird is running and the main window is focused.",
+        "The menu bar or equivalent application menu is visible and can be opened.",
+        "The Account Settings command is available from the menu."
+      ],
+      "unit_effect": [
+        "The Edit menu opens and shows an 'Account Settings...' entry.",
+        "The Account Settings dialog appears with Default Identity settings visible for the account."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open the account settings dialog for {{target_account}} and display the {{target_settings_section}} area where the email identity signature can be modified.",
+      "parameters": {
+        "navigation_menu": "Edit",
+        "settings_command": "Account Settings...",
+        "target_account": "selected mail account",
+        "target_settings_section": "Default Identity"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': \"The 'Edit' menu in the menu bar (or the application menu button if using the modern UI)\"}",
+          "action_template": "Click the {{navigation_menu}} menu to open the application dropdown where {{settings_command}} is available for account configuration."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': \"The 'Account Settings...' menu item in the Edit dropdown menu\"}",
+          "action_template": "Click {{settings_command}} in the open menu to open the Account Settings dialog for {{target_account}} and show the {{target_settings_section}} settings including the signature area."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4
+      ],
+      "unit_intent": "Switch the account from typed signature text to file-based signature selection and enter the file-picking workflow.",
+      "unit_type": "OPEN_SIGNATURE_FILE_CHOOSER",
+      "unit_before_state": "The Account Settings dialog is focused on Default Identity. In the Signature section, the direct signature text box is enabled, the 'Attach the signature from a file instead' checkbox is unchecked, and no file chooser is open.",
+      "unit_after_state": "A 'Select Signature File' file chooser dialog is open on /home/user. The Account Settings dialog remains behind it with file-based signature mode enabled.",
+      "unit_precondition": [
+        "The Account Settings dialog is open and focused on the correct account.",
+        "The Default Identity section and Signature controls are visible.",
+        "The file-based signature checkbox is currently unchecked and the 'Choose...' button is not yet in use."
+      ],
+      "unit_effect": [
+        "The 'Attach the signature from a file instead' checkbox becomes checked.",
+        "The direct signature text area is disabled and a 'Choose...' button becomes available.",
+        "The 'Select Signature File' dialog opens in the user's home directory."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Enable file-based signature mode for the current account identity and open the signature file chooser dialog.",
+      "parameters": {
+        "signature_file_checkbox": "Attach the signature from a file instead (text, HTML, or image)",
+        "file_choose_button": "Choose...",
+        "file_chooser_dialog": "Select Signature File",
+        "default_directory": "/home/user"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': \"The checkbox labeled 'Attach the signature from a file instead (text, HTML, or image)' in the Signature section\"}",
+          "action_template": "Click the checkbox labeled {{signature_file_checkbox}} while the Account Settings dialog is focused, the Default Identity section is visible, and the checkbox is currently unchecked to enable file-based signatures. This checks the box, disables the direct signature text area, and reveals the {{file_choose_button}} button for selecting a signature file."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': \"The 'Choose...' button next to the signature file checkbox\"}",
+          "action_template": "Click the {{file_choose_button}} button after the signature file option is enabled and the button is visible and clickable to open the {{file_chooser_dialog}} dialog. This starts the file-picking workflow and opens the chooser in {{default_directory}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Choose the hidden .signature file from the home directory as the account's signature source.",
+      "unit_type": "SELECT_SIGNATURE_FILE",
+      "unit_before_state": "The 'Select Signature File' dialog is open in /home/user. Hidden files are not currently shown, so the .signature file is not yet visible or selected.",
+      "unit_after_state": "The file chooser has closed, returning to the Account Settings dialog. In the Signature section, the selected file path '/home/user/.signature' is displayed next to the file selection control.",
+      "unit_precondition": [
+        "The file chooser dialog is open and focused.",
+        "The current folder is /home/user.",
+        "No signature file has been confirmed yet.",
+        "The dialog supports showing hidden files and opening a selected file."
+      ],
+      "unit_effect": [
+        "Hidden files become visible in the chooser after the shortcut is used.",
+        "The '.signature' file appears in the file list and becomes highlighted when selected.",
+        "The chooser closes after confirmation, and '/home/user/.signature' is shown in Account Settings as the chosen signature file."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Select a specified hidden file from the current directory and confirm it as the account's signature source.",
+      "parameters": {
+        "target_directory": "/home/user",
+        "target_hidden_file": ".signature",
+        "selected_file_path": "/home/user/.signature",
+        "confirm_button": "Open"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'h']}",
+          "action_template": "Press Ctrl+H in the file chooser while viewing {{target_directory}} to show hidden files, making {{target_hidden_file}} visible and selectable."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': \"The '.signature' file in the file list of the chooser dialog\"}",
+          "action_template": "Click {{target_hidden_file}} in the file list after it becomes visible to select it; the file is highlighted and its name appears in the filename field."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': \"The 'Open' button at the bottom right of the file chooser dialog\"}",
+          "action_template": "Click the {{confirm_button}} button after {{target_hidden_file}} is selected to confirm the choice, close the chooser, and populate {{selected_file_path}} in Account Settings."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8
+      ],
+      "unit_intent": "Commit the signature-file configuration for the account and return to the main mail window.",
+      "unit_type": "SAVE_ACCOUNT_SETTINGS",
+      "unit_before_state": "The Account Settings dialog is active. The file-based signature checkbox is checked, and the path '/home/user/.signature' is visible in the Signature section. The dialog's OK button is available.",
+      "unit_after_state": "The Account Settings dialog is closed and the main Thunderbird window is visible again. The account is configured to use the selected signature file for outgoing messages.",
+      "unit_precondition": [
+        "The Account Settings dialog is open.",
+        "The intended signature file path '/home/user/.signature' is already displayed.",
+        "The OK button is enabled and clickable."
+      ],
+      "unit_effect": [
+        "The Account Settings dialog closes.",
+        "Thunderbird returns to the main mail interface.",
+        "The selected signature file remains configured for the account."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the account settings after confirming the selected signature file and return to the main mail window.",
+      "parameters": {
+        "signature_file_path": "/home/user/.signature"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': \"The 'OK' button at the bottom of the Account Settings dialog\"}",
+          "action_template": "Click the 'OK' button to save the account settings after confirming that {{signature_file_path}} is correctly displayed in the active Account Settings dialog; this closes the dialog, returns Thunderbird to the main mail window, and keeps the selected signature file configured for outgoing emails."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

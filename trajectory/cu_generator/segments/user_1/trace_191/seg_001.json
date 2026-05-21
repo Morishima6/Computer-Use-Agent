@@ -1,0 +1,792 @@
+{
+  "segment_id": "seg_001",
+  "app": "libreoffice_calc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open a fresh spreadsheet so the tracker is built on a clean sheet",
+      "action_before_state": "LibreOffice Calc is already open and a spreadsheet window is visible on screen.",
+      "action_preconditions": [
+        "The LibreOffice Calc window is focused",
+        "Keyboard shortcuts are available"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "n"
+        ]
+      },
+      "action_after_effects": "A new blank workbook opens in Calc with an empty sheet ready for editing.",
+      "nl_explanation": "When Calc is focused, press Ctrl+N to open a new spreadsheet. The result should be a clean blank sheet that can be used for the spending tracker."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Select the cells that will hold the tracker title",
+      "action_before_state": "A blank worksheet is open, and the top-left grid area is visible.",
+      "action_preconditions": [
+        "Cells A1 through E1 are visible",
+        "The sheet is editable"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell A1"
+        },
+        "end": {
+          "text": "cell E1"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "Cells A1:E1 become selected as one highlighted range.",
+      "nl_explanation": "Once the first row is visible, drag from cell A1 to cell E1 to highlight the full title area. This prepares the range for merging."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Merge the selected title cells into one centered heading area",
+      "action_before_state": "Cells A1:E1 are selected in the blank sheet.",
+      "action_preconditions": [
+        "The range A1:E1 is selected",
+        "The formatting toolbar is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Merge and Center Cells button in the toolbar"
+        }
+      },
+      "action_after_effects": "The selected cells are merged into a single title cell spanning A1:E1.",
+      "nl_explanation": "With A1:E1 already highlighted, click the Merge and Center Cells control in the toolbar. The top row becomes one large title cell."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Enter the title for the spending tracker",
+      "action_before_state": "The merged title cell across A1:E1 is active.",
+      "action_preconditions": [
+        "The merged title area is selected",
+        "Typing will go into the active merged cell"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Weekly Spending Tracker"
+      },
+      "action_after_effects": "The text Weekly Spending Tracker appears in the merged title cell.",
+      "nl_explanation": "When the merged title cell is active, type Weekly Spending Tracker. The heading is placed across the top of the sheet."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Move to the starting cell for the table data",
+      "action_before_state": "The title is visible at the top and the sheet below it is still empty.",
+      "action_preconditions": [
+        "Cell A3 is visible on screen",
+        "No modal dialog is open"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell A3"
+        }
+      },
+      "action_after_effects": "Cell A3 becomes the active cell for table entry.",
+      "nl_explanation": "After the title is in place, click cell A3 to position the cursor where the spending table should begin."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Enter the table headers and seven daily sample rows",
+      "action_before_state": "Cell A3 is active in the worksheet.",
+      "action_preconditions": [
+        "Cell A3 is selected",
+        "The sheet has enough empty rows and columns for a 5-column table"
+      ],
+      "action": {
+        "type": "CLICK",
+        "target": {
+          "text": "cell A3"
+        },
+        "clipboard_content": "Date\tPlanned\tActual\tDifference\tNote\nMonday\t25\t27\t\tGrocery refill\nTuesday\t12\t10\t\tBus and coffee\nWednesday\t18\t21\t\tLunch out\nThursday\t40\t38\t\tHousehold supplies\nFriday\t15\t19\t\tTakeaway dinner\nSaturday\t30\t26\t\tMarket run\nSunday\t20\t22\t\tPharmacy stop",
+        "button": "left",
+        "num_clicks": 1
+      },
+      "action_after_effects": "A filled table appears from A3:E10 with headers in row 3 and daily entries from rows 4 to 10.",
+      "nl_explanation": "With A3 selected, paste the tab-separated table block. Calc's paste operation spreads the content across columns A to E and rows 3 to 10, populating headers and data rows correctly."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Select the first Difference cell to begin the formula",
+      "action_before_state": "The data table is visible with the Difference column empty from D4 to D10.",
+      "action_preconditions": [
+        "The first data row is visible",
+        "Cell D4 is empty and available for a formula"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell D4 in the Difference column for Monday"
+        }
+      },
+      "action_after_effects": "Cell D4 becomes active and ready for formula entry.",
+      "nl_explanation": "Once the table has been entered, click cell D4 so the first Difference value can be calculated there."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Create the first Difference formula",
+      "action_before_state": "Cell D4 is selected and the first row contains Planned in B4 and Actual in C4.",
+      "action_preconditions": [
+        "Cell D4 is active",
+        "Cells B4 and C4 contain numeric values"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "=C4-B4"
+      },
+      "action_after_effects": "Cell D4 shows the computed difference between Actual and Planned for Monday.",
+      "nl_explanation": "With D4 selected, type =C4-B4 to calculate Actual minus Planned for the first day. The cell should immediately display the numeric result."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Fill the Difference formula down for the remaining days",
+      "action_before_state": "Cell D4 contains the correct formula and the rows below it in column D are blank.",
+      "action_preconditions": [
+        "The formula is already in D4",
+        "The fill handle on the lower-right corner of D4 is visible",
+        "Rows 5 through 10 contain data"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the fill handle at the bottom-right corner of cell D4"
+        },
+        "end": {
+          "text": "the fill handle position at cell D10"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "The formula is copied from D4 down to D10, and each day now has a Difference value.",
+      "nl_explanation": "After confirming D4 is correct, drag the fill handle down to D10. Calc copies the formula to the remaining rows and computes each day's difference."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Move to the row where the totals will be added",
+      "action_before_state": "The full table is visible and row 11 is empty beneath the daily entries.",
+      "action_preconditions": [
+        "Cell A11 is visible",
+        "Row 11 is unused"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell A11 directly below the table"
+        }
+      },
+      "action_after_effects": "Cell A11 becomes active for entering the summary row.",
+      "nl_explanation": "When the data rows are complete, click A11 so the totals row can be entered right under the table."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Add a total row with formulas for Planned, Actual, and Difference",
+      "action_before_state": "Cell A11 is selected and the row beneath the data table is empty.",
+      "action_preconditions": [
+        "Cell A11 is active",
+        "The data range spans rows 4 through 10"
+      ],
+      "action": {
+        "type": "CLICK",
+        "target": {
+          "text": "cell A11"
+        },
+        "clipboard_content": "Total\t=SUM(B4:B10)\t=SUM(C4:C10)\t=SUM(D4:D10)",
+        "button": "left",
+        "num_clicks": 1
+      },
+      "action_after_effects": "Row 11 shows a Total label in column A and sum formulas in columns B through D.",
+      "nl_explanation": "With A11 selected, paste the tab-separated row containing the label and formulas. Calc's paste operation distributes the content correctly across columns A through D."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Select all numeric money cells so they can be formatted together",
+      "action_before_state": "The table and totals are visible, including numeric values in columns B through D.",
+      "action_preconditions": [
+        "Cells B4 through D11 are visible",
+        "The numeric area is contiguous"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell B4"
+        },
+        "end": {
+          "text": "cell D11"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "The range B4:D11 is highlighted as the active selection.",
+      "nl_explanation": "After the totals are added, drag from B4 to D11 to select all Planned, Actual, Difference, and total values together."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Format the selected numbers as currency",
+      "action_before_state": "The numeric range B4:D11 is selected.",
+      "action_preconditions": [
+        "B4:D11 is highlighted",
+        "The formatting toolbar is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Currency format button in the toolbar"
+        }
+      },
+      "action_after_effects": "The selected cells change to currency formatting, showing each amount as money.",
+      "nl_explanation": "With the numeric range already selected, click the Currency button on the toolbar. All selected values are reformatted as money amounts."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Select the data range needed for the comparison chart",
+      "action_before_state": "The table contains Date, Planned, and Actual columns from row 3 to row 10.",
+      "action_preconditions": [
+        "Cells A3 through C10 are visible",
+        "The header row and seven daily rows are present"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell A3"
+        },
+        "end": {
+          "text": "cell C10"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "The chart source range A3:C10 is selected, including headers and daily data.",
+      "nl_explanation": "To prepare the chart, drag from A3 to C10 so the Date, Planned, and Actual columns are highlighted together."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Open the chart creation dialog using the selected data",
+      "action_before_state": "The range A3:C10 is selected in the worksheet.",
+      "action_preconditions": [
+        "The desired chart data is highlighted",
+        "The Insert Chart control is available"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Insert Chart button in the toolbar"
+        }
+      },
+      "action_after_effects": "The Chart Wizard opens with a preview based on the selected data range.",
+      "nl_explanation": "Once the source data is selected, click the Insert Chart button. Calc opens the Chart Wizard and previews a chart from that range."
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Insert the finished chart into the sheet",
+      "action_before_state": "The Chart Wizard is open and shows a chart preview for the selected data.",
+      "action_preconditions": [
+        "The chart preview is visible",
+        "The Finish button is available in the wizard"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Finish button in the Chart Wizard"
+        }
+      },
+      "action_after_effects": "A column chart comparing planned and actual spending by day is inserted into the spreadsheet.",
+      "nl_explanation": "When the Chart Wizard preview looks ready, click Finish. The chart is placed on the sheet, completing the weekly spending tracker."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Start the spending-tracker work in a clean blank spreadsheet.",
+      "unit_type": "OPEN_NEW_WORKBOOK",
+      "unit_before_state": "LibreOffice Calc is open with an existing spreadsheet window on screen.",
+      "unit_after_state": "A new untitled blank Calc workbook is open, showing an empty sheet with the top-left grid ready for input.",
+      "unit_precondition": [
+        "The LibreOffice Calc window is focused.",
+        "Keyboard shortcuts are accepted by the application."
+      ],
+      "unit_effect": [
+        "A fresh blank workbook replaces the previous working context.",
+        "An empty sheet is visible and ready for editing."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Create a visible sheet title area for the weekly spending tracker.",
+      "unit_type": "CREATE_MERGED_TITLE",
+      "unit_before_state": "The new blank worksheet is visible with cells A1 through E1 empty in the top-left corner.",
+      "unit_after_state": "Cells A1:E1 are merged into one title cell, and the text \"Weekly Spending Tracker\" appears centered across the top of the sheet.",
+      "unit_precondition": [
+        "The blank worksheet is editable.",
+        "Cells A1 through E1 are visible.",
+        "The Merge and Center control is available in the toolbar."
+      ],
+      "unit_effect": [
+        "The selected range A1:E1 becomes one merged title area.",
+        "The heading text \"Weekly Spending Tracker\" is shown in the merged cell."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Lay out the main spending table with headers and one sample row for each day of the week.",
+      "unit_type": "POPULATE_TRACKER_TABLE",
+      "unit_before_state": "The worksheet shows the merged title at the top, and the area starting at A3 is still empty.",
+      "unit_after_state": "A structured table fills A3:E10 with headers in row 3 and sample entries for Monday through Sunday in rows 4 to 10.",
+      "unit_precondition": [
+        "Cell A3 is visible and selectable.",
+        "The sheet has empty space from columns A to E and rows 3 to 10.",
+        "No modal dialog is blocking sheet input."
+      ],
+      "unit_effect": [
+        "Cell A3 becomes the insertion point for the table.",
+        "The pasted block expands into columns Date, Planned, Actual, Difference, and Note with seven daily rows underneath."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7,
+        8,
+        9
+      ],
+      "unit_intent": "Compute daily spending differences for all seven days.",
+      "unit_type": "FILL_DIFFERENCE_FORMULAS",
+      "unit_before_state": "The table is visible with Planned values in column B, Actual values in column C, and empty Difference cells from D4 to D10.",
+      "unit_after_state": "Column D contains calculated Difference values for Monday through Sunday, with D4:D10 filled by the formula pattern Actual minus Planned.",
+      "unit_precondition": [
+        "The first data row is visible.",
+        "Cells B4 and C4 contain numeric values.",
+        "Cell D4 is empty and available for formula entry.",
+        "Rows 5 through 10 already contain table data."
+      ],
+      "unit_effect": [
+        "Cell D4 shows the result of the formula =C4-B4.",
+        "Dragging the fill handle copies the formula down to D10 so every day has a computed Difference value."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        10,
+        11
+      ],
+      "unit_intent": "Add a summary row that totals the planned, actual, and difference amounts.",
+      "unit_type": "ADD_TOTAL_ROW",
+      "unit_before_state": "The daily table ends at row 10, and row 11 below it is blank.",
+      "unit_after_state": "Row 11 contains a Total label in A11 and sum formulas in B11, C11, and D11 summarizing the weekly values.",
+      "unit_precondition": [
+        "Row 11 is empty and visible below the daily entries.",
+        "The populated data range spans rows 4 through 10.",
+        "Cell A11 can be activated for input."
+      ],
+      "unit_effect": [
+        "Cell A11 becomes the active insertion point for the summary row.",
+        "The sheet displays a Total row with summed Planned, Actual, and Difference values."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        12,
+        13
+      ],
+      "unit_intent": "Format all spending amounts so the numeric values read as money.",
+      "unit_type": "FORMAT_CURRENCY_RANGE",
+      "unit_before_state": "The table and total row are visible, and numeric amounts in B4:D11 are still shown as plain numbers.",
+      "unit_after_state": "The range B4:D11 remains selected and all values in that range are displayed using currency formatting.",
+      "unit_precondition": [
+        "Cells B4 through D11 are visible on screen.",
+        "The numeric area from B4 to D11 is contiguous and populated.",
+        "The Currency format button is available in the toolbar."
+      ],
+      "unit_effect": [
+        "The range B4:D11 becomes highlighted.",
+        "The selected amounts change appearance to currency-formatted values."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        14,
+        15,
+        16
+      ],
+      "unit_intent": "Add a chart that visually compares planned and actual spending across the week.",
+      "unit_type": "INSERT_COLUMN_CHART",
+      "unit_before_state": "The worksheet shows the completed tracker table, and the chart source data in columns A to C has not yet been selected.",
+      "unit_after_state": "A column chart comparing Planned and Actual spending by day is inserted into the spreadsheet based on the data from A3:C10.",
+      "unit_precondition": [
+        "The table headers and daily rows exist from A3 to C10.",
+        "Cells A3 through C10 are visible and selectable.",
+        "The Insert Chart command is available."
+      ],
+      "unit_effect": [
+        "The source range A3:C10 is highlighted for chart creation.",
+        "The Chart Wizard opens with a preview derived from the selected range.",
+        "After finishing the wizard, an embedded column chart appears on the sheet."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Start the spending-tracker work in a clean blank spreadsheet.",
+      "unit_type": "OPEN_NEW_WORKBOOK",
+      "unit_before_state": "LibreOffice Calc is open with an existing spreadsheet window on screen.",
+      "unit_after_state": "A new untitled blank Calc workbook is open, showing an empty sheet with the top-left grid ready for input.",
+      "unit_precondition": [
+        "The LibreOffice Calc window is focused.",
+        "Keyboard shortcuts are accepted by the application."
+      ],
+      "unit_effect": [
+        "A fresh blank workbook replaces the previous working context.",
+        "An empty sheet is visible and ready for editing."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a new blank spreadsheet workbook in LibreOffice Calc for subsequent data entry or editing.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "press Ctrl+N",
+          "action_template": "When LibreOffice Calc is focused, press Ctrl+N to open a new spreadsheet. The result should be a clean blank sheet ready for editing."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Create a visible sheet title area for the weekly spending tracker.",
+      "unit_type": "CREATE_MERGED_TITLE",
+      "unit_before_state": "The new blank worksheet is visible with cells A1 through E1 empty in the top-left corner.",
+      "unit_after_state": "Cells A1:E1 are merged into one title cell, and the text \"Weekly Spending Tracker\" appears centered across the top of the sheet.",
+      "unit_precondition": [
+        "The blank worksheet is editable.",
+        "Cells A1 through E1 are visible.",
+        "The Merge and Center control is available in the toolbar."
+      ],
+      "unit_effect": [
+        "The selected range A1:E1 becomes one merged title area.",
+        "The heading text \"Weekly Spending Tracker\" is shown in the merged cell."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a merged worksheet title area across a specified cell range and enter the desired heading text.",
+      "parameters": {
+        "start_cell": "A1",
+        "end_cell": "E1",
+        "merged_range": "A1:E1",
+        "title_text": "Weekly Spending Tracker"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'cell A1'}, 'end': {'text': 'cell E1'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "Once the target row is visible, drag from cell {{start_cell}} to cell {{end_cell}} to highlight the full title area. This prepares the range {{merged_range}} for merging."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Merge and Center Cells button in the toolbar'}}",
+          "action_template": "With {{merged_range}} already highlighted, click the Merge and Center Cells control in the toolbar. The selected cells become one large title cell."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Weekly Spending Tracker'}",
+          "action_template": "When the merged title cell is active, type {{title_text}}. The heading is placed across the top of the sheet."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Lay out the main spending table with headers and one sample row for each day of the week.",
+      "unit_type": "POPULATE_TRACKER_TABLE",
+      "unit_before_state": "The worksheet shows the merged title at the top, and the area starting at A3 is still empty.",
+      "unit_after_state": "A structured table fills A3:E10 with headers in row 3 and sample entries for Monday through Sunday in rows 4 to 10.",
+      "unit_precondition": [
+        "Cell A3 is visible and selectable.",
+        "The sheet has empty space from columns A to E and rows 3 to 10.",
+        "No modal dialog is blocking sheet input."
+      ],
+      "unit_effect": [
+        "Cell A3 becomes the insertion point for the table.",
+        "The pasted block expands into columns Date, Planned, Actual, Difference, and Note with seven daily rows underneath."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Populate a worksheet table by selecting a specified starting cell and pasting a tab-separated block containing headers and rows.",
+      "parameters": {
+        "start_cell": "A3",
+        "table_data_block": "Date\tPlanned\tActual\tDifference\tNote\nMonday\t25\t27\t\tGrocery refill\nTuesday\t12\t10\t\tBus and coffee\nWednesday\t18\t21\t\tLunch out\nThursday\t40\t38\t\tHousehold supplies\nFriday\t15\t19\t\tTakeaway dinner\nSaturday\t30\t26\t\tMarket run\nSunday\t20\t22\t\tPharmacy stop",
+        "result_range": "A3:E10"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell A3'}}",
+          "action_template": "Click cell {{start_cell}} to position the cursor where the table should begin, when that cell is visible and no modal dialog is open; after the click, cell {{start_cell}} becomes the active cell for table entry."
+        },
+        {
+          "action": "{'type': 'CLICK', 'target': {'text': 'cell A3'}, 'clipboard_content': 'Date\\tPlanned\\tActual\\tDifference\\tNote\\nMonday\\t25\\t27\\t\\tGrocery refill\\nTuesday\\t12\\t10\\t\\tBus and coffee\\nWednesday\\t18\\t21\\t\\tLunch out\\nThursday\\t40\\t38\\t\\tHousehold supplies\\nFriday\\t15\\t19\\t\\tTakeaway dinner\\nSaturday\\t30\\t26\\t\\tMarket run\\nSunday\\t20\\t22\\t\\tPharmacy stop', 'button': 'left', 'num_clicks': 1}",
+          "action_template": "With cell {{start_cell}} selected, paste the tab-separated block {{table_data_block}}. The sheet must have enough empty rows and columns for the table, and the pasted content will expand into {{result_range}} with headers and rows populated correctly."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7,
+        8,
+        9
+      ],
+      "unit_intent": "Compute daily spending differences for all seven days.",
+      "unit_type": "FILL_DIFFERENCE_FORMULAS",
+      "unit_before_state": "The table is visible with Planned values in column B, Actual values in column C, and empty Difference cells from D4 to D10.",
+      "unit_after_state": "Column D contains calculated Difference values for Monday through Sunday, with D4:D10 filled by the formula pattern Actual minus Planned.",
+      "unit_precondition": [
+        "The first data row is visible.",
+        "Cells B4 and C4 contain numeric values.",
+        "Cell D4 is empty and available for formula entry.",
+        "Rows 5 through 10 already contain table data."
+      ],
+      "unit_effect": [
+        "Cell D4 shows the result of the formula =C4-B4.",
+        "Dragging the fill handle copies the formula down to D10 so every day has a computed Difference value."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Calculate a difference column by entering the subtraction formula in the first result cell and filling it down through the target range.",
+      "parameters": {
+        "first_result_cell": "cell D4 in the Difference column for Monday",
+        "formula_text": "=C4-B4",
+        "fill_handle_start": "the fill handle at the bottom-right corner of cell D4",
+        "fill_end_position": "the fill handle position at cell D10"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "CLICK",
+          "action_template": "Click {{first_result_cell}} to activate the first result cell for formula entry once the table is visible and the cell is empty; the cell becomes ready for the formula."
+        },
+        {
+          "action": "TYPING",
+          "action_template": "Type {{formula_text}} into the active first result cell when the referenced source cells contain numeric values so the subtraction result is computed in that cell."
+        },
+        {
+          "action": "DRAG_TO",
+          "action_template": "Drag from {{fill_handle_start}} to {{fill_end_position}} after the first formula is correct and the rows below contain data so the formula is copied down through the remaining result cells."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        10,
+        11
+      ],
+      "unit_intent": "Add a summary row that totals the planned, actual, and difference amounts.",
+      "unit_type": "ADD_TOTAL_ROW",
+      "unit_before_state": "The daily table ends at row 10, and row 11 below it is blank.",
+      "unit_after_state": "Row 11 contains a Total label in A11 and sum formulas in B11, C11, and D11 summarizing the weekly values.",
+      "unit_precondition": [
+        "Row 11 is empty and visible below the daily entries.",
+        "The populated data range spans rows 4 through 10.",
+        "Cell A11 can be activated for input."
+      ],
+      "unit_effect": [
+        "Cell A11 becomes the active insertion point for the summary row.",
+        "The sheet displays a Total row with summed Planned, Actual, and Difference values."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Insert a summary row below a populated table that labels the row and computes column totals with formulas.",
+      "parameters": {
+        "target_start_cell": "A11",
+        "summary_label": "Total",
+        "planned_total_formula": "=SUM(B4:B10)",
+        "actual_total_formula": "=SUM(C4:C10)",
+        "difference_total_formula": "=SUM(D4:D10)",
+        "summary_row_content": "Total\t=SUM(B4:B10)\t=SUM(C4:C10)\t=SUM(D4:D10)"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "CLICK",
+          "action_template": "Click {{target_start_cell}} to activate the first cell of the summary row when it is visible and unused, so the summary row can be entered directly below the table."
+        },
+        {
+          "action": "CLICK",
+          "action_template": "With {{target_start_cell}} selected and the data range already populated, paste the tab-separated summary row content {{summary_row_content}} so the row shows {{summary_label}} followed by {{planned_total_formula}}, {{actual_total_formula}}, and {{difference_total_formula}} across the adjacent columns."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        12,
+        13
+      ],
+      "unit_intent": "Format all spending amounts so the numeric values read as money.",
+      "unit_type": "FORMAT_CURRENCY_RANGE",
+      "unit_before_state": "The table and total row are visible, and numeric amounts in B4:D11 are still shown as plain numbers.",
+      "unit_after_state": "The range B4:D11 remains selected and all values in that range are displayed using currency formatting.",
+      "unit_precondition": [
+        "Cells B4 through D11 are visible on screen.",
+        "The numeric area from B4 to D11 is contiguous and populated.",
+        "The Currency format button is available in the toolbar."
+      ],
+      "unit_effect": [
+        "The range B4:D11 becomes highlighted.",
+        "The selected amounts change appearance to currency-formatted values."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Format a specified rectangular range of numeric cells so the values display as currency.",
+      "parameters": {
+        "range_start_cell": "B4",
+        "range_end_cell": "D11"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'cell B4'}, 'end': {'text': 'cell D11'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "Drag from cell {{range_start_cell}} to cell {{range_end_cell}} to select the contiguous numeric range so it can be formatted together as currency."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Currency format button in the toolbar'}}",
+          "action_template": "Click the Currency format button in the toolbar to apply currency formatting to the selected range after it is highlighted."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_07",
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        14,
+        15,
+        16
+      ],
+      "unit_intent": "Add a chart that visually compares planned and actual spending across the week.",
+      "unit_type": "INSERT_COLUMN_CHART",
+      "unit_before_state": "The worksheet shows the completed tracker table, and the chart source data in columns A to C has not yet been selected.",
+      "unit_after_state": "A column chart comparing Planned and Actual spending by day is inserted into the spreadsheet based on the data from A3:C10.",
+      "unit_precondition": [
+        "The table headers and daily rows exist from A3 to C10.",
+        "Cells A3 through C10 are visible and selectable.",
+        "The Insert Chart command is available."
+      ],
+      "unit_effect": [
+        "The source range A3:C10 is highlighted for chart creation.",
+        "The Chart Wizard opens with a preview derived from the selected range.",
+        "After finishing the wizard, an embedded column chart appears on the sheet."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Insert a column chart into the spreadsheet using a specified data range.",
+      "parameters": {
+        "data_range_start": "cell A3",
+        "data_range_end": "cell C10",
+        "selected_data_range": "A3:C10",
+        "chart_insert_button": "the Insert Chart button in the toolbar",
+        "finish_button": "the Finish button in the Chart Wizard"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "DRAG_TO",
+          "action_template": "Drag from {{data_range_start}} to {{data_range_end}} to prepare the chart, so the needed columns are highlighted together. Preconditions: Cells in the range are visible and the header row and data rows are present. After this action, the chart source range {{selected_data_range}} is selected, including headers and data."
+        },
+        {
+          "action": "CLICK",
+          "action_template": "Click {{chart_insert_button}} once the desired chart data is highlighted to open the chart creation dialog. Preconditions: The desired chart data is highlighted and the Insert Chart control is available. After this action, the Chart Wizard opens with a preview based on the selected data range."
+        },
+        {
+          "action": "CLICK",
+          "action_template": "Click {{finish_button}} when the chart preview is ready to insert the finished chart into the sheet. Preconditions: The chart preview is visible and the Finish button is available in the wizard. After this action, a column chart based on the selected data is inserted into the spreadsheet."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

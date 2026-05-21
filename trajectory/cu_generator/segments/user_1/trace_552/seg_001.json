@@ -1,0 +1,689 @@
+{
+  "segment_id": "seg_001",
+  "app": "vs_code",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the Command Palette",
+      "action_before_state": "VS Code is already open on the screen, and the main editor area is visible.",
+      "action_preconditions": [
+        "The VS Code window is focused",
+        "No modal dialog is blocking keyboard input"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "p"
+        ]
+      },
+      "action_after_effects": "The Command Palette opens at the top of the VS Code window with a text input ready for a command.",
+      "nl_explanation": "When VS Code is focused and no dialog is blocking input, press Ctrl+Shift+P to open the Command Palette. The expected result is a searchable command box at the top of the window."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Search for the snippet configuration command",
+      "action_before_state": "The Command Palette is open with the cursor active in the search box.",
+      "action_preconditions": [
+        "The Command Palette input is visible",
+        "The text cursor is inside the Command Palette"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Snippets: Configure Snippets"
+      },
+      "action_after_effects": "The command list is filtered so the snippet configuration command is visible near the top.",
+      "nl_explanation": "With the Command Palette open and the search box active, type `Snippets: Configure Snippets`. The list should narrow to the matching snippet-related command."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Run the snippet configuration command",
+      "action_before_state": "The filtered Command Palette shows the snippet configuration command in the results list.",
+      "action_preconditions": [
+        "The snippet configuration command is visible in the Command Palette results",
+        "The quick-pick list is interactive"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "A quick-pick menu opens showing available snippet targets, including the option to create a new global snippets file.",
+      "nl_explanation": "When the snippet configuration command is selected in the Command Palette, press Enter to run it. VS Code should open the snippet target picker."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Choose to create a new global snippets file",
+      "action_before_state": "The snippet target picker is open inside VS Code.",
+      "action_preconditions": [
+        "The snippet target quick-pick is visible",
+        "The option `New Global Snippets file...` is present in the list"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the `New Global Snippets file...` option in the quick-pick list"
+        }
+      },
+      "action_after_effects": "VS Code opens an input box asking for the new global snippets file name.",
+      "nl_explanation": "When the snippet target picker is visible, click the `New Global Snippets file...` option. The expected result is an input field asking for the snippet file name."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Name the new global snippets file",
+      "action_before_state": "A small input box is visible for naming the new snippets file.",
+      "action_preconditions": [
+        "The filename input box is open",
+        "The text cursor is active inside the input box"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "daily\n"
+      },
+      "action_after_effects": "A new global snippets file named `daily.code-snippets` is created and opened in the editor.",
+      "nl_explanation": "With the filename input active, type `daily` and submit it. VS Code should create and open a new global snippets file for editing."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Select any default content in the new snippets file",
+      "action_before_state": "The new global snippets file is open in the editor, and it may contain starter text or comments.",
+      "action_preconditions": [
+        "The new snippets file tab is active",
+        "The text editor has keyboard focus"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "a"
+        ]
+      },
+      "action_after_effects": "Any existing content in the snippet file is selected, so it can be replaced cleanly.",
+      "nl_explanation": "When the new snippet file is open and focused, press Ctrl+A to select any starter content. This prepares the file for a full replacement with the new snippet definition."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Insert the daily standup snippet definition",
+      "action_before_state": "The snippet editor is focused and any existing content is highlighted.",
+      "action_preconditions": [
+        "The snippet file editor is active",
+        "Existing content, if any, is selected"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "{\n  \"Daily Standup Template\": {\n    \"prefix\": \"standup\",\n    \"body\": [\n      \"# Daily Standup - ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}\",\n      \"\",\n      \"## Yesterday\",\n      \"- \",\n      \"\",\n      \"## Today\",\n      \"- \",\n      \"\",\n      \"## Blockers\",\n      \"- None\"\n    ],\n    \"description\": \"Insert a daily standup note template\"\n  }\n}"
+      },
+      "action_after_effects": "The snippets file now contains a valid global snippet definition for a daily standup note.",
+      "nl_explanation": "With the snippet file focused and ready for replacement, type the full JSON snippet definition. The editor should now show a `standup` snippet that inserts a daily standup template."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Save the new snippets file",
+      "action_before_state": "The snippet definition is visible in the editor and the file has unsaved changes.",
+      "action_preconditions": [
+        "The snippet file is still the active tab",
+        "The file contains the intended snippet JSON"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "s"
+        ]
+      },
+      "action_after_effects": "The snippet file is saved, making the new `standup` snippet available for use.",
+      "nl_explanation": "After confirming the snippet content is in place, press Ctrl+S to save it. The expected behavior is that the file is saved and the snippet becomes available in VS Code."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Open a new untitled file to test the snippet",
+      "action_before_state": "The snippets file remains open in VS Code after being saved.",
+      "action_preconditions": [
+        "VS Code is focused",
+        "No modal dialog is open"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "n"
+        ]
+      },
+      "action_after_effects": "A new untitled editor tab opens and is ready for text input.",
+      "nl_explanation": "When the main VS Code window is active, press Ctrl+N to create a new untitled file. A blank editor tab should open for testing the snippet."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Open the language mode picker",
+      "action_before_state": "A blank untitled file is open, and the lower-right status bar shows its current language mode, usually `Plain Text`.",
+      "action_preconditions": [
+        "The new untitled tab is active",
+        "The status bar is visible at the bottom of the VS Code window"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the current language mode label such as `Plain Text` in the lower-right status bar"
+        }
+      },
+      "action_after_effects": "A language mode quick-pick opens so a new language can be chosen for the untitled file.",
+      "nl_explanation": "When the untitled file is active and the language mode label is visible, click that label in the status bar. VS Code should open the language mode picker."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Switch the untitled file to Markdown mode",
+      "action_before_state": "The language mode picker is open inside VS Code.",
+      "action_preconditions": [
+        "The language mode picker is visible",
+        "Typing will filter the available language options"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Markdown\n"
+      },
+      "action_after_effects": "The untitled file changes to Markdown language mode, enabling Markdown-specific snippets.",
+      "nl_explanation": "With the language mode picker open, type `Markdown` and submit it. The expected result is that the untitled file switches from plain text to Markdown mode."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Enter the snippet prefix in the Markdown file",
+      "action_before_state": "The untitled file is now in Markdown mode and the cursor is inside the editor.",
+      "action_preconditions": [
+        "The untitled editor is focused",
+        "The file language mode is set to Markdown"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "standup"
+      },
+      "action_after_effects": "The snippet prefix appears in the editor, ready to be completed as the matching standup snippet.",
+      "nl_explanation": "When the Markdown editor is active, type `standup`. The prefix should appear in the file so it can be expanded using VS Code's snippet completion."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Open the suggestion list for the standup snippet",
+      "action_before_state": "The text `standup` is visible in the Markdown editor.",
+      "action_preconditions": [
+        "The cursor is at the end of the typed prefix",
+        "The editor is still in Markdown mode"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "space"
+        ]
+      },
+      "action_after_effects": "VS Code shows the suggestion list with the matching `standup` snippet available for insertion.",
+      "nl_explanation": "After typing the snippet prefix, press Ctrl+Space to explicitly open suggestions. This makes the snippet completion available in a consistent way."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Insert the standup snippet",
+      "action_before_state": "The suggestion list is open in the Markdown editor with the matching `standup` snippet visible.",
+      "action_preconditions": [
+        "The suggestion list is visible",
+        "The `standup` snippet is available in the suggestions",
+        "The editor is still in Markdown mode"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The `standup` prefix is replaced by the full daily standup Markdown template with the current date filled in automatically.",
+      "nl_explanation": "When the matching snippet is visible in the suggestion list, press Enter to insert it. The expected behavior is that the prefix expands into the full standup note template."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Open the Markdown preview to verify the template layout",
+      "action_before_state": "The expanded daily standup template is visible in the Markdown editor.",
+      "action_preconditions": [
+        "The Markdown file contains the expanded standup template",
+        "The editor has focus"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "v"
+        ]
+      },
+      "action_after_effects": "VS Code opens the Markdown preview beside or in place of the editor, showing the rendered headings and bullet points.",
+      "nl_explanation": "When the Markdown template is present in the editor, press Ctrl+Shift+V to open the Markdown preview. The result should be a rendered view of the standup note layout for visual confirmation."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Reach the VS Code snippet configuration flow so a reusable global snippet can be created.",
+      "unit_type": "OPEN_SNIPPET_CONFIGURATION",
+      "unit_before_state": "VS Code is open with the normal editor workspace visible, and no overlay is covering the window.",
+      "unit_after_state": "VS Code shows the snippet target quick-pick, where options such as \"New Global Snippets file...\" are available.",
+      "unit_precondition": [
+        "The VS Code window is focused.",
+        "No modal dialog or blocked input state is preventing keyboard commands."
+      ],
+      "unit_effect": [
+        "The Command Palette appears at the top of the window.",
+        "The command search is filtered to \"Snippets: Configure Snippets\".",
+        "Running the command opens the snippet target picker."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Create a new global snippets file dedicated to the daily standup template.",
+      "unit_type": "CREATE_GLOBAL_SNIPPETS_FILE",
+      "unit_before_state": "The snippet target picker is open in VS Code and includes the \"New Global Snippets file...\" option.",
+      "unit_after_state": "A new editor tab named \"daily.code-snippets\" is open and ready to be edited.",
+      "unit_precondition": [
+        "The snippet target picker is visible.",
+        "The \"New Global Snippets file...\" option can be selected."
+      ],
+      "unit_effect": [
+        "Selecting the target opens a filename input box.",
+        "Submitting the name \"daily\" creates and opens \"daily.code-snippets\"."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7
+      ],
+      "unit_intent": "Populate the new global snippets file with the reusable standup snippet definition.",
+      "unit_type": "REPLACE_CONTENT",
+      "unit_before_state": "The \"daily.code-snippets\" file is open in the editor and may contain default starter content or comments.",
+      "unit_after_state": "The editor shows a JSON snippet definition named \"Daily Standup Template\" with prefix \"standup\" and the Markdown body for yesterday, today, and blockers.",
+      "unit_precondition": [
+        "The \"daily.code-snippets\" tab is active.",
+        "The text editor has focus so existing content can be selected and replaced."
+      ],
+      "unit_effect": [
+        "Any existing file content becomes selected.",
+        "The selection is replaced by the full standup snippet JSON."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8
+      ],
+      "unit_intent": "Persist the new global snippet so it becomes available for use.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The \"daily.code-snippets\" editor contains the standup snippet definition and has unsaved changes.",
+      "unit_after_state": "The \"daily.code-snippets\" file is saved in VS Code, with the standup snippet available to the editor.",
+      "unit_precondition": [
+        "The snippet file remains the active tab.",
+        "The intended snippet JSON is already present in the editor."
+      ],
+      "unit_effect": [
+        "The save command is executed on the snippet file.",
+        "The unsaved state is cleared and the snippet definition is stored."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        9,
+        10,
+        11
+      ],
+      "unit_intent": "Prepare a Markdown test document where the new snippet can be expanded.",
+      "unit_type": "PREPARE_MARKDOWN_TEST_FILE",
+      "unit_before_state": "The saved \"daily.code-snippets\" file is open in VS Code.",
+      "unit_after_state": "A new untitled editor tab is open in Markdown mode with the cursor ready for typing.",
+      "unit_precondition": [
+        "VS Code is focused and no modal dialog is open.",
+        "The main editor and status bar are visible."
+      ],
+      "unit_effect": [
+        "A blank untitled file is created.",
+        "The language mode picker opens from the status bar.",
+        "Choosing Markdown changes the untitled file from Plain Text to Markdown."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        12,
+        13,
+        14
+      ],
+      "unit_intent": "Verify that the new standup snippet expands correctly inside a Markdown file.",
+      "unit_type": "INSERT_SNIPPET",
+      "unit_before_state": "The untitled Markdown file is active and empty, with the text cursor inside the editor.",
+      "unit_after_state": "The typed prefix is replaced by the full daily standup Markdown template, including the date-filled heading and the Yesterday, Today, and Blockers sections.",
+      "unit_precondition": [
+        "The untitled test file is in Markdown mode.",
+        "The editor is focused and able to show snippet suggestions."
+      ],
+      "unit_effect": [
+        "The text \"standup\" appears in the editor.",
+        "The suggestion list opens with the matching standup snippet.",
+        "Pressing Enter inserts the full snippet content."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        15
+      ],
+      "unit_intent": "Open the rendered Markdown view to confirm the standup note layout visually.",
+      "unit_type": "OPEN_MARKDOWN_PREVIEW",
+      "unit_before_state": "The untitled Markdown editor shows the expanded daily standup template.",
+      "unit_after_state": "VS Code displays the Markdown preview beside or in place of the editor, rendering the heading and bullet list structure of the standup note.",
+      "unit_precondition": [
+        "The expanded standup template is present in the active Markdown editor.",
+        "The editor has keyboard focus so the preview shortcut can run."
+      ],
+      "unit_effect": [
+        "The Markdown preview pane opens.",
+        "The note appears rendered with headings and bullet points for visual verification."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Reach the VS Code snippet configuration flow so a reusable global snippet can be created.",
+      "unit_type": "OPEN_SNIPPET_CONFIGURATION",
+      "unit_before_state": "VS Code is open with the normal editor workspace visible, and no overlay is covering the window.",
+      "unit_after_state": "VS Code shows the snippet target quick-pick, where options such as \"New Global Snippets file...\" are available.",
+      "unit_precondition": [
+        "The VS Code window is focused.",
+        "No modal dialog or blocked input state is preventing keyboard commands."
+      ],
+      "unit_effect": [
+        "The Command Palette appears at the top of the window.",
+        "The command search is filtered to \"Snippets: Configure Snippets\".",
+        "Running the command opens the snippet target picker."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open the snippet configuration picker so a snippet target can be selected or created.",
+      "parameters": {
+        "command_name": "Snippets: Configure Snippets"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'p']}",
+          "action_template": "When VS Code is focused and no dialog is blocking input, press Ctrl+Shift+P to open the Command Palette. Preconditions: the VS Code window is focused and no modal dialog is blocking keyboard input. After this action, the Command Palette opens at the top of the VS Code window with a text input ready for a command."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Snippets: Configure Snippets'}",
+          "action_template": "With the Command Palette open and the search box active, type {{command_name}} to search for the snippet configuration command. Preconditions: the Command Palette input is visible and the text cursor is inside the Command Palette. After this action, the command list is filtered so the matching snippet configuration command is visible near the top."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "When the snippet configuration command is visible and selected in the Command Palette results, press Enter to run it. Preconditions: the snippet configuration command is visible in the Command Palette results and the quick-pick list is interactive. After this action, a quick-pick menu opens showing available snippet targets, including the option to create a new global snippets file."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Create a new global snippets file dedicated to the daily standup template.",
+      "unit_type": "CREATE_GLOBAL_SNIPPETS_FILE",
+      "unit_before_state": "The snippet target picker is open in VS Code and includes the \"New Global Snippets file...\" option.",
+      "unit_after_state": "A new editor tab named \"daily.code-snippets\" is open and ready to be edited.",
+      "unit_precondition": [
+        "The snippet target picker is visible.",
+        "The \"New Global Snippets file...\" option can be selected."
+      ],
+      "unit_effect": [
+        "Selecting the target opens a filename input box.",
+        "Submitting the name \"daily\" creates and opens \"daily.code-snippets\"."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create and open a new global snippets file with a specified name.",
+      "parameters": {
+        "snippet_file_name": "daily",
+        "created_file_name": "daily.code-snippets"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the `New Global Snippets file...` option in the quick-pick list'}}",
+          "action_template": "When the snippet target quick-pick is visible and the option `New Global Snippets file...` is present in the list, click the `New Global Snippets file...` option in the quick-pick list to open an input box asking for the new global snippets file name."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'daily\\n'}",
+          "action_template": "With the filename input box open and the text cursor active inside it, type `{{snippet_file_name}}` and submit it to create and open the new global snippets file `{{created_file_name}}` for editing."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7
+      ],
+      "unit_intent": "Populate the new global snippets file with the reusable standup snippet definition.",
+      "unit_type": "REPLACE_CONTENT",
+      "unit_before_state": "The \"daily.code-snippets\" file is open in the editor and may contain default starter content or comments.",
+      "unit_after_state": "The editor shows a JSON snippet definition named \"Daily Standup Template\" with prefix \"standup\" and the Markdown body for yesterday, today, and blockers.",
+      "unit_precondition": [
+        "The \"daily.code-snippets\" tab is active.",
+        "The text editor has focus so existing content can be selected and replaced."
+      ],
+      "unit_effect": [
+        "Any existing file content becomes selected.",
+        "The selection is replaced by the full standup snippet JSON."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Replace the contents of an open VS Code snippets file with a specified reusable snippet definition.",
+      "parameters": {
+        "snippets_file_name": "daily.code-snippets",
+        "snippet_definition_name": "Daily Standup Template",
+        "snippet_prefix": "standup",
+        "snippet_definition_json": "{\n  \"Daily Standup Template\": {\n    \"prefix\": \"standup\",\n    \"body\": [\n      \"# Daily Standup - ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}\",\n      \"\",\n      \"## Yesterday\",\n      \"- \",\n      \"\",\n      \"## Today\",\n      \"- \",\n      \"\",\n      \"## Blockers\",\n      \"- None\"\n    ],\n    \"description\": \"Insert a daily standup note template\"\n  }\n}"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'a']}",
+          "action_template": "When {{snippets_file_name}} is open in the editor and has keyboard focus, press Ctrl+A to select any existing starter content so the file can be replaced cleanly."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '{\\n  \"Daily Standup Template\": {\\n    \"prefix\": \"standup\",\\n    \"body\": [\\n      \"# Daily Standup - ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}\",\\n      \"\",\\n      \"## Yesterday\",\\n      \"- \",\\n      \"\",\\n      \"## Today\",\\n      \"- \",\\n      \"\",\\n      \"## Blockers\",\\n      \"- None\"\\n    ],\\n    \"description\": \"Insert a daily standup note template\"\\n  }\\n}'}",
+          "action_template": "With {{snippets_file_name}} focused and any existing content selected, type {{snippet_definition_json}} to replace the selection with the snippet definition {{snippet_definition_name}} using prefix {{snippet_prefix}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8
+      ],
+      "unit_intent": "Persist the new global snippet so it becomes available for use.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The \"daily.code-snippets\" editor contains the standup snippet definition and has unsaved changes.",
+      "unit_after_state": "The \"daily.code-snippets\" file is saved in VS Code, with the standup snippet available to the editor.",
+      "unit_precondition": [
+        "The snippet file remains the active tab.",
+        "The intended snippet JSON is already present in the editor."
+      ],
+      "unit_effect": [
+        "The save command is executed on the snippet file.",
+        "The unsaved state is cleared and the snippet definition is stored."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the active snippet definition file so the new snippet becomes available in VS Code.",
+      "parameters": {
+        "target_file": "daily.code-snippets",
+        "snippet_name": "standup"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 's']}",
+          "action_template": "After confirming the {{snippet_name}} snippet content is in place and {{target_file}} is still the active tab, press Ctrl+S to save it. The expected behavior is that the file is saved and the new snippet becomes available in VS Code."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        9,
+        10,
+        11
+      ],
+      "unit_intent": "Prepare a Markdown test document where the new snippet can be expanded.",
+      "unit_type": "PREPARE_MARKDOWN_TEST_FILE",
+      "unit_before_state": "The saved \"daily.code-snippets\" file is open in VS Code.",
+      "unit_after_state": "A new untitled editor tab is open in Markdown mode with the cursor ready for typing.",
+      "unit_precondition": [
+        "VS Code is focused and no modal dialog is open.",
+        "The main editor and status bar are visible."
+      ],
+      "unit_effect": [
+        "A blank untitled file is created.",
+        "The language mode picker opens from the status bar.",
+        "Choosing Markdown changes the untitled file from Plain Text to Markdown."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Prepare a new untitled test document in a specified language mode so language-specific snippet expansion can be tested.",
+      "parameters": {
+        "target_language_mode": "Markdown"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'n']}",
+          "action_template": "When VS Code is focused and no modal dialog is open, press Ctrl+N to create a new untitled file. A blank editor tab opens and is ready for testing snippet expansion."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the current language mode label such as `Plain Text` in the lower-right status bar'}}",
+          "action_template": "With the new untitled tab active and the status bar visible, click the current language mode label in the lower-right status bar to open the language mode picker."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Markdown\\n'}",
+          "action_template": "With the language mode picker open, type {{target_language_mode}} and submit it so the untitled file switches to {{target_language_mode}} language mode."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        12,
+        13,
+        14
+      ],
+      "unit_intent": "Verify that the new standup snippet expands correctly inside a Markdown file.",
+      "unit_type": "INSERT_SNIPPET",
+      "unit_before_state": "The untitled Markdown file is active and empty, with the text cursor inside the editor.",
+      "unit_after_state": "The typed prefix is replaced by the full daily standup Markdown template, including the date-filled heading and the Yesterday, Today, and Blockers sections.",
+      "unit_precondition": [
+        "The untitled test file is in Markdown mode.",
+        "The editor is focused and able to show snippet suggestions."
+      ],
+      "unit_effect": [
+        "The text \"standup\" appears in the editor.",
+        "The suggestion list opens with the matching standup snippet.",
+        "Pressing Enter inserts the full snippet content."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Expand a specified snippet prefix into its full template content within an editor using the suggestion list.",
+      "parameters": {
+        "snippet_prefix": "standup",
+        "editor_language_mode": "Markdown",
+        "snippet_label": "standup",
+        "expanded_snippet_content": "the full daily standup Markdown template with the current date filled in automatically"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'standup'}",
+          "action_template": "When the editor is active in {{editor_language_mode}} mode, type {{snippet_prefix}}. The prefix should appear in the file so it can be expanded using the matching snippet completion, provided the editor is focused and the file language mode is set to {{editor_language_mode}}. This enters the snippet prefix and leaves it ready to be completed as the matching {{snippet_label}} snippet."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'space']}",
+          "action_template": "After typing {{snippet_prefix}}, press Ctrl+Space to explicitly open suggestions while the cursor is at the end of the typed prefix and the editor is still in {{editor_language_mode}} mode. This consistently opens the suggestion list with the matching {{snippet_label}} snippet available for insertion."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "When the suggestion list is visible and {{snippet_label}} is available in the suggestions, press Enter while the editor remains in {{editor_language_mode}} mode. This replaces {{snippet_prefix}} with {{expanded_snippet_content}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_07",
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        15
+      ],
+      "unit_intent": "Open the rendered Markdown view to confirm the standup note layout visually.",
+      "unit_type": "OPEN_MARKDOWN_PREVIEW",
+      "unit_before_state": "The untitled Markdown editor shows the expanded daily standup template.",
+      "unit_after_state": "VS Code displays the Markdown preview beside or in place of the editor, rendering the heading and bullet list structure of the standup note.",
+      "unit_precondition": [
+        "The expanded standup template is present in the active Markdown editor.",
+        "The editor has keyboard focus so the preview shortcut can run."
+      ],
+      "unit_effect": [
+        "The Markdown preview pane opens.",
+        "The note appears rendered with headings and bullet points for visual verification."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open the rendered Markdown preview to visually verify the layout of the current Markdown content.",
+      "parameters": {
+        "markdown_content": "expanded daily standup template",
+        "target_note_layout": "standup note layout"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'v']}",
+          "action_template": "When {{markdown_content}} is present in the editor, press Ctrl+Shift+V to open the Markdown preview. The result should be a rendered view of the {{target_note_layout}} for visual confirmation."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

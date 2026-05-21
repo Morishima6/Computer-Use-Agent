@@ -1,0 +1,937 @@
+{
+  "segment_id": "seg_001",
+  "app": "libreoffice_calc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Enter sheet rename mode",
+      "action_before_state": "LibreOffice Calc is already open, and the current sheet tab such as Sheet1 is visible at the bottom.",
+      "action_preconditions": [
+        "A Calc workbook is open and focused",
+        "The current sheet tab is visible at the bottom of the window"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 2,
+        "target": {
+          "text": "the current sheet tab at the bottom, such as Sheet1"
+        }
+      },
+      "action_after_effects": "The sheet tab name becomes editable so a new sheet name can be entered.",
+      "nl_explanation": "When the workbook is open and the current sheet tab is visible, double-click that tab to switch it into rename mode so the new sheet name can be typed."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Type the new sheet name",
+      "action_before_state": "The current sheet tab is in rename mode with its existing name selected or editable.",
+      "action_preconditions": [
+        "The sheet tab is editable",
+        "Keyboard input will go to the sheet name field"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Weekly Budget"
+      },
+      "action_after_effects": "The new sheet name is entered into the tab rename field.",
+      "nl_explanation": "With the sheet tab already editable, type Weekly Budget so the current sheet is renamed to the requested name."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Confirm the new sheet name",
+      "action_before_state": "The text Weekly Budget is visible in the sheet tab rename field.",
+      "action_preconditions": [
+        "The rename text has been entered",
+        "The sheet tab is still awaiting confirmation"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The sheet is renamed to Weekly Budget and normal sheet editing resumes.",
+      "nl_explanation": "After typing the new tab name, press Enter to confirm the rename and return to the spreadsheet grid."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Select the title range",
+      "action_before_state": "The Weekly Budget sheet is active and the worksheet grid is visible.",
+      "action_preconditions": [
+        "The sheet has been renamed successfully",
+        "Cells A1 through E1 are visible on screen"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell A1 near the top-left of the grid"
+        },
+        "end": {
+          "text": "cell E1 in the first row"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "Cells A1:E1 are selected as one horizontal range for the title.",
+      "nl_explanation": "Once the renamed sheet is active and the top-left cells are visible, drag from A1 to E1 to select the full title area."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Merge the title cells",
+      "action_before_state": "Cells A1:E1 are highlighted in the first row.",
+      "action_preconditions": [
+        "The range A1:E1 is selected",
+        "The merge cells control is visible on the toolbar"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Merge and Center Cells button on the toolbar"
+        }
+      },
+      "action_after_effects": "The selected cells are merged into one centered title cell.",
+      "nl_explanation": "With A1:E1 selected, click the Merge and Center Cells button so the title will span the full width of the table."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Enter the worksheet title",
+      "action_before_state": "The merged cell across A1:E1 is active and ready for text input.",
+      "action_preconditions": [
+        "A1:E1 has been merged",
+        "The merged title cell is still selected"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Weekly Household Budget"
+      },
+      "action_after_effects": "The title Weekly Household Budget appears in the merged top cell.",
+      "nl_explanation": "After merging the top row cells, type Weekly Household Budget so the sheet has a clear centered heading."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Move to the start of the table area",
+      "action_before_state": "The merged title cell contains the title text, and the main worksheet grid is visible below it.",
+      "action_preconditions": [
+        "The title has been entered",
+        "Cell A3 is visible on the sheet"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell A3"
+        }
+      },
+      "action_after_effects": "Cell A3 becomes the active cell for entering the table block.",
+      "nl_explanation": "With the title finished and the table area visible, click cell A3 to place the cursor where the budget table should begin."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Enter the headers and base budget data",
+      "action_before_state": "Cell A3 is active and ready to receive data.",
+      "action_preconditions": [
+        "Cell A3 is selected",
+        "The spreadsheet is ready for multi-cell text entry"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Category\tPlanned\tActual\tDifference\tStatus\nGroceries\t120\t135\t\tOver\nTransport\t60\t48\t\tUnder\nDining\t90\t110\t\tOver\nUtilities\t75\t72\t\tUnder\nMiscellaneous\t50\t40\t\tUnder\nTotal\t\t\t\t"
+      },
+      "action_after_effects": "The table headers, five category rows, and the Total label row are filled into A3:E9.",
+      "nl_explanation": "After selecting A3, type the tab-separated and line-separated table data so Calc fills the headers and budget rows into the correct cells."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Select the first difference cell",
+      "action_before_state": "The budget table is visible in A3:E9, with the Difference column currently blank.",
+      "action_preconditions": [
+        "The table data has been entered",
+        "Cell D4 is visible and empty"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell D4 in the first Difference row"
+        }
+      },
+      "action_after_effects": "Cell D4 becomes active for entering the difference formulas.",
+      "nl_explanation": "Once the main table is present and the Difference column is empty, click D4 so the formulas can be filled down from the first category row."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Fill the difference formulas",
+      "action_before_state": "Cell D4 is active and the next five rows in the Difference column are empty.",
+      "action_preconditions": [
+        "D4 is selected",
+        "Cells D4 through D8 are available for formulas"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "=C4-B4\n=C5-B5\n=C6-B6\n=C7-B7\n=C8-B8"
+      },
+      "action_after_effects": "The Difference column is populated with calculated values for all five categories.",
+      "nl_explanation": "With D4 active and the remaining Difference cells empty, type the line-separated formulas so each category row calculates Actual minus Planned."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Select the total row formula area",
+      "action_before_state": "The category difference values are now visible, and the Total row still has blank numeric cells.",
+      "action_preconditions": [
+        "The difference formulas have been entered",
+        "Cell B9 is visible and empty"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell B9 on the Total row"
+        }
+      },
+      "action_after_effects": "Cell B9 becomes active for entering the totals across the row.",
+      "nl_explanation": "After the Difference column is calculated, click B9 so the totals for Planned, Actual, and Difference can be added to the final row."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Enter formulas for the total row",
+      "action_before_state": "Cell B9 is selected and the Total row numeric cells are blank.",
+      "action_preconditions": [
+        "B9 is active",
+        "Cells B9 through D9 are empty and ready for formulas"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "=SUM(B4:B8)\t=SUM(C4:C8)\t=SUM(D4:D8)"
+      },
+      "action_after_effects": "The Planned, Actual, and Difference totals appear in B9, C9, and D9.",
+      "nl_explanation": "When B9 is selected and the Total row is empty, type the tab-separated sum formulas so the row totals are filled across the three numeric columns."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Select the monetary values",
+      "action_before_state": "The budget table now includes category values, calculated differences, and totals.",
+      "action_preconditions": [
+        "The numeric cells from B4 to D9 are visible",
+        "The values in those cells should be formatted as currency"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell B4 at the top-left of the numeric block"
+        },
+        "end": {
+          "text": "cell D9 at the bottom-right of the numeric block"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "The entire numeric budget range B4:D9 is selected.",
+      "nl_explanation": "With all numeric results present, drag from B4 to D9 to highlight every money value that needs currency formatting."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Apply currency formatting",
+      "action_before_state": "Cells B4:D9 are selected as one numeric block.",
+      "action_preconditions": [
+        "The numeric range B4:D9 is selected",
+        "The currency formatting button is available on the toolbar"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Currency format button on the toolbar"
+        }
+      },
+      "action_after_effects": "The selected values are displayed as currency amounts.",
+      "nl_explanation": "After selecting all of the planned, actual, difference, and total numbers, click the Currency format button so the monetary values display properly."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Select the header row",
+      "action_before_state": "The table is formatted, and the header row at A3:E3 is visible above the data rows.",
+      "action_preconditions": [
+        "The header row A3:E3 is visible",
+        "The user wants the header row emphasized"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell A3 at the start of the header row"
+        },
+        "end": {
+          "text": "cell E3 at the end of the header row"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "The full header row A3:E3 is selected.",
+      "nl_explanation": "Once the table is filled and formatted, drag across A3:E3 so the entire header row can be emphasized together."
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Make the header row bold",
+      "action_before_state": "Cells A3:E3 are highlighted in the header row.",
+      "action_preconditions": [
+        "The header row is selected",
+        "The Bold control is visible on the toolbar"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Bold button on the formatting toolbar"
+        }
+      },
+      "action_after_effects": "The header labels become bold and stand out from the data rows.",
+      "nl_explanation": "With the header row selected, click Bold so the column labels are visually distinct from the budget entries underneath."
+    },
+    {
+      "step_id": "s17",
+      "step_goal": "Select the chart source data",
+      "action_before_state": "The finished budget table is visible, including the header row and the five category rows.",
+      "action_preconditions": [
+        "Cells A3:C8 are visible",
+        "The user wants a comparison chart for Planned versus Actual values by category"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell A3 including the Category header"
+        },
+        "end": {
+          "text": "cell C8 covering the Actual column for the last category"
+        },
+        "target": {
+          "begin": {
+            "text": "cell A3 at the top-left of the chart data range"
+          },
+          "end": {
+            "text": "cell C8 at the bottom-right of the chart data range"
+          }
+        }
+      },
+      "action_after_effects": "The labels and two spending columns needed for the chart are selected.",
+      "nl_explanation": "After the table is complete, drag from A3 to C8 to select the category names along with the Planned and Actual values that will feed the chart."
+    },
+    {
+      "step_id": "s18",
+      "step_goal": "Start chart insertion",
+      "action_before_state": "The range A3:C8 is selected and ready to be used as chart data.",
+      "action_preconditions": [
+        "The chart source range A3:C8 is selected",
+        "The Insert Chart control is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Insert Chart button on the toolbar"
+        }
+      },
+      "action_after_effects": "The Chart Wizard opens with a default column chart preview based on the selected data.",
+      "nl_explanation": "With the chart data highlighted, click the Insert Chart button so Calc opens the chart wizard using the selected budget data."
+    },
+    {
+      "step_id": "s19",
+      "step_goal": "Accept the default column chart",
+      "action_before_state": "The Chart Wizard is open and shows a default column chart preview.",
+      "action_preconditions": [
+        "The Chart Wizard is open",
+        "The Finish button is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Finish button in the Chart Wizard"
+        }
+      },
+      "action_after_effects": "A column chart comparing Planned and Actual spending is inserted onto the sheet.",
+      "nl_explanation": "When the Chart Wizard preview is visible and the default column chart is acceptable, click Finish to place the chart on the worksheet."
+    },
+    {
+      "step_id": "s20",
+      "step_goal": "Move the chart below the table",
+      "action_before_state": "The new chart is visible on the worksheet, usually overlapping part of the grid near the table.",
+      "action_preconditions": [
+        "The chart has been inserted",
+        "There is open space below the table, around the area under row 12"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the center of the inserted chart object"
+        },
+        "end": {
+          "text": "an empty area below the table, roughly starting around row 12"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "The chart is repositioned below the budget table so the summary remains easy to read.",
+      "nl_explanation": "After the chart appears on the sheet, drag it into the blank space below the table so both the data and the chart are clearly visible without overlap."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Rename the current worksheet to Weekly Budget so the workbook reflects the new budgeting purpose.",
+      "unit_type": "RENAME_SHEET",
+      "unit_before_state": "LibreOffice Calc is open on a workbook with the current sheet tab visible at the bottom, showing its original name such as Sheet1.",
+      "unit_after_state": "The sheet tab now shows the name Weekly Budget, and the spreadsheet grid is back in normal editing mode.",
+      "unit_precondition": [
+        "A LibreOffice Calc workbook is open and focused.",
+        "The active sheet tab is visible at the bottom of the window and can be renamed."
+      ],
+      "unit_effect": [
+        "The sheet tab enters inline rename mode, accepts the text Weekly Budget, and then exits rename mode after Enter.",
+        "The visible tab label changes to Weekly Budget."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Create a centered worksheet title spanning the table width at the top of the sheet.",
+      "unit_type": "CREATE_MERGED_TITLE",
+      "unit_before_state": "The Weekly Budget sheet is active, the worksheet grid is visible, and cells A1 through E1 are empty and available for a title.",
+      "unit_after_state": "Cells A1:E1 are merged into one centered title cell containing the text Weekly Household Budget.",
+      "unit_precondition": [
+        "The worksheet has already been renamed to Weekly Budget.",
+        "Cells A1 through E1 are visible and available for selection.",
+        "The Merge and Center Cells control is available on the toolbar."
+      ],
+      "unit_effect": [
+        "The range A1:E1 becomes a single merged cell.",
+        "The text Weekly Household Budget is visible across the top of the sheet in the merged title area."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Populate the main weekly budget table with headers, category rows, and a total row scaffold.",
+      "unit_type": "ENTER_TABLE_DATA",
+      "unit_before_state": "The merged title remains at the top of the sheet, and the area starting at A3 is empty and ready for table entry.",
+      "unit_after_state": "The range A3:E9 contains the budget table with headers in row 3, five spending categories in rows 4 through 8, status values in column E, and a Total label in A9.",
+      "unit_precondition": [
+        "The title has already been entered in the merged A1:E1 cell.",
+        "Cell A3 is visible and can be activated.",
+        "Calc is ready to accept tab-separated and line-separated multi-cell input."
+      ],
+      "unit_effect": [
+        "Cell A3 becomes active for data entry.",
+        "Headers Category, Planned, Actual, Difference, and Status appear in row 3.",
+        "Rows for Groceries, Transport, Dining, Utilities, Miscellaneous, and Total are visible in the sheet."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Calculate per-category spending differences so each row shows actual minus planned spending.",
+      "unit_type": "CALCULATE_DIFFERENCES",
+      "unit_before_state": "The budget table is visible in A3:E9, and the Difference cells D4 through D8 are blank.",
+      "unit_after_state": "Cells D4 through D8 display calculated difference values for the five spending categories.",
+      "unit_precondition": [
+        "The table data in A3:E9 has already been entered.",
+        "Cell D4 is visible and empty.",
+        "Cells D4 through D8 are available for formula entry."
+      ],
+      "unit_effect": [
+        "D4 becomes the active cell.",
+        "Formulas are entered down the Difference column from D4 to D8.",
+        "Numeric results appear in D4:D8 instead of blank cells."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        11,
+        12
+      ],
+      "unit_intent": "Compute total planned, actual, and difference amounts for the whole weekly budget.",
+      "unit_type": "CALCULATE_TOTALS",
+      "unit_before_state": "The category rows are filled, D4:D8 already show difference results, and the total row numeric cells B9:D9 are still blank.",
+      "unit_after_state": "The Total row shows summed values in B9 for Planned, C9 for Actual, and D9 for Difference.",
+      "unit_precondition": [
+        "Difference formulas for the category rows have already been entered.",
+        "Cell B9 is visible and empty.",
+        "Cells B9 through D9 are available for formula entry."
+      ],
+      "unit_effect": [
+        "B9 becomes active for total-row entry.",
+        "SUM formulas populate B9, C9, and D9.",
+        "The Total row displays aggregate numeric values across the budget columns."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        13,
+        14
+      ],
+      "unit_intent": "Format all budget amounts as currency so the money values display consistently.",
+      "unit_type": "FORMAT_CURRENCY_RANGE",
+      "unit_before_state": "The completed budget table shows numeric values in B4:D9, but those cells are not yet formatted as currency.",
+      "unit_after_state": "Cells B4:D9 remain selected and their values are displayed using currency formatting.",
+      "unit_precondition": [
+        "The numeric budget values and totals are already present in B4:D9.",
+        "Cells B4 through D9 are visible on screen.",
+        "The Currency format control is available on the toolbar."
+      ],
+      "unit_effect": [
+        "The numeric block B4:D9 is selected.",
+        "Currency symbols and currency-style number formatting appear on the planned, actual, difference, and total values."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        15,
+        16
+      ],
+      "unit_intent": "Emphasize the table header row so the column labels stand out from the data.",
+      "unit_type": "BOLD_HEADER_ROW",
+      "unit_before_state": "The budget table is visible with headers in A3:E3, and the header text is not yet emphasized.",
+      "unit_after_state": "The header row A3:E3 is bold, making the column labels visually distinct from the rows below.",
+      "unit_precondition": [
+        "The table header row A3:E3 is visible.",
+        "The Bold formatting control is available on the toolbar.",
+        "The user can select the full header row across columns A through E."
+      ],
+      "unit_effect": [
+        "The range A3:E3 becomes selected.",
+        "The header labels Category, Planned, Actual, Difference, and Status appear in bold text."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_08",
+      "step_indices": [
+        17,
+        18,
+        19,
+        20
+      ],
+      "unit_intent": "Insert a column chart comparing planned and actual spending by category and place it below the table.",
+      "unit_type": "INSERT_AND_POSITION_COLUMN_CHART",
+      "unit_before_state": "The finished budget table is visible, including headers and category rows, and the area below the table is open for placing a chart.",
+      "unit_after_state": "A column chart comparing Planned versus Actual for the five categories is inserted on the sheet and repositioned below the table so it no longer overlaps the main data area.",
+      "unit_precondition": [
+        "The chart source range A3:C8 is visible and contains the category labels plus Planned and Actual values.",
+        "The Insert Chart control is available.",
+        "There is enough blank worksheet space below the table to place the chart."
+      ],
+      "unit_effect": [
+        "The range A3:C8 is selected as the chart source.",
+        "The Chart Wizard opens with a default column chart preview based on the selected data.",
+        "After Finish is clicked, a column chart appears on the worksheet.",
+        "The chart object is visibly moved into the blank area below the table."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Rename the current worksheet to Weekly Budget so the workbook reflects the new budgeting purpose.",
+      "unit_type": "RENAME_SHEET",
+      "unit_before_state": "LibreOffice Calc is open on a workbook with the current sheet tab visible at the bottom, showing its original name such as Sheet1.",
+      "unit_after_state": "The sheet tab now shows the name Weekly Budget, and the spreadsheet grid is back in normal editing mode.",
+      "unit_precondition": [
+        "A LibreOffice Calc workbook is open and focused.",
+        "The active sheet tab is visible at the bottom of the window and can be renamed."
+      ],
+      "unit_effect": [
+        "The sheet tab enters inline rename mode, accepts the text Weekly Budget, and then exits rename mode after Enter.",
+        "The visible tab label changes to Weekly Budget."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Rename the active worksheet to a specified sheet name.",
+      "parameters": {
+        "target_sheet_tab": "the current sheet tab at the bottom, such as Sheet1",
+        "new_sheet_name": "Weekly Budget"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 2, 'target': {'text': 'the current sheet tab at the bottom, such as Sheet1'}}",
+          "action_template": "When a Calc workbook is open and focused and {{target_sheet_tab}} is visible at the bottom of the window, double-click {{target_sheet_tab}} to switch it into rename mode so the new sheet name can be typed. Afterward, the sheet tab name becomes editable so {{new_sheet_name}} can be entered."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Weekly Budget'}",
+          "action_template": "With the sheet tab editable and keyboard input going to the sheet name field, type {{new_sheet_name}} into the tab rename field so the current sheet is renamed to the requested name. Afterward, the new sheet name is entered into the tab rename field."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After {{new_sheet_name}} has been entered and the sheet tab is still awaiting confirmation, press Enter to confirm the rename and return to the spreadsheet grid. Afterward, the sheet is renamed to {{new_sheet_name}} and normal sheet editing resumes."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Create a centered worksheet title spanning the table width at the top of the sheet.",
+      "unit_type": "CREATE_MERGED_TITLE",
+      "unit_before_state": "The Weekly Budget sheet is active, the worksheet grid is visible, and cells A1 through E1 are empty and available for a title.",
+      "unit_after_state": "Cells A1:E1 are merged into one centered title cell containing the text Weekly Household Budget.",
+      "unit_precondition": [
+        "The worksheet has already been renamed to Weekly Budget.",
+        "Cells A1 through E1 are visible and available for selection.",
+        "The Merge and Center Cells control is available on the toolbar."
+      ],
+      "unit_effect": [
+        "The range A1:E1 becomes a single merged cell.",
+        "The text Weekly Household Budget is visible across the top of the sheet in the merged title area."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a centered worksheet title by merging a specified header-cell range and entering the desired title text.",
+      "parameters": {
+        "range_start_cell": "A1",
+        "range_end_cell": "E1",
+        "target_range": "A1:E1",
+        "title_text": "Weekly Household Budget"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "DRAG_TO",
+          "action_template": "Once the relevant header cells are visible, drag from {{range_start_cell}} to {{range_end_cell}} to select {{target_range}} as the full title area."
+        },
+        {
+          "action": "CLICK",
+          "action_template": "With {{target_range}} selected and the Merge and Center Cells control visible on the toolbar, click the Merge and Center Cells button to merge the selected cells into one centered title cell."
+        },
+        {
+          "action": "TYPING",
+          "action_template": "After {{target_range}} has been merged and the merged title cell is still selected, type {{title_text}} so the title appears in the centered top cell."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Populate the main weekly budget table with headers, category rows, and a total row scaffold.",
+      "unit_type": "ENTER_TABLE_DATA",
+      "unit_before_state": "The merged title remains at the top of the sheet, and the area starting at A3 is empty and ready for table entry.",
+      "unit_after_state": "The range A3:E9 contains the budget table with headers in row 3, five spending categories in rows 4 through 8, status values in column E, and a Total label in A9.",
+      "unit_precondition": [
+        "The title has already been entered in the merged A1:E1 cell.",
+        "Cell A3 is visible and can be activated.",
+        "Calc is ready to accept tab-separated and line-separated multi-cell input."
+      ],
+      "unit_effect": [
+        "Cell A3 becomes active for data entry.",
+        "Headers Category, Planned, Actual, Difference, and Status appear in row 3.",
+        "Rows for Groceries, Transport, Dining, Utilities, Miscellaneous, and Total are visible in the sheet."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Populate a spreadsheet table scaffold by selecting a specified starting cell and entering a structured multi-row, multi-column data block.",
+      "parameters": {
+        "target_start_cell": "cell A3",
+        "table_block_text": "Category\tPlanned\tActual\tDifference\tStatus\nGroceries\t120\t135\t\tOver\nTransport\t60\t48\t\tUnder\nDining\t90\t110\t\tOver\nUtilities\t75\t72\t\tUnder\nMiscellaneous\t50\t40\t\tUnder\nTotal\t\t\t\t",
+        "target_range": "A3:E9"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell A3'}}",
+          "action_template": "Click {{target_start_cell}} after the title has been entered and {{target_start_cell}} is visible to make it the active cell for entering the table block."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Category\\tPlanned\\tActual\\tDifference\\tStatus\\nGroceries\\t120\\t135\\t\\tOver\\nTransport\\t60\\t48\\t\\tUnder\\nDining\\t90\\t110\\t\\tOver\\nUtilities\\t75\\t72\\t\\tUnder\\nMiscellaneous\\t50\\t40\\t\\tUnder\\nTotal\\t\\t\\t\\t'}",
+          "action_template": "Type {{table_block_text}} when {{target_start_cell}} is selected and the spreadsheet is ready for multi-cell text entry so the table headers, data rows, and total row scaffold fill {{target_range}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Calculate per-category spending differences so each row shows actual minus planned spending.",
+      "unit_type": "CALCULATE_DIFFERENCES",
+      "unit_before_state": "The budget table is visible in A3:E9, and the Difference cells D4 through D8 are blank.",
+      "unit_after_state": "Cells D4 through D8 display calculated difference values for the five spending categories.",
+      "unit_precondition": [
+        "The table data in A3:E9 has already been entered.",
+        "Cell D4 is visible and empty.",
+        "Cells D4 through D8 are available for formula entry."
+      ],
+      "unit_effect": [
+        "D4 becomes the active cell.",
+        "Formulas are entered down the Difference column from D4 to D8.",
+        "Numeric results appear in D4:D8 instead of blank cells."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Populate a result column with row-wise subtraction formulas so each row shows the difference between two existing values.",
+      "parameters": {
+        "first_result_cell": "cell D4 in the first Difference row",
+        "formula_block": "=C4-B4\n=C5-B5\n=C6-B6\n=C7-B7\n=C8-B8"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell D4 in the first Difference row'}}",
+          "action_template": "Once the source table is present and {{first_result_cell}} is visible and empty, click {{first_result_cell}} so the row-wise difference formulas can be entered starting from the first result row. This requires the table data to be entered and leaves {{first_result_cell}} active for formula entry."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '=C4-B4\\n=C5-B5\\n=C6-B6\\n=C7-B7\\n=C8-B8'}",
+          "action_template": "With {{first_result_cell}} selected and the target result cells available for formulas, type {{formula_block}} so each row calculates the subtraction result and the result column becomes populated with numeric values."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        11,
+        12
+      ],
+      "unit_intent": "Compute total planned, actual, and difference amounts for the whole weekly budget.",
+      "unit_type": "CALCULATE_TOTALS",
+      "unit_before_state": "The category rows are filled, D4:D8 already show difference results, and the total row numeric cells B9:D9 are still blank.",
+      "unit_after_state": "The Total row shows summed values in B9 for Planned, C9 for Actual, and D9 for Difference.",
+      "unit_precondition": [
+        "Difference formulas for the category rows have already been entered.",
+        "Cell B9 is visible and empty.",
+        "Cells B9 through D9 are available for formula entry."
+      ],
+      "unit_effect": [
+        "B9 becomes active for total-row entry.",
+        "SUM formulas populate B9, C9, and D9.",
+        "The Total row displays aggregate numeric values across the budget columns."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Populate a summary row with total formulas across adjacent numeric columns.",
+      "parameters": {
+        "target_cell": "cell B9 on the Total row",
+        "formula_sequence": "=SUM(B4:B8)\t=SUM(C4:C8)\t=SUM(D4:D8)"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell B9 on the Total row'}}",
+          "action_template": "Click {{target_cell}} after the difference formulas have been entered and the cell is visible and empty, so it becomes active for entering the summary totals across the row."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '=SUM(B4:B8)\\t=SUM(C4:C8)\\t=SUM(D4:D8)'}",
+          "action_template": "Type {{formula_sequence}} when {{target_cell}} is active and the summary-row cells are empty and ready for formulas, so total values populate across the adjacent numeric columns."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        13,
+        14
+      ],
+      "unit_intent": "Format all budget amounts as currency so the money values display consistently.",
+      "unit_type": "FORMAT_CURRENCY_RANGE",
+      "unit_before_state": "The completed budget table shows numeric values in B4:D9, but those cells are not yet formatted as currency.",
+      "unit_after_state": "Cells B4:D9 remain selected and their values are displayed using currency formatting.",
+      "unit_precondition": [
+        "The numeric budget values and totals are already present in B4:D9.",
+        "Cells B4 through D9 are visible on screen.",
+        "The Currency format control is available on the toolbar."
+      ],
+      "unit_effect": [
+        "The numeric block B4:D9 is selected.",
+        "Currency symbols and currency-style number formatting appear on the planned, actual, difference, and total values."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Apply currency formatting to a specified rectangular range of monetary values in the spreadsheet.",
+      "parameters": {
+        "start_cell": "B4",
+        "end_cell": "D9",
+        "target_range": "B4:D9",
+        "format_button": "the Currency format button on the toolbar"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'cell B4 at the top-left of the numeric block'}, 'end': {'text': 'cell D9 at the bottom-right of the numeric block'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "When the numeric cells in {{target_range}} are visible and should be formatted as currency, drag from {{start_cell}} to {{end_cell}} to highlight every money value that needs currency formatting; this selects the entire range {{target_range}}."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Currency format button on the toolbar'}}",
+          "action_template": "With {{target_range}} selected and {{format_button}} available on the toolbar, click {{format_button}} so the selected values are displayed as currency amounts."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_07",
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        15,
+        16
+      ],
+      "unit_intent": "Emphasize the table header row so the column labels stand out from the data.",
+      "unit_type": "BOLD_HEADER_ROW",
+      "unit_before_state": "The budget table is visible with headers in A3:E3, and the header text is not yet emphasized.",
+      "unit_after_state": "The header row A3:E3 is bold, making the column labels visually distinct from the rows below.",
+      "unit_precondition": [
+        "The table header row A3:E3 is visible.",
+        "The Bold formatting control is available on the toolbar.",
+        "The user can select the full header row across columns A through E."
+      ],
+      "unit_effect": [
+        "The range A3:E3 becomes selected.",
+        "The header labels Category, Planned, Actual, Difference, and Status appear in bold text."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Apply bold formatting to a visible table header row so its column labels stand out from the data rows.",
+      "parameters": {
+        "header_row_start_cell": "cell A3 at the start of the header row",
+        "header_row_end_cell": "cell E3 at the end of the header row",
+        "format_control": "the Bold button on the formatting toolbar"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'cell A3 at the start of the header row'}, 'end': {'text': 'cell E3 at the end of the header row'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "Drag from {{header_row_start_cell}} to {{header_row_end_cell}} when the target header row is visible to select the full header row for emphasis."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Bold button on the formatting toolbar'}}",
+          "action_template": "Click {{format_control}} with the header row selected to make the header labels bold and visually distinct from the data rows."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_08",
+      "unit_id": "u_seg_001_08",
+      "step_indices": [
+        17,
+        18,
+        19,
+        20
+      ],
+      "unit_intent": "Insert a column chart comparing planned and actual spending by category and place it below the table.",
+      "unit_type": "INSERT_AND_POSITION_COLUMN_CHART",
+      "unit_before_state": "The finished budget table is visible, including headers and category rows, and the area below the table is open for placing a chart.",
+      "unit_after_state": "A column chart comparing Planned versus Actual for the five categories is inserted on the sheet and repositioned below the table so it no longer overlaps the main data area.",
+      "unit_precondition": [
+        "The chart source range A3:C8 is visible and contains the category labels plus Planned and Actual values.",
+        "The Insert Chart control is available.",
+        "There is enough blank worksheet space below the table to place the chart."
+      ],
+      "unit_effect": [
+        "The range A3:C8 is selected as the chart source.",
+        "The Chart Wizard opens with a default column chart preview based on the selected data.",
+        "After Finish is clicked, a column chart appears on the worksheet.",
+        "The chart object is visibly moved into the blank area below the table."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Insert a default column chart from a specified worksheet data range and move it to a designated blank area on the sheet.",
+      "parameters": {
+        "source_range": "A3:C8",
+        "destination_area": "an empty area below the table, roughly starting around row 12"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'cell A3 including the Category header'}, 'end': {'text': 'cell C8 covering the Actual column for the last category'}, 'target': {'begin': {'text': 'cell A3 at the top-left of the chart data range'}, 'end': {'text': 'cell C8 at the bottom-right of the chart data range'}}}",
+          "action_template": "With {{source_range}} visible and intended for the comparison chart, drag across {{source_range}} to select the labels and value columns that will feed the chart."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Insert Chart button on the toolbar'}}",
+          "action_template": "With {{source_range}} selected and the Insert Chart control visible, click the Insert Chart button on the toolbar to open the Chart Wizard with a default column chart preview based on the selected data."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Finish button in the Chart Wizard'}}",
+          "action_template": "When the Chart Wizard is open and the default column chart preview is acceptable, click the Finish button to insert the column chart onto the sheet."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the center of the inserted chart object'}, 'end': {'text': 'an empty area below the table, roughly starting around row 12'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "After the chart is inserted and {{destination_area}} is available, drag the chart object into {{destination_area}} so it no longer overlaps the main data area."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

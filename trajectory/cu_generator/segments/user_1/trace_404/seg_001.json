@@ -1,0 +1,642 @@
+{
+  "segment_id": "seg_001",
+  "app": "os",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Prepare the dated backup folder command in Terminal",
+      "action_before_state": "A Terminal window is already open on the GNOME desktop and the shell prompt is idle.",
+      "action_preconditions": [
+        "Terminal is focused and ready for input",
+        "The user can write to the Desktop folder",
+        "The current session has a normal home directory"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "backup=\"$HOME/Desktop/daily-maintenance-$(date +%F)\"; mkdir -p \"$backup/documents_tree\""
+      },
+      "action_after_effects": "The full command appears at the shell prompt, ready to run.",
+      "nl_explanation": "When the Terminal prompt is ready, type the command that defines a dated backup path on the Desktop and creates the main backup folder plus a documents_tree subfolder."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Create the dated backup folder on the Desktop",
+      "action_before_state": "The mkdir command is visible in Terminal but has not been executed yet.",
+      "action_preconditions": [
+        "The command from the previous step is fully typed",
+        "Terminal focus has not changed"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The backup folder is created on the Desktop, and the shell prompt returns without an error if the command succeeds.",
+      "nl_explanation": "After the folder-creation command is visible in Terminal, press Enter to run it. The expected result is that a new dated backup folder is created on the Desktop."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Enter the command that copies only the Documents folder hierarchy",
+      "action_before_state": "Terminal is still open and the prompt is ready for another command.",
+      "action_preconditions": [
+        "The dated backup folder already exists",
+        "The Documents folder is accessible from the home directory"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "backup=\"$HOME/Desktop/daily-maintenance-$(date +%F)\"; cd \"$HOME/Documents\" && find . -type d -exec mkdir -p \"$backup/documents_tree/{}\" \\;"
+      },
+      "action_after_effects": "The hierarchy-copy command is displayed at the prompt and ready to execute.",
+      "nl_explanation": "With Terminal ready, type a command that changes into Documents and recreates only its directory structure inside the dated backup folder on the Desktop."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Create the Documents directory-structure backup",
+      "action_before_state": "The find command for recreating the directory hierarchy is visible in Terminal.",
+      "action_preconditions": [
+        "The command from the previous step is fully entered",
+        "Terminal still has focus"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "Matching folders from Documents are recreated under documents_tree inside the backup folder, and the prompt returns when finished.",
+      "nl_explanation": "Once the hierarchy-copy command is typed, press Enter to run it. The expected behavior is that only the folder structure from Documents is reproduced in the backup location."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Prepare a storage summary command for Documents and Downloads",
+      "action_before_state": "Terminal is idle again after the directory-structure command completes.",
+      "action_preconditions": [
+        "The backup folder already exists",
+        "Documents and Downloads can be read"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "backup=\"$HOME/Desktop/daily-maintenance-$(date +%F)\"; du -sh \"$HOME/Documents\" \"$HOME/Downloads\" 2>/dev/null > \"$backup/storage-summary.txt\""
+      },
+      "action_after_effects": "A command to save the disk-usage summary into a text file is ready at the prompt.",
+      "nl_explanation": "At the next shell prompt, type a command that measures the sizes of Documents and Downloads and writes the summary into storage-summary.txt inside the dated backup folder."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Save the storage summary text file",
+      "action_before_state": "The du command is visible in Terminal and waiting to be run.",
+      "action_preconditions": [
+        "The summary command is fully typed",
+        "The backup folder path is valid"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "A file named storage-summary.txt is created inside the dated backup folder, and the shell prompt returns.",
+      "nl_explanation": "After the disk-usage command is entered, press Enter to generate the text summary file in the backup folder."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Prepare the compression command for the finished backup folder",
+      "action_before_state": "Terminal remains open with a fresh prompt.",
+      "action_preconditions": [
+        "The dated backup folder exists on the Desktop",
+        "The folder already contains the copied directory structure and the summary file"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "backup=\"$HOME/Desktop/daily-maintenance-$(date +%F)\"; tar -czf \"$backup.tar.gz\" -C \"$HOME/Desktop\" \"$(basename \"$backup\")\""
+      },
+      "action_after_effects": "The tar compression command is shown in Terminal and is ready to execute.",
+      "nl_explanation": "With the backup contents prepared, type a command that compresses the entire dated folder into a tar.gz archive on the Desktop."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Create the compressed archive",
+      "action_before_state": "The tar command is visible at the prompt and has not been run yet.",
+      "action_preconditions": [
+        "The compression command is complete",
+        "There is enough disk space to create the archive"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "A .tar.gz archive with the same dated name appears on the Desktop, and Terminal returns to the prompt after compression finishes.",
+      "nl_explanation": "Press Enter to run the tar command. The expected result is a compressed archive of the dated backup folder saved directly on the Desktop."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Open the GNOME overview to launch Files",
+      "action_before_state": "Terminal is still on screen after the archive has been created.",
+      "action_preconditions": [
+        "The keyboard is available",
+        "GNOME overview can be opened with the Super key"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "super"
+        ]
+      },
+      "action_after_effects": "The GNOME Activities overview opens, showing the search field and available applications.",
+      "nl_explanation": "After the archive is created, press the Super key to open the GNOME overview so Files can be launched."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Search for the Files application",
+      "action_before_state": "The GNOME overview is open and the search field is active.",
+      "action_preconditions": [
+        "Activities overview is visible",
+        "Keyboard input will go into the search field"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Files"
+      },
+      "action_after_effects": "The Files application appears as a search result in the GNOME overview.",
+      "nl_explanation": "With the overview open, type Files so the file manager appears in the search results."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Launch Files from the GNOME search results",
+      "action_before_state": "The Files app is highlighted or visible in the overview search results.",
+      "action_preconditions": [
+        "The Files search result is visible",
+        "The overview still has keyboard focus"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The Files window opens on top of the desktop.",
+      "nl_explanation": "When Files appears in the overview search results, press Enter to open it."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Navigate to the Desktop folder in Files",
+      "action_before_state": "The Files window is open and the sidebar is visible.",
+      "action_preconditions": [
+        "Files is open in a normal browsing view",
+        "The Desktop entry is available in the sidebar or under Home"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Desktop entry in the Files sidebar"
+        }
+      },
+      "action_after_effects": "Files switches to the Desktop folder and shows its contents in the main pane.",
+      "nl_explanation": "Once Files is open, click the Desktop entry in the sidebar so the main pane displays the files saved on the Desktop."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Verify that the compressed backup archive is present on the Desktop",
+      "action_before_state": "The Desktop folder contents are visible in Files.",
+      "action_preconditions": [
+        "The Desktop view is open",
+        "A file matching the dated backup archive name is visible in the file list or grid"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the dated daily-maintenance .tar.gz archive in the Desktop file list"
+        }
+      },
+      "action_after_effects": "The archive file is highlighted, allowing the user to visually confirm that the dated .tar.gz archive is present on the Desktop.",
+      "nl_explanation": "When the Desktop contents are shown in Files, locate and click the dated .tar.gz archive to select it and confirm that the daily backup archive is visible on the Desktop."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Create the dated backup workspace on the Desktop for the daily backup.",
+      "unit_type": "CREATE_BACKUP_FOLDER",
+      "unit_before_state": "A GNOME Terminal window is open on the Linux desktop with an idle shell prompt and no command running.",
+      "unit_after_state": "The Terminal prompt has returned after running the mkdir command, and a Desktop folder named daily-maintenance-2026-04-13 with a documents_tree subfolder has been created.",
+      "unit_precondition": [
+        "Terminal is focused and accepting keyboard input.",
+        "The user has write permission to the Desktop directory.",
+        "The shell session has a valid HOME path."
+      ],
+      "unit_effect": [
+        "The command defining the backup path and creating the folder runs without an error message.",
+        "A new Desktop folder named daily-maintenance-2026-04-13 exists with a documents_tree subfolder."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4
+      ],
+      "unit_intent": "Recreate only the Documents folder hierarchy inside the backup folder.",
+      "unit_type": "COPY_DIRECTORY_STRUCTURE",
+      "unit_before_state": "Terminal is back at a fresh shell prompt, and the Desktop backup folder daily-maintenance-2026-04-13 already exists.",
+      "unit_after_state": "The Terminal prompt returns after the find command completes, and the documents_tree folder inside daily-maintenance-2026-04-13 now contains the directory structure copied from Documents without file contents.",
+      "unit_precondition": [
+        "The folder daily-maintenance-2026-04-13 already exists on the Desktop.",
+        "The Documents directory is accessible from the current user account.",
+        "Terminal focus has remained in the shell window."
+      ],
+      "unit_effect": [
+        "The hierarchy-copy command executes and finishes without leaving Terminal in an error state.",
+        "Directories from Documents appear under daily-maintenance-2026-04-13/documents_tree while regular files are not copied."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Save a small storage usage summary for Documents and Downloads into the backup folder.",
+      "unit_type": "GENERATE_STORAGE_SUMMARY",
+      "unit_before_state": "The Terminal window shows a new idle shell prompt after the Documents folder structure has been recreated.",
+      "unit_after_state": "The Terminal prompt returns again, and the backup folder contains a text file named storage-summary.txt.",
+      "unit_precondition": [
+        "The backup folder daily-maintenance-2026-04-13 exists on the Desktop.",
+        "Both Documents and Downloads can be read by the current user.",
+        "Terminal is still focused and ready for another command."
+      ],
+      "unit_effect": [
+        "The du command runs and redirects its output into storage-summary.txt.",
+        "A file named storage-summary.txt appears inside daily-maintenance-2026-04-13 and contains size lines for Documents and Downloads."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Compress the completed backup folder into a portable archive on the Desktop.",
+      "unit_type": "COMPRESS_BACKUP_FOLDER",
+      "unit_before_state": "Terminal is idle, and the Desktop backup folder daily-maintenance-2026-04-13 already contains the documents_tree hierarchy and storage-summary.txt.",
+      "unit_after_state": "The Terminal prompt returns after tar finishes, and a file named daily-maintenance-2026-04-13.tar.gz exists on the Desktop alongside the backup folder.",
+      "unit_precondition": [
+        "The backup folder daily-maintenance-2026-04-13 exists and contains the prepared contents.",
+        "There is enough free space to create a tar.gz archive on the Desktop.",
+        "Terminal is focused and ready to execute the compression command."
+      ],
+      "unit_effect": [
+        "The tar command completes without an error being shown in Terminal.",
+        "A compressed archive named daily-maintenance-2026-04-13.tar.gz appears on the Desktop."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        9,
+        10,
+        11
+      ],
+      "unit_intent": "Open the Files application so the Desktop contents can be inspected visually.",
+      "unit_type": "LAUNCH_FILE_MANAGER",
+      "unit_before_state": "Terminal is visible on the GNOME desktop after the archive has been created.",
+      "unit_after_state": "A Files window opens on top of the desktop after being launched from the GNOME Activities search results.",
+      "unit_precondition": [
+        "The GNOME session is active and responds to the Super key.",
+        "Keyboard input goes to the Activities search when the overview opens.",
+        "The Files application is installed and launchable from search results."
+      ],
+      "unit_effect": [
+        "The Activities overview opens and shows the search field.",
+        "Typing Files reveals the Files app as a search result.",
+        "Pressing Enter opens the Files window."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        12
+      ],
+      "unit_intent": "Switch the Files window to the Desktop folder where the backup archive was saved.",
+      "unit_type": "OPEN_DESKTOP_FOLDER",
+      "unit_before_state": "The Files window is open in a standard browsing view, with the sidebar visible but not yet focused on the Desktop folder.",
+      "unit_after_state": "Files is displaying the Desktop directory in the main pane, showing the items saved on the Desktop.",
+      "unit_precondition": [
+        "The Files window is open and interactive.",
+        "The Desktop entry is visible in the Files sidebar."
+      ],
+      "unit_effect": [
+        "The Desktop entry becomes the active location in Files.",
+        "The main pane updates to show the Desktop contents, including the dated backup items if they exist."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        13
+      ],
+      "unit_intent": "Confirm that the compressed daily backup archive is present in the Desktop view.",
+      "unit_type": "VERIFY_ARCHIVE_VISIBLE",
+      "unit_before_state": "Files is already showing the Desktop folder contents in the main pane.",
+      "unit_after_state": "The file daily-maintenance-2026-04-13.tar.gz is selected in the Files window, providing a clear visual confirmation that the archive is present on the Desktop.",
+      "unit_precondition": [
+        "The Desktop folder is currently open in Files.",
+        "A file named daily-maintenance-2026-04-13.tar.gz is visible in the Desktop file list or grid."
+      ],
+      "unit_effect": [
+        "The archive item becomes highlighted when clicked.",
+        "The selected filename daily-maintenance-2026-04-13.tar.gz is visibly present in the Desktop view."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Create the dated backup workspace on the Desktop for the daily backup.",
+      "unit_type": "CREATE_BACKUP_FOLDER",
+      "unit_before_state": "A GNOME Terminal window is open on the Linux desktop with an idle shell prompt and no command running.",
+      "unit_after_state": "The Terminal prompt has returned after running the mkdir command, and a Desktop folder named daily-maintenance-2026-04-13 with a documents_tree subfolder has been created.",
+      "unit_precondition": [
+        "Terminal is focused and accepting keyboard input.",
+        "The user has write permission to the Desktop directory.",
+        "The shell session has a valid HOME path."
+      ],
+      "unit_effect": [
+        "The command defining the backup path and creating the folder runs without an error message.",
+        "A new Desktop folder named daily-maintenance-2026-04-13 exists with a documents_tree subfolder."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a date-stamped backup workspace in {{parent_directory}} with a required {{subfolder_name}} subfolder.",
+      "parameters": {
+        "parent_directory": "Desktop",
+        "backup_folder_prefix": "daily-maintenance",
+        "subfolder_name": "documents_tree"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'backup=\"$HOME/Desktop/daily-maintenance-$(date +%F)\"; mkdir -p \"$backup/documents_tree\"'}",
+          "action_template": "When Terminal is focused and ready for input, and the user can write to {{parent_directory}} with a normal home directory available, type the command that defines a date-stamped backup path in {{parent_directory}} using the {{backup_folder_prefix}} prefix and creates the main backup folder with a {{subfolder_name}} subfolder so the full command appears at the shell prompt, ready to run."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After the folder-creation command is fully typed and Terminal focus has not changed, press Enter to run it so a new dated {{backup_folder_prefix}} folder with a {{subfolder_name}} subfolder is created in {{parent_directory}}, and the shell prompt returns without an error if the command succeeds."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4
+      ],
+      "unit_intent": "Recreate only the Documents folder hierarchy inside the backup folder.",
+      "unit_type": "COPY_DIRECTORY_STRUCTURE",
+      "unit_before_state": "Terminal is back at a fresh shell prompt, and the Desktop backup folder daily-maintenance-2026-04-13 already exists.",
+      "unit_after_state": "The Terminal prompt returns after the find command completes, and the documents_tree folder inside daily-maintenance-2026-04-13 now contains the directory structure copied from Documents without file contents.",
+      "unit_precondition": [
+        "The folder daily-maintenance-2026-04-13 already exists on the Desktop.",
+        "The Documents directory is accessible from the current user account.",
+        "Terminal focus has remained in the shell window."
+      ],
+      "unit_effect": [
+        "The hierarchy-copy command executes and finishes without leaving Terminal in an error state.",
+        "Directories from Documents appear under daily-maintenance-2026-04-13/documents_tree while regular files are not copied."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Recreate only a source directory's folder hierarchy inside a designated backup subtree without copying file contents.",
+      "parameters": {
+        "source_directory": "Documents",
+        "backup_root_path": "$HOME/Desktop/daily-maintenance-$(date +%F)",
+        "destination_subtree": "documents_tree"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'backup=\"$HOME/Desktop/daily-maintenance-$(date +%F)\"; cd \"$HOME/Documents\" && find . -type d -exec mkdir -p \"$backup/documents_tree/{}\" \\\\;'}",
+          "action_template": "Type a command that changes into {{source_directory}} and recreates only its directory structure under {{backup_root_path}}/{{destination_subtree}} once the backup folder already exists and the source directory is accessible. The hierarchy-copy command should then be visible at the prompt and ready to execute."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter to run the hierarchy-copy command after it is fully entered and Terminal still has focus. Only folders from {{source_directory}} should be recreated under {{destination_subtree}} inside {{backup_root_path}}, and the prompt should return when finished."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Save a small storage usage summary for Documents and Downloads into the backup folder.",
+      "unit_type": "GENERATE_STORAGE_SUMMARY",
+      "unit_before_state": "The Terminal window shows a new idle shell prompt after the Documents folder structure has been recreated.",
+      "unit_after_state": "The Terminal prompt returns again, and the backup folder contains a text file named storage-summary.txt.",
+      "unit_precondition": [
+        "The backup folder daily-maintenance-2026-04-13 exists on the Desktop.",
+        "Both Documents and Downloads can be read by the current user.",
+        "Terminal is still focused and ready for another command."
+      ],
+      "unit_effect": [
+        "The du command runs and redirects its output into storage-summary.txt.",
+        "A file named storage-summary.txt appears inside daily-maintenance-2026-04-13 and contains size lines for Documents and Downloads."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save a storage usage summary for {{target_folders}} into {{output_file_name}} inside {{backup_folder_name}}.",
+      "parameters": {
+        "target_folders": "Documents and Downloads",
+        "output_file_name": "storage-summary.txt",
+        "backup_folder_name": "daily-maintenance-2026-04-13"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'backup=\"$HOME/Desktop/daily-maintenance-$(date +%F)\"; du -sh \"$HOME/Documents\" \"$HOME/Downloads\" 2>/dev/null > \"$backup/storage-summary.txt\"'}",
+          "action_template": "At the next shell prompt, type the shell command that measures the sizes of {{target_folders}} and writes the summary into {{output_file_name}} inside {{backup_folder_name}}. Preconditions: the backup folder already exists and the target folders can be read. After this, the command to save the disk-usage summary is ready at the prompt."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After the disk-usage command is fully typed, press Enter to generate {{output_file_name}} in {{backup_folder_name}}. Preconditions: the summary command is fully typed and the backup folder path is valid. After this, the file is created and the shell prompt returns."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Compress the completed backup folder into a portable archive on the Desktop.",
+      "unit_type": "COMPRESS_BACKUP_FOLDER",
+      "unit_before_state": "Terminal is idle, and the Desktop backup folder daily-maintenance-2026-04-13 already contains the documents_tree hierarchy and storage-summary.txt.",
+      "unit_after_state": "The Terminal prompt returns after tar finishes, and a file named daily-maintenance-2026-04-13.tar.gz exists on the Desktop alongside the backup folder.",
+      "unit_precondition": [
+        "The backup folder daily-maintenance-2026-04-13 exists and contains the prepared contents.",
+        "There is enough free space to create a tar.gz archive on the Desktop.",
+        "Terminal is focused and ready to execute the compression command."
+      ],
+      "unit_effect": [
+        "The tar command completes without an error being shown in Terminal.",
+        "A compressed archive named daily-maintenance-2026-04-13.tar.gz appears on the Desktop."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Compress a prepared backup folder into a portable archive saved in {{target_location}}.",
+      "parameters": {
+        "backup_folder_name": "daily-maintenance-2026-04-13",
+        "archive_name": "daily-maintenance-2026-04-13.tar.gz",
+        "target_location": "Desktop"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'backup=\"$HOME/Desktop/daily-maintenance-$(date +%F)\"; tar -czf \"$backup.tar.gz\" -C \"$HOME/Desktop\" \"$(basename \"$backup\")\"'}",
+          "action_template": "Type a command in Terminal that compresses the prepared folder {{backup_folder_name}} into the archive {{archive_name}} in {{target_location}} after confirming the dated backup folder exists there and already contains the copied directory structure and summary file. The compression command is then shown in Terminal and ready to execute."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter to run the tar command once the compression command is complete and there is enough disk space to create the archive. The expected result is that {{archive_name}} appears in {{target_location}} and Terminal returns to the prompt after compression finishes."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        9,
+        10,
+        11
+      ],
+      "unit_intent": "Open the Files application so the Desktop contents can be inspected visually.",
+      "unit_type": "LAUNCH_FILE_MANAGER",
+      "unit_before_state": "Terminal is visible on the GNOME desktop after the archive has been created.",
+      "unit_after_state": "A Files window opens on top of the desktop after being launched from the GNOME Activities search results.",
+      "unit_precondition": [
+        "The GNOME session is active and responds to the Super key.",
+        "Keyboard input goes to the Activities search when the overview opens.",
+        "The Files application is installed and launchable from search results."
+      ],
+      "unit_effect": [
+        "The Activities overview opens and shows the search field.",
+        "Typing Files reveals the Files app as a search result.",
+        "Pressing Enter opens the Files window."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Launch {{target_application}} from the GNOME Activities overview using keyboard search.",
+      "parameters": {
+        "target_application": "Files"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['super']}",
+          "action_template": "Press the Super key to open the GNOME overview so {{target_application}} can be launched. Preconditions: the keyboard is available and GNOME overview can be opened with the Super key. Afterward, the GNOME Activities overview opens, showing the search field and available applications."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Files'}",
+          "action_template": "Type {{target_application}} into the Activities search field so the application appears in the search results. Preconditions: the Activities overview is visible and keyboard input will go into the search field. Afterward, {{target_application}} appears as a search result in the GNOME overview."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter to launch {{target_application}} from the GNOME search results. Preconditions: the {{target_application}} search result is visible and the overview still has keyboard focus. Afterward, the {{target_application}} window opens on top of the desktop."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        12
+      ],
+      "unit_intent": "Switch the Files window to the Desktop folder where the backup archive was saved.",
+      "unit_type": "OPEN_DESKTOP_FOLDER",
+      "unit_before_state": "The Files window is open in a standard browsing view, with the sidebar visible but not yet focused on the Desktop folder.",
+      "unit_after_state": "Files is displaying the Desktop directory in the main pane, showing the items saved on the Desktop.",
+      "unit_precondition": [
+        "The Files window is open and interactive.",
+        "The Desktop entry is visible in the Files sidebar."
+      ],
+      "unit_effect": [
+        "The Desktop entry becomes the active location in Files.",
+        "The main pane updates to show the Desktop contents, including the dated backup items if they exist."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a specified folder from the file manager sidebar so its contents are shown in the main pane.",
+      "parameters": {
+        "target_folder": "Desktop",
+        "target_sidebar_entry": "the Desktop entry in the Files sidebar"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Desktop entry in the Files sidebar'}}",
+          "action_template": "Click {{target_sidebar_entry}} once the file manager is open in a normal browsing view and the sidebar entry is available, so the main pane switches to {{target_folder}} and displays its contents."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_07",
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        13
+      ],
+      "unit_intent": "Confirm that the compressed daily backup archive is present in the Desktop view.",
+      "unit_type": "VERIFY_ARCHIVE_VISIBLE",
+      "unit_before_state": "Files is already showing the Desktop folder contents in the main pane.",
+      "unit_after_state": "The file daily-maintenance-2026-04-13.tar.gz is selected in the Files window, providing a clear visual confirmation that the archive is present on the Desktop.",
+      "unit_precondition": [
+        "The Desktop folder is currently open in Files.",
+        "A file named daily-maintenance-2026-04-13.tar.gz is visible in the Desktop file list or grid."
+      ],
+      "unit_effect": [
+        "The archive item becomes highlighted when clicked.",
+        "The selected filename daily-maintenance-2026-04-13.tar.gz is visibly present in the Desktop view."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Confirm that {{archive_name}} is present in the Desktop view by selecting it.",
+      "parameters": {
+        "archive_name": "daily-maintenance-2026-04-13.tar.gz",
+        "target_archive_item": "the dated daily-maintenance .tar.gz archive in the Desktop file list"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the dated daily-maintenance .tar.gz archive in the Desktop file list'}}",
+          "action_template": "When the Desktop contents are shown in Files and a file matching {{archive_name}} is visible in the file list or grid, left-click {{target_archive_item}} to select it and visually confirm that {{archive_name}} is present on the Desktop."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

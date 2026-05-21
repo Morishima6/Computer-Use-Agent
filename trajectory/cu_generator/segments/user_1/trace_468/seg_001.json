@@ -1,0 +1,666 @@
+{
+  "segment_id": "seg_001",
+  "app": "thunderbird",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Switch from the mail view to the calendar view",
+      "action_before_state": "Thunderbird is open on its main window, and the navigation area is visible.",
+      "action_preconditions": [
+        "The Thunderbird window is focused",
+        "The Calendar icon is visible in the navigation area or top app area"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Calendar icon in Thunderbird's navigation area"
+        }
+      },
+      "action_after_effects": "Thunderbird changes to the calendar workspace and shows the calendar list, mini calendar, and main schedule grid.",
+      "nl_explanation": "When Thunderbird's main window is active and the Calendar icon is visible, click that icon to open the calendar workspace. The expected result is that the mail view is replaced by Thunderbird's calendar layout."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Select the Home calendar for the new event",
+      "action_before_state": "The calendar workspace is visible and the calendar list is shown.",
+      "action_preconditions": [
+        "The calendar list is visible",
+        "The Home calendar exists in the list"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Home calendar entry in the calendar list"
+        }
+      },
+      "action_after_effects": "The Home calendar is the active calendar for creating new events and remains available in the calendar list.",
+      "nl_explanation": "Before creating the appointment, click the Home calendar in the calendar list so the new event is created on that local calendar."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Move the calendar view to the correct date",
+      "action_before_state": "The calendar workspace is visible with a mini month calendar on the side.",
+      "action_preconditions": [
+        "The mini calendar shows April 2026 or the date April 14, 2026 is visible",
+        "The main calendar grid is ready for date selection"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the date cell for April 14, 2026 in the mini calendar"
+        }
+      },
+      "action_after_effects": "The main calendar grid updates so April 14, 2026 is the active day being displayed.",
+      "nl_explanation": "Once the mini calendar is visible and April 14, 2026 can be selected, click that date so Thunderbird focuses the main calendar on the appointment day."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Bring the 3:00 PM time slot into view",
+      "action_before_state": "The main schedule for April 14 is visible, but the 3:00 PM row may be below the current viewport.",
+      "action_preconditions": [
+        "April 14, 2026 is the active date",
+        "The time grid can be scrolled vertically",
+        "The 3:00 PM slot is not fully visible yet"
+      ],
+      "action": {
+        "type": "SCROLL",
+        "scroll_type": "down",
+        "target": {
+          "text": "the main calendar time grid where the daily schedule is shown"
+        },
+        "direction": "down"
+      },
+      "action_after_effects": "The afternoon part of the schedule comes into view, and the 3:00 PM time row is visible.",
+      "nl_explanation": "If the afternoon hours are not yet on screen, scroll down inside the main time grid until the 3:00 PM row is visible, then stop because the correct start time can now be selected."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Open a new event at the correct start time",
+      "action_before_state": "The 3:00 PM row for April 14 is visible in the main calendar grid.",
+      "action_preconditions": [
+        "The 3:00 PM slot is visible",
+        "The Home calendar is selected in the calendar list"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 2,
+        "target": {
+          "text": "the empty 3:00 PM time slot on April 14 in the daily schedule grid"
+        }
+      },
+      "action_after_effects": "A new event editor opens with the start date and time prefilled from the clicked slot, and the event is associated with the Home calendar.",
+      "nl_explanation": "When the 3:00 PM slot for April 14 is visible, double-click that empty slot to create a new event starting at that time. Thunderbird should open the event editor."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Enter the event title",
+      "action_before_state": "The event editor is open and the title or event name field is visible.",
+      "action_preconditions": [
+        "The event editor window or tab is active",
+        "The title field is empty or ready to accept input"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Dentist Appointment"
+      },
+      "action_after_effects": "The event title field is filled with \"Dentist Appointment\".",
+      "nl_explanation": "With the event editor active and the title field ready, type \"Dentist Appointment\" so the entry has the correct name."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Place the text cursor in the location field",
+      "action_before_state": "The event editor is still open, and the title is already filled in.",
+      "action_preconditions": [
+        "A location field is visible in the event editor",
+        "The field is clickable and editable"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Location field in the event editor"
+        }
+      },
+      "action_after_effects": "The insertion cursor moves into the location field.",
+      "nl_explanation": "After the title has been entered, click inside the Location field so the next text input goes to the appointment location."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Enter the appointment location",
+      "action_before_state": "The cursor is active in the location field.",
+      "action_preconditions": [
+        "The location field has focus",
+        "The field is empty or ready for replacement text"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Riverfront Clinic"
+      },
+      "action_after_effects": "The location field now contains \"Riverfront Clinic\".",
+      "nl_explanation": "When the location field has focus, type \"Riverfront Clinic\" so the event includes the place of the appointment."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Move to the event end time field",
+      "action_before_state": "The event editor contains the title and location, and the time controls are visible.",
+      "action_preconditions": [
+        "The end time field is visible in the event editor",
+        "The field can be selected directly"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the event end time field"
+        }
+      },
+      "action_after_effects": "The cursor is placed in the end time field, ready to edit the event's finish time.",
+      "nl_explanation": "Once the event details area is visible, click the end time field so you can replace its value with the desired end time."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Set the event to end at 4:00 PM",
+      "action_before_state": "The end time field is active and editable.",
+      "action_preconditions": [
+        "The end time field has focus",
+        "Typing will overwrite or update the existing time"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "4:00 PM"
+      },
+      "action_after_effects": "The event now ends at 4:00 PM.",
+      "nl_explanation": "With the end time field selected, type \"4:00 PM\" so the appointment lasts from 3:00 PM to 4:00 PM."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Open the reminder options",
+      "action_before_state": "The event editor is still open and the reminder control is visible near the event details.",
+      "action_preconditions": [
+        "A reminder dropdown or reminder selector is visible",
+        "The control can be expanded"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Reminder dropdown in the event editor"
+        }
+      },
+      "action_after_effects": "The reminder menu opens and shows available reminder timings.",
+      "nl_explanation": "When the reminder selector is visible, click it to open the available reminder choices for this event."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Choose a reminder 30 minutes before the event",
+      "action_before_state": "The reminder menu is expanded.",
+      "action_preconditions": [
+        "The reminder dropdown is open",
+        "An option for 30 minutes before is visible in the list"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the option labeled 30 minutes before"
+        }
+      },
+      "action_after_effects": "The reminder value is set to 30 minutes before the event starts.",
+      "nl_explanation": "After opening the reminder menu, click the \"30 minutes before\" option so Thunderbird applies that alert timing to the appointment."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Save the finished calendar event",
+      "action_before_state": "The event title, location, time, and reminder are all filled in correctly.",
+      "action_preconditions": [
+        "The event editor is still open",
+        "A Save and Close button is visible",
+        "All required event fields have been entered"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Save & Close button in the event editor"
+        }
+      },
+      "action_after_effects": "The event editor closes, and the saved \"Dentist Appointment\" entry appears on April 14, 2026 from 3:00 PM to 4:00 PM in the Home calendar.",
+      "nl_explanation": "When the event details are complete and the save control is available, click \"Save & Close\" to store the appointment and return to the calendar with the event shown in the schedule."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Enter Thunderbird's calendar workspace so a calendar event can be created.",
+      "unit_type": "SWITCH_TO_CALENDAR_VIEW",
+      "unit_before_state": "Thunderbird is open in its main window with the standard navigation area visible, and the user is not yet in the calendar workspace.",
+      "unit_after_state": "Thunderbird shows the calendar workspace with the calendar list, mini calendar, and main schedule grid visible.",
+      "unit_precondition": [
+        "The Thunderbird main window is focused.",
+        "The Calendar icon is visible in the navigation area or top app area."
+      ],
+      "unit_effect": [
+        "The mail-oriented view is replaced by the calendar layout.",
+        "The calendar list, mini calendar, and schedule grid are visible on screen."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3
+      ],
+      "unit_intent": "Set the target calendar and date so the new reminder will be created on the correct local calendar day.",
+      "unit_type": "SET_EVENT_CREATION_CONTEXT",
+      "unit_before_state": "Thunderbird is in calendar view, the calendar list is visible, and the mini calendar is available for date navigation.",
+      "unit_after_state": "The Home calendar is selected as the active calendar, and the main calendar grid is focused on April 14, 2026.",
+      "unit_precondition": [
+        "The calendar workspace is open.",
+        "The Home calendar exists in the calendar list.",
+        "April 14, 2026 is visible or reachable in the mini calendar."
+      ],
+      "unit_effect": [
+        "The Home calendar becomes the active target for new events.",
+        "The daily schedule updates to show April 14, 2026 as the active date."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Open a new event draft starting at 3:00 PM on the selected day.",
+      "unit_type": "OPEN_EVENT_EDITOR_AT_TIMESLOT",
+      "unit_before_state": "The main schedule for April 14, 2026 is visible in calendar view, but the 3:00 PM row may be below the current viewport.",
+      "unit_after_state": "A new event editor is open with April 14, 2026 at 3:00 PM prefilled as the start time and the event associated with the Home calendar.",
+      "unit_precondition": [
+        "April 14, 2026 is the active day in the main calendar grid.",
+        "The time grid can be scrolled vertically.",
+        "The Home calendar is selected for event creation."
+      ],
+      "unit_effect": [
+        "The 3:00 PM row becomes visible in the daily schedule.",
+        "Double-clicking the empty 3:00 PM slot opens the event editor with the start time already set."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Fill in the appointment's identifying details so the event has the correct name and location.",
+      "unit_type": "FILL_EVENT_BASICS",
+      "unit_before_state": "The event editor is open for a new calendar item, and the title and location fields are visible for editing.",
+      "unit_after_state": "The event title is set to \"Dentist Appointment\" and the location field contains \"Riverfront Clinic\".",
+      "unit_precondition": [
+        "The event editor window or tab is active.",
+        "The title field is ready for input.",
+        "A clickable and editable Location field is visible."
+      ],
+      "unit_effect": [
+        "The title field displays \"Dentist Appointment\".",
+        "The insertion cursor moves into the Location field and the field displays \"Riverfront Clinic\"."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Adjust the appointment duration so it ends at the requested time.",
+      "unit_type": "SET_EVENT_END_TIME",
+      "unit_before_state": "The event editor already contains the title and location, and the event time controls are visible.",
+      "unit_after_state": "The event end time field shows 4:00 PM, making the event span from 3:00 PM to 4:00 PM.",
+      "unit_precondition": [
+        "The event editor is open.",
+        "The end time field is visible and editable.",
+        "Typing in the end time field will replace or update the existing value."
+      ],
+      "unit_effect": [
+        "The cursor is placed in the end time field.",
+        "The end time displayed in the editor changes to 4:00 PM."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        11,
+        12
+      ],
+      "unit_intent": "Configure the event alert so Thunderbird warns the user 30 minutes before the appointment.",
+      "unit_type": "SET_EVENT_REMINDER",
+      "unit_before_state": "The event editor remains open with the reminder control visible near the event details.",
+      "unit_after_state": "The reminder setting in the event editor is set to \"30 minutes before\".",
+      "unit_precondition": [
+        "A reminder dropdown or selector is visible in the event editor.",
+        "The reminder control can be expanded.",
+        "An option labeled \"30 minutes before\" is available in the reminder list."
+      ],
+      "unit_effect": [
+        "Clicking the reminder control opens a menu of reminder timings.",
+        "After selection, the reminder field displays \"30 minutes before\"."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        13
+      ],
+      "unit_intent": "Commit the completed appointment to the local Home calendar.",
+      "unit_type": "SAVE_EVENT",
+      "unit_before_state": "The event editor shows the completed event details: title \"Dentist Appointment\", location \"Riverfront Clinic\", start time April 14, 2026 3:00 PM, end time 4:00 PM, and reminder set to 30 minutes before.",
+      "unit_after_state": "The event editor closes and the calendar view shows the saved \"Dentist Appointment\" on April 14, 2026 from 3:00 PM to 4:00 PM in the Home calendar.",
+      "unit_precondition": [
+        "The event editor is still open.",
+        "The Save & Close button is visible.",
+        "All required event fields have been entered correctly."
+      ],
+      "unit_effect": [
+        "The event editor closes after clicking Save & Close.",
+        "A calendar entry titled \"Dentist Appointment\" appears on April 14, 2026 from 3:00 PM to 4:00 PM in the Home calendar."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Enter Thunderbird's calendar workspace so a calendar event can be created.",
+      "unit_type": "SWITCH_TO_CALENDAR_VIEW",
+      "unit_before_state": "Thunderbird is open in its main window with the standard navigation area visible, and the user is not yet in the calendar workspace.",
+      "unit_after_state": "Thunderbird shows the calendar workspace with the calendar list, mini calendar, and main schedule grid visible.",
+      "unit_precondition": [
+        "The Thunderbird main window is focused.",
+        "The Calendar icon is visible in the navigation area or top app area."
+      ],
+      "unit_effect": [
+        "The mail-oriented view is replaced by the calendar layout.",
+        "The calendar list, mini calendar, and schedule grid are visible on screen."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Switch Thunderbird into a specified workspace from the main navigation so the workspace's core panels become available.",
+      "parameters": {
+        "target_workspace": "calendar",
+        "target_navigation_icon": "the Calendar icon in Thunderbird's navigation area",
+        "workspace_main_panels": "the calendar list, mini calendar, and main schedule grid"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': \"the Calendar icon in Thunderbird's navigation area\"}}",
+          "action_template": "When Thunderbird's main window is active and {{target_navigation_icon}} is visible in the navigation area or top app area, click {{target_navigation_icon}} to open the {{target_workspace}} workspace. After this action, Thunderbird switches from the previous view to the {{target_workspace}} layout and shows {{workspace_main_panels}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3
+      ],
+      "unit_intent": "Set the target calendar and date so the new reminder will be created on the correct local calendar day.",
+      "unit_type": "SET_EVENT_CREATION_CONTEXT",
+      "unit_before_state": "Thunderbird is in calendar view, the calendar list is visible, and the mini calendar is available for date navigation.",
+      "unit_after_state": "The Home calendar is selected as the active calendar, and the main calendar grid is focused on April 14, 2026.",
+      "unit_precondition": [
+        "The calendar workspace is open.",
+        "The Home calendar exists in the calendar list.",
+        "April 14, 2026 is visible or reachable in the mini calendar."
+      ],
+      "unit_effect": [
+        "The Home calendar becomes the active target for new events.",
+        "The daily schedule updates to show April 14, 2026 as the active date."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Set {{target_calendar}} as the active calendar and focus the calendar view on {{target_date}} so a new event is created in the intended calendar context.",
+      "parameters": {
+        "target_calendar": "Home calendar",
+        "target_date": "April 14, 2026"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Home calendar entry in the calendar list'}}",
+          "action_template": "Click {{target_calendar}} in the calendar list so the new event is created on that local calendar; this requires the calendar list to be visible and {{target_calendar}} to exist in the list, and afterward {{target_calendar}} becomes the active calendar for creating new events."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the date cell for April 14, 2026 in the mini calendar'}}",
+          "action_template": "Click {{target_date}} in the mini calendar once that date is visible and the main calendar grid is ready for date selection so Thunderbird focuses the main calendar on the appointment day; afterward the main calendar grid updates to show {{target_date}} as the active day being displayed."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Open a new event draft starting at 3:00 PM on the selected day.",
+      "unit_type": "OPEN_EVENT_EDITOR_AT_TIMESLOT",
+      "unit_before_state": "The main schedule for April 14, 2026 is visible in calendar view, but the 3:00 PM row may be below the current viewport.",
+      "unit_after_state": "A new event editor is open with April 14, 2026 at 3:00 PM prefilled as the start time and the event associated with the Home calendar.",
+      "unit_precondition": [
+        "April 14, 2026 is the active day in the main calendar grid.",
+        "The time grid can be scrolled vertically.",
+        "The Home calendar is selected for event creation."
+      ],
+      "unit_effect": [
+        "The 3:00 PM row becomes visible in the daily schedule.",
+        "Double-clicking the empty 3:00 PM slot opens the event editor with the start time already set."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a new event draft at a specified time slot on the active day using the selected calendar.",
+      "parameters": {
+        "target_time": "3:00 PM",
+        "target_date": "April 14, 2026",
+        "calendar_name": "Home",
+        "time_grid": "the main calendar time grid where the daily schedule is shown"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'SCROLL', 'scroll_type': 'down', 'target': {'text': 'the main calendar time grid where the daily schedule is shown'}, 'direction': 'down'}",
+          "action_template": "If the {{target_time}} slot on {{target_date}} is not fully visible, scroll down inside {{time_grid}} until the {{target_time}} row is visible so the correct start time can be selected."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 2, 'target': {'text': 'the empty 3:00 PM time slot on April 14 in the daily schedule grid'}}",
+          "action_template": "When the empty {{target_time}} slot on {{target_date}} is visible, double-click it to create a new event starting at that time; the event editor opens with the event associated with {{calendar_name}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Fill in the appointment's identifying details so the event has the correct name and location.",
+      "unit_type": "FILL_EVENT_BASICS",
+      "unit_before_state": "The event editor is open for a new calendar item, and the title and location fields are visible for editing.",
+      "unit_after_state": "The event title is set to \"Dentist Appointment\" and the location field contains \"Riverfront Clinic\".",
+      "unit_precondition": [
+        "The event editor window or tab is active.",
+        "The title field is ready for input.",
+        "A clickable and editable Location field is visible."
+      ],
+      "unit_effect": [
+        "The title field displays \"Dentist Appointment\".",
+        "The insertion cursor moves into the Location field and the field displays \"Riverfront Clinic\"."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Fill in an event's title and location so the calendar entry has the correct identifying details.",
+      "parameters": {
+        "event_title": "Dentist Appointment",
+        "location_text": "Riverfront Clinic"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'Dentist Appointment'}",
+          "action_template": "With the event editor active and the title field ready, type {{event_title}} so the entry has the correct name. Preconditions: the event editor window or tab is active, and the title field is empty or ready to accept input. After this action, the event title field is filled with {{event_title}}."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Location field in the event editor'}}",
+          "action_template": "After the title has been entered, click inside the Location field so the next text input goes to the event location. Preconditions: a location field is visible in the event editor, and the field is clickable and editable. After this action, the insertion cursor moves into the location field."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Riverfront Clinic'}",
+          "action_template": "When the location field has focus, type {{location_text}} so the event includes the specified location. Preconditions: the location field has focus, and the field is empty or ready for replacement text. After this action, the location field now contains {{location_text}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Adjust the appointment duration so it ends at the requested time.",
+      "unit_type": "SET_EVENT_END_TIME",
+      "unit_before_state": "The event editor already contains the title and location, and the event time controls are visible.",
+      "unit_after_state": "The event end time field shows 4:00 PM, making the event span from 3:00 PM to 4:00 PM.",
+      "unit_precondition": [
+        "The event editor is open.",
+        "The end time field is visible and editable.",
+        "Typing in the end time field will replace or update the existing value."
+      ],
+      "unit_effect": [
+        "The cursor is placed in the end time field.",
+        "The end time displayed in the editor changes to 4:00 PM."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Set an event's end time to a specified value.",
+      "parameters": {
+        "target_field": "the event end time field",
+        "end_time": "4:00 PM"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the event end time field'}}",
+          "action_template": "When the event details area is visible and {{target_field}} can be selected directly, click {{target_field}} to place the cursor there and prepare it for editing the event's finish time."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '4:00 PM'}",
+          "action_template": "With {{target_field}} selected and typing set to overwrite or update the existing time, type {{end_time}} to change the event end time to {{end_time}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        11,
+        12
+      ],
+      "unit_intent": "Configure the event alert so Thunderbird warns the user 30 minutes before the appointment.",
+      "unit_type": "SET_EVENT_REMINDER",
+      "unit_before_state": "The event editor remains open with the reminder control visible near the event details.",
+      "unit_after_state": "The reminder setting in the event editor is set to \"30 minutes before\".",
+      "unit_precondition": [
+        "A reminder dropdown or selector is visible in the event editor.",
+        "The reminder control can be expanded.",
+        "An option labeled \"30 minutes before\" is available in the reminder list."
+      ],
+      "unit_effect": [
+        "Clicking the reminder control opens a menu of reminder timings.",
+        "After selection, the reminder field displays \"30 minutes before\"."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Set the appointment reminder to a specified lead time.",
+      "parameters": {
+        "reminder_control": "the Reminder dropdown in the event editor",
+        "reminder_timing": "30 minutes before"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Reminder dropdown in the event editor'}}",
+          "action_template": "When {{reminder_control}} is visible and can be expanded, click it to open the available reminder choices and show the reminder timings."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the option labeled 30 minutes before'}}",
+          "action_template": "After the reminder dropdown is open and the option labeled {{reminder_timing}} is visible, click that option so Thunderbird applies the reminder timing and sets the alert to {{reminder_timing}} before the event starts."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_07",
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        13
+      ],
+      "unit_intent": "Commit the completed appointment to the local Home calendar.",
+      "unit_type": "SAVE_EVENT",
+      "unit_before_state": "The event editor shows the completed event details: title \"Dentist Appointment\", location \"Riverfront Clinic\", start time April 14, 2026 3:00 PM, end time 4:00 PM, and reminder set to 30 minutes before.",
+      "unit_after_state": "The event editor closes and the calendar view shows the saved \"Dentist Appointment\" on April 14, 2026 from 3:00 PM to 4:00 PM in the Home calendar.",
+      "unit_precondition": [
+        "The event editor is still open.",
+        "The Save & Close button is visible.",
+        "All required event fields have been entered correctly."
+      ],
+      "unit_effect": [
+        "The event editor closes after clicking Save & Close.",
+        "A calendar entry titled \"Dentist Appointment\" appears on April 14, 2026 from 3:00 PM to 4:00 PM in the Home calendar."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save and close the completed calendar event so it is added to the calendar schedule.",
+      "parameters": {
+        "event_title": "Dentist Appointment",
+        "event_date": "April 14, 2026",
+        "start_time": "3:00 PM",
+        "end_time": "4:00 PM",
+        "calendar_name": "Home"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Save & Close button in the event editor'}}",
+          "action_template": "When the event editor is still open, the Save & Close button is visible, and all required event fields have been entered, click the Save & Close button in the event editor to store the appointment and return to the calendar, where {{event_title}} appears on {{event_date}} from {{start_time}} to {{end_time}} in the {{calendar_name}} calendar."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

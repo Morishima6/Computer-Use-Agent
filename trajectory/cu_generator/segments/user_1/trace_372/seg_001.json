@@ -1,0 +1,398 @@
+{
+  "segment_id": "seg_001",
+  "app": "os",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open a terminal window from the GNOME desktop session",
+      "action_before_state": "The screen shows the Files app already open in GNOME, with the home area or another folder visible.",
+      "action_preconditions": [
+        "The GNOME desktop session is active",
+        "The keyboard is available for shortcuts",
+        "No modal dialog is blocking the screen"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "alt",
+          "t"
+        ]
+      },
+      "action_after_effects": "A Terminal window opens and shows a shell prompt ready for input.",
+      "nl_explanation": "When the GNOME desktop is active and no blocking dialog is present, press Ctrl+Alt+T to open Terminal. The expected result is a new terminal window with a command prompt."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Enter a command that creates the Downloads size report",
+      "action_before_state": "Terminal is focused and waiting at a shell prompt.",
+      "action_preconditions": [
+        "The Terminal window is the active window",
+        "A shell prompt is visible",
+        "The user has permission to write a file in the home folder"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "find ~/Downloads -maxdepth 1 -mindepth 1 -printf '%s\\t%f\\n' | sort -nr | head -n 10 > ~/downloads_top10.txt"
+      },
+      "action_after_effects": "The full command appears at the prompt, but it has not executed yet.",
+      "nl_explanation": "Once Terminal is focused and the prompt is ready, type the command that lists the largest items in Downloads and redirects the top 10 results into downloads_top10.txt in the home folder. The command should now be visible in the terminal input line."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Run the report command",
+      "action_before_state": "The terminal prompt contains the full report command.",
+      "action_preconditions": [
+        "The command text is completely entered",
+        "Terminal focus has not moved away",
+        "The prompt is still active"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The command runs and returns to a prompt. A new file named downloads_top10.txt is created in the home folder.",
+      "nl_explanation": "After confirming the command is fully typed, press Enter to execute it. The expected behavior is that Terminal finishes the command and creates the report file downloads_top10.txt in the home directory."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Switch back to the Files window",
+      "action_before_state": "Terminal is visible in front, and Files is still open in the current GNOME session behind it.",
+      "action_preconditions": [
+        "Both Terminal and Files are open",
+        "The window switcher shortcut is available",
+        "No full-screen app is trapping keyboard input"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "alt",
+          "tab"
+        ]
+      },
+      "action_after_effects": "Focus returns to the Files window.",
+      "nl_explanation": "When both Terminal and Files are open, use Alt+Tab to return to Files. The expected result is that the file manager becomes the active window again."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Open the home folder so the new report file is visible",
+      "action_before_state": "The Files window is active, with the left sidebar showing standard locations such as Home and Desktop.",
+      "action_preconditions": [
+        "Files is focused",
+        "The sidebar is visible",
+        "The Home location is available in the sidebar"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Home item in the Files left sidebar"
+        }
+      },
+      "action_after_effects": "Files navigates to the home folder, where downloads_top10.txt can be seen in the main file list.",
+      "nl_explanation": "With Files active and the sidebar visible, click Home in the left sidebar to show the contents of the home directory. The expected result is that the newly created downloads_top10.txt file appears in the main pane."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Move the report file to the Desktop",
+      "action_before_state": "The home folder is open in Files, and downloads_top10.txt is visible in the main pane. The Desktop location is visible in the left sidebar.",
+      "action_preconditions": [
+        "downloads_top10.txt is visible in the file list",
+        "The Desktop item is visible in the Files sidebar",
+        "The file is not currently open or locked"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the downloads_top10.txt file in the main file list"
+        },
+        "end": {
+          "text": "the Desktop item in the Files left sidebar"
+        },
+        "target": {
+          "begin": {
+            "text": "the downloads_top10.txt file in the main file list"
+          },
+          "end": {
+            "text": "the Desktop item in the Files left sidebar"
+          }
+        }
+      },
+      "action_after_effects": "The report file is moved from the home folder to the Desktop location.",
+      "nl_explanation": "When the report file is visible and Desktop is available in the sidebar, drag downloads_top10.txt onto Desktop. The expected behavior is that the file is moved to the Desktop folder."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Open the Desktop folder to verify the report was moved successfully",
+      "action_before_state": "Files is still open, and the Desktop location remains visible in the sidebar.",
+      "action_preconditions": [
+        "The drag operation has completed",
+        "The Desktop location is still listed in the sidebar",
+        "Files remains responsive"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Desktop item in the Files left sidebar"
+        }
+      },
+      "action_after_effects": "The Desktop folder opens in the main pane, and downloads_top10.txt is visible there.",
+      "nl_explanation": "After moving the file, click Desktop in the Files sidebar to open that location. The expected result is that downloads_top10.txt appears in the Desktop folder, confirming the task is complete."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Generate a text report in the home folder that lists the 10 largest items in Downloads.",
+      "unit_type": "GENERATE_SIZE_REPORT",
+      "unit_before_state": "GNOME is showing the Files window, and no terminal is open in front. The user is at the desktop session with keyboard shortcuts available.",
+      "unit_after_state": "A Terminal window is open and has returned to a shell prompt after running the command. A new file named downloads_top10.txt has been created in the home directory.",
+      "unit_precondition": [
+        "The GNOME desktop session is active and not blocked by a modal dialog.",
+        "The user can open Terminal with Ctrl+Alt+T.",
+        "The shell session has permission to read ~/Downloads and write ~/downloads_top10.txt."
+      ],
+      "unit_effect": [
+        "A Terminal window appears with the full report command entered and then executed.",
+        "The shell returns to a prompt without remaining in an unfinished input state.",
+        "The file downloads_top10.txt now exists in the home folder."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Return to Files and navigate to the folder where the newly created report is visible for file management.",
+      "unit_type": "OPEN_REPORT_LOCATION",
+      "unit_before_state": "Terminal is the frontmost window, while the Files app remains open behind it in the GNOME session.",
+      "unit_after_state": "The Files window is active and showing the home folder contents, including downloads_top10.txt in the main file list.",
+      "unit_precondition": [
+        "Both Terminal and Files are already open.",
+        "The Files sidebar is available and includes the Home location.",
+        "The report file has already been created in the home directory."
+      ],
+      "unit_effect": [
+        "Focus switches away from Terminal back to Files.",
+        "The Home location opens in Files.",
+        "downloads_top10.txt is visible in the file list and ready to be moved."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6
+      ],
+      "unit_intent": "Place the generated report onto the Desktop so it is stored in the requested final location.",
+      "unit_type": "MOVE_FILE_TO_DESKTOP",
+      "unit_before_state": "Files is showing the home folder, with downloads_top10.txt visible in the main pane and Desktop visible in the left sidebar.",
+      "unit_after_state": "downloads_top10.txt has been moved out of the home folder and into the Desktop folder.",
+      "unit_precondition": [
+        "downloads_top10.txt is visible and selectable in the Files main pane.",
+        "The Desktop destination is visible in the Files sidebar.",
+        "The file is not locked or open in a way that blocks moving it."
+      ],
+      "unit_effect": [
+        "The file is dragged onto Desktop in the sidebar.",
+        "downloads_top10.txt no longer remains in its original position in Home.",
+        "The Desktop folder becomes the file's new location."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7
+      ],
+      "unit_intent": "Confirm that the report is present on the Desktop after the move.",
+      "unit_type": "VERIFY_FILE_ON_DESKTOP",
+      "unit_before_state": "Files remains open after the drag operation, and the Desktop location is still available in the left sidebar.",
+      "unit_after_state": "Files is displaying the Desktop folder, and downloads_top10.txt is visible there in the main pane.",
+      "unit_precondition": [
+        "The move operation has completed.",
+        "The Desktop location is visible and clickable in the Files sidebar.",
+        "Files is responsive and still focused."
+      ],
+      "unit_effect": [
+        "The Desktop folder opens in the main pane.",
+        "downloads_top10.txt appears in the Desktop file list as a visible confirmation of successful placement."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Generate a text report in the home folder that lists the 10 largest items in Downloads.",
+      "unit_type": "GENERATE_SIZE_REPORT",
+      "unit_before_state": "GNOME is showing the Files window, and no terminal is open in front. The user is at the desktop session with keyboard shortcuts available.",
+      "unit_after_state": "A Terminal window is open and has returned to a shell prompt after running the command. A new file named downloads_top10.txt has been created in the home directory.",
+      "unit_precondition": [
+        "The GNOME desktop session is active and not blocked by a modal dialog.",
+        "The user can open Terminal with Ctrl+Alt+T.",
+        "The shell session has permission to read ~/Downloads and write ~/downloads_top10.txt."
+      ],
+      "unit_effect": [
+        "A Terminal window appears with the full report command entered and then executed.",
+        "The shell returns to a prompt without remaining in an unfinished input state.",
+        "The file downloads_top10.txt now exists in the home folder."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Generate a text report in the home folder that lists the top {{item_count}} largest items in {{source_directory}}.",
+      "parameters": {
+        "source_directory": "~/Downloads",
+        "item_count": "10",
+        "output_file_name": "downloads_top10.txt",
+        "report_command": "find ~/Downloads -maxdepth 1 -mindepth 1 -printf '%s\\t%f\\n' | sort -nr | head -n 10 > ~/downloads_top10.txt"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'alt', 't']}",
+          "action_template": "When the GNOME desktop session is active and no blocking dialog is present, press Ctrl+Alt+T to open Terminal. The expected result is a new terminal window with a command prompt ready for input."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': \"find ~/Downloads -maxdepth 1 -mindepth 1 -printf '%s\\\\t%f\\\\n' | sort -nr | head -n 10 > ~/downloads_top10.txt\"}",
+          "action_template": "Once Terminal is focused and the prompt is ready, type {{report_command}} to list the largest items in {{source_directory}} and redirect the top {{item_count}} results into {{output_file_name}} in the home folder. The command should now be visible in the terminal input line."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After confirming the command is fully typed, press Enter to execute it. The expected behavior is that Terminal finishes the command and creates {{output_file_name}} in the home directory."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Return to Files and navigate to the folder where the newly created report is visible for file management.",
+      "unit_type": "OPEN_REPORT_LOCATION",
+      "unit_before_state": "Terminal is the frontmost window, while the Files app remains open behind it in the GNOME session.",
+      "unit_after_state": "The Files window is active and showing the home folder contents, including downloads_top10.txt in the main file list.",
+      "unit_precondition": [
+        "Both Terminal and Files are already open.",
+        "The Files sidebar is available and includes the Home location.",
+        "The report file has already been created in the home directory."
+      ],
+      "unit_effect": [
+        "Focus switches away from Terminal back to Files.",
+        "The Home location opens in Files.",
+        "downloads_top10.txt is visible in the file list and ready to be moved."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Switch to the file manager and open the specified folder so the target file is visible for further file management.",
+      "parameters": {
+        "target_location": "Home",
+        "target_file": "downloads_top10.txt"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['alt', 'tab']}",
+          "action_template": "When both the current app and the file manager are open, use Alt+Tab to return to the file manager window. The expected result is that the file manager becomes the active window again."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Home item in the Files left sidebar'}}",
+          "action_template": "With the file manager active and the sidebar visible, click {{target_location}} in the left sidebar to show that folder's contents. The expected result is that {{target_file}} appears in the main file list."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6
+      ],
+      "unit_intent": "Place the generated report onto the Desktop so it is stored in the requested final location.",
+      "unit_type": "MOVE_FILE_TO_DESKTOP",
+      "unit_before_state": "Files is showing the home folder, with downloads_top10.txt visible in the main pane and Desktop visible in the left sidebar.",
+      "unit_after_state": "downloads_top10.txt has been moved out of the home folder and into the Desktop folder.",
+      "unit_precondition": [
+        "downloads_top10.txt is visible and selectable in the Files main pane.",
+        "The Desktop destination is visible in the Files sidebar.",
+        "The file is not locked or open in a way that blocks moving it."
+      ],
+      "unit_effect": [
+        "The file is dragged onto Desktop in the sidebar.",
+        "downloads_top10.txt no longer remains in its original position in Home.",
+        "The Desktop folder becomes the file's new location."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Move a specified file from the current file list to a specified destination folder in the file manager sidebar.",
+      "parameters": {
+        "file_name": "downloads_top10.txt",
+        "destination_folder": "Desktop",
+        "source_folder": "Home"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the downloads_top10.txt file in the main file list'}, 'end': {'text': 'the Desktop item in the Files left sidebar'}, 'target': {'begin': {'text': 'the downloads_top10.txt file in the main file list'}, 'end': {'text': 'the Desktop item in the Files left sidebar'}}}",
+          "action_template": "Drag {{file_name}} from the main file list to the {{destination_folder}} item in the Files left sidebar when {{file_name}} is visible, {{destination_folder}} is visible in the sidebar, and the file is not currently open or locked, so the file is moved from {{source_folder}} to {{destination_folder}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7
+      ],
+      "unit_intent": "Confirm that the report is present on the Desktop after the move.",
+      "unit_type": "VERIFY_FILE_ON_DESKTOP",
+      "unit_before_state": "Files remains open after the drag operation, and the Desktop location is still available in the left sidebar.",
+      "unit_after_state": "Files is displaying the Desktop folder, and downloads_top10.txt is visible there in the main pane.",
+      "unit_precondition": [
+        "The move operation has completed.",
+        "The Desktop location is visible and clickable in the Files sidebar.",
+        "Files is responsive and still focused."
+      ],
+      "unit_effect": [
+        "The Desktop folder opens in the main pane.",
+        "downloads_top10.txt appears in the Desktop file list as a visible confirmation of successful placement."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a specified destination folder in Files to verify that a target file is present there after a move.",
+      "parameters": {
+        "target_folder": "Desktop",
+        "target_file": "downloads_top10.txt",
+        "target_sidebar_item": "the Desktop item in the Files left sidebar"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Desktop item in the Files left sidebar'}}",
+          "action_template": "After the move operation has completed, {{target_sidebar_item}} is still visible in the Files sidebar, and Files remains responsive, click {{target_sidebar_item}} to open {{target_folder}}. The main pane should then display {{target_file}} in {{target_folder}} as visible confirmation that the move succeeded."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

@@ -1,0 +1,296 @@
+{
+  "segment_id": "seg_001",
+  "app": "vlc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Adjust playback speed to 0.75x using the Playback menu",
+      "action_before_state": "vlc is ready for step 1 of the task.",
+      "action_preconditions": [
+        "VLC is open and playing a video",
+        "The menu bar is visible at the top"
+      ],
+      "action": {
+        "type": "CLICK",
+        "target": {
+          "text": "Playback menu in the top menu bar"
+        },
+        "button": "left",
+        "num_clicks": 1
+      },
+      "action_after_effects": "The Playback dropdown menu opens showing options including Speed",
+      "nl_explanation": "When VLC is open with the menu bar visible, click on the 'Playback' menu in the top menu bar to access playback speed controls. This will open a dropdown menu with various playback options."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Open the Speed submenu to access speed adjustment options",
+      "action_before_state": "vlc is ready for step 2 of the task.",
+      "action_preconditions": [
+        "The Playback dropdown menu is open",
+        "The Speed option is visible in the menu"
+      ],
+      "action": {
+        "type": "CLICK",
+        "target": {
+          "text": "Speed option in the Playback dropdown menu"
+        },
+        "button": "left",
+        "num_clicks": 1
+      },
+      "action_after_effects": "A submenu appears showing speed options including Normal Speed, Slower (cycles to 0.75x), Slower (0.5x), Faster, and Faster (2x)",
+      "nl_explanation": "With the Playback menu open, click on the 'Speed' option to reveal its submenu. This will display speed adjustment options. Clicking 'Slower' cycles through preset speeds (from 1x to 0.75x to 0.5x). From Normal Speed (1x), a single click on 'Slower' will set the speed to 0.75x."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Set playback speed to 0.75x (Slower)",
+      "action_before_state": "vlc is ready for step 3 of the task.",
+      "action_preconditions": [
+        "The Speed submenu is visible",
+        "The Slower option is available and current speed is 1x (Normal Speed)"
+      ],
+      "action": {
+        "type": "CLICK",
+        "target": {
+          "text": "Slower option in the Speed submenu"
+        },
+        "button": "left",
+        "num_clicks": 1
+      },
+      "action_after_effects": "The menus close and the playback speed is reduced to 0.75x, indicated in the title bar or on-screen display",
+      "nl_explanation": "Click on 'Slower' in the Speed submenu to reduce the playback speed. From Normal Speed (1x), one click on 'Slower' will set the speed to 0.75x. The menu will close and the video will immediately play at a slower speed, which should be indicated in the VLC window title or via an on-screen display."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Set the starting point (A) of the A-B loop using keyboard shortcut",
+      "action_before_state": "vlc is ready for step 4 of the task.",
+      "action_preconditions": [
+        "Video is playing at 0.75x speed",
+        "The video has reached the desired starting point for the loop"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "["
+        ]
+      },
+      "action_after_effects": "An 'A' marker appears on the timeline or an on-screen indicator shows that point A has been set",
+      "nl_explanation": "When the video reaches the desired starting point for the loop, press the left bracket key '[' to set the 'A' point of the A-B loop. This will mark the beginning of the section to be looped, typically indicated by an 'A' marker on the timeline or an on-screen notification. Alternatively, use Playback menu → A to B → Set A."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Set the ending point (B) of the A-B loop using keyboard shortcut",
+      "action_before_state": "vlc is ready for step 5 of the task.",
+      "action_preconditions": [
+        "Point A has been set",
+        "The video has played to the desired ending point for the loop"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "]"
+        ]
+      },
+      "action_after_effects": "A 'B' marker appears on the timeline, the video jumps back to point A, and the section between A and B begins looping automatically",
+      "nl_explanation": "When the video reaches the desired ending point (after playing past point A), press the right bracket key ']' to set the 'B' point. This will mark the end of the loop section, and VLC will automatically jump back to point A and begin looping the section between A and B continuously. Alternatively, use Playback menu → A to B → Set B."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Verify the loop is active by observing the playback behavior",
+      "action_before_state": "vlc is ready for step 6 of the task.",
+      "action_preconditions": [
+        "Both A and B points are set",
+        "The video is currently looping between the two points"
+      ],
+      "action": {
+        "type": "CLICK",
+        "target": {
+          "text": "Timeline/seek bar area to visually confirm the loop markers"
+        },
+        "button": "left",
+        "num_clicks": 1
+      },
+      "action_after_effects": "The timeline shows both A and B markers, and the playback head moves between them repeatedly",
+      "nl_explanation": "Click on the timeline area to verify that both A and B markers are visible on the seek bar. Observe that when playback reaches point B, it automatically jumps back to point A, confirming that the loop is active and working correctly with the 0.75x speed setting. You can also verify by checking the Playback menu where 'Toggle A-B Loop' should now be checkmarked."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Reduce the video playback speed to 0.75x so the tutorial is easier to transcribe.",
+      "unit_type": "APPLY_PLAYBACK_SPEED",
+      "unit_before_state": "The VLC main window is open with a video playing at normal speed. The top menu bar is visible, and no playback menu is currently expanded.",
+      "unit_after_state": "The Playback and Speed menus have closed, and the video continues playing in the main VLC window at 0.75x speed, with a speed change indication shown in the title bar or as on-screen display.",
+      "unit_precondition": [
+        "A video is already open and playing in VLC.",
+        "The top menu bar is visible and the current speed is Normal Speed (1.0x)."
+      ],
+      "unit_effect": [
+        "The Playback dropdown opens, then the Speed submenu appears.",
+        "After selecting Slower once, VLC returns to the main playback view and the video visibly plays more slowly at 0.75x."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Define the start and end points of the section to be looped and activate the A-B repeat range.",
+      "unit_type": "SET_AB_LOOP_RANGE",
+      "unit_before_state": "The video is playing at 0.75x in VLC with no completed A-B loop active. The playhead is at the desired start point for the repeated section.",
+      "unit_after_state": "Both A and B loop points are set for the chosen section. The timeline shows loop markers, and playback jumps back to point A after reaching point B, starting continuous repetition of that segment.",
+      "unit_precondition": [
+        "The playback speed has already been changed to 0.75x.",
+        "The user can identify the desired loop start and end positions while the video is playing.",
+        "No conflicting action is blocking VLC keyboard shortcuts."
+      ],
+      "unit_effect": [
+        "Pressing '[' creates a visible or on-screen A marker at the current playback position.",
+        "Pressing ']' creates the B marker, after which playback returns to A and begins looping between A and B automatically."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6
+      ],
+      "unit_intent": "Confirm that the selected section is actively looping in VLC.",
+      "unit_type": "VERIFY_AB_LOOP_ACTIVE",
+      "unit_before_state": "An A-B loop has already been set in VLC, and the video is currently playing within that repeated range.",
+      "unit_after_state": "The seek bar area has been checked, with A and B markers visible and the playhead continuing to cycle between them, confirming the loop remains active.",
+      "unit_precondition": [
+        "Both A and B loop points are already set.",
+        "The video is still playing so loop behavior can be observed on the timeline."
+      ],
+      "unit_effect": [
+        "The timeline visibly shows both loop markers.",
+        "The playback head moves from A toward B and then returns to A repeatedly, confirming active looping."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Reduce the video playback speed to 0.75x so the tutorial is easier to transcribe.",
+      "unit_type": "APPLY_PLAYBACK_SPEED",
+      "unit_before_state": "The VLC main window is open with a video playing at normal speed. The top menu bar is visible, and no playback menu is currently expanded.",
+      "unit_after_state": "The Playback and Speed menus have closed, and the video continues playing in the main VLC window at 0.75x speed, with a speed change indication shown in the title bar or as on-screen display.",
+      "unit_precondition": [
+        "A video is already open and playing in VLC.",
+        "The top menu bar is visible and the current speed is Normal Speed (1.0x)."
+      ],
+      "unit_effect": [
+        "The Playback dropdown opens, then the Speed submenu appears.",
+        "After selecting Slower once, VLC returns to the main playback view and the video visibly plays more slowly at 0.75x."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Set the video playback speed from {{current_speed}} to {{target_speed}} using the Playback > Speed menu.",
+      "parameters": {
+        "current_speed": "1x (Normal Speed)",
+        "target_speed": "0.75x"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'target': {'text': 'Playback menu in the top menu bar'}, 'button': 'left', 'num_clicks': 1}",
+          "action_template": "When VLC is open with a video playing and the menu bar visible, click the Playback menu in the top menu bar to access playback speed controls for changing playback from {{current_speed}} to {{target_speed}}. This opens the Playback dropdown menu."
+        },
+        {
+          "action": "{'type': 'CLICK', 'target': {'text': 'Speed option in the Playback dropdown menu'}, 'button': 'left', 'num_clicks': 1}",
+          "action_template": "With the Playback menu open, click the Speed option to reveal its submenu. This displays speed adjustment options, including the option needed to change playback from {{current_speed}} to {{target_speed}}."
+        },
+        {
+          "action": "{'type': 'CLICK', 'target': {'text': 'Slower option in the Speed submenu'}, 'button': 'left', 'num_clicks': 1}",
+          "action_template": "With the Speed submenu visible and playback currently at {{current_speed}}, click the option that reduces playback to {{target_speed}}. The menus close and the video immediately continues playing at {{target_speed}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Define the start and end points of the section to be looped and activate the A-B repeat range.",
+      "unit_type": "SET_AB_LOOP_RANGE",
+      "unit_before_state": "The video is playing at 0.75x in VLC with no completed A-B loop active. The playhead is at the desired start point for the repeated section.",
+      "unit_after_state": "Both A and B loop points are set for the chosen section. The timeline shows loop markers, and playback jumps back to point A after reaching point B, starting continuous repetition of that segment.",
+      "unit_precondition": [
+        "The playback speed has already been changed to 0.75x.",
+        "The user can identify the desired loop start and end positions while the video is playing.",
+        "No conflicting action is blocking VLC keyboard shortcuts."
+      ],
+      "unit_effect": [
+        "Pressing '[' creates a visible or on-screen A marker at the current playback position.",
+        "Pressing ']' creates the B marker, after which playback returns to A and begins looping between A and B automatically."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Set an A-B repeat loop for a specified segment of the currently playing video.",
+      "parameters": {
+        "loop_start_position": "the desired starting point for the loop",
+        "loop_end_position": "the desired ending point for the loop"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['[']}",
+          "action_template": "When the video reaches {{loop_start_position}}, press the left bracket key '[' to set point A of the A-B loop. This requires the video to be playing and results in an A marker appearing on the timeline or an on-screen indicator."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': [']']}",
+          "action_template": "After point A has been set and the video reaches {{loop_end_position}}, press the right bracket key ']' to set point B. This creates a B marker, jumps playback back to point A, and starts looping the section automatically."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6
+      ],
+      "unit_intent": "Confirm that the selected section is actively looping in VLC.",
+      "unit_type": "VERIFY_AB_LOOP_ACTIVE",
+      "unit_before_state": "An A-B loop has already been set in VLC, and the video is currently playing within that repeated range.",
+      "unit_after_state": "The seek bar area has been checked, with A and B markers visible and the playhead continuing to cycle between them, confirming the loop remains active.",
+      "unit_precondition": [
+        "Both A and B loop points are already set.",
+        "The video is still playing so loop behavior can be observed on the timeline."
+      ],
+      "unit_effect": [
+        "The timeline visibly shows both loop markers.",
+        "The playback head moves from A toward B and then returns to A repeatedly, confirming active looping."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Verify that an existing A-B playback loop is active by observing the timeline behavior during playback.",
+      "parameters": {
+        "target_element": "Timeline/seek bar area to visually confirm the loop markers"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'target': {'text': 'Timeline/seek bar area to visually confirm the loop markers'}, 'button': 'left', 'num_clicks': 1}",
+          "action_template": "Click {{target_element}} while both A and B points are set and the video is already looping to verify that both loop markers are visible and that the playback head repeatedly jumps from B back to A, confirming the loop remains active."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

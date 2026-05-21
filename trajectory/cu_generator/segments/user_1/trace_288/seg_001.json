@@ -1,0 +1,210 @@
+{
+  "segment_id": "seg_001",
+  "app": "multi_apps",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Focus the terminal window to ensure it receives keyboard input",
+      "action_before_state": "The screen shows the GNOME desktop with the Files window (Nautilus) open on the left side displaying several PNG files (screenshot1.png, screenshot2.png, etc.) on the Desktop. A Terminal window is open on the right side showing the command prompt at ~/Desktop$ but the window appears inactive (dimmed title bar).",
+      "action_preconditions": [
+        "Files window is visible showing Desktop directory with multiple PNG files present",
+        "Terminal window is open and visible in the background",
+        "Current working directory in terminal is ~/Desktop"
+      ],
+      "action": {
+        "type": "CLICK",
+        "target": {
+          "text": "Inside the Terminal window at the command prompt area"
+        },
+        "button": "left",
+        "num_clicks": 1
+      },
+      "action_after_effects": "The Terminal window becomes the active foreground window with the title bar highlighted, and the cursor is blinking at the command prompt ready for input. The Files window moves to the background.",
+      "nl_explanation": "Click inside the Terminal window to focus it, ensuring that subsequent keyboard input will be captured by the terminal rather than any other application. This prepares the interface for typing the ImageMagick conversion command."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Type the ImageMagick mogrify command to convert all PNG files to JPG format",
+      "action_before_state": "The Terminal window is focused and active, showing the bash prompt 'user@ubuntu:~/Desktop$' with a blinking cursor immediately after the dollar sign, ready to accept command input.",
+      "action_preconditions": [
+        "Terminal window is focused and active",
+        "Current working directory is ~/Desktop where the PNG files are located",
+        "No text is currently present at the command prompt"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "mogrify -format jpg *.png"
+      },
+      "action_after_effects": "The text 'mogrify -format jpg *.png' appears character-by-character after the command prompt in the terminal. The cursor is now positioned at the end of this typed command.",
+      "nl_explanation": "Type the ImageMagick mogrify command which will convert all files matching the pattern *.png to JPG format using the -format flag. This command preserves the original PNG files while creating new JPG versions with the same base filenames."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Execute the typed conversion command",
+      "action_before_state": "The Terminal shows the complete command 'mogrify -format jpg *.png' typed after the prompt '~/Desktop$', with the cursor blinking at the end of the line.",
+      "action_preconditions": [
+        "Command 'mogrify -format jpg *.png' is fully typed in terminal",
+        "Cursor is positioned at the end of the command line",
+        "Terminal is focused and ready to accept the return key"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "return"
+        ]
+      },
+      "action_after_effects": "The terminal executes the mogrify command, which processes each PNG file in the directory (converting screenshot1.png to screenshot1.jpg, screenshot2.png to screenshot2.jpg, etc.). The command completes without verbose output and returns to the prompt '~/Desktop$'. In the background, the new JPG files are created in the Desktop directory alongside the original PNG files.",
+      "nl_explanation": "Press the Enter/Return key to execute the already-typed ImageMagick command. This will batch process all PNG files in the current directory, converting them to JPG format while keeping the originals intact."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Switch to the Files window to verify the JPG files were created successfully",
+      "action_before_state": "The Terminal window shows the command has completed and returned to the prompt. The Files window is visible in the background showing the Desktop folder. Nautilus automatically monitors filesystem changes and displays the newly created JPG files alongside the original PNG files.",
+      "action_preconditions": [
+        "Conversion command has completed execution",
+        "Files window is visible behind the Terminal window",
+        "New JPG files have been created in the Desktop directory alongside the original PNG files"
+      ],
+      "action": {
+        "type": "CLICK",
+        "target": {
+          "text": "Files window (Nautilus) showing the Desktop folder contents"
+        },
+        "button": "left",
+        "num_clicks": 1
+      },
+      "action_after_effects": "The Files window becomes the active foreground window. The file listing displays both the original PNG files (screenshot1.png, screenshot2.png, etc.) and the newly created JPG files (screenshot1.jpg, screenshot2.jpg, etc.) with their respective icons. The files are arranged in the default icon view showing the mix of PNG and JPG files.",
+      "nl_explanation": "Click on the Files window to bring it to the foreground and view the results. This allows verification that the ImageMagick command successfully created the JPG versions of all PNG files in the Desktop directory, with both file formats now present side by side."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Run a batch command that converts all PNG screenshots on the Desktop into JPG copies.",
+      "unit_type": "EXECUTE_BATCH_IMAGE_CONVERSION",
+      "unit_before_state": "The GNOME desktop shows a Files window open to the Desktop with several PNG screenshots visible, while a Terminal window on the right is open at the ~/Desktop prompt but is not currently active.",
+      "unit_after_state": "The Terminal is active, the command has been entered and executed, and the shell has returned to the ~/Desktop prompt after creating JPG files with matching base names alongside the original PNG files.",
+      "unit_precondition": [
+        "A Terminal window is open and can be focused.",
+        "The terminal's current working directory is ~/Desktop.",
+        "The Desktop folder contains the PNG files to convert."
+      ],
+      "unit_effect": [
+        "The terminal shows the command \"mogrify -format jpg *.png\" being executed and then returns to the prompt.",
+        "New .jpg files corresponding to the existing .png screenshots are created in the Desktop directory."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4
+      ],
+      "unit_intent": "Verify in the file manager that the JPG versions were created successfully.",
+      "unit_type": "VERIFY_CONVERSION_RESULTS",
+      "unit_before_state": "The Terminal window is in the foreground after the conversion command has finished, and the Files window showing the Desktop folder is visible behind it with the updated directory contents.",
+      "unit_after_state": "The Files window is now the active foreground window, displaying the Desktop folder with both the original PNG screenshots and the newly created JPG files visible together.",
+      "unit_precondition": [
+        "The batch conversion command has already completed.",
+        "The Files window for the Desktop folder is open and visible.",
+        "The Desktop directory has refreshed or can refresh to show newly created files."
+      ],
+      "unit_effect": [
+        "The Files window comes to the foreground.",
+        "The file list visibly includes JPG files such as screenshot1.jpg and screenshot2.jpg alongside the original PNG files, confirming successful conversion."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Run a batch command that converts all PNG screenshots on the Desktop into JPG copies.",
+      "unit_type": "EXECUTE_BATCH_IMAGE_CONVERSION",
+      "unit_before_state": "The GNOME desktop shows a Files window open to the Desktop with several PNG screenshots visible, while a Terminal window on the right is open at the ~/Desktop prompt but is not currently active.",
+      "unit_after_state": "The Terminal is active, the command has been entered and executed, and the shell has returned to the ~/Desktop prompt after creating JPG files with matching base names alongside the original PNG files.",
+      "unit_precondition": [
+        "A Terminal window is open and can be focused.",
+        "The terminal's current working directory is ~/Desktop.",
+        "The Desktop folder contains the PNG files to convert."
+      ],
+      "unit_effect": [
+        "The terminal shows the command \"mogrify -format jpg *.png\" being executed and then returns to the prompt.",
+        "New .jpg files corresponding to the existing .png screenshots are created in the Desktop directory."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Execute a terminal command to batch-convert all files matching {{source_pattern}} in {{working_directory}} into {{target_format}} copies while keeping the originals.",
+      "parameters": {
+        "target_window": "Inside the Terminal window at the command prompt area",
+        "working_directory": "~/Desktop",
+        "conversion_command": "mogrify -format jpg *.png",
+        "source_pattern": "*.png",
+        "target_format": "jpg"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'target': {'text': 'Inside the Terminal window at the command prompt area'}, 'button': 'left', 'num_clicks': 1}",
+          "action_template": "Click {{target_window}} while the terminal is open and the current working directory is {{working_directory}} to focus the terminal, so subsequent keyboard input is captured there and the prompt becomes active and ready for the conversion command."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'mogrify -format jpg *.png'}",
+          "action_template": "Type {{conversion_command}} in the focused terminal when the prompt in {{working_directory}} is empty to enter the batch conversion command that processes files matching {{source_pattern}} into {{target_format}} copies; the command text appears at the prompt with the cursor positioned at the end."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['return']}",
+          "action_template": "Press Return after {{conversion_command}} has been fully typed and the terminal remains focused to execute the batch conversion; the shell returns to the prompt after creating new {{target_format}} files alongside the original matching files in {{working_directory}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4
+      ],
+      "unit_intent": "Verify in the file manager that the JPG versions were created successfully.",
+      "unit_type": "VERIFY_CONVERSION_RESULTS",
+      "unit_before_state": "The Terminal window is in the foreground after the conversion command has finished, and the Files window showing the Desktop folder is visible behind it with the updated directory contents.",
+      "unit_after_state": "The Files window is now the active foreground window, displaying the Desktop folder with both the original PNG screenshots and the newly created JPG files visible together.",
+      "unit_precondition": [
+        "The batch conversion command has already completed.",
+        "The Files window for the Desktop folder is open and visible.",
+        "The Desktop directory has refreshed or can refresh to show newly created files."
+      ],
+      "unit_effect": [
+        "The Files window comes to the foreground.",
+        "The file list visibly includes JPG files such as screenshot1.jpg and screenshot2.jpg alongside the original PNG files, confirming successful conversion."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Verify in the file manager that the expected {{output_format}} versions of the original {{source_format}} files are present in {{target_folder}}.",
+      "parameters": {
+        "file_manager_window": "Files window (Nautilus) showing the Desktop folder contents",
+        "target_folder": "Desktop",
+        "source_format": "PNG",
+        "output_format": "JPG"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'target': {'text': 'Files window (Nautilus) showing the Desktop folder contents'}, 'button': 'left', 'num_clicks': 1}",
+          "action_template": "Click {{file_manager_window}} when the conversion command has completed and the file manager is visible behind the current foreground window. This brings the file manager to the foreground and lets you verify that both the original {{source_format}} files and the newly created {{output_format}} files are visible together in {{target_folder}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

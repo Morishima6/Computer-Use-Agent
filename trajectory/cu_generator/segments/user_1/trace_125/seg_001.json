@@ -1,0 +1,707 @@
+{
+  "segment_id": "seg_001",
+  "app": "gimp",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the image selection dialog",
+      "action_before_state": "GIMP is already open and focused, showing its normal editing workspace.",
+      "action_preconditions": [
+        "The GIMP main window is visible",
+        "No modal dialog is blocking input"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "o"
+        ]
+      },
+      "action_after_effects": "A GNOME file chooser opens so a source image can be selected.",
+      "nl_explanation": "When GIMP is focused and no other dialog is blocking the screen, press Ctrl+O to open the file chooser, which prepares the app to load an image from disk."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Navigate to the Pictures folder",
+      "action_before_state": "The file chooser is open with the left sidebar of common folders visible.",
+      "action_preconditions": [
+        "The file chooser window is open",
+        "The sidebar includes a Pictures entry"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Pictures folder in the file chooser sidebar"
+        }
+      },
+      "action_after_effects": "The main file list updates to show the contents of the Pictures folder.",
+      "nl_explanation": "Once the file chooser is open and the Pictures shortcut is visible, click Pictures in the sidebar so the file list switches to the folder that contains the photo."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Select the photo to edit",
+      "action_before_state": "The Pictures folder contents are shown in the file chooser.",
+      "action_preconditions": [
+        "At least one image file is visible in the file list",
+        "The file chooser is still active"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the photo file you want to edit in the main file list"
+        }
+      },
+      "action_after_effects": "The chosen image file becomes highlighted as the current selection.",
+      "nl_explanation": "With the Pictures folder open and image files visible, click the photo you want to work on so it becomes the selected file for opening."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Load the selected photo into GIMP",
+      "action_before_state": "A photo file is highlighted in the file chooser and the Open button is available.",
+      "action_preconditions": [
+        "A valid image file is selected",
+        "The Open button is enabled"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Open button in the file chooser"
+        }
+      },
+      "action_after_effects": "The file chooser closes and the photo appears on the GIMP canvas as the active image.",
+      "nl_explanation": "After selecting the image and confirming the Open button is enabled, click Open so the chosen photo loads into the GIMP editing area."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Choose the Crop tool",
+      "action_before_state": "The image is visible on the canvas and the toolbox is available.",
+      "action_preconditions": [
+        "A photo is open in GIMP",
+        "The toolbox or tool icons are visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Crop tool icon in the toolbox"
+        }
+      },
+      "action_after_effects": "GIMP switches into crop mode and is ready for a crop rectangle to be drawn on the image.",
+      "nl_explanation": "When the photo is open and the toolbox is visible, click the Crop tool so the next mouse drag will define the new trimmed image area."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Draw the crop area around the main subject",
+      "action_before_state": "Crop mode is active and the image is ready to receive a crop box.",
+      "action_preconditions": [
+        "The Crop tool is selected",
+        "The photo is fully visible on the canvas"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "a point near the upper-left edge of the part of the photo you want to keep"
+        },
+        "end": {
+          "text": "a point near the lower-right edge of the part of the photo you want to keep"
+        },
+        "target": {
+          "begin": {
+            "text": "the image canvas area"
+          },
+          "end": {
+            "text": "the image canvas area"
+          }
+        }
+      },
+      "action_after_effects": "A crop rectangle appears over the image, excluding some of the extra empty space around the subject.",
+      "nl_explanation": "With the Crop tool active on the open photo, drag from near the upper-left area you want to keep to the lower-right area you want to keep, and GIMP will show a crop box around the selected region."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Apply the crop",
+      "action_before_state": "A crop rectangle is visible on top of the photo.",
+      "action_preconditions": [
+        "A crop box has already been drawn",
+        "The crop preview is still active"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The crop is committed and the canvas updates to show only the trimmed portion of the image.",
+      "nl_explanation": "After the crop box is positioned correctly, press Enter to apply it, and the image will shrink to the selected area."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Open the Colors menu",
+      "action_before_state": "The cropped image is visible in the main GIMP window.",
+      "action_preconditions": [
+        "The main GIMP menu bar is visible",
+        "No other dialog is covering the menu bar"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Colors menu in the top menu bar"
+        }
+      },
+      "action_after_effects": "The Colors drop-down menu opens with adjustment options.",
+      "nl_explanation": "When the edited image is on screen and the top menu bar is available, click Colors so you can choose a brightness adjustment tool."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Open the Brightness-Contrast adjustment dialog",
+      "action_before_state": "The Colors menu is expanded and its adjustment items are visible.",
+      "action_preconditions": [
+        "The Colors drop-down menu is open",
+        "Brightness-Contrast is listed in the menu"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Brightness-Contrast menu item"
+        }
+      },
+      "action_after_effects": "A Brightness-Contrast dialog opens with sliders and a live preview.",
+      "nl_explanation": "With the Colors menu open and the Brightness-Contrast option visible, click it to bring up the dialog used to brighten the current photo."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Increase the image brightness slightly",
+      "action_before_state": "The Brightness-Contrast dialog is open and the Brightness slider is visible.",
+      "action_preconditions": [
+        "The Brightness-Contrast dialog is active",
+        "The Brightness slider knob can be dragged"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the Brightness slider knob at its current position"
+        },
+        "end": {
+          "text": "a point a little to the right to make the photo slightly brighter"
+        },
+        "target": {
+          "begin": {
+            "text": "the Brightness slider knob"
+          },
+          "end": {
+            "text": "slightly to the right on the Brightness slider track"
+          }
+        }
+      },
+      "action_after_effects": "The preview image becomes a bit brighter while keeping the adjustment dialog open.",
+      "nl_explanation": "Once the Brightness-Contrast dialog is open, drag the Brightness slider slightly to the right, and the live preview should show a modest increase in brightness."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Confirm the brightness change",
+      "action_before_state": "The Brightness-Contrast dialog shows the updated preview and the OK button is available.",
+      "action_preconditions": [
+        "The brightness adjustment looks acceptable",
+        "The dialog is still active"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the OK button in the Brightness-Contrast dialog"
+        }
+      },
+      "action_after_effects": "The adjustment dialog closes and the brighter version of the image remains on the canvas.",
+      "nl_explanation": "After the brightness looks right in the preview, click OK to apply the change and return to the main editing view."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Activate the Text tool",
+      "action_before_state": "The edited photo is visible again in the main workspace.",
+      "action_preconditions": [
+        "The main canvas is active",
+        "No modal adjustment dialog is still open"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "t"
+        ]
+      },
+      "action_after_effects": "GIMP switches to the Text tool, ready for a text box to be placed on the image.",
+      "nl_explanation": "With the image back in the main view, press T to switch to the Text tool so a caption can be added to the photo."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Create a text box near the bottom of the image",
+      "action_before_state": "The Text tool is active and the lower area of the photo is visible.",
+      "action_preconditions": [
+        "The Text tool is selected",
+        "There is room near the bottom of the image for a caption"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "a point near the lower-left area where the caption should start"
+        },
+        "end": {
+          "text": "a point near the lower-right area where the caption box should end"
+        },
+        "target": {
+          "begin": {
+            "text": "the image canvas area"
+          },
+          "end": {
+            "text": "the image canvas area"
+          }
+        }
+      },
+      "action_after_effects": "A text box appears on the lower part of the photo with a text cursor ready for typing.",
+      "nl_explanation": "After selecting the Text tool, drag across the lower portion of the image to define a text box, and GIMP will place a text cursor there for the caption."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Enter the caption text",
+      "action_before_state": "A text box is active on the image and the text cursor is blinking inside it.",
+      "action_preconditions": [
+        "The text box is active",
+        "Keyboard input will go into the text box"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Weekend Walk"
+      },
+      "action_after_effects": "The words 'Weekend Walk' appear in the text box as a new text layer on the image.",
+      "nl_explanation": "When the text cursor is active inside the caption box, type 'Weekend Walk', and the phrase should appear on the lower part of the photo."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Open the export dialog",
+      "action_before_state": "The edited image with its caption is visible in GIMP.",
+      "action_preconditions": [
+        "The image has been edited and is ready to save out",
+        "The GIMP main window is focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "e"
+        ]
+      },
+      "action_after_effects": "The Export Image dialog opens so an output filename and format can be chosen.",
+      "nl_explanation": "With the finished image active in GIMP, press Ctrl+Shift+E to open the export dialog for saving the result as a separate file."
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Name the exported file as a PNG",
+      "action_before_state": "The Export Image dialog is open and the name field is ready for input.",
+      "action_preconditions": [
+        "The Export Image dialog is active",
+        "The filename input field accepts typing"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "weekend-walk-edited.png"
+      },
+      "action_after_effects": "The export filename is set to weekend-walk-edited.png, which tells GIMP to export in PNG format.",
+      "nl_explanation": "Once the export dialog is open and the filename field is ready, type 'weekend-walk-edited.png' so the file will be saved with the intended PNG name."
+    },
+    {
+      "step_id": "s17",
+      "step_goal": "Start the PNG export",
+      "action_before_state": "The Export Image dialog shows the desired filename and location.",
+      "action_preconditions": [
+        "A PNG filename has been entered",
+        "The Export button is enabled"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Export button in the Export Image dialog"
+        }
+      },
+      "action_after_effects": "GIMP advances to the PNG export options dialog.",
+      "nl_explanation": "After confirming the filename in the export dialog, click Export to move to the PNG-specific settings window."
+    },
+    {
+      "step_id": "s18",
+      "step_goal": "Finish exporting the final image",
+      "action_before_state": "The PNG export options dialog is open with default settings visible.",
+      "action_preconditions": [
+        "The PNG export options dialog is active",
+        "The final Export button is available"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Export button in the PNG options dialog"
+        }
+      },
+      "action_after_effects": "The PNG file is written to disk and GIMP returns to the main canvas with the edited image still open.",
+      "nl_explanation": "When the PNG options dialog appears and the default settings are acceptable, click Export again to create the final PNG file and complete the task."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Load the source photo from the Pictures folder into GIMP so editing can begin.",
+      "unit_type": "OPEN_IMAGE_FROM_PICTURES",
+      "unit_before_state": "GIMP is open in its normal editing workspace with no modal dialog on screen. No image is currently being chosen, and the standard canvas and menus are visible.",
+      "unit_after_state": "The file chooser has closed and the selected photo from the Pictures folder is now open on the GIMP canvas as the active image.",
+      "unit_precondition": [
+        "The GIMP main window is focused and accepts keyboard input.",
+        "A file chooser can be opened and the Pictures folder contains at least one image file that can be selected."
+      ],
+      "unit_effect": [
+        "A file chooser appears after Ctrl+O and switches to showing the Pictures folder contents.",
+        "One image file becomes highlighted in the chooser and then opens onto the GIMP canvas when Open is confirmed."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Remove excess empty space around the photo so the composition is tighter.",
+      "unit_type": "CROP_IMAGE",
+      "unit_before_state": "The opened photo is visible on the GIMP canvas at full size, and no crop box has been committed yet. The toolbox is visible and available for selecting editing tools.",
+      "unit_after_state": "The crop is applied and the canvas now shows only the trimmed portion of the image, with some of the original empty space removed.",
+      "unit_precondition": [
+        "The target photo is already open as the active image in GIMP.",
+        "The Crop tool is available and the image area to keep is visible enough to draw a crop rectangle."
+      ],
+      "unit_effect": [
+        "Selecting the Crop tool changes the editor into crop mode.",
+        "A crop rectangle appears over the image during the drag, and after Enter the canvas redraws to the smaller cropped composition."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "unit_intent": "Make the photo look slightly brighter without changing the rest of the edit flow.",
+      "unit_type": "ADJUST_BRIGHTNESS",
+      "unit_before_state": "The cropped photo is visible in the main GIMP window with the top menu bar accessible. No color-adjustment dialog is currently open.",
+      "unit_after_state": "The Brightness-Contrast dialog has been closed, and the cropped image remains on the canvas with a modest brightness increase applied.",
+      "unit_precondition": [
+        "The cropped image is active in the main GIMP workspace.",
+        "The Colors menu and the Brightness-Contrast command are available, and the adjustment dialog can be confirmed with OK."
+      ],
+      "unit_effect": [
+        "The Colors menu opens and then the Brightness-Contrast dialog appears with a live preview.",
+        "Dragging the Brightness slider makes the preview visibly lighter, and clicking OK leaves the brighter image on the canvas."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        12,
+        13,
+        14
+      ],
+      "unit_intent": "Add the caption 'Weekend Walk' near the bottom of the photo.",
+      "unit_type": "ADD_TEXT_CAPTION",
+      "unit_before_state": "The brighter cropped image is visible in the main workspace, and no active text box is placed on the lower part of the photo yet.",
+      "unit_after_state": "A text layer containing the words 'Weekend Walk' appears near the bottom of the image inside the newly placed text box.",
+      "unit_precondition": [
+        "The main canvas is active and no modal dialog is blocking editing.",
+        "The Text tool can be activated and there is visible space near the bottom of the image for a caption box."
+      ],
+      "unit_effect": [
+        "Pressing T switches GIMP into text-entry mode.",
+        "Dragging on the lower part of the image creates an active text box with a blinking cursor, and typing inserts 'Weekend Walk' into that box."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        15,
+        16,
+        17,
+        18
+      ],
+      "unit_intent": "Export the edited photo as a separate PNG file for sharing.",
+      "unit_type": "EXPORT_IMAGE_AS_PNG",
+      "unit_before_state": "The edited image is visible in GIMP with the new caption already present on the canvas. No export dialog is open yet.",
+      "unit_after_state": "The export dialogs have closed, the main GIMP canvas is visible again, and a PNG file named 'weekend-walk-edited.png' has been written to disk.",
+      "unit_precondition": [
+        "The edited image is complete and GIMP is focused so the export shortcut works.",
+        "The Export Image dialog accepts a filename entry and the PNG export confirmation button is available in the follow-up options dialog."
+      ],
+      "unit_effect": [
+        "Ctrl+Shift+E opens the Export Image dialog where a new filename can be entered.",
+        "After entering 'weekend-walk-edited.png' and confirming Export twice, GIMP returns to the canvas and the PNG copy is saved."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Load the source photo from the Pictures folder into GIMP so editing can begin.",
+      "unit_type": "OPEN_IMAGE_FROM_PICTURES",
+      "unit_before_state": "GIMP is open in its normal editing workspace with no modal dialog on screen. No image is currently being chosen, and the standard canvas and menus are visible.",
+      "unit_after_state": "The file chooser has closed and the selected photo from the Pictures folder is now open on the GIMP canvas as the active image.",
+      "unit_precondition": [
+        "The GIMP main window is focused and accepts keyboard input.",
+        "A file chooser can be opened and the Pictures folder contains at least one image file that can be selected."
+      ],
+      "unit_effect": [
+        "A file chooser appears after Ctrl+O and switches to showing the Pictures folder contents.",
+        "One image file becomes highlighted in the chooser and then opens onto the GIMP canvas when Open is confirmed."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a selected image file from a specified folder so it becomes the active image on the GIMP canvas.",
+      "parameters": {
+        "folder_name": "Pictures",
+        "target_image_file": "the photo file you want to edit in the main file list"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'o']}",
+          "action_template": "When the GIMP main window is visible and no modal dialog is blocking input, press Ctrl+O to open the file chooser so an image can be selected from disk."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Pictures folder in the file chooser sidebar'}}",
+          "action_template": "Once the file chooser window is open and the sidebar includes {{folder_name}}, click {{folder_name}} in the sidebar so the main file list updates to show that folder's contents."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the photo file you want to edit in the main file list'}}",
+          "action_template": "With image files visible in the current folder and the file chooser still active, click {{target_image_file}} in the main file list so it becomes the current selection."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Open button in the file chooser'}}",
+          "action_template": "After a valid image file is selected and the Open button is enabled, click the Open button so the file chooser closes and the selected image opens on the GIMP canvas as the active image."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Remove excess empty space around the photo so the composition is tighter.",
+      "unit_type": "CROP_IMAGE",
+      "unit_before_state": "The opened photo is visible on the GIMP canvas at full size, and no crop box has been committed yet. The toolbox is visible and available for selecting editing tools.",
+      "unit_after_state": "The crop is applied and the canvas now shows only the trimmed portion of the image, with some of the original empty space removed.",
+      "unit_precondition": [
+        "The target photo is already open as the active image in GIMP.",
+        "The Crop tool is available and the image area to keep is visible enough to draw a crop rectangle."
+      ],
+      "unit_effect": [
+        "Selecting the Crop tool changes the editor into crop mode.",
+        "A crop rectangle appears over the image during the drag, and after Enter the canvas redraws to the smaller cropped composition."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Crop an open image to a specified retained area so unwanted surrounding space is removed.",
+      "parameters": {
+        "crop_start_point": "a point near the upper-left edge of the part of the photo you want to keep",
+        "crop_end_point": "a point near the lower-right edge of the part of the photo you want to keep"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Crop tool icon in the toolbox'}}",
+          "action_template": "When a photo is open in GIMP and the toolbox or tool icons are visible, click the Crop tool icon in the toolbox so the next mouse drag will define the new trimmed image area and GIMP switches into crop mode, ready for a crop rectangle to be drawn on the image."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'a point near the upper-left edge of the part of the photo you want to keep'}, 'end': {'text': 'a point near the lower-right edge of the part of the photo you want to keep'}, 'target': {'begin': {'text': 'the image canvas area'}, 'end': {'text': 'the image canvas area'}}}",
+          "action_template": "With the Crop tool selected and the photo fully visible on the canvas, drag on the image canvas area from {{crop_start_point}} to {{crop_end_point}} so GIMP shows a crop box around the selected region and excludes extra surrounding space."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After a crop box has been drawn and the crop preview is still active, press Enter to apply it so the crop is committed and the canvas updates to show only the trimmed portion of the image."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "unit_intent": "Make the photo look slightly brighter without changing the rest of the edit flow.",
+      "unit_type": "ADJUST_BRIGHTNESS",
+      "unit_before_state": "The cropped photo is visible in the main GIMP window with the top menu bar accessible. No color-adjustment dialog is currently open.",
+      "unit_after_state": "The Brightness-Contrast dialog has been closed, and the cropped image remains on the canvas with a modest brightness increase applied.",
+      "unit_precondition": [
+        "The cropped image is active in the main GIMP workspace.",
+        "The Colors menu and the Brightness-Contrast command are available, and the adjustment dialog can be confirmed with OK."
+      ],
+      "unit_effect": [
+        "The Colors menu opens and then the Brightness-Contrast dialog appears with a live preview.",
+        "Dragging the Brightness slider makes the preview visibly lighter, and clicking OK leaves the brighter image on the canvas."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Adjust the current image's brightness by a specified amount using the Brightness-Contrast dialog.",
+      "parameters": {
+        "brightness_adjustment_amount": "slightly"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Colors menu in the top menu bar'}}",
+          "action_template": "When the edited image is on screen and the top menu bar is available, click Colors to access the brightness adjustment tool needed for a {{brightness_adjustment_amount}} brightness increase."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Brightness-Contrast menu item'}}",
+          "action_template": "With the Colors menu open and the Brightness-Contrast option visible, click it to open the dialog used to adjust the current image's brightness by a {{brightness_adjustment_amount}} amount."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the Brightness slider knob at its current position'}, 'end': {'text': 'a point a little to the right to make the photo slightly brighter'}, 'target': {'begin': {'text': 'the Brightness slider knob'}, 'end': {'text': 'slightly to the right on the Brightness slider track'}}}",
+          "action_template": "Once the Brightness-Contrast dialog is open, drag the Brightness slider to the right until the live preview shows the image is {{brightness_adjustment_amount}} brighter."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the OK button in the Brightness-Contrast dialog'}}",
+          "action_template": "After the preview shows an acceptable {{brightness_adjustment_amount}} brightness increase and the dialog is still active, click OK to apply the change and return to the main editing view."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        12,
+        13,
+        14
+      ],
+      "unit_intent": "Add the caption 'Weekend Walk' near the bottom of the photo.",
+      "unit_type": "ADD_TEXT_CAPTION",
+      "unit_before_state": "The brighter cropped image is visible in the main workspace, and no active text box is placed on the lower part of the photo yet.",
+      "unit_after_state": "A text layer containing the words 'Weekend Walk' appears near the bottom of the image inside the newly placed text box.",
+      "unit_precondition": [
+        "The main canvas is active and no modal dialog is blocking editing.",
+        "The Text tool can be activated and there is visible space near the bottom of the image for a caption box."
+      ],
+      "unit_effect": [
+        "Pressing T switches GIMP into text-entry mode.",
+        "Dragging on the lower part of the image creates an active text box with a blinking cursor, and typing inserts 'Weekend Walk' into that box."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Add a specified text caption to the image by creating a text box in the desired area and entering the caption text.",
+      "parameters": {
+        "text_box_start_point": "a point near the lower-left area where the caption should start",
+        "text_box_end_point": "a point near the lower-right area where the caption box should end",
+        "caption_text": "Weekend Walk"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['t']}",
+          "action_template": "With the image back in the main view, press T to switch to the Text tool so a caption can be added to the image. Preconditions: the main canvas is active and no modal adjustment dialog is still open. After this action, GIMP switches to the Text tool, ready for a text box to be placed on the image."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'a point near the lower-left area where the caption should start'}, 'end': {'text': 'a point near the lower-right area where the caption box should end'}, 'target': {'begin': {'text': 'the image canvas area'}, 'end': {'text': 'the image canvas area'}}}",
+          "action_template": "After selecting the Text tool, drag across the image canvas from {{text_box_start_point}} to {{text_box_end_point}} to define a text box for the caption. Preconditions: the Text tool is selected and there is room near the bottom of the image for a caption. After this action, a text box appears on the image with a text cursor ready for typing."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Weekend Walk'}",
+          "action_template": "When the text cursor is active inside the caption box, type {{caption_text}}. Preconditions: the text box is active and keyboard input will go into the text box. After this action, the specified caption text appears in the text box as a new text layer on the image."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        15,
+        16,
+        17,
+        18
+      ],
+      "unit_intent": "Export the edited photo as a separate PNG file for sharing.",
+      "unit_type": "EXPORT_IMAGE_AS_PNG",
+      "unit_before_state": "The edited image is visible in GIMP with the new caption already present on the canvas. No export dialog is open yet.",
+      "unit_after_state": "The export dialogs have closed, the main GIMP canvas is visible again, and a PNG file named 'weekend-walk-edited.png' has been written to disk.",
+      "unit_precondition": [
+        "The edited image is complete and GIMP is focused so the export shortcut works.",
+        "The Export Image dialog accepts a filename entry and the PNG export confirmation button is available in the follow-up options dialog."
+      ],
+      "unit_effect": [
+        "Ctrl+Shift+E opens the Export Image dialog where a new filename can be entered.",
+        "After entering 'weekend-walk-edited.png' and confirming Export twice, GIMP returns to the canvas and the PNG copy is saved."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Export the edited image as a separate PNG file with a specified output filename.",
+      "parameters": {
+        "output_file_name": "weekend-walk-edited.png"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'e']}",
+          "action_template": "With the finished image active in GIMP, press Ctrl+Shift+E while the edited image is ready and the GIMP main window is focused to open the Export Image dialog for choosing the output filename and format."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'weekend-walk-edited.png'}",
+          "action_template": "When the Export Image dialog is active and the filename input field accepts typing, type {{output_file_name}} so the export filename is set and GIMP will export in PNG format."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Export button in the Export Image dialog'}}",
+          "action_template": "After {{output_file_name}} has been entered as a PNG filename and the Export button is enabled, click the Export button in the Export Image dialog to move to the PNG-specific settings window."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Export button in the PNG options dialog'}}",
+          "action_template": "When the PNG export options dialog is active and the final Export button is available, click the Export button in the PNG options dialog to write the PNG file to disk and return to the main canvas."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

@@ -1,0 +1,943 @@
+{
+  "segment_id": "seg_001",
+  "app": "multi_apps",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Capture a screenshot of the current desktop",
+      "action_before_state": "The desktop is visible with the GNOME top panel showing Activities and system icons. No applications are currently in focus.",
+      "action_preconditions": [
+        "The desktop environment is active and responsive",
+        "The Print Screen key is available on the keyboard",
+        "GNOME Screenshot utility is installed (default in Ubuntu)"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "print"
+        ]
+      },
+      "action_after_effects": "The GNOME Screenshot dialog appears with options to save the screenshot. By default, it saves to the Pictures folder with a timestamp filename like 'Screenshot from YYYY-MM-DD HH-MM-SS.png'.",
+      "nl_explanation": "When the desktop is visible, press the Print Screen key to capture the entire screen. This triggers GNOME's built-in screenshot tool which automatically saves the image to the Pictures folder."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Launch GIMP for image editing",
+      "action_before_state": "The desktop is visible. The screenshot has been saved to the Pictures folder in the background.",
+      "action_preconditions": [
+        "GIMP is installed on the system",
+        "The user has permissions to launch applications",
+        "The desktop environment is responsive"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "alt",
+          "f2"
+        ]
+      },
+      "action_after_effects": "The GNOME 'Run Command' dialog appears at the top of the screen with an input field ready for typing.",
+      "nl_explanation": "Press Alt+F2 to open the Run Command dialog, which provides a quick way to launch applications without navigating through menus."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Open GIMP application",
+      "action_before_state": "The Run Command dialog is open at the top of the screen with a text input field active.",
+      "action_preconditions": [
+        "The Run Command dialog is focused and ready for input",
+        "GIMP is installed and available in the system PATH"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "gimp"
+      },
+      "action_after_effects": "The text 'gimp' appears in the input field. After pressing Enter, GIMP begins to launch, showing its splash screen with the GIMP mascot (Wilber) and loading progress.",
+      "nl_explanation": "Type 'gimp' into the Run Command dialog and press Enter to launch the GIMP image editing application."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Open the screenshot file in GIMP",
+      "action_before_state": "GIMP has fully loaded and displays its main interface with toolbox on the left, empty canvas in center, and layers/dialogs on the right.",
+      "action_preconditions": [
+        "GIMP is fully loaded and responsive",
+        "The screenshot file exists in the Pictures folder",
+        "The File menu is accessible"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "o"
+        ]
+      },
+      "action_after_effects": "The 'Open Image' dialog window appears, showing the file system with the default location set to the Pictures folder. The screenshot file (e.g., 'Screenshot from 2024-01-15 14-30-00.png') should be visible in the file list.",
+      "nl_explanation": "Press Ctrl+O to open the file dialog in GIMP. This keyboard shortcut is the standard way to open existing files in most applications."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Select and open the screenshot file",
+      "action_before_state": "The Open Image dialog is displayed showing the Pictures folder contents. The screenshot file is visible in the file list with a thumbnail preview.",
+      "action_preconditions": [
+        "The Open Image dialog is focused",
+        "The target screenshot file is visible in the current directory",
+        "The file has a valid image format (PNG)"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 2,
+        "target": "The screenshot file in the file list (e.g., 'Screenshot from YYYY-MM-DD HH-MM-SS.png')"
+      },
+      "action_after_effects": "The dialog closes and the screenshot image loads into GIMP's main canvas area. The image appears at 100% zoom or fitted to window, and the title bar updates to show the filename. The Layers panel on the right shows a single 'Background' layer.",
+      "nl_explanation": "Double-click on the screenshot file in the Open Image dialog to select and open it in GIMP. This loads the image into the workspace for editing."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Crop the image to 16:9 aspect ratio",
+      "action_before_state": "The screenshot image is loaded in GIMP's main canvas. The image shows the full desktop screenshot. The toolbox is visible on the left with various tools including the Rectangle Select Tool.",
+      "action_preconditions": [
+        "An image is loaded and active in GIMP",
+        "The Rectangle Select Tool is available in the toolbox",
+        "The image dimensions are larger than the desired crop area"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": "The Rectangle Select Tool in the GIMP toolbox (first icon in the top-left toolbox)"
+      },
+      "action_after_effects": "The Rectangle Select Tool becomes active. The cursor changes to a crosshair when hovering over the canvas, and the Tool Options panel on the right updates to show rectangle selection options like 'Fixed Aspect Ratio'.",
+      "nl_explanation": "Click on the Rectangle Select Tool in the toolbox to activate it. This tool allows selecting a rectangular region of the image for cropping."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Configure fixed aspect ratio for selection",
+      "action_before_state": "The Rectangle Select Tool is active. The Tool Options panel is visible on the right side of the interface showing various selection options.",
+      "action_preconditions": [
+        "The Rectangle Select Tool is currently active",
+        "The Tool Options panel is visible",
+        "The 'Fixed Aspect Ratio' option is available in the Tool Options"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": "The 'Fixed Aspect Ratio' option (radio button or dropdown) in the Tool Options panel to enable fixed aspect ratio selection"
+      },
+      "action_after_effects": "The 'Fixed Aspect Ratio' option becomes selected (visually highlighted). Additional options appear below it including input fields for entering the desired aspect ratio values (e.g., width:height format).",
+      "nl_explanation": "Click the 'Fixed Aspect Ratio' option in the Tool Options panel to enable constrained selection proportions, which allows setting a specific aspect ratio for the crop selection."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Set aspect ratio to 16:9",
+      "action_before_state": "The 'Fixed Aspect Ratio' option is enabled in the Tool Options. There are input fields visible for setting the aspect ratio, currently showing default values like '1:1' or empty fields.",
+      "action_preconditions": [
+        "The 'Fixed Aspect Ratio' option is selected",
+        "The aspect ratio input fields are visible and accessible",
+        "The aspect ratio input is in width:height format"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "16:9"
+      },
+      "action_after_effects": "The aspect ratio field now displays '16:9'. This constrains the rectangle selection tool to maintain a 16:9 width-to-height ratio regardless of how the selection is drawn on the canvas.",
+      "nl_explanation": "Type '16:9' into the aspect ratio input field to constrain the selection tool to a 16:9 aspect ratio, which is the standard widescreen format suitable for desktop wallpapers."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Draw 16:9 selection on the image",
+      "action_before_state": "The Rectangle Select Tool is configured with a fixed 16:9 aspect ratio. The screenshot image is displayed on the canvas. The cursor is positioned over the image.",
+      "action_preconditions": [
+        "The image is loaded and visible on canvas",
+        "The Rectangle Select Tool is active with 16:9 constraint",
+        "There is sufficient image area to create a selection"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "Upper-left area of the image canvas, approximately 10% from the top and left edges"
+        },
+        "end": {
+          "text": "Lower-right area of the image canvas, approximately 10% from the bottom and right edges, creating a large central selection"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "A rectangular selection appears on the image with a 16:9 aspect ratio, indicated by marching ants (animated dashed lines) around the selected area. The selection dimensions are displayed in the status bar at the bottom of the GIMP window. The area outside the selection may appear slightly dimmed depending on GIMP's preferences.",
+      "nl_explanation": "Drag from the upper-left to the lower-right of the image canvas to create a rectangular selection with the constrained 16:9 aspect ratio. This defines the area that will become the desktop wallpaper."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Crop the image to the selection",
+      "action_before_state": "A rectangular 16:9 selection is active on the image, indicated by marching ants. The selection covers the desired area of the screenshot to be used as wallpaper.",
+      "action_preconditions": [
+        "An active selection exists on the image (marching ants visible)",
+        "The selection has the correct 16:9 proportions",
+        "The image layer is not locked or protected"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": "The 'Image' menu in the top menu bar of GIMP"
+      },
+      "action_after_effects": "The Image menu dropdown appears showing various image manipulation options including 'Crop to Selection', 'Flatten Image', 'Scale Image', etc.",
+      "nl_explanation": "Click on the 'Image' menu in the top menu bar to access image manipulation options, specifically to find the crop function."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Execute crop to selection command",
+      "action_before_state": "The Image menu is open showing a dropdown list of options. 'Crop to Selection' is visible in the menu.",
+      "action_preconditions": [
+        "The Image menu is open and visible",
+        "The 'Crop to Selection' option is available in the menu",
+        "A selection is still active on the image"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": "The 'Crop to Selection' option in the Image menu dropdown"
+      },
+      "action_after_effects": "The image is cropped to the boundaries of the 16:9 selection. The canvas updates to show only the selected area, and the marching ants disappear. The image dimensions in the title bar update to reflect the new size (e.g., 1920x1080 if that was the selection size). The layer boundary may be visible around the cropped content.",
+      "nl_explanation": "Click on 'Crop to Selection' in the Image menu to crop the image to the boundaries of the 16:9 selection made earlier. This removes all parts of the image outside the selection, leaving only the desired wallpaper content."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Export the cropped image as wallpaper.jpg",
+      "action_before_state": "The image has been cropped to 16:9 aspect ratio and is displayed in the GIMP canvas. The title bar shows the current filename (e.g., 'Screenshot from...') and dimensions.",
+      "action_preconditions": [
+        "The image is cropped and ready for export",
+        "The File menu is accessible",
+        "The Pictures directory exists and is writable"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "e"
+        ]
+      },
+      "action_after_effects": "The 'Export Image' dialog window opens, showing the file system with the current location (usually the Pictures folder). The filename field at the top shows the current name (e.g., 'Screenshot from...') selected for editing. The 'Select File Type' dropdown at the bottom shows options like 'JPEG image', 'PNG image', etc.",
+      "nl_explanation": "Press Ctrl+Shift+E to open the Export Image dialog in GIMP. This keyboard shortcut is the quickest way to initiate the export process for saving the cropped image."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Set the filename to wallpaper.jpg",
+      "action_before_state": "The Export Image dialog is open. The filename field at the top contains the current name (e.g., 'Screenshot from 2024-01-15 14-30-00.png') and the text is selected/highlighted.",
+      "action_preconditions": [
+        "The Export Image dialog is open and focused",
+        "The filename field is visible and the current text is selected",
+        "The current directory is appropriate (Pictures folder)"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "wallpaper.jpg"
+      },
+      "action_after_effects": "The filename field now displays 'wallpaper.jpg' instead of the original screenshot filename. The file type at the bottom may automatically update to 'JPEG image' based on the .jpg extension.",
+      "nl_explanation": "Type 'wallpaper.jpg' into the filename field to replace the current filename. This sets the export name and format (JPEG) for the cropped image."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Confirm export and set JPEG quality",
+      "action_before_state": "The Export Image dialog shows 'wallpaper.jpg' as the filename. The location is set to the Pictures folder. The 'Export' button is visible in the bottom right.",
+      "action_preconditions": [
+        "The filename is correctly set to 'wallpaper.jpg'",
+        "The current folder is Pictures (or appropriate location)",
+        "The Export button is visible and clickable"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": "The 'Export' button in the bottom right of the Export Image dialog"
+      },
+      "action_after_effects": "The Export Image dialog closes and a new 'Export Image as JPEG' dialog appears with quality settings. The 'Quality' slider is visible, defaulting to around 90-95%. A preview of the image is shown on the left.",
+      "nl_explanation": "Click the 'Export' button to proceed to the JPEG export options. This confirms the filename and location, and opens the JPEG-specific quality settings dialog."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Finalize JPEG export with default quality",
+      "action_before_state": "The 'Export Image as JPEG' dialog is displayed. The Quality slider is set to a high value (90-95%). A preview thumbnail of the wallpaper image is visible. The 'Export' button is in the bottom right.",
+      "action_preconditions": [
+        "The JPEG export dialog is open",
+        "The quality setting is appropriate (default high quality)",
+        "The image preview looks correct"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": "The 'Export' button in the 'Export Image as JPEG' dialog"
+      },
+      "action_after_effects": "The JPEG export dialog closes. A progress bar briefly appears at the bottom of the GIMP window indicating 'Image exported to /home/user/Pictures/wallpaper.jpg'. The image remains open in GIMP, and the file is now saved in the Pictures folder.",
+      "nl_explanation": "Click the 'Export' button in the JPEG dialog to finalize saving the image with the current quality settings. This completes the export process, saving 'wallpaper.jpg' to the Pictures folder."
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Open system Settings",
+      "action_before_state": "GIMP is still open with the cropped wallpaper image. The desktop is accessible via the Activities overview or by minimizing GIMP.",
+      "action_preconditions": [
+        "The wallpaper.jpg file has been successfully created",
+        "The system Settings application is installed (default in GNOME)",
+        "The user has permissions to change system settings"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": "The system menu in the top-right corner of the screen (where power/network icons are located)"
+      },
+      "action_after_effects": "A system menu dropdown appears showing options like 'Wired Connection', 'Settings', 'Lock', and 'Power Off / Log Out'.",
+      "nl_explanation": "Click on the system menu in the top-right corner of the screen to access system controls including Settings."
+    },
+    {
+      "step_id": "s17",
+      "step_goal": "Launch Settings application",
+      "action_before_state": "The system menu dropdown is open showing various options including 'Settings' with a gear icon.",
+      "action_preconditions": [
+        "The system menu is open and visible",
+        "The Settings option is visible in the menu",
+        "The Settings application is available on the system"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": "The 'Settings' option in the system menu dropdown"
+      },
+      "action_after_effects": "The system menu closes and the Settings application window opens, displaying the main Settings panel with various categories like 'Network', 'Bluetooth', 'Background', 'Displays', etc. on the left sidebar. The 'Network' or 'Wi-Fi' section is typically shown by default on the right.",
+      "nl_explanation": "Click on 'Settings' in the system menu to open the system Settings application where desktop background options can be configured."
+    },
+    {
+      "step_id": "s18",
+      "step_goal": "Navigate to Background settings",
+      "action_before_state": "The Settings window is open showing the main settings categories. 'Background' or 'Appearance' option is visible.",
+      "action_preconditions": [
+        "The Settings window is open and focused",
+        "The 'Background' category exists in the settings",
+        "The Background settings are accessible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": "The 'Background' option in the Settings window"
+      },
+      "action_after_effects": "The right panel updates to show the Background settings. It displays the current desktop background image (if any) and a grid of available wallpaper thumbnails below. There is an 'Add Picture...' button or similar option to add a custom wallpaper.",
+      "nl_explanation": "Click on 'Background' in the Settings to navigate to the desktop background settings where custom wallpapers can be selected and applied."
+    },
+    {
+      "step_id": "s19",
+      "step_goal": "Add custom wallpaper image",
+      "action_before_state": "The Background settings panel is displayed. It shows the current background and available wallpapers. There is an 'Add Picture...' button (or '+' button) visible, typically at the top or bottom of the wallpaper grid.",
+      "action_preconditions": [
+        "The Background settings are open",
+        "The wallpaper.jpg file exists in the Pictures folder",
+        "The 'Add Picture' or similar button is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": "The 'Add Picture...' button (or '+' icon) in the Background settings panel to add a custom wallpaper"
+      },
+      "action_after_effects": "A file chooser dialog opens, titled 'Select a picture' or similar. It defaults to the Pictures folder or the last accessed location. The wallpaper.jpg file should be visible in the file list.",
+      "nl_explanation": "Click the 'Add Picture...' button in the Background settings to open a file browser dialog for selecting the custom wallpaper.jpg file created earlier."
+    },
+    {
+      "step_id": "s20",
+      "step_goal": "Select the wallpaper.jpg file",
+      "action_before_state": "The file chooser dialog is open showing the Pictures folder. The wallpaper.jpg file is visible in the file list with a thumbnail preview.",
+      "action_preconditions": [
+        "The file chooser dialog is open and focused",
+        "The Pictures folder is displayed",
+        "The wallpaper.jpg file exists and is visible in the file list"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 2,
+        "target": "The 'wallpaper.jpg' file in the file list of the Pictures folder"
+      },
+      "action_after_effects": "The file chooser dialog closes. The Background settings panel updates to show wallpaper.jpg as the selected background. The desktop background immediately changes to display the edited screenshot. The wallpaper.jpg thumbnail now appears in the grid of available wallpapers for future use.",
+      "nl_explanation": "Double-click on the wallpaper.jpg file in the file chooser to select it and apply it as the new desktop background. This closes the dialog and immediately applies the wallpaper to the desktop."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Capture the current desktop as a source image for the wallpaper task.",
+      "unit_type": "CAPTURE_SCREENSHOT",
+      "unit_before_state": "The GNOME desktop is fully visible with the top panel showing Activities and status icons, and no application window is currently active.",
+      "unit_after_state": "The GNOME Screenshot dialog is visible over the desktop, and a timestamped PNG screenshot of the desktop has been saved in the Pictures folder.",
+      "unit_precondition": [
+        "The desktop is currently visible and responsive.",
+        "The Print Screen key can be used from the keyboard.",
+        "The system screenshot utility is available."
+      ],
+      "unit_effect": [
+        "A screenshot capture dialog appears.",
+        "A new screenshot file with a timestamped name is created in the Pictures folder."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3
+      ],
+      "unit_intent": "Launch GIMP so the captured screenshot can be edited.",
+      "unit_type": "LAUNCH_APPLICATION",
+      "unit_before_state": "The desktop is visible after the screenshot has been saved, and no editor is open yet.",
+      "unit_after_state": "GIMP is launched from the Run Command workflow and opens to its main editing interface after showing its startup splash screen.",
+      "unit_precondition": [
+        "The desktop session is responsive.",
+        "GIMP is installed and can be launched by command name.",
+        "The user can open the Run Command dialog."
+      ],
+      "unit_effect": [
+        "The Run Command dialog opens with a focused text field.",
+        "Entering \"gimp\" starts GIMP and brings up the image editor."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Load the newly captured desktop screenshot into GIMP for editing.",
+      "unit_type": "OPEN_IMAGE_FILE",
+      "unit_before_state": "GIMP is open with its standard workspace visible, including the toolbox, central canvas area, and side panels, but no image is loaded yet.",
+      "unit_after_state": "The screenshot file from the Pictures folder is open on the GIMP canvas, and the Layers panel shows a single Background layer for that image.",
+      "unit_precondition": [
+        "GIMP is fully loaded and responsive.",
+        "The screenshot file exists in the Pictures folder.",
+        "The file open dialog can be invoked from GIMP."
+      ],
+      "unit_effect": [
+        "The Open Image dialog appears in the Pictures location.",
+        "Double-clicking the screenshot closes the dialog and loads the image onto the canvas."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "unit_intent": "Define the exact 16:9 region of the screenshot that should become the wallpaper.",
+      "unit_type": "DEFINE_CROP_REGION",
+      "unit_before_state": "The full desktop screenshot is displayed in GIMP, with the toolbox available on the left and tool options visible in the interface.",
+      "unit_after_state": "A rectangular selection with a fixed 16:9 aspect ratio is drawn over the screenshot, marking the portion that will be kept for the wallpaper.",
+      "unit_precondition": [
+        "An image is open and active in GIMP.",
+        "The Rectangle Select Tool is available.",
+        "The Tool Options area is visible and editable."
+      ],
+      "unit_effect": [
+        "The Rectangle Select Tool becomes active.",
+        "The Fixed Aspect Ratio option is enabled.",
+        "The aspect ratio field shows \"16:9\".",
+        "A 16:9 selection appears on the image with marching ants around the chosen area."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        10,
+        11
+      ],
+      "unit_intent": "Crop away the unused parts of the screenshot so only the selected wallpaper area remains.",
+      "unit_type": "APPLY_CROP_TO_SELECTION",
+      "unit_before_state": "The screenshot canvas shows an active 16:9 selection covering the desired wallpaper area.",
+      "unit_after_state": "The canvas is reduced to the selected 16:9 region, the selection border is gone, and the image now consists only of the cropped wallpaper content.",
+      "unit_precondition": [
+        "A valid 16:9 selection is still active on the image.",
+        "The Image menu is accessible.",
+        "The image can be modified."
+      ],
+      "unit_effect": [
+        "The Image menu opens and displays the Crop to Selection command.",
+        "After selecting Crop to Selection, the canvas updates to the smaller cropped dimensions."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "unit_intent": "Export the cropped image as a JPEG wallpaper file in the Pictures folder.",
+      "unit_type": "EXPORT_IMAGE_AS_JPEG",
+      "unit_before_state": "The cropped 16:9 image is open in GIMP, and it still carries the original screenshot identity inside the editor.",
+      "unit_after_state": "All export dialogs are closed, and the cropped image has been saved as wallpaper.jpg in the Pictures folder while remaining open in GIMP.",
+      "unit_precondition": [
+        "The image has already been cropped and is ready to save.",
+        "The Pictures folder exists and is writable.",
+        "The export command and dialog controls are available."
+      ],
+      "unit_effect": [
+        "The Export Image dialog opens with the filename field ready to edit.",
+        "The filename is changed to \"wallpaper.jpg\".",
+        "A JPEG export options dialog appears after the first export confirmation.",
+        "The final export completes and GIMP shows a confirmation or progress message indicating the image was exported to the Pictures folder."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        16,
+        17
+      ],
+      "unit_intent": "Open the GNOME Settings application to change the desktop background.",
+      "unit_type": "OPEN_SYSTEM_SETTINGS",
+      "unit_before_state": "GIMP is still open with the finished wallpaper image, and the top-right system status area is available to access system controls.",
+      "unit_after_state": "The Settings application is open with its main sidebar of categories visible and a default settings page shown on the right.",
+      "unit_precondition": [
+        "The wallpaper.jpg file has already been created.",
+        "The desktop environment is responsive.",
+        "The system menu and Settings application are available."
+      ],
+      "unit_effect": [
+        "The top-right system menu opens and shows a Settings option.",
+        "Choosing Settings opens the GNOME Settings window."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_08",
+      "step_indices": [
+        18
+      ],
+      "unit_intent": "Reach the desktop background configuration page inside Settings.",
+      "unit_type": "SWITCH_SETTINGS_CATEGORY",
+      "unit_before_state": "The Settings window is open on its default section, with the category list visible in the left sidebar.",
+      "unit_after_state": "The Background settings page is displayed, showing the current wallpaper area, available wallpaper thumbnails, and an Add Picture control.",
+      "unit_precondition": [
+        "The Settings window is open and focused.",
+        "The Background category is visible in the sidebar."
+      ],
+      "unit_effect": [
+        "The right panel switches from the default settings page to the Background configuration view."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_09",
+      "step_indices": [
+        19,
+        20
+      ],
+      "unit_intent": "Add the exported wallpaper file and apply it as the current desktop background.",
+      "unit_type": "APPLY_DESKTOP_BACKGROUND",
+      "unit_before_state": "The Background settings panel is open and shows the existing wallpaper choices along with an Add Picture button.",
+      "unit_after_state": "The file chooser is closed, wallpaper.jpg appears as the selected wallpaper in Settings, and the desktop background has changed to the edited screenshot.",
+      "unit_precondition": [
+        "The Background settings page is already open.",
+        "The Add Picture control is visible and clickable.",
+        "wallpaper.jpg exists in the Pictures folder and can be selected."
+      ],
+      "unit_effect": [
+        "A picture selection dialog opens from the Background settings page.",
+        "Selecting wallpaper.jpg closes the dialog.",
+        "The Background page updates to show wallpaper.jpg as the chosen wallpaper.",
+        "The desktop background changes immediately to the new image."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Capture the current desktop as a source image for the wallpaper task.",
+      "unit_type": "CAPTURE_SCREENSHOT",
+      "unit_before_state": "The GNOME desktop is fully visible with the top panel showing Activities and status icons, and no application window is currently active.",
+      "unit_after_state": "The GNOME Screenshot dialog is visible over the desktop, and a timestamped PNG screenshot of the desktop has been saved in the Pictures folder.",
+      "unit_precondition": [
+        "The desktop is currently visible and responsive.",
+        "The Print Screen key can be used from the keyboard.",
+        "The system screenshot utility is available."
+      ],
+      "unit_effect": [
+        "A screenshot capture dialog appears.",
+        "A new screenshot file with a timestamped name is created in the Pictures folder."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Capture {{capture_scope}} as an image file using the system screenshot utility.",
+      "parameters": {
+        "capture_scope": "the current desktop",
+        "trigger_key": "Print Screen",
+        "screenshot_utility": "GNOME Screenshot",
+        "destination_folder": "Pictures",
+        "output_file_pattern": "Screenshot from YYYY-MM-DD HH-MM-SS.png"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['print']}",
+          "action_template": "When {{capture_scope}} is visible and the desktop environment is active and responsive, press {{trigger_key}} to capture it. This triggers {{screenshot_utility}}, which opens the screenshot dialog and automatically saves the image to the {{destination_folder}} folder with a timestamped filename like {{output_file_pattern}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3
+      ],
+      "unit_intent": "Launch GIMP so the captured screenshot can be edited.",
+      "unit_type": "LAUNCH_APPLICATION",
+      "unit_before_state": "The desktop is visible after the screenshot has been saved, and no editor is open yet.",
+      "unit_after_state": "GIMP is launched from the Run Command workflow and opens to its main editing interface after showing its startup splash screen.",
+      "unit_precondition": [
+        "The desktop session is responsive.",
+        "GIMP is installed and can be launched by command name.",
+        "The user can open the Run Command dialog."
+      ],
+      "unit_effect": [
+        "The Run Command dialog opens with a focused text field.",
+        "Entering \"gimp\" starts GIMP and brings up the image editor."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Launch {{application_name}} through the Run Command dialog so the target application opens and is ready for use.",
+      "parameters": {
+        "application_name": "GIMP",
+        "launch_command": "gimp"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['alt', 'f2']}",
+          "action_template": "Press Alt+F2 to open the Run Command dialog when the desktop environment is responsive, the user is allowed to launch applications, and the target application is installed; this opens a focused input field ready for typing."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'gimp'}",
+          "action_template": "Type {{launch_command}} into the focused Run Command dialog and submit it to launch {{application_name}} when the command is available in the system PATH; the command appears in the input field and {{application_name}} begins launching with its startup screen."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Load the newly captured desktop screenshot into GIMP for editing.",
+      "unit_type": "OPEN_IMAGE_FILE",
+      "unit_before_state": "GIMP is open with its standard workspace visible, including the toolbox, central canvas area, and side panels, but no image is loaded yet.",
+      "unit_after_state": "The screenshot file from the Pictures folder is open on the GIMP canvas, and the Layers panel shows a single Background layer for that image.",
+      "unit_precondition": [
+        "GIMP is fully loaded and responsive.",
+        "The screenshot file exists in the Pictures folder.",
+        "The file open dialog can be invoked from GIMP."
+      ],
+      "unit_effect": [
+        "The Open Image dialog appears in the Pictures location.",
+        "Double-clicking the screenshot closes the dialog and loads the image onto the canvas."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open {{target_image_file}} from {{source_folder}} in GIMP for editing.",
+      "parameters": {
+        "target_image_file": "The screenshot file in the file list (e.g., 'Screenshot from YYYY-MM-DD HH-MM-SS.png')",
+        "source_folder": "Pictures folder"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'o']}",
+          "action_template": "Press Ctrl+O in GIMP to open the Open Image dialog when {{target_image_file}} exists in {{source_folder}} and the file open command is available. The dialog opens with its default location set to {{source_folder}}, where {{target_image_file}} is visible in the file list."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 2, 'target': \"The screenshot file in the file list (e.g., 'Screenshot from YYYY-MM-DD HH-MM-SS.png')\"}",
+          "action_template": "Double-click {{target_image_file}} in the Open Image dialog when the dialog is focused and {{target_image_file}} is visible in the current directory as a valid image file. The dialog closes and the image loads into GIMP's main canvas, the title bar updates to show the filename, and the Layers panel shows a single Background layer."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "unit_intent": "Define the exact 16:9 region of the screenshot that should become the wallpaper.",
+      "unit_type": "DEFINE_CROP_REGION",
+      "unit_before_state": "The full desktop screenshot is displayed in GIMP, with the toolbox available on the left and tool options visible in the interface.",
+      "unit_after_state": "A rectangular selection with a fixed 16:9 aspect ratio is drawn over the screenshot, marking the portion that will be kept for the wallpaper.",
+      "unit_precondition": [
+        "An image is open and active in GIMP.",
+        "The Rectangle Select Tool is available.",
+        "The Tool Options area is visible and editable."
+      ],
+      "unit_effect": [
+        "The Rectangle Select Tool becomes active.",
+        "The Fixed Aspect Ratio option is enabled.",
+        "The aspect ratio field shows \"16:9\".",
+        "A 16:9 selection appears on the image with marching ants around the chosen area."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Define a crop selection on the image canvas using a specified fixed aspect ratio.",
+      "parameters": {
+        "aspect_ratio": "16:9",
+        "selection_start_region": "Upper-left area of the image canvas, approximately 10% from the top and left edges",
+        "selection_end_region": "Lower-right area of the image canvas, approximately 10% from the bottom and right edges, creating a large central selection"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': 'The Rectangle Select Tool in the GIMP toolbox (first icon in the top-left toolbox)'}",
+          "action_template": "Click the Rectangle Select Tool in the toolbox to activate it when an image is loaded and active in GIMP. This enables rectangular region selection and updates the Tool Options panel with rectangle selection options."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': \"The 'Fixed Aspect Ratio' option (radio button or dropdown) in the Tool Options panel to enable fixed aspect ratio selection\"}",
+          "action_template": "Click the 'Fixed Aspect Ratio' option in the Tool Options panel while the Rectangle Select Tool is active to constrain the selection proportions. This enables the aspect ratio input controls for the selection."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '16:9'}",
+          "action_template": "Type {{aspect_ratio}} into the aspect ratio input field after the fixed aspect ratio option is enabled to constrain the rectangle selection to that width-to-height ratio."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'Upper-left area of the image canvas, approximately 10% from the top and left edges'}, 'end': {'text': 'Lower-right area of the image canvas, approximately 10% from the bottom and right edges, creating a large central selection'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "Drag from {{selection_start_region}} to {{selection_end_region}} on the image canvas while the Rectangle Select Tool is constrained to {{aspect_ratio}} to create the crop selection. A rectangular selection appears on the image with marching ants around the chosen area."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        10,
+        11
+      ],
+      "unit_intent": "Crop away the unused parts of the screenshot so only the selected wallpaper area remains.",
+      "unit_type": "APPLY_CROP_TO_SELECTION",
+      "unit_before_state": "The screenshot canvas shows an active 16:9 selection covering the desired wallpaper area.",
+      "unit_after_state": "The canvas is reduced to the selected 16:9 region, the selection border is gone, and the image now consists only of the cropped wallpaper content.",
+      "unit_precondition": [
+        "A valid 16:9 selection is still active on the image.",
+        "The Image menu is accessible.",
+        "The image can be modified."
+      ],
+      "unit_effect": [
+        "The Image menu opens and displays the Crop to Selection command.",
+        "After selecting Crop to Selection, the canvas updates to the smaller cropped dimensions."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Crop the image canvas to the active selection so only the selected content remains.",
+      "parameters": {
+        "selection_aspect_ratio": "16:9",
+        "selected_region": "the selected wallpaper area"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': \"The 'Image' menu in the top menu bar of GIMP\"}",
+          "action_template": "Click the 'Image' menu in the top menu bar to access image manipulation options when an active {{selection_aspect_ratio}} selection around {{selected_region}} exists and the image can still be modified; this opens the menu dropdown with 'Crop to Selection' available."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': \"The 'Crop to Selection' option in the Image menu dropdown\"}",
+          "action_template": "Click 'Crop to Selection' in the Image menu when the menu is open and the selection is still active to crop the image to the boundaries of the {{selection_aspect_ratio}} selection, removing everything outside it so only {{selected_region}} remains."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "unit_intent": "Export the cropped image as a JPEG wallpaper file in the Pictures folder.",
+      "unit_type": "EXPORT_IMAGE_AS_JPEG",
+      "unit_before_state": "The cropped 16:9 image is open in GIMP, and it still carries the original screenshot identity inside the editor.",
+      "unit_after_state": "All export dialogs are closed, and the cropped image has been saved as wallpaper.jpg in the Pictures folder while remaining open in GIMP.",
+      "unit_precondition": [
+        "The image has already been cropped and is ready to save.",
+        "The Pictures folder exists and is writable.",
+        "The export command and dialog controls are available."
+      ],
+      "unit_effect": [
+        "The Export Image dialog opens with the filename field ready to edit.",
+        "The filename is changed to \"wallpaper.jpg\".",
+        "A JPEG export options dialog appears after the first export confirmation.",
+        "The final export completes and GIMP shows a confirmation or progress message indicating the image was exported to the Pictures folder."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Export the prepared image as a specified JPEG file in {{target_folder}}.",
+      "parameters": {
+        "target_folder": "Pictures folder",
+        "output_file_name": "wallpaper.jpg"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'e']}",
+          "action_template": "Press Ctrl+Shift+E to open the Export Image dialog in GIMP for the prepared image. This opens the export workflow with the filename field ready for editing in {{target_folder}}."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'wallpaper.jpg'}",
+          "action_template": "Type {{output_file_name}} into the filename field to replace the current filename. This sets the export name and JPEG format for the image in {{target_folder}}."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': \"The 'Export' button in the bottom right of the Export Image dialog\"}",
+          "action_template": "Click the Export button in the Export Image dialog to confirm {{output_file_name}} in {{target_folder}}. This closes the file export dialog and opens the JPEG export options dialog."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': \"The 'Export' button in the 'Export Image as JPEG' dialog\"}",
+          "action_template": "Click the Export button in the JPEG export dialog to finalize saving {{output_file_name}} with the current quality settings. This completes the export and saves the file in {{target_folder}} while keeping the image open in GIMP."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_07",
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        16,
+        17
+      ],
+      "unit_intent": "Open the GNOME Settings application to change the desktop background.",
+      "unit_type": "OPEN_SYSTEM_SETTINGS",
+      "unit_before_state": "GIMP is still open with the finished wallpaper image, and the top-right system status area is available to access system controls.",
+      "unit_after_state": "The Settings application is open with its main sidebar of categories visible and a default settings page shown on the right.",
+      "unit_precondition": [
+        "The wallpaper.jpg file has already been created.",
+        "The desktop environment is responsive.",
+        "The system menu and Settings application are available."
+      ],
+      "unit_effect": [
+        "The top-right system menu opens and shows a Settings option.",
+        "Choosing Settings opens the GNOME Settings window."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open the system settings application from the desktop system menu.",
+      "parameters": {
+        "system_menu_target": "The system menu in the top-right corner of the screen (where power/network icons are located)",
+        "settings_option": "The 'Settings' option in the system menu dropdown"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': 'The system menu in the top-right corner of the screen (where power/network icons are located)'}",
+          "action_template": "Click {{system_menu_target}} to access system controls including the Settings entry when the wallpaper file has been created, the system Settings application is installed, and the user has permission to change system settings; a system menu dropdown appears showing options such as Wired Connection, Settings, Lock, and Power Off / Log Out."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': \"The 'Settings' option in the system menu dropdown\"}",
+          "action_template": "Click {{settings_option}} when the system menu is open, the option is visible, and the Settings application is available; the menu closes and the Settings application opens with the main categories sidebar visible and a default settings page shown on the right."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_08",
+      "unit_id": "u_seg_001_08",
+      "step_indices": [
+        18
+      ],
+      "unit_intent": "Reach the desktop background configuration page inside Settings.",
+      "unit_type": "SWITCH_SETTINGS_CATEGORY",
+      "unit_before_state": "The Settings window is open on its default section, with the category list visible in the left sidebar.",
+      "unit_after_state": "The Background settings page is displayed, showing the current wallpaper area, available wallpaper thumbnails, and an Add Picture control.",
+      "unit_precondition": [
+        "The Settings window is open and focused.",
+        "The Background category is visible in the sidebar."
+      ],
+      "unit_effect": [
+        "The right panel switches from the default settings page to the Background configuration view."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open the {{target_settings_category}} configuration page inside the Settings window.",
+      "parameters": {
+        "target_settings_category": "Background"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': \"The 'Background' option in the Settings window\"}",
+          "action_template": "Click the {{target_settings_category}} option in the Settings window to navigate to that configuration page, assuming the Settings window is open and focused and the category is available; afterward, the right panel updates to show the corresponding settings and available controls."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_09",
+      "unit_id": "u_seg_001_09",
+      "step_indices": [
+        19,
+        20
+      ],
+      "unit_intent": "Add the exported wallpaper file and apply it as the current desktop background.",
+      "unit_type": "APPLY_DESKTOP_BACKGROUND",
+      "unit_before_state": "The Background settings panel is open and shows the existing wallpaper choices along with an Add Picture button.",
+      "unit_after_state": "The file chooser is closed, wallpaper.jpg appears as the selected wallpaper in Settings, and the desktop background has changed to the edited screenshot.",
+      "unit_precondition": [
+        "The Background settings page is already open.",
+        "The Add Picture control is visible and clickable.",
+        "wallpaper.jpg exists in the Pictures folder and can be selected."
+      ],
+      "unit_effect": [
+        "A picture selection dialog opens from the Background settings page.",
+        "Selecting wallpaper.jpg closes the dialog.",
+        "The Background page updates to show wallpaper.jpg as the chosen wallpaper.",
+        "The desktop background changes immediately to the new image."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Add a specified image file and apply it as the current desktop background.",
+      "parameters": {
+        "image_file_name": "wallpaper.jpg",
+        "source_folder": "Pictures folder"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': \"The 'Add Picture...' button (or '+' icon) in the Background settings panel to add a custom wallpaper\"}",
+          "action_template": "Click the 'Add Picture...' button in the Background settings while the page is open and {{image_file_name}} is available in the {{source_folder}} to open a file chooser dialog for selecting that image."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 2, 'target': \"The 'wallpaper.jpg' file in the file list of the Pictures folder\"}",
+          "action_template": "Double-click the {{image_file_name}} file in the file list of the {{source_folder}} while the chooser is open and the file is visible to close the dialog and apply the image as the desktop background."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

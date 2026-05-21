@@ -1,0 +1,436 @@
+{
+  "segment_id": "seg_001",
+  "app": "Chrome",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Focus the browser address bar so a new search can be entered",
+      "action_before_state": "Chrome is already open on some webpage, and the browser window is active on the GNOME desktop.",
+      "action_preconditions": [
+        "The Chrome window is focused",
+        "No modal dialog is covering the browser",
+        "The top browser toolbar is visible"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "l"
+        ]
+      },
+      "action_after_effects": "The address bar becomes active and the current URL is highlighted, ready to be replaced.",
+      "nl_explanation": "When Chrome is the active window and nothing is blocking input, press Ctrl+L to move focus to the address bar. The current address is selected so the next step can enter a fresh search query."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Enter a search query for a vegetarian lasagna recipe",
+      "action_before_state": "The address bar is focused and its existing contents are highlighted.",
+      "action_preconditions": [
+        "The address bar caret is active",
+        "The current URL is selected or ready to be overwritten"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "easy vegetarian lasagna recipe"
+      },
+      "action_after_effects": "The search phrase appears in the address bar.",
+      "nl_explanation": "With the address bar already focused, type the search phrase for an easy vegetarian lasagna recipe. This prepares the browser to run the search in the next step."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Run the search",
+      "action_before_state": "The typed query is visible in the address bar.",
+      "action_preconditions": [
+        "The full query text is present in the address bar",
+        "The browser still has keyboard focus"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "Chrome opens the search results page for the recipe query.",
+      "nl_explanation": "After confirming the search text is in the address bar, press Enter to load the search results. The browser should navigate to a page showing recipe-related results."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Bring a suitable recipe result fully into view",
+      "action_before_state": "The search results page is open, with several links and snippets visible.",
+      "action_preconditions": [
+        "The search results page has finished loading enough to display results",
+        "At least one recipe result is present on the page"
+      ],
+      "action": {
+        "type": "SCROLL",
+        "direction": "down",
+        "target": {
+          "text": "until a suitable vegetarian lasagna recipe result is visible"
+        },
+        "stop_condition": "Stop when a clearly labeled vegetarian lasagna recipe result from a reputable cooking site is fully visible and easy to click."
+      },
+      "action_after_effects": "A suitable recipe result is positioned clearly in the viewport for selection.",
+      "nl_explanation": "Once the results page is visible, scroll down through the results until a clear vegetarian lasagna recipe entry from a known recipe site is fully visible. This makes the target result easy to open in the next step."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Open the chosen recipe page",
+      "action_before_state": "A recipe result for vegetarian lasagna is visible in the search results.",
+      "action_preconditions": [
+        "The result title and snippet are visible",
+        "The result appears to lead to a recipe page rather than another search page"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the visible vegetarian lasagna recipe result from a reputable recipe website"
+        }
+      },
+      "action_after_effects": "The browser navigates to the selected recipe page.",
+      "nl_explanation": "When a trustworthy vegetarian lasagna recipe result is visible, left-click it once to open the recipe page. Chrome should load that site so the recipe details can be reviewed."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Open in-page search to locate the ingredients section quickly",
+      "action_before_state": "The recipe page is open and its content is visible.",
+      "action_preconditions": [
+        "The recipe page has loaded enough to show the article body",
+        "The browser window remains focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "f"
+        ]
+      },
+      "action_after_effects": "Chrome opens the Find-in-page search box.",
+      "nl_explanation": "After the recipe page is visible, press Ctrl+F to open the browser's find tool. This allows fast navigation to the ingredients section without manually scanning the whole page."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Search within the page for the ingredients section",
+      "action_before_state": "The Find-in-page box is active on top of the recipe page.",
+      "action_preconditions": [
+        "The find box is visible and has keyboard focus",
+        "The recipe page contains an ingredients section or ingredient heading"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Ingredients"
+      },
+      "action_after_effects": "Chrome highlights the first matching 'Ingredients' text and brings that match into view on the page.",
+      "nl_explanation": "With the find box open, type 'Ingredients'. The browser should jump to the first matching section, bringing the ingredient list or heading into view."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Close the find box while staying at the ingredients section",
+      "action_before_state": "The ingredients section is highlighted or visible, and the find box is still open.",
+      "action_preconditions": [
+        "The page has already navigated to the relevant match",
+        "The find box is visible"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "esc"
+        ]
+      },
+      "action_after_effects": "The find box closes, leaving the page positioned near the ingredients section.",
+      "nl_explanation": "Once the ingredients area is visible, press Escape to dismiss the find box. The page stays near the matched section, making the content easier to review."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Open the bookmark dialog for the recipe page",
+      "action_before_state": "The recipe page is open near the ingredients section, and no other input box is active.",
+      "action_preconditions": [
+        "The desired recipe page is still the active tab",
+        "No modal is blocking browser shortcuts"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "d"
+        ]
+      },
+      "action_after_effects": "Chrome opens the bookmark popup for the current recipe page.",
+      "nl_explanation": "With the correct recipe tab active, press Ctrl+D to start bookmarking the page. Chrome should show a small bookmark popup or dialog for this page."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Confirm the bookmark",
+      "action_before_state": "The bookmark popup is open and shows the page title with a confirmation button.",
+      "action_preconditions": [
+        "The bookmark popup is visible",
+        "A confirmation button such as Done or Save is clickable"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the bookmark confirmation button, usually labeled Done or Save"
+        }
+      },
+      "action_after_effects": "The popup closes and the recipe page is saved as a bookmark.",
+      "nl_explanation": "When the bookmark popup appears, left-click the confirmation button, usually labeled Done or Save. The popup should close, and the recipe page will be bookmarked for later use."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Run a web search for an easy vegetarian lasagna recipe.",
+      "unit_type": "SEARCH_WEB_FOR_RECIPE",
+      "unit_before_state": "Chrome is open on an existing webpage, the browser window is focused, and the top toolbar with the address bar is visible.",
+      "unit_after_state": "Chrome shows a search results page for \"easy vegetarian lasagna recipe,\" with recipe-related results visible in the main content area.",
+      "unit_precondition": [
+        "Chrome is the active window.",
+        "No modal dialog or permission prompt is blocking keyboard input.",
+        "The browser toolbar and address bar are visible."
+      ],
+      "unit_effect": [
+        "The address bar becomes selected and is replaced with the new query text.",
+        "After Enter is pressed, a search results page loads for the vegetarian lasagna query."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Open one suitable vegetarian lasagna recipe from the search results.",
+      "unit_type": "OPEN_RECIPE_RESULT",
+      "unit_before_state": "The search results page for vegetarian lasagna recipes is open, with multiple result cards and snippets visible.",
+      "unit_after_state": "A recipe webpage from the chosen result is open in the current Chrome tab, with the recipe article content visible.",
+      "unit_precondition": [
+        "The search results page has loaded enough to scroll and inspect results.",
+        "At least one visible result appears to be a real vegetarian lasagna recipe from a reputable recipe site."
+      ],
+      "unit_effect": [
+        "A suitable recipe result is brought fully into view.",
+        "Clicking that result navigates Chrome from the results page to the selected recipe page."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Jump directly to the ingredients section of the opened recipe for quick review.",
+      "unit_type": "JUMP_TO_INGREDIENTS_SECTION",
+      "unit_before_state": "The recipe page is open in Chrome and the recipe content is visible, but the ingredients section is not yet specifically targeted.",
+      "unit_after_state": "The page is positioned at or near the recipe's Ingredients section, and the find-in-page box is closed so the ingredients area can be reviewed directly.",
+      "unit_precondition": [
+        "The recipe page has loaded enough for in-page text search to work.",
+        "The recipe contains an Ingredients heading or matching text.",
+        "Chrome remains focused for keyboard shortcuts."
+      ],
+      "unit_effect": [
+        "The find-in-page box opens and searches for \"Ingredients.\"",
+        "Chrome scrolls to and highlights the first matching Ingredients text.",
+        "After Escape, the find box closes while the page remains positioned near the Ingredients section."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Save the currently opened recipe page as a bookmark for later access.",
+      "unit_type": "BOOKMARK_PAGE",
+      "unit_before_state": "The recipe page is open near the ingredients section, and no find box or other transient input UI is active.",
+      "unit_after_state": "The bookmark popup has closed, and the current recipe page is stored as a bookmark in Chrome.",
+      "unit_precondition": [
+        "The desired recipe page is still the active tab.",
+        "No modal dialog is blocking browser shortcuts.",
+        "The bookmark confirmation control in Chrome is available after opening the bookmark popup."
+      ],
+      "unit_effect": [
+        "Pressing Ctrl+D opens Chrome's bookmark popup for the current page.",
+        "Clicking the confirmation button closes the popup and saves the page as a bookmark."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Run a web search for an easy vegetarian lasagna recipe.",
+      "unit_type": "SEARCH_WEB_FOR_RECIPE",
+      "unit_before_state": "Chrome is open on an existing webpage, the browser window is focused, and the top toolbar with the address bar is visible.",
+      "unit_after_state": "Chrome shows a search results page for \"easy vegetarian lasagna recipe,\" with recipe-related results visible in the main content area.",
+      "unit_precondition": [
+        "Chrome is the active window.",
+        "No modal dialog or permission prompt is blocking keyboard input.",
+        "The browser toolbar and address bar are visible."
+      ],
+      "unit_effect": [
+        "The address bar becomes selected and is replaced with the new query text.",
+        "After Enter is pressed, a search results page loads for the vegetarian lasagna query."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Run a web search for a specified recipe query using the browser address bar.",
+      "parameters": {
+        "search_query": "easy vegetarian lasagna recipe"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'l']}",
+          "action_template": "When the browser window is focused, no modal dialog is covering it, and the top browser toolbar is visible, press Ctrl+L to move focus to the address bar. The current address is selected so the next step can enter a fresh search query such as {{search_query}}."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'easy vegetarian lasagna recipe'}",
+          "action_template": "With the address bar already focused and its current contents selected or ready to be overwritten, type {{search_query}}. This prepares the browser to run the search in the next step."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After confirming {{search_query}} is present in the address bar and the browser still has keyboard focus, press Enter to load the search results. The browser should navigate to a page showing results for the query."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Open one suitable vegetarian lasagna recipe from the search results.",
+      "unit_type": "OPEN_RECIPE_RESULT",
+      "unit_before_state": "The search results page for vegetarian lasagna recipes is open, with multiple result cards and snippets visible.",
+      "unit_after_state": "A recipe webpage from the chosen result is open in the current Chrome tab, with the recipe article content visible.",
+      "unit_precondition": [
+        "The search results page has loaded enough to scroll and inspect results.",
+        "At least one visible result appears to be a real vegetarian lasagna recipe from a reputable recipe site."
+      ],
+      "unit_effect": [
+        "A suitable recipe result is brought fully into view.",
+        "Clicking that result navigates Chrome from the results page to the selected recipe page."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open one suitable recipe page for a specified dish from the search results.",
+      "parameters": {
+        "target_dish": "vegetarian lasagna"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'SCROLL', 'direction': 'down', 'target': {'text': 'until a suitable vegetarian lasagna recipe result is visible'}, 'stop_condition': 'Stop when a clearly labeled vegetarian lasagna recipe result from a reputable cooking site is fully visible and easy to click.'}",
+          "action_template": "Scroll down through the loaded search results until a clear {{target_dish}} recipe result from a reputable recipe site is fully visible and easy to click. This requires that the results page has loaded enough to display results and that at least one recipe result is present on the page. The result should end up positioned clearly in the viewport for selection."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the visible vegetarian lasagna recipe result from a reputable recipe website'}}",
+          "action_template": "When the visible result title and snippet indicate a recipe page rather than another search page, left-click the visible {{target_dish}} recipe result from a reputable recipe website once to open the recipe page. The browser should then navigate to the selected recipe page so its details can be reviewed."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Jump directly to the ingredients section of the opened recipe for quick review.",
+      "unit_type": "JUMP_TO_INGREDIENTS_SECTION",
+      "unit_before_state": "The recipe page is open in Chrome and the recipe content is visible, but the ingredients section is not yet specifically targeted.",
+      "unit_after_state": "The page is positioned at or near the recipe's Ingredients section, and the find-in-page box is closed so the ingredients area can be reviewed directly.",
+      "unit_precondition": [
+        "The recipe page has loaded enough for in-page text search to work.",
+        "The recipe contains an Ingredients heading or matching text.",
+        "Chrome remains focused for keyboard shortcuts."
+      ],
+      "unit_effect": [
+        "The find-in-page box opens and searches for \"Ingredients.\"",
+        "Chrome scrolls to and highlights the first matching Ingredients text.",
+        "After Escape, the find box closes while the page remains positioned near the Ingredients section."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Jump directly to a specified section of the current web page using in-page search for quick review.",
+      "parameters": {
+        "target_section_text": "Ingredients"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'f']}",
+          "action_template": "After the web page is visible, press Ctrl+F to open the browser's find tool when the page has loaded enough to show the body and the browser window remains focused. This opens the Find-in-page search box so the target section can be reached without manually scanning the whole page."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Ingredients'}",
+          "action_template": "With the find box open and focused, type {{target_section_text}} when the page contains matching section text. Chrome highlights the first matching {{target_section_text}} text and brings that match into view on the page."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['esc']}",
+          "action_template": "Once the {{target_section_text}} area is visible and the find box is still open, press Escape to dismiss the find box after the page has navigated to the relevant match. The find box closes while the page stays positioned near the matched section for review."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Save the currently opened recipe page as a bookmark for later access.",
+      "unit_type": "BOOKMARK_PAGE",
+      "unit_before_state": "The recipe page is open near the ingredients section, and no find box or other transient input UI is active.",
+      "unit_after_state": "The bookmark popup has closed, and the current recipe page is stored as a bookmark in Chrome.",
+      "unit_precondition": [
+        "The desired recipe page is still the active tab.",
+        "No modal dialog is blocking browser shortcuts.",
+        "The bookmark confirmation control in Chrome is available after opening the bookmark popup."
+      ],
+      "unit_effect": [
+        "Pressing Ctrl+D opens Chrome's bookmark popup for the current page.",
+        "Clicking the confirmation button closes the popup and saves the page as a bookmark."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the currently active webpage as a bookmark for later access.",
+      "parameters": {
+        "target_page": "the desired recipe page",
+        "confirmation_button": "the bookmark confirmation button, usually labeled Done or Save"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'd']}",
+          "action_template": "With {{target_page}} still active and no modal blocking browser shortcuts, press Ctrl+D to open Chrome's bookmark popup for the current page."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the bookmark confirmation button, usually labeled Done or Save'}}",
+          "action_template": "When the bookmark popup is visible and {{confirmation_button}} is clickable, left-click {{confirmation_button}} to close the popup and save {{target_page}} as a bookmark."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

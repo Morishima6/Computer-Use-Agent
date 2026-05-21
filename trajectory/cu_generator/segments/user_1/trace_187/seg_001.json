@@ -1,0 +1,514 @@
+{
+  "segment_id": "seg_001",
+  "app": "libreoffice_calc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Place the cursor in the first empty header cell for the new calculation column",
+      "action_before_state": "LibreOffice Calc is open on a budget sheet. Row 1 contains headers for the existing table, and columns A to C are already populated while column D is empty.",
+      "action_preconditions": [
+        "The worksheet with the budget table is visible",
+        "Cell D1 is empty and visible on screen",
+        "The existing data starts in row 1"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell D1, the empty header cell immediately to the right of the Actual column"
+        }
+      },
+      "action_after_effects": "Cell D1 becomes the active cell, ready for a new header.",
+      "nl_explanation": "When the budget table is visible and the first unused header cell is open, click cell D1 so the new calculated column can be named there."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Name the new column",
+      "action_before_state": "Cell D1 is active in the header row.",
+      "action_preconditions": [
+        "Cell D1 is selected",
+        "No dialog is covering the sheet"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Remaining"
+      },
+      "action_after_effects": "The header \"Remaining\" is entered into D1.",
+      "nl_explanation": "With D1 selected, type the new header name so the worksheet clearly labels the budget difference column."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Move to the first data row in the new column",
+      "action_before_state": "The header row is visible and D1 now contains the new column name.",
+      "action_preconditions": [
+        "The first row of data begins directly below the headers",
+        "Cell D2 is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell D2, the first blank cell under the Remaining header"
+        }
+      },
+      "action_after_effects": "Cell D2 becomes active and ready for a formula.",
+      "nl_explanation": "After naming the column, click the first empty data cell below it so the remaining-budget formula can be entered at the top of the column."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Calculate the remaining amount for the first category",
+      "action_before_state": "Cell D2 is selected and the planned amount is in column B while the actual amount is in column C.",
+      "action_preconditions": [
+        "Cell D2 is active",
+        "Columns B and C contain the planned and actual values for row 2"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "=B2-C2"
+      },
+      "action_after_effects": "The first remaining-budget formula is entered in D2 and evaluates to the difference between planned and actual spending.",
+      "nl_explanation": "Once D2 is active and the planned and actual values are available in the same row, type the subtraction formula so the sheet computes the remaining amount for the first category."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Fill the remaining-budget formula down the whole table",
+      "action_before_state": "D2 contains a working formula, and the rows below it contain adjacent data in the existing table.",
+      "action_preconditions": [
+        "Cell D2 still contains the formula",
+        "The table has contiguous rows of data below row 2",
+        "The fill handle on D2 is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 2,
+        "target": {
+          "text": "the fill handle at the bottom-right corner of cell D2"
+        }
+      },
+      "action_after_effects": "LibreOffice Calc auto-fills the Remaining formula down to the last adjacent row of the table.",
+      "nl_explanation": "When the first formula is correct and the rows below belong to the same table, double-click the fill handle on D2 to copy the formula through the entire Remaining column."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Sort the table so the worst budget overruns appear first",
+      "action_before_state": "The Remaining column is filled, and one of the cells in that column remains active after the autofill.",
+      "action_preconditions": [
+        "A filled cell in column D is selected",
+        "The data range is contiguous so Calc can recognize the whole table",
+        "The toolbar is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Sort Ascending button on the toolbar"
+        }
+      },
+      "action_after_effects": "The full table is sorted by the Remaining column from smallest to largest, placing the most negative remaining values at the top as the biggest budget overruns.",
+      "nl_explanation": "With the Remaining column active, click the ascending sort control so Calc sorts the table by that column and brings the most negative remaining values, which indicate the largest overruns, to the top."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Return to the top-left corner before selecting chart data",
+      "action_before_state": "The table has been sorted and the active cell may be somewhere inside the data area.",
+      "action_preconditions": [
+        "LibreOffice Calc is focused",
+        "The sorted sheet is still active"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "home"
+        ]
+      },
+      "action_after_effects": "The view jumps back to cell A1, making the header row and top of the table easy to select.",
+      "nl_explanation": "After sorting, press Ctrl+Home so the selection returns to the start of the sheet and the chart source range can be chosen cleanly from the top."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Select the category, planned, and actual columns for charting",
+      "action_before_state": "The worksheet is positioned at the top of the table with headers visible in row 1.",
+      "action_preconditions": [
+        "Column A contains category names",
+        "Columns B and C contain planned and actual amounts",
+        "The last used row of the table is visible or can be reached within the drag"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell A1 at the top-left of the table"
+        },
+        "end": {
+          "text": "the last populated cell in column C for the final budget category"
+        },
+        "target": {
+          "begin": {
+            "text": "cell A1, the Category header cell"
+          },
+          "end": {
+            "text": "the last populated cell in column C, under the Actual header"
+          }
+        }
+      },
+      "action_after_effects": "The range covering Category, Planned, and Actual data is highlighted for chart insertion.",
+      "nl_explanation": "Once the sheet is back at the top and the three source columns are visible, drag from A1 down to the last used cell in column C so only the chart-relevant data is selected."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Start creating the comparison chart",
+      "action_before_state": "The Category, Planned, and Actual range is selected on the sheet.",
+      "action_preconditions": [
+        "A1 through the last row in column C are highlighted",
+        "The standard toolbar is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Chart icon on the Standard toolbar"
+        }
+      },
+      "action_after_effects": "The Chart Wizard opens with a preview based on the selected data range.",
+      "nl_explanation": "With the source data highlighted, click the Chart icon on the Standard toolbar so Calc opens the chart setup flow using the selected budget values."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Accept the default chart and place it on the sheet",
+      "action_before_state": "The Chart Wizard is open and showing a preview of the planned-versus-actual comparison chart.",
+      "action_preconditions": [
+        "The Chart Wizard dialog is visible",
+        "The selected data preview looks correct"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Finish button in the Chart Wizard"
+        }
+      },
+      "action_after_effects": "The chart is inserted into the worksheet, completing the budget review view with both sorted data and a visual comparison.",
+      "nl_explanation": "When the chart preview is ready, click Finish to insert the chart onto the sheet and complete the requested budget review task."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Add and label a new calculation column for remaining budget.",
+      "unit_type": "ADD_CALCULATION_COLUMN_HEADER",
+      "unit_before_state": "LibreOffice Calc shows the household budget table with headers in row 1. Columns A to C are populated, and cell D1 is the first empty header cell to the right of Actual.",
+      "unit_after_state": "Cell D1 contains the header text \"Remaining\" in row 1, creating a visible new column for the planned-minus-actual calculation.",
+      "unit_precondition": [
+        "The budget worksheet is open and the table header row is visible.",
+        "Cell D1 is empty, visible, and available for editing.",
+        "No dialog or modal window is covering the sheet."
+      ],
+      "unit_effect": [
+        "The active selection is placed in D1 and the text \"Remaining\" appears in the header row.",
+        "A new labeled column is visibly added to the table structure."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4,
+        5
+      ],
+      "unit_intent": "Populate the new Remaining column with the budget difference for every category.",
+      "unit_type": "POPULATE_CALCULATED_COLUMN",
+      "unit_before_state": "The worksheet shows the new \"Remaining\" header in D1, and cell D2 under that header is empty and available for input.",
+      "unit_after_state": "Cell D2 contains the formula based on row 2, and the Remaining column is filled down through the last adjacent budget row with copied formulas.",
+      "unit_precondition": [
+        "The \"Remaining\" header already exists in D1.",
+        "Cell D2 is visible and can be selected.",
+        "Columns B and C contain the Planned and Actual values for the table rows.",
+        "The data rows below row 2 are contiguous so autofill can extend the formula down the table."
+      ],
+      "unit_effect": [
+        "Cell D2 evaluates the formula `=B2-C2` for the first category.",
+        "The values in column D are filled for all categories, indicating Calc copied the formula down the table."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6
+      ],
+      "unit_intent": "Reorder the budget table so the largest overruns are easiest to review first.",
+      "unit_type": "SORT_TABLE_BY_REMAINING",
+      "unit_before_state": "The Remaining column is fully populated, and a cell in column D is still active within the contiguous budget table.",
+      "unit_after_state": "The full table is reordered by the Remaining column in ascending order, so the most negative remaining values appear near the top of the sheet.",
+      "unit_precondition": [
+        "A populated cell in column D is selected.",
+        "The budget data forms one contiguous range that Calc can sort together.",
+        "The toolbar sort controls are visible and usable."
+      ],
+      "unit_effect": [
+        "The row order changes across the whole table rather than only within one column.",
+        "Categories with the worst budget overruns move to the top of the sorted list."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Select the planned-versus-actual source data needed for a comparison chart.",
+      "unit_type": "SELECT_CHART_SOURCE_RANGE",
+      "unit_before_state": "The table has already been sorted, and the active cell may be somewhere inside the data area rather than at the top of the sheet.",
+      "unit_after_state": "The view is back at the top of the worksheet, and the full range from A1 through the last used row in column C is highlighted.",
+      "unit_precondition": [
+        "The sorted budget sheet is still the active worksheet.",
+        "Columns A, B, and C contain category names, planned amounts, and actual amounts.",
+        "The chart should be built only from the Category, Planned, and Actual columns."
+      ],
+      "unit_effect": [
+        "The sheet jumps to the top-left area with row 1 visible.",
+        "A contiguous selection covering the Category, Planned, and Actual data is visibly highlighted for chart insertion."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Insert a chart that visually compares planned and actual amounts for the budget categories.",
+      "unit_type": "INSERT_COMPARISON_CHART",
+      "unit_before_state": "The Category, Planned, and Actual data range is selected on the worksheet, and no chart has yet been placed on the sheet.",
+      "unit_after_state": "The Chart Wizard is completed and a chart object comparing planned and actual amounts is inserted into the Calc sheet.",
+      "unit_precondition": [
+        "The source range from columns A to C is highlighted.",
+        "The Chart button on the Standard toolbar is available.",
+        "The Chart Wizard can use the selected range and its preview appears acceptable."
+      ],
+      "unit_effect": [
+        "The Chart Wizard opens with a preview based on the selected budget data.",
+        "After clicking Finish, an embedded chart appears on the worksheet showing the planned-versus-actual comparison."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Add and label a new calculation column for remaining budget.",
+      "unit_type": "ADD_CALCULATION_COLUMN_HEADER",
+      "unit_before_state": "LibreOffice Calc shows the household budget table with headers in row 1. Columns A to C are populated, and cell D1 is the first empty header cell to the right of Actual.",
+      "unit_after_state": "Cell D1 contains the header text \"Remaining\" in row 1, creating a visible new column for the planned-minus-actual calculation.",
+      "unit_precondition": [
+        "The budget worksheet is open and the table header row is visible.",
+        "Cell D1 is empty, visible, and available for editing.",
+        "No dialog or modal window is covering the sheet."
+      ],
+      "unit_effect": [
+        "The active selection is placed in D1 and the text \"Remaining\" appears in the header row.",
+        "A new labeled column is visibly added to the table structure."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Add and label a new calculation column header in the first available header cell of the table.",
+      "parameters": {
+        "target_header_cell": "cell D1, the empty header cell immediately to the right of the Actual column",
+        "header_text": "Remaining"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell D1, the empty header cell immediately to the right of the Actual column'}}",
+          "action_template": "When the budget table is visible and the first unused header cell is open, click {{target_header_cell}} so the new calculated column can be named there. Preconditions: the worksheet with the budget table is visible, {{target_header_cell}} is empty and visible on screen, and the existing data starts in row 1. After this action, {{target_header_cell}} becomes the active cell, ready for a new header."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Remaining'}",
+          "action_template": "With {{target_header_cell}} selected, type {{header_text}} so the worksheet clearly labels the budget difference column. Preconditions: {{target_header_cell}} is selected and no dialog is covering the sheet. After this action, the header {{header_text}} is entered into {{target_header_cell}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4,
+        5
+      ],
+      "unit_intent": "Populate the new Remaining column with the budget difference for every category.",
+      "unit_type": "POPULATE_CALCULATED_COLUMN",
+      "unit_before_state": "The worksheet shows the new \"Remaining\" header in D1, and cell D2 under that header is empty and available for input.",
+      "unit_after_state": "Cell D2 contains the formula based on row 2, and the Remaining column is filled down through the last adjacent budget row with copied formulas.",
+      "unit_precondition": [
+        "The \"Remaining\" header already exists in D1.",
+        "Cell D2 is visible and can be selected.",
+        "Columns B and C contain the Planned and Actual values for the table rows.",
+        "The data rows below row 2 are contiguous so autofill can extend the formula down the table."
+      ],
+      "unit_effect": [
+        "Cell D2 evaluates the formula `=B2-C2` for the first category.",
+        "The values in column D are filled for all categories, indicating Calc copied the formula down the table."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Populate a newly added calculation column by entering the first row's formula and autofilling it through all contiguous data rows.",
+      "parameters": {
+        "target_header": "Remaining",
+        "first_data_cell": "D2",
+        "formula_text": "=B2-C2",
+        "source_value_columns": "columns B and C",
+        "fill_handle_target": "the fill handle at the bottom-right corner of cell D2"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell D2, the first blank cell under the Remaining header'}}",
+          "action_template": "Click {{first_data_cell}}, the first blank cell under the {{target_header}} header, after the first row of data begins directly below the headers and {{first_data_cell}} is visible, so the calculation formula can be entered at the top of the column and {{first_data_cell}} becomes active and ready for a formula."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '=B2-C2'}",
+          "action_template": "Type {{formula_text}} once {{first_data_cell}} is active and {{source_value_columns}} contain the source values for that row, so the first formula is entered in {{first_data_cell}} and evaluates to the row's calculated difference."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 2, 'target': {'text': 'the fill handle at the bottom-right corner of cell D2'}}",
+          "action_template": "Double-click {{fill_handle_target}} when {{first_data_cell}} still contains the formula, the rows below are contiguous data rows, and the fill handle is visible, so Calc auto-fills the formula down to the last adjacent row of the table."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6
+      ],
+      "unit_intent": "Reorder the budget table so the largest overruns are easiest to review first.",
+      "unit_type": "SORT_TABLE_BY_REMAINING",
+      "unit_before_state": "The Remaining column is fully populated, and a cell in column D is still active within the contiguous budget table.",
+      "unit_after_state": "The full table is reordered by the Remaining column in ascending order, so the most negative remaining values appear near the top of the sheet.",
+      "unit_precondition": [
+        "A populated cell in column D is selected.",
+        "The budget data forms one contiguous range that Calc can sort together.",
+        "The toolbar sort controls are visible and usable."
+      ],
+      "unit_effect": [
+        "The row order changes across the whole table rather than only within one column.",
+        "Categories with the worst budget overruns move to the top of the sorted list."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Sort a contiguous table by the active target column in ascending order so the lowest values appear first for review.",
+      "parameters": {
+        "target_column": "Remaining column",
+        "target_column_cell": "a filled cell in column D",
+        "sort_control": "the Sort Ascending button on the toolbar"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "CLICK",
+          "action_template": "With {{target_column}} active, click {{sort_control}} to sort the contiguous table by that column from smallest to largest. Preconditions: {{target_column_cell}} is selected, the data range is contiguous so Calc can recognize the whole table, and the toolbar is visible. After the click, the full table is sorted by {{target_column}} in ascending order, placing the lowest values at the top."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Select the planned-versus-actual source data needed for a comparison chart.",
+      "unit_type": "SELECT_CHART_SOURCE_RANGE",
+      "unit_before_state": "The table has already been sorted, and the active cell may be somewhere inside the data area rather than at the top of the sheet.",
+      "unit_after_state": "The view is back at the top of the worksheet, and the full range from A1 through the last used row in column C is highlighted.",
+      "unit_precondition": [
+        "The sorted budget sheet is still the active worksheet.",
+        "Columns A, B, and C contain category names, planned amounts, and actual amounts.",
+        "The chart should be built only from the Category, Planned, and Actual columns."
+      ],
+      "unit_effect": [
+        "The sheet jumps to the top-left area with row 1 visible.",
+        "A contiguous selection covering the Category, Planned, and Actual data is visibly highlighted for chart insertion."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Select the contiguous source-data range for a comparison chart by returning to the top of the worksheet and highlighting the relevant columns through the last populated row.",
+      "parameters": {
+        "top_left_cell": "A1",
+        "end_column": "C"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'home']}",
+          "action_template": "After sorting, press Ctrl+Home while LibreOffice Calc is focused and the sorted sheet is still active so the view returns to {{top_left_cell}} and the chart source range can be chosen cleanly from the top."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'cell A1 at the top-left of the table'}, 'end': {'text': 'the last populated cell in column C for the final budget category'}, 'target': {'begin': {'text': 'cell A1, the Category header cell'}, 'end': {'text': 'the last populated cell in column C, under the Actual header'}}}",
+          "action_template": "Once the sheet is positioned at the top with headers visible, drag from {{top_left_cell}} to the last populated cell in column {{end_column}} while the category and comparison-value columns are available so the chart-relevant data range is highlighted for chart insertion."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Insert a chart that visually compares planned and actual amounts for the budget categories.",
+      "unit_type": "INSERT_COMPARISON_CHART",
+      "unit_before_state": "The Category, Planned, and Actual data range is selected on the worksheet, and no chart has yet been placed on the sheet.",
+      "unit_after_state": "The Chart Wizard is completed and a chart object comparing planned and actual amounts is inserted into the Calc sheet.",
+      "unit_precondition": [
+        "The source range from columns A to C is highlighted.",
+        "The Chart button on the Standard toolbar is available.",
+        "The Chart Wizard can use the selected range and its preview appears acceptable."
+      ],
+      "unit_effect": [
+        "The Chart Wizard opens with a preview based on the selected budget data.",
+        "After clicking Finish, an embedded chart appears on the worksheet showing the planned-versus-actual comparison."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Insert a comparison chart from the selected worksheet data and place it on the sheet.",
+      "parameters": {
+        "source_data_range": "The Category, Planned, and Actual data range",
+        "chart_toolbar_icon": "the Chart icon on the Standard toolbar",
+        "finish_button": "the Finish button in the Chart Wizard",
+        "comparison_subject": "planned and actual amounts for the budget categories"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "CLICK",
+          "action_template": "With {{source_data_range}} highlighted, click {{chart_toolbar_icon}} so Calc opens the Chart Wizard using the selected comparison data range."
+        },
+        {
+          "action": "CLICK",
+          "action_template": "When the Chart Wizard preview for {{comparison_subject}} looks correct, click {{finish_button}} to insert the chart onto the worksheet."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

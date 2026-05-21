@@ -1,0 +1,721 @@
+{
+  "segment_id": "seg_001",
+  "app": "libreoffice_calc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Select the first empty header cell for the new calculated column",
+      "action_before_state": "LibreOffice Calc is open with a grocery table already visible in columns A through E, and the first empty header cell to the right is F1.",
+      "action_preconditions": [
+        "The spreadsheet with the grocery data is the active window.",
+        "Cells in row 1 are visible, including the empty cell F1."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the empty header cell F1 at the top of the first blank column"
+        }
+      },
+      "action_after_effects": "Cell F1 becomes the active cell and is ready for text entry.",
+      "nl_explanation": "When the grocery table is visible and F1 is empty, click the F1 header cell so the next action can add the name of the new computed column."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Name the new total-cost column",
+      "action_before_state": "Cell F1 is selected and the existing headers in row 1 are already filled through column E.",
+      "action_preconditions": [
+        "Cell F1 is active.",
+        "The insertion point is ready for input into that cell."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Total Cost"
+      },
+      "action_after_effects": "The text Total Cost appears in cell F1 as the header of the new column.",
+      "nl_explanation": "With F1 selected, type Total Cost so the spreadsheet clearly labels the column that will contain each item's calculated spending."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Select the next empty header cell for the budget status column",
+      "action_before_state": "The new Total Cost header is visible in F1, and G1 is the next empty header cell.",
+      "action_preconditions": [
+        "Row 1 remains visible.",
+        "Cell G1 is empty and available."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the empty header cell G1 immediately to the right of Total Cost"
+        }
+      },
+      "action_after_effects": "Cell G1 becomes active and ready for typing.",
+      "nl_explanation": "Once Total Cost has been added in F1, click G1 so the next step can create a status column that compares actual cost against the planned budget."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Name the budget status column",
+      "action_before_state": "Cell G1 is selected and ready for text input.",
+      "action_preconditions": [
+        "Cell G1 is active.",
+        "No other dialog or edit box is open."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Over Budget?"
+      },
+      "action_after_effects": "The header Over Budget? appears in G1.",
+      "nl_explanation": "With G1 active, type Over Budget? so the spreadsheet has a dedicated column to show whether each grocery line exceeds its planned amount."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Select the first data cell in the Total Cost column",
+      "action_before_state": "Both new headers are visible in row 1, and the first grocery item begins on row 2.",
+      "action_preconditions": [
+        "Row 2 of the table is visible.",
+        "Cell F2 is empty and aligned with the first data row."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell F2, the first row under the Total Cost header"
+        }
+      },
+      "action_after_effects": "Cell F2 becomes active for formula entry.",
+      "nl_explanation": "After the headers are in place, click F2 so the total-cost formula can be entered for the first grocery item."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Calculate total cost for the first grocery item",
+      "action_before_state": "Cell F2 is selected, and row 2 contains Quantity in column B and Unit Price in column C.",
+      "action_preconditions": [
+        "Cell F2 is active.",
+        "The first data row has numeric values in B2 and C2."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "=B2*C2"
+      },
+      "action_after_effects": "LibreOffice Calc evaluates the formula and shows the first item's total cost in F2.",
+      "nl_explanation": "When F2 is selected and the first row has quantity and unit price values, type =B2*C2 to multiply them and produce the actual total cost for that grocery item."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Fill the Total Cost formula down the rest of the grocery list",
+      "action_before_state": "F2 shows a calculated value and has a fill handle in its bottom-right corner, while rows 3 through 12 still have empty cells in column F.",
+      "action_preconditions": [
+        "Cell F2 contains the correct formula result.",
+        "The remaining grocery rows continue through row 12."
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the small fill handle at the bottom-right corner of cell F2"
+        },
+        "end": {
+          "text": "the fill handle position aligned with cell F12 at the bottom of the grocery list"
+        },
+        "target": {
+          "begin": {
+            "text": "fill handle on cell F2"
+          },
+          "end": {
+            "text": "cell F12"
+          }
+        }
+      },
+      "action_after_effects": "The Total Cost formula is copied from F2 down through F12, creating calculated values for all listed items.",
+      "nl_explanation": "Once the first total-cost formula is correct in F2, drag the fill handle down to row 12 so every grocery row gets the same calculation pattern automatically."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Select the first data cell in the Over Budget? column",
+      "action_before_state": "Column F is now filled with total costs, and G2 is the first empty status cell.",
+      "action_preconditions": [
+        "The grocery rows remain visible.",
+        "Cell G2 is empty and ready for a comparison formula."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell G2, the first row under the Over Budget? header"
+        }
+      },
+      "action_after_effects": "Cell G2 becomes active for formula entry.",
+      "nl_explanation": "After Total Cost has been filled, click G2 so the sheet can evaluate whether the first row exceeds its planned budget."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Create the budget-status formula for the first grocery item",
+      "action_before_state": "Cell G2 is selected, F2 contains the actual total cost, and D2 contains the planned budget for the same row.",
+      "action_preconditions": [
+        "Cell G2 is active.",
+        "Cells F2 and D2 both contain comparable numeric values."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "=IF(F2>D2,\"Over\",\"Within\")"
+      },
+      "action_after_effects": "Cell G2 displays either Over or Within based on whether the actual total exceeds the planned budget.",
+      "nl_explanation": "With G2 selected and both actual and planned values available in the same row, type =IF(F2>D2,\"Over\",\"Within\") so the sheet labels the first grocery item's budget status."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Fill the budget-status formula down the rest of the list",
+      "action_before_state": "G2 shows the first budget status result, and rows 3 through 12 in column G are still empty.",
+      "action_preconditions": [
+        "Cell G2 contains the correct IF formula result.",
+        "The grocery list continues down to row 12."
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the small fill handle at the bottom-right corner of cell G2"
+        },
+        "end": {
+          "text": "the fill handle position aligned with cell G12"
+        },
+        "target": {
+          "begin": {
+            "text": "fill handle on cell G2"
+          },
+          "end": {
+            "text": "cell G12"
+          }
+        }
+      },
+      "action_after_effects": "The Over Budget? formula is copied from G2 through G12, and every grocery row now shows a status value.",
+      "nl_explanation": "Once the first status formula works in G2, drag its fill handle down to G12 so all grocery rows are marked as either Over or Within budget."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Start selecting the Total Cost values for formatting",
+      "action_before_state": "The Total Cost column contains calculated numbers from F2 to F12.",
+      "action_preconditions": [
+        "At least one populated Total Cost cell is visible.",
+        "Cell F2 can be clicked directly."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell F2, the first numeric value in the Total Cost column"
+        }
+      },
+      "action_after_effects": "Cell F2 becomes the active starting point for selecting the rest of the Total Cost values.",
+      "nl_explanation": "With the total-cost calculations complete, click F2 so a keyboard shortcut can extend the selection through the rest of that numeric column."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Select all Total Cost values in one shortcut",
+      "action_before_state": "F2 is the active cell and contiguous Total Cost values continue down to F12.",
+      "action_preconditions": [
+        "Cell F2 is selected.",
+        "There are no blank cells interrupting the Total Cost range from F2 to F12."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "down"
+        ]
+      },
+      "action_after_effects": "The full Total Cost range from F2 through F12 becomes selected.",
+      "nl_explanation": "When F2 is active and the Total Cost entries run continuously downward, press Ctrl+Shift+Down to quickly highlight the entire calculated amount range."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Format the Total Cost amounts as currency",
+      "action_before_state": "Cells F2 through F12 are selected together, and the formatting toolbar is visible above the sheet.",
+      "action_preconditions": [
+        "The Total Cost range is still selected.",
+        "The toolbar includes the currency-format button."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the currency-format button with a currency symbol on the formatting toolbar"
+        }
+      },
+      "action_after_effects": "The selected values in column F are reformatted to display as currency amounts.",
+      "nl_explanation": "With the Total Cost range highlighted, click the Currency button so those calculated values are shown in a money format that is easier to review."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Choose the Total Cost column as the sort basis",
+      "action_before_state": "The Total Cost values are formatted as currency, and the table still shows all grocery rows.",
+      "action_preconditions": [
+        "At least one populated cell in the Total Cost column is visible.",
+        "The user can click directly into that column."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "any populated cell in the Total Cost column, such as F2"
+        }
+      },
+      "action_after_effects": "A cell in the Total Cost column becomes active, which sets that column as the likely sort key for the next command.",
+      "nl_explanation": "After formatting is finished, click a value in the Total Cost column so the next sort action uses that column to reorder the grocery table."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Sort the grocery table from highest total cost to lowest",
+      "action_before_state": "A populated cell in the Total Cost column is active, and all rows in the grocery table are still visible.",
+      "action_preconditions": [
+        "The active cell is inside the Total Cost column.",
+        "The standard sort buttons are visible on the toolbar."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Sort Descending button on the toolbar"
+        }
+      },
+      "action_after_effects": "The sheet reorders the grocery rows so the highest Total Cost values appear near the top of the table.",
+      "nl_explanation": "When a Total Cost cell is active and the table is ready to be reorganized, click Sort Descending so the most expensive grocery items move to the top for easier review."
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Save the completed budget review sheet",
+      "action_before_state": "The spreadsheet now includes two new columns, completed formulas, currency formatting, and sorted rows.",
+      "action_preconditions": [
+        "LibreOffice Calc remains the active window.",
+        "The workbook is in a valid editable state."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "s"
+        ]
+      },
+      "action_after_effects": "The workbook is saved with the new calculations, formatting, and sorted order preserved.",
+      "nl_explanation": "Once the budget review updates are complete, press Ctrl+S so the spreadsheet keeps the new columns, formulas, formatting, and descending sort order."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Add the two new review columns needed for calculated spending and budget status.",
+      "unit_type": "ADD_REVIEW_COLUMN_HEADERS",
+      "unit_before_state": "LibreOffice Calc shows the grocery table with existing headers in columns A through E, and header cells F1 and G1 are empty and visible at the top of the sheet.",
+      "unit_after_state": "Row 1 now includes the new headers Total Cost in F1 and Over Budget? in G1, with both review columns visibly added to the table.",
+      "unit_precondition": [
+        "The grocery spreadsheet is the active window in LibreOffice Calc.",
+        "Row 1 is visible and cells F1 and G1 are empty and available for input.",
+        "No dialog or in-cell edit mode is blocking header entry."
+      ],
+      "unit_effect": [
+        "Cell F1 displays the text Total Cost.",
+        "Cell G1 displays the text Over Budget?.",
+        "The table visibly expands to include two labeled columns for budget review."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Compute total spending for every grocery item by multiplying quantity by unit price.",
+      "unit_type": "POPULATE_TOTAL_COST_COLUMN",
+      "unit_before_state": "The sheet shows the new Total Cost header in F1, and cells F2 through F12 under that header are empty while quantity and unit price values are present in columns B and C.",
+      "unit_after_state": "Cells F2 through F12 are filled with calculated total cost values derived from each row's quantity and unit price.",
+      "unit_precondition": [
+        "The Total Cost column header already exists in F1.",
+        "Row 2 through row 12 are visible or reachable, and F2 is empty.",
+        "Columns B and C contain numeric quantity and unit price values for each grocery row."
+      ],
+      "unit_effect": [
+        "F2 shows the evaluated result of the formula =B2*C2.",
+        "Dragging the fill handle copies the same calculation pattern down through F12.",
+        "Every grocery row now has a populated Total Cost value in column F."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        8,
+        9,
+        10
+      ],
+      "unit_intent": "Mark each grocery item as over or within budget by comparing total cost against planned budget.",
+      "unit_type": "POPULATE_OVER_BUDGET_COLUMN",
+      "unit_before_state": "Column F already contains total cost values for rows 2 through 12, the Over Budget? header is visible in G1, and cells G2 through G12 are still empty.",
+      "unit_after_state": "Cells G2 through G12 display budget status labels for each row, showing either Over or Within based on the comparison with planned budget values in column D.",
+      "unit_precondition": [
+        "The Over Budget? header already exists in G1.",
+        "Total Cost values are populated in F2 through F12.",
+        "Planned Budget values are present in D2 through D12, and G2 is empty and ready for formula entry."
+      ],
+      "unit_effect": [
+        "G2 shows either Over or Within after the IF formula is entered.",
+        "The fill handle copies the IF formula from G2 down through G12.",
+        "Each grocery row now has a visible budget status in column G."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        11,
+        12,
+        13
+      ],
+      "unit_intent": "Make the total cost figures easier to review by displaying them in currency format.",
+      "unit_type": "FORMAT_TOTAL_COST_AS_CURRENCY",
+      "unit_before_state": "The Total Cost column contains numeric results in F2 through F12, shown as plain numbers, and the formatting toolbar is visible above the sheet.",
+      "unit_after_state": "The selected Total Cost cells F2 through F12 display currency-formatted monetary values instead of plain numeric totals.",
+      "unit_precondition": [
+        "Cells F2 through F12 contain populated Total Cost values with no blanks interrupting the range.",
+        "The currency formatting button is available on the Calc toolbar.",
+        "The user can select the Total Cost range starting from F2."
+      ],
+      "unit_effect": [
+        "Ctrl+Shift+Down highlights the contiguous range F2:F12.",
+        "Clicking the currency button changes the display of the selected values to currency.",
+        "Column F visibly shows money-formatted amounts for all grocery items."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        14,
+        15
+      ],
+      "unit_intent": "Reorder the grocery table so the most expensive items appear first for review.",
+      "unit_type": "SORT_BY_TOTAL_COST_DESCENDING",
+      "unit_before_state": "The grocery table includes the new review columns, Total Cost values in column F are formatted as currency, and the rows are still in their previous order.",
+      "unit_after_state": "The table is sorted in descending order by Total Cost, with the largest currency amounts appearing near the top of the grocery list.",
+      "unit_precondition": [
+        "At least one populated Total Cost cell is visible and clickable in column F.",
+        "The active selection can be placed inside the Total Cost column.",
+        "The Sort Descending control is visible and available on the toolbar."
+      ],
+      "unit_effect": [
+        "A cell in column F becomes the active sort reference.",
+        "After clicking Sort Descending, row order changes in the sheet.",
+        "Higher Total Cost values are visibly positioned above lower ones."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        16
+      ],
+      "unit_intent": "Persist the completed budget review updates to the spreadsheet file.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The spreadsheet now contains the new Total Cost and Over Budget? columns, completed formulas, currency formatting, and the rows sorted by descending Total Cost.",
+      "unit_after_state": "The workbook remains open in LibreOffice Calc with the current budget review changes saved to disk.",
+      "unit_precondition": [
+        "LibreOffice Calc is still the active window.",
+        "The workbook is editable and not blocked by a modal dialog.",
+        "The desired calculations, formatting, and sort order are already visible in the sheet."
+      ],
+      "unit_effect": [
+        "The Ctrl+S command triggers a save operation for the workbook.",
+        "The current formulas, currency formatting, and sorted order are preserved in the saved file."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Add the two new review columns needed for calculated spending and budget status.",
+      "unit_type": "ADD_REVIEW_COLUMN_HEADERS",
+      "unit_before_state": "LibreOffice Calc shows the grocery table with existing headers in columns A through E, and header cells F1 and G1 are empty and visible at the top of the sheet.",
+      "unit_after_state": "Row 1 now includes the new headers Total Cost in F1 and Over Budget? in G1, with both review columns visibly added to the table.",
+      "unit_precondition": [
+        "The grocery spreadsheet is the active window in LibreOffice Calc.",
+        "Row 1 is visible and cells F1 and G1 are empty and available for input.",
+        "No dialog or in-cell edit mode is blocking header entry."
+      ],
+      "unit_effect": [
+        "Cell F1 displays the text Total Cost.",
+        "Cell G1 displays the text Over Budget?.",
+        "The table visibly expands to include two labeled columns for budget review."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Add two specified review column headers into consecutive empty header cells in a spreadsheet.",
+      "parameters": {
+        "first_target_cell": "F1",
+        "first_column_header": "Total Cost",
+        "second_target_cell": "G1",
+        "second_column_header": "Over Budget?"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the empty header cell F1 at the top of the first blank column'}}",
+          "action_template": "When the spreadsheet is active and {{first_target_cell}} is the visible empty header cell for the first new review column, click {{first_target_cell}} to make it active and ready for text entry."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Total Cost'}",
+          "action_template": "With {{first_target_cell}} selected and ready for input, type {{first_column_header}} so the spreadsheet labels the first new review column."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the empty header cell G1 immediately to the right of Total Cost'}}",
+          "action_template": "After {{first_column_header}} has been added, click the next empty header cell {{second_target_cell}} to activate it for the second review column header."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Over Budget?'}",
+          "action_template": "With {{second_target_cell}} active and no other dialog blocking input, type {{second_column_header}} so the spreadsheet labels the second new review column."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Compute total spending for every grocery item by multiplying quantity by unit price.",
+      "unit_type": "POPULATE_TOTAL_COST_COLUMN",
+      "unit_before_state": "The sheet shows the new Total Cost header in F1, and cells F2 through F12 under that header are empty while quantity and unit price values are present in columns B and C.",
+      "unit_after_state": "Cells F2 through F12 are filled with calculated total cost values derived from each row's quantity and unit price.",
+      "unit_precondition": [
+        "The Total Cost column header already exists in F1.",
+        "Row 2 through row 12 are visible or reachable, and F2 is empty.",
+        "Columns B and C contain numeric quantity and unit price values for each grocery row."
+      ],
+      "unit_effect": [
+        "F2 shows the evaluated result of the formula =B2*C2.",
+        "Dragging the fill handle copies the same calculation pattern down through F12.",
+        "Every grocery row now has a populated Total Cost value in column F."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Populate a calculated results column by entering the formula in the first data cell and filling it down through the remaining rows.",
+      "parameters": {
+        "first_result_cell": "F2",
+        "row_formula": "=B2*C2",
+        "fill_end_cell": "F12"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "CLICK",
+          "action_template": "Click {{first_result_cell}} when the first data row is visible and the cell is empty to activate the first data cell in the calculated results column for formula entry."
+        },
+        {
+          "action": "TYPING",
+          "action_template": "Type {{row_formula}} into {{first_result_cell}} when it is active and the referenced source cells in the first data row contain numeric values, so the spreadsheet evaluates the first calculated result."
+        },
+        {
+          "action": "DRAG_TO",
+          "action_template": "Drag the fill handle from {{first_result_cell}} down to {{fill_end_cell}} after the first calculated result is correct, so the same relative formula pattern is copied through the remaining rows in the calculated results column."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        8,
+        9,
+        10
+      ],
+      "unit_intent": "Mark each grocery item as over or within budget by comparing total cost against planned budget.",
+      "unit_type": "POPULATE_OVER_BUDGET_COLUMN",
+      "unit_before_state": "Column F already contains total cost values for rows 2 through 12, the Over Budget? header is visible in G1, and cells G2 through G12 are still empty.",
+      "unit_after_state": "Cells G2 through G12 display budget status labels for each row, showing either Over or Within based on the comparison with planned budget values in column D.",
+      "unit_precondition": [
+        "The Over Budget? header already exists in G1.",
+        "Total Cost values are populated in F2 through F12.",
+        "Planned Budget values are present in D2 through D12, and G2 is empty and ready for formula entry."
+      ],
+      "unit_effect": [
+        "G2 shows either Over or Within after the IF formula is entered.",
+        "The fill handle copies the IF formula from G2 down through G12.",
+        "Each grocery row now has a visible budget status in column G."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Populate a status column by entering a row-level comparison formula in the first data cell and autofilling it through the remaining rows.",
+      "parameters": {
+        "target_start_cell": "cell G2, the first row under the Over Budget? header",
+        "actual_value_cell": "F2",
+        "planned_value_cell": "D2",
+        "comparison_formula": "=IF(F2>D2,\"Over\",\"Within\")",
+        "fill_end_cell": "cell G12",
+        "over_label": "Over",
+        "within_label": "Within"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell G2, the first row under the Over Budget? header'}}",
+          "action_template": "Click {{target_start_cell}} after the source rows remain visible and the cell is empty, so it becomes active for entering the comparison formula."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '=IF(F2>D2,\"Over\",\"Within\")'}",
+          "action_template": "Type {{comparison_formula}} into {{target_start_cell}} while {{actual_value_cell}} and {{planned_value_cell}} contain comparable numeric values, so the cell displays either {{over_label}} or {{within_label}} based on the row comparison."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the small fill handle at the bottom-right corner of cell G2'}, 'end': {'text': 'the fill handle position aligned with cell G12'}, 'target': {'begin': {'text': 'fill handle on cell G2'}, 'end': {'text': 'cell G12'}}}",
+          "action_template": "Drag the fill handle from {{target_start_cell}} down to {{fill_end_cell}} after the first comparison result is correct, so the same status formula is copied through the remaining rows and each row shows either {{over_label}} or {{within_label}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        11,
+        12,
+        13
+      ],
+      "unit_intent": "Make the total cost figures easier to review by displaying them in currency format.",
+      "unit_type": "FORMAT_TOTAL_COST_AS_CURRENCY",
+      "unit_before_state": "The Total Cost column contains numeric results in F2 through F12, shown as plain numbers, and the formatting toolbar is visible above the sheet.",
+      "unit_after_state": "The selected Total Cost cells F2 through F12 display currency-formatted monetary values instead of plain numeric totals.",
+      "unit_precondition": [
+        "Cells F2 through F12 contain populated Total Cost values with no blanks interrupting the range.",
+        "The currency formatting button is available on the Calc toolbar.",
+        "The user can select the Total Cost range starting from F2."
+      ],
+      "unit_effect": [
+        "Ctrl+Shift+Down highlights the contiguous range F2:F12.",
+        "Clicking the currency button changes the display of the selected values to currency.",
+        "Column F visibly shows money-formatted amounts for all grocery items."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Apply currency formatting to a contiguous range of numeric total values.",
+      "parameters": {
+        "target_field": "Total Cost",
+        "target_start_cell": "F2",
+        "target_range": "F2:F12"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell F2, the first numeric value in the Total Cost column'}}",
+          "action_template": "Click {{target_start_cell}} to make it the active starting point for selecting the rest of the contiguous {{target_field}} values, when the populated values are visible and the cell can be clicked directly; after the click, {{target_start_cell}} becomes the active cell for extending the selection."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'down']}",
+          "action_template": "Press Ctrl+Shift+Down when {{target_start_cell}} is selected and there are no blank cells interrupting {{target_range}} to quickly select the full contiguous {{target_field}} range; after the shortcut, {{target_range}} becomes selected."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the currency-format button with a currency symbol on the formatting toolbar'}}",
+          "action_template": "Click the Currency button while {{target_range}} is selected and the toolbar is visible to reformat the selected {{target_field}} values as currency amounts; after the click, {{target_range}} displays currency-formatted values."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        14,
+        15
+      ],
+      "unit_intent": "Reorder the grocery table so the most expensive items appear first for review.",
+      "unit_type": "SORT_BY_TOTAL_COST_DESCENDING",
+      "unit_before_state": "The grocery table includes the new review columns, Total Cost values in column F are formatted as currency, and the rows are still in their previous order.",
+      "unit_after_state": "The table is sorted in descending order by Total Cost, with the largest currency amounts appearing near the top of the grocery list.",
+      "unit_precondition": [
+        "At least one populated Total Cost cell is visible and clickable in column F.",
+        "The active selection can be placed inside the Total Cost column.",
+        "The Sort Descending control is visible and available on the toolbar."
+      ],
+      "unit_effect": [
+        "A cell in column F becomes the active sort reference.",
+        "After clicking Sort Descending, row order changes in the sheet.",
+        "Higher Total Cost values are visibly positioned above lower ones."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Sort a table in descending order by a specified value column so the highest values appear first for review.",
+      "parameters": {
+        "sort_column": "the Total Cost column",
+        "sort_reference_cell": "any populated cell in the Total Cost column, such as F2",
+        "sort_descending_control": "the Sort Descending button on the toolbar"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'any populated cell in the Total Cost column, such as F2'}}",
+          "action_template": "Click {{sort_reference_cell}} when at least one populated cell in {{sort_column}} is visible so that column becomes the active sort key for the next command."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Sort Descending button on the toolbar'}}",
+          "action_template": "Click {{sort_descending_control}} when the active cell is inside {{sort_column}} to reorder the table so the highest values in that column appear near the top."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        16
+      ],
+      "unit_intent": "Persist the completed budget review updates to the spreadsheet file.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The spreadsheet now contains the new Total Cost and Over Budget? columns, completed formulas, currency formatting, and the rows sorted by descending Total Cost.",
+      "unit_after_state": "The workbook remains open in LibreOffice Calc with the current budget review changes saved to disk.",
+      "unit_precondition": [
+        "LibreOffice Calc is still the active window.",
+        "The workbook is editable and not blocked by a modal dialog.",
+        "The desired calculations, formatting, and sort order are already visible in the sheet."
+      ],
+      "unit_effect": [
+        "The Ctrl+S command triggers a save operation for the workbook.",
+        "The current formulas, currency formatting, and sorted order are preserved in the saved file."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the current spreadsheet changes to disk.",
+      "parameters": {
+        "saved_changes": "the new columns, formulas, formatting, and descending sort order"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 's']}",
+          "action_template": "Press Ctrl+S to save the workbook so {{saved_changes}} are preserved."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

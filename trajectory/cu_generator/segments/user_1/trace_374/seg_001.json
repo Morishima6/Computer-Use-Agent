@@ -1,0 +1,634 @@
+{
+  "segment_id": "seg_001",
+  "app": "os",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the Downloads folder in Files",
+      "action_before_state": "A GNOME Files window is already open on the screen, but it may currently be showing another folder.",
+      "action_preconditions": [
+        "The Files sidebar is visible",
+        "The Downloads shortcut is available in the sidebar"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "Downloads in the Files left sidebar"
+        }
+      },
+      "action_after_effects": "The main pane switches to the Downloads folder and shows its files, including the downloaded bill PDF.",
+      "nl_explanation": "When the Files window is open and the left sidebar is visible, click Downloads in the sidebar. The file list should change to the Downloads folder so the bill PDF can be located."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Select the downloaded bill PDF",
+      "action_before_state": "The Downloads folder is open and its files are visible in the main pane.",
+      "action_preconditions": [
+        "The bill PDF is visible in the current file list",
+        "No other file needs to remain selected"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the downloaded electricity bill PDF in the file list"
+        }
+      },
+      "action_after_effects": "The PDF becomes highlighted, indicating it is selected.",
+      "nl_explanation": "Once the Downloads folder is visible and the bill PDF can be seen, click the PDF once to select it. The file should highlight and become ready for the next action."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Cut the selected file so it can be moved",
+      "action_before_state": "The bill PDF is selected in Files.",
+      "action_preconditions": [
+        "Exactly one PDF file is selected",
+        "The Files window has keyboard focus"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "x"
+        ]
+      },
+      "action_after_effects": "The selected PDF is marked for moving and is ready to be pasted into another folder.",
+      "nl_explanation": "With the bill PDF selected and the Files window focused, press Ctrl+X to cut it. This prepares the file to be moved into the destination folder later."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Open a terminal window",
+      "action_before_state": "Files is still open and the selected PDF has already been cut.",
+      "action_preconditions": [
+        "The desktop session is active",
+        "Keyboard shortcuts are available"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "alt",
+          "t"
+        ]
+      },
+      "action_after_effects": "A terminal window opens in front of the Files window with an active shell prompt.",
+      "nl_explanation": "When the desktop is active and the file has already been cut, press Ctrl+Alt+T to open a terminal. A shell prompt should appear, ready for a command."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Enter the command to create the destination folders",
+      "action_before_state": "A terminal window is open and the shell prompt is ready for input.",
+      "action_preconditions": [
+        "The terminal cursor is active at the prompt",
+        "No other command is partially typed"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "mkdir -p ~/Documents/Household/Bills/2026"
+      },
+      "action_after_effects": "The folder-creation command appears in the terminal input line.",
+      "nl_explanation": "When the terminal prompt is ready, type the mkdir command that creates the Household/Bills/2026 folder tree inside Documents. The full command should appear in the terminal."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Run the folder-creation command",
+      "action_before_state": "The mkdir command is fully typed in the terminal.",
+      "action_preconditions": [
+        "The terminal still has focus",
+        "The command line contains the correct mkdir command"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The destination folder structure is created under Documents.",
+      "nl_explanation": "With the mkdir command typed and the terminal focused, press Enter to execute it. The Household/Bills/2026 folders should now exist."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Type the command to open the destination folder in Files",
+      "action_before_state": "The terminal prompt is visible again after creating the folders.",
+      "action_preconditions": [
+        "The terminal prompt is active",
+        "The destination path already exists"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "nautilus ~/Documents/Household/Bills/2026"
+      },
+      "action_after_effects": "The nautilus command appears in the terminal input line.",
+      "nl_explanation": "After the folders have been created and the shell prompt returns, type the nautilus command pointing to the destination folder. The command should be ready to launch Files at that location."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Open the destination folder in Files",
+      "action_before_state": "The nautilus command is typed in the terminal.",
+      "action_preconditions": [
+        "The command line contains the correct folder path",
+        "The terminal is still focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "A new Files window opens directly to Documents/Household/Bills/2026 and becomes the active window.",
+      "nl_explanation": "When the nautilus command is fully typed, press Enter to open the target folder in Files. The destination folder should appear on screen in the active Files window."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Paste the cut PDF into the destination folder",
+      "action_before_state": "The newly opened Files window is in front and displays Documents/Household/Bills/2026.",
+      "action_preconditions": [
+        "The active Files window is focused on Documents/Household/Bills/2026",
+        "The bill PDF is still marked as a cut item from step 3"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "v"
+        ]
+      },
+      "action_after_effects": "The PDF is moved into the current folder and appears in the file list.",
+      "nl_explanation": "With the destination folder open in the active Files window, press Ctrl+V to paste the cut file. The bill PDF should appear in Household/Bills/2026."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Select the moved PDF for renaming",
+      "action_before_state": "The bill PDF is now visible inside the destination folder.",
+      "action_preconditions": [
+        "The moved PDF appears in the current folder",
+        "Files is still focused"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the pasted bill PDF inside the Household/Bills/2026 folder"
+        }
+      },
+      "action_after_effects": "The moved PDF becomes highlighted and ready for rename actions.",
+      "nl_explanation": "Once the moved file appears in the destination folder, click it once to select it. The file should highlight so it can be renamed."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Start rename mode for the selected file",
+      "action_before_state": "The moved PDF is selected in Files.",
+      "action_preconditions": [
+        "Exactly one file is selected",
+        "The Files window has keyboard focus"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "f2"
+        ]
+      },
+      "action_after_effects": "The filename becomes editable inline and is ready for the new name to be entered.",
+      "nl_explanation": "When the moved PDF is selected and Files is focused, press F2 to rename it. The current filename should switch into an editable text field."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Type the new filename",
+      "action_before_state": "The filename field is active and ready for text input.",
+      "action_preconditions": [
+        "Rename mode is active",
+        "The rename field is focused and ready to accept the replacement filename"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "electricity_bill_april_2026.pdf"
+      },
+      "action_after_effects": "The rename field now shows electricity_bill_april_2026.pdf as the pending new filename.",
+      "nl_explanation": "When the rename box is active, type electricity_bill_april_2026.pdf. The rename field should now show the requested filename."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Confirm the new filename",
+      "action_before_state": "The desired filename is visible in the rename field.",
+      "action_preconditions": [
+        "Rename mode is still active",
+        "The full new filename has been entered correctly"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The file is renamed and now appears as electricity_bill_april_2026.pdf in the folder.",
+      "nl_explanation": "After the new filename has been entered, press Enter to apply it. The file list should update and show the renamed PDF."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Return to the terminal to verify the result",
+      "action_before_state": "The Files window is in front, and the renamed file is visible in the folder.",
+      "action_preconditions": [
+        "A terminal window is still open in the session",
+        "Keyboard application switching is available"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "alt",
+          "tab"
+        ]
+      },
+      "action_after_effects": "The terminal window comes back to the foreground.",
+      "nl_explanation": "When the renamed file is visible and the terminal is still open, press Alt+Tab to switch back to the terminal. The shell prompt should appear in front again."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Type the verification command",
+      "action_before_state": "The terminal prompt is active and ready for another command.",
+      "action_preconditions": [
+        "The terminal window is focused",
+        "The shell prompt is visible"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "ls ~/Documents/Household/Bills/2026"
+      },
+      "action_after_effects": "The ls command appears at the terminal prompt.",
+      "nl_explanation": "With the terminal prompt active, type the ls command for the destination folder. The command should be ready to confirm whether the renamed file is present."
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Run the verification command",
+      "action_before_state": "The ls command is fully typed in the terminal.",
+      "action_preconditions": [
+        "The terminal still has focus",
+        "The verification command is correct"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The terminal lists the contents of the destination folder and shows electricity_bill_april_2026.pdf, confirming the task is complete.",
+      "nl_explanation": "After the ls command is entered, press Enter to run it. The output should list electricity_bill_april_2026.pdf, confirming that the bill was moved, renamed, and stored in the correct folder."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Prepare the downloaded electricity bill PDF in Downloads so it can be moved to its filing location.",
+      "unit_type": "SELECT_AND_CUT_FILE",
+      "unit_before_state": "A GNOME Files window is already open, but it may be showing a different folder instead of Downloads. The left sidebar with the Downloads shortcut is visible.",
+      "unit_after_state": "The Files window is showing the Downloads folder, and the downloaded electricity bill PDF is selected and marked as cut, ready to be pasted elsewhere.",
+      "unit_precondition": [
+        "A GNOME Files window is open and its left sidebar is visible.",
+        "The downloaded electricity bill PDF is present in Downloads and can be selected.",
+        "The Files window has keyboard focus for the cut shortcut."
+      ],
+      "unit_effect": [
+        "The main file list switches to Downloads.",
+        "The electricity bill PDF becomes highlighted.",
+        "After Ctrl+X, the selected PDF is visibly in a cut/move-ready state and can be pasted into another folder."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Create the destination folder structure for filing the bill under Documents.",
+      "unit_type": "CREATE_DESTINATION_FOLDER",
+      "unit_before_state": "The bill PDF has already been cut in Files, and no terminal is currently in front. The destination folder Documents/Household/Bills/2026 may not exist yet.",
+      "unit_after_state": "A terminal window is open with the mkdir command executed, and the Documents/Household/Bills/2026 folder structure now exists.",
+      "unit_precondition": [
+        "The desktop session is active and keyboard shortcuts can open Terminal.",
+        "A shell prompt can accept a new command.",
+        "The user has permission to create folders under ~/Documents."
+      ],
+      "unit_effect": [
+        "A terminal window opens with an active shell prompt.",
+        "The command mkdir -p ~/Documents/Household/Bills/2026 is entered and executed.",
+        "The Household/Bills/2026 directory path is created under Documents."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8,
+        9
+      ],
+      "unit_intent": "Move the cut electricity bill PDF into the newly created Bills/2026 folder.",
+      "unit_type": "MOVE_FILE_TO_DESTINATION",
+      "unit_before_state": "The terminal prompt is active after creating the destination folders, and the electricity bill PDF is still on the clipboard in cut state from Downloads.",
+      "unit_after_state": "A Files window is open directly to Documents/Household/Bills/2026, and the moved bill PDF appears in that folder's file list.",
+      "unit_precondition": [
+        "The Documents/Household/Bills/2026 folder already exists.",
+        "The terminal window is focused and ready to run another command.",
+        "The electricity bill PDF is still marked as cut and available to paste in Files."
+      ],
+      "unit_effect": [
+        "Running nautilus ~/Documents/Household/Bills/2026 opens the destination folder in Files.",
+        "The destination Files window becomes active.",
+        "After Ctrl+V, the PDF appears in the Bills/2026 folder, indicating the move completed."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        10,
+        11,
+        12,
+        13
+      ],
+      "unit_intent": "Rename the moved bill PDF to the required filing name.",
+      "unit_type": "RENAME_FILE",
+      "unit_before_state": "The Files window is open at Documents/Household/Bills/2026, and the moved bill PDF is visible in the file list under its original downloaded name.",
+      "unit_after_state": "The file in Documents/Household/Bills/2026 is renamed and displayed as electricity_bill_april_2026.pdf.",
+      "unit_precondition": [
+        "The moved PDF is visible in the destination folder.",
+        "The Files window is focused.",
+        "Exactly one file can be selected and renamed inline."
+      ],
+      "unit_effect": [
+        "The moved PDF becomes selected.",
+        "Pressing F2 opens inline rename mode for that file.",
+        "The rename field shows electricity_bill_april_2026.pdf before confirmation.",
+        "After Enter, the file list updates to show the final name electricity_bill_april_2026.pdf."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        14,
+        15,
+        16
+      ],
+      "unit_intent": "Verify from the terminal that the renamed electricity bill PDF is stored in the correct folder.",
+      "unit_type": "VERIFY_FILE_LOCATION",
+      "unit_before_state": "The Files window is in front showing the renamed PDF inside Documents/Household/Bills/2026, and a terminal window remains open in the session behind it.",
+      "unit_after_state": "The terminal is in the foreground and shows the output of ls ~/Documents/Household/Bills/2026, including electricity_bill_april_2026.pdf.",
+      "unit_precondition": [
+        "A terminal window is still open and can be switched to with Alt+Tab.",
+        "The renamed file already exists in Documents/Household/Bills/2026.",
+        "The terminal prompt is available for a new command."
+      ],
+      "unit_effect": [
+        "Alt+Tab brings the terminal window back to the foreground.",
+        "The command ls ~/Documents/Household/Bills/2026 is entered and executed.",
+        "The terminal output lists electricity_bill_april_2026.pdf, confirming the file is in the intended folder with the correct name."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Prepare the downloaded electricity bill PDF in Downloads so it can be moved to its filing location.",
+      "unit_type": "SELECT_AND_CUT_FILE",
+      "unit_before_state": "A GNOME Files window is already open, but it may be showing a different folder instead of Downloads. The left sidebar with the Downloads shortcut is visible.",
+      "unit_after_state": "The Files window is showing the Downloads folder, and the downloaded electricity bill PDF is selected and marked as cut, ready to be pasted elsewhere.",
+      "unit_precondition": [
+        "A GNOME Files window is open and its left sidebar is visible.",
+        "The downloaded electricity bill PDF is present in Downloads and can be selected.",
+        "The Files window has keyboard focus for the cut shortcut."
+      ],
+      "unit_effect": [
+        "The main file list switches to Downloads.",
+        "The electricity bill PDF becomes highlighted.",
+        "After Ctrl+X, the selected PDF is visibly in a cut/move-ready state and can be pasted into another folder."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Prepare {{target_file}} in {{source_folder}} so it is selected and cut for moving to another location.",
+      "parameters": {
+        "source_folder": "Downloads",
+        "target_file": "the downloaded electricity bill PDF"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'Downloads in the Files left sidebar'}}",
+          "action_template": "When the Files window is open, the sidebar is visible, and the {{source_folder}} shortcut is available, click {{source_folder}} in the sidebar to switch the main pane to that folder and show its files, including {{target_file}}."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the downloaded electricity bill PDF in the file list'}}",
+          "action_template": "Once {{source_folder}} is open and {{target_file}} is visible in the file list, click {{target_file}} once to select it so it becomes highlighted and ready for the next action."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'x']}",
+          "action_template": "With {{target_file}} selected and the Files window focused, press Ctrl+X to cut it so the file is marked for moving and ready to be pasted into another folder."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Create the destination folder structure for filing the bill under Documents.",
+      "unit_type": "CREATE_DESTINATION_FOLDER",
+      "unit_before_state": "The bill PDF has already been cut in Files, and no terminal is currently in front. The destination folder Documents/Household/Bills/2026 may not exist yet.",
+      "unit_after_state": "A terminal window is open with the mkdir command executed, and the Documents/Household/Bills/2026 folder structure now exists.",
+      "unit_precondition": [
+        "The desktop session is active and keyboard shortcuts can open Terminal.",
+        "A shell prompt can accept a new command.",
+        "The user has permission to create folders under ~/Documents."
+      ],
+      "unit_effect": [
+        "A terminal window opens with an active shell prompt.",
+        "The command mkdir -p ~/Documents/Household/Bills/2026 is entered and executed.",
+        "The Household/Bills/2026 directory path is created under Documents."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a specified destination folder structure at {{destination_folder_path}} using a terminal command.",
+      "parameters": {
+        "terminal_shortcut": "Ctrl+Alt+T",
+        "destination_folder_path": "~/Documents/Household/Bills/2026"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'alt', 't']}",
+          "action_template": "When the desktop session is active and keyboard shortcuts are available, press {{terminal_shortcut}} to open a terminal. A shell prompt should appear, ready for a command."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'mkdir -p ~/Documents/Household/Bills/2026'}",
+          "action_template": "When the terminal prompt is ready and no other command is partially typed, type mkdir -p {{destination_folder_path}} to create the destination folders. The full command should appear in the terminal input line."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "With the terminal still focused and the command line containing mkdir -p {{destination_folder_path}}, press Enter to execute it. The destination folder structure should then be created at {{destination_folder_path}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8,
+        9
+      ],
+      "unit_intent": "Move the cut electricity bill PDF into the newly created Bills/2026 folder.",
+      "unit_type": "MOVE_FILE_TO_DESTINATION",
+      "unit_before_state": "The terminal prompt is active after creating the destination folders, and the electricity bill PDF is still on the clipboard in cut state from Downloads.",
+      "unit_after_state": "A Files window is open directly to Documents/Household/Bills/2026, and the moved bill PDF appears in that folder's file list.",
+      "unit_precondition": [
+        "The Documents/Household/Bills/2026 folder already exists.",
+        "The terminal window is focused and ready to run another command.",
+        "The electricity bill PDF is still marked as cut and available to paste in Files."
+      ],
+      "unit_effect": [
+        "Running nautilus ~/Documents/Household/Bills/2026 opens the destination folder in Files.",
+        "The destination Files window becomes active.",
+        "After Ctrl+V, the PDF appears in the Bills/2026 folder, indicating the move completed."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Move a cut file into a specified destination folder by opening that folder in the file manager from the terminal and pasting the file there.",
+      "parameters": {
+        "destination_folder_path": "~/Documents/Household/Bills/2026",
+        "file_item": "electricity bill PDF"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'nautilus ~/Documents/Household/Bills/2026'}",
+          "action_template": "With the terminal prompt active and {{destination_folder_path}} already existing, type `nautilus {{destination_folder_path}}` so the command appears in the terminal input line and is ready to open the destination folder in Files."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "With the terminal still focused and the command line containing `nautilus {{destination_folder_path}}`, press Enter to open the target folder in Files so that the destination Files window becomes active."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'v']}",
+          "action_template": "With the active Files window focused on {{destination_folder_path}} and the cut {{file_item}} still available to paste, press Ctrl+V to move it into the open folder so it appears in the file list."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        10,
+        11,
+        12,
+        13
+      ],
+      "unit_intent": "Rename the moved bill PDF to the required filing name.",
+      "unit_type": "RENAME_FILE",
+      "unit_before_state": "The Files window is open at Documents/Household/Bills/2026, and the moved bill PDF is visible in the file list under its original downloaded name.",
+      "unit_after_state": "The file in Documents/Household/Bills/2026 is renamed and displayed as electricity_bill_april_2026.pdf.",
+      "unit_precondition": [
+        "The moved PDF is visible in the destination folder.",
+        "The Files window is focused.",
+        "Exactly one file can be selected and renamed inline."
+      ],
+      "unit_effect": [
+        "The moved PDF becomes selected.",
+        "Pressing F2 opens inline rename mode for that file.",
+        "The rename field shows electricity_bill_april_2026.pdf before confirmation.",
+        "After Enter, the file list updates to show the final name electricity_bill_april_2026.pdf."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Rename a visible file in the current folder to a specified filename using inline rename mode.",
+      "parameters": {
+        "target_file": "the pasted bill PDF inside the Household/Bills/2026 folder",
+        "new_file_name": "electricity_bill_april_2026.pdf"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "CLICK",
+          "action_template": "Once {{target_file}} appears in the current folder and Files is still focused, click it once to select it. The file should highlight so it can be renamed."
+        },
+        {
+          "action": "PRESS",
+          "action_template": "When {{target_file}} is selected and the Files window has keyboard focus, press F2 to open inline rename mode. The current filename should switch into an editable text field."
+        },
+        {
+          "action": "TYPING",
+          "action_template": "When the rename box is active and focused, type {{new_file_name}}. The rename field should now show the requested filename as the pending new name."
+        },
+        {
+          "action": "PRESS",
+          "action_template": "After {{new_file_name}} has been entered and rename mode is still active, press Enter to apply it. The file list should update and show the renamed file."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        14,
+        15,
+        16
+      ],
+      "unit_intent": "Verify from the terminal that the renamed electricity bill PDF is stored in the correct folder.",
+      "unit_type": "VERIFY_FILE_LOCATION",
+      "unit_before_state": "The Files window is in front showing the renamed PDF inside Documents/Household/Bills/2026, and a terminal window remains open in the session behind it.",
+      "unit_after_state": "The terminal is in the foreground and shows the output of ls ~/Documents/Household/Bills/2026, including electricity_bill_april_2026.pdf.",
+      "unit_precondition": [
+        "A terminal window is still open and can be switched to with Alt+Tab.",
+        "The renamed file already exists in Documents/Household/Bills/2026.",
+        "The terminal prompt is available for a new command."
+      ],
+      "unit_effect": [
+        "Alt+Tab brings the terminal window back to the foreground.",
+        "The command ls ~/Documents/Household/Bills/2026 is entered and executed.",
+        "The terminal output lists electricity_bill_april_2026.pdf, confirming the file is in the intended folder with the correct name."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Verify from the terminal that {{expected_file_name}} is stored in {{target_folder_path}}.",
+      "parameters": {
+        "target_folder_path": "~/Documents/Household/Bills/2026",
+        "expected_file_name": "electricity_bill_april_2026.pdf"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['alt', 'tab']}",
+          "action_template": "When the file to verify is visible and the terminal is still open, press Alt+Tab to switch back to the terminal. Preconditions: a terminal window is still open in the session and keyboard application switching is available. After the action, the terminal window comes back to the foreground."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'ls ~/Documents/Household/Bills/2026'}",
+          "action_template": "With the terminal window focused and the shell prompt visible, type `ls {{target_folder_path}}` to prepare a verification of whether {{expected_file_name}} is present. After the action, the ls command appears at the terminal prompt."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After `ls {{target_folder_path}}` is entered and the terminal still has focus, press Enter to run it. The terminal should list the contents of {{target_folder_path}} and show {{expected_file_name}}, confirming the file is stored in the correct folder."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

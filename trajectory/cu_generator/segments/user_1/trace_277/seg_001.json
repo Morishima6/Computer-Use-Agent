@@ -1,0 +1,593 @@
+{
+  "segment_id": "seg_001",
+  "app": "libreoffice_writer",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Move the cursor to the beginning of the document",
+      "action_before_state": "LibreOffice Writer is open with an existing note on the page, and the text cursor may be somewhere in the document body.",
+      "action_preconditions": [
+        "The Writer window is active.",
+        "Keyboard focus is inside the document."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "home"
+        ]
+      },
+      "action_after_effects": "The insertion point jumps to the start of the document, ready for new text to be inserted above the existing note.",
+      "nl_explanation": "When the document is active and the cursor could be anywhere, press Ctrl+Home to jump straight to the top so the new heading can be inserted before the current content."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Insert the title and date at the top",
+      "action_before_state": "The cursor is at the very beginning of the first page, directly before the existing note text.",
+      "action_preconditions": [
+        "The top of the document is visible.",
+        "The cursor is blinking at the start of the page."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Daily Handover Update\nApril 8, 2026\n\n"
+      },
+      "action_after_effects": "A title line, a date line, and a blank line are added at the top, pushing the original note down.",
+      "nl_explanation": "With the cursor at the start of the document, type the report title, the date, and an empty line so the existing content becomes the body of the update."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Select the new title text",
+      "action_before_state": "The newly added title \"Daily Handover Update\" is visible at the top of the page above the date.",
+      "action_preconditions": [
+        "The title line is visible.",
+        "The mouse can reach the title text."
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the start of the words \"Daily Handover Update\""
+        },
+        "end": {
+          "text": "the end of the words \"Daily Handover Update\""
+        },
+        "target": {
+          "begin": {
+            "text": "document"
+          },
+          "end": {
+            "text": "document"
+          }
+        }
+      },
+      "action_after_effects": "Only the title text is highlighted and ready for formatting.",
+      "nl_explanation": "Once the new heading is visible, drag across the words \"Daily Handover Update\" so only that line is selected for style changes."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Apply a title style to the heading",
+      "action_before_state": "The title text is selected, and the formatting controls are visible in the top toolbar.",
+      "action_preconditions": [
+        "The title line is still highlighted.",
+        "The paragraph style control is available in the toolbar."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the \"Title\" option in the paragraph style dropdown in the top toolbar"
+        }
+      },
+      "action_after_effects": "The heading becomes larger and styled like a document title.",
+      "nl_explanation": "With the title selected, click the paragraph style control and choose \"Title\" so the heading stands out clearly from the rest of the note."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Select the existing update text that should become bullet points",
+      "action_before_state": "The formatted title and date are at the top, and the original note content sits below them as plain text.",
+      "action_preconditions": [
+        "The update lines to be converted are visible below the date.",
+        "Those lines are not already in a bulleted list."
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the start of the first existing update line below the date"
+        },
+        "end": {
+          "text": "the end of the last existing update line that belongs in the update list"
+        },
+        "target": {
+          "begin": {
+            "text": "document"
+          },
+          "end": {
+            "text": "document"
+          }
+        }
+      },
+      "action_after_effects": "The current body text is highlighted as one block, ready to be turned into bullets.",
+      "nl_explanation": "After the heading is in place, drag from the first update line under the date to the end of the last update line so the whole status section is selected."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Convert the selected updates into a bulleted list",
+      "action_before_state": "The body update text is highlighted and the formatting toolbar is still visible.",
+      "action_preconditions": [
+        "The update block remains selected.",
+        "The bulleted list button is visible in the toolbar."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Bulleted List button in the formatting toolbar"
+        }
+      },
+      "action_after_effects": "Each selected update line becomes a bullet point with list indentation.",
+      "nl_explanation": "When the update text is selected, click the bulleted list control so the rough body text becomes a cleaner list of daily updates."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Jump to the end of the document",
+      "action_before_state": "The main updates are now formatted as bullet points, and the cursor is still near that section.",
+      "action_preconditions": [
+        "The document is still active.",
+        "The user wants to add a new section after the current content."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "end"
+        ]
+      },
+      "action_after_effects": "The insertion point moves to the end of the document after the last current line.",
+      "nl_explanation": "Once the bullet list is finished, press Ctrl+End to move directly to the bottom so the follow-up section can be added after the existing note."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Add a new Next Steps section with two plain follow-up lines",
+      "action_before_state": "The cursor is at the end of the document, after the current update content.",
+      "action_preconditions": [
+        "The insertion point is at the bottom of the note.",
+        "There is space to append a new section."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "\n\nNext Steps\nConfirm owner for each open item.\nSend the update to the team before lunch."
+      },
+      "action_after_effects": "A blank gap, the \"Next Steps\" heading, and two follow-up lines are appended at the end of the document.",
+      "nl_explanation": "At the bottom of the note, type a blank gap, the heading \"Next Steps\", and the two follow-up lines that will be converted into a numbered list."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Select the two follow-up lines under Next Steps",
+      "action_before_state": "The newly typed heading and two plain-text follow-up lines are visible at the end of the document.",
+      "action_preconditions": [
+        "The lines under \"Next Steps\" are visible.",
+        "Those two lines are still plain text and not yet numbered."
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the start of the line \"Confirm owner for each open item.\""
+        },
+        "end": {
+          "text": "the end of the line \"Send the update to the team before lunch.\""
+        },
+        "target": {
+          "begin": {
+            "text": "document"
+          },
+          "end": {
+            "text": "document"
+          }
+        }
+      },
+      "action_after_effects": "Both follow-up lines are highlighted together and ready for list formatting.",
+      "nl_explanation": "With the new section visible, drag across the two action lines under \"Next Steps\" so they can be turned into a numbered list without affecting the section heading."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Apply numbering to the follow-up lines",
+      "action_before_state": "The two lines under \"Next Steps\" are selected, and the numbering control is available in the toolbar.",
+      "action_preconditions": [
+        "Only the two follow-up lines are highlighted.",
+        "The numbered list button is visible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Numbered List button in the formatting toolbar"
+        }
+      },
+      "action_after_effects": "The selected follow-up lines become an ordered list beneath the Next Steps heading.",
+      "nl_explanation": "After selecting the two action lines, click the numbered list control so the section becomes a clear ordered set of next actions."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Save the updated document",
+      "action_before_state": "The document now has a title, date, bullet list, and numbered Next Steps section.",
+      "action_preconditions": [
+        "The document contains all requested edits.",
+        "Writer remains focused and ready to accept keyboard shortcuts."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "s"
+        ]
+      },
+      "action_after_effects": "LibreOffice Writer saves the current document with the new formatting and content changes.",
+      "nl_explanation": "Once all requested changes are visible in the document, press Ctrl+S to save the updated daily handover note."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Insert the requested handover heading block at the top of the document before the existing note content.",
+      "unit_type": "INSERT_HEADER_BLOCK",
+      "unit_before_state": "LibreOffice Writer is open on an existing rough note, and the text cursor may be positioned somewhere within the document body rather than at the top.",
+      "unit_after_state": "The insertion point has been used to add \"Daily Handover Update\" on the first line, \"April 8, 2026\" on the second line, and a blank line beneath them, so the original note content now starts lower on the page.",
+      "unit_precondition": [
+        "LibreOffice Writer is the active window.",
+        "Keyboard focus is inside the document text area.",
+        "The document is editable and contains the existing note content."
+      ],
+      "unit_effect": [
+        "The caret moves to the beginning of the document.",
+        "A new top section appears with the title line, the date line, and an empty spacer line above the original note text."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4
+      ],
+      "unit_intent": "Make the newly added document title visually stand out as the main heading.",
+      "unit_type": "APPLY_TITLE_STYLE",
+      "unit_before_state": "The top of the page shows the newly inserted title \"Daily Handover Update\" above the date, and the title is still plain text.",
+      "unit_after_state": "Only the title line has been restyled with LibreOffice Writer's Title paragraph style, making it larger and visually distinct above the date line.",
+      "unit_precondition": [
+        "The newly inserted title line is visible at the top of the document.",
+        "The title text can be selected without including the date line.",
+        "The paragraph style control in the toolbar is available."
+      ],
+      "unit_effect": [
+        "The text \"Daily Handover Update\" becomes highlighted.",
+        "After the style is applied, the heading appears larger and formatted as a title while the date remains below it."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Convert the existing rough update body into a clean bulleted list.",
+      "unit_type": "CONVERT_TO_BULLETED_LIST",
+      "unit_before_state": "The document shows a formatted title and date at the top, with the original update text still below them as plain body text.",
+      "unit_after_state": "The previously plain update lines under the date are displayed as bullet points with list indentation.",
+      "unit_precondition": [
+        "The body update lines to be converted are visible below the header.",
+        "Those lines are selectable as a block.",
+        "The bulleted list control is visible in the formatting toolbar."
+      ],
+      "unit_effect": [
+        "The current update text is highlighted as one block.",
+        "After clicking the bulleted list button, each selected update line gains a bullet marker and list formatting."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Append a new Next Steps section at the end of the handover note.",
+      "unit_type": "APPEND_SECTION_CONTENT",
+      "unit_before_state": "The main update content has already been converted into bullet points, and the cursor is still positioned near the existing content rather than at the document end.",
+      "unit_after_state": "At the bottom of the document, a blank gap is followed by a new \"Next Steps\" heading and two plain-text follow-up lines: \"Confirm owner for each open item.\" and \"Send the update to the team before lunch.\"",
+      "unit_precondition": [
+        "The document remains active and editable.",
+        "The user can move the insertion point to the document end.",
+        "Content can be appended after the existing update section."
+      ],
+      "unit_effect": [
+        "The caret jumps to the end of the document.",
+        "A new section labeled \"Next Steps\" appears after the existing content with two unnumbered action lines underneath it."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Turn the two follow-up items under Next Steps into an ordered action list.",
+      "unit_type": "CONVERT_TO_NUMBERED_LIST",
+      "unit_before_state": "The end of the document shows the \"Next Steps\" heading with two plain-text lines beneath it that are not yet numbered.",
+      "unit_after_state": "The two follow-up lines under \"Next Steps\" are formatted as a numbered list, while the section heading remains separate above them.",
+      "unit_precondition": [
+        "The \"Next Steps\" section is visible.",
+        "Only the two follow-up lines, not the heading, can be selected together.",
+        "The numbered list button is available in the toolbar."
+      ],
+      "unit_effect": [
+        "Both follow-up lines are highlighted together.",
+        "After the numbering command, the selected lines display ordered list numbers beneath the \"Next Steps\" heading."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        11
+      ],
+      "unit_intent": "Persist all handover note edits to the document file.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The document now contains the inserted title and date, the bulleted update body, and the numbered Next Steps section, with Writer still focused.",
+      "unit_after_state": "The updated handover note remains open in LibreOffice Writer after the save command, with the current content and formatting preserved to disk.",
+      "unit_precondition": [
+        "All requested edits are already visible in the document.",
+        "LibreOffice Writer is the active window and can receive keyboard shortcuts.",
+        "The document is writable."
+      ],
+      "unit_effect": [
+        "The save shortcut is triggered for the current document.",
+        "The document's edited state is committed without changing the visible content layout."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Insert the requested handover heading block at the top of the document before the existing note content.",
+      "unit_type": "INSERT_HEADER_BLOCK",
+      "unit_before_state": "LibreOffice Writer is open on an existing rough note, and the text cursor may be positioned somewhere within the document body rather than at the top.",
+      "unit_after_state": "The insertion point has been used to add \"Daily Handover Update\" on the first line, \"April 8, 2026\" on the second line, and a blank line beneath them, so the original note content now starts lower on the page.",
+      "unit_precondition": [
+        "LibreOffice Writer is the active window.",
+        "Keyboard focus is inside the document text area.",
+        "The document is editable and contains the existing note content."
+      ],
+      "unit_effect": [
+        "The caret moves to the beginning of the document.",
+        "A new top section appears with the title line, the date line, and an empty spacer line above the original note text."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Insert a heading block with a specified title and date at the top of the document before the existing content.",
+      "parameters": {
+        "header_title": "Daily Handover Update",
+        "header_date": "April 8, 2026"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'home']}",
+          "action_template": "When the Writer window is active and keyboard focus is inside the document, press Ctrl+Home to move the insertion point to the beginning of the document so the heading block can be inserted above the existing content."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Daily Handover Update\\nApril 8, 2026\\n\\n'}",
+          "action_template": "With the top of the document visible and the cursor blinking at the start of the page, type {{header_title}}, then a newline, then {{header_date}}, followed by a blank line to add the heading block at the top and push the original note content downward."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4
+      ],
+      "unit_intent": "Make the newly added document title visually stand out as the main heading.",
+      "unit_type": "APPLY_TITLE_STYLE",
+      "unit_before_state": "The top of the page shows the newly inserted title \"Daily Handover Update\" above the date, and the title is still plain text.",
+      "unit_after_state": "Only the title line has been restyled with LibreOffice Writer's Title paragraph style, making it larger and visually distinct above the date line.",
+      "unit_precondition": [
+        "The newly inserted title line is visible at the top of the document.",
+        "The title text can be selected without including the date line.",
+        "The paragraph style control in the toolbar is available."
+      ],
+      "unit_effect": [
+        "The text \"Daily Handover Update\" becomes highlighted.",
+        "After the style is applied, the heading appears larger and formatted as a title while the date remains below it."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Apply a specified paragraph title style to a newly inserted heading so it stands out as the document's main heading.",
+      "parameters": {
+        "heading_text": "Daily Handover Update",
+        "paragraph_style": "Title"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the start of the words \"Daily Handover Update\"'}, 'end': {'text': 'the end of the words \"Daily Handover Update\"'}, 'target': {'begin': {'text': 'document'}, 'end': {'text': 'document'}}}",
+          "action_template": "Once the new heading is visible, drag across the words {{heading_text}} in the document so only that line is selected for style changes. This requires the heading line to be visible and reachable with the mouse, and results in only the heading text being highlighted and ready for formatting."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the \"Title\" option in the paragraph style dropdown in the top toolbar'}}",
+          "action_template": "With {{heading_text}} still highlighted, click the {{paragraph_style}} option in the paragraph style dropdown in the top toolbar so the heading stands out clearly from the rest of the note. This requires the paragraph style control to be available, and results in the heading becoming larger and styled like a document title."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Convert the existing rough update body into a clean bulleted list.",
+      "unit_type": "CONVERT_TO_BULLETED_LIST",
+      "unit_before_state": "The document shows a formatted title and date at the top, with the original update text still below them as plain body text.",
+      "unit_after_state": "The previously plain update lines under the date are displayed as bullet points with list indentation.",
+      "unit_precondition": [
+        "The body update lines to be converted are visible below the header.",
+        "Those lines are selectable as a block.",
+        "The bulleted list control is visible in the formatting toolbar."
+      ],
+      "unit_effect": [
+        "The current update text is highlighted as one block.",
+        "After clicking the bulleted list button, each selected update line gains a bullet marker and list formatting."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Convert a specified block of plain-text update lines into a bulleted list.",
+      "parameters": {
+        "selection_start": "the start of the first existing update line below the date",
+        "selection_end": "the end of the last existing update line that belongs in the update list",
+        "list_control": "the Bulleted List button in the formatting toolbar"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the start of the first existing update line below the date'}, 'end': {'text': 'the end of the last existing update line that belongs in the update list'}, 'target': {'begin': {'text': 'document'}, 'end': {'text': 'document'}}}",
+          "action_template": "Drag from {{selection_start}} to {{selection_end}} in the document after confirming the update lines are visible and not already in a bulleted list, so the whole update section is selected and ready to be turned into bullets."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Bulleted List button in the formatting toolbar'}}",
+          "action_template": "Click {{list_control}} while the update block remains selected and the formatting toolbar is visible to convert the selected plain-text updates into bullet points with list indentation."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Append a new Next Steps section at the end of the handover note.",
+      "unit_type": "APPEND_SECTION_CONTENT",
+      "unit_before_state": "The main update content has already been converted into bullet points, and the cursor is still positioned near the existing content rather than at the document end.",
+      "unit_after_state": "At the bottom of the document, a blank gap is followed by a new \"Next Steps\" heading and two plain-text follow-up lines: \"Confirm owner for each open item.\" and \"Send the update to the team before lunch.\"",
+      "unit_precondition": [
+        "The document remains active and editable.",
+        "The user can move the insertion point to the document end.",
+        "Content can be appended after the existing update section."
+      ],
+      "unit_effect": [
+        "The caret jumps to the end of the document.",
+        "A new section labeled \"Next Steps\" appears after the existing content with two unnumbered action lines underneath it."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Append a new follow-up section with a specified heading and follow-up lines at the end of the document.",
+      "parameters": {
+        "section_heading": "Next Steps",
+        "follow_up_lines": "Confirm owner for each open item.\nSend the update to the team before lunch."
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'end']}",
+          "action_template": "Press Ctrl+End while the document is still active and a new section needs to be added after the current content, moving the insertion point directly to the end of the document after the last current line."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '\\n\\nNext Steps\\nConfirm owner for each open item.\\nSend the update to the team before lunch.'}",
+          "action_template": "With the insertion point at the bottom of the note and space available to append a new section, type a blank gap, the heading {{section_heading}}, and the follow-up lines {{follow_up_lines}} to append the new section at the end of the document."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Turn the two follow-up items under Next Steps into an ordered action list.",
+      "unit_type": "CONVERT_TO_NUMBERED_LIST",
+      "unit_before_state": "The end of the document shows the \"Next Steps\" heading with two plain-text lines beneath it that are not yet numbered.",
+      "unit_after_state": "The two follow-up lines under \"Next Steps\" are formatted as a numbered list, while the section heading remains separate above them.",
+      "unit_precondition": [
+        "The \"Next Steps\" section is visible.",
+        "Only the two follow-up lines, not the heading, can be selected together.",
+        "The numbered list button is available in the toolbar."
+      ],
+      "unit_effect": [
+        "Both follow-up lines are highlighted together.",
+        "After the numbering command, the selected lines display ordered list numbers beneath the \"Next Steps\" heading."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Convert follow-up lines beneath a section heading into a numbered list.",
+      "parameters": {
+        "section_heading": "Next Steps",
+        "first_follow_up_line": "Confirm owner for each open item.",
+        "last_follow_up_line": "Send the update to the team before lunch.",
+        "numbered_list_button": "the Numbered List button in the formatting toolbar"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the start of the line \"Confirm owner for each open item.\"'}, 'end': {'text': 'the end of the line \"Send the update to the team before lunch.\"'}, 'target': {'begin': {'text': 'document'}, 'end': {'text': 'document'}}}",
+          "action_template": "With {{section_heading}} visible, drag from the start of the line \"{{first_follow_up_line}}\" to the end of the line \"{{last_follow_up_line}}\" to select the follow-up lines without affecting the section heading."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Numbered List button in the formatting toolbar'}}",
+          "action_template": "After selecting the follow-up lines, click {{numbered_list_button}} to format them as an ordered list beneath {{section_heading}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        11
+      ],
+      "unit_intent": "Persist all handover note edits to the document file.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The document now contains the inserted title and date, the bulleted update body, and the numbered Next Steps section, with Writer still focused.",
+      "unit_after_state": "The updated handover note remains open in LibreOffice Writer after the save command, with the current content and formatting preserved to disk.",
+      "unit_precondition": [
+        "All requested edits are already visible in the document.",
+        "LibreOffice Writer is the active window and can receive keyboard shortcuts.",
+        "The document is writable."
+      ],
+      "unit_effect": [
+        "The save shortcut is triggered for the current document.",
+        "The document's edited state is committed without changing the visible content layout."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the current document after all intended edits are complete.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 's']}",
+          "action_template": "Once all requested changes are visible in the document and Writer remains focused, press Ctrl+S to save the current document."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

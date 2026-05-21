@@ -1,0 +1,667 @@
+{
+  "segment_id": "seg_001",
+  "app": "gimp",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the image import dialog",
+      "action_before_state": "The GIMP main window is already open on screen, with the menu bar and toolbox visible and no target photo loaded yet.",
+      "action_preconditions": [
+        "GIMP is the active window",
+        "The main editing workspace is visible",
+        "Keyboard input will go to GIMP"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "o"
+        ]
+      },
+      "action_after_effects": "An Open Image file chooser appears in front of the editor.",
+      "nl_explanation": "When the GIMP window is focused and ready, press Ctrl+O to open the file chooser so the source photo can be selected."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Navigate to the folder containing the photo",
+      "action_before_state": "The Open Image dialog is visible, with a sidebar of common locations on the left and a file list on the right.",
+      "action_preconditions": [
+        "The Open Image dialog is open",
+        "The left sidebar shows common folders",
+        "The Pictures shortcut is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Pictures folder in the file chooser sidebar"
+        }
+      },
+      "action_after_effects": "The file list updates to show the contents of /home/user/Pictures.",
+      "nl_explanation": "With the file chooser open and the sidebar visible, click Pictures so the dialog switches to the folder where the source image is stored."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Open the source photo",
+      "action_before_state": "The Pictures folder contents are shown in the file chooser, including the image file fruit_stand.jpg.",
+      "action_preconditions": [
+        "The file chooser is currently showing /home/user/Pictures",
+        "fruit_stand.jpg is visible in the file list"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 2,
+        "target": {
+          "text": "the file named fruit_stand.jpg in the file list"
+        }
+      },
+      "action_after_effects": "The dialog closes and the fruit stand photo opens on the GIMP canvas.",
+      "nl_explanation": "Once the Pictures folder is open and fruit_stand.jpg is visible, double-click that file to load it into the editor."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Switch to the crop tool",
+      "action_before_state": "The fruit stand photo is displayed on the canvas, and the toolbox is visible on the left side of GIMP.",
+      "action_preconditions": [
+        "The image is fully loaded on the canvas",
+        "The toolbox is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Crop Tool icon in the toolbox"
+        }
+      },
+      "action_after_effects": "GIMP enters crop mode and is ready for a crop region to be drawn on the image.",
+      "nl_explanation": "After the image is open and the toolbox is available, click the Crop Tool so the next drag will define the square crop area."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Draw a square crop around the fruit stand",
+      "action_before_state": "The crop tool is active and the full fruit stand photo is visible on the canvas.",
+      "action_preconditions": [
+        "Crop mode is active",
+        "The fruit stand is visible and centered enough to frame",
+        "There is room to drag a square crop area"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the canvas area above and to the left of the fruit stand subject"
+        },
+        "end": {
+          "text": "a point on the canvas below and to the right that creates a square crop frame"
+        },
+        "target": {
+          "begin": {
+            "text": "the canvas area above and to the left of the fruit stand"
+          },
+          "end": {
+            "text": "a point on the canvas below and to the right that creates a square crop frame around the fruit stand"
+          }
+        }
+      },
+      "action_after_effects": "A square crop box appears over the image, with the fruit stand framed inside it.",
+      "nl_explanation": "When crop mode is active and the subject is visible, drag across the image to place a square crop box that keeps the fruit stand as the main focus."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Apply the crop",
+      "action_before_state": "A crop rectangle is visible over the image and the fruit stand is framed inside the selected area.",
+      "action_preconditions": [
+        "A valid crop box has already been drawn",
+        "The crop rectangle is positioned correctly"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The image is trimmed to the selected square composition.",
+      "nl_explanation": "Once the crop box is in the right position, press Enter to commit the crop and remove the rest of the photo."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Open the hue and saturation adjustment dialog",
+      "action_before_state": "The cropped square image is visible, and the top menu bar can be used for color adjustments.",
+      "action_preconditions": [
+        "The cropped image is visible on the canvas",
+        "The top menu bar is accessible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Hue-Saturation option under the Colors menu in the top bar"
+        }
+      },
+      "action_after_effects": "A Hue-Saturation dialog opens with live preview controls.",
+      "nl_explanation": "After cropping is complete and the menu bar is available, open Colors > Hue-Saturation so the image vibrancy can be adjusted."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Increase the saturation slightly",
+      "action_before_state": "The Hue-Saturation dialog is open, with the saturation slider visible and the image preview behind it.",
+      "action_preconditions": [
+        "The Hue-Saturation dialog is active",
+        "The saturation slider handle is visible",
+        "Live preview is available"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the saturation slider handle in the Hue-Saturation dialog"
+        },
+        "end": {
+          "text": "a position slightly to the right on the slider track to increase saturation"
+        },
+        "target": {
+          "begin": {
+            "text": "the saturation slider handle in the Hue-Saturation dialog"
+          },
+          "end": {
+            "text": "a position slightly to the right on the saturation slider track"
+          }
+        }
+      },
+      "action_after_effects": "The preview updates and the fruit stand colors look a bit richer.",
+      "nl_explanation": "With the Hue-Saturation dialog open, drag the saturation slider a small amount to the right so the image becomes more vivid without looking unnatural."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Confirm the color adjustment",
+      "action_before_state": "The Hue-Saturation dialog is still open and the preview shows the stronger color setting.",
+      "action_preconditions": [
+        "The adjusted preview looks acceptable",
+        "The OK button is visible in the dialog"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the OK button in the Hue-Saturation dialog"
+        }
+      },
+      "action_after_effects": "The dialog closes and the saturation change is applied to the image.",
+      "nl_explanation": "When the preview looks right and the dialog is ready, click OK to apply the richer color adjustment to the photo."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Activate the text tool",
+      "action_before_state": "The edited image is visible on the canvas and no text box has been placed yet.",
+      "action_preconditions": [
+        "The image is active on the canvas",
+        "Keyboard shortcuts are available in GIMP"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "t"
+        ]
+      },
+      "action_after_effects": "The Text Tool becomes active and GIMP is ready for text placement.",
+      "nl_explanation": "With the image active and ready for annotation, press T to switch to the Text Tool before placing the caption."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Place the text cursor near the top-right of the image",
+      "action_before_state": "The Text Tool is active and the edited square image is visible on the canvas.",
+      "action_preconditions": [
+        "The Text Tool is active",
+        "There is visible space near the top-right area for the caption"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "an open area near the top-right of the image where the caption should begin"
+        }
+      },
+      "action_after_effects": "A text box appears at the clicked position with a text cursor ready for input.",
+      "nl_explanation": "After activating the Text Tool, click near the top-right portion of the image so GIMP creates a text box in the intended caption area."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Enter the caption text",
+      "action_before_state": "A text box is active on the image and the text cursor is blinking in the new caption area.",
+      "action_preconditions": [
+        "A text box has already been created",
+        "The text cursor is active inside it"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Fresh Picks Today"
+      },
+      "action_after_effects": "The caption appears on the image as a new text layer.",
+      "nl_explanation": "When the text box is active and ready, type the caption so the image gains the requested 'Fresh Picks Today' label."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Open the export dialog",
+      "action_before_state": "The image now includes the crop, color adjustment, and caption, and it is ready to be saved as a shareable file.",
+      "action_preconditions": [
+        "The final composition is visible on screen",
+        "GIMP is the active window"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "shift",
+          "ctrl",
+          "e"
+        ]
+      },
+      "action_after_effects": "The Export Image dialog opens, ready for the output filename.",
+      "nl_explanation": "Once the edited image looks complete, press Shift+Ctrl+E to bring up the export dialog for saving the final PNG."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Name the exported file",
+      "action_before_state": "The Export Image dialog is visible and the filename field is ready for input.",
+      "action_preconditions": [
+        "The export dialog is open",
+        "The filename field is focused or ready to accept typing"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "fruit_stand_post.png"
+      },
+      "action_after_effects": "The export filename field now contains fruit_stand_post.png.",
+      "nl_explanation": "With the export dialog open and the name field available, type fruit_stand_post.png so the output file uses the requested PNG name."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Start the export",
+      "action_before_state": "The Export Image dialog shows the intended PNG filename and is ready to continue.",
+      "action_preconditions": [
+        "The filename has been entered",
+        "The export dialog is still active"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "GIMP proceeds to the PNG export settings dialog or directly begins exporting, depending on the current configuration.",
+      "nl_explanation": "After the filename is filled in, press Enter to confirm the export path and move on to the PNG save step."
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Confirm the PNG export settings",
+      "action_before_state": "A PNG export confirmation dialog may be visible, showing the final export action is about to be completed.",
+      "action_preconditions": [
+        "The export process has reached the PNG confirmation stage",
+        "The dialog accepts keyboard confirmation"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The final image is exported to /home/user/Pictures/fruit_stand_post.png.",
+      "nl_explanation": "If the PNG export settings dialog appears after the first confirmation, press Enter again to accept the defaults and finish saving the completed image."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Load the source fruit stand photo into GIMP so editing can begin.",
+      "unit_type": "IMPORT_IMAGE",
+      "unit_before_state": "The GIMP main window is open with the menu bar and toolbox visible, and no target photo is loaded on the canvas yet.",
+      "unit_after_state": "The Open Image dialog is gone and fruit_stand.jpg is displayed on the GIMP canvas as the active image.",
+      "unit_precondition": [
+        "GIMP is the active window and can receive keyboard input.",
+        "The file chooser sidebar includes a Pictures shortcut.",
+        "The source file fruit_stand.jpg exists in /home/user/Pictures and is visible after opening that folder."
+      ],
+      "unit_effect": [
+        "An Open Image file chooser appears, switches to /home/user/Pictures, and then closes.",
+        "The fruit stand photo becomes visible on the canvas as the current editable image."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Turn the original photo into a square composition centered on the fruit stand.",
+      "unit_type": "CROP_TO_SQUARE",
+      "unit_before_state": "The fruit_stand.jpg photo is open on the canvas in GIMP, and the toolbox is visible on the left.",
+      "unit_after_state": "The canvas shows only the cropped square image, with the fruit stand framed inside the new composition and no crop box still pending.",
+      "unit_precondition": [
+        "The image is fully loaded and visible on the canvas.",
+        "The Crop Tool is available in the toolbox.",
+        "The fruit stand is visible enough to define a square crop around it."
+      ],
+      "unit_effect": [
+        "Crop mode activates and a square crop rectangle appears over the image.",
+        "Pressing Enter commits the crop and the canvas updates to the trimmed square version."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8,
+        9
+      ],
+      "unit_intent": "Make the image colors slightly richer without changing the composition.",
+      "unit_type": "ADJUST_SATURATION",
+      "unit_before_state": "The cropped square image is visible on the canvas, and the top menu bar is available for color adjustments.",
+      "unit_after_state": "The Hue-Saturation dialog is closed and the cropped image remains on the canvas with slightly more vivid colors applied.",
+      "unit_precondition": [
+        "The cropped image is the active canvas.",
+        "The Colors menu and Hue-Saturation adjustment are accessible.",
+        "The preview in the Hue-Saturation dialog can be used to judge a small saturation increase before confirming."
+      ],
+      "unit_effect": [
+        "A Hue-Saturation dialog opens with a visible saturation slider and live preview.",
+        "Dragging the saturation slider slightly to the right makes the preview look richer.",
+        "Clicking OK closes the dialog and keeps the stronger color setting on the image."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        10,
+        11,
+        12
+      ],
+      "unit_intent": "Add the requested promotional caption near the top-right of the post image.",
+      "unit_type": "ADD_TEXT_CAPTION",
+      "unit_before_state": "The edited square image is visible on the canvas, and there is not yet any caption text placed on it.",
+      "unit_after_state": "A text layer reading Fresh Picks Today is visible near the top-right of the image, with the caption placed directly on the canvas.",
+      "unit_precondition": [
+        "The edited image is active on the canvas.",
+        "GIMP can switch to the Text Tool using the keyboard.",
+        "There is visible open space near the top-right area where the caption can be placed."
+      ],
+      "unit_effect": [
+        "The Text Tool becomes active.",
+        "Clicking on the image creates a text box with an insertion cursor near the top-right.",
+        "Typing Fresh Picks Today makes the caption appear on the image as a new text layer."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        13,
+        14,
+        15,
+        16
+      ],
+      "unit_intent": "Save the finished social post as the requested PNG file in the Pictures folder.",
+      "unit_type": "EXPORT_AS_PNG",
+      "unit_before_state": "The finished composition is visible on the GIMP canvas with the square crop, richer colors, and the Fresh Picks Today caption already added.",
+      "unit_after_state": "The export flow is finished, the export dialogs are closed, and the edited image canvas is back in view after saving the PNG.",
+      "unit_precondition": [
+        "The final edited image is visible and ready to be saved.",
+        "GIMP is the active window and can open the export workflow.",
+        "The export filename field can be edited and the PNG confirmation step can be accepted with Enter if it appears."
+      ],
+      "unit_effect": [
+        "The Export Image dialog opens for the current image.",
+        "The filename field shows fruit_stand_post.png before confirmation.",
+        "Pressing Enter advances through the export flow and accepts the PNG save step.",
+        "The file /home/user/Pictures/fruit_stand_post.png is created as the exported output."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Load the source fruit stand photo into GIMP so editing can begin.",
+      "unit_type": "IMPORT_IMAGE",
+      "unit_before_state": "The GIMP main window is open with the menu bar and toolbox visible, and no target photo is loaded on the canvas yet.",
+      "unit_after_state": "The Open Image dialog is gone and fruit_stand.jpg is displayed on the GIMP canvas as the active image.",
+      "unit_precondition": [
+        "GIMP is the active window and can receive keyboard input.",
+        "The file chooser sidebar includes a Pictures shortcut.",
+        "The source file fruit_stand.jpg exists in /home/user/Pictures and is visible after opening that folder."
+      ],
+      "unit_effect": [
+        "An Open Image file chooser appears, switches to /home/user/Pictures, and then closes.",
+        "The fruit stand photo becomes visible on the canvas as the current editable image."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Load a specified image file from a designated folder into GIMP as the active editable image.",
+      "parameters": {
+        "folder_shortcut": "Pictures",
+        "folder_path": "/home/user/Pictures",
+        "image_file_name": "fruit_stand.jpg"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'o']}",
+          "action_template": "When the GIMP window is focused, press Ctrl+O to open the file chooser so {{image_file_name}} can be selected."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Pictures folder in the file chooser sidebar'}}",
+          "action_template": "With the Open Image dialog visible and the sidebar showing common folders, click {{folder_shortcut}} so the file list switches to {{folder_path}}."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 2, 'target': {'text': 'the file named fruit_stand.jpg in the file list'}}",
+          "action_template": "Once {{folder_shortcut}} is open and {{image_file_name}} is visible in the file list, double-click {{image_file_name}} to load it into the editor and close the dialog."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Turn the original photo into a square composition centered on the fruit stand.",
+      "unit_type": "CROP_TO_SQUARE",
+      "unit_before_state": "The fruit_stand.jpg photo is open on the canvas in GIMP, and the toolbox is visible on the left.",
+      "unit_after_state": "The canvas shows only the cropped square image, with the fruit stand framed inside the new composition and no crop box still pending.",
+      "unit_precondition": [
+        "The image is fully loaded and visible on the canvas.",
+        "The Crop Tool is available in the toolbox.",
+        "The fruit stand is visible enough to define a square crop around it."
+      ],
+      "unit_effect": [
+        "Crop mode activates and a square crop rectangle appears over the image.",
+        "Pressing Enter commits the crop and the canvas updates to the trimmed square version."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Crop the image to a square composition centered on the target subject.",
+      "parameters": {
+        "target_subject": "fruit stand"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Crop Tool icon in the toolbox'}}",
+          "action_template": "With the image fully loaded on the canvas and the toolbox visible, click the Crop Tool so the next drag will define a square crop area around {{target_subject}}; GIMP then enters crop mode and is ready for a crop region to be drawn on the image."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the canvas area above and to the left of the fruit stand subject'}, 'end': {'text': 'a point on the canvas below and to the right that creates a square crop frame'}, 'target': {'begin': {'text': 'the canvas area above and to the left of the fruit stand'}, 'end': {'text': 'a point on the canvas below and to the right that creates a square crop frame around the fruit stand'}}}",
+          "action_template": "When crop mode is active and {{target_subject}} is visible and centered enough to frame, drag across the image from above-left of {{target_subject}} to below-right of it to place a square crop box that keeps {{target_subject}} as the main focus; a square crop box appears over the image with {{target_subject}} framed inside it."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Once a valid crop box has been drawn and correctly positioned around {{target_subject}}, press Enter to commit the crop and remove the rest of the photo; the image is then trimmed to the selected square composition."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8,
+        9
+      ],
+      "unit_intent": "Make the image colors slightly richer without changing the composition.",
+      "unit_type": "ADJUST_SATURATION",
+      "unit_before_state": "The cropped square image is visible on the canvas, and the top menu bar is available for color adjustments.",
+      "unit_after_state": "The Hue-Saturation dialog is closed and the cropped image remains on the canvas with slightly more vivid colors applied.",
+      "unit_precondition": [
+        "The cropped image is the active canvas.",
+        "The Colors menu and Hue-Saturation adjustment are accessible.",
+        "The preview in the Hue-Saturation dialog can be used to judge a small saturation increase before confirming."
+      ],
+      "unit_effect": [
+        "A Hue-Saturation dialog opens with a visible saturation slider and live preview.",
+        "Dragging the saturation slider slightly to the right makes the preview look richer.",
+        "Clicking OK closes the dialog and keeps the stronger color setting on the image."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Apply a slight saturation increase to the active image and confirm the adjustment.",
+      "parameters": {
+        "adjustment_option": "the Hue-Saturation option under the Colors menu in the top bar",
+        "slider_handle": "the saturation slider handle in the Hue-Saturation dialog",
+        "slider_target_position": "a position slightly to the right on the saturation slider track",
+        "confirm_button": "the OK button in the Hue-Saturation dialog"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Hue-Saturation option under the Colors menu in the top bar'}}",
+          "action_template": "Click {{adjustment_option}} to open the saturation adjustment dialog so the image vibrancy can be adjusted."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the saturation slider handle in the Hue-Saturation dialog'}, 'end': {'text': 'a position slightly to the right on the slider track to increase saturation'}, 'target': {'begin': {'text': 'the saturation slider handle in the Hue-Saturation dialog'}, 'end': {'text': 'a position slightly to the right on the saturation slider track'}}}",
+          "action_template": "With the saturation adjustment dialog active and live preview available, drag from {{slider_handle}} to {{slider_target_position}} so the image becomes more vivid without looking unnatural."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the OK button in the Hue-Saturation dialog'}}",
+          "action_template": "When the adjusted preview looks acceptable and the dialog is ready, click {{confirm_button}} to apply the richer color adjustment to the image."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        10,
+        11,
+        12
+      ],
+      "unit_intent": "Add the requested promotional caption near the top-right of the post image.",
+      "unit_type": "ADD_TEXT_CAPTION",
+      "unit_before_state": "The edited square image is visible on the canvas, and there is not yet any caption text placed on it.",
+      "unit_after_state": "A text layer reading Fresh Picks Today is visible near the top-right of the image, with the caption placed directly on the canvas.",
+      "unit_precondition": [
+        "The edited image is active on the canvas.",
+        "GIMP can switch to the Text Tool using the keyboard.",
+        "There is visible open space near the top-right area where the caption can be placed."
+      ],
+      "unit_effect": [
+        "The Text Tool becomes active.",
+        "Clicking on the image creates a text box with an insertion cursor near the top-right.",
+        "Typing Fresh Picks Today makes the caption appear on the image as a new text layer."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Add a specified text caption to a designated area of the image.",
+      "parameters": {
+        "target_region": "an open area near the top-right of the image where the caption should begin",
+        "caption_text": "Fresh Picks Today"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['t']}",
+          "action_template": "With the image active on the canvas and keyboard shortcuts available in GIMP, press T to switch to the Text Tool so the caption can be placed."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'an open area near the top-right of the image where the caption should begin'}}",
+          "action_template": "With the Text Tool active and visible space available for the caption, click {{target_region}} so GIMP creates a text box there with a text cursor ready for input."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Fresh Picks Today'}",
+          "action_template": "When the text box has been created and the text cursor is active inside it, type {{caption_text}} so the caption appears on the image as a new text layer."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        13,
+        14,
+        15,
+        16
+      ],
+      "unit_intent": "Save the finished social post as the requested PNG file in the Pictures folder.",
+      "unit_type": "EXPORT_AS_PNG",
+      "unit_before_state": "The finished composition is visible on the GIMP canvas with the square crop, richer colors, and the Fresh Picks Today caption already added.",
+      "unit_after_state": "The export flow is finished, the export dialogs are closed, and the edited image canvas is back in view after saving the PNG.",
+      "unit_precondition": [
+        "The final edited image is visible and ready to be saved.",
+        "GIMP is the active window and can open the export workflow.",
+        "The export filename field can be edited and the PNG confirmation step can be accepted with Enter if it appears."
+      ],
+      "unit_effect": [
+        "The Export Image dialog opens for the current image.",
+        "The filename field shows fruit_stand_post.png before confirmation.",
+        "Pressing Enter advances through the export flow and accepts the PNG save step.",
+        "The file /home/user/Pictures/fruit_stand_post.png is created as the exported output."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Export the finished image as a PNG file with a specified filename, confirming the default PNG export step if prompted.",
+      "parameters": {
+        "output_filename": "fruit_stand_post.png"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['shift', 'ctrl', 'e']}",
+          "action_template": "When the final composition is visible and GIMP is active, press Shift+Ctrl+E to open the Export Image dialog for saving the finished image as a PNG."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'fruit_stand_post.png'}",
+          "action_template": "With the export dialog open and the filename field focused, type {{output_filename}} so the output file uses the specified PNG name."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After {{output_filename}} has been entered and the export dialog is still active, press Enter to confirm the export path and continue to the PNG save step."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "If the export process reaches a PNG confirmation dialog that accepts keyboard confirmation, press Enter again to accept the default PNG settings and finish saving the image as {{output_filename}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

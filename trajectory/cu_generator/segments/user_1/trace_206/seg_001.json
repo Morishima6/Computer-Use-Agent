@@ -1,0 +1,767 @@
+{
+  "segment_id": "seg_001",
+  "app": "libreoffice_calc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Move to the starting area of the sheet",
+      "action_before_state": "LibreOffice Calc is already open, but the active cell may not be near the top-left of the sheet.",
+      "action_preconditions": [
+        "The spreadsheet grid is visible",
+        "Keyboard input is going to the sheet",
+        "No dialog window is blocking the workbook"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "home"
+        ]
+      },
+      "action_after_effects": "The view jumps to the top-left area and cell A1 becomes the active working position.",
+      "nl_explanation": "When the sheet is visible and ready for keyboard input, press Ctrl+Home to jump to the top-left corner so the tracker can be created from cell A1."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Create the header row for the tracker",
+      "action_before_state": "The top-left corner of the spreadsheet is visible and A1 is active.",
+      "action_preconditions": [
+        "Cell A1 is selected",
+        "Cells A1 through E1 are empty or available for the new table"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Category\tBudget\tActual\tDifference\tStatus"
+      },
+      "action_after_effects": "The headers appear across cells A1 to E1.",
+      "nl_explanation": "With A1 selected and enough empty cells across the first row, enter the tab-separated headers so the table structure is created in one action."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Place the cursor at the first data cell",
+      "action_before_state": "The header row is visible in A1:E1.",
+      "action_preconditions": [
+        "The header row has already been entered",
+        "Cell A2 is visible below the headers"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell A2 directly below the Category header"
+        }
+      },
+      "action_after_effects": "Cell A2 becomes active and ready for the grocery data.",
+      "nl_explanation": "Once the headers are in place, click cell A2 so the grocery table data can start directly under the headings."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Enter the grocery categories and their budget and actual amounts",
+      "action_before_state": "Cell A2 is active and the area under the headers is empty.",
+      "action_preconditions": [
+        "Cell A2 is selected",
+        "The range A2:C6 is available for data entry"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Produce\t35\t42\nDairy\t18\t16\nMeat\t40\t47\nPantry\t22\t19\nSnacks\t15\t18"
+      },
+      "action_after_effects": "The five grocery categories and their Budget and Actual values fill cells A2:C6.",
+      "nl_explanation": "With A2 selected and enough empty rows available, enter the tab-and-line-break separated dataset so Calc fills the grocery categories and amount columns across A2:C6 in one action."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Select the first Difference cell",
+      "action_before_state": "Rows 2 through 6 now contain category names and numeric values in columns A through C.",
+      "action_preconditions": [
+        "The first data row is present",
+        "Cell D2 is visible and empty"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell D2 in the Difference column for the Produce row"
+        }
+      },
+      "action_after_effects": "Cell D2 is active and ready for a formula.",
+      "nl_explanation": "After the source numbers are entered, click D2 so the first difference formula can be added beside the Produce row."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Enter the formula that calculates actual minus budget",
+      "action_before_state": "Cell D2 is selected in the first data row.",
+      "action_preconditions": [
+        "Cell D2 is active",
+        "Cells B2 and C2 already contain numbers"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "=C2-B2"
+      },
+      "action_after_effects": "Cell D2 now contains the difference formula for the first row.",
+      "nl_explanation": "When D2 is selected and the Budget and Actual numbers already exist in the same row, type the formula `=C2-B2` to calculate how far the actual spending differs from the budget."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Copy the Difference formula down the rest of the rows",
+      "action_before_state": "The first Difference formula is present in D2, and the remaining rows in the Difference column are still empty.",
+      "action_preconditions": [
+        "Cell D2 contains the correct formula",
+        "Rows 3 through 6 need the same calculation pattern"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the fill handle (small square at the bottom-right corner of cell D2)"
+        },
+        "end": {
+          "text": "cell D6"
+        },
+        "target": {
+          "begin": {
+            "text": "the fill handle (small square at the bottom-right corner of cell D2)"
+          },
+          "end": {
+            "text": "cell D6"
+          }
+        }
+      },
+      "action_after_effects": "The formula is autofilled from D2 down through D6 with row-adjusted references.",
+      "nl_explanation": "Once D2 has the correct formula and the rows below need the same pattern, drag the fill handle from D2 down to D6 so Calc copies the formula for each grocery category."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Select the first Status cell",
+      "action_before_state": "The Difference column has values for all grocery rows, and the Status column is still empty.",
+      "action_preconditions": [
+        "Cells D2:D6 contain the calculated differences",
+        "Cell E2 is visible and empty"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell E2 in the Status column for the Produce row"
+        }
+      },
+      "action_after_effects": "Cell E2 becomes active for the status formula.",
+      "nl_explanation": "After the difference values are available, click E2 so the first status label formula can be entered beside the Produce row."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Enter a formula that labels each row as over budget or within budget",
+      "action_before_state": "Cell E2 is selected and D2 already shows the spending difference.",
+      "action_preconditions": [
+        "Cell E2 is active",
+        "Cell D2 contains a numeric result"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "=IF(D2>0,\"Over\",\"Within\")"
+      },
+      "action_after_effects": "Cell E2 now displays a status based on whether the difference is positive.",
+      "nl_explanation": "With E2 selected and the difference already calculated in D2, type an IF formula that shows `Over` when spending is above budget and `Within` otherwise."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Copy the Status formula down the rest of the table",
+      "action_before_state": "The first Status formula is in E2, while E3:E6 are still empty.",
+      "action_preconditions": [
+        "Cell E2 contains the correct IF formula",
+        "Rows 3 through 6 need the same status logic"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the fill handle (small square at the bottom-right corner of cell E2)"
+        },
+        "end": {
+          "text": "cell E6"
+        },
+        "target": {
+          "begin": {
+            "text": "the fill handle (small square at the bottom-right corner of cell E2)"
+          },
+          "end": {
+            "text": "cell E6"
+          }
+        }
+      },
+      "action_after_effects": "The Status formula fills E2:E6, and each grocery row now shows either Over or Within.",
+      "nl_explanation": "When the first status formula is ready and the rows below need the same rule, drag the fill handle from E2 to E6 so every grocery category gets a status label."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Move to the first cell of the summary row",
+      "action_before_state": "The grocery table occupies rows 1 through 6, leaving row 7 free for totals.",
+      "action_preconditions": [
+        "Row 7 is visible",
+        "Cell A7 is empty and available for the summary row"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell A7 directly below the last grocery row"
+        }
+      },
+      "action_after_effects": "Cell A7 becomes active and ready for the total row content.",
+      "nl_explanation": "After the main grocery rows are finished, click A7 so the table summary can be added immediately underneath the last item."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Add a total row for the budget, actual, and difference columns",
+      "action_before_state": "Cell A7 is selected and the table data above it is complete.",
+      "action_preconditions": [
+        "Cell A7 is active",
+        "Rows 2 through 6 contain the values that need to be totaled"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Total\t=SUM(B2:B6)\t=SUM(C2:C6)\t=SUM(D2:D6)"
+      },
+      "action_after_effects": "A total row appears in A7:D7 with formulas summing the budget, actual, and difference columns.",
+      "nl_explanation": "With A7 selected and the grocery data already filled above, enter the label and SUM formulas across the row so the sheet includes a clear summary line."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Select the numeric money range for formatting",
+      "action_before_state": "The table is complete, but the money values are still shown as plain numbers.",
+      "action_preconditions": [
+        "Cells B2:D7 are visible",
+        "Those cells contain the monetary values and totals that should share one format"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell B2 at the top-left of the money area"
+        },
+        "end": {
+          "text": "cell D7 at the bottom-right of the money area"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "The range B2:D7 is selected.",
+      "nl_explanation": "When the completed money columns are visible, drag from B2 to D7 to select all budget, actual, difference, and total values together before formatting them."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Apply currency formatting to the selected values",
+      "action_before_state": "The full money range B2:D7 is selected.",
+      "action_preconditions": [
+        "The range B2:D7 is highlighted",
+        "A currency or number-format control is visible on the toolbar"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the currency-format control on the formatting toolbar"
+        }
+      },
+      "action_after_effects": "The selected numeric cells change from plain numbers to currency-formatted values.",
+      "nl_explanation": "With the money range selected and a currency-format control visible, click it so all spending figures are displayed in a more readable financial format."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Select the header row for emphasis",
+      "action_before_state": "The table is formatted, but the header row still looks the same as the data rows.",
+      "action_preconditions": [
+        "Cells A1:E1 are visible",
+        "The header row should be visually distinguished from the data"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell A1 at the start of the header row"
+        },
+        "end": {
+          "text": "cell E1 at the end of the header row"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "The header row A1:E1 is selected.",
+      "nl_explanation": "Once the table contents are finished, drag across A1 to E1 to select the headers so they can be emphasized separately from the data."
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Make the header row bold",
+      "action_before_state": "The header row A1:E1 is selected.",
+      "action_preconditions": [
+        "The header cells are highlighted",
+        "Keyboard shortcuts are accepted by the sheet"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "b"
+        ]
+      },
+      "action_after_effects": "The headers become bold, making the tracker easier to scan.",
+      "nl_explanation": "With the header row selected, press Ctrl+B to bold the labels so the structure of the grocery budget sheet is clearer."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Set up the weekly grocery tracker structure by starting at the top-left of the sheet and adding the table headers.",
+      "unit_type": "CREATE_TABLE_HEADERS",
+      "unit_before_state": "LibreOffice Calc is open with the worksheet grid visible, but the current active cell may be somewhere away from the top-left of the sheet and the tracker table has not been created yet.",
+      "unit_after_state": "The view is positioned at the top-left of the sheet, cell A1 has been used as the starting point, and row 1 now shows the headers Category, Budget, Actual, Difference, and Status across cells A1:E1.",
+      "unit_precondition": [
+        "The spreadsheet grid is visible and ready to receive keyboard input.",
+        "No modal dialog or blocking window is open over the workbook.",
+        "Cells A1:E1 are empty or available for the new header row."
+      ],
+      "unit_effect": [
+        "The viewport jumps to the top-left area of the sheet.",
+        "Headers appear in cells A1 through E1, establishing the tracker columns."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4
+      ],
+      "unit_intent": "Populate the tracker with initial grocery categories and their budget and actual spending values.",
+      "unit_type": "ENTER_TABLE_DATA",
+      "unit_before_state": "The header row is visible in A1:E1, and the area below it is empty for data entry.",
+      "unit_after_state": "Cell A2 has been used as the data-entry start point, and rows 2 through 6 now contain grocery categories in column A with Budget and Actual numbers filled across columns B and C.",
+      "unit_precondition": [
+        "The header row in A1:E1 already exists.",
+        "Cell A2 is visible and the range A2:C6 is available for entry."
+      ],
+      "unit_effect": [
+        "Cell A2 becomes the active starting cell for the dataset.",
+        "The values for Produce, Dairy, Meat, Pantry, and Snacks fill cells A2:C6."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Calculate the spending difference for each grocery row so overruns can be assessed.",
+      "unit_type": "CALCULATE_DIFFERENCE_COLUMN",
+      "unit_before_state": "Rows 2 through 6 contain category names and numeric Budget and Actual values in columns A through C, while the Difference column is still empty.",
+      "unit_after_state": "Cell D2 contains the formula for actual minus budget, and the same calculation pattern has been autofilled down through D6 for all grocery rows.",
+      "unit_precondition": [
+        "The first data row is present and cell D2 is visible.",
+        "Cells B2:C6 already contain the budget and actual values needed for the calculation.",
+        "Cells D2:D6 are available for formulas."
+      ],
+      "unit_effect": [
+        "D2 shows the formula result for the first row using =C2-B2.",
+        "Cells D2 through D6 display row-adjusted difference values after autofill."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8,
+        9,
+        10
+      ],
+      "unit_intent": "Label each grocery row based on whether spending exceeded the budget.",
+      "unit_type": "CALCULATE_STATUS_COLUMN",
+      "unit_before_state": "The Difference column D2:D6 has calculated values, and the Status column E2:E6 is still empty.",
+      "unit_after_state": "Cell E2 contains an IF formula based on the difference value, and the formula has been filled down through E6 so each grocery row shows either Over or Within.",
+      "unit_precondition": [
+        "Difference values are already present in D2:D6.",
+        "Cell E2 is visible and available for the first status formula.",
+        "The rows below E2 need the same status logic applied."
+      ],
+      "unit_effect": [
+        "E2 displays a status derived from the value in D2.",
+        "Cells E2:E6 show row-level status labels such as Over or Within."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        11,
+        12
+      ],
+      "unit_intent": "Add a summary row that totals the budget, actual spending, and difference columns.",
+      "unit_type": "ADD_TOTAL_ROW",
+      "unit_before_state": "The grocery tracker data occupies rows 1 through 6, and row 7 is still free below the last grocery item.",
+      "unit_after_state": "Row 7 now contains a Total label in A7 and SUM formulas in B7:D7 summarizing the Budget, Actual, and Difference columns.",
+      "unit_precondition": [
+        "Row 7 is visible and cell A7 is empty.",
+        "Rows 2 through 6 contain the completed data that should be totaled."
+      ],
+      "unit_effect": [
+        "Cell A7 becomes the insertion point for the summary row.",
+        "A total row appears across A7:D7 with visible SUM formulas or their computed totals."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        13,
+        14
+      ],
+      "unit_intent": "Make the financial values easier to read by formatting the monetary cells as currency.",
+      "unit_type": "FORMAT_CURRENCY_RANGE",
+      "unit_before_state": "The tracker table is complete, but the numeric values in columns B through D are still displayed as plain numbers.",
+      "unit_after_state": "The money range B2:D7 is formatted as currency, so the budget, actual, difference, and total values display with monetary formatting.",
+      "unit_precondition": [
+        "Cells B2:D7 are visible and contain the numeric values to format.",
+        "A currency-format control is available on the Calc toolbar."
+      ],
+      "unit_effect": [
+        "The range B2:D7 is highlighted before formatting is applied.",
+        "The selected cells change appearance from plain numbers to currency-formatted values."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        15,
+        16
+      ],
+      "unit_intent": "Visually distinguish the header row so the budget tracker is easier to scan.",
+      "unit_type": "EMPHASIZE_HEADER_ROW",
+      "unit_before_state": "The grocery budget tracker is complete and formatted, but the header row A1:E1 still has the same visual weight as the data rows.",
+      "unit_after_state": "The header row A1:E1 is bold, making the column labels stand out from the rest of the sheet.",
+      "unit_precondition": [
+        "Cells A1:E1 are visible in the worksheet.",
+        "The sheet accepts keyboard shortcuts, and the header row can be selected."
+      ],
+      "unit_effect": [
+        "The header row A1:E1 becomes the current selection.",
+        "The text in the header cells changes to bold styling."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Set up the weekly grocery tracker structure by starting at the top-left of the sheet and adding the table headers.",
+      "unit_type": "CREATE_TABLE_HEADERS",
+      "unit_before_state": "LibreOffice Calc is open with the worksheet grid visible, but the current active cell may be somewhere away from the top-left of the sheet and the tracker table has not been created yet.",
+      "unit_after_state": "The view is positioned at the top-left of the sheet, cell A1 has been used as the starting point, and row 1 now shows the headers Category, Budget, Actual, Difference, and Status across cells A1:E1.",
+      "unit_precondition": [
+        "The spreadsheet grid is visible and ready to receive keyboard input.",
+        "No modal dialog or blocking window is open over the workbook.",
+        "Cells A1:E1 are empty or available for the new header row."
+      ],
+      "unit_effect": [
+        "The viewport jumps to the top-left area of the sheet.",
+        "Headers appear in cells A1 through E1, establishing the tracker columns."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Navigate to the top-left starting position of the sheet and create a header row with the specified column labels.",
+      "parameters": {
+        "header_row_text": "Category\tBudget\tActual\tDifference\tStatus"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'home']}",
+          "action_template": "When the spreadsheet grid is visible, keyboard input is going to the sheet, and no dialog window is blocking the workbook, press Ctrl+Home to jump to the top-left corner so cell A1 becomes the active starting position."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Category\\tBudget\\tActual\\tDifference\\tStatus'}",
+          "action_template": "With cell A1 selected and enough adjacent cells in the first row empty or available for the new table, type {{header_row_text}} as tab-separated headers to create the table structure in one action."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4
+      ],
+      "unit_intent": "Populate the tracker with initial grocery categories and their budget and actual spending values.",
+      "unit_type": "ENTER_TABLE_DATA",
+      "unit_before_state": "The header row is visible in A1:E1, and the area below it is empty for data entry.",
+      "unit_after_state": "Cell A2 has been used as the data-entry start point, and rows 2 through 6 now contain grocery categories in column A with Budget and Actual numbers filled across columns B and C.",
+      "unit_precondition": [
+        "The header row in A1:E1 already exists.",
+        "Cell A2 is visible and the range A2:C6 is available for entry."
+      ],
+      "unit_effect": [
+        "Cell A2 becomes the active starting cell for the dataset.",
+        "The values for Produce, Dairy, Meat, Pantry, and Snacks fill cells A2:C6."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Populate a spreadsheet table with a multi-row dataset starting from a specified first data cell beneath an existing header row.",
+      "parameters": {
+        "start_cell": "cell A2 directly below the Category header",
+        "target_range": "A2:C6",
+        "input_dataset": "Produce\t35\t42\nDairy\t18\t16\nMeat\t40\t47\nPantry\t22\t19\nSnacks\t15\t18"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell A2 directly below the Category header'}}",
+          "action_template": "Once the headers are in place and {{start_cell}} is visible, click {{start_cell}} so the dataset can start directly under the headings and the cell becomes active for entry."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Produce\\t35\\t42\\nDairy\\t18\\t16\\nMeat\\t40\\t47\\nPantry\\t22\\t19\\nSnacks\\t15\\t18'}",
+          "action_template": "With {{start_cell}} selected and {{target_range}} available for data entry, type {{input_dataset}} so the dataset fills the table range in one action."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Calculate the spending difference for each grocery row so overruns can be assessed.",
+      "unit_type": "CALCULATE_DIFFERENCE_COLUMN",
+      "unit_before_state": "Rows 2 through 6 contain category names and numeric Budget and Actual values in columns A through C, while the Difference column is still empty.",
+      "unit_after_state": "Cell D2 contains the formula for actual minus budget, and the same calculation pattern has been autofilled down through D6 for all grocery rows.",
+      "unit_precondition": [
+        "The first data row is present and cell D2 is visible.",
+        "Cells B2:C6 already contain the budget and actual values needed for the calculation.",
+        "Cells D2:D6 are available for formulas."
+      ],
+      "unit_effect": [
+        "D2 shows the formula result for the first row using =C2-B2.",
+        "Cells D2 through D6 display row-adjusted difference values after autofill."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Enter a row-difference formula in the first result cell and autofill it down the result column for the remaining rows.",
+      "parameters": {
+        "target_cell": "cell D2 in the Difference column for the Produce row",
+        "formula_text": "=C2-B2",
+        "fill_handle_source": "the fill handle (small square at the bottom-right corner of cell D2)",
+        "fill_end_cell": "cell D6"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell D2 in the Difference column for the Produce row'}}",
+          "action_template": "Click {{target_cell}} so the first row's difference formula can be added when the first data row is present and the cell is visible and empty. After this action, {{target_cell}} is active and ready for a formula."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '=C2-B2'}",
+          "action_template": "Type {{formula_text}} into the active result cell when the corresponding source value cells already contain numbers, so the row's actual-minus-budget difference is calculated. After this action, the selected result cell contains the difference formula for the first row."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the fill handle (small square at the bottom-right corner of cell D2)'}, 'end': {'text': 'cell D6'}, 'target': {'begin': {'text': 'the fill handle (small square at the bottom-right corner of cell D2)'}, 'end': {'text': 'cell D6'}}}",
+          "action_template": "Drag from {{fill_handle_source}} to {{fill_end_cell}} once the first result cell contains the correct formula and the rows below need the same calculation pattern. After this action, the formula is autofilled through {{fill_end_cell}} with row-adjusted references."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8,
+        9,
+        10
+      ],
+      "unit_intent": "Label each grocery row based on whether spending exceeded the budget.",
+      "unit_type": "CALCULATE_STATUS_COLUMN",
+      "unit_before_state": "The Difference column D2:D6 has calculated values, and the Status column E2:E6 is still empty.",
+      "unit_after_state": "Cell E2 contains an IF formula based on the difference value, and the formula has been filled down through E6 so each grocery row shows either Over or Within.",
+      "unit_precondition": [
+        "Difference values are already present in D2:D6.",
+        "Cell E2 is visible and available for the first status formula.",
+        "The rows below E2 need the same status logic applied."
+      ],
+      "unit_effect": [
+        "E2 displays a status derived from the value in D2.",
+        "Cells E2:E6 show row-level status labels such as Over or Within."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Populate a status column by entering a conditional label formula in the first result cell and filling it down the remaining rows.",
+      "parameters": {
+        "first_status_cell": "cell E2 in the Status column for the Produce row",
+        "reference_difference_cell": "D2",
+        "status_formula": "=IF(D2>0,\"Over\",\"Within\")",
+        "fill_end_cell": "cell E6"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell E2 in the Status column for the Produce row'}}",
+          "action_template": "After the difference values are available, click {{first_status_cell}} so the first status formula can be entered; this makes {{first_status_cell}} active for formula entry."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '=IF(D2>0,\"Over\",\"Within\")'}",
+          "action_template": "With {{first_status_cell}} active and {{reference_difference_cell}} containing a numeric result, type {{status_formula}} so the first status cell displays a label based on whether the difference is positive."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the fill handle (small square at the bottom-right corner of cell E2)'}, 'end': {'text': 'cell E6'}, 'target': {'begin': {'text': 'the fill handle (small square at the bottom-right corner of cell E2)'}, 'end': {'text': 'cell E6'}}}",
+          "action_template": "When {{first_status_cell}} contains the correct conditional formula and the rows below need the same logic, drag the fill handle from {{first_status_cell}} to {{fill_end_cell}} so the status formula fills the remaining rows."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        11,
+        12
+      ],
+      "unit_intent": "Add a summary row that totals the budget, actual spending, and difference columns.",
+      "unit_type": "ADD_TOTAL_ROW",
+      "unit_before_state": "The grocery tracker data occupies rows 1 through 6, and row 7 is still free below the last grocery item.",
+      "unit_after_state": "Row 7 now contains a Total label in A7 and SUM formulas in B7:D7 summarizing the Budget, Actual, and Difference columns.",
+      "unit_precondition": [
+        "Row 7 is visible and cell A7 is empty.",
+        "Rows 2 through 6 contain the completed data that should be totaled."
+      ],
+      "unit_effect": [
+        "Cell A7 becomes the insertion point for the summary row.",
+        "A total row appears across A7:D7 with visible SUM formulas or their computed totals."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Insert a summary row below a completed table and populate it with a label plus SUM formulas for the relevant columns.",
+      "parameters": {
+        "target_summary_cell": "cell A7 directly below the last grocery row",
+        "summary_label": "Total",
+        "summary_formula_1": "=SUM(B2:B6)",
+        "summary_formula_2": "=SUM(C2:C6)",
+        "summary_formula_3": "=SUM(D2:D6)"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell A7 directly below the last grocery row'}}",
+          "action_template": "Click {{target_summary_cell}} after the main table rows are finished, when the destination row is visible and the starting cell is empty, so the summary row can be added and the cell becomes active."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Total\\t=SUM(B2:B6)\\t=SUM(C2:C6)\\t=SUM(D2:D6)'}",
+          "action_template": "Type {{summary_label}}, then enter the tab-separated formulas {{summary_formula_1}}, {{summary_formula_2}}, and {{summary_formula_3}} across the selected row once {{target_summary_cell}} is active and the data above is complete, so a total row is created."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        13,
+        14
+      ],
+      "unit_intent": "Make the financial values easier to read by formatting the monetary cells as currency.",
+      "unit_type": "FORMAT_CURRENCY_RANGE",
+      "unit_before_state": "The tracker table is complete, but the numeric values in columns B through D are still displayed as plain numbers.",
+      "unit_after_state": "The money range B2:D7 is formatted as currency, so the budget, actual, difference, and total values display with monetary formatting.",
+      "unit_precondition": [
+        "Cells B2:D7 are visible and contain the numeric values to format.",
+        "A currency-format control is available on the Calc toolbar."
+      ],
+      "unit_effect": [
+        "The range B2:D7 is highlighted before formatting is applied.",
+        "The selected cells change appearance from plain numbers to currency-formatted values."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Format a specified range of monetary cells as currency to improve readability.",
+      "parameters": {
+        "target_range": "B2:D7",
+        "selection_start_cell": "B2",
+        "selection_end_cell": "D7"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'cell B2 at the top-left of the money area'}, 'end': {'text': 'cell D7 at the bottom-right of the money area'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "When {{target_range}} is visible and contains monetary values that should share one format, drag from {{selection_start_cell}} to {{selection_end_cell}} to select the full range before formatting it. This selects {{target_range}}."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the currency-format control on the formatting toolbar'}}",
+          "action_template": "With {{target_range}} highlighted and a currency-format control visible on the toolbar, click the currency-format control so the selected numeric cells change from plain numbers to currency-formatted values."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_07",
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        15,
+        16
+      ],
+      "unit_intent": "Visually distinguish the header row so the budget tracker is easier to scan.",
+      "unit_type": "EMPHASIZE_HEADER_ROW",
+      "unit_before_state": "The grocery budget tracker is complete and formatted, but the header row A1:E1 still has the same visual weight as the data rows.",
+      "unit_after_state": "The header row A1:E1 is bold, making the column labels stand out from the rest of the sheet.",
+      "unit_precondition": [
+        "Cells A1:E1 are visible in the worksheet.",
+        "The sheet accepts keyboard shortcuts, and the header row can be selected."
+      ],
+      "unit_effect": [
+        "The header row A1:E1 becomes the current selection.",
+        "The text in the header cells changes to bold styling."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Apply bold styling to a specified header row so its labels stand out from the data rows.",
+      "parameters": {
+        "range_start_cell": "A1",
+        "range_end_cell": "E1",
+        "target_header_range": "A1:E1"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'cell A1 at the start of the header row'}, 'end': {'text': 'cell E1 at the end of the header row'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "When {{target_header_range}} is visible and the header row should be visually distinguished from the data, drag from {{range_start_cell}} to {{range_end_cell}} to select {{target_header_range}} so it can be emphasized separately from the data."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'b']}",
+          "action_template": "With {{target_header_range}} highlighted and keyboard shortcuts accepted by the sheet, press Ctrl+B to bold the selected header cells so the labels stand out more clearly."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

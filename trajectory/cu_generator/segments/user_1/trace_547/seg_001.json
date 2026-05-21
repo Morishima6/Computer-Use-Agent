@@ -1,0 +1,323 @@
+{
+  "segment_id": "seg_001",
+  "app": "vs_code",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open a new blank file to start the note",
+      "action_before_state": "VS Code is already open on screen, and the Welcome page or an empty workspace is visible with common start actions.",
+      "action_preconditions": [
+        "VS Code is the focused window",
+        "A clickable entry for creating a new file is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Welcome page button labeled New File..."
+        }
+      },
+      "action_after_effects": "A new untitled editor tab opens, and the text cursor is placed in the blank editing area.",
+      "nl_explanation": "When VS Code is focused and the Welcome page shows a New File action, click that button to open a blank editor. The result should be an untitled file ready for typing."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Enter the errands note content in Markdown format",
+      "action_before_state": "The untitled file is open in the editor, and the insertion cursor is active in the blank document.",
+      "action_preconditions": [
+        "The blank editor has keyboard focus",
+        "No modal dialog is covering the editor"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "# Today's Errands\n\n## Groceries\n- [ ] Milk\n- [ ] Eggs\n- [ ] Bread\n\n## Stops\n| Errand | Location |\n| --- | --- |\n| Grocery store | Riverside Market |\n| Pharmacy | Green Cross |\n| Post office | Main Street |\n"
+      },
+      "action_after_effects": "The editor now contains the markdown note, and the tab shows unsaved changes.",
+      "nl_explanation": "With the cursor already in the new file, type the markdown content for the errands note. After typing, the document should show the checklist and table, but it will still be unsaved."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Open the Save dialog so the note can be stored in Documents",
+      "action_before_state": "The markdown content is visible in the untitled tab, and the file has not been saved yet.",
+      "action_preconditions": [
+        "The editor remains focused",
+        "The file is still untitled or marked as unsaved"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "s"
+        ]
+      },
+      "action_after_effects": "A Save dialog appears in front of VS Code, asking where to save the file.",
+      "nl_explanation": "Once the note content is in place and the file is still unsaved, press Ctrl+S to bring up the Save dialog. This prepares the file for saving to a specific path."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Focus the location entry in the Save dialog",
+      "action_before_state": "The Save dialog is open, showing folders and navigation controls.",
+      "action_preconditions": [
+        "The Save dialog is the active window",
+        "The dialog supports direct path entry with a keyboard shortcut"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "l"
+        ]
+      },
+      "action_after_effects": "The location field in the Save dialog becomes active so a full path can be typed directly.",
+      "nl_explanation": "When the Save dialog is active, press Ctrl+L to place focus into the path field. That makes it possible to type the destination path directly instead of browsing manually."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Enter the full save path for the markdown file",
+      "action_before_state": "The location field in the Save dialog is active and ready for text input.",
+      "action_preconditions": [
+        "The cursor is in the location/path field",
+        "The Documents directory exists"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "/home/user/Documents/errands-plan.md"
+      },
+      "action_after_effects": "The full destination path appears in the location field, ready to be confirmed.",
+      "nl_explanation": "With the path field focused in the Save dialog, type `/home/user/Documents/errands-plan.md`. The dialog should now point to the intended save location and filename."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Confirm the save operation",
+      "action_before_state": "The Save dialog shows `/home/user/Documents/errands-plan.md` in the location field.",
+      "action_preconditions": [
+        "The desired file path is fully entered",
+        "No validation error is shown in the Save dialog"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The Save dialog closes, the file is saved as `errands-plan.md`, and VS Code recognizes it as a Markdown file.",
+      "nl_explanation": "After the full save path is entered correctly, press Enter to confirm the save. The dialog should close and the editor tab should now show the saved markdown filename."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Open the rendered Markdown preview beside the editor",
+      "action_before_state": "The saved file `errands-plan.md` is open in the editor, and the markdown source is visible.",
+      "action_preconditions": [
+        "The file is saved with a `.md` extension",
+        "The editor tab for `errands-plan.md` is active",
+        "The preview button is visible in the editor toolbar"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the editor toolbar button labeled Open Preview to the Side"
+        }
+      },
+      "action_after_effects": "VS Code splits the view and shows the rendered Markdown preview next to the source file.",
+      "nl_explanation": "When the saved markdown file is active and the preview control is visible, click Open Preview to the Side. The expected result is a side-by-side layout with the formatted note rendered for review."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Create the errands note and enter the requested markdown content so the document draft is complete.",
+      "unit_type": "CREATE_AND_POPULATE_MARKDOWN_NOTE",
+      "unit_before_state": "VS Code is open on its Welcome page or an empty workspace, with a visible \"New File...\" action and no note open for editing.",
+      "unit_after_state": "An untitled editor tab is open in VS Code containing the full markdown note with the \"Today's Errands\" heading, a grocery checklist, and a small errands table; the tab shows unsaved changes.",
+      "unit_precondition": [
+        "VS Code is the focused window.",
+        "A visible control for creating a new file is available.",
+        "No modal dialog is blocking the editor so typing can begin after the file opens."
+      ],
+      "unit_effect": [
+        "A new untitled editor opens with the text cursor in the blank document.",
+        "The editor displays the complete markdown note content, including checklist items and the errands table.",
+        "The tab indicates the file has unsaved changes."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Save the drafted note to the Documents location with the required filename so it becomes a named markdown file.",
+      "unit_type": "SAVE_FILE_TO_DOCUMENTS",
+      "unit_before_state": "The markdown note is visible in an untitled VS Code editor tab, and the file has not yet been saved.",
+      "unit_after_state": "The Save dialog is closed, and the editor tab is now a saved markdown file named \"errands-plan.md\" at the entered Documents path.",
+      "unit_precondition": [
+        "The untitled editor containing the errands note is focused.",
+        "The note content is already present and ready to save.",
+        "The Save dialog supports direct path entry, and the target Documents path is valid."
+      ],
+      "unit_effect": [
+        "Pressing Ctrl+S opens the Save dialog in front of VS Code.",
+        "The location field becomes active and shows the typed path \"/home/user/Documents/errands-plan.md\".",
+        "After confirmation, the dialog closes and VS Code recognizes the file as a saved .md document named \"errands-plan.md\"."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7
+      ],
+      "unit_intent": "Show the rendered markdown output beside the source so the finished note can be visually checked.",
+      "unit_type": "OPEN_MARKDOWN_PREVIEW",
+      "unit_before_state": "The saved file \"errands-plan.md\" is the active editor tab in VS Code, and its markdown source is visible in a single editor pane.",
+      "unit_after_state": "VS Code is split into side-by-side panes with the markdown source on one side and the rendered preview of the errands note on the other.",
+      "unit_precondition": [
+        "The file has already been saved with a .md extension.",
+        "The \"errands-plan.md\" editor tab is active.",
+        "The editor toolbar button \"Open Preview to the Side\" is visible and clickable."
+      ],
+      "unit_effect": [
+        "The editor layout splits into two panes.",
+        "A rendered markdown preview appears beside the source editor.",
+        "The preview shows the formatted errands note content rather than raw markdown syntax."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Create the errands note and enter the requested markdown content so the document draft is complete.",
+      "unit_type": "CREATE_AND_POPULATE_MARKDOWN_NOTE",
+      "unit_before_state": "VS Code is open on its Welcome page or an empty workspace, with a visible \"New File...\" action and no note open for editing.",
+      "unit_after_state": "An untitled editor tab is open in VS Code containing the full markdown note with the \"Today's Errands\" heading, a grocery checklist, and a small errands table; the tab shows unsaved changes.",
+      "unit_precondition": [
+        "VS Code is the focused window.",
+        "A visible control for creating a new file is available.",
+        "No modal dialog is blocking the editor so typing can begin after the file opens."
+      ],
+      "unit_effect": [
+        "A new untitled editor opens with the text cursor in the blank document.",
+        "The editor displays the complete markdown note content, including checklist items and the errands table.",
+        "The tab indicates the file has unsaved changes."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a new markdown note in VS Code and populate it with the specified markdown content.",
+      "parameters": {
+        "markdown_content": "# Today's Errands\n\n## Groceries\n- [ ] Milk\n- [ ] Eggs\n- [ ] Bread\n\n## Stops\n| Errand | Location |\n| --- | --- |\n| Grocery store | Riverside Market |\n| Pharmacy | Green Cross |\n| Post office | Main Street |\n"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Welcome page button labeled New File...'}}",
+          "action_template": "When VS Code is focused and a visible New File action is available, click that control to open a blank untitled editor. The result should be a new file ready for typing with the text cursor placed in the empty editing area."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': \"# Today's Errands\\n\\n## Groceries\\n- [ ] Milk\\n- [ ] Eggs\\n- [ ] Bread\\n\\n## Stops\\n| Errand | Location |\\n| --- | --- |\\n| Grocery store | Riverside Market |\\n| Pharmacy | Green Cross |\\n| Post office | Main Street |\\n\"}",
+          "action_template": "With keyboard focus in the blank editor and no modal dialog covering it, type {{markdown_content}} into the new file to populate the markdown note. After typing, the editor should display the full note content and the tab should show unsaved changes."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Save the drafted note to the Documents location with the required filename so it becomes a named markdown file.",
+      "unit_type": "SAVE_FILE_TO_DOCUMENTS",
+      "unit_before_state": "The markdown note is visible in an untitled VS Code editor tab, and the file has not yet been saved.",
+      "unit_after_state": "The Save dialog is closed, and the editor tab is now a saved markdown file named \"errands-plan.md\" at the entered Documents path.",
+      "unit_precondition": [
+        "The untitled editor containing the errands note is focused.",
+        "The note content is already present and ready to save.",
+        "The Save dialog supports direct path entry, and the target Documents path is valid."
+      ],
+      "unit_effect": [
+        "Pressing Ctrl+S opens the Save dialog in front of VS Code.",
+        "The location field becomes active and shows the typed path \"/home/user/Documents/errands-plan.md\".",
+        "After confirmation, the dialog closes and VS Code recognizes the file as a saved .md document named \"errands-plan.md\"."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the current unsaved note as a named markdown file at a specified destination path.",
+      "parameters": {
+        "destination_path": "/home/user/Documents/errands-plan.md",
+        "file_name": "errands-plan.md"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 's']}",
+          "action_template": "When the editor is focused and the file is still unsaved, press Ctrl+S to open the Save dialog so the note can be saved to a specific path."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'l']}",
+          "action_template": "With the Save dialog active and supporting direct path entry, press Ctrl+L to focus the location field so a full save path can be entered directly."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '/home/user/Documents/errands-plan.md'}",
+          "action_template": "With the cursor in the location field, type {{destination_path}} so the full destination path appears in the Save dialog and is ready to be confirmed."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After {{destination_path}} is fully entered and no validation error is shown, press Enter to confirm the save so the dialog closes and VS Code saves the file as {{file_name}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7
+      ],
+      "unit_intent": "Show the rendered markdown output beside the source so the finished note can be visually checked.",
+      "unit_type": "OPEN_MARKDOWN_PREVIEW",
+      "unit_before_state": "The saved file \"errands-plan.md\" is the active editor tab in VS Code, and its markdown source is visible in a single editor pane.",
+      "unit_after_state": "VS Code is split into side-by-side panes with the markdown source on one side and the rendered preview of the errands note on the other.",
+      "unit_precondition": [
+        "The file has already been saved with a .md extension.",
+        "The \"errands-plan.md\" editor tab is active.",
+        "The editor toolbar button \"Open Preview to the Side\" is visible and clickable."
+      ],
+      "unit_effect": [
+        "The editor layout splits into two panes.",
+        "A rendered markdown preview appears beside the source editor.",
+        "The preview shows the formatted errands note content rather than raw markdown syntax."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open the rendered Markdown preview beside the active Markdown source file so the formatted content can be visually reviewed.",
+      "parameters": {
+        "target_markdown_file": "errands-plan.md"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the editor toolbar button labeled Open Preview to the Side'}}",
+          "action_template": "Click the editor toolbar button labeled Open Preview to the Side while the saved Markdown file {{target_markdown_file}} is the active editor tab to split the view and show the rendered Markdown preview beside the source for review."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

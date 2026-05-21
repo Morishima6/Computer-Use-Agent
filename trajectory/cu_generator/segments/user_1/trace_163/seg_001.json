@@ -1,0 +1,701 @@
+{
+  "segment_id": "seg_001",
+  "app": "gimp",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Activate the Crop tool",
+      "action_before_state": "gimp is ready for step 1 of the task.",
+      "action_preconditions": [
+        "The image is open in the main GIMP canvas.",
+        "No modal dialog is blocking the workspace."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "shift",
+          "c"
+        ]
+      },
+      "action_after_effects": "The Crop tool becomes active and the pointer is ready to define a crop region on the canvas.",
+      "nl_explanation": "When the image is visible and the workspace is clear, press Shift+C to switch to the Crop tool so the next drag creates a crop frame."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Draw a square crop region around the main content",
+      "action_before_state": "gimp is ready for step 2 of the task.",
+      "action_preconditions": [
+        "The Crop tool is active.",
+        "The part of the image to keep is visible on the canvas."
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the upper-left corner of the area you want to keep"
+        },
+        "end": {
+          "text": "the lower-right corner so the crop box becomes roughly square and covers the main subject"
+        },
+        "target": {
+          "begin": {
+            "text": "the canvas at the upper-left corner"
+          },
+          "end": {
+            "text": "the canvas at the lower-right corner"
+          }
+        }
+      },
+      "action_after_effects": "A crop rectangle appears over the image, showing the new square framing.",
+      "nl_explanation": "With the Crop tool active and the image visible, drag across the portion you want to keep until the crop frame is approximately square around the main content."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Apply the crop",
+      "action_before_state": "gimp is ready for step 3 of the task.",
+      "action_preconditions": [
+        "A crop frame is already visible on the canvas."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The image is cropped to the selected square area.",
+      "nl_explanation": "Once the crop frame looks correct, press Enter to apply it and convert the canvas into a square composition."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Open the foreground color chooser",
+      "action_before_state": "gimp is ready for step 4 of the task.",
+      "action_preconditions": [
+        "The cropped image is visible.",
+        "The toolbox is visible on the left side."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the foreground color swatch in the toolbox"
+        }
+      },
+      "action_after_effects": "The Change Foreground Color dialog opens.",
+      "nl_explanation": "With the canvas ready and the toolbox visible, click the foreground color swatch so you can set the banner color before filling a selection."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Enter the banner color",
+      "action_before_state": "gimp is ready for step 5 of the task.",
+      "action_preconditions": [
+        "The Change Foreground Color dialog is open and the hex input field is focused."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "#F6D365"
+      },
+      "action_after_effects": "The foreground color value is changed to a light warm yellow.",
+      "nl_explanation": "With the hex input field focused in the color dialog, type #F6D365 so the upcoming banner fill uses a soft light color."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Confirm the new foreground color",
+      "action_before_state": "gimp is ready for step 6 of the task.",
+      "action_preconditions": [
+        "The color dialog is open with the new hex value entered."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The dialog closes and the foreground swatch updates to the new yellow tone.",
+      "nl_explanation": "After entering the color value, press Enter to confirm it and return to the canvas with the new foreground color selected."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Activate the Rectangle Select tool",
+      "action_before_state": "gimp is ready for step 7 of the task.",
+      "action_preconditions": [
+        "The canvas is active again after closing the color dialog."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "r"
+        ]
+      },
+      "action_after_effects": "The Rectangle Select tool becomes active.",
+      "nl_explanation": "With the canvas back in focus, press R to switch to Rectangle Select so you can define the banner area."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Select a horizontal banner area at the top of the image",
+      "action_before_state": "gimp is ready for step 8 of the task.",
+      "action_preconditions": [
+        "The Rectangle Select tool is active.",
+        "The top portion of the image is visible."
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "near the top-left edge of the image"
+        },
+        "end": {
+          "text": "across to the top-right area and slightly downward, creating a wide horizontal strip"
+        },
+        "target": {
+          "begin": {
+            "text": "the canvas near the top-left"
+          },
+          "end": {
+            "text": "the canvas near the top-right"
+          }
+        }
+      },
+      "action_after_effects": "A rectangular selection appears across the top of the image.",
+      "nl_explanation": "Once Rectangle Select is active, drag across the upper part of the image to create a wide strip that will become the title banner."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Activate the Bucket Fill tool",
+      "action_before_state": "gimp is ready for step 9 of the task.",
+      "action_preconditions": [
+        "The top banner selection is visible on the canvas."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "shift",
+          "b"
+        ]
+      },
+      "action_after_effects": "The Bucket Fill tool becomes active and is ready to fill the selected area.",
+      "nl_explanation": "After the banner strip is selected, press Shift+B so the next click fills that selected region with the chosen foreground color."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Fill the banner selection with the chosen color",
+      "action_before_state": "gimp is ready for step 10 of the task.",
+      "action_preconditions": [
+        "The Bucket Fill tool is active.",
+        "The rectangular top selection is still present."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "inside the selected banner strip near the top of the image"
+        }
+      },
+      "action_after_effects": "The selected top strip is filled with the light yellow color.",
+      "nl_explanation": "With Bucket Fill active and the banner area selected, click inside the selection so the entire top strip fills with the new color."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Reset colors so the text uses the default dark foreground",
+      "action_before_state": "gimp is ready for step 11 of the task.",
+      "action_preconditions": [
+        "The banner has already been filled."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "d"
+        ]
+      },
+      "action_after_effects": "The foreground and background colors reset to their default black and white values.",
+      "nl_explanation": "After filling the banner, press D to restore the default colors so the title text appears in a dark, readable color."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Activate the Text tool",
+      "action_before_state": "gimp is ready for step 12 of the task.",
+      "action_preconditions": [
+        "The banner is visible on the image.",
+        "The canvas is active."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "t"
+        ]
+      },
+      "action_after_effects": "The Text tool becomes active and is ready to create a text box.",
+      "nl_explanation": "When the banner is in place and the canvas is active, press T to switch to the Text tool for adding the title."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Create a text box across the banner",
+      "action_before_state": "gimp is ready for step 13 of the task.",
+      "action_preconditions": [
+        "The Text tool is active.",
+        "The top banner area is clearly visible."
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the left side of the yellow banner with a small margin"
+        },
+        "end": {
+          "text": "the right side of the banner with a small margin, making a wide text box"
+        },
+        "target": {
+          "begin": {
+            "text": "the canvas on the left of the banner"
+          },
+          "end": {
+            "text": "the canvas on the right of the banner"
+          }
+        }
+      },
+      "action_after_effects": "A text box appears across the banner, ready for typing.",
+      "nl_explanation": "With the Text tool active, drag from one side of the banner to the other to create a wide text box that can hold the title neatly."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Enter the announcement title",
+      "action_before_state": "gimp is ready for step 14 of the task.",
+      "action_preconditions": [
+        "A text box is active on the banner and ready for input."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Study Group Tonight"
+      },
+      "action_after_effects": "The title text appears inside the banner as an editable text layer.",
+      "nl_explanation": "When the text box is active on the banner, type Study Group Tonight so the image becomes a simple announcement graphic."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Open the Export Image dialog",
+      "action_before_state": "gimp is ready for step 15 of the task.",
+      "action_preconditions": [
+        "The edited image is visible with the title added.",
+        "No other modal dialog is open."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "shift",
+          "ctrl",
+          "e"
+        ]
+      },
+      "action_after_effects": "The Export Image dialog opens.",
+      "nl_explanation": "After the title is in place and the canvas looks finished, press Shift+Ctrl+E to start exporting the image."
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Provide the export filename and Desktop path",
+      "action_before_state": "gimp is ready for step 16 of the task.",
+      "action_preconditions": [
+        "The Export Image dialog is open.",
+        "The filename field is ready for input."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "/home/user/Desktop/study_group_post.png"
+      },
+      "action_after_effects": "The export path and filename are entered into the dialog.",
+      "nl_explanation": "When the export dialog is ready for text input, type /home/user/Desktop/study_group_post.png so the final file is saved directly on the Desktop."
+    },
+    {
+      "step_id": "s17",
+      "step_goal": "Start the export",
+      "action_before_state": "gimp is ready for step 17 of the task.",
+      "action_preconditions": [
+        "The export path and filename are already entered."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "GIMP proceeds to the PNG export options dialog or confirmation step.",
+      "nl_explanation": "After the Desktop filename is entered, press Enter to move forward from the file chooser to the PNG export confirmation."
+    },
+    {
+      "step_id": "s18",
+      "step_goal": "Confirm the PNG export settings",
+      "action_before_state": "gimp is ready for step 18 of the task.",
+      "action_preconditions": [
+        "The PNG export confirmation dialog is visible."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The image is exported as study_group_post.png to the Desktop and the task is complete.",
+      "nl_explanation": "When the PNG export confirmation appears, press Enter again to accept the default settings and finish saving the final image."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Convert the currently open image into a square base composition for the announcement.",
+      "unit_type": "CROP_TO_SQUARE",
+      "unit_before_state": "GIMP shows the original image on the main canvas with no modal dialog open. The canvas is editable and the image has not yet been cropped to a 1:1 format.",
+      "unit_after_state": "The canvas now displays a cropped square version of the image, and the previous crop rectangle is no longer visible because the crop has been applied.",
+      "unit_precondition": [
+        "The target image is already open in the main GIMP canvas.",
+        "No modal dialog is blocking keyboard shortcuts or canvas interaction.",
+        "The area to keep is visible so a square crop region can be drawn."
+      ],
+      "unit_effect": [
+        "The Crop tool becomes active, a square crop frame appears during the drag, and after Enter the image boundaries change to the selected square region."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Set the fill color that will be used for the banner to a light warm yellow.",
+      "unit_type": "SET_FOREGROUND_COLOR",
+      "unit_before_state": "The cropped square image is visible on the canvas, and the foreground color swatch is available in the toolbox at the left side of GIMP.",
+      "unit_after_state": "The Change Foreground Color dialog is closed, and the toolbox foreground swatch now shows a light yellow color corresponding to hex value #F6D365.",
+      "unit_precondition": [
+        "The cropped image is visible and the toolbox can be accessed.",
+        "The foreground color chooser can be opened from the toolbox.",
+        "The hex input in the color dialog is available for editing."
+      ],
+      "unit_effect": [
+        "The Change Foreground Color dialog opens.",
+        "The entered hex value is accepted.",
+        "The foreground swatch updates to the new yellow tone after confirmation."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8,
+        9,
+        10
+      ],
+      "unit_intent": "Create a colored banner strip across the top of the square image.",
+      "unit_type": "CREATE_FILLED_TOP_BANNER",
+      "unit_before_state": "The square-cropped image is visible with the yellow foreground color already selected, and no banner selection has been created yet.",
+      "unit_after_state": "A horizontal strip across the top of the image is visibly filled with the light yellow foreground color, forming a banner area for text.",
+      "unit_precondition": [
+        "The foreground color is already set to the intended banner color.",
+        "The canvas is active and the top portion of the image is visible.",
+        "The user can switch tools and draw a rectangular selection on the canvas."
+      ],
+      "unit_effect": [
+        "Rectangle Select is activated and a wide top selection appears.",
+        "Bucket Fill is activated.",
+        "Clicking inside the selection fills the selected top strip with the yellow color."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        11,
+        12,
+        13,
+        14
+      ],
+      "unit_intent": "Add the announcement title onto the banner in a readable dark text color.",
+      "unit_type": "ADD_BANNER_TITLE",
+      "unit_before_state": "The top banner has already been filled with light yellow, and the image is still open on the GIMP canvas without the title text present yet.",
+      "unit_after_state": "A text box spans the banner and displays the title \"Study Group Tonight\" as an editable text layer in a dark default foreground color.",
+      "unit_precondition": [
+        "The filled banner is visible on the canvas.",
+        "The banner area has enough space for a text box.",
+        "No modal dialog is blocking tool changes or typing."
+      ],
+      "unit_effect": [
+        "The foreground/background colors reset to the default black and white values.",
+        "The Text tool becomes active.",
+        "A text box appears across the banner, and the typed title becomes visible on the image."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        15,
+        16,
+        17,
+        18
+      ],
+      "unit_intent": "Export the finished announcement image as a PNG file to the Desktop.",
+      "unit_type": "EXPORT_IMAGE_AS_PNG",
+      "unit_before_state": "The edited square announcement is visible in GIMP with the yellow top banner and the title \"Study Group Tonight\" already added, and no export dialog is open yet.",
+      "unit_after_state": "The export dialogs are closed after confirmation, and the finished image has been saved as /home/user/Desktop/study_group_post.png.",
+      "unit_precondition": [
+        "The final edited image is ready to export.",
+        "No other modal dialog is already open.",
+        "The Export Image dialog accepts a file path entry and the PNG confirmation dialog can be confirmed with Enter."
+      ],
+      "unit_effect": [
+        "The Export Image dialog opens.",
+        "The Desktop file path /home/user/Desktop/study_group_post.png is entered.",
+        "After the first Enter, GIMP advances to the PNG export confirmation.",
+        "After the second Enter, the PNG file is written to the Desktop."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Convert the currently open image into a square base composition for the announcement.",
+      "unit_type": "CROP_TO_SQUARE",
+      "unit_before_state": "GIMP shows the original image on the main canvas with no modal dialog open. The canvas is editable and the image has not yet been cropped to a 1:1 format.",
+      "unit_after_state": "The canvas now displays a cropped square version of the image, and the previous crop rectangle is no longer visible because the crop has been applied.",
+      "unit_precondition": [
+        "The target image is already open in the main GIMP canvas.",
+        "No modal dialog is blocking keyboard shortcuts or canvas interaction.",
+        "The area to keep is visible so a square crop region can be drawn."
+      ],
+      "unit_effect": [
+        "The Crop tool becomes active, a square crop frame appears during the drag, and after Enter the image boundaries change to the selected square region."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Crop the currently open image into a square composition around the desired content.",
+      "parameters": {
+        "target_content": "the main content",
+        "crop_start_point": "the upper-left corner of the area you want to keep",
+        "crop_end_point": "the lower-right corner so the crop box becomes roughly square and covers the main subject"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['shift', 'c']}",
+          "action_template": "When the image is open in the main GIMP canvas and no modal dialog is blocking the workspace, press Shift+C to switch to the Crop tool so the pointer is ready to define a crop region on the canvas."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the upper-left corner of the area you want to keep'}, 'end': {'text': 'the lower-right corner so the crop box becomes roughly square and covers the main subject'}, 'target': {'begin': {'text': 'the canvas at the upper-left corner'}, 'end': {'text': 'the canvas at the lower-right corner'}}}",
+          "action_template": "With the Crop tool active and {{target_content}} visible on the canvas, drag from {{crop_start_point}} to {{crop_end_point}} until a square crop rectangle appears around {{target_content}}."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Once a crop frame is already visible on the canvas, press Enter to apply it so the image is cropped to the selected square area."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Set the fill color that will be used for the banner to a light warm yellow.",
+      "unit_type": "SET_FOREGROUND_COLOR",
+      "unit_before_state": "The cropped square image is visible on the canvas, and the foreground color swatch is available in the toolbox at the left side of GIMP.",
+      "unit_after_state": "The Change Foreground Color dialog is closed, and the toolbox foreground swatch now shows a light yellow color corresponding to hex value #F6D365.",
+      "unit_precondition": [
+        "The cropped image is visible and the toolbox can be accessed.",
+        "The foreground color chooser can be opened from the toolbox.",
+        "The hex input in the color dialog is available for editing."
+      ],
+      "unit_effect": [
+        "The Change Foreground Color dialog opens.",
+        "The entered hex value is accepted.",
+        "The foreground swatch updates to the new yellow tone after confirmation."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Set the foreground color to a specified hex color for a subsequent fill operation.",
+      "parameters": {
+        "color_value": "#F6D365"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the foreground color swatch in the toolbox'}}",
+          "action_template": "With the canvas ready and the toolbox visible, click the foreground color swatch in the toolbox to open the Change Foreground Color dialog so you can set the color for the upcoming fill."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '#F6D365'}",
+          "action_template": "With the Change Foreground Color dialog open and the hex input field focused, type {{color_value}} to set the foreground color to the desired value."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After entering {{color_value}}, press Enter to confirm the new foreground color; the dialog closes and the foreground swatch updates to the selected color."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8,
+        9,
+        10
+      ],
+      "unit_intent": "Create a colored banner strip across the top of the square image.",
+      "unit_type": "CREATE_FILLED_TOP_BANNER",
+      "unit_before_state": "The square-cropped image is visible with the yellow foreground color already selected, and no banner selection has been created yet.",
+      "unit_after_state": "A horizontal strip across the top of the image is visibly filled with the light yellow foreground color, forming a banner area for text.",
+      "unit_precondition": [
+        "The foreground color is already set to the intended banner color.",
+        "The canvas is active and the top portion of the image is visible.",
+        "The user can switch tools and draw a rectangular selection on the canvas."
+      ],
+      "unit_effect": [
+        "Rectangle Select is activated and a wide top selection appears.",
+        "Bucket Fill is activated.",
+        "Clicking inside the selection fills the selected top strip with the yellow color."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a filled banner strip in a specified region of the image using the selected foreground color.",
+      "parameters": {
+        "banner_position": "across the top of the image",
+        "banner_color": "the light yellow color"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['r']}",
+          "action_template": "With the canvas active again after closing the color dialog, press R to switch to Rectangle Select so you can define the banner area {{banner_position}}; the Rectangle Select tool becomes active."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'near the top-left edge of the image'}, 'end': {'text': 'across to the top-right area and slightly downward, creating a wide horizontal strip'}, 'target': {'begin': {'text': 'the canvas near the top-left'}, 'end': {'text': 'the canvas near the top-right'}}}",
+          "action_template": "With the Rectangle Select tool active and the top portion of the image visible, drag across the upper part of the image to create a wide strip that will become the title banner; a rectangular selection appears {{banner_position}}."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['shift', 'b']}",
+          "action_template": "After the banner strip is selected, press Shift+B so the next click fills that selected region with the chosen foreground color; the Bucket Fill tool becomes active and is ready to fill the selected area with {{banner_color}}."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'inside the selected banner strip near the top of the image'}}",
+          "action_template": "With Bucket Fill active and the rectangular top selection still present, click inside the selected banner strip so the entire top strip fills with {{banner_color}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        11,
+        12,
+        13,
+        14
+      ],
+      "unit_intent": "Add the announcement title onto the banner in a readable dark text color.",
+      "unit_type": "ADD_BANNER_TITLE",
+      "unit_before_state": "The top banner has already been filled with light yellow, and the image is still open on the GIMP canvas without the title text present yet.",
+      "unit_after_state": "A text box spans the banner and displays the title \"Study Group Tonight\" as an editable text layer in a dark default foreground color.",
+      "unit_precondition": [
+        "The filled banner is visible on the canvas.",
+        "The banner area has enough space for a text box.",
+        "No modal dialog is blocking tool changes or typing."
+      ],
+      "unit_effect": [
+        "The foreground/background colors reset to the default black and white values.",
+        "The Text tool becomes active.",
+        "A text box appears across the banner, and the typed title becomes visible on the image."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Add a specified title onto a banner as an editable text layer using the default dark foreground color.",
+      "parameters": {
+        "target_banner_area": "top banner",
+        "title_text": "Study Group Tonight"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['d']}",
+          "action_template": "Press D after {{target_banner_area}} has been prepared to restore the default black-and-white colors so the title uses a dark, readable foreground color."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['t']}",
+          "action_template": "With {{target_banner_area}} visible and the canvas active, press T to activate the Text tool and prepare to create a text box."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the left side of the yellow banner with a small margin'}, 'end': {'text': 'the right side of the banner with a small margin, making a wide text box'}, 'target': {'begin': {'text': 'the canvas on the left of the banner'}, 'end': {'text': 'the canvas on the right of the banner'}}}",
+          "action_template": "With the Text tool active and {{target_banner_area}} clearly visible, drag from one side of {{target_banner_area}} to the other with small margins to create a wide text box ready for typing."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Study Group Tonight'}",
+          "action_template": "When the text box is active on {{target_banner_area}}, type {{title_text}} so the banner displays the specified announcement title as an editable text layer."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        15,
+        16,
+        17,
+        18
+      ],
+      "unit_intent": "Export the finished announcement image as a PNG file to the Desktop.",
+      "unit_type": "EXPORT_IMAGE_AS_PNG",
+      "unit_before_state": "The edited square announcement is visible in GIMP with the yellow top banner and the title \"Study Group Tonight\" already added, and no export dialog is open yet.",
+      "unit_after_state": "The export dialogs are closed after confirmation, and the finished image has been saved as /home/user/Desktop/study_group_post.png.",
+      "unit_precondition": [
+        "The final edited image is ready to export.",
+        "No other modal dialog is already open.",
+        "The Export Image dialog accepts a file path entry and the PNG confirmation dialog can be confirmed with Enter."
+      ],
+      "unit_effect": [
+        "The Export Image dialog opens.",
+        "The Desktop file path /home/user/Desktop/study_group_post.png is entered.",
+        "After the first Enter, GIMP advances to the PNG export confirmation.",
+        "After the second Enter, the PNG file is written to the Desktop."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Export the completed image as a PNG file to a specified output path.",
+      "parameters": {
+        "output_file_path": "/home/user/Desktop/study_group_post.png"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['shift', 'ctrl', 'e']}",
+          "action_template": "Press Shift+Ctrl+E to open the Export Image dialog after the edited image is ready and no other modal dialog is open. This opens the Export Image dialog."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '/home/user/Desktop/study_group_post.png'}",
+          "action_template": "Type {{output_file_path}} when the Export Image dialog is open and the filename field is ready for input, so the export path and filename are entered into the dialog."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter after {{output_file_path}} is entered to move forward from the file chooser to the PNG export confirmation. This makes GIMP proceed to the PNG export options dialog or confirmation step."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter when the PNG export confirmation dialog is visible to accept the default settings and finish saving the image. This exports the image to {{output_file_path}} and completes the task."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

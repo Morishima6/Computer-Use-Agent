@@ -1,0 +1,496 @@
+{
+  "segment_id": "seg_001",
+  "app": "os",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the Documents folder in Files",
+      "action_before_state": "The Files window is already open and shows the home directory or another nearby location, with the left sidebar visible.",
+      "action_preconditions": [
+        "A Files window is open on the GNOME desktop",
+        "The left sidebar contains an entry for Documents"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "Documents in the left sidebar of the Files window"
+        }
+      },
+      "action_after_effects": "The main pane switches to the Documents folder and shows its contents.",
+      "nl_explanation": "When the Files window is visible and the Documents shortcut is available in the sidebar, click Documents once so the file manager opens that folder and prepares it for creating the new workspace."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Start creating a new folder",
+      "action_before_state": "The Documents folder is open in Files and the contents area is active.",
+      "action_preconditions": [
+        "The Documents folder is currently displayed",
+        "The Files window is focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "n"
+        ]
+      },
+      "action_after_effects": "A new folder name field appears in the Documents view, ready for typing.",
+      "nl_explanation": "With Documents open and Files focused, press Ctrl+Shift+N to start creating a new folder, which should place an editable folder name field in the current view."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Name the new folder",
+      "action_before_state": "A new folder placeholder is visible with its name field active and ready for text input.",
+      "action_preconditions": [
+        "The new folder naming field is active",
+        "Keyboard input will go into the folder name field"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "DailyLogs"
+      },
+      "action_after_effects": "The pending folder name becomes `DailyLogs`.",
+      "nl_explanation": "Once the new folder name field is active, type `DailyLogs` so the folder has the intended name before confirming creation."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Confirm creation of the DailyLogs folder",
+      "action_before_state": "The new folder name `DailyLogs` is typed but not yet finalized.",
+      "action_preconditions": [
+        "The folder name field contains `DailyLogs`",
+        "The Files window still has focus"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The `DailyLogs` folder is created and appears as a normal folder item in Documents.",
+      "nl_explanation": "After the name `DailyLogs` is entered, press Enter to finalize the folder creation, which should leave the new folder visible in Documents."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Bookmark the DailyLogs folder in the Files sidebar",
+      "action_before_state": "The `DailyLogs` folder is visible in the Documents file list, and the sidebar is visible on the left.",
+      "action_preconditions": [
+        "The `DailyLogs` folder has already been created",
+        "The Files sidebar is visible and accepts bookmark drops"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the DailyLogs folder in the Documents file list"
+        },
+        "end": {
+          "text": "the Bookmarks area in the left sidebar of the Files window"
+        },
+        "target": {
+          "begin": {
+            "text": "the DailyLogs folder in the Documents file list"
+          },
+          "end": {
+            "text": "the Bookmarks area in the left sidebar of the Files window"
+          }
+        }
+      },
+      "action_after_effects": "A new sidebar bookmark for `DailyLogs` appears, making the folder easier to reach later.",
+      "nl_explanation": "When the new folder is visible in Documents and the Files sidebar is shown, drag `DailyLogs` from the file list into the sidebar bookmarks area so it becomes a permanent shortcut."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Open the DailyLogs folder",
+      "action_before_state": "The `DailyLogs` folder is visible in Documents and is ready to be opened.",
+      "action_preconditions": [
+        "The `DailyLogs` folder is present in the current Files view",
+        "The Files window is still active"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 2,
+        "target": {
+          "text": "the DailyLogs folder in the main file list"
+        }
+      },
+      "action_after_effects": "Files opens `DailyLogs`, and the main pane shows the inside of that folder.",
+      "nl_explanation": "With the new folder visible in the Documents view, double-click `DailyLogs` so Files enters the folder and you can create the log content inside it."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Open Terminal from the keyboard",
+      "action_before_state": "The DailyLogs folder is open in Files and no text entry field is active.",
+      "action_preconditions": [
+        "A GNOME-based desktop session is running",
+        "Keyboard shortcuts are available"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "alt",
+          "t"
+        ]
+      },
+      "action_after_effects": "A Terminal window opens in front of Files and is ready to accept commands.",
+      "nl_explanation": "After opening the DailyLogs folder, press Ctrl+Alt+T to launch Terminal so the file for today and its backup can be created quickly from the command line."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Enter the command that creates today's log file and its backup archive",
+      "action_before_state": "The Terminal window is open with a shell prompt visible and ready for typing.",
+      "action_preconditions": [
+        "Terminal is focused",
+        "A shell prompt is ready for input"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "cd ~/Documents/DailyLogs && echo \"Daily log created on $(date '+%F %R')\" > \"$(date +%F).txt\" && tar -czf \"$(date +%F)-backup.tar.gz\" \"$(date +%F).txt\""
+      },
+      "action_after_effects": "The full command appears at the shell prompt, ready to run.",
+      "nl_explanation": "When Terminal is focused and the prompt is ready, type the full command that changes into `~/Documents/DailyLogs`, creates today's text log, and then makes a compressed backup archive of that file."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Run the command to create the log file and backup",
+      "action_before_state": "The command line for creating the log file and backup is fully typed in Terminal.",
+      "action_preconditions": [
+        "The command text is complete and visible at the shell prompt",
+        "Terminal remains focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The command executes, returns to the shell prompt without interruption, and creates both a dated `.txt` file and a `-backup.tar.gz` archive in `DailyLogs`.",
+      "nl_explanation": "After the command is typed completely, press Enter to execute it; the expected result is that Terminal creates today's log file and a compressed backup copy inside the DailyLogs folder."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Return to Files and verify that the backup archive exists",
+      "action_before_state": "Terminal is in front, while the Files window with DailyLogs remains open in the background.",
+      "action_preconditions": [
+        "The file creation command has finished",
+        "The Files window is still open behind Terminal"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Files window or the Files icon in the dock"
+        }
+      },
+      "action_after_effects": "Files becomes active again and shows the contents of `DailyLogs`, including today's `.txt` file and the `-backup.tar.gz` archive.",
+      "nl_explanation": "Once Terminal finishes creating the files, click the Files window or its dock icon to bring it back to the front; the folder should now display both the dated log file and its compressed backup, confirming the task is complete."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Create the DailyLogs workspace folder inside Documents.",
+      "unit_type": "CREATE_FOLDER",
+      "unit_before_state": "A GNOME Files window is open on a nearby location such as Home, with the left sidebar visible and a Documents shortcut available.",
+      "unit_after_state": "Files is displaying the Documents folder, and a normal folder item named DailyLogs is present in the main file list.",
+      "unit_precondition": [
+        "A Files window is already open and focused.",
+        "The Files sidebar contains a clickable Documents entry, and the current user can create folders in Documents."
+      ],
+      "unit_effect": [
+        "The main pane switches to Documents.",
+        "A new folder naming field appears, receives the name DailyLogs, and is finalized.",
+        "A regular folder item named DailyLogs remains visible in Documents after confirmation."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5
+      ],
+      "unit_intent": "Add the new DailyLogs folder to the Files sidebar for quick access later.",
+      "unit_type": "BOOKMARK_FOLDER",
+      "unit_before_state": "The Documents folder is open in Files, the DailyLogs folder is visible in the main pane, and the left sidebar bookmarks area is visible.",
+      "unit_after_state": "The Documents view remains open, and the Files sidebar now includes a bookmark entry for DailyLogs.",
+      "unit_precondition": [
+        "The DailyLogs folder has already been created and is visible in the current file list.",
+        "The Files sidebar is visible and accepts dragged folder bookmarks."
+      ],
+      "unit_effect": [
+        "A new sidebar shortcut labeled DailyLogs appears in the bookmarks area.",
+        "The folder can now be accessed directly from the Files sidebar."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6
+      ],
+      "unit_intent": "Enter the DailyLogs folder so the log files can be created in the correct location.",
+      "unit_type": "OPEN_FOLDER",
+      "unit_before_state": "Files is still showing Documents, with the DailyLogs folder visible in the main file list.",
+      "unit_after_state": "Files is inside the DailyLogs folder and the main pane shows that folder's contents area.",
+      "unit_precondition": [
+        "The DailyLogs folder exists in the current Files view.",
+        "The Files window is active and ready to open items."
+      ],
+      "unit_effect": [
+        "The main pane switches from Documents into DailyLogs.",
+        "The current working view is now the inside of the DailyLogs folder."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7,
+        8,
+        9
+      ],
+      "unit_intent": "Create today's dated log file with a starter line and generate a compressed backup archive in DailyLogs.",
+      "unit_type": "CREATE_LOG_AND_BACKUP",
+      "unit_before_state": "Files is open to the DailyLogs folder, and no text entry field is active in the file manager.",
+      "unit_after_state": "A Terminal window is in front and has returned to a shell prompt after running the command; in ~/Documents/DailyLogs, a dated text file for 2026-04-12 and a matching archive named 2026-04-12-backup.tar.gz have been created.",
+      "unit_precondition": [
+        "The DailyLogs folder is already open and accessible at ~/Documents/DailyLogs.",
+        "GNOME keyboard shortcuts can launch Terminal, and a shell prompt is available for command entry."
+      ],
+      "unit_effect": [
+        "Terminal opens and shows a shell prompt.",
+        "The full command is entered and executed successfully.",
+        "A file named 2026-04-12.txt is created with a starter line beginning with \"Daily log created on 2026-04-12\".",
+        "A compressed backup archive named 2026-04-12-backup.tar.gz is created in the same folder."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        10
+      ],
+      "unit_intent": "Return to Files and visually verify that the new daily log file and its backup exist in the workspace folder.",
+      "unit_type": "VERIFY_FOLDER_CONTENTS",
+      "unit_before_state": "Terminal is in the foreground, while the Files window is still open behind it on the DailyLogs folder.",
+      "unit_after_state": "Files is active again and shows the contents of DailyLogs, including the dated text file and the matching backup archive.",
+      "unit_precondition": [
+        "The Terminal command has already finished running.",
+        "The Files window is still open on the DailyLogs folder in the background."
+      ],
+      "unit_effect": [
+        "The Files window comes to the foreground.",
+        "The DailyLogs contents visibly include 2026-04-12.txt and 2026-04-12-backup.tar.gz, confirming both outputs were created."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Create the DailyLogs workspace folder inside Documents.",
+      "unit_type": "CREATE_FOLDER",
+      "unit_before_state": "A GNOME Files window is open on a nearby location such as Home, with the left sidebar visible and a Documents shortcut available.",
+      "unit_after_state": "Files is displaying the Documents folder, and a normal folder item named DailyLogs is present in the main file list.",
+      "unit_precondition": [
+        "A Files window is already open and focused.",
+        "The Files sidebar contains a clickable Documents entry, and the current user can create folders in Documents."
+      ],
+      "unit_effect": [
+        "The main pane switches to Documents.",
+        "A new folder naming field appears, receives the name DailyLogs, and is finalized.",
+        "A regular folder item named DailyLogs remains visible in Documents after confirmation."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a new folder with a specified name inside a specified destination folder in the file manager.",
+      "parameters": {
+        "destination_folder": "Documents",
+        "folder_name": "DailyLogs"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'Documents in the left sidebar of the Files window'}}",
+          "action_template": "When a Files window is open and the sidebar contains the {{destination_folder}} entry, click {{destination_folder}} in the left sidebar once so the file manager opens that folder and prepares it for creating the new folder."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'n']}",
+          "action_template": "With {{destination_folder}} currently displayed and the Files window focused, press Ctrl+Shift+N to start creating a new folder, which should place an editable folder name field in the current view."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'DailyLogs'}",
+          "action_template": "Once the new folder naming field is active and ready for keyboard input, type {{folder_name}} so the pending folder is assigned the intended name before confirmation."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After the folder name field contains {{folder_name}} and the Files window still has focus, press Enter to finalize the folder creation so the new folder appears as a normal folder item in {{destination_folder}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5
+      ],
+      "unit_intent": "Add the new DailyLogs folder to the Files sidebar for quick access later.",
+      "unit_type": "BOOKMARK_FOLDER",
+      "unit_before_state": "The Documents folder is open in Files, the DailyLogs folder is visible in the main pane, and the left sidebar bookmarks area is visible.",
+      "unit_after_state": "The Documents view remains open, and the Files sidebar now includes a bookmark entry for DailyLogs.",
+      "unit_precondition": [
+        "The DailyLogs folder has already been created and is visible in the current file list.",
+        "The Files sidebar is visible and accepts dragged folder bookmarks."
+      ],
+      "unit_effect": [
+        "A new sidebar shortcut labeled DailyLogs appears in the bookmarks area.",
+        "The folder can now be accessed directly from the Files sidebar."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Add a specified folder from the current file list to the Files sidebar bookmarks for quicker future access.",
+      "parameters": {
+        "folder_name": "DailyLogs"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the DailyLogs folder in the Documents file list'}, 'end': {'text': 'the Bookmarks area in the left sidebar of the Files window'}, 'target': {'begin': {'text': 'the DailyLogs folder in the Documents file list'}, 'end': {'text': 'the Bookmarks area in the left sidebar of the Files window'}}}",
+          "action_template": "When {{folder_name}} is visible in the current file list and the Files sidebar accepts bookmark drops, drag {{folder_name}} from the file list into the Bookmarks area in the left sidebar so it becomes a permanent shortcut."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6
+      ],
+      "unit_intent": "Enter the DailyLogs folder so the log files can be created in the correct location.",
+      "unit_type": "OPEN_FOLDER",
+      "unit_before_state": "Files is still showing Documents, with the DailyLogs folder visible in the main file list.",
+      "unit_after_state": "Files is inside the DailyLogs folder and the main pane shows that folder's contents area.",
+      "unit_precondition": [
+        "The DailyLogs folder exists in the current Files view.",
+        "The Files window is active and ready to open items."
+      ],
+      "unit_effect": [
+        "The main pane switches from Documents into DailyLogs.",
+        "The current working view is now the inside of the DailyLogs folder."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a specified folder in the current Files view so work continues inside the intended location.",
+      "parameters": {
+        "folder_name": "DailyLogs"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "CLICK",
+          "action_template": "Double-click {{folder_name}} in the main file list when the folder is present in the current Files view and the Files window is active, so Files enters the folder and shows its contents in the main pane."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7,
+        8,
+        9
+      ],
+      "unit_intent": "Create today's dated log file with a starter line and generate a compressed backup archive in DailyLogs.",
+      "unit_type": "CREATE_LOG_AND_BACKUP",
+      "unit_before_state": "Files is open to the DailyLogs folder, and no text entry field is active in the file manager.",
+      "unit_after_state": "A Terminal window is in front and has returned to a shell prompt after running the command; in ~/Documents/DailyLogs, a dated text file for 2026-04-12 and a matching archive named 2026-04-12-backup.tar.gz have been created.",
+      "unit_precondition": [
+        "The DailyLogs folder is already open and accessible at ~/Documents/DailyLogs.",
+        "GNOME keyboard shortcuts can launch Terminal, and a shell prompt is available for command entry."
+      ],
+      "unit_effect": [
+        "Terminal opens and shows a shell prompt.",
+        "The full command is entered and executed successfully.",
+        "A file named 2026-04-12.txt is created with a starter line beginning with \"Daily log created on 2026-04-12\".",
+        "A compressed backup archive named 2026-04-12-backup.tar.gz is created in the same folder."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open Terminal, create a dated log file with a specified starter line in a target folder, and generate a compressed backup archive for that file.",
+      "parameters": {
+        "terminal_shortcut": "Ctrl+Alt+T",
+        "target_folder": "~/Documents/DailyLogs",
+        "starter_line_prefix": "Daily log created on"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'alt', 't']}",
+          "action_template": "Press {{terminal_shortcut}} when a GNOME desktop session is running and keyboard shortcuts are available to launch Terminal, so a shell window opens in front and is ready to accept commands for creating the dated log file and backup."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'cd ~/Documents/DailyLogs && echo \"Daily log created on $(date \\'+%F %R\\')\" > \"$(date +%F).txt\" && tar -czf \"$(date +%F)-backup.tar.gz\" \"$(date +%F).txt\"'}",
+          "action_template": "With Terminal focused and a shell prompt ready for input, type the full shell command that changes into {{target_folder}}, creates today's dated text log with a starter line beginning with {{starter_line_prefix}}, and prepares a matching compressed backup archive command so the full command appears at the prompt ready to run."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter when the command text is complete and visible at the shell prompt and Terminal remains focused to execute it; the command should finish, return to the shell prompt, and create both the dated .txt log file and a matching compressed backup archive in {{target_folder}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        10
+      ],
+      "unit_intent": "Return to Files and visually verify that the new daily log file and its backup exist in the workspace folder.",
+      "unit_type": "VERIFY_FOLDER_CONTENTS",
+      "unit_before_state": "Terminal is in the foreground, while the Files window is still open behind it on the DailyLogs folder.",
+      "unit_after_state": "Files is active again and shows the contents of DailyLogs, including the dated text file and the matching backup archive.",
+      "unit_precondition": [
+        "The Terminal command has already finished running.",
+        "The Files window is still open on the DailyLogs folder in the background."
+      ],
+      "unit_effect": [
+        "The Files window comes to the foreground.",
+        "The DailyLogs contents visibly include 2026-04-12.txt and 2026-04-12-backup.tar.gz, confirming both outputs were created."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Return to the file manager and visually verify that the expected output file and its matching backup archive are present in the target folder.",
+      "parameters": {
+        "file_manager_entry_point": "the Files window or the Files icon in the dock",
+        "target_folder": "DailyLogs",
+        "primary_file_name": "2026-04-12.txt",
+        "backup_file_name": "2026-04-12-backup.tar.gz"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "CLICK",
+          "action_template": "After the file creation command has finished and the file manager window for {{target_folder}} is still open in the background, click {{file_manager_entry_point}} to bring it to the front and verify that {{target_folder}} shows both {{primary_file_name}} and {{backup_file_name}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

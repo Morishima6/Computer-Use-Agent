@@ -1,0 +1,313 @@
+{
+  "segment_id": "seg_001",
+  "app": "vs_code",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open a new untitled file",
+      "action_before_state": "VS Code is already open on the GNOME desktop, and the main editor area is visible.",
+      "action_preconditions": [
+        "VS Code is the active window",
+        "The editor can receive keyboard shortcuts"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "n"
+        ]
+      },
+      "action_after_effects": "A new untitled editor tab opens and the text cursor is placed in the blank file.",
+      "nl_explanation": "When VS Code is focused and ready for keyboard input, press Ctrl+N to create a blank file. The expected result is a new untitled tab with the cursor ready for typing."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Enter the daily standup template",
+      "action_before_state": "A blank untitled editor is open with a blinking text cursor in the main editing area.",
+      "action_preconditions": [
+        "The untitled file is active",
+        "The text cursor is inside the editor"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "# Daily Standup\n\n## Yesterday\n- [ ]\n- [ ]\n\n## Today\n- [ ]\n- [ ]\n\n## Blockers\n- [ ]"
+      },
+      "action_after_effects": "The Markdown standup template appears in the editor.",
+      "nl_explanation": "With the blank file active, type the standup note content into the editor. After typing, the file should contain the three requested sections and checklist bullets."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Start saving the new Markdown file",
+      "action_before_state": "The standup template is visible in an unsaved untitled tab.",
+      "action_preconditions": [
+        "The editor contains the note text",
+        "The file has not been saved yet"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "s"
+        ]
+      },
+      "action_after_effects": "A Save As dialog opens so the new file can be named and stored.",
+      "nl_explanation": "Once the note content is in place and the file is still unsaved, press Ctrl+S. This should open a Save As dialog for entering a filename."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Focus the filename field in the Save As dialog",
+      "action_before_state": "A Save As dialog is open in front of VS Code, showing a filename field and standard dialog buttons.",
+      "action_preconditions": [
+        "The Save As dialog is visible",
+        "The filename field can be selected"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the filename field in the Save As dialog"
+        }
+      },
+      "action_after_effects": "The filename field becomes active and ready for text entry.",
+      "nl_explanation": "When the Save As dialog is open, click the filename field so the next typed text goes into the file name field. The expected result is a focused text field ready for the new file name."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Enter the Markdown filename",
+      "action_before_state": "The filename field in the Save As dialog is active.",
+      "action_preconditions": [
+        "The Save As dialog remains open",
+        "The filename field is focused"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "daily-standup.md"
+      },
+      "action_after_effects": "The filename daily-standup.md is entered into the Save As dialog.",
+      "nl_explanation": "With the filename field focused, type daily-standup.md so the note is saved as a Markdown file. The visible result should be the full filename appearing in the input field."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Confirm the save operation",
+      "action_before_state": "The Save As dialog shows daily-standup.md in the filename field and the Save button is available.",
+      "action_preconditions": [
+        "A valid filename has been entered",
+        "The Save button is visible and clickable"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Save button in the lower part of the dialog"
+        }
+      },
+      "action_after_effects": "The dialog closes, the file is saved, and the editor tab now shows daily-standup.md.",
+      "nl_explanation": "After entering the filename, click the Save button to store the note. The expected behavior is that the dialog disappears and the editor tab changes from Untitled to daily-standup.md."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Open the Markdown preview",
+      "action_before_state": "The saved file daily-standup.md is open in VS Code, and the editor toolbar is visible.",
+      "action_preconditions": [
+        "The saved Markdown file is the active editor tab",
+        "VS Code is showing the normal editor interface"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "v"
+        ]
+      },
+      "action_after_effects": "VS Code opens the Markdown preview for the file, showing the rendered headings and checklist items.",
+      "nl_explanation": "When the saved Markdown file is active, press Ctrl+Shift+V to preview it. The result should be a rendered Markdown preview of the standup note inside VS Code."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Draft the daily standup note content in a new Markdown editor.",
+      "unit_type": "CREATE_AND_POPULATE_MARKDOWN_NOTE",
+      "unit_before_state": "VS Code is open on the desktop with its main editor area visible, but no new standup note has been created yet.",
+      "unit_after_state": "An unsaved untitled editor tab is active in VS Code and contains the Markdown standup template with a title and the sections Yesterday, Today, and Blockers, each with checklist bullets.",
+      "unit_precondition": [
+        "VS Code is the active window.",
+        "The editor area can receive keyboard input and shortcuts."
+      ],
+      "unit_effect": [
+        "A new untitled tab opens with the text cursor in a blank editor.",
+        "The editor visibly shows the typed Markdown structure for the standup note."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Save the drafted note as a reusable Markdown file named daily-standup.md.",
+      "unit_type": "SAVE_NEW_FILE_AS",
+      "unit_before_state": "The standup note content is visible in an unsaved untitled VS Code tab.",
+      "unit_after_state": "The Save As dialog has closed, and the active editor tab in VS Code is now saved as daily-standup.md.",
+      "unit_precondition": [
+        "The unsaved editor already contains the completed standup note text.",
+        "VS Code can open the Save As dialog and accept a filename entry."
+      ],
+      "unit_effect": [
+        "Pressing save opens a Save As dialog in front of VS Code.",
+        "The filename field shows daily-standup.md before confirmation.",
+        "After clicking Save, the dialog disappears and the editor tab label changes from an untitled state to daily-standup.md."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7
+      ],
+      "unit_intent": "Review the saved Markdown note in rendered form inside VS Code.",
+      "unit_type": "OPEN_MARKDOWN_PREVIEW",
+      "unit_before_state": "The saved file daily-standup.md is the active tab in the normal VS Code editor view.",
+      "unit_after_state": "VS Code displays the Markdown preview for daily-standup.md, showing rendered headings and checkbox list items.",
+      "unit_precondition": [
+        "The file daily-standup.md has already been saved.",
+        "The markdown file tab is active in VS Code."
+      ],
+      "unit_effect": [
+        "A Markdown preview pane opens for the current file.",
+        "The note appears rendered with the Daily Standup heading and the Yesterday, Today, and Blockers checklist sections visible."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Draft the daily standup note content in a new Markdown editor.",
+      "unit_type": "CREATE_AND_POPULATE_MARKDOWN_NOTE",
+      "unit_before_state": "VS Code is open on the desktop with its main editor area visible, but no new standup note has been created yet.",
+      "unit_after_state": "An unsaved untitled editor tab is active in VS Code and contains the Markdown standup template with a title and the sections Yesterday, Today, and Blockers, each with checklist bullets.",
+      "unit_precondition": [
+        "VS Code is the active window.",
+        "The editor area can receive keyboard input and shortcuts."
+      ],
+      "unit_effect": [
+        "A new untitled tab opens with the text cursor in a blank editor.",
+        "The editor visibly shows the typed Markdown structure for the standup note."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a new Markdown note in the editor and populate it with specified Markdown content.",
+      "parameters": {
+        "markdown_content": "# Daily Standup\n\n## Yesterday\n- [ ]\n- [ ]\n\n## Today\n- [ ]\n- [ ]\n\n## Blockers\n- [ ]"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'n']}",
+          "action_template": "When VS Code is focused and ready for keyboard input, press Ctrl+N to create a blank file. The expected result is a new untitled tab with the cursor ready for typing."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '# Daily Standup\\n\\n## Yesterday\\n- [ ]\\n- [ ]\\n\\n## Today\\n- [ ]\\n- [ ]\\n\\n## Blockers\\n- [ ]'}",
+          "action_template": "With the blank file active, type {{markdown_content}} into the editor. After typing, the file should contain the specified Markdown structure."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Save the drafted note as a reusable Markdown file named daily-standup.md.",
+      "unit_type": "SAVE_NEW_FILE_AS",
+      "unit_before_state": "The standup note content is visible in an unsaved untitled VS Code tab.",
+      "unit_after_state": "The Save As dialog has closed, and the active editor tab in VS Code is now saved as daily-standup.md.",
+      "unit_precondition": [
+        "The unsaved editor already contains the completed standup note text.",
+        "VS Code can open the Save As dialog and accept a filename entry."
+      ],
+      "unit_effect": [
+        "Pressing save opens a Save As dialog in front of VS Code.",
+        "The filename field shows daily-standup.md before confirmation.",
+        "After clicking Save, the dialog disappears and the editor tab label changes from an untitled state to daily-standup.md."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the current unsaved editor content as a new Markdown file with a specified filename.",
+      "parameters": {
+        "file_name": "daily-standup.md"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 's']}",
+          "action_template": "Once the editor contains the note text and the file has not been saved yet, press Ctrl+S to open a Save As dialog for naming and storing the new file."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the filename field in the Save As dialog'}}",
+          "action_template": "When the Save As dialog is open and the filename field can be selected, click the filename field in the Save As dialog so it becomes active and ready for text entry."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'daily-standup.md'}",
+          "action_template": "With the Save As dialog still open and the filename field focused, type {{file_name}} so the full filename appears in the input field."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Save button in the lower part of the dialog'}}",
+          "action_template": "After a valid filename has been entered and the Save button is visible and clickable, click the Save button in the lower part of the dialog to save the file, close the dialog, and update the editor tab to {{file_name}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7
+      ],
+      "unit_intent": "Review the saved Markdown note in rendered form inside VS Code.",
+      "unit_type": "OPEN_MARKDOWN_PREVIEW",
+      "unit_before_state": "The saved file daily-standup.md is the active tab in the normal VS Code editor view.",
+      "unit_after_state": "VS Code displays the Markdown preview for daily-standup.md, showing rendered headings and checkbox list items.",
+      "unit_precondition": [
+        "The file daily-standup.md has already been saved.",
+        "The markdown file tab is active in VS Code."
+      ],
+      "unit_effect": [
+        "A Markdown preview pane opens for the current file.",
+        "The note appears rendered with the Daily Standup heading and the Yesterday, Today, and Blockers checklist sections visible."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open the rendered Markdown preview for a saved Markdown file in VS Code.",
+      "parameters": {
+        "file_name": "daily-standup.md"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'v']}",
+          "action_template": "Press Ctrl+Shift+V when the saved Markdown file {{file_name}} is the active editor tab and VS Code is showing the normal editor interface to open its rendered Markdown preview, showing rendered headings and checklist items."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

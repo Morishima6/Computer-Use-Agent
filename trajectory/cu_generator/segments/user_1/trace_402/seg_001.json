@@ -1,0 +1,600 @@
+{
+  "segment_id": "seg_001",
+  "app": "os",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the Documents folder in Files",
+      "action_before_state": "A Files window is open and shows the home directory or another folder, with the left sidebar visible.",
+      "action_preconditions": [
+        "The Files window is focused or visible on screen",
+        "The left sidebar contains a `Documents` location"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the `Documents` item in the Files sidebar"
+        }
+      },
+      "action_after_effects": "The main file list switches to the Documents folder.",
+      "nl_explanation": "When the Files window is visible and the sidebar shows `Documents`, click `Documents` once to enter that folder. The file list should now show the contents of Documents."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Start creating a new folder in Documents",
+      "action_before_state": "The Documents folder is open in Files.",
+      "action_preconditions": [
+        "The main pane is showing Documents",
+        "Keyboard shortcuts are accepted by the Files window"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "n"
+        ]
+      },
+      "action_after_effects": "A new folder name field appears with the default name selected for editing.",
+      "nl_explanation": "With Documents open in Files, press `Ctrl+Shift+N` to create a new folder. A rename box should appear immediately so the folder can be named."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Name the new folder",
+      "action_before_state": "The inline folder rename field is active in the Documents view.",
+      "action_preconditions": [
+        "The new folder name field is focused",
+        "The default placeholder name is selected"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "grocery_trip"
+      },
+      "action_after_effects": "The placeholder folder name is replaced with `grocery_trip`.",
+      "nl_explanation": "Once the new folder name field is active, type `grocery_trip` to replace the default name with the folder name you need."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Confirm creation of the folder",
+      "action_before_state": "The text `grocery_trip` is entered in the folder name field.",
+      "action_preconditions": [
+        "The rename field is still active",
+        "The desired folder name has been typed completely"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "A folder named `grocery_trip` is created in Documents.",
+      "nl_explanation": "After typing the folder name, press Enter to finish the rename. The new `grocery_trip` folder should now appear in Documents."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Open Terminal to create the text note quickly",
+      "action_before_state": "Files is still open on the Documents folder.",
+      "action_preconditions": [
+        "The GNOME desktop session is responsive",
+        "Keyboard shortcuts can be used"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "alt",
+          "t"
+        ]
+      },
+      "action_after_effects": "A Terminal window opens in front of Files with a shell prompt ready.",
+      "nl_explanation": "While the desktop is responsive, press `Ctrl+Alt+T` to open Terminal. A shell window should appear so the note file can be created directly."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Enter the command that creates the grocery note",
+      "action_before_state": "Terminal is focused and the shell prompt is idle.",
+      "action_preconditions": [
+        "The Terminal cursor is active",
+        "The folder `~/Documents/grocery_trip` already exists"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "printf 'buy milk, eggs, and bread\\n' > ~/Documents/grocery_trip/shopping_note.txt"
+      },
+      "action_after_effects": "The full command appears at the prompt, ready to execute.",
+      "nl_explanation": "When Terminal is active and the folder already exists, type the command that writes `buy milk, eggs, and bread` into `shopping_note.txt` inside `~/Documents/grocery_trip`."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Run the command to create the note file",
+      "action_before_state": "The command to create `shopping_note.txt` is fully typed in Terminal.",
+      "action_preconditions": [
+        "The full command is visible in the shell",
+        "The prompt is waiting for execution"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The command runs and creates `shopping_note.txt` inside the `grocery_trip` folder.",
+      "nl_explanation": "Press Enter after the command is fully typed. The shell should execute it and create the text note inside the folder without opening another app."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Return to Files",
+      "action_before_state": "Terminal is in the foreground and Files is still open behind it.",
+      "action_preconditions": [
+        "Files remains open in another window",
+        "Window switching is available"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "alt",
+          "tab"
+        ]
+      },
+      "action_after_effects": "The Files window returns to the foreground, still showing Documents.",
+      "nl_explanation": "Use `Alt+Tab` to switch away from Terminal and bring Files back to the front so the new folder contents can be checked."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Open the folder and verify the note file exists",
+      "action_before_state": "Files is focused on Documents and the `grocery_trip` folder is visible.",
+      "action_preconditions": [
+        "The folder `grocery_trip` appears in the file list",
+        "The item is accessible for opening"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 2,
+        "target": {
+          "text": "the `grocery_trip` folder in the Documents file list"
+        }
+      },
+      "action_after_effects": "The folder opens and `shopping_note.txt` is shown inside it.",
+      "nl_explanation": "When `grocery_trip` is visible in Documents, double-click it to open the folder. You should then see `shopping_note.txt` in the main pane."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Return to Documents so the whole folder can be compressed",
+      "action_before_state": "Files is open inside `grocery_trip` and shows `shopping_note.txt`.",
+      "action_preconditions": [
+        "The current view is inside the `grocery_trip` folder",
+        "The back button is available in the Files header bar"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the back button in the Files header bar"
+        }
+      },
+      "action_after_effects": "Files returns to the Documents folder, where `grocery_trip` is visible again.",
+      "nl_explanation": "After confirming the note is present, click the back button once to return to Documents. This puts the `grocery_trip` folder back in view for archiving."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Open the folder context menu",
+      "action_before_state": "Documents is visible and the `grocery_trip` folder is listed.",
+      "action_preconditions": [
+        "The `grocery_trip` folder is visible in the file list",
+        "The item is not currently being renamed"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "right",
+        "num_clicks": 1,
+        "target": {
+          "text": "the `grocery_trip` folder in the Documents file list"
+        }
+      },
+      "action_after_effects": "A context menu opens for the selected folder.",
+      "nl_explanation": "When the `grocery_trip` folder is visible in Documents, right-click it to open its context menu. This exposes the archive option needed for the next step."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Start the archive creation process",
+      "action_before_state": "The folder context menu is open.",
+      "action_preconditions": [
+        "The context menu is visible",
+        "A `Compress...` option is available in the menu"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the `Compress...` option in the context menu"
+        }
+      },
+      "action_after_effects": "A compression dialog opens with archive settings.",
+      "nl_explanation": "With the folder menu open and `Compress...` visible, click that option to open the archive dialog for the `grocery_trip` folder."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Create the zip archive",
+      "action_before_state": "The compression dialog is open and ready for confirmation.",
+      "action_preconditions": [
+        "The archive creation dialog is focused",
+        "The `Create` button is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the `Create` button in the compression dialog"
+        }
+      },
+      "action_after_effects": "The dialog closes and a new file named `grocery_trip.zip` appears in Documents.",
+      "nl_explanation": "Once the compression dialog is open and ready, click `Create` to generate the zip archive. The new `grocery_trip.zip` file should then appear in Documents."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Move the finished zip archive to the Desktop",
+      "action_before_state": "Files shows the Documents folder, including `grocery_trip.zip`, and the sidebar includes Desktop.",
+      "action_preconditions": [
+        "The file `grocery_trip.zip` is visible in the main pane",
+        "The Files sidebar contains a `Desktop` location"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the `grocery_trip.zip` file in the Documents file list"
+        },
+        "end": {
+          "text": "the `Desktop` item in the Files sidebar"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "The `grocery_trip.zip` file is moved from Documents to the Desktop and no longer appears in the Documents folder.",
+      "nl_explanation": "When `grocery_trip.zip` is visible in Documents and the sidebar shows `Desktop`, drag the zip file onto `Desktop`. The archive should move there so it is easy to find from the desktop later."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Create the working folder in Documents for the grocery-trip materials.",
+      "unit_type": "CREATE_FOLDER",
+      "unit_before_state": "A Files window is open on the Ubuntu desktop, showing a folder view with the sidebar visible but not yet focused on Documents.",
+      "unit_after_state": "Files is showing the Documents folder, and a new folder named `grocery_trip` is present in the file list as a normal saved folder entry.",
+      "unit_precondition": [
+        "A Files window is open and usable.",
+        "The Files sidebar contains a `Documents` location, and the Documents view allows creating new folders."
+      ],
+      "unit_effect": [
+        "The main pane switches to Documents.",
+        "An inline new-folder rename field appears, accepts `grocery_trip`, and then resolves into a visible folder named `grocery_trip` in Documents."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Create the required text note inside the new grocery-trip folder.",
+      "unit_type": "CREATE_TEXT_NOTE",
+      "unit_before_state": "Files remains open on Documents with the `grocery_trip` folder already created, and Terminal is not yet in the foreground.",
+      "unit_after_state": "A Terminal window is open in front of Files, the `printf` command has been executed, and the note file `shopping_note.txt` has been created in `~/Documents/grocery_trip`.",
+      "unit_precondition": [
+        "The folder `~/Documents/grocery_trip` already exists.",
+        "Desktop keyboard shortcuts are available so Terminal can be opened and receive typed input."
+      ],
+      "unit_effect": [
+        "Terminal opens with an active shell prompt.",
+        "The full file-creation command is entered and executed.",
+        "The note file containing `buy milk, eggs, and bread` is written into the `grocery_trip` folder."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        8,
+        9,
+        10
+      ],
+      "unit_intent": "Verify that the grocery note exists and return to the folder level needed for archiving.",
+      "unit_type": "VERIFY_FILE_AND_RETURN",
+      "unit_before_state": "Terminal is in the foreground, while Files is still open behind it on the Documents folder that contains `grocery_trip`.",
+      "unit_after_state": "Files is back in the foreground on the Documents folder, with `grocery_trip` visible again after briefly opening it and confirming that `shopping_note.txt` exists inside.",
+      "unit_precondition": [
+        "Files is still open in another window on Documents.",
+        "The `grocery_trip` folder is visible and can be opened from Documents."
+      ],
+      "unit_effect": [
+        "Window focus returns from Terminal to Files.",
+        "Opening `grocery_trip` shows `shopping_note.txt` in the folder contents.",
+        "After clicking Back, the view returns to Documents with `grocery_trip` ready to be compressed."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        11,
+        12,
+        13
+      ],
+      "unit_intent": "Package the grocery-trip folder as a zip archive.",
+      "unit_type": "CREATE_ZIP_ARCHIVE",
+      "unit_before_state": "Files is showing the Documents folder, and the `grocery_trip` folder is visible in the file list.",
+      "unit_after_state": "The compression dialog has been completed and closed, and a new archive file named `grocery_trip.zip` is visible in Documents.",
+      "unit_precondition": [
+        "The `grocery_trip` folder is visible in Documents and not in rename mode.",
+        "The folder context menu includes `Compress...`, and the archive dialog can be confirmed with `Create`."
+      ],
+      "unit_effect": [
+        "A context menu opens for `grocery_trip`.",
+        "Selecting `Compress...` opens the archive creation dialog.",
+        "After confirming, the dialog closes and `grocery_trip.zip` appears in the Documents file list."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        14
+      ],
+      "unit_intent": "Place the finished archive on the Desktop for quick access.",
+      "unit_type": "MOVE_ARCHIVE_TO_DESKTOP",
+      "unit_before_state": "Files shows the Documents folder with `grocery_trip.zip` visible in the main pane and `Desktop` available in the sidebar.",
+      "unit_after_state": "The archive `grocery_trip.zip` has been moved onto the Desktop and is no longer listed in the Documents folder view.",
+      "unit_precondition": [
+        "`grocery_trip.zip` is visible in the current Documents view.",
+        "The Files sidebar contains a reachable `Desktop` destination for drag-and-drop."
+      ],
+      "unit_effect": [
+        "Dragging the archive onto `Desktop` removes it from the Documents list.",
+        "The zip file is now located on the Desktop as the final deliverable."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Create the working folder in Documents for the grocery-trip materials.",
+      "unit_type": "CREATE_FOLDER",
+      "unit_before_state": "A Files window is open on the Ubuntu desktop, showing a folder view with the sidebar visible but not yet focused on Documents.",
+      "unit_after_state": "Files is showing the Documents folder, and a new folder named `grocery_trip` is present in the file list as a normal saved folder entry.",
+      "unit_precondition": [
+        "A Files window is open and usable.",
+        "The Files sidebar contains a `Documents` location, and the Documents view allows creating new folders."
+      ],
+      "unit_effect": [
+        "The main pane switches to Documents.",
+        "An inline new-folder rename field appears, accepts `grocery_trip`, and then resolves into a visible folder named `grocery_trip` in Documents."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a new folder with a specified name in {{target_location}}.",
+      "parameters": {
+        "target_location": "Documents",
+        "folder_name": "grocery_trip"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the `Documents` item in the Files sidebar'}}",
+          "action_template": "When the Files window is visible and the sidebar shows {{target_location}}, click the {{target_location}} item in the Files sidebar once to enter that folder. Preconditions: the Files window is focused or visible on screen, and the left sidebar contains a {{target_location}} location. Afterward, the main file list switches to {{target_location}} and shows its contents."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'n']}",
+          "action_template": "With {{target_location}} open in Files, press Ctrl+Shift+N to create a new folder. Preconditions: the main pane is showing {{target_location}}, and keyboard shortcuts are accepted by the Files window. Afterward, a new folder name field appears with the default name selected for editing."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'grocery_trip'}",
+          "action_template": "Once the new folder name field is active, type {{folder_name}} to replace the default placeholder name. Preconditions: the new folder name field is focused, and the default placeholder name is selected. Afterward, the placeholder folder name is replaced with {{folder_name}}."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After typing {{folder_name}}, press Enter to finish the rename. Preconditions: the rename field is still active, and {{folder_name}} has been typed completely. Afterward, a folder named {{folder_name}} is created in {{target_location}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Create the required text note inside the new grocery-trip folder.",
+      "unit_type": "CREATE_TEXT_NOTE",
+      "unit_before_state": "Files remains open on Documents with the `grocery_trip` folder already created, and Terminal is not yet in the foreground.",
+      "unit_after_state": "A Terminal window is open in front of Files, the `printf` command has been executed, and the note file `shopping_note.txt` has been created in `~/Documents/grocery_trip`.",
+      "unit_precondition": [
+        "The folder `~/Documents/grocery_trip` already exists.",
+        "Desktop keyboard shortcuts are available so Terminal can be opened and receive typed input."
+      ],
+      "unit_effect": [
+        "Terminal opens with an active shell prompt.",
+        "The full file-creation command is entered and executed.",
+        "The note file containing `buy milk, eggs, and bread` is written into the `grocery_trip` folder."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a specified text note inside an existing target folder using Terminal.",
+      "parameters": {
+        "target_folder": "~/Documents/grocery_trip",
+        "file_name": "shopping_note.txt",
+        "note_content": "buy milk, eggs, and bread"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'alt', 't']}",
+          "action_template": "While the desktop session is responsive and keyboard shortcuts can be used, press Ctrl+Alt+T to open Terminal so the text note can be created directly. A shell window should appear in front of Files with a prompt ready."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': \"printf 'buy milk, eggs, and bread\\\\n' > ~/Documents/grocery_trip/shopping_note.txt\"}",
+          "action_template": "When the Terminal cursor is active and {{target_folder}} already exists, type `printf '{{note_content}}\\n' > {{target_folder}}/{{file_name}}` so the full file-creation command appears at the prompt, ready to execute."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter after the full command for {{file_name}} is visible in the shell and the prompt is waiting for execution. The shell should run it and create {{file_name}} inside {{target_folder}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        8,
+        9,
+        10
+      ],
+      "unit_intent": "Verify that the grocery note exists and return to the folder level needed for archiving.",
+      "unit_type": "VERIFY_FILE_AND_RETURN",
+      "unit_before_state": "Terminal is in the foreground, while Files is still open behind it on the Documents folder that contains `grocery_trip`.",
+      "unit_after_state": "Files is back in the foreground on the Documents folder, with `grocery_trip` visible again after briefly opening it and confirming that `shopping_note.txt` exists inside.",
+      "unit_precondition": [
+        "Files is still open in another window on Documents.",
+        "The `grocery_trip` folder is visible and can be opened from Documents."
+      ],
+      "unit_effect": [
+        "Window focus returns from Terminal to Files.",
+        "Opening `grocery_trip` shows `shopping_note.txt` in the folder contents.",
+        "After clicking Back, the view returns to Documents with `grocery_trip` ready to be compressed."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Verify that a specified file exists inside a target folder and return to the parent folder for the next file operation.",
+      "parameters": {
+        "target_folder": "grocery_trip",
+        "expected_file": "shopping_note.txt",
+        "parent_location": "Documents"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['alt', 'tab']}",
+          "action_template": "Press Alt+Tab while the file manager remains open in another window to bring it back to the foreground on {{parent_location}} so {{target_folder}} can be checked."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 2, 'target': {'text': 'the `grocery_trip` folder in the Documents file list'}}",
+          "action_template": "Double-click {{target_folder}} in the {{parent_location}} file list when it is visible and accessible to open the folder and verify that {{expected_file}} is shown inside."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the back button in the Files header bar'}}",
+          "action_template": "Click the back button once while viewing {{target_folder}} after confirming {{expected_file}} is present to return to {{parent_location}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        11,
+        12,
+        13
+      ],
+      "unit_intent": "Package the grocery-trip folder as a zip archive.",
+      "unit_type": "CREATE_ZIP_ARCHIVE",
+      "unit_before_state": "Files is showing the Documents folder, and the `grocery_trip` folder is visible in the file list.",
+      "unit_after_state": "The compression dialog has been completed and closed, and a new archive file named `grocery_trip.zip` is visible in Documents.",
+      "unit_precondition": [
+        "The `grocery_trip` folder is visible in Documents and not in rename mode.",
+        "The folder context menu includes `Compress...`, and the archive dialog can be confirmed with `Create`."
+      ],
+      "unit_effect": [
+        "A context menu opens for `grocery_trip`.",
+        "Selecting `Compress...` opens the archive creation dialog.",
+        "After confirming, the dialog closes and `grocery_trip.zip` appears in the Documents file list."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "{{confirm_button}} a zip archive from {{folder_name}} in {{parent_location}}.",
+      "parameters": {
+        "folder_name": "grocery_trip",
+        "parent_location": "Documents",
+        "archive_option": "Compress...",
+        "confirm_button": "Create",
+        "output_archive_name": "grocery_trip.zip"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'right', 'num_clicks': 1, 'target': {'text': 'the `grocery_trip` folder in the Documents file list'}}",
+          "action_template": "When {{folder_name}} is visible in {{parent_location}} and not being renamed, right-click the {{folder_name}} folder in the file list to open its context menu. This exposes the archive option needed for the next step, and a context menu opens for the selected folder."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the `Compress...` option in the context menu'}}",
+          "action_template": "With the folder context menu visible and {{archive_option}} available, click {{archive_option}} to open the archive dialog for {{folder_name}}. A compression dialog opens with archive settings."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the `Create` button in the compression dialog'}}",
+          "action_template": "Once the archive creation dialog is focused and {{confirm_button}} is visible, click {{confirm_button}} to generate the zip archive. The dialog closes and {{output_archive_name}} appears in {{parent_location}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        14
+      ],
+      "unit_intent": "Place the finished archive on the Desktop for quick access.",
+      "unit_type": "MOVE_ARCHIVE_TO_DESKTOP",
+      "unit_before_state": "Files shows the Documents folder with `grocery_trip.zip` visible in the main pane and `Desktop` available in the sidebar.",
+      "unit_after_state": "The archive `grocery_trip.zip` has been moved onto the Desktop and is no longer listed in the Documents folder view.",
+      "unit_precondition": [
+        "`grocery_trip.zip` is visible in the current Documents view.",
+        "The Files sidebar contains a reachable `Desktop` destination for drag-and-drop."
+      ],
+      "unit_effect": [
+        "Dragging the archive onto `Desktop` removes it from the Documents list.",
+        "The zip file is now located on the Desktop as the final deliverable."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Move {{archive_name}} from {{source_folder}} to {{destination_location}} for quick access.",
+      "parameters": {
+        "archive_name": "grocery_trip.zip",
+        "source_folder": "Documents",
+        "destination_location": "Desktop"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the `grocery_trip.zip` file in the Documents file list'}, 'end': {'text': 'the `Desktop` item in the Files sidebar'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "When {{archive_name}} is visible in {{source_folder}} and the Files sidebar shows {{destination_location}}, drag the archive from the {{source_folder}} file list onto {{destination_location}}. This moves {{archive_name}} out of {{source_folder}} and places it in {{destination_location}} for quick access."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

@@ -1,0 +1,416 @@
+{
+  "segment_id": "seg_001",
+  "app": "os",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Prepare a clean terminal prompt for the file-management commands",
+      "action_before_state": "A GNOME Terminal window is already open and focused, and a shell prompt is visible with older terminal output above it.",
+      "action_preconditions": [
+        "The terminal window is active.",
+        "A shell prompt is available and ready to receive keyboard input."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "l"
+        ]
+      },
+      "action_after_effects": "The terminal view is cleared and the shell prompt remains ready for the next command.",
+      "nl_explanation": "When the terminal is focused and the prompt is ready, press Ctrl+L to clear old output so the next commands are easier to read."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Enter the command that switches to the Desktop and creates the destination folder",
+      "action_before_state": "The terminal shows a clean prompt with the cursor waiting on an empty command line.",
+      "action_preconditions": [
+        "The terminal prompt is visible.",
+        "No unfinished command is currently on the line."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "cd ~/Desktop && mkdir -p meeting_pack"
+      },
+      "action_after_effects": "The command appears at the prompt and is ready to run.",
+      "nl_explanation": "With an empty prompt available, type the command to go to the Desktop and create the meeting_pack folder so the file-organization step has a destination."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Run the Desktop setup command",
+      "action_before_state": "The terminal command line contains `cd ~/Desktop && mkdir -p meeting_pack` and is waiting for execution.",
+      "action_preconditions": [
+        "The full setup command is already typed into the terminal.",
+        "The terminal window still has focus."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The shell changes into `~/Desktop`, creates `meeting_pack` if needed, and returns to a prompt in that directory.",
+      "nl_explanation": "Once the setup command is fully typed, press Enter to move into the Desktop folder and create the meeting_pack directory for the files you will collect."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Enter the command that gathers all PDF and ODT files into the meeting folder",
+      "action_before_state": "The terminal prompt is now in the Desktop directory and is idle, ready for another command.",
+      "action_preconditions": [
+        "The current working directory is `~/Desktop`.",
+        "The `meeting_pack` folder already exists on the Desktop."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "find . -maxdepth 1 -type f \\( -iname '*.pdf' -o -iname '*.odt' \\) -exec mv -t meeting_pack {} +"
+      },
+      "action_after_effects": "The move command is shown at the prompt and is ready to be executed.",
+      "nl_explanation": "After the Desktop folder and destination folder are ready, type the find command that locates PDF and ODT files on the Desktop and prepares to move them into meeting_pack."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Run the file-moving command",
+      "action_before_state": "The terminal contains the file-moving command and the cursor is positioned at the end of the line.",
+      "action_preconditions": [
+        "The move command has been typed correctly.",
+        "The terminal remains focused."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "All matching PDF and ODT files in the top level of the Desktop are moved into `meeting_pack`, and the prompt returns.",
+      "nl_explanation": "When the move command is ready, press Enter so the Desktop documents are collected into meeting_pack and the Desktop is partially cleaned up."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Enter the command that creates the zip archive and writes the Desktop inventory file",
+      "action_before_state": "The terminal prompt is idle again in the Desktop directory after the document files have been moved.",
+      "action_preconditions": [
+        "The `meeting_pack` folder is present and already contains the moved files.",
+        "The terminal prompt is waiting for input in `~/Desktop`."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "zip -r meeting_pack.zip meeting_pack && find . -maxdepth 1 -mindepth 1 ! -name 'desktop_inventory.txt' ! -name '.*' -printf '%f\\n' | sort > desktop_inventory.txt"
+      },
+      "action_after_effects": "The combined archive-and-report command appears on the command line and is ready to run.",
+      "nl_explanation": "With the meeting files already grouped into one folder, type a command that zips that folder and then writes a sorted inventory of the visible Desktop items, excluding hidden files and the inventory file itself, into desktop_inventory.txt."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Execute the archive and inventory command",
+      "action_before_state": "The terminal shows the zip-and-inventory command and is waiting for confirmation.",
+      "action_preconditions": [
+        "The combined command is fully typed in the terminal.",
+        "The Desktop directory is still the current working directory."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "A `meeting_pack.zip` archive is created on the Desktop, `desktop_inventory.txt` is generated, and the terminal returns to a prompt.",
+      "nl_explanation": "After the combined command is ready, press Enter to create the zip archive and generate the Desktop inventory file that records the remaining visible items."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Open the file manager to visually verify the final Desktop contents",
+      "action_before_state": "The terminal is still visible, and the GNOME dock is available on the side of the screen.",
+      "action_preconditions": [
+        "The GNOME dock is visible.",
+        "The Files application icon is available in the dock."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Files icon in the GNOME dock"
+        }
+      },
+      "action_after_effects": "The Files application opens or comes to the foreground.",
+      "nl_explanation": "When the terminal work is finished and the dock is visible, click the Files icon so you can confirm the Desktop results visually instead of only relying on terminal output."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Display the Desktop folder and confirm the new artifacts are present",
+      "action_before_state": "The Files window is open, showing the sidebar and a file list for the current location.",
+      "action_preconditions": [
+        "The Files window is active.",
+        "The sidebar includes a Desktop entry."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Desktop entry in the Files sidebar"
+        }
+      },
+      "action_after_effects": "The main pane switches to the Desktop folder and shows `meeting_pack`, `meeting_pack.zip`, and `desktop_inventory.txt`, confirming the task is complete.",
+      "nl_explanation": "Once Files is open and the Desktop shortcut is available in the sidebar, click Desktop to verify that the meeting_pack folder, its zip archive, and the inventory text file were created successfully."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Set up the Desktop as the working location and create the destination folder that will hold meeting documents.",
+      "unit_type": "INITIALIZE_DESKTOP_WORKSPACE",
+      "unit_before_state": "A GNOME Terminal window is focused with old output still visible above an interactive shell prompt.",
+      "unit_after_state": "The terminal is positioned at a fresh shell prompt inside the Desktop directory, and a folder named meeting_pack now exists on the Desktop.",
+      "unit_precondition": [
+        "A GNOME Terminal window is already open and focused.",
+        "A shell prompt is available and ready to accept a new command."
+      ],
+      "unit_effect": [
+        "The terminal display is cleared to a clean prompt.",
+        "The command to change into the Desktop and create meeting_pack is executed successfully.",
+        "A new prompt returns in the Desktop directory with meeting_pack available as a visible folder target."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Collect all top-level PDF and ODT documents from the Desktop into the meeting_pack folder.",
+      "unit_type": "MOVE_DOCUMENT_FILES",
+      "unit_before_state": "The terminal is idle in the Desktop directory, and the meeting_pack folder already exists there as the destination for collected files.",
+      "unit_after_state": "The shell prompt returns in the Desktop directory after all top-level PDF and ODT files on the Desktop have been moved into meeting_pack.",
+      "unit_precondition": [
+        "The current working directory is the Desktop.",
+        "The meeting_pack folder already exists on the Desktop.",
+        "The terminal prompt is idle and ready for another command."
+      ],
+      "unit_effect": [
+        "The find-and-move command is entered and executed.",
+        "Matching PDF and ODT files are no longer present at the top level of the Desktop.",
+        "Those files are now contained inside the meeting_pack folder."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7
+      ],
+      "unit_intent": "Produce the deliverables that summarize the cleaned Desktop: a zip archive of the meeting folder and a sorted inventory of remaining visible items.",
+      "unit_type": "CREATE_ARCHIVE_AND_INVENTORY",
+      "unit_before_state": "The terminal is again waiting at a prompt in the Desktop directory after the document files have already been moved into meeting_pack.",
+      "unit_after_state": "The Desktop now contains meeting_pack.zip and desktop_inventory.txt alongside the meeting_pack folder, and the terminal has returned to an idle prompt.",
+      "unit_precondition": [
+        "The meeting_pack folder exists on the Desktop and already contains the moved PDF and ODT files.",
+        "The shell is still in the Desktop directory.",
+        "The terminal prompt is ready for command entry."
+      ],
+      "unit_effect": [
+        "The combined zip-and-inventory command is executed successfully.",
+        "A file named meeting_pack.zip is created from the meeting_pack folder.",
+        "A file named desktop_inventory.txt is generated containing the alphabetically sorted visible remaining Desktop items."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8,
+        9
+      ],
+      "unit_intent": "Visually confirm in the file manager that the Desktop cleanup outputs were created correctly.",
+      "unit_type": "VERIFY_DESKTOP_RESULTS",
+      "unit_before_state": "The terminal is visible on screen, and the GNOME dock is available with the Files application icon accessible.",
+      "unit_after_state": "A Files window is open to the Desktop folder, where meeting_pack, meeting_pack.zip, and desktop_inventory.txt are visible in the main file list.",
+      "unit_precondition": [
+        "The GNOME dock is visible and the Files icon can be clicked.",
+        "The file-management commands have already completed so the expected Desktop artifacts should exist."
+      ],
+      "unit_effect": [
+        "The Files application opens or is brought to the foreground.",
+        "The Desktop location is selected in the sidebar.",
+        "The Desktop contents visibly show meeting_pack, meeting_pack.zip, and desktop_inventory.txt, confirming task completion."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Set up the Desktop as the working location and create the destination folder that will hold meeting documents.",
+      "unit_type": "INITIALIZE_DESKTOP_WORKSPACE",
+      "unit_before_state": "A GNOME Terminal window is focused with old output still visible above an interactive shell prompt.",
+      "unit_after_state": "The terminal is positioned at a fresh shell prompt inside the Desktop directory, and a folder named meeting_pack now exists on the Desktop.",
+      "unit_precondition": [
+        "A GNOME Terminal window is already open and focused.",
+        "A shell prompt is available and ready to accept a new command."
+      ],
+      "unit_effect": [
+        "The terminal display is cleared to a clean prompt.",
+        "The command to change into the Desktop and create meeting_pack is executed successfully.",
+        "A new prompt returns in the Desktop directory with meeting_pack available as a visible folder target."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Initialize the terminal workspace by clearing the prompt, switching to a target working directory, and creating the destination folder for upcoming files.",
+      "parameters": {
+        "working_directory": "~/Desktop",
+        "destination_folder": "meeting_pack"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'l']}",
+          "action_template": "When the terminal window is active and a shell prompt is ready to receive input, press Ctrl+L to clear old output so the workspace-setup commands are easier to read; the terminal view is cleared and the prompt remains ready for the next command."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'cd ~/Desktop && mkdir -p meeting_pack'}",
+          "action_template": "With a visible empty prompt and no unfinished command on the line, type the command to go to {{working_directory}} and create the {{destination_folder}} folder so the file-organization step has a destination; the command appears at the prompt and is ready to run."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "When the full setup command is already typed and the terminal window still has focus, press Enter to execute it, switch into {{working_directory}}, and create {{destination_folder}} if needed; the shell returns to a prompt in that directory."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Collect all top-level PDF and ODT documents from the Desktop into the meeting_pack folder.",
+      "unit_type": "MOVE_DOCUMENT_FILES",
+      "unit_before_state": "The terminal is idle in the Desktop directory, and the meeting_pack folder already exists there as the destination for collected files.",
+      "unit_after_state": "The shell prompt returns in the Desktop directory after all top-level PDF and ODT files on the Desktop have been moved into meeting_pack.",
+      "unit_precondition": [
+        "The current working directory is the Desktop.",
+        "The meeting_pack folder already exists on the Desktop.",
+        "The terminal prompt is idle and ready for another command."
+      ],
+      "unit_effect": [
+        "The find-and-move command is entered and executed.",
+        "Matching PDF and ODT files are no longer present at the top level of the Desktop.",
+        "Those files are now contained inside the meeting_pack folder."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Move all top-level documents of specified file types from the current directory into a designated destination folder.",
+      "parameters": {
+        "document_types": "PDF and ODT",
+        "destination_folder": "meeting_pack"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': \"find . -maxdepth 1 -type f \\\\( -iname '*.pdf' -o -iname '*.odt' \\\\) -exec mv -t meeting_pack {} +\"}",
+          "action_template": "After the current directory and destination folder are ready, type the find command that locates {{document_types}} files at the top level of the current directory and prepares to move them into {{destination_folder}}."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "When the move command is ready, press Enter so the top-level {{document_types}} files in the current directory are moved into {{destination_folder}}, and the prompt returns."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7
+      ],
+      "unit_intent": "Produce the deliverables that summarize the cleaned Desktop: a zip archive of the meeting folder and a sorted inventory of remaining visible items.",
+      "unit_type": "CREATE_ARCHIVE_AND_INVENTORY",
+      "unit_before_state": "The terminal is again waiting at a prompt in the Desktop directory after the document files have already been moved into meeting_pack.",
+      "unit_after_state": "The Desktop now contains meeting_pack.zip and desktop_inventory.txt alongside the meeting_pack folder, and the terminal has returned to an idle prompt.",
+      "unit_precondition": [
+        "The meeting_pack folder exists on the Desktop and already contains the moved PDF and ODT files.",
+        "The shell is still in the Desktop directory.",
+        "The terminal prompt is ready for command entry."
+      ],
+      "unit_effect": [
+        "The combined zip-and-inventory command is executed successfully.",
+        "A file named meeting_pack.zip is created from the meeting_pack folder.",
+        "A file named desktop_inventory.txt is generated containing the alphabetically sorted visible remaining Desktop items."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create an archive from a prepared folder and generate a sorted inventory file of the remaining visible items in the current directory.",
+      "parameters": {
+        "archive_folder": "meeting_pack",
+        "archive_file": "meeting_pack.zip",
+        "inventory_file": "desktop_inventory.txt"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': \"zip -r meeting_pack.zip meeting_pack && find . -maxdepth 1 -mindepth 1 ! -name 'desktop_inventory.txt' ! -name '.*' -printf '%f\\\\n' | sort > desktop_inventory.txt\"}",
+          "action_template": "With {{archive_folder}} already present in the current directory and the terminal prompt ready for input, type a shell command that creates {{archive_file}} from {{archive_folder}} and writes a sorted inventory of the visible items in the current directory, excluding hidden files and {{inventory_file}}, into {{inventory_file}}, so the combined command is ready to run."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After the combined command for {{archive_file}} and {{inventory_file}} is fully typed and the current directory is unchanged, press Enter to execute it so that {{archive_file}} is created from {{archive_folder}}, {{inventory_file}} is generated, and the terminal returns to a prompt."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8,
+        9
+      ],
+      "unit_intent": "Visually confirm in the file manager that the Desktop cleanup outputs were created correctly.",
+      "unit_type": "VERIFY_DESKTOP_RESULTS",
+      "unit_before_state": "The terminal is visible on screen, and the GNOME dock is available with the Files application icon accessible.",
+      "unit_after_state": "A Files window is open to the Desktop folder, where meeting_pack, meeting_pack.zip, and desktop_inventory.txt are visible in the main file list.",
+      "unit_precondition": [
+        "The GNOME dock is visible and the Files icon can be clicked.",
+        "The file-management commands have already completed so the expected Desktop artifacts should exist."
+      ],
+      "unit_effect": [
+        "The Files application opens or is brought to the foreground.",
+        "The Desktop location is selected in the sidebar.",
+        "The Desktop contents visibly show meeting_pack, meeting_pack.zip, and desktop_inventory.txt, confirming task completion."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Visually verify in the file manager that expected output artifacts are present in a target folder.",
+      "parameters": {
+        "file_manager_icon": "the Files icon in the GNOME dock",
+        "target_folder": "Desktop",
+        "target_sidebar_entry": "the Desktop entry in the Files sidebar",
+        "expected_artifacts": "meeting_pack, meeting_pack.zip, and desktop_inventory.txt"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Files icon in the GNOME dock'}}",
+          "action_template": "Click {{file_manager_icon}} when the dock is visible and the file manager icon is available, so the file manager opens or comes to the foreground for visual verification of artifacts in {{target_folder}}."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Desktop entry in the Files sidebar'}}",
+          "action_template": "Click {{target_sidebar_entry}} once the file manager window is active and the sidebar entry is available, so the main pane switches to {{target_folder}} and shows {{expected_artifacts}} for confirmation."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

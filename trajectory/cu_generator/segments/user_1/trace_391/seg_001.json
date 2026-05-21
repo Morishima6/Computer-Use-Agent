@@ -1,0 +1,424 @@
+{
+  "segment_id": "seg_001",
+  "app": "os",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open Terminal",
+      "action_before_state": "The GNOME desktop or another normal window is visible, and no full-screen lock screen or modal dialog is blocking input.",
+      "action_preconditions": [
+        "The GNOME session is active and responsive",
+        "Keyboard input is available"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "alt",
+          "t"
+        ]
+      },
+      "action_after_effects": "A Terminal window opens with a shell prompt ready for input.",
+      "nl_explanation": "When the GNOME session is active and nothing is blocking shortcuts, press Ctrl+Alt+T. The expected result is that Terminal opens and shows a blinking cursor."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Prepare the working folder for the report files",
+      "action_before_state": "Terminal is open and focused, with a shell prompt visible.",
+      "action_preconditions": [
+        "The Terminal window is focused",
+        "A shell prompt is ready to accept a command"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "mkdir -p ~/system-check && cd ~/system-check"
+      },
+      "action_after_effects": "The command text appears at the prompt and is ready to run.",
+      "nl_explanation": "With Terminal focused and the prompt visible, type the command to create the `system-check` folder in the home directory and move into it. The command should appear in the terminal input line."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Run the folder creation and directory change command",
+      "action_before_state": "The `mkdir -p ~/system-check && cd ~/system-check` command is fully typed in Terminal.",
+      "action_preconditions": [
+        "The full command is already typed",
+        "Terminal focus has not changed"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The `system-check` folder is created if needed, and the shell moves into that directory.",
+      "nl_explanation": "Once the folder command is typed, press Enter to execute it. The expected result is that the folder exists and the terminal is now working inside `~/system-check`."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Enter the command that saves disk and memory information into files",
+      "action_before_state": "Terminal remains open in the `system-check` directory, with a new shell prompt ready.",
+      "action_preconditions": [
+        "Terminal is still focused",
+        "The previous command has finished running"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "df -h > disk-usage.txt && free -h > memory-usage.txt"
+      },
+      "action_after_effects": "The report-generation command is visible in the terminal and ready to run.",
+      "nl_explanation": "After the folder is ready and Terminal is still active, type the command that writes disk usage to `disk-usage.txt` and memory usage to `memory-usage.txt`. The full command should appear at the prompt."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Generate the report files",
+      "action_before_state": "The `df -h > disk-usage.txt && free -h > memory-usage.txt` command is fully typed in Terminal.",
+      "action_preconditions": [
+        "The report command is fully typed",
+        "Terminal focus is unchanged"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The command runs and creates `disk-usage.txt` and `memory-usage.txt` inside `~/system-check`.",
+      "nl_explanation": "When the report command is typed and ready, press Enter. The expected behavior is that both text files are created in the current folder."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Prepare to open the report folder in the file manager",
+      "action_before_state": "Terminal is still open after generating the two report files, and the prompt is visible again.",
+      "action_preconditions": [
+        "The report command has completed",
+        "A fresh shell prompt is available"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "xdg-open ."
+      },
+      "action_after_effects": "The `xdg-open .` command is shown in Terminal and is ready to execute.",
+      "nl_explanation": "Once the report files are created and the prompt returns, type `xdg-open .` to open the current folder in Files. The command should appear on the terminal line."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Open the report folder in Files",
+      "action_before_state": "The `xdg-open .` command is fully typed in Terminal.",
+      "action_preconditions": [
+        "The open-folder command is typed",
+        "Terminal is still focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "GNOME Files opens directly to the `system-check` folder.",
+      "nl_explanation": "After typing the open-folder command, press Enter. The expected result is that Files launches and shows the contents of `~/system-check`."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Select a generated report while confirming both report files are present",
+      "action_before_state": "A Files window is open in the `system-check` folder, and the file list is visible showing `disk-usage.txt` and `memory-usage.txt`.",
+      "action_preconditions": [
+        "GNOME Files is open to `~/system-check`",
+        "The file list area is visible with both report files"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "`disk-usage.txt` in the file list"
+        }
+      },
+      "action_after_effects": "`disk-usage.txt` becomes selected, and `memory-usage.txt` remains visible in the same folder. The visible folder contents confirm that the two report files were created.",
+      "nl_explanation": "When Files is showing the `system-check` folder with both report files visible, single-click `disk-usage.txt`. The expected result is that the file is highlighted while both `disk-usage.txt` and `memory-usage.txt` remain visible, confirming the reports were created."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Launch a shell workspace to run the system status collection commands.",
+      "unit_type": "OPEN_TERMINAL",
+      "unit_before_state": "The GNOME desktop or another normal window is visible, and no lock screen, full-screen blocker, or modal dialog is intercepting keyboard shortcuts.",
+      "unit_after_state": "A Terminal window is open in the foreground with a shell prompt and blinking cursor ready for input.",
+      "unit_precondition": [
+        "The GNOME session is active and responsive.",
+        "Keyboard input is available and global shortcuts are not blocked."
+      ],
+      "unit_effect": [
+        "A new Terminal window appears.",
+        "A shell prompt is visible, indicating commands can now be entered."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3
+      ],
+      "unit_intent": "Create the report workspace folder in the home directory and switch the shell into it.",
+      "unit_type": "CREATE_AND_ENTER_FOLDER",
+      "unit_before_state": "Terminal is focused with an idle shell prompt in the current working directory.",
+      "unit_after_state": "The `system-check` folder exists under the home directory, and the shell is now positioned inside `~/system-check` with a fresh prompt.",
+      "unit_precondition": [
+        "Terminal is focused.",
+        "A shell prompt is ready to accept a command."
+      ],
+      "unit_effect": [
+        "The `mkdir -p ~/system-check && cd ~/system-check` command executes without interruption.",
+        "A new prompt appears in the `~/system-check` directory, confirming the folder is ready and active."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Capture the current disk and memory status into separate text report files.",
+      "unit_type": "GENERATE_STATUS_REPORT_FILES",
+      "unit_before_state": "Terminal remains open in `~/system-check`, and a fresh shell prompt is ready for the next command.",
+      "unit_after_state": "The command has finished running in Terminal, and `disk-usage.txt` and `memory-usage.txt` have been created inside `~/system-check`.",
+      "unit_precondition": [
+        "The shell is currently in `~/system-check`.",
+        "The previous command has completed and a new prompt is visible."
+      ],
+      "unit_effect": [
+        "The `df -h > disk-usage.txt && free -h > memory-usage.txt` command runs to completion.",
+        "Two files named `disk-usage.txt` and `memory-usage.txt` now exist in the current folder."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        6,
+        7
+      ],
+      "unit_intent": "Open the generated report folder in the file manager for visual inspection.",
+      "unit_type": "OPEN_FOLDER_IN_FILE_MANAGER",
+      "unit_before_state": "Terminal is still focused in `~/system-check` after creating the report files, and the prompt is visible again.",
+      "unit_after_state": "A GNOME Files window is open to the `system-check` folder, showing its file list.",
+      "unit_precondition": [
+        "The report-generation command has finished.",
+        "Terminal is still focused in `~/system-check` with a fresh prompt available."
+      ],
+      "unit_effect": [
+        "The `xdg-open .` command is executed from the current directory.",
+        "GNOME Files opens directly to `~/system-check`."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        8
+      ],
+      "unit_intent": "Visually confirm that the report files were created in the opened folder.",
+      "unit_type": "SELECT_FILE_AND_CONFIRM_REPORTS",
+      "unit_before_state": "GNOME Files is open in the `system-check` folder, and both `disk-usage.txt` and `memory-usage.txt` are visible in the file list.",
+      "unit_after_state": "`disk-usage.txt` is highlighted as the selected item, while `memory-usage.txt` remains visible in the same folder view.",
+      "unit_precondition": [
+        "GNOME Files is open to `~/system-check`.",
+        "Both generated report files are visible in the file list area."
+      ],
+      "unit_effect": [
+        "`disk-usage.txt` becomes selected.",
+        "The visible presence of both `disk-usage.txt` and `memory-usage.txt` confirms the reports were created."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Launch a shell workspace to run the system status collection commands.",
+      "unit_type": "OPEN_TERMINAL",
+      "unit_before_state": "The GNOME desktop or another normal window is visible, and no lock screen, full-screen blocker, or modal dialog is intercepting keyboard shortcuts.",
+      "unit_after_state": "A Terminal window is open in the foreground with a shell prompt and blinking cursor ready for input.",
+      "unit_precondition": [
+        "The GNOME session is active and responsive.",
+        "Keyboard input is available and global shortcuts are not blocked."
+      ],
+      "unit_effect": [
+        "A new Terminal window appears.",
+        "A shell prompt is visible, indicating commands can now be entered."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open the terminal application so a shell prompt is ready for command input.",
+      "parameters": {
+        "launch_shortcut": "Ctrl+Alt+T",
+        "terminal_app": "Terminal"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'alt', 't']}",
+          "action_template": "When the GNOME session is active and nothing is blocking shortcuts, press {{launch_shortcut}}. The expected result is that {{terminal_app}} opens and shows a blinking cursor."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3
+      ],
+      "unit_intent": "Create the report workspace folder in the home directory and switch the shell into it.",
+      "unit_type": "CREATE_AND_ENTER_FOLDER",
+      "unit_before_state": "Terminal is focused with an idle shell prompt in the current working directory.",
+      "unit_after_state": "The `system-check` folder exists under the home directory, and the shell is now positioned inside `~/system-check` with a fresh prompt.",
+      "unit_precondition": [
+        "Terminal is focused.",
+        "A shell prompt is ready to accept a command."
+      ],
+      "unit_effect": [
+        "The `mkdir -p ~/system-check && cd ~/system-check` command executes without interruption.",
+        "A new prompt appears in the `~/system-check` directory, confirming the folder is ready and active."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a specified folder path from the shell and switch the current shell session into it.",
+      "parameters": {
+        "target_folder_path": "~/system-check",
+        "target_folder_name": "system-check"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'mkdir -p ~/system-check && cd ~/system-check'}",
+          "action_template": "With Terminal focused and a shell prompt ready to accept a command, type the shell command to create {{target_folder_path}} and move into it. The expected result is that the command text appears at the prompt and is ready to run."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Once the command to create and enter {{target_folder_path}} is fully typed and Terminal focus has not changed, press Enter to execute it. The expected result is that {{target_folder_name}} is created if needed and the shell moves into {{target_folder_path}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Capture the current disk and memory status into separate text report files.",
+      "unit_type": "GENERATE_STATUS_REPORT_FILES",
+      "unit_before_state": "Terminal remains open in `~/system-check`, and a fresh shell prompt is ready for the next command.",
+      "unit_after_state": "The command has finished running in Terminal, and `disk-usage.txt` and `memory-usage.txt` have been created inside `~/system-check`.",
+      "unit_precondition": [
+        "The shell is currently in `~/system-check`.",
+        "The previous command has completed and a new prompt is visible."
+      ],
+      "unit_effect": [
+        "The `df -h > disk-usage.txt && free -h > memory-usage.txt` command runs to completion.",
+        "Two files named `disk-usage.txt` and `memory-usage.txt` now exist in the current folder."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Generate separate text report files for specified system status outputs.",
+      "parameters": {
+        "report_command": "df -h > disk-usage.txt && free -h > memory-usage.txt",
+        "first_report_file": "disk-usage.txt",
+        "second_report_file": "memory-usage.txt"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'df -h > disk-usage.txt && free -h > memory-usage.txt'}",
+          "action_template": "With Terminal focused and the previous command finished, type {{report_command}} so the report-generation command is visible at the prompt and ready to run."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "When {{report_command}} is fully typed and Terminal focus is unchanged, press Enter to run it and create {{first_report_file}} and {{second_report_file}} in the current folder."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        6,
+        7
+      ],
+      "unit_intent": "Open the generated report folder in the file manager for visual inspection.",
+      "unit_type": "OPEN_FOLDER_IN_FILE_MANAGER",
+      "unit_before_state": "Terminal is still focused in `~/system-check` after creating the report files, and the prompt is visible again.",
+      "unit_after_state": "A GNOME Files window is open to the `system-check` folder, showing its file list.",
+      "unit_precondition": [
+        "The report-generation command has finished.",
+        "Terminal is still focused in `~/system-check` with a fresh prompt available."
+      ],
+      "unit_effect": [
+        "The `xdg-open .` command is executed from the current directory.",
+        "GNOME Files opens directly to `~/system-check`."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open the current working folder in the file manager from the terminal for visual inspection.",
+      "parameters": {
+        "target_folder": "`~/system-check`"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'xdg-open .'}",
+          "action_template": "With the previous command completed and a fresh shell prompt available, type `xdg-open .` to prepare opening the current folder in the file manager. The command should appear in Terminal and be ready to execute."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After the open-folder command is fully typed and Terminal is still focused, press Enter to execute it. The file manager opens directly to {{target_folder}} and shows its contents."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        8
+      ],
+      "unit_intent": "Visually confirm that the report files were created in the opened folder.",
+      "unit_type": "SELECT_FILE_AND_CONFIRM_REPORTS",
+      "unit_before_state": "GNOME Files is open in the `system-check` folder, and both `disk-usage.txt` and `memory-usage.txt` are visible in the file list.",
+      "unit_after_state": "`disk-usage.txt` is highlighted as the selected item, while `memory-usage.txt` remains visible in the same folder view.",
+      "unit_precondition": [
+        "GNOME Files is open to `~/system-check`.",
+        "Both generated report files are visible in the file list area."
+      ],
+      "unit_effect": [
+        "`disk-usage.txt` becomes selected.",
+        "The visible presence of both `disk-usage.txt` and `memory-usage.txt` confirms the reports were created."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Visually confirm that specified report files were created in the opened folder by selecting one of the visible report files.",
+      "parameters": {
+        "folder_path": "~/system-check",
+        "selected_report_file": "disk-usage.txt",
+        "other_report_file": "memory-usage.txt"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': '`disk-usage.txt` in the file list'}}",
+          "action_template": "When GNOME Files is open to {{folder_path}} and the file list area is visible with both {{selected_report_file}} and {{other_report_file}}, single-click {{selected_report_file}} in the file list. The expected result is that {{selected_report_file}} becomes selected while {{other_report_file}} remains visible in the same folder, confirming that the report files were created."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

@@ -1,0 +1,512 @@
+{
+  "segment_id": "seg_001",
+  "app": "vlc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open VLC's file chooser to select the video",
+      "action_before_state": "VLC is already open on the desktop, showing its main window with no file selected yet.",
+      "action_preconditions": [
+        "The VLC window is focused and visible.",
+        "No modal dialog is blocking keyboard input."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "o"
+        ]
+      },
+      "action_after_effects": "A file chooser window opens on top of VLC, ready for a media file to be selected.",
+      "nl_explanation": "When VLC is focused and no other dialog is blocking input, press Ctrl+O to open the file chooser. The expected result is that VLC shows an Open Media dialog for picking a video file."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Move focus to the location entry in the file chooser",
+      "action_before_state": "The file chooser is open and waiting for a file selection.",
+      "action_preconditions": [
+        "The Open Media file chooser is active.",
+        "Keyboard shortcuts are being received by the file chooser."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "l"
+        ]
+      },
+      "action_after_effects": "The location/path entry becomes active so a full file path can be typed directly.",
+      "nl_explanation": "Once the file chooser is active, press Ctrl+L to focus the path entry. This lets you enter the exact location of the video instead of browsing manually."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Enter the full path of the lecture video",
+      "action_before_state": "The location entry in the file chooser is focused and ready for text input.",
+      "action_preconditions": [
+        "The location bar is active.",
+        "The file /home/user/Downloads/Weekly Lecture.mp4 exists."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "/home/user/Downloads/Weekly Lecture.mp4"
+      },
+      "action_after_effects": "The full video path appears in the location field.",
+      "nl_explanation": "With the path field focused and the lecture file available in Downloads, type the full file path. The chooser should now contain the exact video location."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Open the lecture video in VLC",
+      "action_before_state": "The file chooser contains the full path to the lecture video.",
+      "action_preconditions": [
+        "A valid video file path is present in the location entry.",
+        "The file chooser is still active."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The file chooser closes and VLC starts playing the lecture video.",
+      "nl_explanation": "After entering a valid video path, press Enter to confirm it. VLC should close the dialog and begin playback of the selected lecture clip."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Open the subtitle menu",
+      "action_before_state": "The lecture video is playing in the VLC window.",
+      "action_preconditions": [
+        "The video is open in VLC.",
+        "The top menu bar is visible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Subtitle item in VLC's top menu bar"
+        }
+      },
+      "action_after_effects": "The Subtitle menu opens and shows subtitle-related actions.",
+      "nl_explanation": "While the video is playing and the menu bar is visible, click the Subtitle menu at the top of VLC. This reveals the options for loading an external subtitle file."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Open the dialog for adding an external subtitle file",
+      "action_before_state": "The Subtitle menu is open above the playing video.",
+      "action_preconditions": [
+        "The Subtitle dropdown menu is visible.",
+        "An external subtitle file is available on disk."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Add Subtitle File option in the Subtitle menu"
+        }
+      },
+      "action_after_effects": "A file chooser opens for selecting a subtitle file.",
+      "nl_explanation": "When the Subtitle menu is open, click Add Subtitle File. VLC should open another chooser window so the subtitle track can be selected."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Focus the location entry in the subtitle chooser",
+      "action_before_state": "The subtitle file chooser is open and waiting for a file selection.",
+      "action_preconditions": [
+        "The subtitle chooser dialog is active.",
+        "Keyboard input is directed to that dialog."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "l"
+        ]
+      },
+      "action_after_effects": "The chooser's location/path field becomes active for direct path entry.",
+      "nl_explanation": "Once the subtitle chooser is in focus, press Ctrl+L to jump to the path field. This allows the subtitle file to be entered directly without browsing."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Enter the full path of the subtitle file",
+      "action_before_state": "The subtitle chooser's location entry is focused.",
+      "action_preconditions": [
+        "The path entry is active.",
+        "The file /home/user/Downloads/Weekly Lecture.en.srt exists."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "/home/user/Downloads/Weekly Lecture.en.srt"
+      },
+      "action_after_effects": "The subtitle file path is entered into the chooser.",
+      "nl_explanation": "With the path field active and the subtitle file available in Downloads, type the full path to the .srt file. The chooser should now point to the matching subtitle track."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Load the subtitle file into the playing video",
+      "action_before_state": "The subtitle chooser contains the full path to the .srt file.",
+      "action_preconditions": [
+        "A valid subtitle path is present in the chooser.",
+        "The chooser is still active."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The chooser closes and VLC overlays the loaded subtitles on the video.",
+      "nl_explanation": "After the subtitle path has been entered correctly, press Enter to confirm it. VLC should apply the subtitle file and continue playback with captions visible."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Open the playback controls menu",
+      "action_before_state": "The lecture is playing with subtitles loaded.",
+      "action_preconditions": [
+        "The video is playing in VLC.",
+        "The menu bar is visible and clickable."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Playback item in VLC's top menu bar"
+        }
+      },
+      "action_after_effects": "The Playback menu opens with playback-related options.",
+      "nl_explanation": "When the video is playing and subtitles are already loaded, click Playback in the top menu bar. This exposes the controls for changing playback behavior such as speed."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Open the speed submenu",
+      "action_before_state": "The Playback menu is open.",
+      "action_preconditions": [
+        "The Playback dropdown is visible.",
+        "The mouse can reach the speed-related menu entry."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Speed option inside the Playback menu"
+        }
+      },
+      "action_after_effects": "The speed submenu opens, showing choices for slower or faster playback.",
+      "nl_explanation": "With the Playback menu expanded, click the Speed entry to reveal the available speed adjustments. VLC should show the submenu for changing playback rate."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Increase playback speed slightly",
+      "action_before_state": "The Speed submenu is visible over the VLC window.",
+      "action_preconditions": [
+        "The Speed submenu is open.",
+        "The video is still playing in the background."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Faster option in the Speed submenu"
+        }
+      },
+      "action_after_effects": "VLC increases the playback rate by one step, making the lecture play a little faster.",
+      "nl_explanation": "Once the Speed submenu is visible, click Faster one time. The expected result is that the lecture continues playing at a slightly increased speed."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Switch the video to fullscreen",
+      "action_before_state": "The lecture video is playing with subtitles and a slightly faster playback speed.",
+      "action_preconditions": [
+        "VLC is focused.",
+        "The video is actively playing in the main window."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "f"
+        ]
+      },
+      "action_after_effects": "VLC enters fullscreen mode and the lecture fills the screen.",
+      "nl_explanation": "After the video is configured the way you want, press F while VLC is focused. The expected behavior is that the player enters fullscreen for easier viewing from a distance."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Open the downloaded lecture video in VLC so playback can begin.",
+      "unit_type": "OPEN_MEDIA_FILE",
+      "unit_before_state": "VLC is open on the desktop in its main window with no media playing yet.",
+      "unit_after_state": "The file chooser is closed and the lecture video is playing in the VLC window.",
+      "unit_precondition": [
+        "The VLC main window is focused and able to receive keyboard shortcuts.",
+        "No modal dialog is already blocking VLC.",
+        "The lecture video file exists at /home/user/Downloads/Weekly Lecture.mp4."
+      ],
+      "unit_effect": [
+        "An Open Media file chooser appears on top of VLC.",
+        "The chooser's location field becomes active and shows /home/user/Downloads/Weekly Lecture.mp4.",
+        "After confirmation, the chooser closes and video playback starts in VLC."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "unit_intent": "Load the matching external subtitle track into the playing lecture video.",
+      "unit_type": "LOAD_EXTERNAL_SUBTITLE",
+      "unit_before_state": "The lecture video is already playing in VLC, and the top menu bar is visible with no external subtitle chooser open yet.",
+      "unit_after_state": "The subtitle chooser is closed and the playing video shows the loaded external subtitles over the picture.",
+      "unit_precondition": [
+        "The lecture video is already open and playing in VLC.",
+        "The VLC top menu bar is visible and clickable.",
+        "The subtitle file exists at /home/user/Downloads/Weekly Lecture.en.srt."
+      ],
+      "unit_effect": [
+        "The Subtitle menu opens and the Add Subtitle File command opens a subtitle file chooser.",
+        "The chooser's location field becomes active and shows /home/user/Downloads/Weekly Lecture.en.srt.",
+        "After confirmation, the chooser closes and subtitle text is overlaid on the video during playback."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        10,
+        11,
+        12
+      ],
+      "unit_intent": "Make the lecture play slightly faster while keeping subtitles on screen.",
+      "unit_type": "INCREASE_PLAYBACK_SPEED",
+      "unit_before_state": "The lecture is playing in VLC with subtitles loaded at its current playback speed, and the menu bar is visible.",
+      "unit_after_state": "The menus are dismissed and the lecture continues playing in VLC with subtitles at a slightly faster speed.",
+      "unit_precondition": [
+        "The video is actively playing in VLC with the menu bar visible.",
+        "The user can access the Playback menu and its Speed submenu."
+      ],
+      "unit_effect": [
+        "The Playback menu opens, then the Speed submenu appears.",
+        "Selecting Faster increases the playback rate by one step.",
+        "The video keeps playing with subtitles while motion and speech proceed slightly faster."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        13
+      ],
+      "unit_intent": "Switch the configured lecture playback into fullscreen for distant viewing.",
+      "unit_type": "ENTER_FULLSCREEN_MODE",
+      "unit_before_state": "The lecture video is playing in the VLC window with subtitles visible and playback already set a little faster than before.",
+      "unit_after_state": "VLC is in fullscreen mode and the lecture video fills the screen.",
+      "unit_precondition": [
+        "VLC is focused.",
+        "The lecture video is actively playing in the main VLC window."
+      ],
+      "unit_effect": [
+        "Pressing F switches VLC into fullscreen mode.",
+        "The video expands to occupy the full display area."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Open the downloaded lecture video in VLC so playback can begin.",
+      "unit_type": "OPEN_MEDIA_FILE",
+      "unit_before_state": "VLC is open on the desktop in its main window with no media playing yet.",
+      "unit_after_state": "The file chooser is closed and the lecture video is playing in the VLC window.",
+      "unit_precondition": [
+        "The VLC main window is focused and able to receive keyboard shortcuts.",
+        "No modal dialog is already blocking VLC.",
+        "The lecture video file exists at /home/user/Downloads/Weekly Lecture.mp4."
+      ],
+      "unit_effect": [
+        "An Open Media file chooser appears on top of VLC.",
+        "The chooser's location field becomes active and shows /home/user/Downloads/Weekly Lecture.mp4.",
+        "After confirmation, the chooser closes and video playback starts in VLC."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a specified local media file in VLC and start playback.",
+      "parameters": {
+        "media_file_path": "/home/user/Downloads/Weekly Lecture.mp4"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'o']}",
+          "action_template": "When VLC is focused and no other dialog is blocking input, press Ctrl+O to open the file chooser. Preconditions: the VLC window is focused and visible, and no modal dialog is blocking keyboard input. After this action, a file chooser window opens on top of VLC, ready for a media file to be selected."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'l']}",
+          "action_template": "Once the file chooser is active, press Ctrl+L to focus the path entry. Preconditions: the Open Media file chooser is active, and keyboard shortcuts are being received by the file chooser. After this action, the location/path entry becomes active so {{media_file_path}} can be typed directly."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '/home/user/Downloads/Weekly Lecture.mp4'}",
+          "action_template": "With the path field focused and {{media_file_path}} available, type {{media_file_path}} into the active location field. Preconditions: the location bar is active, and the file at {{media_file_path}} exists. After this action, the full media file path appears in the location field."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After entering a valid media file path, press Enter to confirm it. Preconditions: a valid file path is present in the location entry, and the file chooser is still active. After this action, the file chooser closes and VLC starts playing the media file at {{media_file_path}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "unit_intent": "Load the matching external subtitle track into the playing lecture video.",
+      "unit_type": "LOAD_EXTERNAL_SUBTITLE",
+      "unit_before_state": "The lecture video is already playing in VLC, and the top menu bar is visible with no external subtitle chooser open yet.",
+      "unit_after_state": "The subtitle chooser is closed and the playing video shows the loaded external subtitles over the picture.",
+      "unit_precondition": [
+        "The lecture video is already open and playing in VLC.",
+        "The VLC top menu bar is visible and clickable.",
+        "The subtitle file exists at /home/user/Downloads/Weekly Lecture.en.srt."
+      ],
+      "unit_effect": [
+        "The Subtitle menu opens and the Add Subtitle File command opens a subtitle file chooser.",
+        "The chooser's location field becomes active and shows /home/user/Downloads/Weekly Lecture.en.srt.",
+        "After confirmation, the chooser closes and subtitle text is overlaid on the video during playback."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Load a specified external subtitle file into the currently playing video in VLC.",
+      "parameters": {
+        "subtitle_file_path": "/home/user/Downloads/Weekly Lecture.en.srt"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': \"the Subtitle item in VLC's top menu bar\"}}",
+          "action_template": "While the video is open in VLC and the top menu bar is visible, click the Subtitle item in VLC's top menu bar to open the Subtitle menu so subtitle-related actions are shown."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Add Subtitle File option in the Subtitle menu'}}",
+          "action_template": "When the Subtitle dropdown menu is visible and an external subtitle file is available on disk, click the Add Subtitle File option in the Subtitle menu to open a file chooser for selecting the subtitle file."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'l']}",
+          "action_template": "Once the subtitle chooser dialog is active and receiving keyboard input, press Ctrl+L to focus the chooser's location or path field so the subtitle file path can be entered directly."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '/home/user/Downloads/Weekly Lecture.en.srt'}",
+          "action_template": "With the chooser path entry active and {{subtitle_file_path}} available, type {{subtitle_file_path}} so the subtitle chooser contains the full path to the subtitle file."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After a valid subtitle path is present in the active chooser and {{subtitle_file_path}} has been entered correctly, press Enter to confirm it so the chooser closes and VLC overlays the loaded subtitles on the video."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        10,
+        11,
+        12
+      ],
+      "unit_intent": "Make the lecture play slightly faster while keeping subtitles on screen.",
+      "unit_type": "INCREASE_PLAYBACK_SPEED",
+      "unit_before_state": "The lecture is playing in VLC with subtitles loaded at its current playback speed, and the menu bar is visible.",
+      "unit_after_state": "The menus are dismissed and the lecture continues playing in VLC with subtitles at a slightly faster speed.",
+      "unit_precondition": [
+        "The video is actively playing in VLC with the menu bar visible.",
+        "The user can access the Playback menu and its Speed submenu."
+      ],
+      "unit_effect": [
+        "The Playback menu opens, then the Speed submenu appears.",
+        "Selecting Faster increases the playback rate by one step.",
+        "The video keeps playing with subtitles while motion and speech proceed slightly faster."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Increase the current media playback speed by one step while keeping subtitles visible during playback.",
+      "parameters": {
+        "top_menu_item": "Playback",
+        "speed_submenu_item": "Speed",
+        "speed_adjustment_option": "Faster"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': \"the Playback item in VLC's top menu bar\"}}",
+          "action_template": "Click {{top_menu_item}} in the top menu bar when the video is playing and the menu bar is visible, to open playback-related controls."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Speed option inside the Playback menu'}}",
+          "action_template": "Click {{speed_submenu_item}} inside the open {{top_menu_item}} menu when the playback dropdown is visible, to reveal the available speed adjustment options."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Faster option in the Speed submenu'}}",
+          "action_template": "Click {{speed_adjustment_option}} in the open {{speed_submenu_item}} submenu while the video is still playing, to increase the playback rate by one step."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        13
+      ],
+      "unit_intent": "Switch the configured lecture playback into fullscreen for distant viewing.",
+      "unit_type": "ENTER_FULLSCREEN_MODE",
+      "unit_before_state": "The lecture video is playing in the VLC window with subtitles visible and playback already set a little faster than before.",
+      "unit_after_state": "VLC is in fullscreen mode and the lecture video fills the screen.",
+      "unit_precondition": [
+        "VLC is focused.",
+        "The lecture video is actively playing in the main VLC window."
+      ],
+      "unit_effect": [
+        "Pressing F switches VLC into fullscreen mode.",
+        "The video expands to occupy the full display area."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Enter fullscreen mode for the actively playing video in the focused media player.",
+      "parameters": {
+        "target_app": "VLC",
+        "fullscreen_key": "F"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['f']}",
+          "action_template": "After the video is configured the way you want, press {{fullscreen_key}} while {{target_app}} is focused and the video is actively playing in the main window to enter fullscreen mode so the video fills the screen for easier viewing."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

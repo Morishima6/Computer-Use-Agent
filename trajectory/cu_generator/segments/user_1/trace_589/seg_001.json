@@ -1,0 +1,355 @@
+{
+  "segment_id": "seg_001",
+  "app": "vs_code",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open a new blank file for the checklist",
+      "action_before_state": "VS Code is already open and focused, with either the Welcome page or an existing editor tab visible.",
+      "action_preconditions": [
+        "The VS Code window is active.",
+        "Keyboard input is going to VS Code."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "n"
+        ]
+      },
+      "action_after_effects": "A new untitled editor tab opens and the text cursor is placed in the blank file.",
+      "nl_explanation": "When VS Code is focused, press Ctrl+N to create a new untitled file. The expected result is a blank editor ready for typing."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Enter the Markdown checklist content",
+      "action_before_state": "A blank untitled editor is open with the caret visible in the editing area.",
+      "action_preconditions": [
+        "The untitled file is the active tab.",
+        "The text cursor is inside the editor."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "# Today's Checklist\n\n- [ ] Reply to the project update email before lunch\n- [ ] Draft the meeting agenda for tomorrow and include the open issues that still need decisions\n- [ ] Review my notes and write a short end-of-day summary\n"
+      },
+      "action_after_effects": "The new file now contains a Markdown heading and several checklist items, including one long line that can demonstrate wrapping.",
+      "nl_explanation": "With the empty editor active, type the Markdown checklist content. After typing, the note should show a title and three checkbox items in the editor."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Turn on word wrap for easier reading",
+      "action_before_state": "The Markdown checklist text is visible in the editor, including a long checklist line.",
+      "action_preconditions": [
+        "The editor with the new note is still active.",
+        "The long checklist line is present in the file."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "alt",
+          "z"
+        ]
+      },
+      "action_after_effects": "Word wrap is enabled for the current editor, so long lines wrap within the editor width instead of requiring horizontal scrolling.",
+      "nl_explanation": "When the checklist is visible in the editor, press Alt+Z to toggle word wrap on. The expected behavior is that long text lines wrap onto the next visual line."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Start saving the new checklist as a Markdown file",
+      "action_before_state": "The checklist is still open as an unsaved untitled file in the editor.",
+      "action_preconditions": [
+        "The unsaved file tab is active.",
+        "The note content is already present in the editor."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "s"
+        ]
+      },
+      "action_after_effects": "The file save dialog opens so a file name can be entered.",
+      "nl_explanation": "With the untitled checklist file active, press Ctrl+S to save it. This should open the save dialog and place focus on the file name field."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Enter the file name for the checklist",
+      "action_before_state": "The save dialog is visible and the file name input field is focused.",
+      "action_preconditions": [
+        "The native save dialog is open.",
+        "The file name field accepts keyboard input."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "daily-checklist.md"
+      },
+      "action_after_effects": "The file name field now contains the Markdown file name.",
+      "nl_explanation": "When the save dialog is open and the name field is focused, type `daily-checklist.md`. The expected result is that the chosen file name appears in the dialog."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Finish saving the Markdown file",
+      "action_before_state": "The save dialog shows `daily-checklist.md` in the file name field.",
+      "action_preconditions": [
+        "A valid file name has been entered.",
+        "The Save action is available in the dialog."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The file is saved to disk and the editor tab updates to show the filename `daily-checklist.md`.",
+      "nl_explanation": "After the file name has been entered in the save dialog, press Enter to confirm the save. The expected behavior is that the file is saved and the editor tab displays the new filename."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Open the Markdown preview beside the editor",
+      "action_before_state": "The saved `daily-checklist.md` file is open in the editor and its preview control is visible.",
+      "action_preconditions": [
+        "The active tab is a saved Markdown file.",
+        "The editor title area contains the preview control."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Open Preview to the Side button in the top-right of the editor title area"
+        }
+      },
+      "action_after_effects": "A Markdown preview pane opens beside the editor, rendering the heading and checklist so the file can be edited and reviewed side by side.",
+      "nl_explanation": "When the saved Markdown file is active and the preview button is visible, click the Open Preview to the Side control. The expected result is a split layout with the source editor on one side and the rendered Markdown preview on the other."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Create the initial Markdown checklist note with a title and checkbox items.",
+      "unit_type": "CREATE_MARKDOWN_CHECKLIST",
+      "unit_before_state": "VS Code is open and focused, showing either the Welcome page or another editor tab, and no new checklist file has been created yet.",
+      "unit_after_state": "An untitled editor tab contains a Markdown note with the heading \"Today's Checklist\" and three checkbox items, including a long checklist line, with the caret still in the editor.",
+      "unit_precondition": [
+        "VS Code is the active application.",
+        "Keyboard input is directed to the editor area so a new file can be created and typed into."
+      ],
+      "unit_effect": [
+        "A new untitled tab opens as a blank editor.",
+        "The editor visibly shows the checklist heading and three Markdown checkbox lines."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3
+      ],
+      "unit_intent": "Make the checklist easier to read in the editor by enabling line wrapping.",
+      "unit_type": "ENABLE_WORD_WRAP",
+      "unit_before_state": "The untitled checklist note is visible in the editor, and at least one checklist line is long enough to extend horizontally.",
+      "unit_after_state": "The same checklist remains open in the editor, but long lines now wrap within the editor pane instead of continuing on a single horizontal line.",
+      "unit_precondition": [
+        "The checklist editor tab is still active.",
+        "The note content is already present and visible in the editor."
+      ],
+      "unit_effect": [
+        "The long checklist item is displayed on multiple visual lines within the editor width.",
+        "Horizontal scrolling is no longer needed to read the long line in the active editor."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Save the new checklist as a Markdown file with a specific filename.",
+      "unit_type": "SAVE_MARKDOWN_FILE",
+      "unit_before_state": "The checklist exists as an unsaved untitled file in VS Code, with its Markdown content already entered and word wrap enabled in the editor.",
+      "unit_after_state": "The native save dialog has closed, and the editor tab now shows the saved filename \"daily-checklist.md\" instead of an untitled tab.",
+      "unit_precondition": [
+        "The unsaved checklist tab is active in VS Code.",
+        "The file content has already been entered.",
+        "The save dialog can accept a filename and confirm the save action."
+      ],
+      "unit_effect": [
+        "The save dialog opens with focus in the filename field.",
+        "The filename field is filled with \"daily-checklist.md\".",
+        "After confirmation, the editor tab updates to the saved filename \"daily-checklist.md\"."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7
+      ],
+      "unit_intent": "Open a rendered Markdown preview beside the source editor for side-by-side editing and review.",
+      "unit_type": "OPEN_MARKDOWN_PREVIEW_TO_SIDE",
+      "unit_before_state": "The saved file \"daily-checklist.md\" is the active editor tab in VS Code, and the editor title area shows the Open Preview to the Side control.",
+      "unit_after_state": "VS Code shows a split layout with the Markdown source editor on one side and a rendered preview of the checklist on the other side.",
+      "unit_precondition": [
+        "The active tab is a saved Markdown file.",
+        "The editor title area contains the preview-to-side button."
+      ],
+      "unit_effect": [
+        "A new preview pane opens beside the editor.",
+        "The preview renders the checklist heading and checkbox items from \"daily-checklist.md\"."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Create the initial Markdown checklist note with a title and checkbox items.",
+      "unit_type": "CREATE_MARKDOWN_CHECKLIST",
+      "unit_before_state": "VS Code is open and focused, showing either the Welcome page or another editor tab, and no new checklist file has been created yet.",
+      "unit_after_state": "An untitled editor tab contains a Markdown note with the heading \"Today's Checklist\" and three checkbox items, including a long checklist line, with the caret still in the editor.",
+      "unit_precondition": [
+        "VS Code is the active application.",
+        "Keyboard input is directed to the editor area so a new file can be created and typed into."
+      ],
+      "unit_effect": [
+        "A new untitled tab opens as a blank editor.",
+        "The editor visibly shows the checklist heading and three Markdown checkbox lines."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a new Markdown checklist note in a blank editor with specified checklist content.",
+      "parameters": {
+        "markdown_content": "# Today's Checklist\n\n- [ ] Reply to the project update email before lunch\n- [ ] Draft the meeting agenda for tomorrow and include the open issues that still need decisions\n- [ ] Review my notes and write a short end-of-day summary\n"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'n']}",
+          "action_template": "When VS Code is focused, press Ctrl+N to create a new untitled file. Preconditions: the VS Code window is active and keyboard input is going to VS Code. Expected result: a blank editor is ready for typing."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': \"# Today's Checklist\\n\\n- [ ] Reply to the project update email before lunch\\n- [ ] Draft the meeting agenda for tomorrow and include the open issues that still need decisions\\n- [ ] Review my notes and write a short end-of-day summary\\n\"}",
+          "action_template": "With the empty editor active, type {{markdown_content}}. Preconditions: the untitled file is the active tab and the text cursor is inside the editor. Expected result: the new file contains a Markdown heading and checklist items in the editor."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3
+      ],
+      "unit_intent": "Make the checklist easier to read in the editor by enabling line wrapping.",
+      "unit_type": "ENABLE_WORD_WRAP",
+      "unit_before_state": "The untitled checklist note is visible in the editor, and at least one checklist line is long enough to extend horizontally.",
+      "unit_after_state": "The same checklist remains open in the editor, but long lines now wrap within the editor pane instead of continuing on a single horizontal line.",
+      "unit_precondition": [
+        "The checklist editor tab is still active.",
+        "The note content is already present and visible in the editor."
+      ],
+      "unit_effect": [
+        "The long checklist item is displayed on multiple visual lines within the editor width.",
+        "Horizontal scrolling is no longer needed to read the long line in the active editor."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Enable word wrap in the active editor so long lines are easier to read without horizontal scrolling.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['alt', 'z']}",
+          "action_template": "When the editor containing long text is active, press Alt+Z to enable word wrap so long lines wrap within the editor width instead of requiring horizontal scrolling."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Save the new checklist as a Markdown file with a specific filename.",
+      "unit_type": "SAVE_MARKDOWN_FILE",
+      "unit_before_state": "The checklist exists as an unsaved untitled file in VS Code, with its Markdown content already entered and word wrap enabled in the editor.",
+      "unit_after_state": "The native save dialog has closed, and the editor tab now shows the saved filename \"daily-checklist.md\" instead of an untitled tab.",
+      "unit_precondition": [
+        "The unsaved checklist tab is active in VS Code.",
+        "The file content has already been entered.",
+        "The save dialog can accept a filename and confirm the save action."
+      ],
+      "unit_effect": [
+        "The save dialog opens with focus in the filename field.",
+        "The filename field is filled with \"daily-checklist.md\".",
+        "After confirmation, the editor tab updates to the saved filename \"daily-checklist.md\"."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the current unsaved document as a Markdown file with a specified filename.",
+      "parameters": {
+        "file_name": "daily-checklist.md"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 's']}",
+          "action_template": "Press Ctrl+S while the unsaved file tab is active and its content is already present in the editor to open the save dialog and place focus on the file name field."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'daily-checklist.md'}",
+          "action_template": "When the native save dialog is open and the file name field accepts keyboard input, type {{file_name}} so the file name field contains the Markdown file name."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After a valid file name such as {{file_name}} has been entered and the Save action is available, press Enter to confirm the save so the file is saved to disk and the editor tab updates to show {{file_name}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7
+      ],
+      "unit_intent": "Open a rendered Markdown preview beside the source editor for side-by-side editing and review.",
+      "unit_type": "OPEN_MARKDOWN_PREVIEW_TO_SIDE",
+      "unit_before_state": "The saved file \"daily-checklist.md\" is the active editor tab in VS Code, and the editor title area shows the Open Preview to the Side control.",
+      "unit_after_state": "VS Code shows a split layout with the Markdown source editor on one side and a rendered preview of the checklist on the other side.",
+      "unit_precondition": [
+        "The active tab is a saved Markdown file.",
+        "The editor title area contains the preview-to-side button."
+      ],
+      "unit_effect": [
+        "A new preview pane opens beside the editor.",
+        "The preview renders the checklist heading and checkbox items from \"daily-checklist.md\"."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a rendered preview of a specified Markdown file beside the source editor for side-by-side editing and review.",
+      "parameters": {
+        "target_file_name": "daily-checklist.md"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Open Preview to the Side button in the top-right of the editor title area'}}",
+          "action_template": "When the saved Markdown file {{target_file_name}} is active and the preview control is visible in the editor title area, click the Open Preview to the Side button in the top-right of the editor title area to open a rendered Markdown preview pane beside the editor for side-by-side editing and review."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

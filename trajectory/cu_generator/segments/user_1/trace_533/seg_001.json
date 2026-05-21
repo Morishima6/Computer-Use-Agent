@@ -1,0 +1,757 @@
+{
+  "segment_id": "seg_001",
+  "app": "vs_code",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the integrated terminal in VS Code",
+      "action_before_state": "vs_code is open on the GNOME desktop and the main editor area is visible.",
+      "action_preconditions": [
+        "VS Code is the active window",
+        "No modal dialog is blocking keyboard input"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "`"
+        ]
+      },
+      "action_after_effects": "The integrated terminal panel opens at the bottom of the VS Code window and the terminal cursor is ready for input.",
+      "nl_explanation": "When VS Code is focused and the editor is visible, press `Ctrl+`` to open the integrated terminal. The expected result is that a terminal panel appears at the bottom and is ready for a shell command."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Enter a command to create the folder, create the files, and open the folder in a new VS Code window",
+      "action_before_state": "The integrated terminal is open and waiting at a shell prompt.",
+      "action_preconditions": [
+        "The terminal panel is visible",
+        "The text cursor is active in the terminal",
+        "The `code` command is available in PATH"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "mkdir -p ~/calorie-check && touch ~/calorie-check/meals.csv ~/calorie-check/total_calories.py ~/calorie-check/notes.md && code ~/calorie-check"
+      },
+      "action_after_effects": "The full shell command appears in the terminal and is ready to be executed.",
+      "nl_explanation": "With the terminal focused, type the command that creates `~/calorie-check`, creates the three empty files, and opens that folder in a new VS Code window. After this step, the command should be fully entered at the prompt."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Run the setup command",
+      "action_before_state": "The terminal contains the full folder-and-file setup command.",
+      "action_preconditions": [
+        "The command text is fully entered in the terminal",
+        "The terminal input is still focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The command runs, the `calorie-check` folder is created, and a new VS Code window opens to that folder with `meals.csv`, `total_calories.py`, and `notes.md` visible in the Explorer.",
+      "nl_explanation": "After the setup command has been typed into the terminal, press Enter to run it. The expected result is that the new folder is created and a new VS Code window opens showing the three files in its Explorer."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Open the meals CSV file",
+      "action_before_state": "The `calorie-check` folder is open in the new VS Code window and its files are visible in the Explorer.",
+      "action_preconditions": [
+        "The Explorer sidebar is visible",
+        "The file `meals.csv` is listed in the current folder"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the `meals.csv` file in the Explorer sidebar"
+        }
+      },
+      "action_after_effects": "The `meals.csv` file opens in the editor and becomes the active tab.",
+      "nl_explanation": "When the new workspace is open and `meals.csv` is visible in the Explorer, click that file once. The expected behavior is that the CSV file opens in the editor for data entry."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Add starter meal calorie data to the CSV file",
+      "action_before_state": "The `meals.csv` tab is active and the cursor is inside the file.",
+      "action_preconditions": [
+        "The `meals.csv` editor tab is open",
+        "The text cursor is active inside the editor"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "meal,calories\nbreakfast,320\nlunch,540\nsnack,180\ndinner,610\n"
+      },
+      "action_after_effects": "The CSV file now contains a header row and four meal entries with calorie values.",
+      "nl_explanation": "With `meals.csv` open and ready for typing, enter a small table of meals and calorie counts. After the typing is complete, the file should contain one header row and four data rows."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Focus the Explorer again so the next file can be selected",
+      "action_before_state": "The meal data has been entered and the editor is still active.",
+      "action_preconditions": [
+        "VS Code remains focused",
+        "The Explorer view is available in the left sidebar"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "e"
+        ]
+      },
+      "action_after_effects": "The Explorer panel gains focus and the current workspace file list is ready for selection.",
+      "nl_explanation": "After entering the CSV content, press `Ctrl+Shift+E` to move focus back to the Explorer. The expected result is that the file list in the left sidebar becomes the active navigation area."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Open the Python script file",
+      "action_before_state": "The Explorer is focused and the workspace file list is visible.",
+      "action_preconditions": [
+        "The `total_calories.py` file is visible in the Explorer",
+        "The workspace folder is still `calorie-check`"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the `total_calories.py` file in the Explorer sidebar"
+        }
+      },
+      "action_after_effects": "The `total_calories.py` file opens in the editor as the active tab.",
+      "nl_explanation": "When the Explorer is active and `total_calories.py` is listed, click the file once to open it. The expected result is that the Python script tab becomes active in the editor."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Add a simple Python script that totals the calories from the CSV file",
+      "action_before_state": "The `total_calories.py` tab is active and ready for input.",
+      "action_preconditions": [
+        "The Python file is open in the editor",
+        "The text cursor is inside the empty script"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "import csv\n\ntotal = 0\nwith open(\"meals.csv\", newline=\"\", encoding=\"utf-8\") as f:\n    reader = csv.DictReader(f)\n    for row in reader:\n        total += int(row[\"calories\"])\n\nprint(f\"Total calories today: {total}\")\n"
+      },
+      "action_after_effects": "The Python file now contains a complete script that reads `meals.csv`, sums the calorie values, and prints the total.",
+      "nl_explanation": "With `total_calories.py` open and focused, type a short script that reads the CSV file, adds up the `calories` column, and prints the result. After this step, the script should be fully written in the editor."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Open the notes Markdown file",
+      "action_before_state": "The Python script has been entered and the Explorer is still visible in the sidebar.",
+      "action_preconditions": [
+        "The file `notes.md` is visible in the Explorer",
+        "VS Code is still in the `calorie-check` workspace"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the `notes.md` file in the Explorer sidebar"
+        }
+      },
+      "action_after_effects": "The `notes.md` file opens in the editor and becomes the active tab.",
+      "nl_explanation": "Once the script is in place and `notes.md` is visible in the Explorer, click that file once. The expected behavior is that the Markdown notes file opens for editing."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Add a short daily calorie note in Markdown format",
+      "action_before_state": "The `notes.md` tab is active and the cursor is inside the file.",
+      "action_preconditions": [
+        "The Markdown file is open",
+        "The editor cursor is ready for typing"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "# Daily Notes\n\n## Goal\nStay under 1800 calories today.\n\n## Reminder\nTry to keep dinner lighter if an extra coffee or dessert gets added later in the evening.\n"
+      },
+      "action_after_effects": "The notes file now contains a heading and two short sections for the day's calorie goal and reminder.",
+      "nl_explanation": "With `notes.md` active and ready for input, type a small Markdown note with a goal and a reminder. The expected result is that the file becomes a readable daily note for the calorie check."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Enable word wrap in the notes editor",
+      "action_before_state": "The notes file is open and contains text, including a longer reminder line.",
+      "action_preconditions": [
+        "The `notes.md` tab is the active editor",
+        "The editor area is focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "alt",
+          "z"
+        ]
+      },
+      "action_after_effects": "Word Wrap is enabled for the active editor, so longer lines in `notes.md` wrap inside the editor instead of extending horizontally.",
+      "nl_explanation": "When `notes.md` is active and the editor has focus, press `Alt+Z` to turn on Word Wrap. The expected behavior is that long lines in the note wrap within the visible editor width."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Open the Command Palette to save all edited files at once",
+      "action_before_state": "The workspace has multiple edited files with unsaved changes.",
+      "action_preconditions": [
+        "At least one open tab has unsaved content",
+        "VS Code is still the active window"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "p"
+        ]
+      },
+      "action_after_effects": "The Command Palette opens at the top of the window with its input box focused.",
+      "nl_explanation": "After editing the files, press `Ctrl+Shift+P` to open the Command Palette. The expected result is that a searchable command box appears so a save command can be run."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Search for the Save All command",
+      "action_before_state": "The Command Palette is open and its search field is active.",
+      "action_preconditions": [
+        "The Command Palette is visible",
+        "Keyboard focus is inside the palette input"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Save All"
+      },
+      "action_after_effects": "The Command Palette filters the results and shows the `File: Save All` command.",
+      "nl_explanation": "With the Command Palette open, type `Save All`. The expected result is that VS Code narrows the command list to the command for saving all modified files."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Run the Save All command",
+      "action_before_state": "The `File: Save All` command is visible in the Command Palette.",
+      "action_preconditions": [
+        "The save-all command is listed in the palette",
+        "The command is selected or ready to be selected"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "All edited files in the workspace are saved and the unsaved-change indicators disappear from their tabs.",
+      "nl_explanation": "After the `File: Save All` command appears in the palette, press Enter to run it. The expected behavior is that every modified file is saved to disk."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Open the integrated terminal in the calorie-check window",
+      "action_before_state": "The files are saved and the `calorie-check` VS Code window is active.",
+      "action_preconditions": [
+        "VS Code is focused",
+        "No modal dialog is blocking keyboard input"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "`"
+        ]
+      },
+      "action_after_effects": "The integrated terminal opens at the bottom of the current VS Code window, with the shell prompt ready for input inside the `~/calorie-check` folder.",
+      "nl_explanation": "Once the files are saved, press `Ctrl+`` to open the integrated terminal in the workspace window. The expected result is that a terminal prompt appears and is ready for the script execution command."
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Enter the command to run the calorie total script",
+      "action_before_state": "The integrated terminal is focused at a prompt inside the workspace folder.",
+      "action_preconditions": [
+        "The terminal cursor is active",
+        "The current working directory is `~/calorie-check`",
+        "Python 3 is installed"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "python3 total_calories.py"
+      },
+      "action_after_effects": "The script execution command appears in the terminal and is ready to run.",
+      "nl_explanation": "With the terminal focused in the `calorie-check` folder, type `python3 total_calories.py`. The expected result is that the command is fully entered at the shell prompt."
+    },
+    {
+      "step_id": "s17",
+      "step_goal": "Run the script and show the total calories",
+      "action_before_state": "The terminal contains the Python command to execute the script.",
+      "action_preconditions": [
+        "The command `python3 total_calories.py` is present at the prompt",
+        "The terminal is still focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The script runs successfully in the terminal and prints `Total calories today: 1650` before returning to a new shell prompt.",
+      "nl_explanation": "After the Python command has been typed into the terminal, press Enter to run it. The expected behavior is that the script reads the meal data and prints the total calories for the day."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Set up the calorie-check workspace in the home directory and open it as the active VS Code project.",
+      "unit_type": "INITIALIZE_WORKSPACE",
+      "unit_before_state": "VS Code is open on the desktop with the main editor visible, and the calorie-check workspace is not yet open in the current window.",
+      "unit_after_state": "A VS Code window for the calorie-check folder is open, the Explorer sidebar lists meals.csv, total_calories.py, and notes.md, and the new workspace is ready for editing.",
+      "unit_precondition": [
+        "VS Code is the active window.",
+        "No modal dialog is blocking keyboard input.",
+        "The integrated terminal can accept shell input.",
+        "The `code` command is available in the shell PATH."
+      ],
+      "unit_effect": [
+        "The integrated terminal opens in VS Code.",
+        "The shell command to create the folder and files is executed.",
+        "A new VS Code window appears with the calorie-check folder loaded and the three target files visible in Explorer."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Enter the starter meal calorie data into the tracking CSV file.",
+      "unit_type": "POPULATE_CSV_FILE",
+      "unit_before_state": "The calorie-check workspace is open in VS Code, and meals.csv is visible in the Explorer but not yet populated.",
+      "unit_after_state": "The meals.csv tab is open in the editor and contains a header row plus four meal entries with calorie values.",
+      "unit_precondition": [
+        "The Explorer sidebar is visible in the calorie-check workspace.",
+        "The file meals.csv is listed in the current folder.",
+        "The editor can receive typed input after the file is opened."
+      ],
+      "unit_effect": [
+        "The meals.csv file becomes the active editor tab.",
+        "The visible file content shows `meal,calories` followed by breakfast, lunch, snack, and dinner rows with numeric calorie values."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Create the Python script that reads the meal data and computes the total calories.",
+      "unit_type": "CREATE_TOTALING_SCRIPT",
+      "unit_before_state": "The meals.csv edit is complete, the meals.csv tab is still open, and the file list for the calorie-check workspace is available in the left sidebar.",
+      "unit_after_state": "The total_calories.py tab is active and contains a complete script that loads meals.csv, sums the calories column, and prints the total.",
+      "unit_precondition": [
+        "The calorie-check workspace remains open in VS Code.",
+        "The Explorer view is available and total_calories.py is listed there.",
+        "The Python file can be opened and edited in the main editor area."
+      ],
+      "unit_effect": [
+        "Explorer focus returns to the workspace file list.",
+        "The total_calories.py file opens as the active tab.",
+        "The script text is visible, including CSV reading logic and a print statement for the total calories."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Add a short daily planning note for the calorie-check workspace.",
+      "unit_type": "POPULATE_MARKDOWN_NOTE",
+      "unit_before_state": "The Python script has been entered, and notes.md is visible in the Explorer within the calorie-check workspace.",
+      "unit_after_state": "The notes.md tab is active and contains a Markdown note with a title, a calorie goal section, and a reminder section.",
+      "unit_precondition": [
+        "The calorie-check workspace is still open.",
+        "The file notes.md is visible in the Explorer.",
+        "The editor is available for typing after the file is opened."
+      ],
+      "unit_effect": [
+        "The notes.md file opens in the editor.",
+        "The document shows a `# Daily Notes` heading plus `Goal` and `Reminder` sections with text entered under each."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        11
+      ],
+      "unit_intent": "Make the daily note easier to read inside the editor without horizontal scrolling.",
+      "unit_type": "ENABLE_WORD_WRAP",
+      "unit_before_state": "The notes.md tab is active, its text is visible in the editor, and the longer reminder line extends as a single line.",
+      "unit_after_state": "Word Wrap is enabled for the active editor, and long lines in notes.md wrap within the visible editor width.",
+      "unit_precondition": [
+        "The notes.md tab is the active editor.",
+        "Keyboard focus is inside the editor area.",
+        "The document contains at least one line long enough for wrapping to be observable."
+      ],
+      "unit_effect": [
+        "The long reminder line reflows onto wrapped lines inside the editor pane.",
+        "The note becomes readable without horizontal scrolling."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        12,
+        13,
+        14
+      ],
+      "unit_intent": "Save all edited workspace files to disk in one action.",
+      "unit_type": "SAVE_ALL_FILES",
+      "unit_before_state": "The calorie-check workspace has edited tabs with unsaved changes, and the notes.md editor is still open in VS Code.",
+      "unit_after_state": "The Command Palette is closed, all modified files are saved, and the open tabs no longer show unsaved-change indicators.",
+      "unit_precondition": [
+        "At least one open file in the workspace has unsaved edits.",
+        "VS Code is the active window.",
+        "The Command Palette can be opened and accept text input."
+      ],
+      "unit_effect": [
+        "The Command Palette opens with its search field focused.",
+        "Typing `Save All` filters the command list to show `File: Save All`.",
+        "After confirmation, dirty markers disappear from the edited file tabs."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        15,
+        16,
+        17
+      ],
+      "unit_intent": "Run the calorie total script and verify the computed total for today.",
+      "unit_type": "RUN_PYTHON_SCRIPT",
+      "unit_before_state": "The calorie-check workspace is active in VS Code, the project files are saved, and the script has not yet been executed in the current view.",
+      "unit_after_state": "The integrated terminal is open at the bottom of the calorie-check window and shows the script output `Total calories today: 1650` above a new shell prompt.",
+      "unit_precondition": [
+        "The calorie-check folder is the active workspace.",
+        "The workspace files have been saved to disk.",
+        "The integrated terminal can accept input in the calorie-check directory.",
+        "Python 3 is installed and available as `python3`."
+      ],
+      "unit_effect": [
+        "The integrated terminal opens in the current workspace window.",
+        "The command `python3 total_calories.py` is entered and executed.",
+        "The terminal prints `Total calories today: 1650` and returns to a fresh prompt."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Set up the calorie-check workspace in the home directory and open it as the active VS Code project.",
+      "unit_type": "INITIALIZE_WORKSPACE",
+      "unit_before_state": "VS Code is open on the desktop with the main editor visible, and the calorie-check workspace is not yet open in the current window.",
+      "unit_after_state": "A VS Code window for the calorie-check folder is open, the Explorer sidebar lists meals.csv, total_calories.py, and notes.md, and the new workspace is ready for editing.",
+      "unit_precondition": [
+        "VS Code is the active window.",
+        "No modal dialog is blocking keyboard input.",
+        "The integrated terminal can accept shell input.",
+        "The `code` command is available in the shell PATH."
+      ],
+      "unit_effect": [
+        "The integrated terminal opens in VS Code.",
+        "The shell command to create the folder and files is executed.",
+        "A new VS Code window appears with the calorie-check folder loaded and the three target files visible in Explorer."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Set up a specified workspace with its required starter files and open it as the active VS Code project.",
+      "parameters": {
+        "workspace_path": "~/calorie-check",
+        "setup_command": "mkdir -p ~/calorie-check && touch ~/calorie-check/meals.csv ~/calorie-check/total_calories.py ~/calorie-check/notes.md && code ~/calorie-check"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', '`']}",
+          "action_template": "When VS Code is focused and the editor is visible, press Ctrl+` to open the integrated terminal. Preconditions: VS Code is the active window and no modal dialog is blocking keyboard input. Expected result: the integrated terminal panel opens at the bottom of the VS Code window and is ready for input."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'mkdir -p ~/calorie-check && touch ~/calorie-check/meals.csv ~/calorie-check/total_calories.py ~/calorie-check/notes.md && code ~/calorie-check'}",
+          "action_template": "With the terminal focused, type {{setup_command}} to create {{workspace_path}}, create the required starter files, and prepare that folder to open in a new VS Code window. Preconditions: the terminal panel is visible, the text cursor is active in the terminal, and the `code` command is available in PATH. Expected result: the full shell command appears in the terminal and is ready to be executed."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After the setup command has been typed into the terminal, press Enter to run it. Preconditions: the command text is fully entered in the terminal and the terminal input is still focused. Expected result: {{workspace_path}} is created and a new VS Code window opens to that folder."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Enter the starter meal calorie data into the tracking CSV file.",
+      "unit_type": "POPULATE_CSV_FILE",
+      "unit_before_state": "The calorie-check workspace is open in VS Code, and meals.csv is visible in the Explorer but not yet populated.",
+      "unit_after_state": "The meals.csv tab is open in the editor and contains a header row plus four meal entries with calorie values.",
+      "unit_precondition": [
+        "The Explorer sidebar is visible in the calorie-check workspace.",
+        "The file meals.csv is listed in the current folder.",
+        "The editor can receive typed input after the file is opened."
+      ],
+      "unit_effect": [
+        "The meals.csv file becomes the active editor tab.",
+        "The visible file content shows `meal,calories` followed by breakfast, lunch, snack, and dinner rows with numeric calorie values."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a specified CSV file in the editor and populate it with the provided tabular data.",
+      "parameters": {
+        "target_file": "meals.csv",
+        "input_text": "meal,calories\nbreakfast,320\nlunch,540\nsnack,180\ndinner,610\n"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the `meals.csv` file in the Explorer sidebar'}}",
+          "action_template": "When the workspace is open and {{target_file}} is visible in the Explorer, click the {{target_file}} file in the Explorer sidebar once. The expected behavior is that the file opens in the editor and becomes the active tab for data entry."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'meal,calories\\nbreakfast,320\\nlunch,540\\nsnack,180\\ndinner,610\\n'}",
+          "action_template": "With {{target_file}} open and the text cursor active inside the editor, type {{input_text}}. After the typing is complete, the file should contain the provided table data."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Create the Python script that reads the meal data and computes the total calories.",
+      "unit_type": "CREATE_TOTALING_SCRIPT",
+      "unit_before_state": "The meals.csv edit is complete, the meals.csv tab is still open, and the file list for the calorie-check workspace is available in the left sidebar.",
+      "unit_after_state": "The total_calories.py tab is active and contains a complete script that loads meals.csv, sums the calories column, and prints the total.",
+      "unit_precondition": [
+        "The calorie-check workspace remains open in VS Code.",
+        "The Explorer view is available and total_calories.py is listed there.",
+        "The Python file can be opened and edited in the main editor area."
+      ],
+      "unit_effect": [
+        "Explorer focus returns to the workspace file list.",
+        "The total_calories.py file opens as the active tab.",
+        "The script text is visible, including CSV reading logic and a print statement for the total calories."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a specified Python script from the Explorer and enter code that reads a specified CSV file, totals a specified numeric column, and prints the result.",
+      "parameters": {
+        "target_script_file": "total_calories.py",
+        "source_data_file": "meals.csv",
+        "target_numeric_column": "calories",
+        "output_prefix": "Total calories today: "
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'e']}",
+          "action_template": "With VS Code focused and the Explorer view available, press Ctrl+Shift+E to move focus back to the Explorer so the workspace file list becomes the active navigation area for selecting {{target_script_file}}."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the `total_calories.py` file in the Explorer sidebar'}}",
+          "action_template": "When {{target_script_file}} is visible in the Explorer and the file list is focused, click {{target_script_file}} once to open it as the active tab in the editor."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'import csv\\n\\ntotal = 0\\nwith open(\"meals.csv\", newline=\"\", encoding=\"utf-8\") as f:\\n    reader = csv.DictReader(f)\\n    for row in reader:\\n        total += int(row[\"calories\"])\\n\\nprint(f\"Total calories today: {total}\")\\n'}",
+          "action_template": "With {{target_script_file}} open and the text cursor inside the script, type Python code that reads {{source_data_file}}, sums the values in the {{target_numeric_column}} column, and prints the total using the prefix {{output_prefix}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Add a short daily planning note for the calorie-check workspace.",
+      "unit_type": "POPULATE_MARKDOWN_NOTE",
+      "unit_before_state": "The Python script has been entered, and notes.md is visible in the Explorer within the calorie-check workspace.",
+      "unit_after_state": "The notes.md tab is active and contains a Markdown note with a title, a calorie goal section, and a reminder section.",
+      "unit_precondition": [
+        "The calorie-check workspace is still open.",
+        "The file notes.md is visible in the Explorer.",
+        "The editor is available for typing after the file is opened."
+      ],
+      "unit_effect": [
+        "The notes.md file opens in the editor.",
+        "The document shows a `# Daily Notes` heading plus `Goal` and `Reminder` sections with text entered under each."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a visible Markdown note file and populate it with a short daily note that includes a title, a goal section, and a reminder section.",
+      "parameters": {
+        "target_file": "notes.md",
+        "note_title": "Daily Notes",
+        "goal_text": "Stay under 1800 calories today.",
+        "reminder_text": "Try to keep dinner lighter if an extra coffee or dessert gets added later in the evening."
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the `notes.md` file in the Explorer sidebar'}}",
+          "action_template": "With {{target_file}} visible in the Explorer and the workspace still open, click the {{target_file}} file once to open it in the editor as the active tab."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '# Daily Notes\\n\\n## Goal\\nStay under 1800 calories today.\\n\\n## Reminder\\nTry to keep dinner lighter if an extra coffee or dessert gets added later in the evening.\\n'}",
+          "action_template": "With {{target_file}} active and ready for input, type a Markdown note with the heading `# {{note_title}}`, a `## Goal` section containing {{goal_text}}, and a `## Reminder` section containing {{reminder_text}} so the file becomes a readable daily note."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        11
+      ],
+      "unit_intent": "Make the daily note easier to read inside the editor without horizontal scrolling.",
+      "unit_type": "ENABLE_WORD_WRAP",
+      "unit_before_state": "The notes.md tab is active, its text is visible in the editor, and the longer reminder line extends as a single line.",
+      "unit_after_state": "Word Wrap is enabled for the active editor, and long lines in notes.md wrap within the visible editor width.",
+      "unit_precondition": [
+        "The notes.md tab is the active editor.",
+        "Keyboard focus is inside the editor area.",
+        "The document contains at least one line long enough for wrapping to be observable."
+      ],
+      "unit_effect": [
+        "The long reminder line reflows onto wrapped lines inside the editor pane.",
+        "The note becomes readable without horizontal scrolling."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Enable word wrap for the active editor so long lines display within the visible editor width without horizontal scrolling.",
+      "parameters": {
+        "target_document": "notes.md"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['alt', 'z']}",
+          "action_template": "When {{target_document}} is active and the editor has focus, press Alt+Z to turn on Word Wrap. The expected behavior is that long lines in {{target_document}} wrap within the visible editor width."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        12,
+        13,
+        14
+      ],
+      "unit_intent": "Save all edited workspace files to disk in one action.",
+      "unit_type": "SAVE_ALL_FILES",
+      "unit_before_state": "The calorie-check workspace has edited tabs with unsaved changes, and the notes.md editor is still open in VS Code.",
+      "unit_after_state": "The Command Palette is closed, all modified files are saved, and the open tabs no longer show unsaved-change indicators.",
+      "unit_precondition": [
+        "At least one open file in the workspace has unsaved edits.",
+        "VS Code is the active window.",
+        "The Command Palette can be opened and accept text input."
+      ],
+      "unit_effect": [
+        "The Command Palette opens with its search field focused.",
+        "Typing `Save All` filters the command list to show `File: Save All`.",
+        "After confirmation, dirty markers disappear from the edited file tabs."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save all modified files in the active VS Code workspace through the Command Palette.",
+      "parameters": {
+        "command_search_text": "Save All",
+        "command_name": "File: Save All"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'p']}",
+          "action_template": "Press `Ctrl+Shift+P` while at least one open tab has unsaved content and VS Code is active to open the Command Palette with its input box focused."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Save All'}",
+          "action_template": "Type {{command_search_text}} in the focused Command Palette input to filter the results until {{command_name}} is shown."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter when {{command_name}} is listed and selected in the Command Palette to run it and save all edited files in the workspace."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_07",
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        15,
+        16,
+        17
+      ],
+      "unit_intent": "Run the calorie total script and verify the computed total for today.",
+      "unit_type": "RUN_PYTHON_SCRIPT",
+      "unit_before_state": "The calorie-check workspace is active in VS Code, the project files are saved, and the script has not yet been executed in the current view.",
+      "unit_after_state": "The integrated terminal is open at the bottom of the calorie-check window and shows the script output `Total calories today: 1650` above a new shell prompt.",
+      "unit_precondition": [
+        "The calorie-check folder is the active workspace.",
+        "The workspace files have been saved to disk.",
+        "The integrated terminal can accept input in the calorie-check directory.",
+        "Python 3 is installed and available as `python3`."
+      ],
+      "unit_effect": [
+        "The integrated terminal opens in the current workspace window.",
+        "The command `python3 total_calories.py` is entered and executed.",
+        "The terminal prints `Total calories today: 1650` and returns to a fresh prompt."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Run a specified Python script from the active VS Code workspace terminal and verify that the expected output is produced.",
+      "parameters": {
+        "workspace_folder": "~/calorie-check",
+        "run_command": "python3 total_calories.py",
+        "expected_output": "Total calories today: 1650"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', '`']}",
+          "action_template": "Press `Ctrl+`` in VS Code to open the integrated terminal in the active workspace. Preconditions: VS Code is focused and no modal dialog is blocking keyboard input. The terminal should open at the bottom of the window with a prompt ready for input inside `{{workspace_folder}}`."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'python3 total_calories.py'}",
+          "action_template": "Type `{{run_command}}` into the focused terminal. Preconditions: the terminal cursor is active, the current working directory is `{{workspace_folder}}`, and Python 3 is installed. The expected result is that the full command appears at the shell prompt ready to run."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter to execute `{{run_command}}`. Preconditions: `{{run_command}}` is present at the prompt and the terminal remains focused. The script should run successfully, print `{{expected_output}}`, and return to a new shell prompt."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

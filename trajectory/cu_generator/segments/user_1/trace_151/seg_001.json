@@ -1,0 +1,938 @@
+{
+  "segment_id": "seg_001",
+  "app": "gimp",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the New Image dialog",
+      "action_before_state": "GIMP is already open on screen, showing the main workspace with no modal dialog active.",
+      "action_preconditions": [
+        "The GIMP main window is focused.",
+        "No other dialog is blocking keyboard input."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "n"
+        ]
+      },
+      "action_after_effects": "The New Image dialog appears, and the Width field is ready for editing.",
+      "nl_explanation": "With the GIMP window focused and no dialog open, press Ctrl+N to open a new canvas dialog. The expected result is that the New Image window appears with the width input ready."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Set the canvas width",
+      "action_before_state": "The New Image dialog is open and the Width field is active.",
+      "action_preconditions": [
+        "The Width field is editable.",
+        "The value in the Width field can be replaced."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "1080"
+      },
+      "action_after_effects": "The Width value becomes 1080 pixels.",
+      "nl_explanation": "When the Width field is active in the New Image dialog, type 1080 so the new image will use a square layout."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Move the cursor to the height field",
+      "action_before_state": "The Width field contains 1080 in the New Image dialog.",
+      "action_preconditions": [
+        "The Width field is still focused.",
+        "The Height field is available in the same dialog."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "tab"
+        ]
+      },
+      "action_after_effects": "The input focus moves from Width to Height.",
+      "nl_explanation": "After entering the width, press Tab to shift focus to the Height field so the second dimension can be entered next."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Set the canvas height",
+      "action_before_state": "The Height field in the New Image dialog is active.",
+      "action_preconditions": [
+        "The Height field is focused.",
+        "The field accepts numeric input."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "1080"
+      },
+      "action_after_effects": "The Height value becomes 1080 pixels.",
+      "nl_explanation": "With the Height field selected, type 1080 so the canvas matches the intended square size."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Create the blank square canvas",
+      "action_before_state": "The New Image dialog shows Width 1080 and Height 1080.",
+      "action_preconditions": [
+        "Both size fields have the intended values.",
+        "The OK button is visible in the dialog."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the OK button in the New Image dialog"
+        }
+      },
+      "action_after_effects": "The dialog closes and a new 1080 by 1080 blank image opens on the canvas.",
+      "nl_explanation": "Once the dialog shows the correct square dimensions, click the OK button to create the new image. The result should be a blank square canvas in the main editor."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Choose the ellipse selection tool",
+      "action_before_state": "A blank white square canvas is visible in GIMP.",
+      "action_preconditions": [
+        "The toolbox is visible.",
+        "No modal dialog is open."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Ellipse Select tool in the toolbox"
+        }
+      },
+      "action_after_effects": "The Ellipse Select tool becomes active and the pointer is ready to draw an elliptical selection.",
+      "nl_explanation": "With the blank canvas visible, click the Ellipse Select tool so the next drag action can define the circular badge outline."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Draw a large circular selection in the canvas",
+      "action_before_state": "The Ellipse Select tool is active and the blank canvas is visible.",
+      "action_preconditions": [
+        "The canvas has enough empty space for a large circle.",
+        "The selection tool is active."
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "a point slightly inside the upper-left area of the blank canvas"
+        },
+        "end": {
+          "text": "a point slightly inside the lower-right area of the blank canvas"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "A large elliptical selection appears, occupying most of the canvas like a badge border area.",
+      "nl_explanation": "When the ellipse selection tool is active, drag from near the upper-left of the canvas toward the lower-right to create a large circular selection that will define the badge outline."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Open the Edit menu",
+      "action_before_state": "A large elliptical selection is visible on the blank canvas.",
+      "action_preconditions": [
+        "The menu bar is visible.",
+        "The selection is still active."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Edit menu in the top menu bar"
+        }
+      },
+      "action_after_effects": "The Edit menu opens and its commands become visible.",
+      "nl_explanation": "With the circular selection active, click the Edit menu so the stroke command can be chosen for outlining the shape."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Open the Stroke Selection dialog",
+      "action_before_state": "The Edit menu is expanded above the canvas.",
+      "action_preconditions": [
+        "The Edit dropdown is open.",
+        "The Stroke Selection command is visible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Stroke Selection menu item in the Edit menu"
+        }
+      },
+      "action_after_effects": "The Stroke Selection dialog opens on top of the canvas.",
+      "nl_explanation": "After opening the Edit menu, click Stroke Selection so GIMP opens the dialog used to draw a visible outline around the selected circle."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Activate the line width input",
+      "action_before_state": "The Stroke Selection dialog is open and shows line width options.",
+      "action_preconditions": [
+        "The Stroke Selection dialog is in focus.",
+        "The Line width input is visible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Line width field in the Stroke Selection dialog"
+        }
+      },
+      "action_after_effects": "The cursor is placed in the Line width field and it is ready for typing.",
+      "nl_explanation": "When the Stroke Selection dialog is visible, click the Line width input so you can replace its current value with a thicker border size."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Set a thicker border width",
+      "action_before_state": "The Line width field in the Stroke Selection dialog is active.",
+      "action_preconditions": [
+        "The text cursor is in the Line width field.",
+        "The field accepts numeric input."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "20"
+      },
+      "action_after_effects": "The line width is set to 20 pixels.",
+      "nl_explanation": "With the Line width field active, type 20 to make the circular badge outline visibly bold."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Apply the circular outline",
+      "action_before_state": "The Stroke Selection dialog shows a line width of 20.",
+      "action_preconditions": [
+        "The desired line width is entered.",
+        "The Stroke button is visible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Stroke button in the Stroke Selection dialog"
+        }
+      },
+      "action_after_effects": "The dialog closes and a black circular outline appears on the canvas following the selection.",
+      "nl_explanation": "Once the thicker line width is entered, click Stroke to draw the circular outline on the canvas. The expected result is a visible ring-like badge border."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Clear the active selection",
+      "action_before_state": "The badge outline is visible, and the marching-ants selection border is still present.",
+      "action_preconditions": [
+        "The canvas is active.",
+        "A selection is still visible."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "a"
+        ]
+      },
+      "action_after_effects": "The selection border disappears, leaving only the drawn circular outline.",
+      "nl_explanation": "After the outline is created, press Ctrl+Shift+A to remove the active selection so later text placement is not constrained by it."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Switch to the text tool",
+      "action_before_state": "The canvas now shows only the circular outline on a blank background.",
+      "action_preconditions": [
+        "The toolbox is visible.",
+        "No selection overlay remains on the canvas."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Text tool in the toolbox"
+        }
+      },
+      "action_after_effects": "The Text tool becomes active and text-related options appear in Tool Options.",
+      "nl_explanation": "With the circle already drawn, click the Text tool so the badge lettering can be added inside the outline."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Activate the text size field",
+      "action_before_state": "The Text tool is active and Tool Options are visible.",
+      "action_preconditions": [
+        "The Tool Options panel is visible.",
+        "The text Size field is available."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Size field in the Text tool options"
+        }
+      },
+      "action_after_effects": "The size input becomes active and ready for typing.",
+      "nl_explanation": "After switching to the Text tool, click the Size field in Tool Options so the badge text can be made large enough to read clearly."
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Increase the text size",
+      "action_before_state": "The Text tool Size field is focused.",
+      "action_preconditions": [
+        "The size input accepts numeric values.",
+        "The current size can be replaced."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "96"
+      },
+      "action_after_effects": "The text size is set to 96, so newly added text will be much larger.",
+      "nl_explanation": "With the size input selected, type 96 to make the text large enough to function as the main badge label."
+    },
+    {
+      "step_id": "s17",
+      "step_goal": "Create a text box across the badge center",
+      "action_before_state": "The Text tool is active, and the circular outline is visible on the canvas.",
+      "action_preconditions": [
+        "The canvas is unobstructed.",
+        "The intended text area inside the circle is visible."
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the left side of the empty area inside the circle"
+        },
+        "end": {
+          "text": "the right side of the empty area inside the circle"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "A text box appears across the middle of the badge and is ready for text entry.",
+      "nl_explanation": "With the Text tool configured, drag across the middle of the circular badge to define a text box where the label will be placed."
+    },
+    {
+      "step_id": "s18",
+      "step_goal": "Enter the badge label",
+      "action_before_state": "A text box is active in the center of the badge.",
+      "action_preconditions": [
+        "The text cursor is visible inside the text box.",
+        "The text box is ready to accept input."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "COFFEE\nCLUB"
+      },
+      "action_after_effects": "A new text layer is created and the words COFFEE and CLUB appear on two lines inside the circle.",
+      "nl_explanation": "When the text box is active inside the badge, type COFFEE, press a line break, and then type CLUB so the label appears as a simple stacked title."
+    },
+    {
+      "step_id": "s19",
+      "step_goal": "Open the export dialog",
+      "action_before_state": "The completed badge design is visible on the GIMP canvas.",
+      "action_preconditions": [
+        "The design is finished enough to save.",
+        "The main GIMP window is focused."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "e"
+        ]
+      },
+      "action_after_effects": "The Export Image dialog opens.",
+      "nl_explanation": "After the badge content is in place, press Ctrl+Shift+E to open the Export Image dialog and prepare the design for saving as a PNG file."
+    },
+    {
+      "step_id": "s20",
+      "step_goal": "Choose the Pictures folder as the save location",
+      "action_before_state": "The Export Image dialog is open with a folder sidebar visible.",
+      "action_preconditions": [
+        "The save dialog is active.",
+        "The Pictures location is shown in the sidebar."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Pictures folder in the left sidebar of the Export Image dialog"
+        }
+      },
+      "action_after_effects": "The export destination changes to the Pictures folder.",
+      "nl_explanation": "With the Export Image dialog open, click the Pictures folder in the sidebar so the final badge file will be saved in that location."
+    },
+    {
+      "step_id": "s21",
+      "step_goal": "Activate the filename field",
+      "action_before_state": "The Export Image dialog is pointed at the Pictures folder.",
+      "action_preconditions": [
+        "The Name field is visible in the dialog.",
+        "The dialog is ready for filename entry."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Name field near the bottom of the Export Image dialog"
+        }
+      },
+      "action_after_effects": "The filename field becomes active and ready for typing.",
+      "nl_explanation": "After choosing the Pictures folder, click the Name field so a specific filename can be entered for the exported badge image."
+    },
+    {
+      "step_id": "s22",
+      "step_goal": "Enter the export filename",
+      "action_before_state": "The Name field in the Export Image dialog is active.",
+      "action_preconditions": [
+        "The cursor is in the filename field.",
+        "The field accepts text input."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "coffee-club-badge.png"
+      },
+      "action_after_effects": "The export dialog now shows coffee-club-badge.png as the output filename.",
+      "nl_explanation": "With the filename field focused, type coffee-club-badge.png so the saved file uses the intended final name."
+    },
+    {
+      "step_id": "s23",
+      "step_goal": "Start exporting the PNG file",
+      "action_before_state": "The Export Image dialog shows the correct save location and filename.",
+      "action_preconditions": [
+        "The filename has been entered.",
+        "The Export button is visible and clickable."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Export button in the bottom-right of the Export Image dialog"
+        }
+      },
+      "action_after_effects": "The main export dialog closes and a PNG export settings dialog appears.",
+      "nl_explanation": "Once the Pictures location and filename are correct, click Export to proceed to the PNG-specific export settings."
+    },
+    {
+      "step_id": "s24",
+      "step_goal": "Confirm the PNG export settings",
+      "action_before_state": "The PNG export settings dialog is open above GIMP.",
+      "action_preconditions": [
+        "The PNG settings dialog is visible.",
+        "Its Export button is available."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Export button in the PNG export settings dialog"
+        }
+      },
+      "action_after_effects": "The PNG file is written to the Pictures folder and the export dialog closes, leaving the completed badge open in GIMP.",
+      "nl_explanation": "When the PNG settings dialog appears, click Export to accept the default PNG options and save the finished badge image to the Pictures folder."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "unit_intent": "Create a new square canvas sized for the badge design.",
+      "unit_type": "CREATE_NEW_CANVAS",
+      "unit_before_state": "GIMP is open on its main workspace, and no modal dialog is blocking the editor.",
+      "unit_after_state": "The New Image dialog is closed, and a new blank 1080 by 1080 white image is open on the canvas.",
+      "unit_precondition": [
+        "The GIMP main window is focused.",
+        "No modal dialog is currently open.",
+        "The New Image command can be triggered from the keyboard."
+      ],
+      "unit_effect": [
+        "The New Image dialog appears and accepts 1080 for both Width and Height.",
+        "After confirming, a blank square canvas is visible in the editor."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        6,
+        7
+      ],
+      "unit_intent": "Define the circular area that will become the badge border.",
+      "unit_type": "DEFINE_CIRCULAR_SELECTION",
+      "unit_before_state": "A blank square canvas is visible in GIMP, with the toolbox available and no selection drawn yet.",
+      "unit_after_state": "The Ellipse Select tool is active, and a large circular selection is visible over the central canvas area.",
+      "unit_precondition": [
+        "The blank canvas is visible and unobstructed.",
+        "The toolbox is visible.",
+        "No modal dialog is open."
+      ],
+      "unit_effect": [
+        "The Ellipse Select tool becomes active.",
+        "A large marching-ants circular selection appears on the canvas."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "unit_intent": "Convert the circular selection into a bold outlined badge border.",
+      "unit_type": "STROKE_SELECTION_OUTLINE",
+      "unit_before_state": "A large circular selection is active on the blank canvas.",
+      "unit_after_state": "The Stroke Selection dialog is closed, and a bold black circular outline is drawn along the selection while the selection border remains active.",
+      "unit_precondition": [
+        "A circular selection is already visible on the canvas.",
+        "The top menu bar is accessible.",
+        "The Edit menu contains the Stroke Selection command."
+      ],
+      "unit_effect": [
+        "The Edit menu opens and the Stroke Selection dialog appears.",
+        "The Line width field is set to 20.",
+        "Clicking Stroke draws a visible thick circular outline on the canvas."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        13
+      ],
+      "unit_intent": "Return the badge canvas to a clean working state after drawing the border.",
+      "unit_type": "CLEAR_SELECTION",
+      "unit_before_state": "The circular badge outline is visible, and the marching-ants selection border is still shown around it.",
+      "unit_after_state": "Only the drawn circular outline remains on the blank canvas, with no active selection visible.",
+      "unit_precondition": [
+        "The canvas is focused.",
+        "An active selection border is visible on the canvas."
+      ],
+      "unit_effect": [
+        "The marching-ants selection overlay disappears."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        14,
+        15,
+        16
+      ],
+      "unit_intent": "Prepare the text tool with a large font size for the badge label.",
+      "unit_type": "CONFIGURE_TEXT_TOOL",
+      "unit_before_state": "The canvas shows the circular outline on a blank background, and no selection overlay remains.",
+      "unit_after_state": "The Text tool is active, and the Size field in Tool Options shows 96 for new text.",
+      "unit_precondition": [
+        "The toolbox is visible.",
+        "The Tool Options panel is visible.",
+        "No modal dialog is blocking the canvas."
+      ],
+      "unit_effect": [
+        "The Text tool becomes active.",
+        "The text size setting changes to 96 in Tool Options."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        17,
+        18
+      ],
+      "unit_intent": "Place the club name inside the badge as a centered stacked label.",
+      "unit_type": "ADD_BADGE_TEXT",
+      "unit_before_state": "The Text tool is active with size 96 configured, and the circular outline is visible on the canvas.",
+      "unit_after_state": "A text box and text layer are created across the badge center, showing COFFEE on the first line and CLUB on the second line inside the circle.",
+      "unit_precondition": [
+        "The Text tool is active.",
+        "The canvas area inside the circle is visible and unobstructed.",
+        "The text size has already been set to the intended large value."
+      ],
+      "unit_effect": [
+        "A text box appears across the middle of the badge.",
+        "A new text layer is visible with the two-line label inside the circle."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        19,
+        20,
+        21,
+        22,
+        23,
+        24
+      ],
+      "unit_intent": "Export the finished badge as a PNG file with the required name in the Pictures folder.",
+      "unit_type": "EXPORT_PNG_IMAGE",
+      "unit_before_state": "The completed badge design with the circular outline and COFFEE CLUB text is visible on the GIMP canvas.",
+      "unit_after_state": "All export dialogs are closed, the image remains open in GIMP, and the PNG file coffee-club-badge.png has been exported to the Pictures folder.",
+      "unit_precondition": [
+        "The main GIMP window is focused.",
+        "The design is complete enough to export.",
+        "The Export Image workflow can be opened from the keyboard."
+      ],
+      "unit_effect": [
+        "The Export Image dialog opens and the destination is switched to the Pictures folder.",
+        "The filename field shows coffee-club-badge.png.",
+        "After confirming both export dialogs, GIMP returns to the canvas and the PNG export is completed."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "unit_intent": "Create a new square canvas sized for the badge design.",
+      "unit_type": "CREATE_NEW_CANVAS",
+      "unit_before_state": "GIMP is open on its main workspace, and no modal dialog is blocking the editor.",
+      "unit_after_state": "The New Image dialog is closed, and a new blank 1080 by 1080 white image is open on the canvas.",
+      "unit_precondition": [
+        "The GIMP main window is focused.",
+        "No modal dialog is currently open.",
+        "The New Image command can be triggered from the keyboard."
+      ],
+      "unit_effect": [
+        "The New Image dialog appears and accepts 1080 for both Width and Height.",
+        "After confirming, a blank square canvas is visible in the editor."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a new blank canvas with the specified width and height.",
+      "parameters": {
+        "canvas_width": "1080",
+        "canvas_height": "1080"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'n']}",
+          "action_template": "With the GIMP window focused and no dialog open, press Ctrl+N to open the New Image dialog. The expected result is that the New Image window appears with the Width input ready for editing."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '1080'}",
+          "action_template": "When the Width field is active in the New Image dialog, type {{canvas_width}} so the new image uses the specified width."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['tab']}",
+          "action_template": "After entering the width, press Tab to shift focus from Width to Height so the second dimension can be entered next."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '1080'}",
+          "action_template": "With the Height field selected, type {{canvas_height}} so the canvas uses the specified height."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the OK button in the New Image dialog'}}",
+          "action_template": "Once the dialog shows Width {{canvas_width}} and Height {{canvas_height}}, click the OK button in the New Image dialog to create the new image. The result should be a blank canvas in the main editor."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        6,
+        7
+      ],
+      "unit_intent": "Define the circular area that will become the badge border.",
+      "unit_type": "DEFINE_CIRCULAR_SELECTION",
+      "unit_before_state": "A blank square canvas is visible in GIMP, with the toolbox available and no selection drawn yet.",
+      "unit_after_state": "The Ellipse Select tool is active, and a large circular selection is visible over the central canvas area.",
+      "unit_precondition": [
+        "The blank canvas is visible and unobstructed.",
+        "The toolbox is visible.",
+        "No modal dialog is open."
+      ],
+      "unit_effect": [
+        "The Ellipse Select tool becomes active.",
+        "A large marching-ants circular selection appears on the canvas."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a circular selection over the desired area of the canvas.",
+      "parameters": {
+        "drag_start_region": "a point slightly inside the upper-left area of the blank canvas",
+        "drag_end_region": "a point slightly inside the lower-right area of the blank canvas",
+        "selection_extent": "occupying most of the canvas"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Ellipse Select tool in the toolbox'}}",
+          "action_template": "With the canvas visible and no modal dialog open, click the Ellipse Select tool in the toolbox so the next drag action can define the circular selection area."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'a point slightly inside the upper-left area of the blank canvas'}, 'end': {'text': 'a point slightly inside the lower-right area of the blank canvas'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "When the Ellipse Select tool is active and the canvas has enough empty space, drag from {{drag_start_region}} to {{drag_end_region}} to create a circular selection {{selection_extent}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "unit_intent": "Convert the circular selection into a bold outlined badge border.",
+      "unit_type": "STROKE_SELECTION_OUTLINE",
+      "unit_before_state": "A large circular selection is active on the blank canvas.",
+      "unit_after_state": "The Stroke Selection dialog is closed, and a bold black circular outline is drawn along the selection while the selection border remains active.",
+      "unit_precondition": [
+        "A circular selection is already visible on the canvas.",
+        "The top menu bar is accessible.",
+        "The Edit menu contains the Stroke Selection command."
+      ],
+      "unit_effect": [
+        "The Edit menu opens and the Stroke Selection dialog appears.",
+        "The Line width field is set to 20.",
+        "Clicking Stroke draws a visible thick circular outline on the canvas."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Apply an outline of a specified width to the active selection using the Stroke Selection command.",
+      "parameters": {
+        "line_width": "20"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Edit menu in the top menu bar'}}",
+          "action_template": "Click the Edit menu in the top menu bar while the menu bar is visible and the selection is still active to access the Stroke Selection command; the Edit menu opens and its commands become visible."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Stroke Selection menu item in the Edit menu'}}",
+          "action_template": "Click the Stroke Selection menu item in the Edit menu after the Edit dropdown is open and the Stroke Selection command is visible to open the Stroke Selection dialog; the Stroke Selection dialog opens on top of the canvas."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Line width field in the Stroke Selection dialog'}}",
+          "action_template": "Click the Line width field in the Stroke Selection dialog when the dialog is in focus and the Line width input is visible so the width value can be edited; the cursor is placed in the Line width field and it is ready for typing."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '20'}",
+          "action_template": "Type {{line_width}} into the active Line width field when the text cursor is in the field and it accepts numeric input to set a thicker outline width; the line width is set to {{line_width}} pixels."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Stroke button in the Stroke Selection dialog'}}",
+          "action_template": "Click the Stroke button in the Stroke Selection dialog after the desired line width of {{line_width}} is entered and the button is visible to apply the outline; the dialog closes and an outline appears on the canvas following the selection."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        13
+      ],
+      "unit_intent": "Return the badge canvas to a clean working state after drawing the border.",
+      "unit_type": "CLEAR_SELECTION",
+      "unit_before_state": "The circular badge outline is visible, and the marching-ants selection border is still shown around it.",
+      "unit_after_state": "Only the drawn circular outline remains on the blank canvas, with no active selection visible.",
+      "unit_precondition": [
+        "The canvas is focused.",
+        "An active selection border is visible on the canvas."
+      ],
+      "unit_effect": [
+        "The marching-ants selection overlay disappears."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Clear the active canvas selection to return the workspace to a normal editing state.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'a']}",
+          "action_template": "Press Ctrl+Shift+A while the canvas is active and a selection is still visible to remove the active selection, causing the selection border to disappear and leaving the existing drawn content unchanged."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        14,
+        15,
+        16
+      ],
+      "unit_intent": "Prepare the text tool with a large font size for the badge label.",
+      "unit_type": "CONFIGURE_TEXT_TOOL",
+      "unit_before_state": "The canvas shows the circular outline on a blank background, and no selection overlay remains.",
+      "unit_after_state": "The Text tool is active, and the Size field in Tool Options shows 96 for new text.",
+      "unit_precondition": [
+        "The toolbox is visible.",
+        "The Tool Options panel is visible.",
+        "No modal dialog is blocking the canvas."
+      ],
+      "unit_effect": [
+        "The Text tool becomes active.",
+        "The text size setting changes to 96 in Tool Options."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Prepare the Text tool with a specified font size for entering {{target_text_element}}.",
+      "parameters": {
+        "target_text_element": "badge label",
+        "font_size_value": "96"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Text tool in the toolbox'}}",
+          "action_template": "Click the Text tool in the toolbox when the toolbox is visible and no selection overlay remains on the canvas to activate text entry and show text-related options in Tool Options so {{target_text_element}} can be added."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Size field in the Text tool options'}}",
+          "action_template": "Click the Size field in the Text tool options when the Tool Options panel is visible and the text Size field is available to make the size input active and ready for typing for {{target_text_element}}."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '96'}",
+          "action_template": "Type {{font_size_value}} into the focused Size field when the input accepts numeric values and the current size can be replaced to set new text to the specified large size for {{target_text_element}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        17,
+        18
+      ],
+      "unit_intent": "Place the club name inside the badge as a centered stacked label.",
+      "unit_type": "ADD_BADGE_TEXT",
+      "unit_before_state": "The Text tool is active with size 96 configured, and the circular outline is visible on the canvas.",
+      "unit_after_state": "A text box and text layer are created across the badge center, showing COFFEE on the first line and CLUB on the second line inside the circle.",
+      "unit_precondition": [
+        "The Text tool is active.",
+        "The canvas area inside the circle is visible and unobstructed.",
+        "The text size has already been set to the intended large value."
+      ],
+      "unit_effect": [
+        "A text box appears across the middle of the badge.",
+        "A new text layer is visible with the two-line label inside the circle."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Place a specified stacked label inside the badge as centered text.",
+      "parameters": {
+        "text_box_start": "the left side of the empty area inside the circle",
+        "text_box_end": "the right side of the empty area inside the circle",
+        "label_text": "COFFEE\nCLUB"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the left side of the empty area inside the circle'}, 'end': {'text': 'the right side of the empty area inside the circle'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "With the Text tool configured, drag from {{text_box_start}} to {{text_box_end}} across the middle of the circular badge to define a text box where the label will be placed, when the canvas is unobstructed and the intended text area inside the circle is visible, so a text box appears across the middle of the badge and is ready for text entry."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'COFFEE\\nCLUB'}",
+          "action_template": "When the text cursor is visible inside the text box and the text box is ready to accept input, type {{label_text}} so a new text layer is created and the stacked label appears on two lines inside the circle."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_07",
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        19,
+        20,
+        21,
+        22,
+        23,
+        24
+      ],
+      "unit_intent": "Export the finished badge as a PNG file with the required name in the Pictures folder.",
+      "unit_type": "EXPORT_PNG_IMAGE",
+      "unit_before_state": "The completed badge design with the circular outline and COFFEE CLUB text is visible on the GIMP canvas.",
+      "unit_after_state": "All export dialogs are closed, the image remains open in GIMP, and the PNG file coffee-club-badge.png has been exported to the Pictures folder.",
+      "unit_precondition": [
+        "The main GIMP window is focused.",
+        "The design is complete enough to export.",
+        "The Export Image workflow can be opened from the keyboard."
+      ],
+      "unit_effect": [
+        "The Export Image dialog opens and the destination is switched to the Pictures folder.",
+        "The filename field shows coffee-club-badge.png.",
+        "After confirming both export dialogs, GIMP returns to the canvas and the PNG export is completed."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Export the finished image as a PNG file to a specified destination folder with a specified filename.",
+      "parameters": {
+        "destination_folder": "Pictures folder",
+        "output_file_name": "coffee-club-badge.png"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'e']}",
+          "action_template": "Press Ctrl+Shift+E to open the Export Image dialog and prepare the finished design for saving as a PNG file, when the design is finished enough to save and the main GIMP window is focused. The Export Image dialog opens."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Pictures folder in the left sidebar of the Export Image dialog'}}",
+          "action_template": "Click the {{destination_folder}} in the left sidebar of the Export Image dialog so the final PNG file will be saved in that location, when the save dialog is active and the location is shown in the sidebar. The export destination changes to the {{destination_folder}}."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Name field near the bottom of the Export Image dialog'}}",
+          "action_template": "Click the Name field near the bottom of the Export Image dialog so a specific filename can be entered, when the Name field is visible and the dialog is ready for filename entry. The filename field becomes active and ready for typing."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'coffee-club-badge.png'}",
+          "action_template": "Type {{output_file_name}} into the filename field so the saved file uses the intended final name, when the cursor is in the filename field and the field accepts text input. The export dialog shows {{output_file_name}} as the output filename."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Export button in the bottom-right of the Export Image dialog'}}",
+          "action_template": "Click the Export button in the bottom-right of the Export Image dialog to proceed to the PNG-specific export settings, when the {{destination_folder}} location and {{output_file_name}} are correct, the filename has been entered, and the Export button is visible and clickable. The main export dialog closes and a PNG export settings dialog appears."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Export button in the PNG export settings dialog'}}",
+          "action_template": "Click the Export button in the PNG export settings dialog to accept the default PNG options and save the finished image to the {{destination_folder}}, when the PNG settings dialog is visible and its Export button is available. The PNG file is written to the {{destination_folder}} and the export dialog closes, leaving the completed image open in GIMP."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

@@ -1,0 +1,703 @@
+{
+  "segment_id": "seg_001",
+  "app": "gimp",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the image selection dialog",
+      "action_before_state": "GIMP is already open on the GNOME desktop, with its main window and menu bar visible.",
+      "action_preconditions": [
+        "The GIMP window is focused",
+        "The menu bar or canvas area is visible"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "o"
+        ]
+      },
+      "action_after_effects": "The Open Image dialog appears in front of GIMP.",
+      "nl_explanation": "When GIMP is the active window, press Ctrl+O to open the file chooser so the source image can be selected."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Move focus to the location entry in the file chooser",
+      "action_before_state": "The Open Image dialog is visible.",
+      "action_preconditions": [
+        "The Open Image dialog is open",
+        "Keyboard input will go to the dialog"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "l"
+        ]
+      },
+      "action_after_effects": "The location entry becomes active, ready for a file path to be typed.",
+      "nl_explanation": "With the file chooser open, press Ctrl+L so you can enter the image path directly instead of browsing folders."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Enter the path of the source photo",
+      "action_before_state": "The location entry in the Open Image dialog is focused.",
+      "action_preconditions": [
+        "The location field is active",
+        "The source file exists at `/home/user/Pictures/hike.jpg`"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "/home/user/Pictures/hike.jpg"
+      },
+      "action_after_effects": "The full image path appears in the location entry.",
+      "nl_explanation": "Once the path field is active, type `/home/user/Pictures/hike.jpg` so GIMP knows which photo to open."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Open the selected photo in GIMP",
+      "action_before_state": "The source image path is entered in the location field.",
+      "action_preconditions": [
+        "The path in the dialog points to a valid image file",
+        "The Open Image dialog is still focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The dialog closes and the hiking photo is displayed on the GIMP canvas.",
+      "nl_explanation": "After entering the file path, press Enter to load the image into GIMP."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Activate the Crop tool",
+      "action_before_state": "The hiking photo is open on the canvas.",
+      "action_preconditions": [
+        "The image is visible",
+        "The canvas is active inside GIMP"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "shift",
+          "c"
+        ]
+      },
+      "action_after_effects": "The Crop tool becomes active, allowing a crop region to be drawn on the image.",
+      "nl_explanation": "With the photo open, press Shift+C to switch to the Crop tool before defining the square framing."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Draw a square crop around the main subject",
+      "action_before_state": "The Crop tool is active and the image is visible.",
+      "action_preconditions": [
+        "The subject to keep is visible on the canvas",
+        "The Crop tool is selected"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the upper-left corner of the square area you want to keep around the main subject"
+        },
+        "end": {
+          "text": "the lower-right corner of that square crop area"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "A crop rectangle appears over the image, showing the new square framing.",
+      "nl_explanation": "When the Crop tool is active, drag from the top-left of the area you want to keep to the bottom-right so a square crop region is created around the subject."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Apply the crop",
+      "action_before_state": "A crop rectangle is visible on the photo.",
+      "action_preconditions": [
+        "The crop area is already positioned correctly",
+        "The crop rectangle is still active"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The image is cropped to the selected square area.",
+      "nl_explanation": "After the crop region looks correct, press Enter to commit the crop and resize the canvas to that square selection."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Open the Colors menu",
+      "action_before_state": "The cropped image is visible in GIMP.",
+      "action_preconditions": [
+        "The image remains active on the canvas",
+        "The GIMP top menu bar is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Colors menu in the top menu bar"
+        }
+      },
+      "action_after_effects": "The Colors menu opens with image adjustment options.",
+      "nl_explanation": "With the cropped image open, click the Colors menu to access brightness adjustments."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Open the Brightness-Contrast adjustment dialog",
+      "action_before_state": "The Colors menu dropdown is open.",
+      "action_preconditions": [
+        "The Colors dropdown is visible",
+        "The Brightness-Contrast option is available in that menu"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Brightness-Contrast option in the Colors menu"
+        }
+      },
+      "action_after_effects": "The Brightness-Contrast dialog opens over the image.",
+      "nl_explanation": "When the Colors menu is open, click Brightness-Contrast so the image can be brightened slightly."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Increase brightness a little",
+      "action_before_state": "The Brightness-Contrast dialog is open with its sliders visible.",
+      "action_preconditions": [
+        "The Brightness-Contrast dialog is open",
+        "The Brightness slider handle is visible"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the current Brightness slider handle in the adjustment dialog"
+        },
+        "end": {
+          "text": "a position slightly to the right on the Brightness slider"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "The image preview becomes a bit brighter while the dialog remains open.",
+      "nl_explanation": "In the Brightness-Contrast dialog, drag the Brightness slider slightly to the right so the photo looks a little brighter without overexposing it."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Confirm the brightness change",
+      "action_before_state": "The preview shows the brighter image and the adjustment dialog is still open.",
+      "action_preconditions": [
+        "The brightness preview looks acceptable",
+        "The OK button is visible in the adjustment dialog"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the OK button in the Brightness-Contrast dialog"
+        }
+      },
+      "action_after_effects": "The dialog closes and the brightness change is applied to the image.",
+      "nl_explanation": "Once the preview looks right, click OK to apply the brightness adjustment to the current image."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Activate the Text tool",
+      "action_before_state": "The adjusted square image is visible on the canvas.",
+      "action_preconditions": [
+        "The canvas is visible",
+        "No blocking dialog is open"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "t"
+        ]
+      },
+      "action_after_effects": "The Text tool becomes active, ready for placing a caption on the image.",
+      "nl_explanation": "Press T to switch to the Text tool so a caption can be added on top of the photo."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Place the text box near the bottom of the image",
+      "action_before_state": "The Text tool is active and the image is visible.",
+      "action_preconditions": [
+        "The Text tool is selected",
+        "There is empty or suitable space near the bottom of the image for a caption"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "an area near the bottom center of the image where the caption should appear"
+        }
+      },
+      "action_after_effects": "A text box appears on the image, ready for text input.",
+      "nl_explanation": "With the Text tool active, click near the bottom center of the photo to create a text box for the caption."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Type the caption text",
+      "action_before_state": "A text box is active on the image.",
+      "action_preconditions": [
+        "The text cursor is visible in the new text box",
+        "Keyboard input will go into the text box"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Weekend Hike"
+      },
+      "action_after_effects": "The caption `Weekend Hike` appears on the image as a text layer.",
+      "nl_explanation": "After placing the text box, type `Weekend Hike` so the image has the requested caption."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Open the Export Image dialog",
+      "action_before_state": "The edited image with the caption is visible in GIMP.",
+      "action_preconditions": [
+        "The image edits are complete",
+        "The GIMP window is focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "e"
+        ]
+      },
+      "action_after_effects": "The Export Image dialog opens so the edited photo can be saved as a new file.",
+      "nl_explanation": "When the image looks finished, press Ctrl+Shift+E to open the export dialog and create the final output file."
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Enter the export path and filename",
+      "action_before_state": "The Export Image dialog is open and its filename field is ready for input.",
+      "action_preconditions": [
+        "The Export Image dialog is active",
+        "The filename field is focused or ready to receive typed text"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "/home/user/Pictures/hike_profile.png"
+      },
+      "action_after_effects": "The export destination is set to `/home/user/Pictures/hike_profile.png`.",
+      "nl_explanation": "In the export dialog, type `/home/user/Pictures/hike_profile.png` so the final image is saved with the requested name and location."
+    },
+    {
+      "step_id": "s17",
+      "step_goal": "Move from the file chooser to the format confirmation dialog",
+      "action_before_state": "The export path has been entered in the Export Image dialog.",
+      "action_preconditions": [
+        "The export filename is valid",
+        "The Export Image dialog is still focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "GIMP advances to the PNG export options dialog.",
+      "nl_explanation": "After entering the output path, press Enter so GIMP accepts the filename and shows the PNG export options."
+    },
+    {
+      "step_id": "s18",
+      "step_goal": "Confirm the PNG export",
+      "action_before_state": "The PNG export options dialog is visible.",
+      "action_preconditions": [
+        "The PNG export options dialog is open",
+        "The Export button is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Export button in the PNG export options dialog"
+        }
+      },
+      "action_after_effects": "The image is exported as `/home/user/Pictures/hike_profile.png` and the dialog closes.",
+      "nl_explanation": "When the PNG options dialog appears, click Export to write the final edited image to `/home/user/Pictures/hike_profile.png`."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Open the requested hiking photo in GIMP so editing can begin on the correct source image.",
+      "unit_type": "OPEN_IMAGE_FROM_PATH",
+      "unit_before_state": "GIMP is open on the desktop with its main window visible, and no file chooser is currently blocking the canvas.",
+      "unit_after_state": "The Open Image dialog is closed and the photo from /home/user/Pictures/hike.jpg is displayed on the GIMP canvas as the active image.",
+      "unit_precondition": [
+        "GIMP is the focused application window.",
+        "The source file /home/user/Pictures/hike.jpg exists and is readable.",
+        "Keyboard input can be sent to the GIMP window and its dialogs."
+      ],
+      "unit_effect": [
+        "An Open Image dialog appears, its location field is focused, and the typed path /home/user/Pictures/hike.jpg is visible before confirmation.",
+        "After pressing Enter, the dialog disappears and the hiking photo becomes visible in the main editing area."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Reframe the photo into a square composition around the main subject for chat sharing.",
+      "unit_type": "CROP_IMAGE_TO_SQUARE",
+      "unit_before_state": "The hiking photo is open on the GIMP canvas in its original rectangular framing, with no crop applied yet.",
+      "unit_after_state": "The canvas now shows only the selected square region of the hiking photo, with the crop committed and the old outer areas removed.",
+      "unit_precondition": [
+        "The target photo is already open and active in GIMP.",
+        "The main subject is visible on the canvas so a square crop can be positioned around it.",
+        "The crop operation can be confirmed from the keyboard after drawing the selection."
+      ],
+      "unit_effect": [
+        "The Crop tool becomes active and a crop rectangle appears over the image while dragging.",
+        "After confirmation, the image dimensions visibly change to the selected square framing."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "unit_intent": "Make the cropped photo slightly brighter while preserving a natural look.",
+      "unit_type": "ADJUST_BRIGHTNESS",
+      "unit_before_state": "The square-cropped hiking photo is visible on the GIMP canvas, and no color adjustment dialog is open.",
+      "unit_after_state": "The Brightness-Contrast dialog has been closed, and the square photo remains on the canvas with a slightly brighter appearance applied.",
+      "unit_precondition": [
+        "The cropped image is active in GIMP.",
+        "The top menu bar is visible and the Colors menu can be opened.",
+        "The Brightness-Contrast dialog provides a live preview before confirmation."
+      ],
+      "unit_effect": [
+        "The Colors menu opens and the Brightness-Contrast dialog appears over the image.",
+        "Dragging the Brightness control updates the preview to a brighter image.",
+        "Clicking OK closes the dialog and leaves the brightened result visible on the canvas."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        12,
+        13,
+        14
+      ],
+      "unit_intent": "Add the requested caption near the bottom of the image so the final share image includes the label Weekend Hike.",
+      "unit_type": "ADD_TEXT_CAPTION",
+      "unit_before_state": "The brightened square image is visible on the canvas with no active text box yet.",
+      "unit_after_state": "A text layer containing Weekend Hike is visible near the bottom center of the image, inserted through an active text box placement.",
+      "unit_precondition": [
+        "The edited image is visible and no blocking dialog is open.",
+        "The Text tool can be activated in GIMP.",
+        "There is usable space near the bottom of the image for placing a caption."
+      ],
+      "unit_effect": [
+        "The Text tool becomes active and a text box appears where the user clicks near the bottom of the photo.",
+        "The words Weekend Hike appear on the image as editable text content."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        15,
+        16,
+        17,
+        18
+      ],
+      "unit_intent": "Export the finished captioned square image as the requested PNG file in the Pictures folder.",
+      "unit_type": "EXPORT_IMAGE_AS_PNG",
+      "unit_before_state": "The edited square photo with the Weekend Hike caption is visible in GIMP, and no export dialog is open yet.",
+      "unit_after_state": "All export dialogs are closed and the edited image has been written to /home/user/Pictures/hike_profile.png as a PNG file.",
+      "unit_precondition": [
+        "The image edits are complete and the correct image is still active in GIMP.",
+        "The user can open the Export Image dialog from the keyboard.",
+        "The destination path /home/user/Pictures/hike_profile.png is valid and writable."
+      ],
+      "unit_effect": [
+        "The Export Image dialog opens and shows the entered output path /home/user/Pictures/hike_profile.png.",
+        "Pressing Enter advances from the filename dialog to the PNG export options dialog.",
+        "Clicking Export closes the export flow and saves the file as /home/user/Pictures/hike_profile.png."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Open the requested hiking photo in GIMP so editing can begin on the correct source image.",
+      "unit_type": "OPEN_IMAGE_FROM_PATH",
+      "unit_before_state": "GIMP is open on the desktop with its main window visible, and no file chooser is currently blocking the canvas.",
+      "unit_after_state": "The Open Image dialog is closed and the photo from /home/user/Pictures/hike.jpg is displayed on the GIMP canvas as the active image.",
+      "unit_precondition": [
+        "GIMP is the focused application window.",
+        "The source file /home/user/Pictures/hike.jpg exists and is readable.",
+        "Keyboard input can be sent to the GIMP window and its dialogs."
+      ],
+      "unit_effect": [
+        "An Open Image dialog appears, its location field is focused, and the typed path /home/user/Pictures/hike.jpg is visible before confirmation.",
+        "After pressing Enter, the dialog disappears and the hiking photo becomes visible in the main editing area."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a specified image file in GIMP by entering its file path in the Open Image dialog.",
+      "parameters": {
+        "source_image_path": "/home/user/Pictures/hike.jpg"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'o']}",
+          "action_template": "When GIMP is the active window, press Ctrl+O to open the Open Image dialog so the image file can be selected."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'l']}",
+          "action_template": "With the Open Image dialog open, press Ctrl+L to focus the location entry so a file path can be entered directly."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '/home/user/Pictures/hike.jpg'}",
+          "action_template": "Once the location field is active, type {{source_image_path}} so GIMP knows which image file to open."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After entering {{source_image_path}}, press Enter to load the image into GIMP."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Reframe the photo into a square composition around the main subject for chat sharing.",
+      "unit_type": "CROP_IMAGE_TO_SQUARE",
+      "unit_before_state": "The hiking photo is open on the GIMP canvas in its original rectangular framing, with no crop applied yet.",
+      "unit_after_state": "The canvas now shows only the selected square region of the hiking photo, with the crop committed and the old outer areas removed.",
+      "unit_precondition": [
+        "The target photo is already open and active in GIMP.",
+        "The main subject is visible on the canvas so a square crop can be positioned around it.",
+        "The crop operation can be confirmed from the keyboard after drawing the selection."
+      ],
+      "unit_effect": [
+        "The Crop tool becomes active and a crop rectangle appears over the image while dragging.",
+        "After confirmation, the image dimensions visibly change to the selected square framing."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Crop an open image into a square composition around a specified subject.",
+      "parameters": {
+        "target_subject": "main subject",
+        "crop_start_point": "the upper-left corner of the square area you want to keep around the main subject",
+        "crop_end_point": "the lower-right corner of that square crop area"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['shift', 'c']}",
+          "action_template": "With the image visible and the canvas active inside GIMP, press Shift+C to activate the Crop tool so a crop region can be drawn on the image."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the upper-left corner of the square area you want to keep around the main subject'}, 'end': {'text': 'the lower-right corner of that square crop area'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "With {{target_subject}} visible on the canvas and the Crop tool selected, drag from {{crop_start_point}} to {{crop_end_point}} to create a square crop region around {{target_subject}}."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After the square crop area is positioned correctly and the crop rectangle is still active, press Enter to commit the crop and resize the canvas to the selected square area."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "unit_intent": "Make the cropped photo slightly brighter while preserving a natural look.",
+      "unit_type": "ADJUST_BRIGHTNESS",
+      "unit_before_state": "The square-cropped hiking photo is visible on the GIMP canvas, and no color adjustment dialog is open.",
+      "unit_after_state": "The Brightness-Contrast dialog has been closed, and the square photo remains on the canvas with a slightly brighter appearance applied.",
+      "unit_precondition": [
+        "The cropped image is active in GIMP.",
+        "The top menu bar is visible and the Colors menu can be opened.",
+        "The Brightness-Contrast dialog provides a live preview before confirmation."
+      ],
+      "unit_effect": [
+        "The Colors menu opens and the Brightness-Contrast dialog appears over the image.",
+        "Dragging the Brightness control updates the preview to a brighter image.",
+        "Clicking OK closes the dialog and leaves the brightened result visible on the canvas."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Slightly increase the brightness of the active image while preserving a natural-looking result.",
+      "parameters": {
+        "target_image": "the cropped image",
+        "brightness_change": "slightly brighter",
+        "slider_end_position": "a position slightly to the right on the Brightness slider",
+        "preview_goal": "a little brighter without overexposing it"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Colors menu in the top menu bar'}}",
+          "action_template": "With {{target_image}} active and the GIMP top menu bar visible, click the Colors menu in the top menu bar to access brightness adjustments. This opens the Colors menu with image adjustment options."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Brightness-Contrast option in the Colors menu'}}",
+          "action_template": "When the Colors dropdown is visible and the Brightness-Contrast option is available, click the Brightness-Contrast option in the Colors menu so {{target_image}} can be made {{brightness_change}}. This opens the Brightness-Contrast dialog over the image."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the current Brightness slider handle in the adjustment dialog'}, 'end': {'text': 'a position slightly to the right on the Brightness slider'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "With the Brightness-Contrast dialog open and the Brightness slider handle visible, drag the current Brightness slider handle to {{slider_end_position}} so {{target_image}} looks {{preview_goal}}. This updates the preview so the image becomes a bit brighter while the dialog remains open."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the OK button in the Brightness-Contrast dialog'}}",
+          "action_template": "Once the brightness preview looks acceptable and the OK button is visible, click the OK button in the Brightness-Contrast dialog to apply the brightness adjustment to {{target_image}}. This closes the dialog and applies the brightness change to the image."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        12,
+        13,
+        14
+      ],
+      "unit_intent": "Add the requested caption near the bottom of the image so the final share image includes the label Weekend Hike.",
+      "unit_type": "ADD_TEXT_CAPTION",
+      "unit_before_state": "The brightened square image is visible on the canvas with no active text box yet.",
+      "unit_after_state": "A text layer containing Weekend Hike is visible near the bottom center of the image, inserted through an active text box placement.",
+      "unit_precondition": [
+        "The edited image is visible and no blocking dialog is open.",
+        "The Text tool can be activated in GIMP.",
+        "There is usable space near the bottom of the image for placing a caption."
+      ],
+      "unit_effect": [
+        "The Text tool becomes active and a text box appears where the user clicks near the bottom of the photo.",
+        "The words Weekend Hike appear on the image as editable text content."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Add {{caption_text}} as a text caption on the image at {{caption_placement_area}}.",
+      "parameters": {
+        "caption_text": "Weekend Hike",
+        "caption_placement_area": "an area near the bottom center of the image where the caption should appear"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['t']}",
+          "action_template": "When the canvas is visible and no blocking dialog is open, press T to switch to the Text tool so a caption can be added on top of the photo. The Text tool becomes active, ready for placing a caption on the image."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'an area near the bottom center of the image where the caption should appear'}}",
+          "action_template": "With the Text tool selected and suitable space available at {{caption_placement_area}}, click {{caption_placement_area}} to create a text box for the caption. A text box appears on the image, ready for text input."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Weekend Hike'}",
+          "action_template": "When the text cursor is visible in the new text box and keyboard input will go into it, type {{caption_text}} so the image has the requested caption. The caption {{caption_text}} appears on the image as a text layer."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        15,
+        16,
+        17,
+        18
+      ],
+      "unit_intent": "Export the finished captioned square image as the requested PNG file in the Pictures folder.",
+      "unit_type": "EXPORT_IMAGE_AS_PNG",
+      "unit_before_state": "The edited square photo with the Weekend Hike caption is visible in GIMP, and no export dialog is open yet.",
+      "unit_after_state": "All export dialogs are closed and the edited image has been written to /home/user/Pictures/hike_profile.png as a PNG file.",
+      "unit_precondition": [
+        "The image edits are complete and the correct image is still active in GIMP.",
+        "The user can open the Export Image dialog from the keyboard.",
+        "The destination path /home/user/Pictures/hike_profile.png is valid and writable."
+      ],
+      "unit_effect": [
+        "The Export Image dialog opens and shows the entered output path /home/user/Pictures/hike_profile.png.",
+        "Pressing Enter advances from the filename dialog to the PNG export options dialog.",
+        "Clicking Export closes the export flow and saves the file as /home/user/Pictures/hike_profile.png."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Export the active edited image as a PNG file to a specified output path.",
+      "parameters": {
+        "output_path": "/home/user/Pictures/hike_profile.png"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'e']}",
+          "action_template": "Press Ctrl+Shift+E to open the Export Image dialog when the active image is ready to be saved, so the export flow starts for the final output file."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '/home/user/Pictures/hike_profile.png'}",
+          "action_template": "Type {{output_path}} into the filename field while the Export Image dialog is active to set the PNG export destination."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter after entering {{output_path}} and while the Export Image dialog remains focused so GIMP accepts the filename and advances to the PNG export options dialog."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Export button in the PNG export options dialog'}}",
+          "action_template": "Click the Export button in the PNG export options dialog when it is visible to write the image to {{output_path}} and close the export flow."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

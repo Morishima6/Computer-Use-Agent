@@ -1,0 +1,762 @@
+{
+  "segment_id": "seg_001",
+  "app": "libreoffice_calc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Enter the weekly meal spending table on the first sheet",
+      "action_before_state": "libreoffice_calc is ready for step 1 of the task.",
+      "action_preconditions": [
+        "LibreOffice Calc is already open on a blank workbook.",
+        "The first worksheet grid is visible and ready for input."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Day\tGrocery\tDining Out\tDaily Total\nMonday\t18\t12\t\nTuesday\t21\t0\t\nWednesday\t16\t14\t\nThursday\t24\t9\t\nFriday\t19\t18\t\nSaturday\t35\t22\t\nSunday\t27\t8\t"
+      },
+      "action_after_effects": "A1:D8 is populated with headers and the seven daily entries, while the Daily Total column is still empty.",
+      "nl_explanation": "With the blank sheet active, type the full tab-separated table so the weekly meal data is laid out in one block starting at A1."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Select the first Daily Total cell",
+      "action_before_state": "libreoffice_calc is ready for step 2 of the task.",
+      "action_preconditions": [
+        "The table from A1:D8 exists on the first sheet.",
+        "Cell D2 is visible in the Daily Total column."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell D2, the first blank cell under Daily Total"
+        }
+      },
+      "action_after_effects": "Cell D2 becomes the active cell for entering the first total formula.",
+      "nl_explanation": "When the weekly table is visible, click D2 so the first daily total can be calculated there."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Calculate the first day's total",
+      "action_before_state": "libreoffice_calc is ready for step 3 of the task.",
+      "action_preconditions": [
+        "Cell D2 is active.",
+        "Columns B and C already contain Monday's Grocery and Dining Out values."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "=B2+C2"
+      },
+      "action_after_effects": "Cell D2 shows the calculated total of 30 and is ready to be copied down.",
+      "nl_explanation": "With D2 selected, type a formula that adds Grocery and Dining Out for Monday so the first Daily Total is created."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Fill the Daily Total formula down the rest of the week",
+      "action_before_state": "libreoffice_calc is ready for step 4 of the task.",
+      "action_preconditions": [
+        "Cell D2 contains the correct formula.",
+        "The fill handle on D2 is visible."
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the fill handle at the bottom-right corner of cell D2"
+        },
+        "end": {
+          "text": "the fill handle position at cell D8"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "Cells D3:D8 are filled with the same formula pattern, producing totals for Tuesday through Sunday.",
+      "nl_explanation": "Once D2 has the right formula, drag its fill handle down to D8 so each day's total is calculated automatically."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Move to the row below the weekly entries",
+      "action_before_state": "libreoffice_calc is ready for step 5 of the task.",
+      "action_preconditions": [
+        "The daily totals are filled through row 8.",
+        "Row 9 is empty and visible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell A9, the first empty row under the table"
+        }
+      },
+      "action_after_effects": "Cell A9 is active and ready for the weekly total row.",
+      "nl_explanation": "After the day-by-day totals are finished, click A9 so the worksheet can add a summary row directly under the data."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Add the weekly total row",
+      "action_before_state": "libreoffice_calc is ready for step 6 of the task.",
+      "action_preconditions": [
+        "Cell A9 is selected.",
+        "Cells D2:D8 contain all seven daily totals."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Weekly Total\t\t\t=SUM(D2:D8)"
+      },
+      "action_after_effects": "Row 9 is added as a summary row, with D9 showing the weekly total of 243.",
+      "nl_explanation": "With A9 selected, type a row label and a sum formula so the sheet shows one overall total for the week."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Open inline rename mode for the first sheet",
+      "action_before_state": "libreoffice_calc is ready for step 7 of the task.",
+      "action_preconditions": [
+        "The first worksheet tab is visible at the bottom.",
+        "The current tab still uses the default sheet name."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 2,
+        "target": {
+          "text": "the Sheet1 tab at the bottom of the workbook"
+        }
+      },
+      "action_after_effects": "The Sheet1 tab enters rename mode with its name highlighted.",
+      "nl_explanation": "When the first sheet tab is visible, double-click it to switch into rename mode."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Rename the first sheet to Meal Log",
+      "action_before_state": "libreoffice_calc is ready for step 8 of the task.",
+      "action_preconditions": [
+        "The first sheet tab is in rename mode.",
+        "Its current name text is editable."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Meal Log\n"
+      },
+      "action_after_effects": "The first worksheet is renamed to Meal Log.",
+      "nl_explanation": "With the tab name editable, type Meal Log and confirm it so the data sheet has a clear label."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Insert a second worksheet",
+      "action_before_state": "libreoffice_calc is ready for step 9 of the task.",
+      "action_preconditions": [
+        "The workbook already contains the completed Meal Log sheet.",
+        "The sheet tab bar and Add Sheet control are visible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Add Sheet (+) icon next to the sheet tabs"
+        }
+      },
+      "action_after_effects": "A new worksheet is inserted and becomes active, usually with the default name Sheet2.",
+      "nl_explanation": "After finishing the first sheet, click the Add Sheet (+) control to create a new worksheet for the summary."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Open inline rename mode for the new sheet",
+      "action_before_state": "libreoffice_calc is ready for step 10 of the task.",
+      "action_preconditions": [
+        "The new second worksheet tab is visible and active.",
+        "It still has the default name."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 2,
+        "target": {
+          "text": "the new Sheet2 tab at the bottom"
+        }
+      },
+      "action_after_effects": "The second sheet tab enters rename mode.",
+      "nl_explanation": "Double-click the new sheet tab so its default name can be replaced."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Rename the second sheet to Summary",
+      "action_before_state": "libreoffice_calc is ready for step 11 of the task.",
+      "action_preconditions": [
+        "The second sheet tab is editable.",
+        "The rename cursor is active in the tab name."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Summary\n"
+      },
+      "action_after_effects": "The second worksheet is renamed to Summary.",
+      "nl_explanation": "Type Summary into the editable tab name and confirm it so the reporting sheet is clearly labeled."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Place the cursor at the top of the Summary sheet",
+      "action_before_state": "libreoffice_calc is ready for step 12 of the task.",
+      "action_preconditions": [
+        "The Summary sheet is active.",
+        "Cell A1 is visible and empty."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell A1 on the Summary sheet"
+        }
+      },
+      "action_after_effects": "Cell A1 becomes active for entering the summary table.",
+      "nl_explanation": "With the Summary sheet open, click A1 so the totals table starts in the top-left corner."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Build the summary totals table",
+      "action_before_state": "libreoffice_calc is ready for step 13 of the task.",
+      "action_preconditions": [
+        "Cell A1 on Summary is selected.",
+        "The Meal Log sheet already contains completed spending data."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Category\tAmount\nGrocery\t=SUM('Meal Log'.B2:B8)\nDining Out\t=SUM('Meal Log'.C2:C8)\nGrand Total\t=SUM('Meal Log'.D2:D8)"
+      },
+      "action_after_effects": "A1:B4 is filled with summary labels and formulas, producing totals of 160 for Grocery, 83 for Dining Out, and 243 for Grand Total.",
+      "nl_explanation": "From A1, type a small two-column table with formulas that pull the category totals from Meal Log."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Select the data that should feed the pie chart",
+      "action_before_state": "libreoffice_calc is ready for step 14 of the task.",
+      "action_preconditions": [
+        "The summary table exists in A1:B4.",
+        "Only Grocery and Dining Out should be used for the chart."
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell A1 at the top-left of the summary table"
+        },
+        "end": {
+          "text": "cell B3 so the header plus Grocery and Dining Out rows are selected"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "Range A1:B3 is highlighted as the chart data source.",
+      "nl_explanation": "Drag across A1:B3 so the chart uses the header row and the two spending categories, without including Grand Total."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Start chart creation from the selected summary data",
+      "action_before_state": "libreoffice_calc is ready for step 15 of the task.",
+      "action_preconditions": [
+        "Cells A1:B3 are selected.",
+        "The standard Calc toolbar is visible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Insert Chart button on the Calc toolbar"
+        }
+      },
+      "action_after_effects": "The Chart Wizard opens and shows a preview based on the selected range.",
+      "nl_explanation": "With the source range selected, click the chart button so Calc opens the chart setup wizard."
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Choose a pie chart for the spending split",
+      "action_before_state": "libreoffice_calc is ready for step 16 of the task.",
+      "action_preconditions": [
+        "The Chart Wizard is open.",
+        "The chart type choices are visible in the wizard."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Pie chart type in the Chart Wizard"
+        }
+      },
+      "action_after_effects": "The chart preview changes to a pie chart using Grocery and Dining Out totals.",
+      "nl_explanation": "Once the wizard is open, click the Pie chart option so the summary is shown as a spending split."
+    },
+    {
+      "step_id": "s17",
+      "step_goal": "Insert the finished chart onto the Summary sheet",
+      "action_before_state": "libreoffice_calc is ready for step 17 of the task.",
+      "action_preconditions": [
+        "The Chart Wizard preview already shows a pie chart.",
+        "The Finish button is available."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Finish button in the Chart Wizard"
+        }
+      },
+      "action_after_effects": "A pie chart comparing Grocery and Dining Out is inserted on the Summary sheet, completing the task.",
+      "nl_explanation": "After the pie chart preview looks correct, click Finish to place the chart on the Summary sheet and complete the tracker."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Lay out the main weekly meal spending table on the first worksheet so the tracker has its base data structure.",
+      "unit_type": "ENTER_SPENDING_TABLE",
+      "unit_before_state": "LibreOffice Calc shows a blank new workbook on the first worksheet, with an empty grid ready for data entry starting at the top-left area.",
+      "unit_after_state": "The first worksheet now contains a table in A1:D8 with the headers Day, Grocery, Dining Out, and Daily Total, plus Monday through Sunday rows. The Grocery and Dining Out values are filled, while Daily Total cells D2:D8 are still blank.",
+      "unit_precondition": [
+        "A blank Calc workbook is open.",
+        "The first worksheet grid is visible and ready to receive pasted or typed tabular input."
+      ],
+      "unit_effect": [
+        "Cells A1:D8 become populated with the weekly meal log data.",
+        "The Daily Total column is present but empty for rows 2 through 8."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Compute daily spending totals for every day in the weekly table.",
+      "unit_type": "POPULATE_DAILY_TOTALS",
+      "unit_before_state": "The first worksheet shows the completed meal log table in A1:D8, and cells D2:D8 under Daily Total are empty.",
+      "unit_after_state": "Cells D2:D8 display calculated totals for each day, with formulas filled down the Daily Total column from Monday through Sunday.",
+      "unit_precondition": [
+        "The weekly table already exists in A1:D8.",
+        "Cell D2 is visible and columns B and C contain the Grocery and Dining Out amounts for each day."
+      ],
+      "unit_effect": [
+        "Cell D2 evaluates to 30 after the first formula is entered.",
+        "Cells D3:D8 are autofilled with corresponding totals, producing completed daily totals for the whole week."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Add a final row that summarizes the full week's meal spending.",
+      "unit_type": "ADD_WEEKLY_TOTAL_ROW",
+      "unit_before_state": "The first worksheet shows the weekly table with daily totals completed through row 8, and row 9 is still empty below the data block.",
+      "unit_after_state": "Row 9 is added as a summary row, with A9 showing Weekly Total and D9 showing the summed weekly amount.",
+      "unit_precondition": [
+        "Daily totals are already calculated in D2:D8.",
+        "The row immediately below the table is empty and visible."
+      ],
+      "unit_effect": [
+        "A9 displays the label Weekly Total.",
+        "D9 shows the weekly total value 243."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Give the first worksheet a meaningful name that reflects its detailed spending log content.",
+      "unit_type": "RENAME_WORKSHEET",
+      "unit_before_state": "The workbook is still on the first sheet, and the bottom tab bar shows the default first-sheet name on the active tab.",
+      "unit_after_state": "The active first worksheet tab is renamed to Meal Log.",
+      "unit_precondition": [
+        "The first worksheet tab is visible in the tab bar.",
+        "The current sheet still has its default editable name."
+      ],
+      "unit_effect": [
+        "The first tab enters inline rename mode.",
+        "The tab label changes from the default name to Meal Log."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        9,
+        10,
+        11
+      ],
+      "unit_intent": "Create a separate worksheet dedicated to summary reporting.",
+      "unit_type": "CREATE_AND_RENAME_WORKSHEET",
+      "unit_before_state": "The workbook contains the completed Meal Log sheet, and the sheet tab bar with the add-sheet control is visible.",
+      "unit_after_state": "A second worksheet exists and is active, and its tab name is Summary.",
+      "unit_precondition": [
+        "The first sheet has already been completed and renamed.",
+        "The add-sheet control and sheet tabs are visible at the bottom of Calc."
+      ],
+      "unit_effect": [
+        "A new second worksheet tab is inserted and becomes active.",
+        "The new tab's name is changed to Summary."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        12,
+        13
+      ],
+      "unit_intent": "Build a compact summary table that pulls category totals from the Meal Log sheet.",
+      "unit_type": "CREATE_SUMMARY_TABLE",
+      "unit_before_state": "The Summary worksheet is active and blank, with cell A1 visible at the top-left of the grid.",
+      "unit_after_state": "The Summary sheet contains a two-column table in A1:B4 with Category and Amount headers, plus rows for Grocery, Dining Out, and Grand Total populated by formulas.",
+      "unit_precondition": [
+        "The Summary sheet is active.",
+        "The Meal Log sheet already contains the completed weekly data needed for the formulas."
+      ],
+      "unit_effect": [
+        "A1:B4 becomes populated with the summary table.",
+        "The formulas evaluate to 160 for Grocery, 83 for Dining Out, and 243 for Grand Total."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        14,
+        15,
+        16,
+        17
+      ],
+      "unit_intent": "Insert a pie chart that visually compares Grocery spending against Dining Out spending.",
+      "unit_type": "INSERT_PIE_CHART",
+      "unit_before_state": "The Summary sheet shows the completed summary table in A1:B4, including Grocery and Dining Out totals that can be charted.",
+      "unit_after_state": "An embedded pie chart comparing Grocery and Dining Out appears on the Summary sheet.",
+      "unit_precondition": [
+        "The Summary table exists and the Grocery and Dining Out rows are available.",
+        "The Calc toolbar and chart creation controls are accessible."
+      ],
+      "unit_effect": [
+        "Range A1:B3 is selected as the chart source, excluding the Grand Total row.",
+        "The Chart Wizard opens on the selected data, the preview changes to a pie chart, and the finished pie chart is inserted onto the sheet."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Lay out the main weekly meal spending table on the first worksheet so the tracker has its base data structure.",
+      "unit_type": "ENTER_SPENDING_TABLE",
+      "unit_before_state": "LibreOffice Calc shows a blank new workbook on the first worksheet, with an empty grid ready for data entry starting at the top-left area.",
+      "unit_after_state": "The first worksheet now contains a table in A1:D8 with the headers Day, Grocery, Dining Out, and Daily Total, plus Monday through Sunday rows. The Grocery and Dining Out values are filled, while Daily Total cells D2:D8 are still blank.",
+      "unit_precondition": [
+        "A blank Calc workbook is open.",
+        "The first worksheet grid is visible and ready to receive pasted or typed tabular input."
+      ],
+      "unit_effect": [
+        "Cells A1:D8 become populated with the weekly meal log data.",
+        "The Daily Total column is present but empty for rows 2 through 8."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Populate the active worksheet with a tabular spending log that includes headers, row entries, and an empty total column for later calculation.",
+      "parameters": {
+        "target_start_cell": "A1",
+        "target_range": "A1:D8",
+        "table_content": "Day\tGrocery\tDining Out\tDaily Total\nMonday\t18\t12\t\nTuesday\t21\t0\t\nWednesday\t16\t14\t\nThursday\t24\t9\t\nFriday\t19\t18\t\nSaturday\t35\t22\t\nSunday\t27\t8\t",
+        "empty_total_column": "Daily Total"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'Day\\tGrocery\\tDining Out\\tDaily Total\\nMonday\\t18\\t12\\t\\nTuesday\\t21\\t0\\t\\nWednesday\\t16\\t14\\t\\nThursday\\t24\\t9\\t\\nFriday\\t19\\t18\\t\\nSaturday\\t35\\t22\\t\\nSunday\\t27\\t8\\t'}",
+          "action_template": "With the blank sheet active, type {{table_content}} so the spending table is laid out in one block starting at {{target_start_cell}}. Preconditions: LibreOffice Calc is already open on a blank workbook, and the first worksheet grid is visible and ready for input. After this action, {{target_range}} is populated with headers and row entries, while the {{empty_total_column}} column remains empty for the data rows."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Compute daily spending totals for every day in the weekly table.",
+      "unit_type": "POPULATE_DAILY_TOTALS",
+      "unit_before_state": "The first worksheet shows the completed meal log table in A1:D8, and cells D2:D8 under Daily Total are empty.",
+      "unit_after_state": "Cells D2:D8 display calculated totals for each day, with formulas filled down the Daily Total column from Monday through Sunday.",
+      "unit_precondition": [
+        "The weekly table already exists in A1:D8.",
+        "Cell D2 is visible and columns B and C contain the Grocery and Dining Out amounts for each day."
+      ],
+      "unit_effect": [
+        "Cell D2 evaluates to 30 after the first formula is entered.",
+        "Cells D3:D8 are autofilled with corresponding totals, producing completed daily totals for the whole week."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Compute per-row totals in a worksheet total column by entering the initial sum formula in the first total cell and filling it down through the remaining rows.",
+      "parameters": {
+        "first_total_cell": "D2",
+        "total_formula": "=B2+C2",
+        "fill_end_cell": "D8"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell D2, the first blank cell under Daily Total'}}",
+          "action_template": "When the worksheet table is visible and {{first_total_cell}} is visible, click {{first_total_cell}} so the first total cell becomes active for entering the initial formula."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '=B2+C2'}",
+          "action_template": "With {{first_total_cell}} active, type {{total_formula}} to calculate the first row total from the two source amount cells; afterward, {{first_total_cell}} shows the calculated result and is ready to be copied down."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the fill handle at the bottom-right corner of cell D2'}, 'end': {'text': 'the fill handle position at cell D8'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "Once {{first_total_cell}} contains the correct formula and its fill handle is visible, drag the fill handle from {{first_total_cell}} down to {{fill_end_cell}} so the same formula pattern fills the remaining rows in the total column."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Add a final row that summarizes the full week's meal spending.",
+      "unit_type": "ADD_WEEKLY_TOTAL_ROW",
+      "unit_before_state": "The first worksheet shows the weekly table with daily totals completed through row 8, and row 9 is still empty below the data block.",
+      "unit_after_state": "Row 9 is added as a summary row, with A9 showing Weekly Total and D9 showing the summed weekly amount.",
+      "unit_precondition": [
+        "Daily totals are already calculated in D2:D8.",
+        "The row immediately below the table is empty and visible."
+      ],
+      "unit_effect": [
+        "A9 displays the label Weekly Total.",
+        "D9 shows the weekly total value 243."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Add a labeled summary row below a completed table and populate it with a total formula over the specified value range.",
+      "parameters": {
+        "target_empty_cell": "cell A9, the first empty row under the table",
+        "summary_row_input": "Weekly Total\t\t\t=SUM(D2:D8)",
+        "source_total_range": "D2:D8"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell A9, the first empty row under the table'}}",
+          "action_template": "Click {{target_empty_cell}} after the table entries are complete and the next row is empty so the summary row can be inserted there; this makes that cell active and ready for the summary row."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Weekly Total\\t\\t\\t=SUM(D2:D8)'}",
+          "action_template": "Type {{summary_row_input}} with the starting cell selected and the values in {{source_total_range}} already populated to create a labeled summary row and calculate the overall total from that range."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Give the first worksheet a meaningful name that reflects its detailed spending log content.",
+      "unit_type": "RENAME_WORKSHEET",
+      "unit_before_state": "The workbook is still on the first sheet, and the bottom tab bar shows the default first-sheet name on the active tab.",
+      "unit_after_state": "The active first worksheet tab is renamed to Meal Log.",
+      "unit_precondition": [
+        "The first worksheet tab is visible in the tab bar.",
+        "The current sheet still has its default editable name."
+      ],
+      "unit_effect": [
+        "The first tab enters inline rename mode.",
+        "The tab label changes from the default name to Meal Log."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Rename a worksheet tab to a specified descriptive name using inline rename mode.",
+      "parameters": {
+        "target_worksheet_tab": "the Sheet1 tab at the bottom of the workbook",
+        "new_worksheet_name": "Meal Log"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 2, 'target': {'text': 'the Sheet1 tab at the bottom of the workbook'}}",
+          "action_template": "When {{target_worksheet_tab}} is visible, double-click it to switch into rename mode."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Meal Log\\n'}",
+          "action_template": "With the tab name editable, type {{new_worksheet_name}} and confirm it so the worksheet has a clear label."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        9,
+        10,
+        11
+      ],
+      "unit_intent": "Create a separate worksheet dedicated to summary reporting.",
+      "unit_type": "CREATE_AND_RENAME_WORKSHEET",
+      "unit_before_state": "The workbook contains the completed Meal Log sheet, and the sheet tab bar with the add-sheet control is visible.",
+      "unit_after_state": "A second worksheet exists and is active, and its tab name is Summary.",
+      "unit_precondition": [
+        "The first sheet has already been completed and renamed.",
+        "The add-sheet control and sheet tabs are visible at the bottom of Calc."
+      ],
+      "unit_effect": [
+        "A new second worksheet tab is inserted and becomes active.",
+        "The new tab's name is changed to Summary."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a new worksheet and rename its tab to a specified worksheet name.",
+      "parameters": {
+        "worksheet_name": "Summary"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "CLICK",
+          "action_template": "Click the Add Sheet (+) control when the sheet tab bar is visible to insert a new worksheet that becomes active."
+        },
+        {
+          "action": "CLICK",
+          "action_template": "Double-click the newly created worksheet tab while it is active and still has its default name to enter inline rename mode."
+        },
+        {
+          "action": "TYPING",
+          "action_template": "Type {{worksheet_name}} into the editable worksheet tab name and confirm it to rename the active worksheet."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        12,
+        13
+      ],
+      "unit_intent": "Build a compact summary table that pulls category totals from the Meal Log sheet.",
+      "unit_type": "CREATE_SUMMARY_TABLE",
+      "unit_before_state": "The Summary worksheet is active and blank, with cell A1 visible at the top-left of the grid.",
+      "unit_after_state": "The Summary sheet contains a two-column table in A1:B4 with Category and Amount headers, plus rows for Grocery, Dining Out, and Grand Total populated by formulas.",
+      "unit_precondition": [
+        "The Summary sheet is active.",
+        "The Meal Log sheet already contains the completed weekly data needed for the formulas."
+      ],
+      "unit_effect": [
+        "A1:B4 becomes populated with the summary table.",
+        "The formulas evaluate to 160 for Grocery, 83 for Dining Out, and 243 for Grand Total."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a compact two-column summary table at a specified starting cell using formulas that pull category totals from a source worksheet.",
+      "parameters": {
+        "target_cell": "A1",
+        "source_sheet": "Meal Log",
+        "headers": "Category\tAmount",
+        "summary_rows": "Grocery\t=SUM('Meal Log'.B2:B8)\nDining Out\t=SUM('Meal Log'.C2:C8)\nGrand Total\t=SUM('Meal Log'.D2:D8)"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell A1 on the Summary sheet'}}",
+          "action_template": "Click {{target_cell}} to start the summary table in the top-left area of the active worksheet after confirming the sheet is active and the cell is visible and empty; this makes {{target_cell}} active for data entry."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': \"Category\\tAmount\\nGrocery\\t=SUM('Meal Log'.B2:B8)\\nDining Out\\t=SUM('Meal Log'.C2:C8)\\nGrand Total\\t=SUM('Meal Log'.D2:D8)\"}",
+          "action_template": "Type {{headers}} followed by {{summary_rows}} into {{target_cell}} to build a two-column summary table with formulas that pull totals from {{source_sheet}} after the starting cell is selected and the source data is available; this fills the target range with summary labels and formulas."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_07",
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        14,
+        15,
+        16,
+        17
+      ],
+      "unit_intent": "Insert a pie chart that visually compares Grocery spending against Dining Out spending.",
+      "unit_type": "INSERT_PIE_CHART",
+      "unit_before_state": "The Summary sheet shows the completed summary table in A1:B4, including Grocery and Dining Out totals that can be charted.",
+      "unit_after_state": "An embedded pie chart comparing Grocery and Dining Out appears on the Summary sheet.",
+      "unit_precondition": [
+        "The Summary table exists and the Grocery and Dining Out rows are available.",
+        "The Calc toolbar and chart creation controls are accessible."
+      ],
+      "unit_effect": [
+        "Range A1:B3 is selected as the chart source, excluding the Grand Total row.",
+        "The Chart Wizard opens on the selected data, the preview changes to a pie chart, and the finished pie chart is inserted onto the sheet."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Insert a {{chart_type}} chart that visually compares {{comparison_categories}} from a summary table on the {{target_sheet}} sheet.",
+      "parameters": {
+        "source_range": "A1:B3",
+        "comparison_categories": "Grocery and Dining Out",
+        "excluded_row": "Grand Total row",
+        "chart_type": "Pie",
+        "target_sheet": "Summary"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'cell A1 at the top-left of the summary table'}, 'end': {'text': 'cell B3 so the header plus Grocery and Dining Out rows are selected'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "Drag across {{source_range}} so the chart uses the header row and {{comparison_categories}}, without including {{excluded_row}}, and the range is highlighted as the chart data source."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Insert Chart button on the Calc toolbar'}}",
+          "action_template": "With {{source_range}} selected and the standard Calc toolbar visible, click the Insert Chart button so Calc opens the Chart Wizard with a preview based on the selected range."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Pie chart type in the Chart Wizard'}}",
+          "action_template": "With the Chart Wizard open and chart type choices visible, click the {{chart_type}} chart option so the preview changes to a {{chart_type}} chart using {{comparison_categories}} totals."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Finish button in the Chart Wizard'}}",
+          "action_template": "After the Chart Wizard preview shows the {{chart_type}} chart and Finish is available, click Finish to insert the chart on the {{target_sheet}} sheet."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

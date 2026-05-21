@@ -1,0 +1,563 @@
+{
+  "segment_id": "seg_001",
+  "app": "gimp",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Rotate the photo so the receipt is upright",
+      "action_before_state": "GIMP is open with a sideways receipt photo visible on the canvas and the top menu bar available.",
+      "action_preconditions": [
+        "The image canvas is visible.",
+        "The top menu bar can be accessed."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Rotate 90-degree clockwise option under Image > Transform"
+        }
+      },
+      "action_after_effects": "The receipt rotates and now appears upright on the canvas.",
+      "nl_explanation": "When the receipt image is visible in GIMP, click the Rotate 90-degree clockwise option in Image > Transform. The photo should reorient so the receipt reads upright."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Switch to the Crop tool",
+      "action_before_state": "The receipt is upright and still surrounded by extra desk or background area.",
+      "action_preconditions": [
+        "GIMP remains focused.",
+        "The canvas is active."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "shift",
+          "c"
+        ]
+      },
+      "action_after_effects": "The Crop tool becomes active and the pointer changes to a crop cursor.",
+      "nl_explanation": "With the image still selected in GIMP, press Shift+C to activate the Crop tool so the excess background can be removed."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Draw a crop box around just the receipt",
+      "action_before_state": "The Crop tool is active and the full receipt photo is visible.",
+      "action_preconditions": [
+        "The Crop tool is active.",
+        "The receipt edges are visible on the canvas."
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "just outside the upper-left edge of the receipt on the canvas"
+        },
+        "end": {
+          "text": "just outside the lower-right edge of the receipt on the canvas"
+        },
+        "target": {
+          "begin": {
+            "text": "the upper-left corner of the crop area on the canvas"
+          },
+          "end": {
+            "text": "the lower-right corner of the crop area on the canvas"
+          }
+        }
+      },
+      "action_after_effects": "A crop rectangle appears tightly around the receipt, excluding most of the surrounding background.",
+      "nl_explanation": "After enabling the Crop tool, drag on the canvas from just outside the upper-left edge of the receipt to just outside the lower-right edge so the crop box keeps only the document."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Apply the crop",
+      "action_before_state": "A crop rectangle is visible around the receipt.",
+      "action_preconditions": [
+        "The crop box is already positioned correctly.",
+        "The canvas focus has not changed."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The image is cropped to the selected area and the extra background disappears.",
+      "nl_explanation": "Once the crop boundary is set around the receipt, press Enter to apply it. The canvas should shrink to the cropped receipt area."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Open the Scale Image dialog",
+      "action_before_state": "Only the cropped receipt is visible on the canvas.",
+      "action_preconditions": [
+        "The image is still open in GIMP.",
+        "The top menu bar is available."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Scale Image item in the Image menu"
+        }
+      },
+      "action_after_effects": "The Scale Image dialog opens with width and height fields.",
+      "nl_explanation": "With the cropped image open, click Image > Scale Image so the picture can be resized for easier sharing."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Select the current width value",
+      "action_before_state": "The Scale Image dialog is open and the width field is available.",
+      "action_preconditions": [
+        "The Scale Image dialog is in front.",
+        "The width field is focused or ready to edit."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "a"
+        ]
+      },
+      "action_after_effects": "The current number in the width field is highlighted.",
+      "nl_explanation": "When the Scale Image dialog is open, press Ctrl+A in the width field so the existing width can be replaced directly."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Set the new image width",
+      "action_before_state": "The current width value is highlighted in the Scale Image dialog.",
+      "action_preconditions": [
+        "The width field value is selected.",
+        "The aspect-ratio chain remains linked."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "1400"
+      },
+      "action_after_effects": "The width changes to 1400 pixels, and the height updates automatically to preserve the aspect ratio.",
+      "nl_explanation": "After selecting the width value, type 1400. GIMP should update the width field and adjust the height automatically if the chain is linked."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Apply the new image size",
+      "action_before_state": "The Scale Image dialog shows 1400 as the width.",
+      "action_preconditions": [
+        "The width field is set to 1400.",
+        "The Scale button is visible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Scale button in the Scale Image dialog"
+        }
+      },
+      "action_after_effects": "The dialog closes and the receipt image is resized to 1400 pixels wide.",
+      "nl_explanation": "Once the new width is entered, click Scale to resize the cropped receipt image while keeping its proportions."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Convert the image to grayscale",
+      "action_before_state": "The cropped and resized receipt is visible in color on the canvas.",
+      "action_preconditions": [
+        "The image remains active in GIMP.",
+        "The top menu bar is available."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Grayscale item under Image > Mode"
+        }
+      },
+      "action_after_effects": "All color is removed from the receipt image and it becomes grayscale.",
+      "nl_explanation": "With the cleaned-up receipt still open, click Image > Mode > Grayscale. The image should switch from color to grayscale."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Open the export dialog",
+      "action_before_state": "The grayscale receipt is displayed on the canvas.",
+      "action_preconditions": [
+        "The edited image is active.",
+        "GIMP is focused."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "e"
+        ]
+      },
+      "action_after_effects": "The Export Image dialog opens.",
+      "nl_explanation": "After finishing the edits, press Ctrl+Shift+E to open the export dialog for saving the final image."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Enter the Desktop export path and filename",
+      "action_before_state": "The Export Image dialog is open with the filename field ready for input.",
+      "action_preconditions": [
+        "The Export Image dialog is in focus.",
+        "The filename/path field accepts text input."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "/home/user/Desktop/receipt_clean.png"
+      },
+      "action_after_effects": "The export destination is set to the Desktop with the filename receipt_clean.png.",
+      "nl_explanation": "When the export dialog is ready, type /home/user/Desktop/receipt_clean.png so the finished file will be saved on the Desktop with the correct name."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Confirm the export destination",
+      "action_before_state": "The full Desktop path and filename are entered in the export dialog.",
+      "action_preconditions": [
+        "The export path is correct.",
+        "The dialog is still focused."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "GIMP accepts the export path and opens the PNG export settings dialog.",
+      "nl_explanation": "After entering the Desktop filename, press Enter to proceed from the main export dialog to the PNG export options."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Finish exporting the PNG file",
+      "action_before_state": "The PNG export settings dialog is open with default options visible.",
+      "action_preconditions": [
+        "The PNG export settings dialog is open.",
+        "The Export button is the default action."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The image is exported and the file receipt_clean.png is saved to the Desktop.",
+      "nl_explanation": "With the PNG settings dialog open, press Enter to accept the default export options. The cleaned receipt image should then be saved to the Desktop."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Reorient the receipt so it can be edited and read upright.",
+      "unit_type": "ROTATE_IMAGE_UPRIGHT",
+      "unit_before_state": "GIMP shows a sideways receipt photo on the canvas, and the Image > Transform menu is available from the top menu bar.",
+      "unit_after_state": "The same receipt photo is now upright on the canvas, ready for cleanup operations.",
+      "unit_precondition": [
+        "The receipt image is already open in GIMP.",
+        "The canvas is visible and the top menu bar can be accessed."
+      ],
+      "unit_effect": [
+        "The receipt visibly rotates 90 degrees clockwise.",
+        "The text and edges of the receipt now appear upright on the canvas."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Remove the surrounding background so only the receipt remains in the image.",
+      "unit_type": "CROP_IMAGE_TO_RECEIPT",
+      "unit_before_state": "The receipt is upright on the canvas, but extra desk or background area is still visible around it.",
+      "unit_after_state": "The canvas is cropped down to the receipt area, with most or all surrounding background removed.",
+      "unit_precondition": [
+        "The image is upright and the receipt edges are visible.",
+        "GIMP is focused so the Crop tool shortcut and canvas drag will work."
+      ],
+      "unit_effect": [
+        "The Crop tool becomes active and a crop rectangle is drawn around the receipt.",
+        "After confirming the crop, the canvas shrinks to the selected bounds and the extra background disappears."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Resize the cleaned receipt image to a shareable width of 1400 pixels while preserving proportions.",
+      "unit_type": "RESIZE_IMAGE",
+      "unit_before_state": "The cropped receipt fills the canvas, and no scale dialog is open yet.",
+      "unit_after_state": "The Scale Image dialog has been applied and closed, and the receipt image on the canvas is resized to 1400 pixels wide.",
+      "unit_precondition": [
+        "The cropped receipt image is active in GIMP.",
+        "The Image menu and the Scale Image dialog controls are available.",
+        "The width field can be edited and aspect ratio remains linked."
+      ],
+      "unit_effect": [
+        "The Scale Image dialog opens and the width field is selected for replacement.",
+        "The width value changes to 1400, the height updates automatically, and clicking Scale applies the new size."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9
+      ],
+      "unit_intent": "Simplify the receipt appearance by removing color information.",
+      "unit_type": "CONVERT_TO_GRAYSCALE",
+      "unit_before_state": "The cropped, resized receipt is still displayed in color on the GIMP canvas.",
+      "unit_after_state": "The same receipt image is displayed in grayscale with all color removed.",
+      "unit_precondition": [
+        "The edited receipt image remains active in GIMP.",
+        "The Image > Mode menu can be accessed."
+      ],
+      "unit_effect": [
+        "The canvas immediately changes from color to grayscale.",
+        "No dialog remains open after the mode change."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        10,
+        11,
+        12,
+        13
+      ],
+      "unit_intent": "Save the finished grayscale receipt as a PNG file on the Desktop with the required filename.",
+      "unit_type": "EXPORT_IMAGE_AS_PNG",
+      "unit_before_state": "The final edited receipt is visible on the canvas in grayscale, and no export dialog is open yet.",
+      "unit_after_state": "The export dialogs have closed and the finished image has been saved as receipt_clean.png on the Desktop.",
+      "unit_precondition": [
+        "The final edited image is active in GIMP.",
+        "GIMP is focused so the export shortcut opens the Export Image dialog.",
+        "The filename/path field accepts input and the PNG export confirmation dialog can be confirmed with Enter."
+      ],
+      "unit_effect": [
+        "The Export Image dialog opens after the keyboard shortcut.",
+        "The Desktop path and filename receipt_clean.png are entered and accepted.",
+        "A PNG export settings dialog appears and is confirmed.",
+        "The file receipt_clean.png is written to the Desktop."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Reorient the receipt so it can be edited and read upright.",
+      "unit_type": "ROTATE_IMAGE_UPRIGHT",
+      "unit_before_state": "GIMP shows a sideways receipt photo on the canvas, and the Image > Transform menu is available from the top menu bar.",
+      "unit_after_state": "The same receipt photo is now upright on the canvas, ready for cleanup operations.",
+      "unit_precondition": [
+        "The receipt image is already open in GIMP.",
+        "The canvas is visible and the top menu bar can be accessed."
+      ],
+      "unit_effect": [
+        "The receipt visibly rotates 90 degrees clockwise.",
+        "The text and edges of the receipt now appear upright on the canvas."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Rotate the open image to an upright orientation so it is easier to edit and read.",
+      "parameters": {
+        "rotation_option": "the Rotate 90-degree clockwise option under Image > Transform"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Rotate 90-degree clockwise option under Image > Transform'}}",
+          "action_template": "When the image canvas is visible and the top menu bar can be accessed, click {{rotation_option}}. The image should rotate and appear upright on the canvas."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Remove the surrounding background so only the receipt remains in the image.",
+      "unit_type": "CROP_IMAGE_TO_RECEIPT",
+      "unit_before_state": "The receipt is upright on the canvas, but extra desk or background area is still visible around it.",
+      "unit_after_state": "The canvas is cropped down to the receipt area, with most or all surrounding background removed.",
+      "unit_precondition": [
+        "The image is upright and the receipt edges are visible.",
+        "GIMP is focused so the Crop tool shortcut and canvas drag will work."
+      ],
+      "unit_effect": [
+        "The Crop tool becomes active and a crop rectangle is drawn around the receipt.",
+        "After confirming the crop, the canvas shrinks to the selected bounds and the extra background disappears."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Crop the image so only the target subject remains visible and the surrounding background is removed.",
+      "parameters": {
+        "target_subject": "receipt"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['shift', 'c']}",
+          "action_template": "With the image still selected in GIMP, press Shift+C to activate the Crop tool so the excess background around {{target_subject}} can be removed. Preconditions: GIMP remains focused and the canvas is active. After this action, the Crop tool becomes active and the pointer changes to a crop cursor."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'just outside the upper-left edge of the receipt on the canvas'}, 'end': {'text': 'just outside the lower-right edge of the receipt on the canvas'}, 'target': {'begin': {'text': 'the upper-left corner of the crop area on the canvas'}, 'end': {'text': 'the lower-right corner of the crop area on the canvas'}}}",
+          "action_template": "After enabling the Crop tool, drag on the canvas from just outside the upper-left edge of {{target_subject}} to just outside the lower-right edge of {{target_subject}} so the crop box keeps only the target subject. Preconditions: the Crop tool is active and the edges of {{target_subject}} are visible on the canvas. After this action, a crop rectangle appears tightly around {{target_subject}}, excluding most of the surrounding background."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Once the crop boundary is set around {{target_subject}}, press Enter to apply it. Preconditions: the crop box is already positioned correctly and the canvas focus has not changed. After this action, the image is cropped to the selected area and the extra background disappears."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Resize the cleaned receipt image to a shareable width of 1400 pixels while preserving proportions.",
+      "unit_type": "RESIZE_IMAGE",
+      "unit_before_state": "The cropped receipt fills the canvas, and no scale dialog is open yet.",
+      "unit_after_state": "The Scale Image dialog has been applied and closed, and the receipt image on the canvas is resized to 1400 pixels wide.",
+      "unit_precondition": [
+        "The cropped receipt image is active in GIMP.",
+        "The Image menu and the Scale Image dialog controls are available.",
+        "The width field can be edited and aspect ratio remains linked."
+      ],
+      "unit_effect": [
+        "The Scale Image dialog opens and the width field is selected for replacement.",
+        "The width value changes to 1400, the height updates automatically, and clicking Scale applies the new size."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Resize the active image to a specified width while preserving its aspect ratio.",
+      "parameters": {
+        "target_width_px": "1400"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Scale Image item in the Image menu'}}",
+          "action_template": "With the active image open and the top menu bar available, click Image > Scale Image to open the Scale Image dialog with width and height fields so the image can be resized."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'a']}",
+          "action_template": "When the Scale Image dialog is in front and the width field is focused or ready to edit, press Ctrl+A in the width field to highlight the current value for direct replacement."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '1400'}",
+          "action_template": "After the width field value is selected and the aspect-ratio chain remains linked, type {{target_width_px}} so the width changes to {{target_width_px}} pixels and the height updates automatically to preserve proportions."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Scale button in the Scale Image dialog'}}",
+          "action_template": "Once the width field is set to {{target_width_px}} and the Scale button is visible, click Scale to apply the new image size, close the dialog, and resize the image to {{target_width_px}} pixels wide."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9
+      ],
+      "unit_intent": "Simplify the receipt appearance by removing color information.",
+      "unit_type": "CONVERT_TO_GRAYSCALE",
+      "unit_before_state": "The cropped, resized receipt is still displayed in color on the GIMP canvas.",
+      "unit_after_state": "The same receipt image is displayed in grayscale with all color removed.",
+      "unit_precondition": [
+        "The edited receipt image remains active in GIMP.",
+        "The Image > Mode menu can be accessed."
+      ],
+      "unit_effect": [
+        "The canvas immediately changes from color to grayscale.",
+        "No dialog remains open after the mode change."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Convert the active image from color to grayscale.",
+      "parameters": {
+        "target_menu_item": "the Grayscale item under Image > Mode"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Grayscale item under Image > Mode'}}",
+          "action_template": "Click {{target_menu_item}} while the image remains active in GIMP and the top menu bar is available to convert the active image from color to grayscale."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        10,
+        11,
+        12,
+        13
+      ],
+      "unit_intent": "Save the finished grayscale receipt as a PNG file on the Desktop with the required filename.",
+      "unit_type": "EXPORT_IMAGE_AS_PNG",
+      "unit_before_state": "The final edited receipt is visible on the canvas in grayscale, and no export dialog is open yet.",
+      "unit_after_state": "The export dialogs have closed and the finished image has been saved as receipt_clean.png on the Desktop.",
+      "unit_precondition": [
+        "The final edited image is active in GIMP.",
+        "GIMP is focused so the export shortcut opens the Export Image dialog.",
+        "The filename/path field accepts input and the PNG export confirmation dialog can be confirmed with Enter."
+      ],
+      "unit_effect": [
+        "The Export Image dialog opens after the keyboard shortcut.",
+        "The Desktop path and filename receipt_clean.png are entered and accepted.",
+        "A PNG export settings dialog appears and is confirmed.",
+        "The file receipt_clean.png is written to the Desktop."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Export the active edited image as a PNG file to a specified destination path.",
+      "parameters": {
+        "export_path": "/home/user/Desktop/receipt_clean.png"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'e']}",
+          "action_template": "Press Ctrl+Shift+E to open the export dialog for saving the active edited image, when the edited image is active and GIMP is focused. The Export Image dialog opens."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '/home/user/Desktop/receipt_clean.png'}",
+          "action_template": "Type {{export_path}} in the filename/path field when the Export Image dialog is focused and the field accepts text input. The export destination is set to {{export_path}}."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter to confirm {{export_path}} and proceed from the main export dialog when the export path is correct and the dialog is still focused. GIMP accepts the export path and opens the PNG export settings dialog."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter to accept the default PNG export options when the PNG export settings dialog is open and the Export button is the default action. The image is exported and saved to {{export_path}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

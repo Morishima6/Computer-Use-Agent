@@ -1,0 +1,582 @@
+{
+  "segment_id": "seg_001",
+  "app": "libreoffice_calc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Create the header row for the budget tracker",
+      "action_before_state": "libreoffice_calc is ready for step 1 of the task.",
+      "action_preconditions": [
+        "LibreOffice Calc is already open and visible on the screen",
+        "The sheet is blank or there is an empty area starting at cell A1",
+        "Cell A1 is currently selected or ready to receive input"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Date\tMeal\tItem\tPlanned Cost\tActual Cost\tDifference"
+      },
+      "action_after_effects": "The text is placed across row 1 from columns A to F, creating six headers for the table.",
+      "nl_explanation": "When the empty worksheet is ready for input and the top-left cell is active, type the tab-separated header names so Calc fills them across the first row, resulting in a structured table header."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Move to the first data row",
+      "action_before_state": "libreoffice_calc is ready for step 2 of the task.",
+      "action_preconditions": [
+        "The header row has been entered in row 1",
+        "The active cell is at the end of the typed header row or within row 1"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The selection moves down to the next row, positioning the cursor for entering the first budget record.",
+      "nl_explanation": "After the headers are in place, press Enter so the active selection moves to the next row and prepares the sheet for the first item entry."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Enter several meal budget records",
+      "action_before_state": "libreoffice_calc is ready for step 3 of the task.",
+      "action_preconditions": [
+        "The active cell is in row 2",
+        "Rows 2 through 8 are empty and available for data entry"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Mon\tBreakfast\tCoffee and bagel\t6.50\t7.20\nMon\tLunch\tSalad box\t11.00\t10.50\nTue\tDinner\tNoodles\t9.00\t8.80\nWed\tBreakfast\tYogurt and fruit\t5.00\t5.40\nThu\tLunch\tSandwich combo\t12.00\t12.75\nFri\tDinner\tTakeout rice bowl\t13.50\t14.20\nSat\tSnack\tJuice and pastry\t7.00\t6.60"
+      },
+      "action_after_effects": "Seven rows of meal spending data are filled into columns A through E, from row 2 down to row 8.",
+      "nl_explanation": "With the selection at the first empty data row, type the weekly meal records line by line so the sheet is populated with dates, meal types, item names, planned costs, and actual costs."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Select the difference cell for the first record",
+      "action_before_state": "libreoffice_calc is ready for step 4 of the task.",
+      "action_preconditions": [
+        "Rows 2 through 8 contain data in columns A through E",
+        "Column F is empty",
+        "Cell F2 can be selected"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell F2"
+        }
+      },
+      "action_after_effects": "Cell F2 becomes active and ready for formula entry.",
+      "nl_explanation": "Once the first row of meal data is visible, click the empty Difference cell beside that row so the cursor is positioned where the formula should go."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Calculate the difference for the first row",
+      "action_before_state": "libreoffice_calc is ready for step 5 of the task.",
+      "action_preconditions": [
+        "Cell F2 is selected",
+        "Cells D2 and E2 contain numeric planned and actual costs"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "=E2-D2"
+      },
+      "action_after_effects": "The difference formula is entered into F2, ready to compute the amount over or under budget for the first record.",
+      "nl_explanation": "When the first Difference cell is active and the planned and actual cost cells already contain numbers, type the subtraction formula so this row can calculate actual cost minus planned cost."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Confirm the formula entry",
+      "action_before_state": "libreoffice_calc is ready for step 6 of the task.",
+      "action_preconditions": [
+        "The formula =E2-D2 has been typed into cell F2"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "Calc evaluates the formula in F2 and moves the active selection to the cell below.",
+      "nl_explanation": "After typing the formula, press Enter so Calc applies it to the first Difference cell."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Copy the difference formula to the remaining rows",
+      "action_before_state": "libreoffice_calc is ready for step 7 of the task.",
+      "action_preconditions": [
+        "Cell F2 contains the correct difference formula",
+        "Rows 3 through 8 contain corresponding meal data",
+        "The small fill handle at the lower-right corner of F2 is visible"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the fill handle at the lower-right corner of cell F2"
+        },
+        "end": {
+          "text": "cell F8"
+        },
+        "target": {
+          "begin": {
+            "text": "the fill handle at the lower-right corner of cell F2"
+          },
+          "end": {
+            "text": "cell F8"
+          }
+        }
+      },
+      "action_after_effects": "The difference formula is autofilled from F2 down through F8, computing all remaining row differences.",
+      "nl_explanation": "With the first difference already calculated and more data rows beneath it, drag the fill handle from F2 down to the last data row so Calc copies the formula for every meal entry."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Add labels for the totals row",
+      "action_before_state": "libreoffice_calc is ready for step 8 of the task.",
+      "action_preconditions": [
+        "The data table now extends through row 8",
+        "Row 9 is empty and available for summary values"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the cell at A9, directly below the last date entry"
+        }
+      },
+      "action_after_effects": "Cell A9 becomes active for entering a summary label.",
+      "nl_explanation": "After the table is filled through row 8, click the first cell of the next empty row so a totals label can be added beneath the data."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Add total label and sum formulas to the summary row",
+      "action_before_state": "libreoffice_calc is ready for step 9 of the task.",
+      "action_preconditions": [
+        "Cell A9 is selected",
+        "Row 9 is empty"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Total\t\t\t=SUM(D2:D8)\t=SUM(E2:E8)\t=SUM(F2:F8)"
+      },
+      "action_after_effects": "Row 9 now contains a Total label in column A and summary formulas in columns D, E, and F.",
+      "nl_explanation": "When the first cell of the summary row is active, type a tab-separated totals row so the label and the three aggregate formulas are inserted in the correct columns."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Apply currency formatting to the cost columns",
+      "action_before_state": "libreoffice_calc is ready for step 10 of the task.",
+      "action_preconditions": [
+        "The table includes monetary values in columns D, E, and F",
+        "The visible range from D2 to F9 is on screen"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell D2"
+        },
+        "end": {
+          "text": "cell F9"
+        },
+        "target": {
+          "begin": {
+            "text": "cell D2"
+          },
+          "end": {
+            "text": "cell F9"
+          }
+        }
+      },
+      "action_after_effects": "The full block of money-related cells from D2 through F9 is highlighted and ready for formatting.",
+      "nl_explanation": "Once all planned, actual, and difference values are present, drag across the monetary range so those cells are selected together and can be formatted consistently."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Format the selected cells as currency",
+      "action_before_state": "libreoffice_calc is ready for step 11 of the task.",
+      "action_preconditions": [
+        "Cells D2 through F9 are selected",
+        "LibreOffice Calc is focused and ready to receive keyboard shortcuts"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "4"
+        ]
+      },
+      "action_after_effects": "The selected cells are formatted as currency, making the budget values easier to read.",
+      "nl_explanation": "With the cost and summary cells selected, use the currency-format keyboard shortcut so all money values display using a currency style."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Establish the column structure for the weekly meal budget tracker.",
+      "unit_type": "CREATE_TABLE_HEADER",
+      "unit_before_state": "LibreOffice Calc is open on a blank worksheet, and cell A1 is selected at the top-left corner.",
+      "unit_after_state": "Row 1 contains the headers Date, Meal, Item, Planned Cost, Actual Cost, and Difference across cells A1 through F1.",
+      "unit_precondition": [
+        "LibreOffice Calc is open and focused.",
+        "Cells A1 through F1 are empty and available for entry.",
+        "Cell A1 is selected or ready to receive input."
+      ],
+      "unit_effect": [
+        "The first row is populated with six table headers from A1 to F1.",
+        "The worksheet now shows a clearly defined budget-tracking table structure."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3
+      ],
+      "unit_intent": "Populate the tracker with the week's meal purchase records.",
+      "unit_type": "ENTER_WEEKLY_RECORDS",
+      "unit_before_state": "The header row is visible in A1:F1, and the insertion point is still on row 1 before data entry begins.",
+      "unit_after_state": "Seven meal records fill rows 2 through 8 across columns A to E, with dates, meal types, item names, planned costs, and actual costs shown under the headers.",
+      "unit_precondition": [
+        "The header row already exists in A1:F1.",
+        "Rows 2 through 8 are empty in the table area.",
+        "Pressing Enter from the current position will move input to the first data row."
+      ],
+      "unit_effect": [
+        "The selection moves to the first data row.",
+        "Cells A2:E8 display seven weekly meal purchase entries."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Create the variance formula for the first meal entry so the difference column starts calculating budget deviation.",
+      "unit_type": "CREATE_DIFFERENCE_FORMULA",
+      "unit_before_state": "The worksheet shows data in A2:E8, column F is empty, and the first empty difference cell F2 is available beside the Monday breakfast row.",
+      "unit_after_state": "Cell F2 contains the computed difference for the first record, and the active selection has moved down to the next row after confirming the formula.",
+      "unit_precondition": [
+        "Rows 2 through 8 already contain meal data in columns A through E.",
+        "Cell F2 is empty and can be selected.",
+        "Cells D2 and E2 contain numeric planned and actual costs."
+      ],
+      "unit_effect": [
+        "Cell F2 evaluates the formula based on E2 minus D2.",
+        "A numeric result is visible in F2 for the first row, and Calc advances the active cell downward."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7
+      ],
+      "unit_intent": "Apply the same planned-versus-actual calculation to all remaining meal rows.",
+      "unit_type": "FILL_DIFFERENCE_FORMULAS",
+      "unit_before_state": "Cell F2 already contains the correct difference formula, rows 3 through 8 contain meal data, and the remaining cells F3:F8 are ready to be filled.",
+      "unit_after_state": "The difference column is populated from F2 through F8, with each meal row showing its own calculated over- or under-budget value.",
+      "unit_precondition": [
+        "Cell F2 contains a correct reference-based difference formula.",
+        "Rows 3 through 8 contain corresponding planned and actual values.",
+        "The fill handle on F2 is visible and can be dragged to F8."
+      ],
+      "unit_effect": [
+        "The formula is autofilled down the difference column through row 8.",
+        "Cells F2:F8 display calculated row-by-row budget differences instead of remaining blank."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        8,
+        9
+      ],
+      "unit_intent": "Add a summary row that totals planned spending, actual spending, and total variance for the week.",
+      "unit_type": "ADD_TOTALS_ROW",
+      "unit_before_state": "The meal tracker table ends at row 8, row 9 is empty, and no summary values are shown beneath the data.",
+      "unit_after_state": "Row 9 contains the label Total in A9 and sum formulas in D9, E9, and F9, creating a visible totals row below the meal entries.",
+      "unit_precondition": [
+        "The data table already spans rows 2 through 8.",
+        "Row 9 is empty and available for summary content.",
+        "Cell A9 can be selected for tab-separated entry."
+      ],
+      "unit_effect": [
+        "Cell A9 shows the Total label.",
+        "The bottom row now displays aggregate formulas for planned cost, actual cost, and difference."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        10,
+        11
+      ],
+      "unit_intent": "Make all cost and variance values display in a consistent money format.",
+      "unit_type": "FORMAT_COST_RANGE_AS_CURRENCY",
+      "unit_before_state": "The worksheet shows numeric values and totals in the money-related block D2:F9, and those cells are not yet formatted as currency.",
+      "unit_after_state": "Cells D2 through F9 remain selected and their values now display using currency formatting, making planned, actual, difference, and total amounts easier to read.",
+      "unit_precondition": [
+        "Cells D2:F9 are visible on screen.",
+        "The range from D2 to F9 contains the planned, actual, difference, and totals values.",
+        "LibreOffice Calc is focused and can receive the currency-format shortcut."
+      ],
+      "unit_effect": [
+        "The full money range D2:F9 is selected before formatting is applied.",
+        "The selected numeric cells change to a currency display format."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Establish the column structure for the weekly meal budget tracker.",
+      "unit_type": "CREATE_TABLE_HEADER",
+      "unit_before_state": "LibreOffice Calc is open on a blank worksheet, and cell A1 is selected at the top-left corner.",
+      "unit_after_state": "Row 1 contains the headers Date, Meal, Item, Planned Cost, Actual Cost, and Difference across cells A1 through F1.",
+      "unit_precondition": [
+        "LibreOffice Calc is open and focused.",
+        "Cells A1 through F1 are empty and available for entry.",
+        "Cell A1 is selected or ready to receive input."
+      ],
+      "unit_effect": [
+        "The first row is populated with six table headers from A1 to F1.",
+        "The worksheet now shows a clearly defined budget-tracking table structure."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Populate a worksheet header row with a specified set of column names starting from the active cell.",
+      "parameters": {
+        "target_start_cell": "A1",
+        "header_input_text": "Date\tMeal\tItem\tPlanned Cost\tActual Cost\tDifference"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'Date\\tMeal\\tItem\\tPlanned Cost\\tActual Cost\\tDifference'}",
+          "action_template": "When LibreOffice Calc is open, an empty area begins at {{target_start_cell}}, and that cell is active, type {{header_input_text}} so Calc fills adjacent cells across the first row with the specified table headers."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3
+      ],
+      "unit_intent": "Populate the tracker with the week's meal purchase records.",
+      "unit_type": "ENTER_WEEKLY_RECORDS",
+      "unit_before_state": "The header row is visible in A1:F1, and the insertion point is still on row 1 before data entry begins.",
+      "unit_after_state": "Seven meal records fill rows 2 through 8 across columns A to E, with dates, meal types, item names, planned costs, and actual costs shown under the headers.",
+      "unit_precondition": [
+        "The header row already exists in A1:F1.",
+        "Rows 2 through 8 are empty in the table area.",
+        "Pressing Enter from the current position will move input to the first data row."
+      ],
+      "unit_effect": [
+        "The selection moves to the first data row.",
+        "Cells A2:E8 display seven weekly meal purchase entries."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Populate the meal purchase tracker with a batch of structured weekly records starting at the first empty data row.",
+      "parameters": {
+        "first_data_row": "row 2",
+        "record_batch": "Mon\tBreakfast\tCoffee and bagel\t6.50\t7.20\nMon\tLunch\tSalad box\t11.00\t10.50\nTue\tDinner\tNoodles\t9.00\t8.80\nWed\tBreakfast\tYogurt and fruit\t5.00\t5.40\nThu\tLunch\tSandwich combo\t12.00\t12.75\nFri\tDinner\tTakeout rice bowl\t13.50\t14.20\nSat\tSnack\tJuice and pastry\t7.00\t6.60"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After the headers are in place, press Enter so the active selection moves to {{first_data_row}} and prepares the sheet for the first item entry."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Mon\\tBreakfast\\tCoffee and bagel\\t6.50\\t7.20\\nMon\\tLunch\\tSalad box\\t11.00\\t10.50\\nTue\\tDinner\\tNoodles\\t9.00\\t8.80\\nWed\\tBreakfast\\tYogurt and fruit\\t5.00\\t5.40\\nThu\\tLunch\\tSandwich combo\\t12.00\\t12.75\\nFri\\tDinner\\tTakeout rice bowl\\t13.50\\t14.20\\nSat\\tSnack\\tJuice and pastry\\t7.00\\t6.60'}",
+          "action_template": "With the selection at {{first_data_row}}, type {{record_batch}} line by line so the sheet is populated with dates, meal types, item names, planned costs, and actual costs."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Create the variance formula for the first meal entry so the difference column starts calculating budget deviation.",
+      "unit_type": "CREATE_DIFFERENCE_FORMULA",
+      "unit_before_state": "The worksheet shows data in A2:E8, column F is empty, and the first empty difference cell F2 is available beside the Monday breakfast row.",
+      "unit_after_state": "Cell F2 contains the computed difference for the first record, and the active selection has moved down to the next row after confirming the formula.",
+      "unit_precondition": [
+        "Rows 2 through 8 already contain meal data in columns A through E.",
+        "Cell F2 is empty and can be selected.",
+        "Cells D2 and E2 contain numeric planned and actual costs."
+      ],
+      "unit_effect": [
+        "Cell F2 evaluates the formula based on E2 minus D2.",
+        "A numeric result is visible in F2 for the first row, and Calc advances the active cell downward."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Enter and confirm a difference formula in a target difference cell so a specific row calculates budget deviation from actual cost minus planned cost.",
+      "parameters": {
+        "target_difference_cell": "cell F2",
+        "actual_cost_cell": "E2",
+        "planned_cost_cell": "D2",
+        "formula_expression": "=E2-D2"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell F2'}}",
+          "action_template": "Once the target row is visible, click {{target_difference_cell}} so the cursor is positioned where the difference formula should go. Preconditions: the relevant row data is already populated and the target difference cell is empty and selectable. After this action, {{target_difference_cell}} becomes active and ready for formula entry."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '=E2-D2'}",
+          "action_template": "When {{target_difference_cell}} is selected and {{planned_cost_cell}} and {{actual_cost_cell}} contain numeric planned and actual costs, type {{formula_expression}} so the row can calculate actual cost minus planned cost. After this action, the formula is entered into {{target_difference_cell}} and is ready to compute the budget deviation for that record."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After typing {{formula_expression}} into {{target_difference_cell}}, press Enter so Calc applies the formula. After this action, Calc evaluates the formula in {{target_difference_cell}} and moves the active selection to the cell below."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7
+      ],
+      "unit_intent": "Apply the same planned-versus-actual calculation to all remaining meal rows.",
+      "unit_type": "FILL_DIFFERENCE_FORMULAS",
+      "unit_before_state": "Cell F2 already contains the correct difference formula, rows 3 through 8 contain meal data, and the remaining cells F3:F8 are ready to be filled.",
+      "unit_after_state": "The difference column is populated from F2 through F8, with each meal row showing its own calculated over- or under-budget value.",
+      "unit_precondition": [
+        "Cell F2 contains a correct reference-based difference formula.",
+        "Rows 3 through 8 contain corresponding planned and actual values.",
+        "The fill handle on F2 is visible and can be dragged to F8."
+      ],
+      "unit_effect": [
+        "The formula is autofilled down the difference column through row 8.",
+        "Cells F2:F8 display calculated row-by-row budget differences instead of remaining blank."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Autofill an existing row-based formula down the rest of a contiguous data range.",
+      "parameters": {
+        "source_formula_cell": "F2",
+        "target_end_cell": "F8"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the fill handle at the lower-right corner of cell F2'}, 'end': {'text': 'cell F8'}, 'target': {'begin': {'text': 'the fill handle at the lower-right corner of cell F2'}, 'end': {'text': 'cell F8'}}}",
+          "action_template": "Drag the fill handle at the lower-right corner of {{source_formula_cell}} to {{target_end_cell}} to copy the existing formula for every remaining entry after confirming {{source_formula_cell}} contains the correct formula and the fill handle is visible; this autofills the formula from {{source_formula_cell}} through {{target_end_cell}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        8,
+        9
+      ],
+      "unit_intent": "Add a summary row that totals planned spending, actual spending, and total variance for the week.",
+      "unit_type": "ADD_TOTALS_ROW",
+      "unit_before_state": "The meal tracker table ends at row 8, row 9 is empty, and no summary values are shown beneath the data.",
+      "unit_after_state": "Row 9 contains the label Total in A9 and sum formulas in D9, E9, and F9, creating a visible totals row below the meal entries.",
+      "unit_precondition": [
+        "The data table already spans rows 2 through 8.",
+        "Row 9 is empty and available for summary content.",
+        "Cell A9 can be selected for tab-separated entry."
+      ],
+      "unit_effect": [
+        "Cell A9 shows the Total label.",
+        "The bottom row now displays aggregate formulas for planned cost, actual cost, and difference."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Add a summary row below an existing table by activating the first cell of the empty row and entering a row label plus aggregate formulas for designated columns.",
+      "parameters": {
+        "target_start_cell": "A9",
+        "summary_label": "Total",
+        "planned_total_formula": "=SUM(D2:D8)",
+        "actual_total_formula": "=SUM(E2:E8)",
+        "variance_total_formula": "=SUM(F2:F8)"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "CLICK",
+          "action_template": "With the data table already filled and the next row empty, click {{target_start_cell}} to activate the first cell of the summary row for entry beneath the data."
+        },
+        {
+          "action": "TYPING",
+          "action_template": "With {{target_start_cell}} selected and the summary row empty, type {{summary_label}} with tab separators and the formulas {{planned_total_formula}}, {{actual_total_formula}}, and {{variance_total_formula}} so the label and aggregate values are inserted in the correct columns."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        10,
+        11
+      ],
+      "unit_intent": "Make all cost and variance values display in a consistent money format.",
+      "unit_type": "FORMAT_COST_RANGE_AS_CURRENCY",
+      "unit_before_state": "The worksheet shows numeric values and totals in the money-related block D2:F9, and those cells are not yet formatted as currency.",
+      "unit_after_state": "Cells D2 through F9 remain selected and their values now display using currency formatting, making planned, actual, difference, and total amounts easier to read.",
+      "unit_precondition": [
+        "Cells D2:F9 are visible on screen.",
+        "The range from D2 to F9 contains the planned, actual, difference, and totals values.",
+        "LibreOffice Calc is focused and can receive the currency-format shortcut."
+      ],
+      "unit_effect": [
+        "The full money range D2:F9 is selected before formatting is applied.",
+        "The selected numeric cells change to a currency display format."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Format a specified range of monetary cells so the values display in a consistent currency style.",
+      "parameters": {
+        "range_start_cell": "cell D2",
+        "range_end_cell": "cell F9",
+        "target_range": "D2:F9"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'cell D2'}, 'end': {'text': 'cell F9'}, 'target': {'begin': {'text': 'cell D2'}, 'end': {'text': 'cell F9'}}}",
+          "action_template": "Drag from {{range_start_cell}} to {{range_end_cell}} to select the monetary cell range so those cells can be formatted consistently. This requires the monetary table to be visible on screen, and after the drag the full block {{target_range}} is highlighted and ready for formatting."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', '4']}",
+          "action_template": "Press Ctrl+Shift+4 to apply currency formatting to the selected cells in {{target_range}}. This requires {{target_range}} to already be selected and LibreOffice Calc to be focused, and after the shortcut the selected cells display in a currency format."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

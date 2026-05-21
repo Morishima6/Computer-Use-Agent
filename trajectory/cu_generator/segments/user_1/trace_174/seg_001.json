@@ -1,0 +1,757 @@
+{
+  "segment_id": "seg_001",
+  "app": "libreoffice_calc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Place the cursor in the first cell of the sheet",
+      "action_before_state": "A Calc worksheet is already open on the screen, and the top-left area of the grid is visible.",
+      "action_preconditions": [
+        "The spreadsheet window is active",
+        "Cell A1 is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the cell A1 at the top-left corner of the sheet"
+        }
+      },
+      "action_after_effects": "Cell A1 becomes the active cell and is ready for data entry.",
+      "nl_explanation": "When the spreadsheet is focused and A1 is visible, click cell A1 so the table can be started from the first cell."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Enter the tracker headers",
+      "action_before_state": "Cell A1 is selected and the first row is available for a new table.",
+      "action_preconditions": [
+        "Cell A1 is active",
+        "The first row is empty or ready to be replaced"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Day\tReading\tCoding\tExercise\tTotal Minutes"
+      },
+      "action_after_effects": "The headers are filled across cells A1 through E1.",
+      "nl_explanation": "With A1 selected, type the column labels separated by tabs so the study tracker headers fill the first row from left to right."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Move to the first data row",
+      "action_before_state": "The header row is visible in A1:E1.",
+      "action_preconditions": [
+        "The headers have been entered",
+        "Cell A2 is visible below the header row"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the cell A2 directly below the Day header"
+        }
+      },
+      "action_after_effects": "Cell A2 becomes active for entering the weekly records.",
+      "nl_explanation": "After the headers are in place, click A2 so the first daily record starts directly under the Day column."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Fill in the weekday names and study values",
+      "action_before_state": "Cell A2 is active and the rows below the header are available.",
+      "action_preconditions": [
+        "Cell A2 is selected",
+        "Rows 2 through 8 are empty or ready for the new entries"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Monday\t30\t60\t20\nTuesday\t25\t75\t15\nWednesday\t40\t50\t30\nThursday\t35\t80\t20\nFriday\t20\t90\t25\nSaturday\t45\t70\t40\nSunday\t50\t55\t35"
+      },
+      "action_after_effects": "The range A2:D8 is filled with the seven weekdays and their Reading, Coding, and Exercise values.",
+      "nl_explanation": "With A2 active, type the seven rows of weekday data using tabs and line breaks so the daily study numbers fill the table down to row 8."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Select the first total cell",
+      "action_before_state": "The daily study data is visible in columns A through D, and the Total Minutes column is still empty.",
+      "action_preconditions": [
+        "The Monday row is present in row 2",
+        "Cell E2 is visible and empty"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the empty cell E2 in the Total Minutes column for Monday"
+        }
+      },
+      "action_after_effects": "Cell E2 becomes active and ready for a formula.",
+      "nl_explanation": "Once the daily values are filled, click E2 so the total for Monday can be calculated in the Total Minutes column."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Enter the total formula for the first day",
+      "action_before_state": "Cell E2 is selected beside Monday's Reading, Coding, and Exercise values.",
+      "action_preconditions": [
+        "Cell E2 is active",
+        "Cells B2 through D2 contain numeric values"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "=SUM(B2:D2)"
+      },
+      "action_after_effects": "The total minutes for Monday are calculated in E2.",
+      "nl_explanation": "With E2 selected and Monday's activity numbers present, type a SUM formula so Calc adds the three values for that day."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Copy the total formula down the rest of the week",
+      "action_before_state": "Cell E2 shows the first total, while E3 through E8 are still empty.",
+      "action_preconditions": [
+        "E2 contains the correct formula result",
+        "The fill handle at the bottom-right corner of E2 is visible",
+        "Rows 3 through 8 contain data in columns A through D"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the fill handle at the bottom-right corner of cell E2"
+        },
+        "end": {
+          "text": "the cell E8 at the end of the Sunday row"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "The total formula is copied from E2 down through E8, producing totals for every day.",
+      "nl_explanation": "After the first total appears in E2, drag the fill handle down to E8 so the same formula pattern is applied to the remaining days."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Move to the row below the weekly records",
+      "action_before_state": "Rows 1 through 8 contain the headers, daily entries, and total minutes.",
+      "action_preconditions": [
+        "The weekly table ends at row 8",
+        "Cell A9 is visible and empty"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the empty cell A9 below the Sunday row"
+        }
+      },
+      "action_after_effects": "Cell A9 becomes active for entering a summary row.",
+      "nl_explanation": "When the seven daily rows are complete, click A9 so the next row can be used for the summary values."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Add the Average row",
+      "action_before_state": "Cell A9 is selected and row 9 is empty.",
+      "action_preconditions": [
+        "Cell A9 is active",
+        "The daily data occupies rows 2 through 8"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Average\t=AVERAGE(B2:B8)\t=AVERAGE(C2:C8)\t=AVERAGE(D2:D8)\t=AVERAGE(E2:E8)"
+      },
+      "action_after_effects": "Row 9 now contains the Average label and formulas for each activity column and the total column.",
+      "nl_explanation": "With A9 selected, type the Average row using formulas so the sheet shows the weekly average for each activity and the overall total minutes."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Select the header row for formatting",
+      "action_before_state": "The completed table is visible from A1 through E9.",
+      "action_preconditions": [
+        "The headers are present in row 1",
+        "Cells A1 through E1 are visible"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the header cell A1 labeled Day"
+        },
+        "end": {
+          "text": "the header cell E1 labeled Total Minutes"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "The range A1:E1 is highlighted.",
+      "nl_explanation": "After the table is complete, drag across the header row from A1 to E1 so only the column labels are selected for formatting."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Make the header text bold",
+      "action_before_state": "The header row A1:E1 is selected.",
+      "action_preconditions": [
+        "Only the header cells are highlighted",
+        "The spreadsheet window is still focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "b"
+        ]
+      },
+      "action_after_effects": "The selected header text becomes bold.",
+      "nl_explanation": "With the header row selected, press Ctrl+B so the column labels stand out from the rest of the data."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Center-align the header row",
+      "action_before_state": "The header row remains selected after being bolded.",
+      "action_preconditions": [
+        "The header cells A1:E1 are still selected",
+        "The formatting toolbar is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Center horizontal alignment button on the formatting toolbar"
+        }
+      },
+      "action_after_effects": "The header labels are centered within their cells.",
+      "nl_explanation": "While the header row is still highlighted, click the center alignment control so the labels are visually centered across the top of the table."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Select the source data for the chart",
+      "action_before_state": "The formatted table is visible, including the weekday names and the three activity columns.",
+      "action_preconditions": [
+        "The range A1:D8 is visible",
+        "Only the daily rows, not the Average row, should be included in the chart"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the top-left cell A1"
+        },
+        "end": {
+          "text": "the cell D8 at the end of the Sunday row"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "The range A1:D8 is selected as chart source data.",
+      "nl_explanation": "Drag from A1 to D8 so the chart uses the day labels and the three activity categories for Monday through Sunday."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Open the chart insertion tool",
+      "action_before_state": "The data range A1:D8 is highlighted.",
+      "action_preconditions": [
+        "The intended chart data is selected",
+        "The Insert Chart control is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Insert Chart button in the standard toolbar"
+        }
+      },
+      "action_after_effects": "The Chart Wizard opens with the selected range loaded into the preview.",
+      "nl_explanation": "Once the chart data is highlighted, click the Insert Chart button so Calc opens the Chart Wizard using that selection."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Choose a column chart for the study comparison",
+      "action_before_state": "The Chart Wizard is open and the chart type options are visible.",
+      "action_preconditions": [
+        "The Chart Wizard dialog is open",
+        "The Column chart type is available in the list"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Column chart type in the Chart Wizard"
+        }
+      },
+      "action_after_effects": "The chart preview updates to a column chart.",
+      "nl_explanation": "With the Chart Wizard open, click the Column option so the three study activities are compared with vertical bars across the week."
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Insert the chart into the sheet",
+      "action_before_state": "The Chart Wizard preview shows a column chart based on the selected study data.",
+      "action_preconditions": [
+        "The desired chart type has been selected",
+        "The Finish button is visible in the wizard"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Finish button in the Chart Wizard"
+        }
+      },
+      "action_after_effects": "The column chart is inserted into the worksheet.",
+      "nl_explanation": "After confirming the preview is a column chart, click Finish so the chart is placed onto the spreadsheet."
+    },
+    {
+      "step_id": "s17",
+      "step_goal": "Save the completed tracker",
+      "action_before_state": "The worksheet now contains the full study tracker, formulas, formatting, and chart.",
+      "action_preconditions": [
+        "All requested edits have been completed",
+        "The spreadsheet window is focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "s"
+        ]
+      },
+      "action_after_effects": "The spreadsheet is saved with the completed weekly study routine tracker.",
+      "nl_explanation": "When the table, formulas, formatting, and chart are all finished, press Ctrl+S to save the completed spreadsheet."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Create the weekly study tracker table and populate it with the Monday through Sunday activity data.",
+      "unit_type": "POPULATE_WEEKLY_ACTIVITY_TABLE",
+      "unit_before_state": "LibreOffice Calc is open with a worksheet visible at the top-left corner, and no study tracker table has been entered yet in the visible cells.",
+      "unit_after_state": "The worksheet shows headers in A1:E1 as Day, Reading, Coding, Exercise, and Total Minutes, and rows A2:D8 contain Monday through Sunday with their Reading, Coding, and Exercise values. The Total Minutes cells in E2:E8 are still empty.",
+      "unit_precondition": [
+        "The LibreOffice Calc window is active.",
+        "Cell A1 and the surrounding top-left grid are visible.",
+        "The destination range A1:E8 is empty or can be overwritten for the new tracker."
+      ],
+      "unit_effect": [
+        "Cells A1:E1 display the five tracker headers.",
+        "Rows 2 through 8 list Monday to Sunday in column A.",
+        "Columns B through D contain the entered numeric study values for each day."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Compute total study minutes for each day across the full week.",
+      "unit_type": "CALCULATE_COLUMN_TOTALS",
+      "unit_before_state": "The tracker table is visible with headers in A1:E1 and daily data in A2:D8, while the Total Minutes column E is blank for rows 2 through 8.",
+      "unit_after_state": "Cells E2:E8 are filled with calculated daily totals for Monday through Sunday, aligned with each weekday row.",
+      "unit_precondition": [
+        "The daily activity data is already entered in rows 2 through 8.",
+        "Cell E2 is visible and available for formula entry.",
+        "Cells B2:D8 contain numeric values that can be summed."
+      ],
+      "unit_effect": [
+        "Cell E2 shows the calculated Monday total after entering the SUM formula.",
+        "Dragging the fill handle populates E3:E8 with corresponding totals.",
+        "The Total Minutes column displays results for all seven days, including 110 in E2 and values continuing through E8."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        8,
+        9
+      ],
+      "unit_intent": "Add a summary row that reports weekly average values for each activity and the total minutes.",
+      "unit_type": "ADD_SUMMARY_ROW",
+      "unit_before_state": "The worksheet contains the completed daily table in rows 1 through 8, including calculated totals in column E, and row 9 is empty.",
+      "unit_after_state": "Row 9 contains the label Average in A9 and average formulas across B9:E9 for Reading, Coding, Exercise, and Total Minutes.",
+      "unit_precondition": [
+        "Rows 2 through 8 already contain the full week of data and totals.",
+        "Cell A9 is visible and empty.",
+        "The summary row should be placed directly below the Sunday row."
+      ],
+      "unit_effect": [
+        "A9 displays the label Average.",
+        "Cells B9:E9 show calculated averages derived from rows 2 through 8.",
+        "The table now includes a summary row immediately below the seven daily entries."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        10,
+        11,
+        12
+      ],
+      "unit_intent": "Make the header row visually distinct and easier to scan.",
+      "unit_type": "FORMAT_HEADER_ROW",
+      "unit_before_state": "The full table from A1:E9 is visible, and the header labels in row 1 are present but not yet specially formatted.",
+      "unit_after_state": "The header cells A1:E1 remain selected, with bold text and centered alignment applied to all five column labels.",
+      "unit_precondition": [
+        "The header row A1:E1 is visible.",
+        "The header labels have already been entered.",
+        "Formatting controls such as bold and center alignment are available in the Calc window."
+      ],
+      "unit_effect": [
+        "The range A1:E1 becomes highlighted for formatting.",
+        "The header text changes to bold.",
+        "The header labels are centered within their cells."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        13,
+        14,
+        15,
+        16
+      ],
+      "unit_intent": "Insert a column chart that compares Reading, Coding, and Exercise values across the week.",
+      "unit_type": "INSERT_COLUMN_CHART",
+      "unit_before_state": "The formatted tracker table is visible on the worksheet, including weekday labels and the Reading, Coding, and Exercise columns for rows 1 through 8, but no chart has been inserted yet.",
+      "unit_after_state": "An embedded column chart appears on the worksheet, using Monday through Sunday as categories and comparing the Reading, Coding, and Exercise series from the selected table range.",
+      "unit_precondition": [
+        "The data range A1:D8 is visible on screen.",
+        "Only the daily rows, not the Average row, are intended for the chart.",
+        "The Insert Chart tool and Chart Wizard are available in LibreOffice Calc."
+      ],
+      "unit_effect": [
+        "The range A1:D8 is highlighted as the chart source.",
+        "The Chart Wizard opens with the selected data loaded.",
+        "The preview changes to a column chart after selecting the Column type.",
+        "Finishing the wizard inserts a visible chart onto the sheet."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        17
+      ],
+      "unit_intent": "Persist the completed weekly study tracker with all calculations, formatting, and the chart.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The worksheet shows the finished study tracker table, daily totals, Average row, formatted headers, and an inserted column chart.",
+      "unit_after_state": "The same completed worksheet remains open after the save command, with the tracker stored in the spreadsheet file.",
+      "unit_precondition": [
+        "All requested tracker edits have already been completed.",
+        "The LibreOffice Calc window is focused so the save shortcut will apply to this document."
+      ],
+      "unit_effect": [
+        "The save command is executed for the current spreadsheet.",
+        "The completed tracker remains visible after saving, with its table, formulas, formatting, and chart preserved."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Create the weekly study tracker table and populate it with the Monday through Sunday activity data.",
+      "unit_type": "POPULATE_WEEKLY_ACTIVITY_TABLE",
+      "unit_before_state": "LibreOffice Calc is open with a worksheet visible at the top-left corner, and no study tracker table has been entered yet in the visible cells.",
+      "unit_after_state": "The worksheet shows headers in A1:E1 as Day, Reading, Coding, Exercise, and Total Minutes, and rows A2:D8 contain Monday through Sunday with their Reading, Coding, and Exercise values. The Total Minutes cells in E2:E8 are still empty.",
+      "unit_precondition": [
+        "The LibreOffice Calc window is active.",
+        "Cell A1 and the surrounding top-left grid are visible.",
+        "The destination range A1:E8 is empty or can be overwritten for the new tracker."
+      ],
+      "unit_effect": [
+        "Cells A1:E1 display the five tracker headers.",
+        "Rows 2 through 8 list Monday to Sunday in column A.",
+        "Columns B through D contain the entered numeric study values for each day."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a weekly spreadsheet table by entering specified column headers and populating the table body with the provided row data.",
+      "parameters": {
+        "header_start_cell": "A1",
+        "header_values": "Day\tReading\tCoding\tExercise\tTotal Minutes",
+        "data_start_cell": "A2",
+        "row_data": "Monday\t30\t60\t20\nTuesday\t25\t75\t15\nWednesday\t40\t50\t30\nThursday\t35\t80\t20\nFriday\t20\t90\t25\nSaturday\t45\t70\t40\nSunday\t50\t55\t35"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the cell A1 at the top-left corner of the sheet'}}",
+          "action_template": "When the spreadsheet window is active and {{header_start_cell}} is visible, click {{header_start_cell}} so the table can be started from the first cell and {{header_start_cell}} becomes the active cell ready for data entry."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Day\\tReading\\tCoding\\tExercise\\tTotal Minutes'}",
+          "action_template": "With {{header_start_cell}} selected and the first row ready to be replaced, type {{header_values}} so the specified headers fill the first row from left to right."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the cell A2 directly below the Day header'}}",
+          "action_template": "After the headers have been entered and {{data_start_cell}} is visible below the header row, click {{data_start_cell}} so the first data row can be entered and {{data_start_cell}} becomes active."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Monday\\t30\\t60\\t20\\nTuesday\\t25\\t75\\t15\\nWednesday\\t40\\t50\\t30\\nThursday\\t35\\t80\\t20\\nFriday\\t20\\t90\\t25\\nSaturday\\t45\\t70\\t40\\nSunday\\t50\\t55\\t35'}",
+          "action_template": "With {{data_start_cell}} selected and the destination rows ready for new entries, type {{row_data}} using tabs and line breaks so the table body is populated with the provided weekly records."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Compute total study minutes for each day across the full week.",
+      "unit_type": "CALCULATE_COLUMN_TOTALS",
+      "unit_before_state": "The tracker table is visible with headers in A1:E1 and daily data in A2:D8, while the Total Minutes column E is blank for rows 2 through 8.",
+      "unit_after_state": "Cells E2:E8 are filled with calculated daily totals for Monday through Sunday, aligned with each weekday row.",
+      "unit_precondition": [
+        "The daily activity data is already entered in rows 2 through 8.",
+        "Cell E2 is visible and available for formula entry.",
+        "Cells B2:D8 contain numeric values that can be summed."
+      ],
+      "unit_effect": [
+        "Cell E2 shows the calculated Monday total after entering the SUM formula.",
+        "Dragging the fill handle populates E3:E8 with corresponding totals.",
+        "The Total Minutes column displays results for all seven days, including 110 in E2 and values continuing through E8."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Populate a totals column by entering a row-sum formula in the first result cell and filling it down through the remaining rows.",
+      "parameters": {
+        "target_total_cell": "the empty cell E2 in the Total Minutes column for Monday",
+        "sum_formula": "=SUM(B2:D2)",
+        "source_value_range": "B2:D2",
+        "fill_handle_source": "the fill handle at the bottom-right corner of cell E2",
+        "fill_destination_cell": "the cell E8 at the end of the Sunday row"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the empty cell E2 in the Total Minutes column for Monday'}}",
+          "action_template": "Click {{target_total_cell}} when it is visible and empty so it becomes active and ready for a formula."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '=SUM(B2:D2)'}",
+          "action_template": "With {{target_total_cell}} active and {{source_value_range}} containing numeric values, type {{sum_formula}} so the total for the current row is calculated."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the fill handle at the bottom-right corner of cell E2'}, 'end': {'text': 'the cell E8 at the end of the Sunday row'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "After the first total appears and {{fill_handle_source}} is visible, drag from {{fill_handle_source}} to {{fill_destination_cell}} so the formula is copied through the remaining rows."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        8,
+        9
+      ],
+      "unit_intent": "Add a summary row that reports weekly average values for each activity and the total minutes.",
+      "unit_type": "ADD_SUMMARY_ROW",
+      "unit_before_state": "The worksheet contains the completed daily table in rows 1 through 8, including calculated totals in column E, and row 9 is empty.",
+      "unit_after_state": "Row 9 contains the label Average in A9 and average formulas across B9:E9 for Reading, Coding, Exercise, and Total Minutes.",
+      "unit_precondition": [
+        "Rows 2 through 8 already contain the full week of data and totals.",
+        "Cell A9 is visible and empty.",
+        "The summary row should be placed directly below the Sunday row."
+      ],
+      "unit_effect": [
+        "A9 displays the label Average.",
+        "Cells B9:E9 show calculated averages derived from rows 2 through 8.",
+        "The table now includes a summary row immediately below the seven daily entries."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Insert an averages summary row directly below a completed block of records.",
+      "parameters": {
+        "summary_start_cell": "A9",
+        "summary_start_cell_description": "the empty cell A9 below the Sunday row",
+        "summary_label": "Average",
+        "summary_row_entry": "Average\t=AVERAGE(B2:B8)\t=AVERAGE(C2:C8)\t=AVERAGE(D2:D8)\t=AVERAGE(E2:E8)",
+        "data_rows_range": "rows 2 through 8"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the empty cell A9 below the Sunday row'}}",
+          "action_template": "Click {{summary_start_cell_description}} when {{summary_start_cell}} is visible and empty so it becomes active for entering the summary row."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Average\\t=AVERAGE(B2:B8)\\t=AVERAGE(C2:C8)\\t=AVERAGE(D2:D8)\\t=AVERAGE(E2:E8)'}",
+          "action_template": "With {{summary_start_cell}} selected, type {{summary_row_entry}} to create the {{summary_label}} summary row with average formulas based on {{data_rows_range}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        10,
+        11,
+        12
+      ],
+      "unit_intent": "Make the header row visually distinct and easier to scan.",
+      "unit_type": "FORMAT_HEADER_ROW",
+      "unit_before_state": "The full table from A1:E9 is visible, and the header labels in row 1 are present but not yet specially formatted.",
+      "unit_after_state": "The header cells A1:E1 remain selected, with bold text and centered alignment applied to all five column labels.",
+      "unit_precondition": [
+        "The header row A1:E1 is visible.",
+        "The header labels have already been entered.",
+        "Formatting controls such as bold and center alignment are available in the Calc window."
+      ],
+      "unit_effect": [
+        "The range A1:E1 becomes highlighted for formatting.",
+        "The header text changes to bold.",
+        "The header labels are centered within their cells."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Format a table header row so its labels are emphasized with bold, centered text.",
+      "parameters": {
+        "target_header_range": "A1:E1",
+        "header_start_cell": "the header cell A1 labeled Day",
+        "header_end_cell": "the header cell E1 labeled Total Minutes"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the header cell A1 labeled Day'}, 'end': {'text': 'the header cell E1 labeled Total Minutes'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "Drag across the header row from {{header_start_cell}} to {{header_end_cell}} to select {{target_header_range}} for formatting, when the headers are present in row 1 and the header cells are visible. This highlights {{target_header_range}}."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'b']}",
+          "action_template": "Press Ctrl+B to make the selected header text in {{target_header_range}} bold, when only the header cells are highlighted and the spreadsheet window is focused. This makes the selected header text bold."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Center horizontal alignment button on the formatting toolbar'}}",
+          "action_template": "Click the Center horizontal alignment button on the formatting toolbar to center the labels in {{target_header_range}}, when {{target_header_range}} is still selected and the formatting toolbar is visible. This centers the header labels within their cells."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        13,
+        14,
+        15,
+        16
+      ],
+      "unit_intent": "Insert a column chart that compares Reading, Coding, and Exercise values across the week.",
+      "unit_type": "INSERT_COLUMN_CHART",
+      "unit_before_state": "The formatted tracker table is visible on the worksheet, including weekday labels and the Reading, Coding, and Exercise columns for rows 1 through 8, but no chart has been inserted yet.",
+      "unit_after_state": "An embedded column chart appears on the worksheet, using Monday through Sunday as categories and comparing the Reading, Coding, and Exercise series from the selected table range.",
+      "unit_precondition": [
+        "The data range A1:D8 is visible on screen.",
+        "Only the daily rows, not the Average row, are intended for the chart.",
+        "The Insert Chart tool and Chart Wizard are available in LibreOffice Calc."
+      ],
+      "unit_effect": [
+        "The range A1:D8 is highlighted as the chart source.",
+        "The Chart Wizard opens with the selected data loaded.",
+        "The preview changes to a column chart after selecting the Column type.",
+        "Finishing the wizard inserts a visible chart onto the sheet."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Insert a specified chart type from a selected worksheet data range to compare multiple data series across category labels.",
+      "parameters": {
+        "range_start_cell": "A1",
+        "range_end_cell": "D8",
+        "source_data_range": "A1:D8",
+        "category_labels": "Monday through Sunday",
+        "series_names_text": "Reading, Coding, and Exercise",
+        "chart_type": "Column"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the top-left cell A1'}, 'end': {'text': 'the cell D8 at the end of the Sunday row'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "Drag from {{range_start_cell}} to {{range_end_cell}} to select {{source_data_range}} so the chart uses {{category_labels}} as categories and {{series_names_text}} as data series."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Insert Chart button in the standard toolbar'}}",
+          "action_template": "Click the Insert Chart button in the standard toolbar after {{source_data_range}} is selected to open the Chart Wizard with that range loaded into the preview."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Column chart type in the Chart Wizard'}}",
+          "action_template": "Click the {{chart_type}} chart type in the Chart Wizard to update the preview to a {{chart_type}} chart."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Finish button in the Chart Wizard'}}",
+          "action_template": "Click the Finish button in the Chart Wizard after confirming the {{chart_type}} chart preview to insert the chart into the worksheet."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        17
+      ],
+      "unit_intent": "Persist the completed weekly study tracker with all calculations, formatting, and the chart.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The worksheet shows the finished study tracker table, daily totals, Average row, formatted headers, and an inserted column chart.",
+      "unit_after_state": "The same completed worksheet remains open after the save command, with the tracker stored in the spreadsheet file.",
+      "unit_precondition": [
+        "All requested tracker edits have already been completed.",
+        "The LibreOffice Calc window is focused so the save shortcut will apply to this document."
+      ],
+      "unit_effect": [
+        "The save command is executed for the current spreadsheet.",
+        "The completed tracker remains visible after saving, with its table, formulas, formatting, and chart preserved."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the current spreadsheet after completing all required content, calculation, formatting, and chart updates.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 's']}",
+          "action_template": "Press Ctrl+S to save the current spreadsheet after all requested edits are completed while the spreadsheet window is focused, so the completed document is stored and remains visible."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

@@ -1,0 +1,716 @@
+{
+  "segment_id": "seg_001",
+  "app": "gimp",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the file chooser so the source image can be loaded",
+      "action_before_state": "GIMP is already open on the screen, and no modal dialog is covering the main window.",
+      "action_preconditions": [
+        "The GIMP main window is focused",
+        "No other dialog is blocking keyboard shortcuts"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "o"
+        ]
+      },
+      "action_after_effects": "An Open Image dialog appears in front of GIMP.",
+      "nl_explanation": "When the GIMP window is active and nothing is blocking input, press Ctrl+O to open the image picker. The expected result is that the Open Image dialog appears."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Navigate the file chooser to the Desktop folder",
+      "action_before_state": "The Open Image dialog is visible, with a sidebar showing common folders such as Home and Desktop.",
+      "action_preconditions": [
+        "The Open Image dialog is on screen",
+        "The Desktop shortcut is visible in the left sidebar"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Desktop folder in the file chooser's left sidebar"
+        }
+      },
+      "action_after_effects": "The main file list updates to show the files stored on the Desktop.",
+      "nl_explanation": "Once the Open Image dialog is visible and the Desktop entry can be seen in the sidebar, click the Desktop folder. This should switch the file list to the Desktop contents."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Open the source photo from the Desktop",
+      "action_before_state": "The file chooser is displaying Desktop files, including the image file `dinner.jpg`.",
+      "action_preconditions": [
+        "The Desktop folder is currently selected",
+        "The file `dinner.jpg` is visible in the file list"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 2,
+        "target": {
+          "text": "the file named dinner.jpg in the file list"
+        }
+      },
+      "action_after_effects": "The dialog closes and the photo opens on the GIMP canvas.",
+      "nl_explanation": "When the Desktop file list is shown and `dinner.jpg` is available, double-click that image file. GIMP should load the picture into the main editing area."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Activate the Crop tool",
+      "action_before_state": "The photo is visible on the canvas, and the toolbox is available on the side of the GIMP window.",
+      "action_preconditions": [
+        "An image is open in GIMP",
+        "The toolbox with editing tools is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Crop Tool icon in the toolbox"
+        }
+      },
+      "action_after_effects": "The Crop tool becomes active and the pointer is ready to draw a crop region.",
+      "nl_explanation": "With the image open and the toolbox visible, click the Crop Tool icon. After that, GIMP should switch into crop mode so a crop area can be drawn."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Draw a square crop around the plate",
+      "action_before_state": "The Crop tool is active and the full photo is visible on the canvas.",
+      "action_preconditions": [
+        "The Crop tool is selected",
+        "The main subject of the photo is visible and can be framed"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the upper-left area just outside the plate"
+        },
+        "end": {
+          "text": "the lower-right area just outside the plate, forming a square around the dish"
+        },
+        "target": {
+          "begin": {
+            "text": "the upper-left corner of a square crop area centered on the plate"
+          },
+          "end": {
+            "text": "the lower-right corner of that square crop area on the canvas"
+          }
+        }
+      },
+      "action_after_effects": "A crop rectangle appears over the image, isolating the central dish in a square frame.",
+      "nl_explanation": "After enabling the Crop tool and confirming the dish is visible, drag from the upper-left area around the plate to the lower-right area so the crop box becomes square. The result should be a crop outline centered on the plate."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Apply the crop",
+      "action_before_state": "A crop rectangle is visible on top of the photo, and GIMP is waiting for the crop to be confirmed.",
+      "action_preconditions": [
+        "A valid crop selection has already been drawn",
+        "The crop outline is still active"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The canvas is trimmed to the selected square area.",
+      "nl_explanation": "When the crop box is already in place, press Enter to confirm it. The expected behavior is that the image is cropped down to the square selection."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Open the Image menu to access resizing options",
+      "action_before_state": "The cropped square image is displayed on the canvas, and the top menu bar is visible.",
+      "action_preconditions": [
+        "The image remains open after cropping",
+        "The top menu bar can be seen"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Image menu in the top menu bar"
+        }
+      },
+      "action_after_effects": "The Image menu dropdown opens.",
+      "nl_explanation": "Once the cropped image is visible and the menu bar is accessible, click the Image menu. This should open its dropdown list of image-level operations."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Open the Scale Image dialog",
+      "action_before_state": "The Image menu dropdown is open and contains commands such as Scale Image.",
+      "action_preconditions": [
+        "The Image menu is already expanded",
+        "The Scale Image option is visible in that menu"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Scale Image... option in the open Image menu"
+        }
+      },
+      "action_after_effects": "A Scale Image dialog appears with editable width and height fields.",
+      "nl_explanation": "With the Image menu open and the Scale Image option visible, click Scale Image. GIMP should open a dialog where the image dimensions can be changed."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Focus the width field in the Scale Image dialog",
+      "action_before_state": "The Scale Image dialog is open, showing width and height input boxes.",
+      "action_preconditions": [
+        "The Scale Image dialog is active",
+        "The width input box is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Width value field in the Scale Image dialog"
+        }
+      },
+      "action_after_effects": "The width field receives input focus.",
+      "nl_explanation": "When the Scale Image dialog is open and the width box is visible, click the Width field so the new size can be entered there."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Replace the current width value",
+      "action_before_state": "The Width field in the Scale Image dialog is focused and contains the current pixel value.",
+      "action_preconditions": [
+        "The Width field is active",
+        "Its existing numeric value is selected or editable"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "1080"
+      },
+      "action_after_effects": "The width changes to 1080, and the linked height updates proportionally to 1080 as well.",
+      "nl_explanation": "After placing the cursor in the Width field, type 1080. Because the image is already square and the chain is linked, GIMP should update the dimensions to 1080 by 1080."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Confirm the new image size",
+      "action_before_state": "The Scale Image dialog now shows 1080 for the width and matching height.",
+      "action_preconditions": [
+        "The new dimension values are visible in the dialog",
+        "The Scale button is available"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Scale button in the Scale Image dialog"
+        }
+      },
+      "action_after_effects": "The dialog closes and the canvas is resized to 1080 by 1080 pixels.",
+      "nl_explanation": "When the dialog shows the intended 1080-pixel size, click the Scale button. The image should be resized and the dialog should disappear."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Activate the Text tool so a title can be added",
+      "action_before_state": "The resized image is visible on the canvas and the toolbox is still present.",
+      "action_preconditions": [
+        "The image is open and editable",
+        "The toolbox with the text icon is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Text Tool icon in the toolbox"
+        }
+      },
+      "action_after_effects": "The Text tool becomes active and the cursor is ready to draw a text box.",
+      "nl_explanation": "With the resized image open and the toolbox on screen, click the Text Tool icon. GIMP should switch to text-entry mode."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Create a text box near the bottom of the image",
+      "action_before_state": "The Text tool is active and the lower portion of the square image is visible.",
+      "action_preconditions": [
+        "The Text tool is currently selected",
+        "There is visible space near the bottom of the image for a title"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the lower-left area of the image above the bottom edge"
+        },
+        "end": {
+          "text": "the lower-right area of the image above the bottom edge"
+        },
+        "target": {
+          "begin": {
+            "text": "the lower-left corner of the title text box area near the bottom of the canvas"
+          },
+          "end": {
+            "text": "the lower-right corner of the title text box area near the bottom of the canvas"
+          }
+        }
+      },
+      "action_after_effects": "A text box appears across the lower portion of the image, ready for text entry.",
+      "nl_explanation": "Once the Text tool is active and the bottom portion of the picture is visible, drag from the lower-left area to the lower-right area to create a wide text box. GIMP should show an editable text region."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Enter the recipe title",
+      "action_before_state": "An active text box is visible over the image, with the text cursor inside it.",
+      "action_preconditions": [
+        "A text box has been created",
+        "The text cursor is inside the text box"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Weekend Pasta"
+      },
+      "action_after_effects": "The title text appears inside the text box on top of the image as a text layer.",
+      "nl_explanation": "After the text box is active and ready for typing, enter `Weekend Pasta`. The words should appear as a text overlay on the image."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Open the Export As dialog to save a new copy",
+      "action_before_state": "The edited image with the new title is visible in GIMP, and no dialog is currently open.",
+      "action_preconditions": [
+        "The image edits are complete",
+        "The main GIMP window is focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "e"
+        ]
+      },
+      "action_after_effects": "An Export As dialog appears, allowing a new filename to be entered.",
+      "nl_explanation": "When the edited image is ready and GIMP is focused, press Ctrl+Shift+E to open Export As. The export dialog should appear so a separate output file can be created."
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Name the exported PNG file",
+      "action_before_state": "The Export As dialog is open and the filename field is ready for editing.",
+      "action_preconditions": [
+        "The Export As dialog is active",
+        "The name field can accept typed input"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "dinner_square.png"
+      },
+      "action_after_effects": "The export filename is set to `dinner_square.png`.",
+      "nl_explanation": "With the Export As dialog open and the filename field editable, type `dinner_square.png`. This prepares GIMP to save a new PNG instead of overwriting the original image."
+    },
+    {
+      "step_id": "s17",
+      "step_goal": "Start the export process",
+      "action_before_state": "The Export As dialog shows the new PNG filename and the Export button is visible.",
+      "action_preconditions": [
+        "A new export filename has been entered",
+        "The Export button is available in the dialog"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Export button in the Export As dialog"
+        }
+      },
+      "action_after_effects": "GIMP advances to a PNG export settings dialog.",
+      "nl_explanation": "After entering the new filename and confirming the Export button is available, click Export. GIMP should move to the PNG-specific export settings dialog."
+    },
+    {
+      "step_id": "s18",
+      "step_goal": "Confirm the PNG export options and finish saving",
+      "action_before_state": "The PNG export settings dialog is open, showing options for the PNG file.",
+      "action_preconditions": [
+        "The PNG export options dialog is visible",
+        "The final Export button can be clicked"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Export button in the PNG export options dialog"
+        }
+      },
+      "action_after_effects": "The dialog closes and the edited image is saved as `dinner_square.png`.",
+      "nl_explanation": "When the PNG export options dialog is open and the final Export button is visible, click Export to accept the default settings. The result should be a saved PNG copy with all the edits applied."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Load the recipe photo from the Desktop into GIMP so editing can begin.",
+      "unit_type": "OPEN_IMAGE_FROM_DESKTOP",
+      "unit_before_state": "The GIMP main window is open with no modal dialog on screen, and no image-loading dialog is currently visible.",
+      "unit_after_state": "The Open Image dialog has closed and the photo `dinner.jpg` is displayed on the GIMP canvas as the active image.",
+      "unit_precondition": [
+        "The GIMP main window is focused.",
+        "No modal dialog is blocking keyboard shortcuts.",
+        "The file `dinner.jpg` exists on the Desktop and is accessible from the file chooser."
+      ],
+      "unit_effect": [
+        "An Open Image dialog appears after the shortcut is pressed.",
+        "The file chooser switches to show Desktop contents.",
+        "Double-clicking `dinner.jpg` closes the dialog and shows the photo on the canvas."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Crop the photo into a square centered on the plate for a square cover layout.",
+      "unit_type": "CROP_IMAGE_TO_SQUARE",
+      "unit_before_state": "The uncropped `dinner.jpg` photo is open in GIMP, the toolbox is visible, and the full image with the plate centered in view is shown on the canvas.",
+      "unit_after_state": "The canvas is reduced to a square crop centered on the plate, and the surrounding parts of the original rectangular photo are no longer visible.",
+      "unit_precondition": [
+        "An editable image is already open in GIMP.",
+        "The Crop tool is available in the toolbox.",
+        "The plate is visible well enough to frame with a square crop."
+      ],
+      "unit_effect": [
+        "The Crop tool becomes active and a crop rectangle can be drawn.",
+        "A square crop outline appears around the plate before confirmation.",
+        "Pressing Enter removes the outer image area and leaves only the square crop on the canvas."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "unit_intent": "Resize the cropped square image to the final 1080 by 1080 output size.",
+      "unit_type": "SCALE_IMAGE",
+      "unit_before_state": "The square-cropped image is visible on the GIMP canvas, the top menu bar is available, and no scaling dialog is open yet.",
+      "unit_after_state": "The Scale Image dialog has closed and the active image is resized to 1080 by 1080 pixels on the canvas.",
+      "unit_precondition": [
+        "The square crop has already been applied.",
+        "The Image menu is available in the top menu bar.",
+        "The image proportions remain linked so changing the width updates the height to the same value."
+      ],
+      "unit_effect": [
+        "Opening Image > Scale Image displays a dialog with width and height fields.",
+        "Entering `1080` in the Width field updates the displayed dimensions to 1080 by 1080.",
+        "Clicking Scale closes the dialog and applies the new pixel dimensions to the canvas."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        12,
+        13,
+        14
+      ],
+      "unit_intent": "Add the recipe title near the bottom of the cover image.",
+      "unit_type": "ADD_TEXT_TITLE",
+      "unit_before_state": "The resized 1080 by 1080 food image is visible on the canvas, the toolbox is present, and there is open space near the bottom where a title can be placed.",
+      "unit_after_state": "A text layer containing `Weekend Pasta` appears near the bottom of the image inside the newly created text box.",
+      "unit_precondition": [
+        "The edited image is open and remains selectable for further editing.",
+        "The Text tool is visible in the toolbox.",
+        "The lower portion of the image has enough visible area to place a wide title box."
+      ],
+      "unit_effect": [
+        "The Text tool activates and the cursor is ready to create a text area.",
+        "Dragging across the lower part of the canvas creates an editable text box.",
+        "Typing `Weekend Pasta` makes the title visibly appear on top of the image as text."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        15,
+        16,
+        17,
+        18
+      ],
+      "unit_intent": "Export the edited cover as a new PNG file without overwriting the original JPG.",
+      "unit_type": "EXPORT_AS_PNG_COPY",
+      "unit_before_state": "The edited image with the `Weekend Pasta` title is visible in GIMP, no dialog is open, and the original `dinner.jpg` has not been overwritten.",
+      "unit_after_state": "All export dialogs have closed and a new PNG file named `dinner_square.png` has been saved with the completed edits.",
+      "unit_precondition": [
+        "The image edits are finished and visible on the canvas.",
+        "The GIMP main window is focused so the export shortcut will open the export workflow.",
+        "The Export As dialog can accept a new filename."
+      ],
+      "unit_effect": [
+        "Pressing Ctrl+Shift+E opens the Export As dialog.",
+        "The filename field shows `dinner_square.png` before export begins.",
+        "Clicking Export advances to PNG-specific export options.",
+        "Clicking the final Export button closes the dialog and saves the new PNG copy."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Load the recipe photo from the Desktop into GIMP so editing can begin.",
+      "unit_type": "OPEN_IMAGE_FROM_DESKTOP",
+      "unit_before_state": "The GIMP main window is open with no modal dialog on screen, and no image-loading dialog is currently visible.",
+      "unit_after_state": "The Open Image dialog has closed and the photo `dinner.jpg` is displayed on the GIMP canvas as the active image.",
+      "unit_precondition": [
+        "The GIMP main window is focused.",
+        "No modal dialog is blocking keyboard shortcuts.",
+        "The file `dinner.jpg` exists on the Desktop and is accessible from the file chooser."
+      ],
+      "unit_effect": [
+        "An Open Image dialog appears after the shortcut is pressed.",
+        "The file chooser switches to show Desktop contents.",
+        "Double-clicking `dinner.jpg` closes the dialog and shows the photo on the canvas."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Load a specified image file from a specified folder into GIMP so editing can begin.",
+      "parameters": {
+        "folder_name": "Desktop",
+        "file_name": "dinner.jpg"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'o']}",
+          "action_template": "Press Ctrl+O when the GIMP main window is focused and no dialog is blocking keyboard shortcuts to open the image picker. The expected result is that the Open Image dialog appears."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': \"the Desktop folder in the file chooser's left sidebar\"}}",
+          "action_template": "Click the {{folder_name}} folder in the file chooser's left sidebar when the Open Image dialog is visible and the {{folder_name}} shortcut is available. This should update the main file list to show the contents of {{folder_name}}."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 2, 'target': {'text': 'the file named dinner.jpg in the file list'}}",
+          "action_template": "Double-click {{file_name}} in the file list when {{folder_name}} is selected and {{file_name}} is visible. GIMP should close the dialog and load the image into the main editing area."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Crop the photo into a square centered on the plate for a square cover layout.",
+      "unit_type": "CROP_IMAGE_TO_SQUARE",
+      "unit_before_state": "The uncropped `dinner.jpg` photo is open in GIMP, the toolbox is visible, and the full image with the plate centered in view is shown on the canvas.",
+      "unit_after_state": "The canvas is reduced to a square crop centered on the plate, and the surrounding parts of the original rectangular photo are no longer visible.",
+      "unit_precondition": [
+        "An editable image is already open in GIMP.",
+        "The Crop tool is available in the toolbox.",
+        "The plate is visible well enough to frame with a square crop."
+      ],
+      "unit_effect": [
+        "The Crop tool becomes active and a crop rectangle can be drawn.",
+        "A square crop outline appears around the plate before confirmation.",
+        "Pressing Enter removes the outer image area and leaves only the square crop on the canvas."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Crop an open image to a square centered on a specified main subject.",
+      "parameters": {
+        "target_subject": "plate"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Crop Tool icon in the toolbox'}}",
+          "action_template": "With an image open in GIMP and the toolbox visible, click the Crop Tool icon to activate crop mode so a crop region can be drawn."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the upper-left area just outside the plate'}, 'end': {'text': 'the lower-right area just outside the plate, forming a square around the dish'}, 'target': {'begin': {'text': 'the upper-left corner of a square crop area centered on the plate'}, 'end': {'text': 'the lower-right corner of that square crop area on the canvas'}}}",
+          "action_template": "After enabling the Crop tool and confirming {{target_subject}} is visible, drag from the upper-left area just outside {{target_subject}} to the lower-right area just outside {{target_subject}} so the crop box becomes square and centered on it."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "When a valid square crop outline around {{target_subject}} is active, press Enter to confirm the crop and trim the canvas to the selected area."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "unit_intent": "Resize the cropped square image to the final 1080 by 1080 output size.",
+      "unit_type": "SCALE_IMAGE",
+      "unit_before_state": "The square-cropped image is visible on the GIMP canvas, the top menu bar is available, and no scaling dialog is open yet.",
+      "unit_after_state": "The Scale Image dialog has closed and the active image is resized to 1080 by 1080 pixels on the canvas.",
+      "unit_precondition": [
+        "The square crop has already been applied.",
+        "The Image menu is available in the top menu bar.",
+        "The image proportions remain linked so changing the width updates the height to the same value."
+      ],
+      "unit_effect": [
+        "Opening Image > Scale Image displays a dialog with width and height fields.",
+        "Entering `1080` in the Width field updates the displayed dimensions to 1080 by 1080.",
+        "Clicking Scale closes the dialog and applies the new pixel dimensions to the canvas."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Resize the current square image to a specified final pixel dimension using the Scale Image dialog.",
+      "parameters": {
+        "output_size_px": "1080"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Image menu in the top menu bar'}}",
+          "action_template": "Once the cropped image is visible and the menu bar is accessible, click the Image menu to open its dropdown list of image-level operations."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Scale Image... option in the open Image menu'}}",
+          "action_template": "With the Image menu open and the Scale Image option visible, click Scale Image to open a dialog where the image dimensions can be changed."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Width value field in the Scale Image dialog'}}",
+          "action_template": "When the Scale Image dialog is open and the width box is visible, click the Width field so the new size can be entered there."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '1080'}",
+          "action_template": "After placing the cursor in the Width field, type {{output_size_px}}. Because the image is already square and the chain is linked, GIMP should update the dimensions so the height matches the specified width."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Scale button in the Scale Image dialog'}}",
+          "action_template": "When the dialog shows the intended {{output_size_px}}-pixel width and matching height, click the Scale button to apply the new size and close the dialog."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        12,
+        13,
+        14
+      ],
+      "unit_intent": "Add the recipe title near the bottom of the cover image.",
+      "unit_type": "ADD_TEXT_TITLE",
+      "unit_before_state": "The resized 1080 by 1080 food image is visible on the canvas, the toolbox is present, and there is open space near the bottom where a title can be placed.",
+      "unit_after_state": "A text layer containing `Weekend Pasta` appears near the bottom of the image inside the newly created text box.",
+      "unit_precondition": [
+        "The edited image is open and remains selectable for further editing.",
+        "The Text tool is visible in the toolbox.",
+        "The lower portion of the image has enough visible area to place a wide title box."
+      ],
+      "unit_effect": [
+        "The Text tool activates and the cursor is ready to create a text area.",
+        "Dragging across the lower part of the canvas creates an editable text box.",
+        "Typing `Weekend Pasta` makes the title visibly appear on top of the image as text."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Add specified title text onto the image by activating the Text tool, creating a text box in the desired area, and entering the text.",
+      "parameters": {
+        "drag_start_area": "the lower-left area of the image above the bottom edge",
+        "drag_end_area": "the lower-right area of the image above the bottom edge",
+        "input_text": "Weekend Pasta"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Text Tool icon in the toolbox'}}",
+          "action_template": "Click the Text Tool icon in the toolbox while the image is open and editable to switch GIMP into text-entry mode so the cursor is ready to draw a text box."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the lower-left area of the image above the bottom edge'}, 'end': {'text': 'the lower-right area of the image above the bottom edge'}, 'target': {'begin': {'text': 'the lower-left corner of the title text box area near the bottom of the canvas'}, 'end': {'text': 'the lower-right corner of the title text box area near the bottom of the canvas'}}}",
+          "action_template": "With the Text tool selected and space available for a title, drag from {{drag_start_area}} to {{drag_end_area}} to create a wide editable text box in the desired area of the image."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Weekend Pasta'}",
+          "action_template": "Type {{input_text}} into the active text box after the cursor is inside it so the text appears as a text overlay on the image."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        15,
+        16,
+        17,
+        18
+      ],
+      "unit_intent": "Export the edited cover as a new PNG file without overwriting the original JPG.",
+      "unit_type": "EXPORT_AS_PNG_COPY",
+      "unit_before_state": "The edited image with the `Weekend Pasta` title is visible in GIMP, no dialog is open, and the original `dinner.jpg` has not been overwritten.",
+      "unit_after_state": "All export dialogs have closed and a new PNG file named `dinner_square.png` has been saved with the completed edits.",
+      "unit_precondition": [
+        "The image edits are finished and visible on the canvas.",
+        "The GIMP main window is focused so the export shortcut will open the export workflow.",
+        "The Export As dialog can accept a new filename."
+      ],
+      "unit_effect": [
+        "Pressing Ctrl+Shift+E opens the Export As dialog.",
+        "The filename field shows `dinner_square.png` before export begins.",
+        "Clicking Export advances to PNG-specific export options.",
+        "Clicking the final Export button closes the dialog and saves the new PNG copy."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Export the edited image as a new PNG copy using a specified output filename.",
+      "parameters": {
+        "output_filename": "dinner_square.png"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'e']}",
+          "action_template": "When the image edits are complete and the main GIMP window is focused, press Ctrl+Shift+E to open the Export As dialog so a separate output file can be created."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'dinner_square.png'}",
+          "action_template": "With the Export As dialog active and the filename field editable, type {{output_filename}} to set the export filename for the new PNG copy."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Export button in the Export As dialog'}}",
+          "action_template": "After {{output_filename}} has been entered and the Export button is available, click the Export button in the Export As dialog to advance to the PNG export settings dialog."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Export button in the PNG export options dialog'}}",
+          "action_template": "When the PNG export options dialog is visible and the final Export button can be clicked, click Export to accept the settings and save the edited image as {{output_filename}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

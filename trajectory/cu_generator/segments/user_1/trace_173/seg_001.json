@@ -1,0 +1,671 @@
+{
+  "segment_id": "seg_001",
+  "app": "libreoffice_calc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Place the cursor in the first empty header cell for the new column",
+      "action_before_state": "The Calc sheet is open, row 1 contains existing headers through column C, and cell D1 is the first empty header cell visible to the right of the data.",
+      "action_preconditions": [
+        "LibreOffice Calc is the active window",
+        "The header row is visible",
+        "The first unused header cell in row 1 is empty"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell D1, the empty header cell immediately to the right of the current last column"
+        }
+      },
+      "action_after_effects": "That header cell becomes selected and ready for text entry.",
+      "nl_explanation": "When the header row is visible and the first empty column can be seen, click the empty header cell to the right of the existing table so the new column can be named."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Enter the header name for the new calculation column",
+      "action_before_state": "The empty header cell for the new column is selected.",
+      "action_preconditions": [
+        "The target header cell is active",
+        "No other cell is being edited"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Variance"
+      },
+      "action_after_effects": "The word Variance is typed into the active header cell editor.",
+      "nl_explanation": "With the new header cell active, type Variance so the column is clearly labeled for the difference between actual and planned amounts."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Commit the header and move to the first data row in the new column",
+      "action_before_state": "The header text has been typed and is still in the active cell editor.",
+      "action_preconditions": [
+        "The header text is present in the active cell",
+        "The first data row below the header is visible"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The header is committed, and cell D2 directly below the Variance header becomes active.",
+      "nl_explanation": "Press Enter to commit the Variance header and move into the first data cell of the new column."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Type the variance formula for the first row",
+      "action_before_state": "Cell D2, directly below the Variance header, is selected.",
+      "action_preconditions": [
+        "The active cell is D2",
+        "Column B contains the planned amounts",
+        "Column C contains the actual spending amounts",
+        "Row 2 contains the first data entry"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "=C2-B2"
+      },
+      "action_after_effects": "The subtraction formula is entered into the active cell editor.",
+      "nl_explanation": "With D2 selected and the planned and actual values on the same row available in columns B and C, type =C2-B2 to calculate actual minus planned for the first row."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Confirm the first-row formula",
+      "action_before_state": "The formula is typed into cell D2 and is awaiting confirmation.",
+      "action_preconditions": [
+        "The formula text is visible in the active cell editor"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The formula is committed, the first variance value is calculated, and Calc moves the active cell down to D3.",
+      "nl_explanation": "After typing the formula, press Enter to calculate the first variance value and finish editing that cell."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Reselect the first formula cell so it can be filled down",
+      "action_before_state": "The first formula result is visible in D2, and the active selection has moved to D3.",
+      "action_preconditions": [
+        "The first calculated variance cell is visible",
+        "The data range continues downward"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell D2, the first calculated cell in the Variance column"
+        }
+      },
+      "action_after_effects": "The formula cell is selected, showing its fill handle in the lower-right corner.",
+      "nl_explanation": "When the first result is visible, click that calculated Variance cell so its fill handle can be used to copy the formula down the column."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Fill the variance formula down through all existing expense rows",
+      "action_before_state": "The first formula cell in the Variance column is selected and its fill handle is visible.",
+      "action_preconditions": [
+        "The first formula cell is selected",
+        "There are multiple populated data rows below it",
+        "The last filled row in the table is visible or can be reached by dragging"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the fill handle at the bottom-right corner of cell D2"
+        },
+        "end": {
+          "text": "the fill handle position aligned with the last populated row in column D"
+        },
+        "target": {
+          "begin": {
+            "text": "the fill handle of the first Variance formula cell"
+          },
+          "end": {
+            "text": "the Variance column cell aligned with the final populated data row"
+          }
+        }
+      },
+      "action_after_effects": "The formula is copied down to every row in the Variance column, and the filled range remains selected.",
+      "nl_explanation": "With the first formula cell selected, drag its fill handle down to the last populated row so Calc copies the variance formula to every expense entry."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Format the new variance values as currency",
+      "action_before_state": "The filled Variance range is selected after the drag-fill operation.",
+      "action_preconditions": [
+        "The new Variance cells are still selected",
+        "The formatting toolbar is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Currency format button on the formatting toolbar"
+        }
+      },
+      "action_after_effects": "All selected variance values change to currency formatting.",
+      "nl_explanation": "While the filled Variance cells are still selected, click the Currency button so the new values display as monetary amounts."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Make the variance column the active sort key",
+      "action_before_state": "Currency-formatted variance values are visible in the new column.",
+      "action_preconditions": [
+        "At least one populated cell exists in the Variance column",
+        "The toolbar sort controls are available"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "any populated cell in the Variance column"
+        }
+      },
+      "action_after_effects": "A cell in the Variance column is active, so sorting will use that column.",
+      "nl_explanation": "Click a filled cell in the Variance column to tell Calc that this is the column that should drive the upcoming sort."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Sort the table so the largest overspend is at the top",
+      "action_before_state": "A populated Variance cell is active and the full data table is adjacent.",
+      "action_preconditions": [
+        "The active cell is in the Variance column",
+        "The rows belong to one contiguous table"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Sort Descending button on the toolbar"
+        }
+      },
+      "action_after_effects": "The table is reordered from highest to lowest variance, placing the biggest overspend near the top.",
+      "nl_explanation": "With a Variance cell active, click Sort Descending so the whole table is reordered by the new column and the largest overspend appears first."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Move down to the first empty row beneath the sorted data",
+      "action_before_state": "The sorted table is visible, but the bottom of the dataset is not fully on screen.",
+      "action_preconditions": [
+        "There are more rows in the table than are currently visible",
+        "A blank row exists directly after the last data row"
+      ],
+      "action": {
+        "type": "SCROLL",
+        "scroll_direction": "down",
+        "target": {
+          "text": "the vertical scroll bar beside the spreadsheet grid"
+        },
+        "direction": "down"
+      },
+      "action_after_effects": "The lower rows of the table come into view, and scrolling stops once the final populated row and the first blank row below it are visible.",
+      "nl_explanation": "If the bottom of the table is off-screen, scroll down until the last populated row and the first blank row under it are both visible."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Select the cell where the total variance will be placed",
+      "action_before_state": "The last populated row and the first blank row below it are visible.",
+      "action_preconditions": [
+        "A blank row immediately under the data is visible",
+        "The Variance column is visible in the same area"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the empty cell in column D on the first blank row below the data"
+        }
+      },
+      "action_after_effects": "The target total cell becomes active.",
+      "nl_explanation": "When the first blank row under the data is visible, click the empty cell in the Variance column on that row so the total can be entered there."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Insert a total formula for the variance column",
+      "action_before_state": "The blank cell directly below the contiguous Variance values is selected.",
+      "action_preconditions": [
+        "The active cell is directly below the last variance value",
+        "All variance data cells immediately above it are populated",
+        "The formula bar is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Sum button on the formula bar"
+        }
+      },
+      "action_after_effects": "Calc inserts a SUM formula in the active cell that references the contiguous variance values above.",
+      "nl_explanation": "With the blank cell below the Variance values selected, click the Sum button so Calc automatically creates a total for the full column of variance amounts above."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Calculate and display the total variance",
+      "action_before_state": "The SUM formula is present in the active total cell and is waiting to be confirmed.",
+      "action_preconditions": [
+        "The formula text is visible in the total cell editor"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The total variance is calculated and shown in the cell below the data.",
+      "nl_explanation": "After the SUM formula is inserted, press Enter so Calc computes the total variance and displays the result at the bottom of the column."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Save the completed spreadsheet changes",
+      "action_before_state": "The Variance column, sort order, and total are all visible in the worksheet.",
+      "action_preconditions": [
+        "LibreOffice Calc is still the active window",
+        "All intended edits have been completed"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "s"
+        ]
+      },
+      "action_after_effects": "The spreadsheet is saved with the new variance calculations and formatting.",
+      "nl_explanation": "Once the new column, sorting, and total are finished, press Ctrl+S to save the updated budget sheet."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Add and label a new calculation column for variance values.",
+      "unit_type": "CREATE_COLUMN_HEADER",
+      "unit_before_state": "LibreOffice Calc shows the weekly household budget table with headers in row 1 through column C, and cell D1 is the first empty header cell to the right of the table.",
+      "unit_after_state": "Cell D1 displays the header text \"Variance\", and the active selection has moved to cell D2 directly below the new header.",
+      "unit_precondition": [
+        "LibreOffice Calc is the active window.",
+        "The header row is visible.",
+        "Cell D1 is empty and available as the next column header position."
+      ],
+      "unit_effect": [
+        "The new header cell shows \"Variance\" in row 1.",
+        "Cell D2 becomes the active cell, ready for entering the first row's formula."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Populate the new Variance column with the actual-minus-planned calculation for every budget row.",
+      "unit_type": "FILL_CALCULATED_COLUMN",
+      "unit_before_state": "The new Variance header is already in D1, cell D2 is active, and the budget rows contain planned amounts in column B and actual spending in column C.",
+      "unit_after_state": "The Variance column contains copied formulas from D2 down through the last populated budget row, and the filled D-column range remains selected.",
+      "unit_precondition": [
+        "Cell D2 is active beneath the Variance header.",
+        "Columns B and C contain the row-wise planned and actual values to subtract.",
+        "There are multiple populated budget rows below row 2 so the formula can be filled down."
+      ],
+      "unit_effect": [
+        "D2 shows a calculated variance result after the formula is confirmed.",
+        "Dragging the fill handle copies the same relative formula down the full data range in column D.",
+        "The filled variance cells stay highlighted as one selected range."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        8
+      ],
+      "unit_intent": "Display the new variance calculations as monetary amounts.",
+      "unit_type": "FORMAT_AS_CURRENCY",
+      "unit_before_state": "The filled range of variance cells in column D is still selected after the drag-fill operation, and the toolbar formatting controls are visible.",
+      "unit_after_state": "The selected variance values in column D are shown using currency formatting rather than plain numeric formatting.",
+      "unit_precondition": [
+        "The variance result cells are selected.",
+        "The Currency format control is visible and available on the toolbar."
+      ],
+      "unit_effect": [
+        "The selected values in the Variance column update to a currency display format with monetary symbols and decimal formatting."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Reorder the budget table so the largest overspend rows appear first.",
+      "unit_type": "SORT_BY_COLUMN_DESCENDING",
+      "unit_before_state": "Currency-formatted variance values are visible in column D, and the budget table rows are still in their previous order.",
+      "unit_after_state": "The spreadsheet rows are sorted in descending order by the Variance column, with the highest variance values appearing at the top of the table.",
+      "unit_precondition": [
+        "At least one populated variance cell is visible in column D.",
+        "The table is contiguous so sorting from an active variance cell will reorder the whole row set.",
+        "The Sort Descending toolbar control is available."
+      ],
+      "unit_effect": [
+        "A variance cell becomes the active sort key.",
+        "After sorting, row order changes and the largest overspend values move to the top of the visible table."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        11,
+        12,
+        13,
+        14
+      ],
+      "unit_intent": "Add a total variance value beneath the sorted budget data.",
+      "unit_type": "ADD_COLUMN_TOTAL",
+      "unit_before_state": "The table has already been sorted by variance, but the bottom of the data is not fully visible yet.",
+      "unit_after_state": "The first blank cell under the Variance column contains a confirmed SUM result that totals all variance values above it.",
+      "unit_precondition": [
+        "A blank row exists immediately below the last populated budget row.",
+        "The Variance column remains visible when the bottom of the table is reached.",
+        "The Sum button on the formula bar is available."
+      ],
+      "unit_effect": [
+        "Scrolling reveals the final populated row and the first blank row beneath it.",
+        "The blank total cell in column D becomes active.",
+        "Calc inserts a SUM formula referencing the contiguous variance cells above.",
+        "Pressing Enter replaces formula-entry mode with a displayed total variance value in the bottom cell."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        15
+      ],
+      "unit_intent": "Persist the completed variance column, sort order, and total in the spreadsheet file.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The worksheet shows the completed Variance column, the descending sort order, and the total variance at the bottom.",
+      "unit_after_state": "The spreadsheet remains open with the new variance calculations, formatting, sort order, and total saved to disk.",
+      "unit_precondition": [
+        "LibreOffice Calc is still the active window.",
+        "All intended edits are complete and visible in the sheet."
+      ],
+      "unit_effect": [
+        "The save command is executed.",
+        "Any visible unsaved-change indicator clears while the edited worksheet content remains in place."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Add and label a new calculation column for variance values.",
+      "unit_type": "CREATE_COLUMN_HEADER",
+      "unit_before_state": "LibreOffice Calc shows the weekly household budget table with headers in row 1 through column C, and cell D1 is the first empty header cell to the right of the table.",
+      "unit_after_state": "Cell D1 displays the header text \"Variance\", and the active selection has moved to cell D2 directly below the new header.",
+      "unit_precondition": [
+        "LibreOffice Calc is the active window.",
+        "The header row is visible.",
+        "Cell D1 is empty and available as the next column header position."
+      ],
+      "unit_effect": [
+        "The new header cell shows \"Variance\" in row 1.",
+        "Cell D2 becomes the active cell, ready for entering the first row's formula."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create and label a new calculation column header, then move to the first data cell beneath it.",
+      "parameters": {
+        "target_header_cell": "cell D1, the empty header cell immediately to the right of the current last column",
+        "header_text": "Variance",
+        "next_active_cell": "cell D2 directly below the new header"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "CLICK",
+          "action_template": "Click {{target_header_cell}} when LibreOffice Calc is active, the header row is visible, and the first unused header cell in row 1 is empty, so the new column can be named; the header cell becomes selected and ready for text entry."
+        },
+        {
+          "action": "TYPING",
+          "action_template": "Type {{header_text}} into the active header cell when the target header cell is active and no other cell is being edited; {{header_text}} is entered into the header cell editor to label the new calculation column."
+        },
+        {
+          "action": "PRESS",
+          "action_template": "Press Enter when {{header_text}} is present in the active cell and the first data row below the header is visible to commit the header and move to {{next_active_cell}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Populate the new Variance column with the actual-minus-planned calculation for every budget row.",
+      "unit_type": "FILL_CALCULATED_COLUMN",
+      "unit_before_state": "The new Variance header is already in D1, cell D2 is active, and the budget rows contain planned amounts in column B and actual spending in column C.",
+      "unit_after_state": "The Variance column contains copied formulas from D2 down through the last populated budget row, and the filled D-column range remains selected.",
+      "unit_precondition": [
+        "Cell D2 is active beneath the Variance header.",
+        "Columns B and C contain the row-wise planned and actual values to subtract.",
+        "There are multiple populated budget rows below row 2 so the formula can be filled down."
+      ],
+      "unit_effect": [
+        "D2 shows a calculated variance result after the formula is confirmed.",
+        "Dragging the fill handle copies the same relative formula down the full data range in column D.",
+        "The filled variance cells stay highlighted as one selected range."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Populate a specified calculated column by entering the first-row formula and filling it down through all populated rows.",
+      "parameters": {
+        "initial_formula_cell": "D2",
+        "formula_text": "=C2-B2",
+        "first_formula_cell_description": "cell D2, the first calculated cell in the Variance column",
+        "fill_handle_start": "the fill handle at the bottom-right corner of cell D2",
+        "fill_destination": "the Variance column cell aligned with the final populated data row"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': '=C2-B2'}",
+          "action_template": "With {{initial_formula_cell}} selected and the source row values available, type {{formula_text}} to enter the first-row calculation into the active cell editor."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter to confirm {{formula_text}}, calculate the first result, and finish editing the initial formula cell."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell D2, the first calculated cell in the Variance column'}}",
+          "action_template": "Click {{first_formula_cell_description}} so the formula cell is selected again and its fill handle becomes available for copying."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the fill handle at the bottom-right corner of cell D2'}, 'end': {'text': 'the fill handle position aligned with the last populated row in column D'}, 'target': {'begin': {'text': 'the fill handle of the first Variance formula cell'}, 'end': {'text': 'the Variance column cell aligned with the final populated data row'}}}",
+          "action_template": "Drag from {{fill_handle_start}} to {{fill_destination}} to fill the same relative formula through all populated rows, leaving the filled range selected."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        8
+      ],
+      "unit_intent": "Display the new variance calculations as monetary amounts.",
+      "unit_type": "FORMAT_AS_CURRENCY",
+      "unit_before_state": "The filled range of variance cells in column D is still selected after the drag-fill operation, and the toolbar formatting controls are visible.",
+      "unit_after_state": "The selected variance values in column D are shown using currency formatting rather than plain numeric formatting.",
+      "unit_precondition": [
+        "The variance result cells are selected.",
+        "The Currency format control is visible and available on the toolbar."
+      ],
+      "unit_effect": [
+        "The selected values in the Variance column update to a currency display format with monetary symbols and decimal formatting."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Format the currently selected cells as currency so their values display as monetary amounts.",
+      "parameters": {
+        "target_cells": "The new Variance cells"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Currency format button on the formatting toolbar'}}",
+          "action_template": "While {{target_cells}} are still selected and the formatting toolbar is visible, click the Currency format button on the formatting toolbar so all selected values change to currency formatting and display as monetary amounts."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Reorder the budget table so the largest overspend rows appear first.",
+      "unit_type": "SORT_BY_COLUMN_DESCENDING",
+      "unit_before_state": "Currency-formatted variance values are visible in column D, and the budget table rows are still in their previous order.",
+      "unit_after_state": "The spreadsheet rows are sorted in descending order by the Variance column, with the highest variance values appearing at the top of the table.",
+      "unit_precondition": [
+        "At least one populated variance cell is visible in column D.",
+        "The table is contiguous so sorting from an active variance cell will reorder the whole row set.",
+        "The Sort Descending toolbar control is available."
+      ],
+      "unit_effect": [
+        "A variance cell becomes the active sort key.",
+        "After sorting, row order changes and the largest overspend values move to the top of the visible table."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Sort a table in descending order using a specified column as the active sort key.",
+      "parameters": {
+        "sort_key_column": "Variance column"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'any populated cell in the Variance column'}}",
+          "action_template": "Click a filled cell in the {{sort_key_column}} when at least one populated cell exists there and the toolbar sort controls are available, so that column becomes the active sort key for the upcoming sort."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Sort Descending button on the toolbar'}}",
+          "action_template": "With an active cell in the {{sort_key_column}} and the rows belonging to one contiguous table, click the Sort Descending button on the toolbar to reorder the table from highest to lowest by that column."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        11,
+        12,
+        13,
+        14
+      ],
+      "unit_intent": "Add a total variance value beneath the sorted budget data.",
+      "unit_type": "ADD_COLUMN_TOTAL",
+      "unit_before_state": "The table has already been sorted by variance, but the bottom of the data is not fully visible yet.",
+      "unit_after_state": "The first blank cell under the Variance column contains a confirmed SUM result that totals all variance values above it.",
+      "unit_precondition": [
+        "A blank row exists immediately below the last populated budget row.",
+        "The Variance column remains visible when the bottom of the table is reached.",
+        "The Sum button on the formula bar is available."
+      ],
+      "unit_effect": [
+        "Scrolling reveals the final populated row and the first blank row beneath it.",
+        "The blank total cell in column D becomes active.",
+        "Calc inserts a SUM formula referencing the contiguous variance cells above.",
+        "Pressing Enter replaces formula-entry mode with a displayed total variance value in the bottom cell."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Insert and confirm an automatic SUM total in the first blank cell beneath a specified numeric column.",
+      "parameters": {
+        "target_column": "Variance column",
+        "target_total_cell": "the empty cell in column D on the first blank row below the data"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'SCROLL', 'scroll_direction': 'down', 'target': {'text': 'the vertical scroll bar beside the spreadsheet grid'}, 'direction': 'down'}",
+          "action_template": "If the bottom of the table is off-screen, scroll down on the vertical scroll bar beside the spreadsheet grid until the last populated row and the first blank row under it are both visible, when there are more rows in the table than are currently visible and a blank row exists directly after the last data row. This brings the lower rows into view and stops once the final populated row and the first blank row below it are visible."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the empty cell in column D on the first blank row below the data'}}",
+          "action_template": "When the first blank row under the data is visible, click {{target_total_cell}} so the total can be entered there, with a blank row immediately under the data visible and {{target_column}} visible in the same area. This makes the target total cell active."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Sum button on the formula bar'}}",
+          "action_template": "With the blank cell below the {{target_column}} values selected, click the Sum button on the formula bar so Calc automatically creates a total for the full column of amounts above, when the active cell is directly below the last {{target_column}} value, the cells immediately above it are populated, and the formula bar is visible. This inserts a SUM formula in the active cell that references the contiguous values above."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After the SUM formula is inserted, press Enter so Calc computes the total and displays the result at the bottom of {{target_column}}, when the formula text is visible in the total cell editor. This calculates the total and shows it in the cell below the data."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        15
+      ],
+      "unit_intent": "Persist the completed variance column, sort order, and total in the spreadsheet file.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The worksheet shows the completed Variance column, the descending sort order, and the total variance at the bottom.",
+      "unit_after_state": "The spreadsheet remains open with the new variance calculations, formatting, sort order, and total saved to disk.",
+      "unit_precondition": [
+        "LibreOffice Calc is still the active window.",
+        "All intended edits are complete and visible in the sheet."
+      ],
+      "unit_effect": [
+        "The save command is executed.",
+        "Any visible unsaved-change indicator clears while the edited worksheet content remains in place."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the completed spreadsheet changes to disk.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 's']}",
+          "action_template": "Press Ctrl+S to save the completed spreadsheet changes once all intended edits are finished in the active LibreOffice Calc window."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

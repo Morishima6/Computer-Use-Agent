@@ -1,0 +1,678 @@
+{
+  "segment_id": "seg_001",
+  "app": "multi_apps",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Download the landscape image using curl in the terminal",
+      "action_before_state": "multi_apps is ready for step 1 of the task.",
+      "action_preconditions": [
+        "Terminal window is open and focused",
+        "Internet connection is available"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "curl -o /tmp/landscape.jpg https://huggingface.co/datasets/xlangai/ubuntu_osworld_file_cache/resolve/main/multi_apps/sample_landscape.jpg"
+      },
+      "action_after_effects": "The curl command appears typed in the terminal, ready to be executed",
+      "nl_explanation": "When the terminal is open and focused, type the curl command to download the image from the specified URL to the /tmp directory with the filename landscape.jpg"
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Execute the download command",
+      "action_before_state": "multi_apps is ready for step 2 of the task.",
+      "action_preconditions": [
+        "The curl command has been typed in the terminal"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "return"
+        ]
+      },
+      "action_after_effects": "The terminal displays download progress and returns to the prompt when complete, with the file now existing at /tmp/landscape.jpg",
+      "nl_explanation": "Press Enter to execute the typed curl command, which will download the image file to the /tmp directory"
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Resize the downloaded image to fit within 800x600 while maintaining aspect ratio",
+      "action_before_state": "multi_apps is ready for step 3 of the task.",
+      "action_preconditions": [
+        "The image file exists at /tmp/landscape.jpg",
+        "ImageMagick is installed on the system"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "convert /tmp/landscape.jpg -resize 800x600\\> /tmp/resized.jpg"
+      },
+      "action_after_effects": "The ImageMagick convert command appears in the terminal, ready to resize the image only if it exceeds the specified dimensions while maintaining aspect ratio",
+      "nl_explanation": "Type the ImageMagick convert command to resize the image to fit within 800x600 pixels only if it exceeds those dimensions (the '\\>' suffix prevents shell redirection and tells ImageMagick to only resize down if the image is larger) and save the result as /tmp/resized.jpg"
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Execute the image resize command",
+      "action_before_state": "multi_apps is ready for step 4 of the task.",
+      "action_preconditions": [
+        "The convert command has been typed in the terminal"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "return"
+        ]
+      },
+      "action_after_effects": "The command executes and returns to the prompt, with the resized image now available at /tmp/resized.jpg",
+      "nl_explanation": "Press Enter to execute the convert command, creating the resized image file at /tmp/resized.jpg"
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Open LibreOffice Writer to create a new document",
+      "action_before_state": "multi_apps is ready for step 5 of the task.",
+      "action_preconditions": [
+        "The resized image is ready at /tmp/resized.jpg"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "alt",
+          "f2"
+        ]
+      },
+      "action_after_effects": "The GNOME Run Command dialog appears on screen, ready for application input",
+      "nl_explanation": "Press Alt+F2 to open the GNOME Run Command dialog to launch LibreOffice Writer"
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Launch LibreOffice Writer from the run dialog",
+      "action_before_state": "multi_apps is ready for step 6 of the task.",
+      "action_preconditions": [
+        "The Run Command dialog is open and focused"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "libreoffice --writer"
+      },
+      "action_after_effects": "The command appears in the run dialog input field, ready to launch LibreOffice Writer",
+      "nl_explanation": "Type the command to launch LibreOffice Writer in the run dialog input field"
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Execute the launch command to open Writer",
+      "action_before_state": "multi_apps is ready for step 7 of the task.",
+      "action_preconditions": [
+        "The libreoffice command has been typed in the run dialog"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "return"
+        ]
+      },
+      "action_after_effects": "LibreOffice Writer launches and opens with a new blank document, ready for content insertion",
+      "nl_explanation": "Press Enter to execute the command, launching LibreOffice Writer with a new blank document"
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Insert the resized image into the Writer document",
+      "action_before_state": "multi_apps is ready for step 8 of the task.",
+      "action_preconditions": [
+        "LibreOffice Writer is open with a blank document",
+        "The resized image exists at /tmp/resized.jpg"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "i"
+        ]
+      },
+      "action_after_effects": "The Insert Image dialog opens, allowing selection of the image file to insert",
+      "nl_explanation": "Use the keyboard shortcut Ctrl+Shift+I to open the Insert Image dialog in LibreOffice Writer"
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Navigate to and select the resized image file",
+      "action_before_state": "multi_apps is ready for step 9 of the task.",
+      "action_preconditions": [
+        "The Insert Image dialog is open"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "/tmp/resized.jpg"
+      },
+      "action_after_effects": "The file path appears in the filename field of the dialog, with the file location set to /tmp and the filename set to resized.jpg",
+      "nl_explanation": "Type the full path to the resized image file in the filename field to locate and select the image"
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Confirm insertion of the image into the document",
+      "action_before_state": "multi_apps is ready for step 10 of the task.",
+      "action_preconditions": [
+        "The file path /tmp/resized.jpg has been entered in the dialog"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "return"
+        ]
+      },
+      "action_after_effects": "The dialog closes and the resized landscape image appears inserted into the LibreOffice Writer document at the cursor position",
+      "nl_explanation": "Press Enter to confirm the selection and insert the image into the document"
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Position cursor below the image to add the caption",
+      "action_before_state": "multi_apps is ready for step 11 of the task.",
+      "action_preconditions": [
+        "The image is inserted in the document",
+        "Cursor is currently at or near the image"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "return"
+        ]
+      },
+      "action_after_effects": "A new line is created below the image, moving the cursor to the line beneath the image where the caption can be typed",
+      "nl_explanation": "Press Enter to create a new line below the image to position the cursor for typing the caption"
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Center align the paragraph for the caption",
+      "action_before_state": "multi_apps is ready for step 12 of the task.",
+      "action_preconditions": [
+        "Cursor is on the line below the image"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "e"
+        ]
+      },
+      "action_after_effects": "The paragraph alignment changes to center, and the cursor remains on the centered line ready for text input",
+      "nl_explanation": "Press Ctrl+E to center-align the current paragraph where the caption will be placed"
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Type the caption text below the image",
+      "action_before_state": "multi_apps is ready for step 13 of the task.",
+      "action_preconditions": [
+        "Cursor is positioned on a centered line below the image"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Figure 1: Landscape View"
+      },
+      "action_after_effects": "The text 'Figure 1: Landscape View' appears centered below the image in the document",
+      "nl_explanation": "Type the caption text 'Figure 1: Landscape View' on the centered line below the image"
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Save the document to the Desktop with specific filename",
+      "action_before_state": "multi_apps is ready for step 14 of the task.",
+      "action_preconditions": [
+        "The document contains the image and caption",
+        "The document has not been saved yet (or is untitled)"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "s"
+        ]
+      },
+      "action_after_effects": "The Save dialog window opens, allowing selection of location and filename, with the current folder likely being the home directory or Documents",
+      "nl_explanation": "Press Ctrl+S to open the Save dialog to save the document"
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Navigate to Desktop folder in the save dialog",
+      "action_before_state": "multi_apps is ready for step 15 of the task.",
+      "action_preconditions": [
+        "The Save dialog is open"
+      ],
+      "action": {
+        "type": "CLICK",
+        "target": {
+          "text": "Desktop",
+          "type": "folder"
+        },
+        "button": "left",
+        "num_clicks": 1
+      },
+      "action_after_effects": "The Desktop folder becomes the current directory in the save dialog, showing its contents (if any) in the main area",
+      "nl_explanation": "Click on 'Desktop' in the left sidebar of the Save dialog to navigate to the Desktop folder"
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Enter the filename for the document",
+      "action_before_state": "multi_apps is ready for step 16 of the task.",
+      "action_preconditions": [
+        "The Desktop folder is selected as the save location"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "image_report"
+      },
+      "action_after_effects": "The filename field in the save dialog now shows 'image_report', replacing any default text like 'Untitled 1'",
+      "nl_explanation": "Type 'image_report' into the filename field to set the document name"
+    },
+    {
+      "step_id": "s17",
+      "step_goal": "Confirm saving the document",
+      "action_before_state": "multi_apps is ready for step 17 of the task.",
+      "action_preconditions": [
+        "The filename is set to 'image_report'",
+        "The location is set to Desktop",
+        "The file format is ODT (default)"
+      ],
+      "action": {
+        "type": "CLICK",
+        "target": {
+          "text": "Save",
+          "type": "button"
+        },
+        "button": "left",
+        "num_clicks": 1
+      },
+      "action_after_effects": "The save dialog closes and the document is saved to /home/user/Desktop/image_report.odt, with the title bar of LibreOffice Writer updating to show 'image_report.odt - LibreOffice Writer'",
+      "nl_explanation": "Click the Save button to save the document as 'image_report.odt' on the Desktop"
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Download the source landscape image into a local working path for later processing.",
+      "unit_type": "DOWNLOAD_FILE",
+      "unit_before_state": "A terminal window is open and focused at a shell prompt, with no download command running yet.",
+      "unit_after_state": "The terminal has returned to the shell prompt after showing curl progress, and the downloaded file is available at /tmp/landscape.jpg.",
+      "unit_precondition": [
+        "The terminal window is open and accepts keyboard input.",
+        "Network access is available so the image URL can be reached."
+      ],
+      "unit_effect": [
+        "The curl command is executed successfully.",
+        "A new file named /tmp/landscape.jpg exists after the prompt returns."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4
+      ],
+      "unit_intent": "Create a resized copy of the downloaded image that fits within the required dimensions.",
+      "unit_type": "RESIZE_IMAGE",
+      "unit_before_state": "The terminal is focused at a shell prompt, and the original downloaded image already exists at /tmp/landscape.jpg.",
+      "unit_after_state": "The terminal has returned to the shell prompt after running ImageMagick, and a resized image file is available at /tmp/resized.jpg.",
+      "unit_precondition": [
+        "The file /tmp/landscape.jpg already exists.",
+        "ImageMagick's convert command is installed and can be run from the terminal."
+      ],
+      "unit_effect": [
+        "The resize command runs to completion and returns control to the prompt.",
+        "A new output file /tmp/resized.jpg is created for insertion into the document."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Open a new LibreOffice Writer document to assemble the report.",
+      "unit_type": "LAUNCH_WRITER",
+      "unit_before_state": "The desktop session is available with the resized image already prepared, and no Writer document is open in the current working flow.",
+      "unit_after_state": "LibreOffice Writer is open with a new blank document on screen, ready for content insertion.",
+      "unit_precondition": [
+        "The resized image has already been prepared at /tmp/resized.jpg.",
+        "The desktop environment can open the Run Command dialog and launch applications."
+      ],
+      "unit_effect": [
+        "The GNOME Run Command dialog appears.",
+        "The command libreoffice --writer is submitted.",
+        "A blank Writer document opens and becomes the active window."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8,
+        9,
+        10
+      ],
+      "unit_intent": "Insert the prepared resized image into the new report document.",
+      "unit_type": "INSERT_IMAGE_FROM_FILE",
+      "unit_before_state": "LibreOffice Writer shows a blank document with the text cursor in the document area, and the resized image file exists at /tmp/resized.jpg.",
+      "unit_after_state": "The Insert Image dialog has closed and the landscape image is visible inside the Writer document at the insertion point.",
+      "unit_precondition": [
+        "LibreOffice Writer is the active window with a blank or empty document.",
+        "The file /tmp/resized.jpg exists and can be selected from the insert dialog."
+      ],
+      "unit_effect": [
+        "The Insert Image dialog opens.",
+        "The file path /tmp/resized.jpg is entered in the filename field.",
+        "The image appears embedded in the document after confirming the dialog."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        11,
+        12,
+        13
+      ],
+      "unit_intent": "Add a centered caption directly beneath the inserted image.",
+      "unit_type": "ADD_CENTERED_CAPTION",
+      "unit_before_state": "The Writer document already contains the inserted landscape image, and the cursor is at or near the image position rather than on a caption line.",
+      "unit_after_state": "A centered line of text reading 'Figure 1: Landscape View' appears directly below the image in the document.",
+      "unit_precondition": [
+        "The image has already been inserted into the document.",
+        "The document caret can be moved to a new line beneath the image for caption entry."
+      ],
+      "unit_effect": [
+        "A new line is created below the image.",
+        "The active paragraph alignment changes to centered.",
+        "The caption text 'Figure 1: Landscape View' is visibly shown under the image."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        14,
+        15,
+        16,
+        17
+      ],
+      "unit_intent": "Save the completed report document to the Desktop with the required filename.",
+      "unit_type": "SAVE_DOCUMENT_AS",
+      "unit_before_state": "LibreOffice Writer shows the finished report with the inserted image and centered caption, and the document is still unsaved or has a temporary untitled name.",
+      "unit_after_state": "The save dialog is closed, and the Writer title bar shows image_report.odt, indicating the document has been saved on the Desktop.",
+      "unit_precondition": [
+        "The document already contains the inserted image and its caption.",
+        "LibreOffice Writer is active and the save shortcut can open the Save dialog."
+      ],
+      "unit_effect": [
+        "The Save dialog opens for an unsaved Writer document.",
+        "Desktop is selected as the save location.",
+        "The filename field is set to image_report.",
+        "The document is saved as /home/user/Desktop/image_report.odt and the title bar updates accordingly."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Download the source landscape image into a local working path for later processing.",
+      "unit_type": "DOWNLOAD_FILE",
+      "unit_before_state": "A terminal window is open and focused at a shell prompt, with no download command running yet.",
+      "unit_after_state": "The terminal has returned to the shell prompt after showing curl progress, and the downloaded file is available at /tmp/landscape.jpg.",
+      "unit_precondition": [
+        "The terminal window is open and accepts keyboard input.",
+        "Network access is available so the image URL can be reached."
+      ],
+      "unit_effect": [
+        "The curl command is executed successfully.",
+        "A new file named /tmp/landscape.jpg exists after the prompt returns."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Download a source file from {{source_url}} to {{output_file_path}} in the terminal for later processing.",
+      "parameters": {
+        "source_url": "https://huggingface.co/datasets/xlangai/ubuntu_osworld_file_cache/resolve/main/multi_apps/sample_landscape.jpg",
+        "output_file_path": "/tmp/landscape.jpg"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'curl -o /tmp/landscape.jpg https://huggingface.co/datasets/xlangai/ubuntu_osworld_file_cache/resolve/main/multi_apps/sample_landscape.jpg'}",
+          "action_template": "When the terminal is open and focused and internet connection is available, type the curl command `curl -o {{output_file_path}} {{source_url}}` to download the file to {{output_file_path}}; the command appears in the terminal ready to be executed."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['return']}",
+          "action_template": "After the curl command for {{output_file_path}} has been typed in the terminal, press Enter to execute it; the terminal displays download progress and returns to the prompt when complete, with the file now existing at {{output_file_path}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4
+      ],
+      "unit_intent": "Create a resized copy of the downloaded image that fits within the required dimensions.",
+      "unit_type": "RESIZE_IMAGE",
+      "unit_before_state": "The terminal is focused at a shell prompt, and the original downloaded image already exists at /tmp/landscape.jpg.",
+      "unit_after_state": "The terminal has returned to the shell prompt after running ImageMagick, and a resized image file is available at /tmp/resized.jpg.",
+      "unit_precondition": [
+        "The file /tmp/landscape.jpg already exists.",
+        "ImageMagick's convert command is installed and can be run from the terminal."
+      ],
+      "unit_effect": [
+        "The resize command runs to completion and returns control to the prompt.",
+        "A new output file /tmp/resized.jpg is created for insertion into the document."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a resized copy of an existing image that fits within {{max_dimensions}} while preserving aspect ratio.",
+      "parameters": {
+        "input_image_path": "/tmp/landscape.jpg",
+        "max_dimensions": "800x600",
+        "output_image_path": "/tmp/resized.jpg"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'convert /tmp/landscape.jpg -resize 800x600\\\\> /tmp/resized.jpg'}",
+          "action_template": "Type `convert {{input_image_path}} -resize {{max_dimensions}}\\> {{output_image_path}}` in the terminal to resize the image to fit within {{max_dimensions}} while maintaining aspect ratio and only resizing down when needed; this requires that {{input_image_path}} already exists and ImageMagick is installed, and leaves the convert command visible in the terminal ready to run."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['return']}",
+          "action_template": "Press Enter to execute the typed convert command after it has been entered in the terminal, creating {{output_image_path}} and returning the terminal to the shell prompt."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Open a new LibreOffice Writer document to assemble the report.",
+      "unit_type": "LAUNCH_WRITER",
+      "unit_before_state": "The desktop session is available with the resized image already prepared, and no Writer document is open in the current working flow.",
+      "unit_after_state": "LibreOffice Writer is open with a new blank document on screen, ready for content insertion.",
+      "unit_precondition": [
+        "The resized image has already been prepared at /tmp/resized.jpg.",
+        "The desktop environment can open the Run Command dialog and launch applications."
+      ],
+      "unit_effect": [
+        "The GNOME Run Command dialog appears.",
+        "The command libreoffice --writer is submitted.",
+        "A blank Writer document opens and becomes the active window."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Launch a document editor from the system Run Command dialog so a new blank document is ready for editing.",
+      "parameters": {
+        "application_name": "LibreOffice Writer",
+        "launch_command": "libreoffice --writer",
+        "launch_shortcut": "Alt+F2"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['alt', 'f2']}",
+          "action_template": "Press {{launch_shortcut}} when the desktop session is available to open the GNOME Run Command dialog for launching {{application_name}}, after which the run dialog appears ready for application input."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'libreoffice --writer'}",
+          "action_template": "Type {{launch_command}} in the focused Run Command dialog to prepare launching {{application_name}}, after which the command appears in the input field ready to execute."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['return']}",
+          "action_template": "Press Enter after {{launch_command}} has been entered to execute the launch command, causing {{application_name}} to open with a new blank document ready for content insertion."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8,
+        9,
+        10
+      ],
+      "unit_intent": "Insert the prepared resized image into the new report document.",
+      "unit_type": "INSERT_IMAGE_FROM_FILE",
+      "unit_before_state": "LibreOffice Writer shows a blank document with the text cursor in the document area, and the resized image file exists at /tmp/resized.jpg.",
+      "unit_after_state": "The Insert Image dialog has closed and the landscape image is visible inside the Writer document at the insertion point.",
+      "unit_precondition": [
+        "LibreOffice Writer is the active window with a blank or empty document.",
+        "The file /tmp/resized.jpg exists and can be selected from the insert dialog."
+      ],
+      "unit_effect": [
+        "The Insert Image dialog opens.",
+        "The file path /tmp/resized.jpg is entered in the filename field.",
+        "The image appears embedded in the document after confirming the dialog."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Insert an image from a specified file path into the active document at the cursor position.",
+      "parameters": {
+        "image_file_path": "/tmp/resized.jpg"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'i']}",
+          "action_template": "Press Ctrl+Shift+I to open the Insert Image dialog in LibreOffice Writer when the active document is ready for image insertion."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '/tmp/resized.jpg'}",
+          "action_template": "Type {{image_file_path}} in the filename field of the Insert Image dialog to locate and select the image file."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['return']}",
+          "action_template": "Press Enter to confirm the selected file and insert the image from {{image_file_path}} into the document at the cursor position."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        11,
+        12,
+        13
+      ],
+      "unit_intent": "Add a centered caption directly beneath the inserted image.",
+      "unit_type": "ADD_CENTERED_CAPTION",
+      "unit_before_state": "The Writer document already contains the inserted landscape image, and the cursor is at or near the image position rather than on a caption line.",
+      "unit_after_state": "A centered line of text reading 'Figure 1: Landscape View' appears directly below the image in the document.",
+      "unit_precondition": [
+        "The image has already been inserted into the document.",
+        "The document caret can be moved to a new line beneath the image for caption entry."
+      ],
+      "unit_effect": [
+        "A new line is created below the image.",
+        "The active paragraph alignment changes to centered.",
+        "The caption text 'Figure 1: Landscape View' is visibly shown under the image."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Add a centered caption directly beneath an inserted image.",
+      "parameters": {
+        "caption_text": "Figure 1: Landscape View"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['return']}",
+          "action_template": "Press Enter when the image is inserted and the cursor is at or near the image to create a new line below it for caption entry."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'e']}",
+          "action_template": "Press Ctrl+E when the cursor is on the line below the image to center-align the paragraph and keep the cursor on the centered line ready for caption input."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Figure 1: Landscape View'}",
+          "action_template": "Type {{caption_text}} when the cursor is positioned on a centered line below the image so the caption appears centered beneath the image in the document."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        14,
+        15,
+        16,
+        17
+      ],
+      "unit_intent": "Save the completed report document to the Desktop with the required filename.",
+      "unit_type": "SAVE_DOCUMENT_AS",
+      "unit_before_state": "LibreOffice Writer shows the finished report with the inserted image and centered caption, and the document is still unsaved or has a temporary untitled name.",
+      "unit_after_state": "The save dialog is closed, and the Writer title bar shows image_report.odt, indicating the document has been saved on the Desktop.",
+      "unit_precondition": [
+        "The document already contains the inserted image and its caption.",
+        "LibreOffice Writer is active and the save shortcut can open the Save dialog."
+      ],
+      "unit_effect": [
+        "The Save dialog opens for an unsaved Writer document.",
+        "Desktop is selected as the save location.",
+        "The filename field is set to image_report.",
+        "The document is saved as /home/user/Desktop/image_report.odt and the title bar updates accordingly."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the current document to a specified folder with a specified filename.",
+      "parameters": {
+        "target_folder": "Desktop",
+        "file_name": "image_report",
+        "saved_file_path": "/home/user/Desktop/image_report.odt"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 's']}",
+          "action_template": "Press Ctrl+S while the completed document is active and not yet saved to open the Save dialog, allowing the save location and filename to be specified."
+        },
+        {
+          "action": "{'type': 'CLICK', 'target': {'text': 'Desktop', 'type': 'folder'}, 'button': 'left', 'num_clicks': 1}",
+          "action_template": "Click {{target_folder}} in the left sidebar of the Save dialog after it opens to make {{target_folder}} the current save directory."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'image_report'}",
+          "action_template": "Type {{file_name}} into the filename field after {{target_folder}} is selected so the default untitled name is replaced."
+        },
+        {
+          "action": "{'type': 'CLICK', 'target': {'text': 'Save', 'type': 'button'}, 'button': 'left', 'num_clicks': 1}",
+          "action_template": "Click the Save button once {{file_name}} and {{target_folder}} are set to save the document to {{saved_file_path}}, close the dialog, and update the Writer title bar."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

@@ -1,0 +1,397 @@
+{
+  "segment_id": "seg_001",
+  "app": "Chrome",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Focus the address bar so a new search can be entered",
+      "action_before_state": "Chrome is already open and showing some webpage content in the main browser window.",
+      "action_preconditions": [
+        "The Chrome window is focused.",
+        "No popup or modal dialog is blocking keyboard input."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "l"
+        ]
+      },
+      "action_after_effects": "The address bar is highlighted and ready for text input.",
+      "nl_explanation": "When Chrome is active and nothing is blocking input, press Ctrl+L to place focus in the address bar so the search can be entered next."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Enter a search query for a vegetarian pasta recipe",
+      "action_before_state": "The address bar is selected with the current URL highlighted.",
+      "action_preconditions": [
+        "The text cursor is active in the address bar.",
+        "Any previous URL text is selected or will be replaced by typing."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "vegetarian pasta recipe bbc good food"
+      },
+      "action_after_effects": "The search phrase appears in the address bar.",
+      "nl_explanation": "With the address bar focused, type a natural search query for a vegetarian pasta recipe so the browser is ready to run the search."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Run the search",
+      "action_before_state": "The typed search query is visible in the address bar.",
+      "action_preconditions": [
+        "The full query text is present in the address bar.",
+        "Chrome is ready to navigate to search results."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "A search results page loads with recipe links related to vegetarian pasta.",
+      "nl_explanation": "After confirming the query is in the address bar, press Enter to open the search results page."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Open a suitable vegetarian pasta recipe",
+      "action_before_state": "Search results are visible, including recipe links from cooking websites.",
+      "action_preconditions": [
+        "At least one organic search result for a vegetarian pasta recipe is visible.",
+        "The result title is readable and appears relevant."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "a BBC Good Food search result for a vegetarian pasta recipe"
+        }
+      },
+      "action_after_effects": "The selected recipe page opens in the current Chrome tab.",
+      "nl_explanation": "When the results page shows a relevant recipe link, click a BBC Good Food vegetarian pasta result to open the full recipe page."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Scroll until the ingredients section is visible",
+      "action_before_state": "The recipe page is open, usually showing the title, image, and introductory details near the top.",
+      "action_preconditions": [
+        "The recipe page has finished loading.",
+        "The ingredients list is not yet visible in the current viewport."
+      ],
+      "action": {
+        "type": "SCROLL",
+        "scroll_direction": "down",
+        "target": {
+          "text": "the center of the recipe page"
+        },
+        "stop_condition": "Stop when the Ingredients heading and several ingredient items are visible.",
+        "direction": "down"
+      },
+      "action_after_effects": "The ingredients section is brought into view, making it possible to quickly inspect the recipe.",
+      "nl_explanation": "Once the recipe page is loaded, scroll down through the page until the Ingredients section is visible, then stop because the recipe can now be judged at a glance."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Open the bookmark dialog for the recipe page",
+      "action_before_state": "The recipe page remains open with the ingredients section visible.",
+      "action_preconditions": [
+        "The Chrome tab with the recipe is still active.",
+        "No other dialog is currently open."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "d"
+        ]
+      },
+      "action_after_effects": "Chrome opens the bookmark dialog for the current recipe page.",
+      "nl_explanation": "With the recipe page active, press Ctrl+D to open Chrome's bookmark dialog so the page can be saved."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Rename the bookmark to something easy to recognize",
+      "action_before_state": "The bookmark dialog is open and the bookmark name field is active.",
+      "action_preconditions": [
+        "The bookmark dialog is visible.",
+        "The text cursor is inside the bookmark name field."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Weeknight Veg Pasta"
+      },
+      "action_after_effects": "The bookmark name field is updated with a clearer custom title.",
+      "nl_explanation": "When the bookmark dialog is open and the name field is focused, type a short descriptive title so the saved recipe is easier to identify later."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Finish saving the bookmark",
+      "action_before_state": "The bookmark dialog shows the edited bookmark title and the save controls.",
+      "action_preconditions": [
+        "The bookmark dialog is still open.",
+        "The confirmation button is visible and clickable."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the confirmation button in the bookmark dialog"
+        }
+      },
+      "action_after_effects": "The dialog closes and the recipe page is bookmarked on the bookmarks bar with the custom name.",
+      "nl_explanation": "After the bookmark title has been updated, click the confirmation button to save the page as a bookmark and complete the task."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Submit a search for vegetarian pasta recipes on BBC Good Food so relevant recipe results can be reviewed.",
+      "unit_type": "SEARCH_RECIPE_QUERY",
+      "unit_before_state": "Chrome is open on an existing webpage in the current tab, and the address bar is not yet focused for a new search.",
+      "unit_after_state": "Chrome shows a search results page for \"vegetarian pasta recipe bbc good food\" with recipe-related results visible in the current tab.",
+      "unit_precondition": [
+        "Chrome is the active window.",
+        "No popup or modal dialog is blocking keyboard input.",
+        "The address bar can accept replacement text for a new search."
+      ],
+      "unit_effect": [
+        "The address bar becomes highlighted and ready for input.",
+        "The query text \"vegetarian pasta recipe bbc good food\" appears in the address bar.",
+        "After Enter is pressed, a results page with vegetarian pasta recipe links is loaded."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4
+      ],
+      "unit_intent": "Open one relevant BBC Good Food vegetarian pasta recipe from the search results.",
+      "unit_type": "OPEN_RECIPE_RESULT",
+      "unit_before_state": "The search results page is visible in Chrome, including BBC Good Food recipe links for vegetarian pasta.",
+      "unit_after_state": "A BBC Good Food vegetarian pasta recipe page is open in the current tab.",
+      "unit_precondition": [
+        "The search results page has finished loading.",
+        "At least one visible BBC Good Food result appears relevant to the vegetarian pasta request.",
+        "The result link is clickable in the current tab."
+      ],
+      "unit_effect": [
+        "The clicked search result opens a full recipe page in the same Chrome tab.",
+        "The browser leaves the results list and shows the selected recipe article."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5
+      ],
+      "unit_intent": "Bring the recipe's ingredients into view so the dinner idea can be judged quickly.",
+      "unit_type": "POSITION_INGREDIENTS_SECTION",
+      "unit_before_state": "The BBC Good Food recipe page is open near the top, typically showing the recipe title, image, and summary details rather than the ingredients list.",
+      "unit_after_state": "The recipe page is scrolled to the Ingredients section, with the heading and several ingredient items visible on screen.",
+      "unit_precondition": [
+        "The recipe page has loaded successfully in the active tab.",
+        "The ingredients section is not yet visible in the current viewport.",
+        "The page can be scrolled downward."
+      ],
+      "unit_effect": [
+        "The viewport moves down the recipe page.",
+        "The Ingredients section becomes visibly readable in the browser window.",
+        "The page is left in a stable state for quick ingredient review."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Save the chosen recipe as a clearly named bookmark on the bookmarks bar for quick access later.",
+      "unit_type": "BOOKMARK_PAGE_TO_BOOKMARKS_BAR",
+      "unit_before_state": "The BBC Good Food recipe page remains open with the ingredients section visible, and no bookmark dialog is currently displayed.",
+      "unit_after_state": "The bookmark dialog is closed, the recipe page remains open, and the page is saved as a bookmark on the bookmarks bar under the name \"Weeknight Veg Pasta\".",
+      "unit_precondition": [
+        "The desired recipe page is still the active Chrome tab.",
+        "No other modal dialog is open.",
+        "Chrome's bookmark dialog can be opened for the current page.",
+        "The bookmark name field is available for editing once the dialog opens."
+      ],
+      "unit_effect": [
+        "Pressing Ctrl+D opens Chrome's bookmark dialog for the current recipe page.",
+        "The bookmark name field is updated to \"Weeknight Veg Pasta\".",
+        "After confirming, the dialog closes and the recipe is saved on the bookmarks bar with the custom name."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Submit a search for vegetarian pasta recipes on BBC Good Food so relevant recipe results can be reviewed.",
+      "unit_type": "SEARCH_RECIPE_QUERY",
+      "unit_before_state": "Chrome is open on an existing webpage in the current tab, and the address bar is not yet focused for a new search.",
+      "unit_after_state": "Chrome shows a search results page for \"vegetarian pasta recipe bbc good food\" with recipe-related results visible in the current tab.",
+      "unit_precondition": [
+        "Chrome is the active window.",
+        "No popup or modal dialog is blocking keyboard input.",
+        "The address bar can accept replacement text for a new search."
+      ],
+      "unit_effect": [
+        "The address bar becomes highlighted and ready for input.",
+        "The query text \"vegetarian pasta recipe bbc good food\" appears in the address bar.",
+        "After Enter is pressed, a results page with vegetarian pasta recipe links is loaded."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Submit a specified search query from the browser address bar so relevant search results can be reviewed in the current tab.",
+      "parameters": {
+        "search_query": "vegetarian pasta recipe bbc good food"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'l']}",
+          "action_template": "When Chrome is active and no popup or modal dialog is blocking keyboard input, press Ctrl+L to place focus in the address bar so a new search can be entered. Preconditions: the Chrome window is focused and nothing is blocking keyboard input. After effects: the address bar is highlighted and ready for text input."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'vegetarian pasta recipe bbc good food'}",
+          "action_template": "With the address bar focused, type {{search_query}} so the browser is ready to run the search. Preconditions: the text cursor is active in the address bar, and any previous URL text is selected or will be replaced by typing. After effects: {{search_query}} appears in the address bar."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After confirming the full query text is present in the address bar, press Enter to open the search results page. Preconditions: the full query text is present in the address bar and Chrome is ready to navigate to search results. After effects: a search results page loads for {{search_query}} in the current tab."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4
+      ],
+      "unit_intent": "Open one relevant BBC Good Food vegetarian pasta recipe from the search results.",
+      "unit_type": "OPEN_RECIPE_RESULT",
+      "unit_before_state": "The search results page is visible in Chrome, including BBC Good Food recipe links for vegetarian pasta.",
+      "unit_after_state": "A BBC Good Food vegetarian pasta recipe page is open in the current tab.",
+      "unit_precondition": [
+        "The search results page has finished loading.",
+        "At least one visible BBC Good Food result appears relevant to the vegetarian pasta request.",
+        "The result link is clickable in the current tab."
+      ],
+      "unit_effect": [
+        "The clicked search result opens a full recipe page in the same Chrome tab.",
+        "The browser leaves the results list and shows the selected recipe article."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a relevant recipe result from the search results page.",
+      "parameters": {
+        "result_link": "a BBC Good Food search result for a vegetarian pasta recipe"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'a BBC Good Food search result for a vegetarian pasta recipe'}}",
+          "action_template": "When the results page shows a relevant recipe link and {{result_link}} is visible and appears relevant, click {{result_link}} to open the full recipe page in the current Chrome tab."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5
+      ],
+      "unit_intent": "Bring the recipe's ingredients into view so the dinner idea can be judged quickly.",
+      "unit_type": "POSITION_INGREDIENTS_SECTION",
+      "unit_before_state": "The BBC Good Food recipe page is open near the top, typically showing the recipe title, image, and summary details rather than the ingredients list.",
+      "unit_after_state": "The recipe page is scrolled to the Ingredients section, with the heading and several ingredient items visible on screen.",
+      "unit_precondition": [
+        "The recipe page has loaded successfully in the active tab.",
+        "The ingredients section is not yet visible in the current viewport.",
+        "The page can be scrolled downward."
+      ],
+      "unit_effect": [
+        "The viewport moves down the recipe page.",
+        "The Ingredients section becomes visibly readable in the browser window.",
+        "The page is left in a stable state for quick ingredient review."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Bring a specified section of a webpage into view so its contents can be reviewed quickly.",
+      "parameters": {
+        "target_section_heading": "Ingredients",
+        "scroll_target_area": "the center of the recipe page"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'SCROLL', 'scroll_direction': 'down', 'target': {'text': 'the center of the recipe page'}, 'stop_condition': 'Stop when the Ingredients heading and several ingredient items are visible.', 'direction': 'down'}",
+          "action_template": "After the webpage has finished loading and the {{target_section_heading}} section is not yet visible, scroll down over {{scroll_target_area}} until the {{target_section_heading}} heading and several related items are visible, then stop so the section can be quickly inspected."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Save the chosen recipe as a clearly named bookmark on the bookmarks bar for quick access later.",
+      "unit_type": "BOOKMARK_PAGE_TO_BOOKMARKS_BAR",
+      "unit_before_state": "The BBC Good Food recipe page remains open with the ingredients section visible, and no bookmark dialog is currently displayed.",
+      "unit_after_state": "The bookmark dialog is closed, the recipe page remains open, and the page is saved as a bookmark on the bookmarks bar under the name \"Weeknight Veg Pasta\".",
+      "unit_precondition": [
+        "The desired recipe page is still the active Chrome tab.",
+        "No other modal dialog is open.",
+        "Chrome's bookmark dialog can be opened for the current page.",
+        "The bookmark name field is available for editing once the dialog opens."
+      ],
+      "unit_effect": [
+        "Pressing Ctrl+D opens Chrome's bookmark dialog for the current recipe page.",
+        "The bookmark name field is updated to \"Weeknight Veg Pasta\".",
+        "After confirming, the dialog closes and the recipe is saved on the bookmarks bar with the custom name."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the current web page as a bookmark on the bookmarks bar using a specified custom name.",
+      "parameters": {
+        "bookmark_name": "Weeknight Veg Pasta"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'd']}",
+          "action_template": "With the current page active and no other dialog open, press Ctrl+D to open Chrome's bookmark dialog so the page can be saved."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Weeknight Veg Pasta'}",
+          "action_template": "When the bookmark dialog is open and the name field is focused, type {{bookmark_name}} into the bookmark name field so the saved page is easier to identify later."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the confirmation button in the bookmark dialog'}}",
+          "action_template": "After the bookmark title has been updated, click the confirmation button in the bookmark dialog to save the page as a bookmark and complete the task."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

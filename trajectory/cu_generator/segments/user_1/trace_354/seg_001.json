@@ -1,0 +1,578 @@
+{
+  "segment_id": "seg_001",
+  "app": "os",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Focus the Terminal so commands can be entered",
+      "action_before_state": "A GNOME Terminal window is already open on the screen with an idle shell prompt visible, and no text is currently selected.",
+      "action_preconditions": [
+        "The Terminal window is visible in the foreground",
+        "A shell prompt is available for input",
+        "The command area is clickable"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the empty command line area next to the shell prompt in Terminal"
+        }
+      },
+      "action_after_effects": "The text cursor is active in Terminal, so the next typed command will go to the shell.",
+      "nl_explanation": "When Terminal is open and the shell prompt is idle, click the input line next to the prompt to place focus there and prepare for command entry."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Prepare the destination folder on the Desktop",
+      "action_before_state": "The Terminal prompt is focused and ready for typing.",
+      "action_preconditions": [
+        "Terminal input focus is active",
+        "A shell prompt is visible"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "mkdir -p ~/Desktop/log_cleanup"
+      },
+      "action_after_effects": "The mkdir command appears at the prompt but has not run yet.",
+      "nl_explanation": "With the cursor active at the shell prompt, type the command to create the Desktop folder that will hold the collected log files."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Create the Desktop destination folder",
+      "action_before_state": "The command `mkdir -p ~/Desktop/log_cleanup` is fully typed in Terminal.",
+      "action_preconditions": [
+        "The mkdir command is visible at the shell prompt",
+        "Terminal still has keyboard focus"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The command runs, the `log_cleanup` folder is created on the Desktop, and Terminal returns to a fresh prompt.",
+      "nl_explanation": "Once the folder-creation command is typed, press Enter to run it so the Desktop destination exists for the next file-moving step."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Enter the command that finds and moves large log files",
+      "action_before_state": "Terminal shows a fresh prompt after the folder has been created.",
+      "action_preconditions": [
+        "A new shell prompt is visible",
+        "Terminal remains focused"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "find ~/Downloads -type f -name '*.log' -size +1M -exec mv -t ~/Desktop/log_cleanup {} +"
+      },
+      "action_after_effects": "The find command is visible at the prompt and is ready to be executed.",
+      "nl_explanation": "At the fresh shell prompt, type a recursive find command that locates `.log` files larger than 1 MB inside Downloads and moves them into the Desktop cleanup folder."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Move the matching log files into the cleanup folder",
+      "action_before_state": "The full find-and-move command is typed in Terminal.",
+      "action_preconditions": [
+        "The command text is complete and visible",
+        "Terminal still accepts keyboard input"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The shell executes the recursive search and moves all matching large `.log` files into `~/Desktop/log_cleanup`, then returns to a prompt.",
+      "nl_explanation": "After the recursive move command is ready, press Enter to collect the large log files from Downloads into the Desktop folder."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Enter the archive command for the cleanup folder",
+      "action_before_state": "Terminal is back at an idle prompt after the file move operation.",
+      "action_preconditions": [
+        "A fresh shell prompt is visible",
+        "The `log_cleanup` folder has already been created"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "tar -czf ~/Desktop/log_cleanup.tar.gz -C ~/Desktop log_cleanup"
+      },
+      "action_after_effects": "The tar command appears at the prompt and is waiting to be run.",
+      "nl_explanation": "With the moved log files already inside the Desktop folder, type the tar command that compresses `log_cleanup` into `log_cleanup.tar.gz`."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Create the compressed archive",
+      "action_before_state": "The archive command is fully typed in Terminal.",
+      "action_preconditions": [
+        "The tar command text is visible",
+        "Terminal remains focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The compressed archive `log_cleanup.tar.gz` is created on the Desktop, and Terminal returns to a new prompt.",
+      "nl_explanation": "When the compression command is ready, press Enter to generate the Desktop archive containing the cleanup folder."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Open the GNOME overview to launch Files",
+      "action_before_state": "Terminal is still on screen after the archive command has completed.",
+      "action_preconditions": [
+        "The current work in Terminal is finished",
+        "The keyboard is available for shortcuts"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "super"
+        ]
+      },
+      "action_after_effects": "The GNOME Activities overview opens, allowing application search and launch.",
+      "nl_explanation": "After finishing the terminal work, press the Super key to open the GNOME overview so Files can be launched from search."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Search for the Files application",
+      "action_before_state": "The Activities overview is open and ready to accept search text.",
+      "action_preconditions": [
+        "The GNOME overview is visible",
+        "The search field is active or ready for typing"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Files"
+      },
+      "action_after_effects": "GNOME search results appear and show the Files application icon.",
+      "nl_explanation": "With the overview open, type `Files` so GNOME searches for the file manager application."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Launch Files from the overview search results",
+      "action_before_state": "The Files application appears in the GNOME overview search results.",
+      "action_preconditions": [
+        "Search results are visible",
+        "Files is the intended application result"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "GNOME Files opens in the foreground.",
+      "nl_explanation": "When Files is shown in the overview search results, press Enter to launch it and switch to file browsing."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Navigate to the Desktop in Files",
+      "action_before_state": "GNOME Files is open, likely showing a default folder such as Home or Recent, with the left sidebar visible.",
+      "action_preconditions": [
+        "Files is open in the foreground",
+        "The sidebar contains a Desktop location"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Desktop entry in the left sidebar of Files"
+        }
+      },
+      "action_after_effects": "Files switches to the Desktop folder and displays its contents, including the newly created archive if it exists.",
+      "nl_explanation": "Once Files is open and the sidebar is visible, click the Desktop location to show the folder where the archive was created."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Verify that the archive exists on the Desktop",
+      "action_before_state": "The Desktop folder is open in Files and its items are visible in the main pane.",
+      "action_preconditions": [
+        "The Desktop directory is currently displayed",
+        "The archive filename `log_cleanup.tar.gz` is visible in the file list or grid"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "right",
+        "num_clicks": 1,
+        "target": {
+          "text": "the file named `log_cleanup.tar.gz` in the Desktop contents"
+        }
+      },
+      "action_after_effects": "A context menu opens for `log_cleanup.tar.gz`, confirming that the archive exists on the Desktop without depending on single-click open behavior.",
+      "nl_explanation": "When the Desktop contents are visible and the archive filename can be seen, right-click `log_cleanup.tar.gz` to confirm the file is present without risking opening it due to different click settings."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Create the Desktop folder that will receive the collected large log files.",
+      "unit_type": "CREATE_DESTINATION_FOLDER",
+      "unit_before_state": "A GNOME Terminal window is already open in the foreground with an idle shell prompt visible, and the command line is available for input.",
+      "unit_after_state": "Terminal has returned to a fresh prompt after running `mkdir -p ~/Desktop/log_cleanup`, and a folder named `log_cleanup` now exists on the Desktop.",
+      "unit_precondition": [
+        "GNOME Terminal is visible on screen.",
+        "A shell prompt is available and can accept keyboard input.",
+        "The user has permission to create folders on the Desktop."
+      ],
+      "unit_effect": [
+        "The command `mkdir -p ~/Desktop/log_cleanup` is executed successfully.",
+        "A new shell prompt appears after the command finishes.",
+        "The Desktop destination folder `log_cleanup` now exists for later file collection."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Gather every `.log` file larger than 1 MB from Downloads into the cleanup folder.",
+      "unit_type": "COLLECT_AND_MOVE_FILES",
+      "unit_before_state": "Terminal is focused at a fresh shell prompt, and the Desktop folder `log_cleanup` has already been created.",
+      "unit_after_state": "The shell prompt returns after executing the recursive `find` command, and all matching `.log` files larger than 1 MB from inside `~/Downloads` have been moved into `~/Desktop/log_cleanup`.",
+      "unit_precondition": [
+        "The `log_cleanup` folder already exists on the Desktop.",
+        "Terminal is still focused and showing a new prompt.",
+        "The Downloads directory is accessible to the current user."
+      ],
+      "unit_effect": [
+        "The full `find ~/Downloads -type f -name '*.log' -size +1M -exec mv -t ~/Desktop/log_cleanup {} +` command is run.",
+        "Terminal returns to a prompt after the file move operation completes.",
+        "Matching large log files are now located in `~/Desktop/log_cleanup`."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7
+      ],
+      "unit_intent": "Compress the collected log files into a single archive on the Desktop.",
+      "unit_type": "CREATE_ARCHIVE",
+      "unit_before_state": "Terminal is back at an idle prompt after the file move step, and the `log_cleanup` folder containing the moved log files exists on the Desktop.",
+      "unit_after_state": "The command finishes and Terminal shows a new prompt, while the Desktop now contains the archive file `log_cleanup.tar.gz` alongside the `log_cleanup` folder.",
+      "unit_precondition": [
+        "The `log_cleanup` folder already exists on the Desktop.",
+        "Terminal is focused and ready for another command.",
+        "The user has permission to create files on the Desktop."
+      ],
+      "unit_effect": [
+        "The tar command `tar -czf ~/Desktop/log_cleanup.tar.gz -C ~/Desktop log_cleanup` is executed.",
+        "A new archive file named `log_cleanup.tar.gz` is created on the Desktop.",
+        "Terminal returns to a fresh prompt after compression finishes."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8,
+        9,
+        10
+      ],
+      "unit_intent": "Open the Files application so the Desktop contents can be checked visually.",
+      "unit_type": "OPEN_FILE_MANAGER",
+      "unit_before_state": "Terminal remains on screen after the archive has been created, and the GNOME desktop environment is ready to accept keyboard shortcuts.",
+      "unit_after_state": "GNOME Files is open in the foreground, replacing the overview search interface and providing a file browsing window.",
+      "unit_precondition": [
+        "The terminal-based archive task has finished.",
+        "The GNOME desktop is available and responds to the Super key.",
+        "The Files application is installed and searchable from Activities."
+      ],
+      "unit_effect": [
+        "The GNOME Activities overview opens.",
+        "Searching for `Files` shows the Files application in the results.",
+        "Pressing Enter launches GNOME Files in the foreground."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        11
+      ],
+      "unit_intent": "Switch the file manager view to the Desktop where the archive was created.",
+      "unit_type": "NAVIGATE_TO_DESKTOP",
+      "unit_before_state": "GNOME Files is open, likely showing a default location such as Home or Recent, with the left navigation sidebar visible.",
+      "unit_after_state": "Files is displaying the Desktop folder in the main pane, where items such as `log_cleanup` and `log_cleanup.tar.gz` can be seen if present.",
+      "unit_precondition": [
+        "GNOME Files is open in the foreground.",
+        "The sidebar includes a clickable Desktop entry."
+      ],
+      "unit_effect": [
+        "The Desktop location becomes selected in the Files sidebar.",
+        "The main file list or grid refreshes to show Desktop contents."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        12
+      ],
+      "unit_intent": "Confirm that the compressed archive is present on the Desktop without opening it.",
+      "unit_type": "VERIFY_ARCHIVE_PRESENCE",
+      "unit_before_state": "The Desktop folder is already open in GNOME Files, and the file `log_cleanup.tar.gz` is visible in the main pane.",
+      "unit_after_state": "A context menu for `log_cleanup.tar.gz` is open in Files, confirming that the archive item exists and is selectable on the Desktop.",
+      "unit_precondition": [
+        "GNOME Files is currently showing the Desktop directory.",
+        "The filename `log_cleanup.tar.gz` is visible in the Desktop contents."
+      ],
+      "unit_effect": [
+        "Right-clicking on `log_cleanup.tar.gz` opens its context menu.",
+        "The archive's presence on the Desktop is visually confirmed without opening the file."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Create the Desktop folder that will receive the collected large log files.",
+      "unit_type": "CREATE_DESTINATION_FOLDER",
+      "unit_before_state": "A GNOME Terminal window is already open in the foreground with an idle shell prompt visible, and the command line is available for input.",
+      "unit_after_state": "Terminal has returned to a fresh prompt after running `mkdir -p ~/Desktop/log_cleanup`, and a folder named `log_cleanup` now exists on the Desktop.",
+      "unit_precondition": [
+        "GNOME Terminal is visible on screen.",
+        "A shell prompt is available and can accept keyboard input.",
+        "The user has permission to create folders on the Desktop."
+      ],
+      "unit_effect": [
+        "The command `mkdir -p ~/Desktop/log_cleanup` is executed successfully.",
+        "A new shell prompt appears after the command finishes.",
+        "The Desktop destination folder `log_cleanup` now exists for later file collection."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a specified destination folder from Terminal for later file collection.",
+      "parameters": {
+        "destination_folder_path": "~/Desktop/log_cleanup"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the empty command line area next to the shell prompt in Terminal'}}",
+          "action_template": "When the Terminal window is visible in the foreground, a shell prompt is available, and the command area is clickable, click the input line next to the prompt to place focus there so the next typed command will go to the shell."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'mkdir -p ~/Desktop/log_cleanup'}",
+          "action_template": "With Terminal input focus active and a shell prompt visible, type `mkdir -p {{destination_folder_path}}` to create the destination folder command at the prompt before it runs."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Once the folder-creation command is visible at the shell prompt and Terminal still has keyboard focus, press Enter to run it so the destination folder is created and Terminal returns to a fresh prompt."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Gather every `.log` file larger than 1 MB from Downloads into the cleanup folder.",
+      "unit_type": "COLLECT_AND_MOVE_FILES",
+      "unit_before_state": "Terminal is focused at a fresh shell prompt, and the Desktop folder `log_cleanup` has already been created.",
+      "unit_after_state": "The shell prompt returns after executing the recursive `find` command, and all matching `.log` files larger than 1 MB from inside `~/Downloads` have been moved into `~/Desktop/log_cleanup`.",
+      "unit_precondition": [
+        "The `log_cleanup` folder already exists on the Desktop.",
+        "Terminal is still focused and showing a new prompt.",
+        "The Downloads directory is accessible to the current user."
+      ],
+      "unit_effect": [
+        "The full `find ~/Downloads -type f -name '*.log' -size +1M -exec mv -t ~/Desktop/log_cleanup {} +` command is run.",
+        "Terminal returns to a prompt after the file move operation completes.",
+        "Matching large log files are now located in `~/Desktop/log_cleanup`."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Collect all files matching a specified name pattern and size threshold from a source directory into a designated destination folder.",
+      "parameters": {
+        "source_directory": "~/Downloads",
+        "file_pattern": "*.log",
+        "size_threshold": "+1M",
+        "destination_folder": "~/Desktop/log_cleanup"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': \"find ~/Downloads -type f -name '*.log' -size +1M -exec mv -t ~/Desktop/log_cleanup {} +\"}",
+          "action_template": "With a new shell prompt visible and Terminal focused, type a recursive find command that locates files matching {{file_pattern}} larger than {{size_threshold}} inside {{source_directory}} and moves them into {{destination_folder}}. The command should then be visible at the prompt and ready to execute."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After the full command targeting {{source_directory}}, {{file_pattern}}, {{size_threshold}}, and {{destination_folder}} is visible and Terminal still accepts keyboard input, press Enter to execute the collection and move operation. The shell executes the recursive search, moves matching files into {{destination_folder}}, and then returns to a prompt."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7
+      ],
+      "unit_intent": "Compress the collected log files into a single archive on the Desktop.",
+      "unit_type": "CREATE_ARCHIVE",
+      "unit_before_state": "Terminal is back at an idle prompt after the file move step, and the `log_cleanup` folder containing the moved log files exists on the Desktop.",
+      "unit_after_state": "The command finishes and Terminal shows a new prompt, while the Desktop now contains the archive file `log_cleanup.tar.gz` alongside the `log_cleanup` folder.",
+      "unit_precondition": [
+        "The `log_cleanup` folder already exists on the Desktop.",
+        "Terminal is focused and ready for another command.",
+        "The user has permission to create files on the Desktop."
+      ],
+      "unit_effect": [
+        "The tar command `tar -czf ~/Desktop/log_cleanup.tar.gz -C ~/Desktop log_cleanup` is executed.",
+        "A new archive file named `log_cleanup.tar.gz` is created on the Desktop.",
+        "Terminal returns to a fresh prompt after compression finishes."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Compress a specified folder into a single archive file at a target location using Terminal.",
+      "parameters": {
+        "source_folder": "log_cleanup",
+        "archive_file": "log_cleanup.tar.gz",
+        "target_location": "Desktop"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'tar -czf ~/Desktop/log_cleanup.tar.gz -C ~/Desktop log_cleanup'}",
+          "action_template": "With the files already inside the {{source_folder}} folder at {{target_location}}, type the tar command `tar -czf ~/{{target_location}}/{{archive_file}} -C ~/{{target_location}} {{source_folder}}`. Preconditions: a fresh shell prompt is visible and the `{{source_folder}}` folder has already been created. After this action, the tar command appears at the prompt and is waiting to be run."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "When the compression command for {{source_folder}} is visible and Terminal remains focused, press Enter to generate the archive `{{archive_file}}` in {{target_location}}. After this action, the compressed archive `{{archive_file}}` is created in {{target_location}}, and Terminal returns to a new prompt."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8,
+        9,
+        10
+      ],
+      "unit_intent": "Open the Files application so the Desktop contents can be checked visually.",
+      "unit_type": "OPEN_FILE_MANAGER",
+      "unit_before_state": "Terminal remains on screen after the archive has been created, and the GNOME desktop environment is ready to accept keyboard shortcuts.",
+      "unit_after_state": "GNOME Files is open in the foreground, replacing the overview search interface and providing a file browsing window.",
+      "unit_precondition": [
+        "The terminal-based archive task has finished.",
+        "The GNOME desktop is available and responds to the Super key.",
+        "The Files application is installed and searchable from Activities."
+      ],
+      "unit_effect": [
+        "The GNOME Activities overview opens.",
+        "Searching for `Files` shows the Files application in the results.",
+        "Pressing Enter launches GNOME Files in the foreground."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Launch {{target_application}} from the GNOME Activities overview using keyboard search.",
+      "parameters": {
+        "target_application": "Files"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['super']}",
+          "action_template": "Press the Super key after the current terminal work is finished and the keyboard is available for shortcuts to open the GNOME Activities overview, allowing {{target_application}} to be searched and launched."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Files'}",
+          "action_template": "Type {{target_application}} while the GNOME overview is visible and the search field is ready for typing so GNOME searches for the application and shows it in the results."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter when the search results are visible and {{target_application}} is the intended application result to launch it from the overview and bring it to the foreground."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        11
+      ],
+      "unit_intent": "Switch the file manager view to the Desktop where the archive was created.",
+      "unit_type": "NAVIGATE_TO_DESKTOP",
+      "unit_before_state": "GNOME Files is open, likely showing a default location such as Home or Recent, with the left navigation sidebar visible.",
+      "unit_after_state": "Files is displaying the Desktop folder in the main pane, where items such as `log_cleanup` and `log_cleanup.tar.gz` can be seen if present.",
+      "unit_precondition": [
+        "GNOME Files is open in the foreground.",
+        "The sidebar includes a clickable Desktop entry."
+      ],
+      "unit_effect": [
+        "The Desktop location becomes selected in the Files sidebar.",
+        "The main file list or grid refreshes to show Desktop contents."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Switch the file manager view to a specified sidebar folder so its contents are shown in the main pane.",
+      "parameters": {
+        "target_location": "Desktop"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Desktop entry in the left sidebar of Files'}}",
+          "action_template": "Once Files is open in the foreground and the sidebar contains {{target_location}}, click the {{target_location}} entry in the left sidebar of Files to switch to that folder and display its contents."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        12
+      ],
+      "unit_intent": "Confirm that the compressed archive is present on the Desktop without opening it.",
+      "unit_type": "VERIFY_ARCHIVE_PRESENCE",
+      "unit_before_state": "The Desktop folder is already open in GNOME Files, and the file `log_cleanup.tar.gz` is visible in the main pane.",
+      "unit_after_state": "A context menu for `log_cleanup.tar.gz` is open in Files, confirming that the archive item exists and is selectable on the Desktop.",
+      "unit_precondition": [
+        "GNOME Files is currently showing the Desktop directory.",
+        "The filename `log_cleanup.tar.gz` is visible in the Desktop contents."
+      ],
+      "unit_effect": [
+        "Right-clicking on `log_cleanup.tar.gz` opens its context menu.",
+        "The archive's presence on the Desktop is visually confirmed without opening the file."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Confirm that {{target_file}} is present in {{target_directory}} without opening it.",
+      "parameters": {
+        "target_file": "log_cleanup.tar.gz",
+        "target_directory": "Desktop"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'right', 'num_clicks': 1, 'target': {'text': 'the file named `log_cleanup.tar.gz` in the Desktop contents'}}",
+          "action_template": "When {{target_directory}} is currently displayed and {{target_file}} is visible in the file list or grid, right-click {{target_file}} to open its context menu and confirm that the archive exists there without opening it."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

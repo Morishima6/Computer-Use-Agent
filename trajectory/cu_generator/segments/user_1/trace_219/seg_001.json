@@ -1,0 +1,836 @@
+{
+  "segment_id": "seg_001",
+  "app": "libreoffice_calc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Start renaming the current worksheet",
+      "action_before_state": "LibreOffice Calc is open and the current worksheet tab is visible at the bottom.",
+      "action_preconditions": [
+        "The spreadsheet window is active",
+        "The current sheet tab is visible and not already in rename mode"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 2,
+        "target": {
+          "text": "the current sheet tab at the bottom of the Calc window"
+        }
+      },
+      "action_after_effects": "The sheet tab name becomes editable.",
+      "nl_explanation": "When the workbook is active and the current sheet tab is visible, double-click the sheet tab so its name can be edited."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Enter the new worksheet name",
+      "action_before_state": "The sheet tab text is highlighted or ready to be replaced.",
+      "action_preconditions": [
+        "The sheet tab is in rename mode",
+        "Keyboard input will go to the tab name"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Meals"
+      },
+      "action_after_effects": "The tab name field shows Meals.",
+      "nl_explanation": "With the sheet tab in rename mode, type Meals so the worksheet gets the requested name."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Confirm the worksheet rename",
+      "action_before_state": "The editable sheet tab shows the new name Meals.",
+      "action_preconditions": [
+        "The new tab name has been typed",
+        "The tab is still in edit mode"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The worksheet is renamed to Meals and the tab exits edit mode.",
+      "nl_explanation": "After typing the new sheet name, press Enter to apply the rename and return to the worksheet."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Select the header cell for the new total column",
+      "action_before_state": "The existing table is visible with headers in row 1 and data in rows 2 through 8.",
+      "action_preconditions": [
+        "Columns A through E are visible",
+        "Cell E1 is empty and available for a new header"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell E1 to the right of the Dinner header"
+        }
+      },
+      "action_after_effects": "Cell E1 becomes the active cell.",
+      "nl_explanation": "When the table headers are visible and column E is empty, click cell E1 so the new total column label can be added there."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Label the new total column",
+      "action_before_state": "Cell E1 is selected and ready for text entry.",
+      "action_preconditions": [
+        "Cell E1 is active",
+        "Keyboard input will be entered into E1"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Daily Total"
+      },
+      "action_after_effects": "Cell E1 displays the header Daily Total.",
+      "nl_explanation": "With E1 selected, type Daily Total so the added column is clearly labeled."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Select the first daily total cell",
+      "action_before_state": "The new header is in E1 and the first data row starts on row 2.",
+      "action_preconditions": [
+        "Row 2 contains breakfast, lunch, and dinner values",
+        "Cell E2 is empty"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell E2 in the first daily data row"
+        }
+      },
+      "action_after_effects": "Cell E2 becomes active.",
+      "nl_explanation": "After adding the new column header, click E2 so the first daily total formula can be entered in the top data row."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Enter the first daily total formula",
+      "action_before_state": "Cell E2 is selected and the first row's meal values are in B2 through D2.",
+      "action_preconditions": [
+        "Cell E2 is the active cell",
+        "Cells B2, C2, and D2 contain numeric calorie values"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "=SUM(B2:D2)"
+      },
+      "action_after_effects": "Cell E2 contains the formula and shows the first day's total calories.",
+      "nl_explanation": "With E2 active and the meal values present in B2 through D2, type =SUM(B2:D2) so the first daily total is calculated."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Fill the daily total formula down the rest of the week",
+      "action_before_state": "The first total formula is present in E2 and rows 3 through 8 still have empty total cells.",
+      "action_preconditions": [
+        "Cell E2 contains the correct total formula",
+        "The rows for Tuesday through Sunday are visible"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the fill handle at the bottom-right corner of cell E2"
+        },
+        "end": {
+          "text": "the fill handle position aligned with cell E8"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "Cells E3 through E8 are filled with matching total formulas for the remaining days.",
+      "nl_explanation": "When E2 already shows the first total and the rest of the week is visible, drag the fill handle from E2 down to E8 so each day gets its own total automatically."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Move to the row below the weekly data",
+      "action_before_state": "The Daily Total column is filled from E2 to E8 and row 9 is empty.",
+      "action_preconditions": [
+        "Rows 1 through 9 are visible",
+        "Cell A9 is empty"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell A9 below the Sunday row"
+        }
+      },
+      "action_after_effects": "Cell A9 becomes active.",
+      "nl_explanation": "After the daily totals are complete, click A9 so the summary row can be entered directly under the weekly data."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Add the Average row across the table",
+      "action_before_state": "Cell A9 is selected and the row is empty across columns A through E.",
+      "action_preconditions": [
+        "Cell A9 is active",
+        "Rows 2 through 8 contain the calorie values and computed totals"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Average\t=AVERAGE(B2:B8)\t=AVERAGE(C2:C8)\t=AVERAGE(D2:D8)\t=AVERAGE(E2:E8)"
+      },
+      "action_after_effects": "Row 9 is populated with the Average label in A9 and average formulas across B9 through E9.",
+      "nl_explanation": "With A9 selected and the weekly data already filled in, type the Average label followed by the four average formulas so the summary row is created across the bottom of the table."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Confirm the Average row entry",
+      "action_before_state": "The Average row text and formulas have been typed across row 9.",
+      "action_preconditions": [
+        "The row 9 content has been entered",
+        "The entry is still active and ready to confirm"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The Average row is finalized and Calc returns to normal cell selection.",
+      "nl_explanation": "After entering the summary row, press Enter so the Average row is committed to the sheet."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Select the header row for formatting",
+      "action_before_state": "The completed table is visible from A1 through E9.",
+      "action_preconditions": [
+        "Cells A1 through E1 are visible",
+        "No chart or dialog is covering the header row"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell A1 at the start of the header row"
+        },
+        "end": {
+          "text": "cell E1 at the end of the header row"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "The entire header row from A1 to E1 is selected.",
+      "nl_explanation": "When the top row is visible and ready for formatting, drag from A1 to E1 so all header cells are selected together."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Make the headers bold",
+      "action_before_state": "The header row A1:E1 is highlighted.",
+      "action_preconditions": [
+        "The header row is selected",
+        "LibreOffice Calc is focused and accepts keyboard shortcuts"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "b"
+        ]
+      },
+      "action_after_effects": "The text in the header row becomes bold.",
+      "nl_explanation": "With the header row selected, press Ctrl+B so the column labels stand out from the data rows."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Select the weekly meal data for chart creation",
+      "action_before_state": "The sheet now includes the new total column and the chart has not been inserted yet.",
+      "action_preconditions": [
+        "The range A1:D8 is visible",
+        "Only the Monday through Sunday rows and meal columns should be included in the chart"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell A1 at the top-left of the weekly table"
+        },
+        "end": {
+          "text": "cell D8 at the bottom-right of the Sunday row in the Dinner column"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "The range A1:D8 is selected as the chart source data.",
+      "nl_explanation": "Once the table is complete, drag from A1 to D8 so the chart uses the headers and the seven daily rows for Breakfast, Lunch, and Dinner while leaving out the Average row and Daily Total column."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Open the chart insertion workflow",
+      "action_before_state": "The weekly meal data range is highlighted and no chart wizard is open yet.",
+      "action_preconditions": [
+        "The range A1:D8 is selected",
+        "The toolbar with chart controls is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Chart button on the toolbar"
+        }
+      },
+      "action_after_effects": "The Chart Wizard opens with a default preview based on the selected range.",
+      "nl_explanation": "When the source data is selected, click the Chart button so Calc starts building a chart from the highlighted weekly meal data."
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Switch the chart to a line chart",
+      "action_before_state": "The Chart Wizard is open and the chart type choices are visible.",
+      "action_preconditions": [
+        "The Chart Wizard is active",
+        "The list of chart types includes a Line option"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Line chart type option in the Chart Wizard"
+        }
+      },
+      "action_after_effects": "The chart preview changes to a line chart using the selected weekly data.",
+      "nl_explanation": "With the Chart Wizard open, click the Line option so the meal values across the week are shown as lines instead of the default chart style."
+    },
+    {
+      "step_id": "s17",
+      "step_goal": "Insert the finished line chart into the sheet",
+      "action_before_state": "The Chart Wizard preview already shows the line chart.",
+      "action_preconditions": [
+        "The Line chart type is selected",
+        "A Finish button is visible in the Chart Wizard"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Finish button in the Chart Wizard"
+        }
+      },
+      "action_after_effects": "The wizard closes and the line chart is inserted into the worksheet.",
+      "nl_explanation": "After confirming the preview is a line chart, click Finish so the chart is placed onto the spreadsheet."
+    },
+    {
+      "step_id": "s18",
+      "step_goal": "Move the chart below the table",
+      "action_before_state": "The newly inserted chart is visible on the sheet and may overlap part of the table.",
+      "action_preconditions": [
+        "The chart object has been inserted",
+        "There is blank space below the Average row"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the center of the inserted chart object"
+        },
+        "end": {
+          "text": "the blank worksheet area below row 11"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "The chart is repositioned below the table so the data remains readable.",
+      "nl_explanation": "When the chart appears and overlaps the grid, drag it into the empty space below the table so both the worksheet data and the chart are easy to view."
+    },
+    {
+      "step_id": "s19",
+      "step_goal": "Save the completed spreadsheet",
+      "action_before_state": "The worksheet now contains the total column, Average row, formatting, and chart.",
+      "action_preconditions": [
+        "LibreOffice Calc is focused",
+        "The edits are complete and ready to save"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "s"
+        ]
+      },
+      "action_after_effects": "The spreadsheet is saved with all of the requested changes.",
+      "nl_explanation": "After the tracker is finished and the chart is in place, press Ctrl+S to save the completed spreadsheet."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Rename the current worksheet so the meal log is clearly labeled.",
+      "unit_type": "RENAME_SHEET",
+      "unit_before_state": "LibreOffice Calc is open with the weekly meal table visible, and the current sheet tab is shown at the bottom in its original name.",
+      "unit_after_state": "The sheet tab at the bottom now shows the name \"Meals\" and is no longer in inline edit mode.",
+      "unit_precondition": [
+        "LibreOffice Calc is the active window.",
+        "The current sheet tab is visible and can be renamed."
+      ],
+      "unit_effect": [
+        "The tab text becomes editable during the interaction.",
+        "After Enter is pressed, the visible worksheet tab label changes to \"Meals\"."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Add a header for the new column that will store each day's total calories.",
+      "unit_type": "ADD_TOTAL_COLUMN",
+      "unit_before_state": "The worksheet named \"Meals\" shows headers in row 1 from columns A through D, and cell E1 to the right of \"Dinner\" is empty.",
+      "unit_after_state": "Cell E1 contains the text \"Daily Total\" as a new column header beside the existing meal columns.",
+      "unit_precondition": [
+        "Columns A through E are visible on the sheet.",
+        "Cell E1 is empty and available for text entry."
+      ],
+      "unit_effect": [
+        "Cell E1 becomes the active cell.",
+        "The header row now visibly includes \"Daily Total\" in column E."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Calculate total calories for every day of the week in the new total column.",
+      "unit_type": "CALCULATE_DAILY_TOTALS",
+      "unit_before_state": "The \"Daily Total\" header is present in E1, cells B2:D8 contain meal calorie values for Monday through Sunday, and cells E2:E8 are empty.",
+      "unit_after_state": "Cells E2 through E8 display computed daily totals for each day, derived from the meal values in columns B through D.",
+      "unit_precondition": [
+        "Cell E2 can be selected for formula entry.",
+        "Cells B2 through D8 contain numeric calorie values for each day."
+      ],
+      "unit_effect": [
+        "E2 first shows a total based on the formula =SUM(B2:D2).",
+        "After the fill drag, E3:E8 are populated with matching relative formulas and visible total values."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9,
+        10,
+        11
+      ],
+      "unit_intent": "Add a summary row that shows the average calories for each meal column and the daily totals.",
+      "unit_type": "ADD_AVERAGE_ROW",
+      "unit_before_state": "The weekly table fills rows 1 through 8, row 9 is empty, and the Daily Total values are already present in E2:E8.",
+      "unit_after_state": "Row 9 is populated with \"Average\" in A9 and average formulas with resulting values across B9 through E9, and the sheet has returned to normal cell selection mode.",
+      "unit_precondition": [
+        "Row 9 is visible and empty across columns A through E.",
+        "Rows 2 through 8 already contain the meal values and computed daily totals needed for averaging."
+      ],
+      "unit_effect": [
+        "A9 shows the label \"Average\".",
+        "B9:E9 display average results for Breakfast, Lunch, Dinner, and Daily Total after the entry is confirmed."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        12,
+        13
+      ],
+      "unit_intent": "Emphasize the table headers so the structure of the calorie log is easier to read.",
+      "unit_type": "FORMAT_HEADER_ROW",
+      "unit_before_state": "The completed table from A1 to E9 is visible, and the header cells A1:E1 are present in regular text style.",
+      "unit_after_state": "The header row A1:E1 remains selected or recently selected, and all header labels are shown in bold.",
+      "unit_precondition": [
+        "Cells A1 through E1 are visible and can be selected together.",
+        "LibreOffice Calc is focused so formatting shortcuts apply to the selected cells."
+      ],
+      "unit_effect": [
+        "The range A1:E1 becomes highlighted.",
+        "The visible text style of the headers changes to bold."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        14,
+        15,
+        16,
+        17,
+        18
+      ],
+      "unit_intent": "Create and place a line chart that compares Breakfast, Lunch, and Dinner calories across the week.",
+      "unit_type": "INSERT_LINE_CHART",
+      "unit_before_state": "The worksheet shows the completed meal table with the new total column and average row, no chart is inserted yet, and the weekly meal range A1:D8 is available for selection.",
+      "unit_after_state": "A line chart comparing the Breakfast, Lunch, and Dinner series across Monday through Sunday is inserted into the worksheet and positioned below the table so the grid remains readable.",
+      "unit_precondition": [
+        "The weekly data range A1:D8 is visible and should be used as the chart source.",
+        "The toolbar Chart control and Chart Wizard options are available in Calc."
+      ],
+      "unit_effect": [
+        "The range A1:D8 becomes selected as the chart data source.",
+        "The Chart Wizard preview changes to a line chart after the Line option is chosen.",
+        "After Finish, a chart object appears on the sheet.",
+        "After dragging, the chart is visibly located below the table instead of overlapping it."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        19
+      ],
+      "unit_intent": "Persist all completed spreadsheet edits to disk.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The worksheet contains the renamed sheet tab, Daily Total column, Average row, bold headers, and the inserted line chart positioned below the table.",
+      "unit_after_state": "The spreadsheet remains open in LibreOffice Calc with all requested edits saved.",
+      "unit_precondition": [
+        "LibreOffice Calc is the active window.",
+        "The editing work is complete and ready to be saved."
+      ],
+      "unit_effect": [
+        "The save command is issued with Ctrl+S.",
+        "The document is saved with the latest worksheet content and chart placement."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Rename the current worksheet so the meal log is clearly labeled.",
+      "unit_type": "RENAME_SHEET",
+      "unit_before_state": "LibreOffice Calc is open with the weekly meal table visible, and the current sheet tab is shown at the bottom in its original name.",
+      "unit_after_state": "The sheet tab at the bottom now shows the name \"Meals\" and is no longer in inline edit mode.",
+      "unit_precondition": [
+        "LibreOffice Calc is the active window.",
+        "The current sheet tab is visible and can be renamed."
+      ],
+      "unit_effect": [
+        "The tab text becomes editable during the interaction.",
+        "After Enter is pressed, the visible worksheet tab label changes to \"Meals\"."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Rename the current worksheet tab to a specified name.",
+      "parameters": {
+        "new_sheet_name": "Meals"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 2, 'target': {'text': 'the current sheet tab at the bottom of the Calc window'}}",
+          "action_template": "When the workbook is active and the current sheet tab is visible, double-click the sheet tab so its name can be edited. Preconditions: the spreadsheet window is active and the current sheet tab is visible and not already in rename mode. After this action, the sheet tab name becomes editable."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Meals'}",
+          "action_template": "With the sheet tab in rename mode, type {{new_sheet_name}} so the worksheet gets the requested name. Preconditions: the sheet tab is in rename mode and keyboard input will go to the tab name. After this action, the tab name field shows {{new_sheet_name}}."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After typing the new sheet name {{new_sheet_name}}, press Enter to apply the rename and return to the worksheet. Preconditions: the new tab name has been typed and the tab is still in edit mode. After this action, the worksheet is renamed to {{new_sheet_name}} and the tab exits edit mode."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Add a header for the new column that will store each day's total calories.",
+      "unit_type": "ADD_TOTAL_COLUMN",
+      "unit_before_state": "The worksheet named \"Meals\" shows headers in row 1 from columns A through D, and cell E1 to the right of \"Dinner\" is empty.",
+      "unit_after_state": "Cell E1 contains the text \"Daily Total\" as a new column header beside the existing meal columns.",
+      "unit_precondition": [
+        "Columns A through E are visible on the sheet.",
+        "Cell E1 is empty and available for text entry."
+      ],
+      "unit_effect": [
+        "Cell E1 becomes the active cell.",
+        "The header row now visibly includes \"Daily Total\" in column E."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Label an empty header cell for a new total column.",
+      "parameters": {
+        "target_cell": "cell E1 to the right of the Dinner header",
+        "header_text": "Daily Total"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell E1 to the right of the Dinner header'}}",
+          "action_template": "When the relevant columns are visible and {{target_cell}} is empty, click {{target_cell}} so it becomes the active cell for entering the new total-column header."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Daily Total'}",
+          "action_template": "With {{target_cell}} active and ready for keyboard input, type {{header_text}} to label the new total column."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Calculate total calories for every day of the week in the new total column.",
+      "unit_type": "CALCULATE_DAILY_TOTALS",
+      "unit_before_state": "The \"Daily Total\" header is present in E1, cells B2:D8 contain meal calorie values for Monday through Sunday, and cells E2:E8 are empty.",
+      "unit_after_state": "Cells E2 through E8 display computed daily totals for each day, derived from the meal values in columns B through D.",
+      "unit_precondition": [
+        "Cell E2 can be selected for formula entry.",
+        "Cells B2 through D8 contain numeric calorie values for each day."
+      ],
+      "unit_effect": [
+        "E2 first shows a total based on the formula =SUM(B2:D2).",
+        "After the fill drag, E3:E8 are populated with matching relative formulas and visible total values."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Calculate totals for each populated row in a target total column by entering the first row formula and filling it downward.",
+      "parameters": {
+        "first_total_cell": "cell E2 in the first daily data row",
+        "first_row_value_range": "B2 through D2",
+        "formula_text": "=SUM(B2:D2)",
+        "fill_handle_start": "the fill handle at the bottom-right corner of cell E2",
+        "fill_handle_end": "the fill handle position aligned with cell E8"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "CLICK",
+          "action_template": "Click {{first_total_cell}} when the first row values are present and the cell is empty so it becomes active for entering the first total formula."
+        },
+        {
+          "action": "TYPING",
+          "action_template": "Type {{formula_text}} into {{first_total_cell}} when it is active and {{first_row_value_range}} contain numeric values so the first row total is calculated."
+        },
+        {
+          "action": "DRAG_TO",
+          "action_template": "Drag from {{fill_handle_start}} to {{fill_handle_end}} after {{first_total_cell}} contains the correct total formula and the remaining rows are visible so matching formulas fill the rest of the total column."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9,
+        10,
+        11
+      ],
+      "unit_intent": "Add a summary row that shows the average calories for each meal column and the daily totals.",
+      "unit_type": "ADD_AVERAGE_ROW",
+      "unit_before_state": "The weekly table fills rows 1 through 8, row 9 is empty, and the Daily Total values are already present in E2:E8.",
+      "unit_after_state": "Row 9 is populated with \"Average\" in A9 and average formulas with resulting values across B9 through E9, and the sheet has returned to normal cell selection mode.",
+      "unit_precondition": [
+        "Row 9 is visible and empty across columns A through E.",
+        "Rows 2 through 8 already contain the meal values and computed daily totals needed for averaging."
+      ],
+      "unit_effect": [
+        "A9 shows the label \"Average\".",
+        "B9:E9 display average results for Breakfast, Lunch, Dinner, and Daily Total after the entry is confirmed."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Add an average summary row for the populated table columns.",
+      "parameters": {
+        "summary_start_cell": "cell A9 below the Sunday row",
+        "summary_label": "Average",
+        "summary_row_entry": "Average\t=AVERAGE(B2:B8)\t=AVERAGE(C2:C8)\t=AVERAGE(D2:D8)\t=AVERAGE(E2:E8)"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "CLICK",
+          "action_template": "Click {{summary_start_cell}} after the table data is complete so the summary row can be entered directly below the existing data."
+        },
+        {
+          "action": "TYPING",
+          "action_template": "Type {{summary_row_entry}} into the active starting cell to create the summary row with the label {{summary_label}} and average formulas across the target columns."
+        },
+        {
+          "action": "PRESS",
+          "action_template": "Press Enter after {{summary_row_entry}} has been entered to commit the average summary row and return to normal cell selection mode."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        12,
+        13
+      ],
+      "unit_intent": "Emphasize the table headers so the structure of the calorie log is easier to read.",
+      "unit_type": "FORMAT_HEADER_ROW",
+      "unit_before_state": "The completed table from A1 to E9 is visible, and the header cells A1:E1 are present in regular text style.",
+      "unit_after_state": "The header row A1:E1 remains selected or recently selected, and all header labels are shown in bold.",
+      "unit_precondition": [
+        "Cells A1 through E1 are visible and can be selected together.",
+        "LibreOffice Calc is focused so formatting shortcuts apply to the selected cells."
+      ],
+      "unit_effect": [
+        "The range A1:E1 becomes highlighted.",
+        "The visible text style of the headers changes to bold."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Apply bold formatting to a specified header row so the table structure is easier to read.",
+      "parameters": {
+        "range_start_cell": "A1",
+        "range_end_cell": "E1",
+        "target_range": "A1:E1"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'cell A1 at the start of the header row'}, 'end': {'text': 'cell E1 at the end of the header row'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "When {{target_range}} is visible and ready for formatting, drag from {{range_start_cell}} to {{range_end_cell}} so all cells in the header row are selected together. Preconditions: cells in {{target_range}} are visible and no chart or dialog is covering the header row. After this action, the entire header row {{target_range}} is selected."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'b']}",
+          "action_template": "With {{target_range}} selected, press Ctrl+B so the header labels stand out from the data rows. Preconditions: the header row is selected and LibreOffice Calc is focused and accepts keyboard shortcuts. After this action, the text in {{target_range}} becomes bold."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        14,
+        15,
+        16,
+        17,
+        18
+      ],
+      "unit_intent": "Create and place a line chart that compares Breakfast, Lunch, and Dinner calories across the week.",
+      "unit_type": "INSERT_LINE_CHART",
+      "unit_before_state": "The worksheet shows the completed meal table with the new total column and average row, no chart is inserted yet, and the weekly meal range A1:D8 is available for selection.",
+      "unit_after_state": "A line chart comparing the Breakfast, Lunch, and Dinner series across Monday through Sunday is inserted into the worksheet and positioned below the table so the grid remains readable.",
+      "unit_precondition": [
+        "The weekly data range A1:D8 is visible and should be used as the chart source.",
+        "The toolbar Chart control and Chart Wizard options are available in Calc."
+      ],
+      "unit_effect": [
+        "The range A1:D8 becomes selected as the chart data source.",
+        "The Chart Wizard preview changes to a line chart after the Line option is chosen.",
+        "After Finish, a chart object appears on the sheet.",
+        "After dragging, the chart is visibly located below the table instead of overlapping it."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create and place a line chart that compares specified data series across a category range in a worksheet.",
+      "parameters": {
+        "chart_source_range": "A1:D8",
+        "range_start_cell": "cell A1 at the top-left of the weekly table",
+        "range_end_cell": "cell D8 at the bottom-right of the Sunday row in the Dinner column",
+        "series_names": "Breakfast, Lunch, and Dinner",
+        "category_labels": "Monday through Sunday",
+        "excluded_data": "the Average row and Daily Total column",
+        "placement_area": "the blank worksheet area below row 11"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'cell A1 at the top-left of the weekly table'}, 'end': {'text': 'cell D8 at the bottom-right of the Sunday row in the Dinner column'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "With {{chart_source_range}} visible, drag from {{range_start_cell}} to {{range_end_cell}} to select the chart source data so the chart uses the headers and {{category_labels}} for {{series_names}} while leaving out {{excluded_data}}. This selects {{chart_source_range}} as the chart data source."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Chart button on the toolbar'}}",
+          "action_template": "With {{chart_source_range}} selected and the chart controls visible, click the Chart button to open the Chart Wizard with a default preview based on the selected range."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Line chart type option in the Chart Wizard'}}",
+          "action_template": "With the Chart Wizard active, click the Line option so the selected data is shown as lines across {{category_labels}} for {{series_names}}. The preview changes to a line chart using the selected range."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Finish button in the Chart Wizard'}}",
+          "action_template": "After confirming the preview is a line chart, click Finish to close the Chart Wizard and insert the chart into the worksheet."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the center of the inserted chart object'}, 'end': {'text': 'the blank worksheet area below row 11'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "After the chart is inserted, drag it from its center to {{placement_area}} so it no longer overlaps the table and the worksheet data remains readable."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_07",
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        19
+      ],
+      "unit_intent": "Persist all completed spreadsheet edits to disk.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The worksheet contains the renamed sheet tab, Daily Total column, Average row, bold headers, and the inserted line chart positioned below the table.",
+      "unit_after_state": "The spreadsheet remains open in LibreOffice Calc with all requested edits saved.",
+      "unit_precondition": [
+        "LibreOffice Calc is the active window.",
+        "The editing work is complete and ready to be saved."
+      ],
+      "unit_effect": [
+        "The save command is issued with Ctrl+S.",
+        "The document is saved with the latest worksheet content and chart placement."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the active spreadsheet document so the latest completed edits are written to disk.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 's']}",
+          "action_template": "Press Ctrl+S while LibreOffice Calc is focused and the edits are complete and ready to save, to save the spreadsheet with all of the requested changes."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

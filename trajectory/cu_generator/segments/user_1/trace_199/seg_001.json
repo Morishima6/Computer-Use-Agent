@@ -1,0 +1,841 @@
+{
+  "segment_id": "seg_001",
+  "app": "libreoffice_calc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Select the first empty header cell for the new calculated column",
+      "action_before_state": "The spreadsheet is open in Calc, row 1 contains the existing headers, and column F is empty to the right of the spending columns.",
+      "action_preconditions": [
+        "The active sheet with the weekly expense table is visible.",
+        "Cell F1 is on screen and unused."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell F1 at the top of the empty column to the right of the expense table"
+        }
+      },
+      "action_after_effects": "Cell F1 becomes the active cell, ready for a new header.",
+      "nl_explanation": "When the weekly expense table is visible and column F is empty, click cell F1 so the new summary column can be created there."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Name the new column",
+      "action_before_state": "Cell F1 is active and ready for text entry.",
+      "action_preconditions": [
+        "Cell F1 is selected.",
+        "The header row is editable."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Daily Total"
+      },
+      "action_after_effects": "The text Daily Total is entered into F1.",
+      "nl_explanation": "With F1 selected, type Daily Total so the new calculated column has a clear header."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Select the first result cell under the new header",
+      "action_before_state": "The new header is visible in F1, and the first data row starts on row 2.",
+      "action_preconditions": [
+        "Cell F2 is visible below the new header.",
+        "Row 2 contains the first day's spending values."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell F2 directly below the Daily Total header"
+        }
+      },
+      "action_after_effects": "Cell F2 is selected for the first formula.",
+      "nl_explanation": "After adding the new column header, click F2 so the first daily total formula can be entered in the first data row."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Enter the formula for the first daily total",
+      "action_before_state": "Cell F2 is active, and the spending values for the first day are in columns C through E.",
+      "action_preconditions": [
+        "Cell F2 is selected.",
+        "Cells C2, D2, and E2 contain numeric expense values."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "=SUM(C2:E2)"
+      },
+      "action_after_effects": "The row-total formula is typed into F2 and is ready to be confirmed.",
+      "nl_explanation": "When F2 is active and the first row's spending values are present in C2 through E2, type =SUM(C2:E2) to calculate that day's total."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Confirm the first formula",
+      "action_before_state": "The formula =SUM(C2:E2) is visible in the active cell editor for F2.",
+      "action_preconditions": [
+        "F2 is still being edited.",
+        "The formula text is complete."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "F2 now displays the calculated daily total value.",
+      "nl_explanation": "Once the formula has been typed into F2, press Enter to commit it and show the calculated total for the first row."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Fill the same total formula down the rest of the week",
+      "action_before_state": "F2 contains the first calculated daily total, and rows 3 through 8 still have empty cells in column F.",
+      "action_preconditions": [
+        "Cell F2 contains a valid formula.",
+        "The fill handle on F2 is visible.",
+        "The weekly data ends on row 8."
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the small fill handle at the bottom-right corner of cell F2"
+        },
+        "end": {
+          "text": "cell F8 at the bottom of the Daily Total column"
+        },
+        "target": {
+          "begin": {
+            "text": "the small fill handle at the bottom-right corner of cell F2"
+          },
+          "end": {
+            "text": "cell F8 at the bottom of the Daily Total column"
+          }
+        }
+      },
+      "action_after_effects": "The formula is copied from F2 down through F8, creating daily totals for all rows in the week.",
+      "nl_explanation": "With a working formula in F2 and the rest of the week ending at row 8, drag the fill handle down to F8 so every daily row gets its own total."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Resize the new column so the header and values are fully visible",
+      "action_before_state": "Column F contains the Daily Total header and calculated values, but the width may still be too narrow.",
+      "action_preconditions": [
+        "Column F is visible on screen.",
+        "The border between the F and G column headers can be reached."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 2,
+        "target": {
+          "text": "the right edge of the F column header boundary to auto-fit the column width"
+        }
+      },
+      "action_after_effects": "Column F automatically widens to fit its contents.",
+      "nl_explanation": "When the new total column is visible, double-click the right border of column F so Calc auto-fits the width and the values are easier to read."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Place the cursor in the date column before sorting",
+      "action_before_state": "The table now includes the Daily Total column, and the first date entry is in row 2.",
+      "action_preconditions": [
+        "Cell A2 is visible.",
+        "Column A contains the dates that should control the sort order."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell A2 in the first data row of the Date column"
+        }
+      },
+      "action_after_effects": "A2 becomes the active cell, so the sort action will use the date column context.",
+      "nl_explanation": "Before sorting the weekly records, click A2 inside the Date column so the next sort action is applied using the date-based table context."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Sort the table from earliest date to latest date",
+      "action_before_state": "A cell in the Date column is selected, and the full weekly table is contiguous.",
+      "action_preconditions": [
+        "The active cell is inside the data table.",
+        "The toolbar with sort controls is visible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Sort Ascending button on the Calc toolbar"
+        }
+      },
+      "action_after_effects": "The rows in the table are reordered from the earliest date to the latest date.",
+      "nl_explanation": "With a date cell selected inside the table, click the Sort Ascending toolbar button so the weekly spending rows are arranged from oldest to newest."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Select the spending columns that should use currency formatting",
+      "action_before_state": "The sorted table is visible, and columns C through F contain spending amounts and calculated totals.",
+      "action_preconditions": [
+        "Column headers C, D, E, and F are visible.",
+        "These columns contain numeric money values."
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the C column header for the first spending column"
+        },
+        "end": {
+          "text": "the F column header for the Daily Total column"
+        },
+        "target": {
+          "begin": {
+            "text": "the C column header for the first spending column"
+          },
+          "end": {
+            "text": "the F column header for the Daily Total column"
+          }
+        }
+      },
+      "action_after_effects": "Columns C through F are selected together.",
+      "nl_explanation": "Once the sorted expense table is visible, drag across the column headers from C to F to select all spending-related columns for a shared number format."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Apply currency formatting to the spending columns",
+      "action_before_state": "Columns C through F are selected and ready for a number-formatting change.",
+      "action_preconditions": [
+        "Columns C through F remain highlighted.",
+        "The formatting toolbar is visible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Currency format button on the formatting toolbar"
+        }
+      },
+      "action_after_effects": "Values in columns C through F display as currency amounts.",
+      "nl_explanation": "After selecting columns C through F, click the Currency button so the spending values and totals all show a money format."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Select the cell for the weekly total formula",
+      "action_before_state": "The expense table ends on row 8, and the first empty result cell under the Daily Total column is F9.",
+      "action_preconditions": [
+        "Row 9 is visible under the data table.",
+        "Cell F9 is empty."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell F9 directly below the last daily total"
+        }
+      },
+      "action_after_effects": "F9 becomes the active cell for the weekly summary formula.",
+      "nl_explanation": "When the daily totals finish on row 8 and the empty cell F9 is visible below them, click F9 to place the weekly total there."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Type the weekly total formula",
+      "action_before_state": "F9 is selected and ready for entry.",
+      "action_preconditions": [
+        "Cell F9 is active.",
+        "Daily totals are present in F2 through F8."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "=SUM(F2:F8)"
+      },
+      "action_after_effects": "The weekly total formula is entered into F9 and is waiting to be confirmed.",
+      "nl_explanation": "With F9 selected and the week's totals already filled in F2 through F8, type =SUM(F2:F8) to prepare the overall weekly spending total."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Confirm the weekly total formula",
+      "action_before_state": "The formula =SUM(F2:F8) is visible in the active cell editor for F9.",
+      "action_preconditions": [
+        "F9 is still in edit mode.",
+        "The formula text has been entered completely."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "F9 now shows the calculated weekly total in currency format.",
+      "nl_explanation": "After typing the weekly total formula into F9, press Enter so Calc calculates and displays the final total for the week."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Select the cell for the average-per-day formula",
+      "action_before_state": "The weekly total is now visible in F9, and F10 is empty below it.",
+      "action_preconditions": [
+        "Cell F10 is visible and empty.",
+        "F9 already contains the completed weekly total."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell F10 just below the weekly total"
+        }
+      },
+      "action_after_effects": "F10 becomes the active cell for the average formula.",
+      "nl_explanation": "Once the weekly total is in place and F10 is still empty, click F10 so the average daily spending formula can be added underneath."
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Type the average-per-day formula",
+      "action_before_state": "F10 is selected, and the daily totals from F2 to F8 are still visible above.",
+      "action_preconditions": [
+        "Cell F10 is active.",
+        "The daily totals occupy F2 through F8."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "=AVERAGE(F2:F8)"
+      },
+      "action_after_effects": "The average formula is entered into F10 and is ready to be confirmed.",
+      "nl_explanation": "With F10 active and the daily totals available in F2 through F8, type =AVERAGE(F2:F8) to prepare the average spending per day."
+    },
+    {
+      "step_id": "s17",
+      "step_goal": "Confirm the average-per-day formula",
+      "action_before_state": "The formula =AVERAGE(F2:F8) is visible in the active cell editor for F10.",
+      "action_preconditions": [
+        "F10 is in edit mode.",
+        "The average formula text is complete."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "F10 displays the calculated average daily spending in currency format.",
+      "nl_explanation": "After entering the average formula into F10, press Enter so the average daily spending value is calculated and displayed."
+    },
+    {
+      "step_id": "s18",
+      "step_goal": "Save the completed spreadsheet",
+      "action_before_state": "The table has daily totals, sorted dates, currency formatting, and the two summary formulas added below the data.",
+      "action_preconditions": [
+        "All requested edits are complete.",
+        "LibreOffice Calc is still the active window."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "s"
+        ]
+      },
+      "action_after_effects": "The spreadsheet is saved with the new calculations and formatting.",
+      "nl_explanation": "When all requested spreadsheet edits are finished, press Ctrl+S to save the updated weekly spending summary."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Create the new summary column where per-day spending totals will be stored.",
+      "unit_type": "CREATE_COLUMN_HEADER",
+      "unit_before_state": "LibreOffice Calc shows the weekly household spending sheet with existing headers in row 1, and column F is empty to the right of the spending table.",
+      "unit_after_state": "Cell F1 contains the header text \"Daily Total,\" establishing a new summary column beside the existing spending columns.",
+      "unit_precondition": [
+        "The worksheet with the weekly expense table is open and editable.",
+        "Cell F1 is visible and currently unused."
+      ],
+      "unit_effect": [
+        "A new header labeled \"Daily Total\" appears in cell F1.",
+        "Column F is now clearly designated for calculated daily totals."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Compute daily spending totals for every date in the week.",
+      "unit_type": "POPULATE_CALCULATED_COLUMN",
+      "unit_before_state": "The new \"Daily Total\" header is visible in F1, row 2 is the first data row, and cells F2 through F8 under the new header are empty.",
+      "unit_after_state": "Column F contains calculated daily totals from F2 through F8, with each row summing that row's Groceries, Household, and Transport values.",
+      "unit_precondition": [
+        "The \"Daily Total\" header already exists in F1.",
+        "Cells C2 through E8 contain the numeric expense values for the week.",
+        "Cell F2 and the fill handle are visible and usable."
+      ],
+      "unit_effect": [
+        "F2 displays the calculated result of the first formula instead of raw formula text.",
+        "The formula is filled down through F8, so every data row now has a daily total in column F."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7
+      ],
+      "unit_intent": "Make the new total column readable without truncated header or values.",
+      "unit_type": "AUTOFIT_COLUMN_WIDTH",
+      "unit_before_state": "Column F contains the \"Daily Total\" header and computed totals, but the column may be too narrow to show them cleanly.",
+      "unit_after_state": "Column F is widened to fit its header and displayed values automatically.",
+      "unit_precondition": [
+        "Column F is visible on screen.",
+        "The boundary between column headers F and G can be accessed."
+      ],
+      "unit_effect": [
+        "The width of column F changes immediately.",
+        "The \"Daily Total\" header and totals become fully visible without clipping."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8,
+        9
+      ],
+      "unit_intent": "Reorder the weekly records chronologically from the earliest date to the latest.",
+      "unit_type": "SORT_TABLE_ASCENDING",
+      "unit_before_state": "The table includes the new Daily Total column, and the weekly rows are visible with date values in column A.",
+      "unit_after_state": "The table rows are sorted in ascending order by date, from earliest at the top to latest at the bottom.",
+      "unit_precondition": [
+        "The date column is present in column A and contains sortable date values.",
+        "A cell inside the data table can be selected.",
+        "The Sort Ascending control is available on the toolbar."
+      ],
+      "unit_effect": [
+        "A cell in the Date column becomes the active context for sorting.",
+        "The visible row order changes so dates progress from oldest to newest."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        10,
+        11
+      ],
+      "unit_intent": "Format all spending-related values as currency for a clean financial summary.",
+      "unit_type": "APPLY_CURRENCY_FORMAT",
+      "unit_before_state": "The sorted table is visible, and columns C, D, E, and F contain numeric spending values and computed totals in a generic number format.",
+      "unit_after_state": "Columns C through F display their values using a currency format across all visible weekly spending rows.",
+      "unit_precondition": [
+        "Columns C through F are visible.",
+        "These columns contain numeric monetary values.",
+        "The currency formatting control is available on the toolbar."
+      ],
+      "unit_effect": [
+        "Columns C through F become selected together.",
+        "The numbers in columns C through F change appearance to currency amounts with money formatting."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        12,
+        13,
+        14
+      ],
+      "unit_intent": "Add a weekly total beneath the Daily Total column.",
+      "unit_type": "INSERT_SUMMARY_FORMULA",
+      "unit_before_state": "Daily totals are present in F2 through F8, and cell F9 directly below them is empty.",
+      "unit_after_state": "Cell F9 shows the computed weekly total for all daily totals and is displayed in currency format.",
+      "unit_precondition": [
+        "Cells F2 through F8 already contain the completed daily totals.",
+        "Cell F9 is visible and empty.",
+        "The sheet is still editable."
+      ],
+      "unit_effect": [
+        "The formula =SUM(F2:F8) is committed in F9.",
+        "F9 displays a single aggregated weekly total beneath the daily totals."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        15,
+        16,
+        17
+      ],
+      "unit_intent": "Add the average daily spending value beneath the weekly total.",
+      "unit_type": "INSERT_AVERAGE_FORMULA",
+      "unit_before_state": "The weekly total is visible in F9, and the next cell below it, F10, is empty.",
+      "unit_after_state": "Cell F10 shows the computed average of the daily totals in currency format.",
+      "unit_precondition": [
+        "Cells F2 through F8 contain the daily totals to average.",
+        "F9 already contains the completed weekly total.",
+        "Cell F10 is visible and empty."
+      ],
+      "unit_effect": [
+        "The formula =AVERAGE(F2:F8) is committed in F10.",
+        "F10 displays the average per day directly below the weekly total."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_08",
+      "step_indices": [
+        18
+      ],
+      "unit_intent": "Persist the completed weekly spending summary to disk.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The sheet now includes the Daily Total column, sorted dates, currency formatting, a weekly total in F9, and an average per day in F10.",
+      "unit_after_state": "The spreadsheet remains open in Calc with the latest edits saved.",
+      "unit_precondition": [
+        "All requested edits are complete.",
+        "LibreOffice Calc is the active application window."
+      ],
+      "unit_effect": [
+        "The save shortcut is executed.",
+        "The workbook is saved with the new calculations, ordering, and formatting preserved."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Create the new summary column where per-day spending totals will be stored.",
+      "unit_type": "CREATE_COLUMN_HEADER",
+      "unit_before_state": "LibreOffice Calc shows the weekly household spending sheet with existing headers in row 1, and column F is empty to the right of the spending table.",
+      "unit_after_state": "Cell F1 contains the header text \"Daily Total,\" establishing a new summary column beside the existing spending columns.",
+      "unit_precondition": [
+        "The worksheet with the weekly expense table is open and editable.",
+        "Cell F1 is visible and currently unused."
+      ],
+      "unit_effect": [
+        "A new header labeled \"Daily Total\" appears in cell F1.",
+        "Column F is now clearly designated for calculated daily totals."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a new summary column by entering a specified header label into an empty header cell.",
+      "parameters": {
+        "target_header_cell": "F1",
+        "header_text": "Daily Total"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell F1 at the top of the empty column to the right of the expense table'}}",
+          "action_template": "When the relevant worksheet is visible and {{target_header_cell}} is on screen and unused, click {{target_header_cell}} so the new summary column can be created there and the cell becomes active for header entry."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Daily Total'}",
+          "action_template": "With {{target_header_cell}} selected and the header row editable, type {{header_text}} so the new calculated column has a clear header and {{header_text}} is entered into {{target_header_cell}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Compute daily spending totals for every date in the week.",
+      "unit_type": "POPULATE_CALCULATED_COLUMN",
+      "unit_before_state": "The new \"Daily Total\" header is visible in F1, row 2 is the first data row, and cells F2 through F8 under the new header are empty.",
+      "unit_after_state": "Column F contains calculated daily totals from F2 through F8, with each row summing that row's Groceries, Household, and Transport values.",
+      "unit_precondition": [
+        "The \"Daily Total\" header already exists in F1.",
+        "Cells C2 through E8 contain the numeric expense values for the week.",
+        "Cell F2 and the fill handle are visible and usable."
+      ],
+      "unit_effect": [
+        "F2 displays the calculated result of the first formula instead of raw formula text.",
+        "The formula is filled down through F8, so every data row now has a daily total in column F."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Populate a totals column by entering a row-sum formula in the first result cell and filling it down through the target data rows.",
+      "parameters": {
+        "target_result_cell": "cell F2 directly below the Daily Total header",
+        "source_value_range_first_row": "C2:E2",
+        "formula_text": "=SUM(C2:E2)",
+        "fill_handle_origin": "the small fill handle at the bottom-right corner of cell F2",
+        "fill_end_cell": "cell F8 at the bottom of the Daily Total column"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell F2 directly below the Daily Total header'}}",
+          "action_template": "Click {{target_result_cell}} after the totals column header is visible and the first data row is ready, so the first row-total formula can be entered there."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '=SUM(C2:E2)'}",
+          "action_template": "Type {{formula_text}} into {{target_result_cell}} when that cell is selected and the first row's numeric values are present in {{source_value_range_first_row}}, so the row-total formula is ready to be confirmed."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter once {{formula_text}} is complete in {{target_result_cell}} to commit the formula and display the calculated total in that cell."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the small fill handle at the bottom-right corner of cell F2'}, 'end': {'text': 'cell F8 at the bottom of the Daily Total column'}, 'target': {'begin': {'text': 'the small fill handle at the bottom-right corner of cell F2'}, 'end': {'text': 'cell F8 at the bottom of the Daily Total column'}}}",
+          "action_template": "Drag the fill handle from {{fill_handle_origin}} to {{fill_end_cell}} after {{target_result_cell}} contains a valid formula, so the same total formula is copied through the remaining target rows."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7
+      ],
+      "unit_intent": "Make the new total column readable without truncated header or values.",
+      "unit_type": "AUTOFIT_COLUMN_WIDTH",
+      "unit_before_state": "Column F contains the \"Daily Total\" header and computed totals, but the column may be too narrow to show them cleanly.",
+      "unit_after_state": "Column F is widened to fit its header and displayed values automatically.",
+      "unit_precondition": [
+        "Column F is visible on screen.",
+        "The boundary between column headers F and G can be accessed."
+      ],
+      "unit_effect": [
+        "The width of column F changes immediately.",
+        "The \"Daily Total\" header and totals become fully visible without clipping."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Automatically adjust a specified column width so its header and cell contents are fully visible.",
+      "parameters": {
+        "target_column": "F",
+        "adjacent_column": "G"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 2, 'target': {'text': 'the right edge of the F column header boundary to auto-fit the column width'}}",
+          "action_template": "When column {{target_column}} is visible, double-click the right border between column {{target_column}} and column {{adjacent_column}} to auto-fit the width. Preconditions: column {{target_column}} is visible on screen and the border between column {{target_column}} and column {{adjacent_column}} can be reached. After effect: column {{target_column}} automatically widens to fit its contents."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8,
+        9
+      ],
+      "unit_intent": "Reorder the weekly records chronologically from the earliest date to the latest.",
+      "unit_type": "SORT_TABLE_ASCENDING",
+      "unit_before_state": "The table includes the new Daily Total column, and the weekly rows are visible with date values in column A.",
+      "unit_after_state": "The table rows are sorted in ascending order by date, from earliest at the top to latest at the bottom.",
+      "unit_precondition": [
+        "The date column is present in column A and contains sortable date values.",
+        "A cell inside the data table can be selected.",
+        "The Sort Ascending control is available on the toolbar."
+      ],
+      "unit_effect": [
+        "A cell in the Date column becomes the active context for sorting.",
+        "The visible row order changes so dates progress from oldest to newest."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Reorder the table rows chronologically by sorting {{sort_column}} in ascending order.",
+      "parameters": {
+        "sort_column": "Date column",
+        "sort_context_cell": "cell A2 in the first data row of the Date column",
+        "sort_control": "the Sort Ascending button on the Calc toolbar"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell A2 in the first data row of the Date column'}}",
+          "action_template": "Click {{sort_context_cell}} inside {{sort_column}} so the next sort action uses that table context, when {{sort_context_cell}} is visible and {{sort_column}} contains the values that should control the sort order; this makes the selected cell the active context for sorting."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Sort Ascending button on the Calc toolbar'}}",
+          "action_template": "Click {{sort_control}} after a cell inside the data table is active and the sort toolbar is visible so the rows are reordered from the earliest {{sort_column}} value to the latest."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        10,
+        11
+      ],
+      "unit_intent": "Format all spending-related values as currency for a clean financial summary.",
+      "unit_type": "APPLY_CURRENCY_FORMAT",
+      "unit_before_state": "The sorted table is visible, and columns C, D, E, and F contain numeric spending values and computed totals in a generic number format.",
+      "unit_after_state": "Columns C through F display their values using a currency format across all visible weekly spending rows.",
+      "unit_precondition": [
+        "Columns C through F are visible.",
+        "These columns contain numeric monetary values.",
+        "The currency formatting control is available on the toolbar."
+      ],
+      "unit_effect": [
+        "Columns C through F become selected together.",
+        "The numbers in columns C through F change appearance to currency amounts with money formatting."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Apply currency formatting to a specified contiguous range of spreadsheet columns containing monetary values.",
+      "parameters": {
+        "target_column_range": "columns C through F",
+        "range_start_header": "the C column header for the first spending column",
+        "range_end_header": "the F column header for the Daily Total column"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the C column header for the first spending column'}, 'end': {'text': 'the F column header for the Daily Total column'}, 'target': {'begin': {'text': 'the C column header for the first spending column'}, 'end': {'text': 'the F column header for the Daily Total column'}}}",
+          "action_template": "Drag across the column headers from {{range_start_header}} to {{range_end_header}} once the monetary columns are visible so {{target_column_range}} are selected together for a shared number format. After this action, {{target_column_range}} are highlighted."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Currency format button on the formatting toolbar'}}",
+          "action_template": "With {{target_column_range}} still highlighted and the formatting toolbar visible, click the Currency format button on the formatting toolbar to apply money formatting to the selected columns. After this action, the values in {{target_column_range}} display as currency amounts."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        12,
+        13,
+        14
+      ],
+      "unit_intent": "Add a weekly total beneath the Daily Total column.",
+      "unit_type": "INSERT_SUMMARY_FORMULA",
+      "unit_before_state": "Daily totals are present in F2 through F8, and cell F9 directly below them is empty.",
+      "unit_after_state": "Cell F9 shows the computed weekly total for all daily totals and is displayed in currency format.",
+      "unit_precondition": [
+        "Cells F2 through F8 already contain the completed daily totals.",
+        "Cell F9 is visible and empty.",
+        "The sheet is still editable."
+      ],
+      "unit_effect": [
+        "The formula =SUM(F2:F8) is committed in F9.",
+        "F9 displays a single aggregated weekly total beneath the daily totals."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Insert a summary total formula into an empty cell directly below a completed range of totals and calculate the aggregated result.",
+      "parameters": {
+        "target_cell": "F9",
+        "source_range": "F2:F8",
+        "summary_formula": "=SUM(F2:F8)"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell F9 directly below the last daily total'}}",
+          "action_template": "When the completed totals end above and the empty cell {{target_cell}} is visible below them, click {{target_cell}} to place the summary total there. Preconditions: the target row is visible under the data table, and {{target_cell}} is empty. After this action, {{target_cell}} becomes the active cell for the summary formula."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '=SUM(F2:F8)'}",
+          "action_template": "With {{target_cell}} selected and the totals already filled in {{source_range}}, type {{summary_formula}} to prepare the overall summary total. Preconditions: {{target_cell}} is active, and totals are present in {{source_range}}. After this action, the summary formula is entered into {{target_cell}} and is waiting to be confirmed."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After typing the summary formula into {{target_cell}}, press Enter so Calc calculates and displays the aggregated total. Preconditions: {{target_cell}} is still in edit mode, and {{summary_formula}} has been entered completely. After this action, {{target_cell}} shows the calculated summary total."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_07",
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        15,
+        16,
+        17
+      ],
+      "unit_intent": "Add the average daily spending value beneath the weekly total.",
+      "unit_type": "INSERT_AVERAGE_FORMULA",
+      "unit_before_state": "The weekly total is visible in F9, and the next cell below it, F10, is empty.",
+      "unit_after_state": "Cell F10 shows the computed average of the daily totals in currency format.",
+      "unit_precondition": [
+        "Cells F2 through F8 contain the daily totals to average.",
+        "F9 already contains the completed weekly total.",
+        "Cell F10 is visible and empty."
+      ],
+      "unit_effect": [
+        "The formula =AVERAGE(F2:F8) is committed in F10.",
+        "F10 displays the average per day directly below the weekly total."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Insert an average formula into a target cell below a summary total so the mean of a specified range is displayed.",
+      "parameters": {
+        "target_cell": "F10",
+        "reference_total_cell": "F9",
+        "source_range": "F2:F8"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "CLICK",
+          "action_template": "When {{target_cell}} is visible and empty below {{reference_total_cell}}, click {{target_cell}} to make it the active cell for entering the average formula."
+        },
+        {
+          "action": "TYPING",
+          "action_template": "With {{target_cell}} active and the values to average available in {{source_range}}, type =AVERAGE({{source_range}}) so the average formula is entered into {{target_cell}} and ready to be confirmed."
+        },
+        {
+          "action": "PRESS",
+          "action_template": "After =AVERAGE({{source_range}}) has been entered in {{target_cell}}, press Enter to calculate and display the average result in {{target_cell}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_08",
+      "unit_id": "u_seg_001_08",
+      "step_indices": [
+        18
+      ],
+      "unit_intent": "Persist the completed weekly spending summary to disk.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The sheet now includes the Daily Total column, sorted dates, currency formatting, a weekly total in F9, and an average per day in F10.",
+      "unit_after_state": "The spreadsheet remains open in Calc with the latest edits saved.",
+      "unit_precondition": [
+        "All requested edits are complete.",
+        "LibreOffice Calc is the active application window."
+      ],
+      "unit_effect": [
+        "The save shortcut is executed.",
+        "The workbook is saved with the new calculations, ordering, and formatting preserved."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the current spreadsheet after completing the intended edits.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 's']}",
+          "action_template": "When all requested spreadsheet edits are complete and LibreOffice Calc is still the active window, press Ctrl+S to save the current spreadsheet so the new calculations and formatting are preserved."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

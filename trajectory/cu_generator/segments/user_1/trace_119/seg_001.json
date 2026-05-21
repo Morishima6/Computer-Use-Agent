@@ -1,0 +1,681 @@
+{
+  "segment_id": "seg_001",
+  "app": "gimp",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Activate the crop tool",
+      "action_before_state": "GIMP is open on GNOME with a photo visible on the main canvas, and the toolbox and top menu bar are visible.",
+      "action_preconditions": [
+        "An image is already open in the main editing area",
+        "The GIMP window is focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "shift",
+          "c"
+        ]
+      },
+      "action_after_effects": "The Crop Tool becomes active, and crop handles are ready to be drawn on the image.",
+      "nl_explanation": "When the image is open and GIMP is focused, press Shift+C to switch to the Crop Tool. The expected result is that GIMP is ready for drawing a crop region on the canvas."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Enable a fixed crop ratio",
+      "action_before_state": "The Crop Tool is active and its options are visible in the tool options area.",
+      "action_preconditions": [
+        "The Crop Tool is selected",
+        "The Tool Options panel shows the crop settings"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Fixed checkbox in the Crop Tool options"
+        }
+      },
+      "action_after_effects": "The fixed-ratio option is enabled for the crop tool.",
+      "nl_explanation": "Once the crop settings are visible, click the Fixed checkbox so the crop can use a controlled proportion instead of a freeform shape."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Focus the ratio field",
+      "action_before_state": "The Fixed crop option is enabled, and the ratio field next to it is visible.",
+      "action_preconditions": [
+        "The Fixed checkbox is already enabled",
+        "The aspect ratio input box is visible in Tool Options"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the aspect ratio input box in the Crop Tool options"
+        }
+      },
+      "action_after_effects": "The ratio input field is focused and ready for text entry.",
+      "nl_explanation": "With fixed cropping enabled, click into the ratio field so the next text input changes the crop proportion."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Set the crop ratio to a square",
+      "action_before_state": "The crop ratio field is active and ready for typing.",
+      "action_preconditions": [
+        "The ratio input field has keyboard focus"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "1:1"
+      },
+      "action_after_effects": "The crop tool is configured to keep a square 1:1 aspect ratio.",
+      "nl_explanation": "After focusing the ratio box, type 1:1 so the crop stays square while you draw it on the image."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Draw the square crop area",
+      "action_before_state": "The Crop Tool is set to a fixed 1:1 ratio, and the photo is visible on the canvas.",
+      "action_preconditions": [
+        "The image content is visible",
+        "The Crop Tool is active with a 1:1 ratio"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "near the upper-left area of the part of the photo you want to keep"
+        },
+        "end": {
+          "text": "near the lower-right area so the crop box covers the main subject in a square"
+        },
+        "target": {
+          "begin": {
+            "text": "the canvas area near the upper-left of the desired crop region"
+          },
+          "end": {
+            "text": "the canvas area near the lower-right of the desired crop region"
+          }
+        }
+      },
+      "action_after_effects": "A square crop frame appears over the image, showing the area that will be kept.",
+      "nl_explanation": "When the crop tool is locked to 1:1, drag across the part of the image you want to keep. GIMP should show a square crop frame over the selected area."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Apply the crop",
+      "action_before_state": "A square crop frame is visible on the image canvas.",
+      "action_preconditions": [
+        "The crop rectangle is already positioned over the desired area"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The image is cropped to the selected square region.",
+      "nl_explanation": "After the square crop frame is in the right place, press Enter to commit it. The canvas should update to show only the cropped square image."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Open the Colors menu",
+      "action_before_state": "The square-cropped image is visible, and the top menu bar is available.",
+      "action_preconditions": [
+        "The image has already been cropped",
+        "The main GIMP menu bar is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Colors menu in the top menu bar"
+        }
+      },
+      "action_after_effects": "The Colors dropdown menu opens.",
+      "nl_explanation": "With the cropped image visible, click Colors in the top menu to access image adjustment tools."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Open the brightness adjustment dialog",
+      "action_before_state": "The Colors menu is expanded and shows adjustment options.",
+      "action_preconditions": [
+        "The Colors dropdown is open",
+        "Brightness-Contrast is visible in the menu"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "Brightness-Contrast in the Colors menu"
+        }
+      },
+      "action_after_effects": "The Brightness-Contrast dialog appears over the image.",
+      "nl_explanation": "From the Colors menu, click Brightness-Contrast so the image brightness can be adjusted before export."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Increase the brightness slightly",
+      "action_before_state": "The Brightness-Contrast dialog is open, with the Brightness slider visible.",
+      "action_preconditions": [
+        "The Brightness-Contrast dialog is open",
+        "The Brightness slider knob is visible"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the Brightness slider knob in the dialog"
+        },
+        "end": {
+          "text": "slightly to the right on the Brightness slider"
+        },
+        "target": {
+          "begin": {
+            "text": "the Brightness slider knob"
+          },
+          "end": {
+            "text": "a position slightly to the right on the Brightness slider track"
+          }
+        }
+      },
+      "action_after_effects": "The preview image becomes a bit brighter.",
+      "nl_explanation": "When the Brightness-Contrast window is open, drag the Brightness slider a small amount to the right. The preview should update immediately with a slightly brighter image."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Confirm the brightness change",
+      "action_before_state": "The Brightness-Contrast dialog is still open and the preview looks brighter.",
+      "action_preconditions": [
+        "The brightness has already been adjusted to the desired level"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the OK button in the Brightness-Contrast dialog"
+        }
+      },
+      "action_after_effects": "The dialog closes and the brightness adjustment is applied to the image.",
+      "nl_explanation": "After the preview looks right, click OK to apply the brightness change to the edited image."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Activate the text tool",
+      "action_before_state": "The adjusted square image is visible on the canvas.",
+      "action_preconditions": [
+        "The image is still open in the main canvas",
+        "The GIMP window remains focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "t"
+        ]
+      },
+      "action_after_effects": "The Text Tool becomes active and is ready to create a text box on the image.",
+      "nl_explanation": "With the image prepared, press T to switch to the Text Tool so a caption can be added directly onto the picture."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Create a text box near the bottom of the image",
+      "action_before_state": "The Text Tool is active and the lower portion of the image is visible.",
+      "action_preconditions": [
+        "The Text Tool is selected",
+        "There is open space near the bottom of the image for a label"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the lower-left area of the image canvas"
+        },
+        "end": {
+          "text": "the lower-right area of the image canvas to make a wide text box"
+        },
+        "target": {
+          "begin": {
+            "text": "the lower-left area of the image canvas"
+          },
+          "end": {
+            "text": "the lower-right area of the image canvas"
+          }
+        }
+      },
+      "action_after_effects": "A text box appears on the image with a text cursor ready for typing.",
+      "nl_explanation": "After selecting the Text Tool, drag across the lower part of the image to create a wide text box. GIMP should show a text area with the caret active."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Enter the sale label text",
+      "action_before_state": "The text box is active and ready for keyboard input.",
+      "action_preconditions": [
+        "A text box is open on the image",
+        "The text cursor is visible inside the box"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "BAKE SALE"
+      },
+      "action_after_effects": "The words BAKE SALE appear inside the text box on the image.",
+      "nl_explanation": "When the text cursor is active inside the new text box, type BAKE SALE. The label should immediately appear on the image."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Open the export dialog",
+      "action_before_state": "The final edited image is visible with the crop, brightness adjustment, and text added.",
+      "action_preconditions": [
+        "All desired edits are already visible on the canvas"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "shift",
+          "ctrl",
+          "e"
+        ]
+      },
+      "action_after_effects": "The Export Image dialog opens.",
+      "nl_explanation": "Once the image is fully edited, press Shift+Ctrl+E to open GIMP's export dialog for saving a shareable JPEG copy."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Enter the export location and file name",
+      "action_before_state": "The Export Image dialog is open and the filename/location field is ready for input.",
+      "action_preconditions": [
+        "The export dialog is open",
+        "The filename field is editable"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "/home/user/Desktop/bake_sale_square.jpg"
+      },
+      "action_after_effects": "The export path and JPEG filename are filled into the dialog.",
+      "nl_explanation": "With the export window open, type the full desktop path and filename ending in .jpg so the result will be saved as a JPEG on the desktop."
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Start the export",
+      "action_before_state": "The export filename field contains the desired desktop JPEG path.",
+      "action_preconditions": [
+        "A valid export path and file name have been entered"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "GIMP moves to the JPEG export quality settings stage.",
+      "nl_explanation": "After entering the destination path and file name, press Enter to confirm the path. GIMP will advance to the JPEG quality settings dialog."
+    },
+    {
+      "step_id": "s17",
+      "step_goal": "Complete the JPEG export",
+      "action_before_state": "The JPEG export quality settings dialog is visible with an Export button.",
+      "action_preconditions": [
+        "The JPEG export settings dialog is open",
+        "The Export button is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Export button in the JPEG export dialog"
+        }
+      },
+      "action_after_effects": "The edited image is exported as a JPEG to the desktop, completing the task.",
+      "nl_explanation": "When the final JPEG export dialog appears, click Export to save the finished square bake sale image to the desktop."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Prepare GIMP's crop tool to enforce a square 1:1 crop before selecting the final framing.",
+      "unit_type": "CONFIGURE_SQUARE_CROP",
+      "unit_before_state": "GIMP is focused with the original photo open on the canvas, and the toolbox, tool options area, and top menu bar are visible.",
+      "unit_after_state": "The Crop Tool is active in Tool Options, the Fixed option is enabled, and the aspect ratio field is filled with 1:1 so the next crop region will stay square.",
+      "unit_precondition": [
+        "A photo is already open in the main GIMP canvas.",
+        "The GIMP window is focused and the Crop Tool options can be accessed."
+      ],
+      "unit_effect": [
+        "The Crop Tool becomes the active tool.",
+        "The Fixed checkbox is checked in Tool Options.",
+        "The ratio input shows 1:1 and is ready for square cropping."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Crop the photo down to the desired square composition for social-media use.",
+      "unit_type": "APPLY_SQUARE_CROP",
+      "unit_before_state": "The Crop Tool is configured for a fixed 1:1 ratio, and the uncropped photo is visible on the canvas.",
+      "unit_after_state": "The canvas shows only the selected square portion of the image, with the crop committed and the rest removed.",
+      "unit_precondition": [
+        "The Crop Tool is active and set to a fixed 1:1 ratio.",
+        "The photo is visible and the user can drag a crop box over the area to keep."
+      ],
+      "unit_effect": [
+        "A square crop frame appears over the chosen area of the image.",
+        "After pressing Enter, the canvas refreshes to the cropped square image."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8,
+        9,
+        10
+      ],
+      "unit_intent": "Brighten the cropped image slightly to improve its appearance before adding text and exporting.",
+      "unit_type": "ADJUST_BRIGHTNESS",
+      "unit_before_state": "The square-cropped image is visible in the main GIMP window, and the top menu bar is available.",
+      "unit_after_state": "The Brightness-Contrast dialog is closed, and the square image remains on the canvas with a slightly brighter appearance applied.",
+      "unit_precondition": [
+        "The image has already been cropped and is visible on the canvas.",
+        "The Colors menu and Brightness-Contrast command are available from the menu bar."
+      ],
+      "unit_effect": [
+        "The Colors menu opens and the Brightness-Contrast dialog appears.",
+        "Dragging the Brightness slider makes the preview image visibly brighter.",
+        "Clicking OK closes the dialog and leaves the brighter version applied on the canvas."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        11,
+        12,
+        13
+      ],
+      "unit_intent": "Add the promotional label 'BAKE SALE' near the bottom of the image.",
+      "unit_type": "ADD_TEXT_LABEL",
+      "unit_before_state": "The brightened square image is visible on the canvas with no new text box yet placed, and GIMP is ready for another editing tool selection.",
+      "unit_after_state": "A text box is placed near the bottom of the image, and the words BAKE SALE are visible inside it on the canvas.",
+      "unit_precondition": [
+        "The edited image is still open and visible on the canvas.",
+        "There is enough visible space near the bottom of the image to place a text box."
+      ],
+      "unit_effect": [
+        "The Text Tool becomes active.",
+        "A text box appears near the bottom of the image with a text caret.",
+        "The text BAKE SALE is rendered inside the new text box on the image."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        14,
+        15,
+        16,
+        17
+      ],
+      "unit_intent": "Export the finished bake sale image as a JPEG file on the desktop.",
+      "unit_type": "EXPORT_AS_JPEG",
+      "unit_before_state": "The finished edited image is visible in GIMP with the square crop, brighter appearance, and BAKE SALE text already present on the canvas.",
+      "unit_after_state": "The export dialogs are completed, and the finished image has been saved as /home/user/Desktop/bake_sale_square.jpg in JPEG format.",
+      "unit_precondition": [
+        "All intended edits are already visible on the canvas.",
+        "GIMP can open the Export Image dialog and accept a writable desktop file path."
+      ],
+      "unit_effect": [
+        "The Export Image dialog opens after the export shortcut is pressed.",
+        "The filename field contains /home/user/Desktop/bake_sale_square.jpg.",
+        "After confirming the path, the JPEG export settings dialog appears.",
+        "Clicking Export completes the save and produces the JPEG file on the desktop."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Prepare GIMP's crop tool to enforce a square 1:1 crop before selecting the final framing.",
+      "unit_type": "CONFIGURE_SQUARE_CROP",
+      "unit_before_state": "GIMP is focused with the original photo open on the canvas, and the toolbox, tool options area, and top menu bar are visible.",
+      "unit_after_state": "The Crop Tool is active in Tool Options, the Fixed option is enabled, and the aspect ratio field is filled with 1:1 so the next crop region will stay square.",
+      "unit_precondition": [
+        "A photo is already open in the main GIMP canvas.",
+        "The GIMP window is focused and the Crop Tool options can be accessed."
+      ],
+      "unit_effect": [
+        "The Crop Tool becomes the active tool.",
+        "The Fixed checkbox is checked in Tool Options.",
+        "The ratio input shows 1:1 and is ready for square cropping."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Configure GIMP's Crop Tool to enforce a fixed {{aspect_ratio_value}} crop ratio before selecting the crop region.",
+      "parameters": {
+        "aspect_ratio_value": "1:1"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['shift', 'c']}",
+          "action_template": "When an image is already open in the main editing area and the GIMP window is focused, press Shift+C to switch to the Crop Tool so crop handles are ready to be drawn on the image."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Fixed checkbox in the Crop Tool options'}}",
+          "action_template": "With the Crop Tool selected and the Tool Options panel showing the crop settings, click the Fixed checkbox in the Crop Tool options to enable fixed-ratio cropping."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the aspect ratio input box in the Crop Tool options'}}",
+          "action_template": "After the Fixed checkbox is enabled and the aspect ratio input box is visible in Tool Options, click the aspect ratio input box in the Crop Tool options to focus it for text entry."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '1:1'}",
+          "action_template": "When the ratio input field has keyboard focus, type {{aspect_ratio_value}} so the Crop Tool is configured to keep the specified fixed aspect ratio while you draw it on the image."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Crop the photo down to the desired square composition for social-media use.",
+      "unit_type": "APPLY_SQUARE_CROP",
+      "unit_before_state": "The Crop Tool is configured for a fixed 1:1 ratio, and the uncropped photo is visible on the canvas.",
+      "unit_after_state": "The canvas shows only the selected square portion of the image, with the crop committed and the rest removed.",
+      "unit_precondition": [
+        "The Crop Tool is active and set to a fixed 1:1 ratio.",
+        "The photo is visible and the user can drag a crop box over the area to keep."
+      ],
+      "unit_effect": [
+        "A square crop frame appears over the chosen area of the image.",
+        "After pressing Enter, the canvas refreshes to the cropped square image."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Crop an image to a specified aspect ratio by selecting the area to keep and committing the crop.",
+      "parameters": {
+        "crop_ratio": "1:1"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'near the upper-left area of the part of the photo you want to keep'}, 'end': {'text': 'near the lower-right area so the crop box covers the main subject in a square'}, 'target': {'begin': {'text': 'the canvas area near the upper-left of the desired crop region'}, 'end': {'text': 'the canvas area near the lower-right of the desired crop region'}}}",
+          "action_template": "When the Crop Tool is active with a fixed {{crop_ratio}} ratio and the image content is visible, drag across the part of the image you want to keep to draw the crop area. A crop frame should appear over the image, showing the area that will be kept."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter to commit the crop after the crop rectangle is positioned over the desired area. The canvas should update to show only the cropped image."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8,
+        9,
+        10
+      ],
+      "unit_intent": "Brighten the cropped image slightly to improve its appearance before adding text and exporting.",
+      "unit_type": "ADJUST_BRIGHTNESS",
+      "unit_before_state": "The square-cropped image is visible in the main GIMP window, and the top menu bar is available.",
+      "unit_after_state": "The Brightness-Contrast dialog is closed, and the square image remains on the canvas with a slightly brighter appearance applied.",
+      "unit_precondition": [
+        "The image has already been cropped and is visible on the canvas.",
+        "The Colors menu and Brightness-Contrast command are available from the menu bar."
+      ],
+      "unit_effect": [
+        "The Colors menu opens and the Brightness-Contrast dialog appears.",
+        "Dragging the Brightness slider makes the preview image visibly brighter.",
+        "Clicking OK closes the dialog and leaves the brighter version applied on the canvas."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Adjust the current image's brightness upward by a specified amount using the Brightness-Contrast dialog.",
+      "parameters": {
+        "brightness_slider_offset": "a small amount to the right",
+        "target_brightness_result": "a slightly brighter image"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Colors menu in the top menu bar'}}",
+          "action_template": "With the current image visible and the main GIMP menu bar available, click Colors in the top menu to access image adjustment tools. Afterward, the Colors dropdown menu opens."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'Brightness-Contrast in the Colors menu'}}",
+          "action_template": "With the Colors dropdown open and Brightness-Contrast visible in the menu, click Brightness-Contrast so the image brightness can be adjusted. Afterward, the Brightness-Contrast dialog appears over the image."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the Brightness slider knob in the dialog'}, 'end': {'text': 'slightly to the right on the Brightness slider'}, 'target': {'begin': {'text': 'the Brightness slider knob'}, 'end': {'text': 'a position slightly to the right on the Brightness slider track'}}}",
+          "action_template": "With the Brightness-Contrast dialog open and the Brightness slider knob visible, drag the Brightness slider {{brightness_slider_offset}} so the preview updates to {{target_brightness_result}}. Afterward, the preview image becomes brighter."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the OK button in the Brightness-Contrast dialog'}}",
+          "action_template": "When the brightness has already been adjusted to the desired level and the preview looks right, click the OK button in the Brightness-Contrast dialog to apply the brightness change to the edited image. Afterward, the dialog closes and the brightness adjustment is applied to the image."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        11,
+        12,
+        13
+      ],
+      "unit_intent": "Add the promotional label 'BAKE SALE' near the bottom of the image.",
+      "unit_type": "ADD_TEXT_LABEL",
+      "unit_before_state": "The brightened square image is visible on the canvas with no new text box yet placed, and GIMP is ready for another editing tool selection.",
+      "unit_after_state": "A text box is placed near the bottom of the image, and the words BAKE SALE are visible inside it on the canvas.",
+      "unit_precondition": [
+        "The edited image is still open and visible on the canvas.",
+        "There is enough visible space near the bottom of the image to place a text box."
+      ],
+      "unit_effect": [
+        "The Text Tool becomes active.",
+        "A text box appears near the bottom of the image with a text caret.",
+        "The text BAKE SALE is rendered inside the new text box on the image."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Add a specified text label in a target area of the image.",
+      "parameters": {
+        "target_area": "near the bottom of the image",
+        "drag_start_region": "the lower-left area of the image canvas",
+        "drag_end_region": "the lower-right area of the image canvas to make a wide text box",
+        "input_text": "BAKE SALE"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['t']}",
+          "action_template": "Press T to switch to the Text Tool so a caption can be added directly onto the picture. Preconditions: the image is still open in the main canvas and the GIMP window remains focused. After this action, the Text Tool becomes active and is ready to create a text box on the image."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the lower-left area of the image canvas'}, 'end': {'text': 'the lower-right area of the image canvas to make a wide text box'}, 'target': {'begin': {'text': 'the lower-left area of the image canvas'}, 'end': {'text': 'the lower-right area of the image canvas'}}}",
+          "action_template": "After selecting the Text Tool, drag from {{drag_start_region}} to {{drag_end_region}} to create a wide text box in {{target_area}}. Preconditions: the Text Tool is selected and there is open space near the bottom of the image for a label. After this action, a text box appears on the image with a text cursor ready for typing."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'BAKE SALE'}",
+          "action_template": "When the text cursor is active inside the new text box, type {{input_text}}. Preconditions: a text box is open on the image and the text cursor is visible inside the box. After this action, the specified text appears inside the text box on the image."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        14,
+        15,
+        16,
+        17
+      ],
+      "unit_intent": "Export the finished bake sale image as a JPEG file on the desktop.",
+      "unit_type": "EXPORT_AS_JPEG",
+      "unit_before_state": "The finished edited image is visible in GIMP with the square crop, brighter appearance, and BAKE SALE text already present on the canvas.",
+      "unit_after_state": "The export dialogs are completed, and the finished image has been saved as /home/user/Desktop/bake_sale_square.jpg in JPEG format.",
+      "unit_precondition": [
+        "All intended edits are already visible on the canvas.",
+        "GIMP can open the Export Image dialog and accept a writable desktop file path."
+      ],
+      "unit_effect": [
+        "The Export Image dialog opens after the export shortcut is pressed.",
+        "The filename field contains /home/user/Desktop/bake_sale_square.jpg.",
+        "After confirming the path, the JPEG export settings dialog appears.",
+        "Clicking Export completes the save and produces the JPEG file on the desktop."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Export the finished image as a JPEG file to a specified destination path.",
+      "parameters": {
+        "export_path": "/home/user/Desktop/bake_sale_square.jpg"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['shift', 'ctrl', 'e']}",
+          "action_template": "Press Shift+Ctrl+E to open GIMP's export dialog for saving a shareable JPEG copy after all desired edits are visible on the canvas."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '/home/user/Desktop/bake_sale_square.jpg'}",
+          "action_template": "Type {{export_path}} into the filename/location field while the export dialog is open so the result will be saved as a JPEG at the specified destination."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter after {{export_path}} has been entered to confirm the path and advance to the JPEG export settings dialog."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Export button in the JPEG export dialog'}}",
+          "action_template": "Click the Export button in the JPEG export dialog when it is visible to complete the JPEG export to {{export_path}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

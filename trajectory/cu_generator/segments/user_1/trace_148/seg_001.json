@@ -1,0 +1,729 @@
+{
+  "segment_id": "seg_001",
+  "app": "gimp",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the image picker so the source photo can be loaded",
+      "action_before_state": "The GIMP main window is already open on the screen, with the toolbox and menu bar visible.",
+      "action_preconditions": [
+        "GIMP is the focused window",
+        "No modal dialog is currently blocking the workspace"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "o"
+        ]
+      },
+      "action_after_effects": "An Open Image file chooser appears in front of the editor.",
+      "nl_explanation": "When the main GIMP window is focused, press Ctrl+O to open the file chooser so the photo can be selected."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Focus the location bar in the GNOME file chooser",
+      "action_before_state": "The Open Image dialog is visible with the standard GNOME file browser controls.",
+      "action_preconditions": [
+        "The Open Image dialog is active",
+        "Keyboard input is going to the file chooser"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "l"
+        ]
+      },
+      "action_after_effects": "The location entry becomes active so a full path can be typed directly.",
+      "nl_explanation": "With the file chooser open, press Ctrl+L to jump to the location field and prepare it for a full file path."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Enter the path of the photo to edit",
+      "action_before_state": "The location bar in the Open Image dialog is focused and ready for text input.",
+      "action_preconditions": [
+        "The location field is active",
+        "The image file exists at the intended path"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "/home/user/Pictures/market-stall.jpg"
+      },
+      "action_after_effects": "The full path to the source image is filled into the location entry.",
+      "nl_explanation": "Once the location bar is focused, type the full path of the photo so the file chooser targets the exact image."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Load the selected photo into GIMP",
+      "action_before_state": "The full image path is visible in the location field of the file chooser.",
+      "action_preconditions": [
+        "A valid image path has been entered",
+        "The file chooser is still active"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The file chooser closes and the photo opens on the GIMP canvas.",
+      "nl_explanation": "After entering the image path, press Enter to open that file and place it on the canvas for editing."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Activate the Crop tool",
+      "action_before_state": "The market photo is visible in the main editing area, and the toolbox is shown on the side.",
+      "action_preconditions": [
+        "The image has finished loading",
+        "The toolbox is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Crop Tool icon in the left toolbox"
+        }
+      },
+      "action_after_effects": "The Crop tool becomes active and the pointer is ready to draw a crop region.",
+      "nl_explanation": "When the image is open and the toolbox is visible, click the Crop tool so the next drag will define the new image boundaries."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Draw a square crop around the main stall area",
+      "action_before_state": "The Crop tool is active and the full photo is visible on the canvas.",
+      "action_preconditions": [
+        "The Crop tool is selected",
+        "The subject area to keep is visible in the image"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "target": {
+          "begin": {
+            "text": "the upper-left area just outside the main stall subject"
+          },
+          "end": {
+            "text": "the lower-right area so the crop box forms a square around the stall and nearby products"
+          }
+        }
+      },
+      "action_after_effects": "A square crop rectangle appears over the image with the main subject framed inside it.",
+      "nl_explanation": "With the Crop tool active, drag from the upper-left side of the subject to the lower-right side to define a square crop centered on the market stall."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Apply the crop",
+      "action_before_state": "A square crop box is visible over the image and the desired content is framed inside it.",
+      "action_preconditions": [
+        "A crop region has been drawn",
+        "The crop region already covers the intended part of the image"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "Everything outside the crop box is removed and the canvas becomes square.",
+      "nl_explanation": "Once the crop box is positioned correctly, press Enter to commit the crop and trim the image to the selected square area."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Switch to the Text tool",
+      "action_before_state": "The square-cropped photo is visible on the canvas and no text layer has been added yet.",
+      "action_preconditions": [
+        "The crop has already been applied",
+        "The toolbox is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Text Tool icon in the toolbox"
+        }
+      },
+      "action_after_effects": "The Text tool becomes active and text-related options are shown.",
+      "nl_explanation": "After cropping the image, click the Text tool so a title can be added onto the poster."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Select the text size field",
+      "action_before_state": "The Text tool is active and its options panel is visible.",
+      "action_preconditions": [
+        "The Text tool is selected",
+        "The text options area includes a font size field"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the font size spinbutton showing px units in the Text Tool options"
+        }
+      },
+      "action_after_effects": "The font size field gains focus and is ready for a new value.",
+      "nl_explanation": "With the Text tool active, click the size field in the tool options so a larger headline size can be entered."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Set a large text size for the title",
+      "action_before_state": "The font size input box is focused in the Text Tool options.",
+      "action_preconditions": [
+        "The size field is active",
+        "Text tool options are still visible"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "72"
+      },
+      "action_after_effects": "The Text tool is now configured to create much larger text.",
+      "nl_explanation": "When the text size field is focused, type 72 to make the upcoming title large enough for a poster-like image."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Create a text box near the bottom of the image",
+      "action_before_state": "The cropped image is visible and the Text tool is configured with a large size.",
+      "action_preconditions": [
+        "The Text tool is active",
+        "There is empty space near the bottom of the image for a title"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "target": {
+          "begin": {
+            "text": "the lower-left area of the image above the bottom edge"
+          },
+          "end": {
+            "text": "the lower-right area so the text box spans most of the image width"
+          }
+        }
+      },
+      "action_after_effects": "A text box appears across the lower part of the image with a text cursor inside it.",
+      "nl_explanation": "With the Text tool ready, drag across the lower portion of the photo to create a wide text box for the title."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Enter the title text",
+      "action_before_state": "A text box is active on the image and the insertion cursor is blinking inside it.",
+      "action_preconditions": [
+        "The text box has already been created",
+        "Keyboard input is going into the active text box"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Weekend Market"
+      },
+      "action_after_effects": "The title appears on the image as a new text layer.",
+      "nl_explanation": "Once the text box is active, type Weekend Market so the poster gets its visible title."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Switch to the Move tool for positioning the title",
+      "action_before_state": "The text layer is visible on top of the image and the text cursor is no longer needed.",
+      "action_preconditions": [
+        "A text layer has been created",
+        "The toolbox is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Move Tool icon in the toolbox"
+        }
+      },
+      "action_after_effects": "The Move tool becomes active and its movement mode options are available.",
+      "nl_explanation": "After the title has been typed, click the Move tool so the text can be placed neatly near the bottom center."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Set the Move tool to layer mode",
+      "action_before_state": "The Move tool is active and its options are visible.",
+      "action_preconditions": [
+        "The Move tool is selected",
+        "The Move Tool options show mode icons for Selection, Layer, and Path"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Layer mode icon in the Move Tool options"
+        }
+      },
+      "action_after_effects": "The Move tool is set to Layer mode so dragging on the text will move the text layer.",
+      "nl_explanation": "Set the Move tool to Layer mode before dragging so the title layer moves instead of a selection outline or path."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Position the title neatly near the bottom center",
+      "action_before_state": "The title is visible on the image and the Move tool is active in Layer mode.",
+      "action_preconditions": [
+        "The Move tool is selected in Layer mode",
+        "The text layer is visible and movable"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "target": {
+          "begin": {
+            "text": "the Weekend Market text characters on the canvas"
+          },
+          "end": {
+            "text": "the lower-center area of the square image with a small margin above the bottom edge"
+          }
+        }
+      },
+      "action_after_effects": "The title shifts into a balanced position near the bottom center of the poster.",
+      "nl_explanation": "With the Move tool active in Layer mode, drag the title text into the lower-center area so it sits cleanly inside the square image."
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Open the export dialog",
+      "action_before_state": "The edited square image with the title is visible and ready to save.",
+      "action_preconditions": [
+        "All intended edits are complete",
+        "The GIMP main window is focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "e"
+        ]
+      },
+      "action_after_effects": "The Export Image dialog opens so an output filename can be provided.",
+      "nl_explanation": "After the poster looks correct, press Ctrl+Shift+E to open the export dialog and prepare the final image file."
+    },
+    {
+      "step_id": "s17",
+      "step_goal": "Enter the Desktop export path and filename",
+      "action_before_state": "The Export Image dialog is open and its filename field is ready for input.",
+      "action_preconditions": [
+        "The export dialog is active",
+        "Text input is going to the filename field"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "/home/user/Desktop/weekend-market-square.png"
+      },
+      "action_after_effects": "The export destination and filename are filled in for the PNG output.",
+      "nl_explanation": "With the export dialog open, type the full Desktop path and PNG filename so the finished poster will be saved in the right place."
+    },
+    {
+      "step_id": "s18",
+      "step_goal": "Confirm the export destination",
+      "action_before_state": "The desired Desktop filename is visible in the Export Image dialog.",
+      "action_preconditions": [
+        "A valid export filename has been entered",
+        "The Export Image dialog is still active"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Export button in the Export Image dialog"
+        }
+      },
+      "action_after_effects": "GIMP advances to the PNG export options dialog.",
+      "nl_explanation": "After the output filename is entered, click the Export button to continue from the export dialog to the PNG-specific save options."
+    },
+    {
+      "step_id": "s19",
+      "step_goal": "Finish exporting the PNG file",
+      "action_before_state": "The PNG export options dialog is visible with default settings available.",
+      "action_preconditions": [
+        "The PNG export options dialog is open",
+        "The default PNG settings are acceptable"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The image is exported and the file /home/user/Desktop/weekend-market-square.png is created.",
+      "nl_explanation": "When the PNG options dialog appears, press Enter to accept the default settings and complete the export to the Desktop."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Load the specified source photo into GIMP so editing can begin on the correct image.",
+      "unit_type": "OPEN_IMAGE_FILE",
+      "unit_before_state": "The GIMP main window is open with the toolbox and menu bar visible, and no modal dialog is blocking the editor.",
+      "unit_after_state": "The Open Image dialog has closed, and the photo from /home/user/Pictures/market-stall.jpg is displayed on the GIMP canvas.",
+      "unit_precondition": [
+        "GIMP is the focused window.",
+        "No modal dialog is currently blocking the workspace.",
+        "The file /home/user/Pictures/market-stall.jpg exists and is readable."
+      ],
+      "unit_effect": [
+        "An Open Image file chooser appears.",
+        "The location field in the chooser accepts the full path /home/user/Pictures/market-stall.jpg.",
+        "After confirmation, the chooser closes and the market-stall photo becomes visible on the canvas."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Trim the photo to a square composition centered on the main market stall.",
+      "unit_type": "CROP_IMAGE_TO_SQUARE",
+      "unit_before_state": "The full market-stall photo is open on the GIMP canvas, and the toolbox is visible at the side.",
+      "unit_after_state": "The image on the canvas is cropped to a square, with the main stall and nearby products framed inside the remaining area.",
+      "unit_precondition": [
+        "The source photo has finished loading on the canvas.",
+        "The toolbox is visible.",
+        "The main stall area to preserve is visible in the image."
+      ],
+      "unit_effect": [
+        "The Crop tool becomes active.",
+        "A square crop rectangle appears over the image around the main stall.",
+        "After pressing Enter, everything outside the crop box is removed and the canvas becomes square."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "unit_intent": "Add a large title reading \"Weekend Market\" across the lower part of the poster.",
+      "unit_type": "ADD_LARGE_TEXT_OVERLAY",
+      "unit_before_state": "The square-cropped photo is visible on the canvas, and no text layer has been added yet.",
+      "unit_after_state": "A text box spans the lower part of the image and displays the words \"Weekend Market\" in large text as a new text layer.",
+      "unit_precondition": [
+        "The crop has already been applied.",
+        "The toolbox and Text tool options are visible.",
+        "There is enough space near the bottom of the image for a title box."
+      ],
+      "unit_effect": [
+        "The Text tool is activated and its font size field is focused.",
+        "The text size is set to 72 px.",
+        "A text box appears across the lower part of the image with a cursor inside it.",
+        "The words \"Weekend Market\" become visible on the image as a text layer."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        13,
+        14,
+        15
+      ],
+      "unit_intent": "Place the title neatly in the lower center of the square poster.",
+      "unit_type": "POSITION_TEXT_LAYER",
+      "unit_before_state": "The \"Weekend Market\" text layer is visible on top of the cropped image, but it has not yet been deliberately positioned.",
+      "unit_after_state": "The Move tool is active in Layer mode, and the \"Weekend Market\" title sits in a balanced lower-center position with a small margin above the bottom edge.",
+      "unit_precondition": [
+        "A visible text layer containing \"Weekend Market\" already exists.",
+        "The toolbox is visible.",
+        "The Move tool options include Layer mode."
+      ],
+      "unit_effect": [
+        "The Move tool is activated.",
+        "Layer mode is selected in the Move tool options.",
+        "The title visibly shifts to the lower-center area of the poster."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "unit_intent": "Export the finished square poster as a PNG file to the Desktop.",
+      "unit_type": "EXPORT_PNG_IMAGE",
+      "unit_before_state": "The edited square poster with the centered \"Weekend Market\" title is visible in GIMP and ready to be saved.",
+      "unit_after_state": "The export dialogs are dismissed, the edited image remains in GIMP, and the file /home/user/Desktop/weekend-market-square.png has been created.",
+      "unit_precondition": [
+        "All intended edits to the poster are complete.",
+        "GIMP is the focused window.",
+        "The export destination /home/user/Desktop is writable.",
+        "Default PNG export settings are acceptable."
+      ],
+      "unit_effect": [
+        "The Export Image dialog opens.",
+        "The filename field contains /home/user/Desktop/weekend-market-square.png.",
+        "After clicking Export, a PNG export options dialog appears.",
+        "After confirming the PNG dialog, the file /home/user/Desktop/weekend-market-square.png is created."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Load the specified source photo into GIMP so editing can begin on the correct image.",
+      "unit_type": "OPEN_IMAGE_FILE",
+      "unit_before_state": "The GIMP main window is open with the toolbox and menu bar visible, and no modal dialog is blocking the editor.",
+      "unit_after_state": "The Open Image dialog has closed, and the photo from /home/user/Pictures/market-stall.jpg is displayed on the GIMP canvas.",
+      "unit_precondition": [
+        "GIMP is the focused window.",
+        "No modal dialog is currently blocking the workspace.",
+        "The file /home/user/Pictures/market-stall.jpg exists and is readable."
+      ],
+      "unit_effect": [
+        "An Open Image file chooser appears.",
+        "The location field in the chooser accepts the full path /home/user/Pictures/market-stall.jpg.",
+        "After confirmation, the chooser closes and the market-stall photo becomes visible on the canvas."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a specified image file in GIMP by entering its full path in the file chooser.",
+      "parameters": {
+        "image_file_path": "/home/user/Pictures/market-stall.jpg"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'o']}",
+          "action_template": "When the main GIMP window is focused and no modal dialog is blocking the workspace, press Ctrl+O to open the file chooser so the image can be selected. This opens an Open Image file chooser in front of the editor."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'l']}",
+          "action_template": "With the Open Image dialog active and keyboard input going to the file chooser, press Ctrl+L to focus the location field so the full path can be entered directly. This makes the location entry active for typing {{image_file_path}}."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '/home/user/Pictures/market-stall.jpg'}",
+          "action_template": "Once the location field is active and {{image_file_path}} exists at the intended location, type {{image_file_path}} into the focused location entry. This fills the full path to the target image into the chooser."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After a valid image path has been entered and the file chooser is still active, press Enter to open {{image_file_path}}. This closes the chooser and displays the image on the GIMP canvas."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Trim the photo to a square composition centered on the main market stall.",
+      "unit_type": "CROP_IMAGE_TO_SQUARE",
+      "unit_before_state": "The full market-stall photo is open on the GIMP canvas, and the toolbox is visible at the side.",
+      "unit_after_state": "The image on the canvas is cropped to a square, with the main stall and nearby products framed inside the remaining area.",
+      "unit_precondition": [
+        "The source photo has finished loading on the canvas.",
+        "The toolbox is visible.",
+        "The main stall area to preserve is visible in the image."
+      ],
+      "unit_effect": [
+        "The Crop tool becomes active.",
+        "A square crop rectangle appears over the image around the main stall.",
+        "After pressing Enter, everything outside the crop box is removed and the canvas becomes square."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Crop the image to a square composition centered on a specified subject area.",
+      "parameters": {
+        "target_subject_area": "the main stall and nearby products"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Crop Tool icon in the left toolbox'}}",
+          "action_template": "When the image is open and the toolbox is visible, click the Crop tool icon in the left toolbox to activate the Crop tool so the next drag will define the new image boundaries."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'target': {'begin': {'text': 'the upper-left area just outside the main stall subject'}, 'end': {'text': 'the lower-right area so the crop box forms a square around the stall and nearby products'}}}",
+          "action_template": "With the Crop tool active and {{target_subject_area}} visible in the image, drag from the upper-left area just outside {{target_subject_area}} to the lower-right area so the crop box forms a square around {{target_subject_area}}."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Once the square crop box is positioned correctly and covers the intended part of the image, press Enter to commit the crop and trim the image to the selected square area."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "unit_intent": "Add a large title reading \"Weekend Market\" across the lower part of the poster.",
+      "unit_type": "ADD_LARGE_TEXT_OVERLAY",
+      "unit_before_state": "The square-cropped photo is visible on the canvas, and no text layer has been added yet.",
+      "unit_after_state": "A text box spans the lower part of the image and displays the words \"Weekend Market\" in large text as a new text layer.",
+      "unit_precondition": [
+        "The crop has already been applied.",
+        "The toolbox and Text tool options are visible.",
+        "There is enough space near the bottom of the image for a title box."
+      ],
+      "unit_effect": [
+        "The Text tool is activated and its font size field is focused.",
+        "The text size is set to 72 px.",
+        "A text box appears across the lower part of the image with a cursor inside it.",
+        "The words \"Weekend Market\" become visible on the image as a text layer."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Add a large title text overlay across the lower part of the image.",
+      "parameters": {
+        "font_size_px": "72",
+        "text_box_start_area": "the lower-left area of the image above the bottom edge",
+        "text_box_end_area": "the lower-right area so the text box spans most of the image width",
+        "title_text": "Weekend Market"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Text Tool icon in the toolbox'}}",
+          "action_template": "Click the Text Tool icon in the toolbox after the crop has been applied and the toolbox is visible so the Text tool becomes active and text-related options are shown."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the font size spinbutton showing px units in the Text Tool options'}}",
+          "action_template": "Click the font size field in the Text Tool options when the Text tool is selected and the text options area includes a font size field so the size control gains focus and is ready for a new value."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '72'}",
+          "action_template": "Type {{font_size_px}} into the focused font size field while the Text Tool options are still visible so the Text tool is configured to create much larger title text."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'target': {'begin': {'text': 'the lower-left area of the image above the bottom edge'}, 'end': {'text': 'the lower-right area so the text box spans most of the image width'}}}",
+          "action_template": "Drag on the canvas from {{text_box_start_area}} to {{text_box_end_area}} when the Text tool is active and there is empty space near the bottom of the image so a wide text box appears across the lower part of the image with a text cursor inside it."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Weekend Market'}",
+          "action_template": "Type {{title_text}} into the active text box after the text box has been created and keyboard input is going into it so the title appears on the image as a new text layer."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        13,
+        14,
+        15
+      ],
+      "unit_intent": "Place the title neatly in the lower center of the square poster.",
+      "unit_type": "POSITION_TEXT_LAYER",
+      "unit_before_state": "The \"Weekend Market\" text layer is visible on top of the cropped image, but it has not yet been deliberately positioned.",
+      "unit_after_state": "The Move tool is active in Layer mode, and the \"Weekend Market\" title sits in a balanced lower-center position with a small margin above the bottom edge.",
+      "unit_precondition": [
+        "A visible text layer containing \"Weekend Market\" already exists.",
+        "The toolbox is visible.",
+        "The Move tool options include Layer mode."
+      ],
+      "unit_effect": [
+        "The Move tool is activated.",
+        "Layer mode is selected in the Move tool options.",
+        "The title visibly shifts to the lower-center area of the poster."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Position a specified title text layer neatly at a desired location on the image using the Move tool in Layer mode.",
+      "parameters": {
+        "target_text": "Weekend Market",
+        "target_position": "the lower-center area of the square image with a small margin above the bottom edge"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Move Tool icon in the toolbox'}}",
+          "action_template": "Click the Move Tool icon in the toolbox after the text layer containing {{target_text}} has been created and the toolbox is visible, so the Move tool becomes active and its movement options are available for positioning the text."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Layer mode icon in the Move Tool options'}}",
+          "action_template": "Click the Layer mode icon in the Move Tool options once the Move tool is selected and its mode icons are visible, so dragging will move the text layer instead of a selection outline or path."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'target': {'begin': {'text': 'the Weekend Market text characters on the canvas'}, 'end': {'text': 'the lower-center area of the square image with a small margin above the bottom edge'}}}",
+          "action_template": "Drag the {{target_text}} text characters on the canvas to {{target_position}} while the Move tool is active in Layer mode and the text layer is movable, so the title is repositioned neatly in the intended area of the image."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "unit_intent": "Export the finished square poster as a PNG file to the Desktop.",
+      "unit_type": "EXPORT_PNG_IMAGE",
+      "unit_before_state": "The edited square poster with the centered \"Weekend Market\" title is visible in GIMP and ready to be saved.",
+      "unit_after_state": "The export dialogs are dismissed, the edited image remains in GIMP, and the file /home/user/Desktop/weekend-market-square.png has been created.",
+      "unit_precondition": [
+        "All intended edits to the poster are complete.",
+        "GIMP is the focused window.",
+        "The export destination /home/user/Desktop is writable.",
+        "Default PNG export settings are acceptable."
+      ],
+      "unit_effect": [
+        "The Export Image dialog opens.",
+        "The filename field contains /home/user/Desktop/weekend-market-square.png.",
+        "After clicking Export, a PNG export options dialog appears.",
+        "After confirming the PNG dialog, the file /home/user/Desktop/weekend-market-square.png is created."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Export the finished image as a PNG file to a specified output path.",
+      "parameters": {
+        "output_file_path": "/home/user/Desktop/weekend-market-square.png"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'e']}",
+          "action_template": "Press Ctrl+Shift+E after all intended edits are complete and the GIMP main window is focused to open the Export Image dialog and prepare the final image file."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '/home/user/Desktop/weekend-market-square.png'}",
+          "action_template": "Type {{output_file_path}} into the filename field while the Export Image dialog is active so the PNG output will be saved to the specified location."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Export button in the Export Image dialog'}}",
+          "action_template": "Click the Export button in the Export Image dialog after a valid export filename has been entered to continue to the PNG export options dialog."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter when the PNG export options dialog is open and the default PNG settings are acceptable to complete the export and create {{output_file_path}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

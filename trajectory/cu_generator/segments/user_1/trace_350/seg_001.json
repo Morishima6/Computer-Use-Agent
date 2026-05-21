@@ -1,0 +1,494 @@
+{
+  "segment_id": "seg_001",
+  "app": "os",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open Terminal",
+      "action_before_state": "A regular GNOME desktop session is visible, such as the desktop background or an already-open window, and no full-screen lock screen or modal dialog is blocking input.",
+      "action_preconditions": [
+        "The user is logged into a Linux system running GNOME",
+        "Keyboard input is available",
+        "No application is currently capturing the Ctrl+Alt+T shortcut"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "alt",
+          "t"
+        ]
+      },
+      "action_after_effects": "A Terminal window opens and receives keyboard focus, with a shell prompt ready for input.",
+      "nl_explanation": "When the GNOME session is active and keyboard shortcuts are available, press Ctrl+Alt+T to open Terminal. The expected result is a focused shell window where commands can be entered."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Enter the command that compresses the Documents folder",
+      "action_before_state": "The Terminal window is open, focused, and showing a shell prompt.",
+      "action_preconditions": [
+        "A shell prompt is visible in Terminal",
+        "The home directory contains a Documents folder",
+        "The cursor is active on the command line"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "tar -czf ~/documents-backup.tar.gz -C ~ Documents"
+      },
+      "action_after_effects": "The full tar command appears at the shell prompt, ready to be executed.",
+      "nl_explanation": "With Terminal focused and the prompt ready, type the tar command to create a compressed archive named documents-backup.tar.gz from the Documents folder in the home directory."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Run the compression command",
+      "action_before_state": "The tar command is fully visible at the shell prompt in Terminal.",
+      "action_preconditions": [
+        "The command line contains the tar command",
+        "Terminal is still focused",
+        "The Documents folder is accessible"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "Terminal runs the compression command. After processing finishes, the shell prompt returns and the archive should exist in the home directory.",
+      "nl_explanation": "Once the compression command is typed correctly, press Enter to execute it. The expected behavior is that Terminal creates the archive and eventually returns to the shell prompt."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Enter a verification command for the new archive",
+      "action_before_state": "The previous tar command has finished and the shell prompt is visible again.",
+      "action_preconditions": [
+        "Terminal shows a fresh prompt",
+        "The archive creation command has completed",
+        "Keyboard focus is still in Terminal"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "ls -lh ~/documents-backup.tar.gz"
+      },
+      "action_after_effects": "The ls command appears in Terminal, ready to check whether the archive file exists and show its size.",
+      "nl_explanation": "After the archive command completes and a new prompt is available, type an ls command that points to the archive file so it can be verified in the next step."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Run the verification command",
+      "action_before_state": "The ls command is visible at the Terminal prompt.",
+      "action_preconditions": [
+        "The verification command has been typed",
+        "Terminal remains focused",
+        "The archive file path is unchanged"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "Terminal prints a line for documents-backup.tar.gz, including its permissions, size, and path, confirming that the archive exists.",
+      "nl_explanation": "When the archive-check command is ready, press Enter to run it. The expected result is a file listing that confirms documents-backup.tar.gz was created successfully."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Enter the command to copy the archive to the Desktop",
+      "action_before_state": "The verification output is visible in Terminal and the shell prompt has returned.",
+      "action_preconditions": [
+        "The archive file has been confirmed to exist",
+        "A shell prompt is visible again",
+        "The Desktop directory exists in the user's home folder"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "cp ~/documents-backup.tar.gz ~/Desktop/"
+      },
+      "action_after_effects": "The copy command appears at the prompt, prepared to place a duplicate archive on the Desktop.",
+      "nl_explanation": "With the archive verified and Terminal ready for another command, type a cp command to copy the backup archive from the home directory to the Desktop folder."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Run the copy command",
+      "action_before_state": "The cp command is visible at the Terminal prompt.",
+      "action_preconditions": [
+        "The copy command has been entered",
+        "Terminal is focused",
+        "The Desktop path is writable"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The archive is copied to the Desktop. If the command succeeds, Terminal returns silently to the shell prompt.",
+      "nl_explanation": "When the copy command is ready, press Enter to execute it. The expected result is that a copy of documents-backup.tar.gz is placed on the Desktop and the prompt returns without an error."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Bring Files to the front",
+      "action_before_state": "Terminal is open, and the GNOME dock is available on the screen edge or already visible.",
+      "action_preconditions": [
+        "The GNOME dock can be accessed",
+        "The Files application is installed",
+        "Pointer input is available"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Files icon in the GNOME dock"
+        }
+      },
+      "action_after_effects": "A Files window opens or comes to the foreground.",
+      "nl_explanation": "Once the archive has been copied, click the Files icon in the GNOME dock to switch from Terminal to the file manager for a visual confirmation."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Open the Desktop folder in Files",
+      "action_before_state": "The Files window is visible, showing a sidebar with common locations such as Home, Documents, and Desktop.",
+      "action_preconditions": [
+        "Files is open and interactive",
+        "The left sidebar is visible",
+        "A Desktop entry is listed in the sidebar"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Desktop folder in the Files sidebar"
+        }
+      },
+      "action_after_effects": "Files navigates to the Desktop and shows the items stored there in the main pane.",
+      "nl_explanation": "When the Files window is open and the sidebar is visible, click Desktop in the sidebar. The expected result is that the main file list updates to show the Desktop contents."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Visually confirm the copied backup archive on the Desktop",
+      "action_before_state": "The Files window is displaying the Desktop contents in the main pane.",
+      "action_preconditions": [
+        "The Desktop folder is currently open in Files",
+        "The archive file list is visible",
+        "The file named documents-backup.tar.gz appears in the Desktop contents"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the file named documents-backup.tar.gz in the Desktop file list"
+        }
+      },
+      "action_after_effects": "The archive file becomes selected, confirming that the backup copy is present on the Desktop.",
+      "nl_explanation": "After opening Desktop in Files and seeing the copied archive, click documents-backup.tar.gz once to highlight it. The expected result is a clear visual confirmation that the backup file is present and ready for later use."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Open a command-line workspace to perform the backup operations.",
+      "unit_type": "OPEN_TERMINAL",
+      "unit_before_state": "A normal GNOME desktop session is visible, with no lock screen or blocking modal dialog on screen.",
+      "unit_after_state": "A Terminal window is open in the foreground with keyboard focus and a shell prompt ready for input.",
+      "unit_precondition": [
+        "The user is logged into an interactive GNOME desktop session.",
+        "Keyboard shortcuts are available and Ctrl+Alt+T is not intercepted by another app."
+      ],
+      "unit_effect": [
+        "A new Terminal window appears.",
+        "A shell prompt is visible and ready to accept commands."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3
+      ],
+      "unit_intent": "Create a compressed backup archive of the Documents folder in the home directory.",
+      "unit_type": "CREATE_ARCHIVE",
+      "unit_before_state": "Terminal is focused and showing an empty shell prompt.",
+      "unit_after_state": "The tar command has finished running, the shell prompt has returned, and the archive file should now exist as ~/documents-backup.tar.gz.",
+      "unit_precondition": [
+        "Terminal is open and focused on a shell prompt.",
+        "The ~/Documents folder exists and is readable.",
+        "The user has permission to create files in the home directory."
+      ],
+      "unit_effect": [
+        "The command `tar -czf ~/documents-backup.tar.gz -C ~ Documents` is executed.",
+        "Terminal returns to a fresh prompt after processing, indicating the archive creation command has completed."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Verify that the backup archive was created successfully before copying it elsewhere.",
+      "unit_type": "VERIFY_ARCHIVE_EXISTS",
+      "unit_before_state": "Terminal shows a fresh prompt after the archive creation command completed.",
+      "unit_after_state": "Terminal displays the listing for ~/documents-backup.tar.gz, including file metadata, and then shows the prompt again.",
+      "unit_precondition": [
+        "The archive creation step has completed.",
+        "Terminal remains focused and ready for another command.",
+        "The expected archive path is ~/documents-backup.tar.gz."
+      ],
+      "unit_effect": [
+        "The `ls -lh ~/documents-backup.tar.gz` command runs.",
+        "A file listing line for documents-backup.tar.gz appears with size and path information, confirming the archive exists."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        6,
+        7
+      ],
+      "unit_intent": "Place an easy-to-find copy of the verified backup archive on the Desktop.",
+      "unit_type": "COPY_ARCHIVE_TO_DESKTOP",
+      "unit_before_state": "Terminal shows the verification output and a new shell prompt.",
+      "unit_after_state": "The copy command has completed and Terminal returns silently to the shell prompt, with a duplicate archive expected in ~/Desktop/.",
+      "unit_precondition": [
+        "The archive file has already been verified to exist.",
+        "Terminal is focused on a shell prompt.",
+        "The ~/Desktop directory exists and is writable."
+      ],
+      "unit_effect": [
+        "The command `cp ~/documents-backup.tar.gz ~/Desktop/` is executed.",
+        "Terminal returns to the prompt without an error message, indicating the copy operation succeeded."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        8,
+        9,
+        10
+      ],
+      "unit_intent": "Visually confirm in the file manager that the backup copy is present on the Desktop.",
+      "unit_type": "CONFIRM_DESKTOP_COPY_IN_FILES",
+      "unit_before_state": "Terminal is open, and the GNOME dock is available for launching or switching to Files.",
+      "unit_after_state": "A Files window is open to the Desktop folder, and documents-backup.tar.gz is visible and selected in the main file list.",
+      "unit_precondition": [
+        "The archive copy command has already been run.",
+        "The GNOME Files application is available.",
+        "The Desktop location is accessible from the Files sidebar."
+      ],
+      "unit_effect": [
+        "Files opens or comes to the foreground.",
+        "The Desktop folder contents are shown in the main pane.",
+        "The file documents-backup.tar.gz becomes highlighted, providing visual confirmation that the backup copy is on the Desktop."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Open a command-line workspace to perform the backup operations.",
+      "unit_type": "OPEN_TERMINAL",
+      "unit_before_state": "A normal GNOME desktop session is visible, with no lock screen or blocking modal dialog on screen.",
+      "unit_after_state": "A Terminal window is open in the foreground with keyboard focus and a shell prompt ready for input.",
+      "unit_precondition": [
+        "The user is logged into an interactive GNOME desktop session.",
+        "Keyboard shortcuts are available and Ctrl+Alt+T is not intercepted by another app."
+      ],
+      "unit_effect": [
+        "A new Terminal window appears.",
+        "A shell prompt is visible and ready to accept commands."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open {{terminal_app}} using the standard desktop keyboard shortcut.",
+      "parameters": {
+        "terminal_app": "Terminal",
+        "desktop_environment": "GNOME",
+        "launch_shortcut": "Ctrl+Alt+T"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'alt', 't']}",
+          "action_template": "When the {{desktop_environment}} session is active, keyboard input is available, and no application is capturing {{launch_shortcut}}, press {{launch_shortcut}} to open {{terminal_app}} and focus a shell prompt ready for input."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3
+      ],
+      "unit_intent": "Create a compressed backup archive of the Documents folder in the home directory.",
+      "unit_type": "CREATE_ARCHIVE",
+      "unit_before_state": "Terminal is focused and showing an empty shell prompt.",
+      "unit_after_state": "The tar command has finished running, the shell prompt has returned, and the archive file should now exist as ~/documents-backup.tar.gz.",
+      "unit_precondition": [
+        "Terminal is open and focused on a shell prompt.",
+        "The ~/Documents folder exists and is readable.",
+        "The user has permission to create files in the home directory."
+      ],
+      "unit_effect": [
+        "The command `tar -czf ~/documents-backup.tar.gz -C ~ Documents` is executed.",
+        "Terminal returns to a fresh prompt after processing, indicating the archive creation command has completed."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a compressed archive of a specified folder from a specified base directory using a terminal command.",
+      "parameters": {
+        "archive_path": "~/documents-backup.tar.gz",
+        "base_directory": "~",
+        "source_folder": "Documents"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'tar -czf ~/documents-backup.tar.gz -C ~ Documents'}",
+          "action_template": "With Terminal focused and the prompt ready, type `tar -czf {{archive_path}} -C {{base_directory}} {{source_folder}}` to create a compressed archive from {{source_folder}} in {{base_directory}}. Preconditions: a shell prompt is visible in Terminal, {{base_directory}} contains a readable {{source_folder}} folder, and the cursor is active on the command line. Result: the full tar command appears at the shell prompt, ready to be executed."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Once the tar command for archiving {{source_folder}} to {{archive_path}} is typed correctly, press Enter to execute it. Preconditions: the command line contains the tar command, Terminal is still focused, and {{source_folder}} is accessible. Result: Terminal runs the compression command, eventually returns to the shell prompt, and the archive should exist at {{archive_path}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Verify that the backup archive was created successfully before copying it elsewhere.",
+      "unit_type": "VERIFY_ARCHIVE_EXISTS",
+      "unit_before_state": "Terminal shows a fresh prompt after the archive creation command completed.",
+      "unit_after_state": "Terminal displays the listing for ~/documents-backup.tar.gz, including file metadata, and then shows the prompt again.",
+      "unit_precondition": [
+        "The archive creation step has completed.",
+        "Terminal remains focused and ready for another command.",
+        "The expected archive path is ~/documents-backup.tar.gz."
+      ],
+      "unit_effect": [
+        "The `ls -lh ~/documents-backup.tar.gz` command runs.",
+        "A file listing line for documents-backup.tar.gz appears with size and path information, confirming the archive exists."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Verify that a newly created archive file exists at the expected path before continuing with subsequent file operations.",
+      "parameters": {
+        "archive_path": "~/documents-backup.tar.gz"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'ls -lh ~/documents-backup.tar.gz'}",
+          "action_template": "With Terminal focused at a fresh prompt after the archive creation command completes, type `ls -lh {{archive_path}}` to prepare a check that the archive file exists and shows its size."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter after the verification command for {{archive_path}} has been typed in the focused Terminal to run it and display a file listing that confirms the archive exists."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        6,
+        7
+      ],
+      "unit_intent": "Place an easy-to-find copy of the verified backup archive on the Desktop.",
+      "unit_type": "COPY_ARCHIVE_TO_DESKTOP",
+      "unit_before_state": "Terminal shows the verification output and a new shell prompt.",
+      "unit_after_state": "The copy command has completed and Terminal returns silently to the shell prompt, with a duplicate archive expected in ~/Desktop/.",
+      "unit_precondition": [
+        "The archive file has already been verified to exist.",
+        "Terminal is focused on a shell prompt.",
+        "The ~/Desktop directory exists and is writable."
+      ],
+      "unit_effect": [
+        "The command `cp ~/documents-backup.tar.gz ~/Desktop/` is executed.",
+        "Terminal returns to the prompt without an error message, indicating the copy operation succeeded."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Copy a verified archive file to a specified destination folder from the terminal.",
+      "parameters": {
+        "source_archive_path": "~/documents-backup.tar.gz",
+        "destination_directory": "~/Desktop/"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'cp ~/documents-backup.tar.gz ~/Desktop/'}",
+          "action_template": "With the archive verified and Terminal ready for another command, type `cp {{source_archive_path}} {{destination_directory}}` to copy the verified archive to the destination folder. Preconditions: the archive file has been confirmed to exist, a shell prompt is visible again, and the destination directory exists. After this step, the copy command appears at the prompt, prepared to place a duplicate archive in {{destination_directory}}."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "When the `cp {{source_archive_path}} {{destination_directory}}` command is ready, press Enter to execute it. Preconditions: the copy command has been entered, Terminal is focused, and {{destination_directory}} is writable. After this step, the archive is copied to {{destination_directory}}, and Terminal returns silently to the shell prompt if the command succeeds."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        8,
+        9,
+        10
+      ],
+      "unit_intent": "Visually confirm in the file manager that the backup copy is present on the Desktop.",
+      "unit_type": "CONFIRM_DESKTOP_COPY_IN_FILES",
+      "unit_before_state": "Terminal is open, and the GNOME dock is available for launching or switching to Files.",
+      "unit_after_state": "A Files window is open to the Desktop folder, and documents-backup.tar.gz is visible and selected in the main file list.",
+      "unit_precondition": [
+        "The archive copy command has already been run.",
+        "The GNOME Files application is available.",
+        "The Desktop location is accessible from the Files sidebar."
+      ],
+      "unit_effect": [
+        "Files opens or comes to the foreground.",
+        "The Desktop folder contents are shown in the main pane.",
+        "The file documents-backup.tar.gz becomes highlighted, providing visual confirmation that the backup copy is on the Desktop."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Visually confirm in the file manager that a specified copied file is present in a specified folder.",
+      "parameters": {
+        "target_folder": "Desktop",
+        "target_file_name": "documents-backup.tar.gz"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Files icon in the GNOME dock'}}",
+          "action_template": "Click the Files icon in the GNOME dock to switch from Terminal to the file manager for a visual confirmation that the copied item can be checked."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Desktop folder in the Files sidebar'}}",
+          "action_template": "Click {{target_folder}} in the Files sidebar to open that folder and show its contents in the main pane."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the file named documents-backup.tar.gz in the Desktop file list'}}",
+          "action_template": "Click the file named {{target_file_name}} in the {{target_folder}} file list to highlight it and visually confirm that the copied file is present."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

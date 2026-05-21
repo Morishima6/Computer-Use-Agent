@@ -1,0 +1,461 @@
+{
+  "segment_id": "seg_001",
+  "app": "vs_code",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Start creating a new Markdown file in the current workspace",
+      "action_before_state": "VS Code is open and focused. The Explorer sidebar is visible on the left, and a writable folder is already open.",
+      "action_preconditions": [
+        "The Explorer view is visible",
+        "A folder is open in VS Code",
+        "The New File button is available in the Explorer title area"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the New File icon in the Explorer title bar"
+        }
+      },
+      "action_after_effects": "An inline filename input appears in the Explorer, ready for the new file name.",
+      "nl_explanation": "When the Explorer sidebar and an open folder are visible, click the New File icon in the Explorer header. VS Code should show an inline field so the new file can be named."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Enter the name of the new note",
+      "action_before_state": "The inline filename box is active in the Explorer.",
+      "action_preconditions": [
+        "The filename input box is focused",
+        "No file has been created yet"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "daily-standup.md"
+      },
+      "action_after_effects": "The filename field now contains daily-standup.md.",
+      "nl_explanation": "With the inline filename field focused, type daily-standup.md so the new note is named as a Markdown file."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Confirm the new file and open it in the editor",
+      "action_before_state": "The filename daily-standup.md is entered in the Explorer input box.",
+      "action_preconditions": [
+        "The new filename has been typed",
+        "The inline filename field is still active"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The new file is created in the workspace and opened as an empty editor tab.",
+      "nl_explanation": "After the filename is entered, press Enter to create the file. The new Markdown file should appear in the Explorer and open in the editor."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Add the initial standup note content",
+      "action_before_state": "The editor is focused on the empty daily-standup.md file.",
+      "action_preconditions": [
+        "The new file tab is open",
+        "The text cursor is inside the editor"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "# Daily Standup\n\n## Yesterday\n- Reviewed experiment logs\n- Cleaned meeting notes\n\n## Today\n- [ ] Finish the bug triage summary\n- [ ] Update the weekly slide outline\n- [ ] Reply to advisor email\n\n## Blockers\n- Waiting for the new dataset export"
+      },
+      "action_after_effects": "The Markdown note now contains headings and checklist items, with Reply to advisor email currently at the bottom of the Today section.",
+      "nl_explanation": "When the empty Markdown file is open and the cursor is in the editor, type the full standup note content. This creates the three requested sections and adds three checklist items under Today."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Place the cursor on the checklist item that needs to move upward",
+      "action_before_state": "The full note content is visible in the editor, including the Today checklist.",
+      "action_preconditions": [
+        "The line '- [ ] Reply to advisor email' is visible in the editor",
+        "The editor is still focused"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the text \"- [ ] Reply to advisor email\" in the editor"
+        }
+      },
+      "action_after_effects": "The text cursor is placed on the Reply to advisor email line so it can be moved.",
+      "nl_explanation": "Once the checklist is visible, click on the text of the Reply to advisor email line. This positions the cursor on the line that needs to be reordered."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Move the selected checklist item up by one position",
+      "action_before_state": "The cursor is on the Reply to advisor email checklist line, currently below Update the weekly slide outline.",
+      "action_preconditions": [
+        "The cursor is on the target checklist line",
+        "The Today checklist contains at least two items above it"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "alt",
+          "up"
+        ]
+      },
+      "action_after_effects": "The Reply to advisor email line moves up one position and is now above Update the weekly slide outline, with the cursor moving with the line.",
+      "nl_explanation": "With the cursor on the Reply to advisor email line, press Alt+Up to move that line up by one position in the Today checklist."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Move the checklist item to the top of the Today section",
+      "action_before_state": "The Reply to advisor email line is now the second item in the Today checklist, with the cursor still on that line.",
+      "action_preconditions": [
+        "The cursor remains on the Reply to advisor email line",
+        "There is still one checklist item above it"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "alt",
+          "up"
+        ]
+      },
+      "action_after_effects": "The Reply to advisor email line becomes the first checklist item under Today.",
+      "nl_explanation": "Press Alt+Up again while the cursor stays on the same line. The checklist item should move to the top of the Today section."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Open the Markdown preview to verify the note formatting",
+      "action_before_state": "The editor shows the completed Markdown note with the Today checklist in the correct order.",
+      "action_preconditions": [
+        "The Markdown file is open in the editor",
+        "The editor tab for daily-standup.md is active"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "v"
+        ]
+      },
+      "action_after_effects": "A Markdown preview opens, showing rendered headings and checklist items for visual verification.",
+      "nl_explanation": "When the Markdown file is active, press Ctrl+Shift+V to open the preview. The rendered note should appear so the formatting can be checked."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Save the completed standup note",
+      "action_before_state": "The Markdown editor and its preview are open, and the note content is complete.",
+      "action_preconditions": [
+        "The file has been edited",
+        "VS Code is still focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "s"
+        ]
+      },
+      "action_after_effects": "The file is saved to disk, and the standup note task is complete.",
+      "nl_explanation": "After confirming the note content and preview, press Ctrl+S to save the file. This finishes the standup note creation task."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Create a new Markdown note file in the current VS Code workspace and open it for editing.",
+      "unit_type": "CREATE_AND_OPEN_FILE",
+      "unit_before_state": "VS Code is focused with the Explorer sidebar visible on the left and an open writable folder shown in the workspace.",
+      "unit_after_state": "A new file named daily-standup.md exists in the Explorer and is open as an empty editor tab in the main editor area.",
+      "unit_precondition": [
+        "The Explorer pane is visible in VS Code.",
+        "A folder is already open and writable.",
+        "The New File control is available in the Explorer header."
+      ],
+      "unit_effect": [
+        "An inline filename field appears in the Explorer, accepts daily-standup.md, and disappears after confirmation.",
+        "A new editor tab titled daily-standup.md opens with an empty text area ready for input."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4
+      ],
+      "unit_intent": "Draft the full standup note structure and initial checklist content inside the new Markdown file.",
+      "unit_type": "ENTER_MARKDOWN_CONTENT",
+      "unit_before_state": "The daily-standup.md editor tab is active and empty, with the text cursor inside the editor.",
+      "unit_after_state": "The editor contains a Markdown note with the title Daily Standup, sections for Yesterday, Today, and Blockers, and three checklist items under Today, with Reply to advisor email still listed last.",
+      "unit_precondition": [
+        "The daily-standup.md tab is open.",
+        "The editor caret is active inside the file.",
+        "The file is still editable and empty or ready for text entry."
+      ],
+      "unit_effect": [
+        "The typed Markdown text is visible in the editor.",
+        "The Today section shows three unchecked checklist lines, and Reply to advisor email appears below the other two items."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Reorder the Today checklist so Reply to advisor email becomes the first task.",
+      "unit_type": "REORDER_CHECKLIST_ITEM",
+      "unit_before_state": "The completed note is visible in the editor, and within the Today section the Reply to advisor email checklist item is the third item.",
+      "unit_after_state": "In the Today section, Reply to advisor email is now the first checklist item, above Finish the bug triage summary and Update the weekly slide outline.",
+      "unit_precondition": [
+        "The Today checklist is visible in the active editor.",
+        "The line '- [ ] Reply to advisor email' is present and selectable.",
+        "The editor supports line movement with Alt+Up."
+      ],
+      "unit_effect": [
+        "The text cursor lands on the Reply to advisor email line.",
+        "After two Alt+Up moves, that line is visibly repositioned to the top of the Today checklist while remaining selected or focused."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8
+      ],
+      "unit_intent": "Verify that the Markdown note renders correctly in preview mode before saving.",
+      "unit_type": "OPEN_MARKDOWN_PREVIEW",
+      "unit_before_state": "The daily-standup.md editor is active and shows the finished note with the checklist already reordered correctly.",
+      "unit_after_state": "A Markdown preview pane is open in VS Code, displaying the rendered Daily Standup note with headings and checklist items.",
+      "unit_precondition": [
+        "The daily-standup.md file is the active editor tab.",
+        "The note content is already complete enough to preview.",
+        "VS Code focus remains on the editor area."
+      ],
+      "unit_effect": [
+        "A rendered preview pane appears.",
+        "The note is shown as formatted Markdown with visible section headings and checklist bullets for visual confirmation."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        9
+      ],
+      "unit_intent": "Persist the completed standup note to disk.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The Markdown editor and preview are open, and the daily-standup.md file contains the completed note content.",
+      "unit_after_state": "The daily-standup.md file remains open in VS Code and its latest content is saved to disk.",
+      "unit_precondition": [
+        "The file has unsaved or recently edited content.",
+        "VS Code is focused and can receive keyboard shortcuts.",
+        "The note content and preview check are already complete."
+      ],
+      "unit_effect": [
+        "The save command is executed for daily-standup.md.",
+        "The file's current content is written to disk, completing the note creation task."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Create a new Markdown note file in the current VS Code workspace and open it for editing.",
+      "unit_type": "CREATE_AND_OPEN_FILE",
+      "unit_before_state": "VS Code is focused with the Explorer sidebar visible on the left and an open writable folder shown in the workspace.",
+      "unit_after_state": "A new file named daily-standup.md exists in the Explorer and is open as an empty editor tab in the main editor area.",
+      "unit_precondition": [
+        "The Explorer pane is visible in VS Code.",
+        "A folder is already open and writable.",
+        "The New File control is available in the Explorer header."
+      ],
+      "unit_effect": [
+        "An inline filename field appears in the Explorer, accepts daily-standup.md, and disappears after confirmation.",
+        "A new editor tab titled daily-standup.md opens with an empty text area ready for input."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a new file with a specified name in the current VS Code workspace and open it for editing.",
+      "parameters": {
+        "file_name": "daily-standup.md"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the New File icon in the Explorer title bar'}}",
+          "action_template": "When the Explorer view is visible, a folder is open in VS Code, and the New File button is available in the Explorer title area, click the New File icon in the Explorer header so an inline filename input appears in the Explorer, ready for the new file name."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'daily-standup.md'}",
+          "action_template": "With the inline filename input box focused and no file created yet, type {{file_name}} so the filename field contains {{file_name}}."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After {{file_name}} has been typed and the inline filename field is still active, press Enter to create the file so the new file is added to the workspace and opened as an empty editor tab."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4
+      ],
+      "unit_intent": "Draft the full standup note structure and initial checklist content inside the new Markdown file.",
+      "unit_type": "ENTER_MARKDOWN_CONTENT",
+      "unit_before_state": "The daily-standup.md editor tab is active and empty, with the text cursor inside the editor.",
+      "unit_after_state": "The editor contains a Markdown note with the title Daily Standup, sections for Yesterday, Today, and Blockers, and three checklist items under Today, with Reply to advisor email still listed last.",
+      "unit_precondition": [
+        "The daily-standup.md tab is open.",
+        "The editor caret is active inside the file.",
+        "The file is still editable and empty or ready for text entry."
+      ],
+      "unit_effect": [
+        "The typed Markdown text is visible in the editor.",
+        "The Today section shows three unchecked checklist lines, and Reply to advisor email appears below the other two items."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Populate the active blank Markdown file with a structured standup note template and initial checklist content.",
+      "parameters": {
+        "target_file": "daily-standup.md",
+        "markdown_content": "# Daily Standup\n\n## Yesterday\n- Reviewed experiment logs\n- Cleaned meeting notes\n\n## Today\n- [ ] Finish the bug triage summary\n- [ ] Update the weekly slide outline\n- [ ] Reply to advisor email\n\n## Blockers\n- Waiting for the new dataset export"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "TYPING",
+          "action_template": "When {{target_file}} is open and the cursor is in the editor, type {{markdown_content}} to enter the full standup note content. This creates the requested sections and checklist items, and the note then contains the headings and checklist lines with Reply to advisor email still at the bottom of the Today section."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Reorder the Today checklist so Reply to advisor email becomes the first task.",
+      "unit_type": "REORDER_CHECKLIST_ITEM",
+      "unit_before_state": "The completed note is visible in the editor, and within the Today section the Reply to advisor email checklist item is the third item.",
+      "unit_after_state": "In the Today section, Reply to advisor email is now the first checklist item, above Finish the bug triage summary and Update the weekly slide outline.",
+      "unit_precondition": [
+        "The Today checklist is visible in the active editor.",
+        "The line '- [ ] Reply to advisor email' is present and selectable.",
+        "The editor supports line movement with Alt+Up."
+      ],
+      "unit_effect": [
+        "The text cursor lands on the Reply to advisor email line.",
+        "After two Alt+Up moves, that line is visibly repositioned to the top of the Today checklist while remaining selected or focused."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Move a specified checklist item to the top of a visible checklist section.",
+      "parameters": {
+        "target_section": "Today",
+        "target_item": "- [ ] Reply to advisor email"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the text \"- [ ] Reply to advisor email\" in the editor'}}",
+          "action_template": "Click {{target_item}} in the editor when {{target_section}} is visible and the editor is focused to place the cursor on the checklist line that needs to be moved."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['alt', 'up']}",
+          "action_template": "Press Alt+Up while the cursor is on {{target_item}} and there are at least two items above it in {{target_section}} to move the line up by one position with the cursor following it."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['alt', 'up']}",
+          "action_template": "Press Alt+Up again while the cursor remains on {{target_item}} and one item is still above it in {{target_section}} to move the checklist item to the top of the section."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8
+      ],
+      "unit_intent": "Verify that the Markdown note renders correctly in preview mode before saving.",
+      "unit_type": "OPEN_MARKDOWN_PREVIEW",
+      "unit_before_state": "The daily-standup.md editor is active and shows the finished note with the checklist already reordered correctly.",
+      "unit_after_state": "A Markdown preview pane is open in VS Code, displaying the rendered Daily Standup note with headings and checklist items.",
+      "unit_precondition": [
+        "The daily-standup.md file is the active editor tab.",
+        "The note content is already complete enough to preview.",
+        "VS Code focus remains on the editor area."
+      ],
+      "unit_effect": [
+        "A rendered preview pane appears.",
+        "The note is shown as formatted Markdown with visible section headings and checklist bullets for visual confirmation."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open the preview for the active Markdown document to verify that its rendered formatting is correct before saving.",
+      "parameters": {
+        "target_markdown_file": "daily-standup.md"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'v']}",
+          "action_template": "When {{target_markdown_file}} is open and active in the editor, press Ctrl+Shift+V to open the preview so the rendered formatting can be checked. Preconditions: the Markdown file is open in the editor and the editor tab for {{target_markdown_file}} is active. After the action, a Markdown preview opens showing rendered headings and checklist items for visual verification."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        9
+      ],
+      "unit_intent": "Persist the completed standup note to disk.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The Markdown editor and preview are open, and the daily-standup.md file contains the completed note content.",
+      "unit_after_state": "The daily-standup.md file remains open in VS Code and its latest content is saved to disk.",
+      "unit_precondition": [
+        "The file has unsaved or recently edited content.",
+        "VS Code is focused and can receive keyboard shortcuts.",
+        "The note content and preview check are already complete."
+      ],
+      "unit_effect": [
+        "The save command is executed for daily-standup.md.",
+        "The file's current content is written to disk, completing the note creation task."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the current document to disk after completing its edits.",
+      "parameters": {
+        "target_file": "daily-standup.md"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 's']}",
+          "action_template": "After confirming the document content is complete and VS Code remains focused on {{target_file}}, press Ctrl+S to save the file to disk and finalize the document update."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

@@ -1,0 +1,558 @@
+{
+  "segment_id": "seg_001",
+  "app": "os",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Focus the open Terminal window so commands can be entered",
+      "action_before_state": "A Terminal window is already open on the GNOME desktop, and the shell prompt is visible.",
+      "action_preconditions": [
+        "The Terminal window is visible on screen.",
+        "The shell prompt is available and not blocked by another dialog."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the empty input area next to the shell prompt in the open Terminal window"
+        }
+      },
+      "action_after_effects": "The Terminal window becomes active and ready to receive keyboard input.",
+      "nl_explanation": "When the Terminal window and shell prompt are visible, left-click inside the prompt area so the terminal is focused and the next typed command goes there."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Enter the command to create a folder for the storage report",
+      "action_before_state": "The Terminal window is focused and the shell prompt is waiting for input.",
+      "action_preconditions": [
+        "The terminal cursor is active at a shell prompt."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "mkdir -p ~/Desktop/storage_report"
+      },
+      "action_after_effects": "The folder creation command appears at the shell prompt.",
+      "nl_explanation": "With the terminal focused and the prompt ready, type the mkdir command to prepare a Desktop folder that will hold the report file."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Run the folder creation command",
+      "action_before_state": "The mkdir command is fully visible at the shell prompt.",
+      "action_preconditions": [
+        "The command to create the Desktop report folder has been typed completely."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The shell creates the Desktop folder named storage_report and returns to a new prompt.",
+      "nl_explanation": "After the mkdir command is visible in Terminal, press Enter so the Desktop folder is created and the shell returns to a fresh prompt."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Enter the command that generates the top-10 Downloads size report",
+      "action_before_state": "The terminal shows a fresh shell prompt after the folder was created.",
+      "action_preconditions": [
+        "The storage_report folder already exists on the Desktop.",
+        "A new shell prompt is visible in Terminal."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "find ~/Downloads -type f -printf '%s\\t%p\\n' | sort -nr | head -n 10 > ~/Desktop/storage_report/downloads_top10.txt"
+      },
+      "action_after_effects": "The full find, sort, and redirect command appears at the prompt, ready to be executed.",
+      "nl_explanation": "When the new terminal prompt is ready and the Desktop report folder exists, type the command that scans Downloads, sorts files by size, keeps the ten largest entries, and saves them into a text file."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Run the report generation command",
+      "action_before_state": "The full command for creating downloads_top10.txt is visible in the terminal.",
+      "action_preconditions": [
+        "The report-generation command has been entered completely without being submitted yet."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The command runs and creates the file ~/Desktop/storage_report/downloads_top10.txt, then the shell returns to a prompt.",
+      "nl_explanation": "Once the report command is fully typed, press Enter to generate the text report listing the ten largest files under Downloads."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Enter the command to compress the report folder into a tar.gz archive",
+      "action_before_state": "The terminal has returned to a fresh shell prompt after creating the report file.",
+      "action_preconditions": [
+        "The report text file has already been created inside ~/Desktop/storage_report.",
+        "The shell prompt is ready for the next command."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "tar -czf ~/Desktop/storage_report.tar.gz -C ~/Desktop storage_report"
+      },
+      "action_after_effects": "The tar command appears in the terminal and is ready to run.",
+      "nl_explanation": "With the report file already saved and a fresh prompt visible, type the tar command that will compress the entire storage_report folder into a Desktop archive."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Run the compression command",
+      "action_before_state": "The tar command is visible at the shell prompt in Terminal.",
+      "action_preconditions": [
+        "The compression command has been typed completely."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The archive file ~/Desktop/storage_report.tar.gz is created, and the shell returns to a prompt.",
+      "nl_explanation": "After the tar command is ready in the terminal, press Enter so the report folder is compressed into a tar.gz archive on the Desktop."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Open the GNOME Activities overview to launch Files",
+      "action_before_state": "The Terminal window is still on screen after the archive was created.",
+      "action_preconditions": [
+        "The terminal command has finished running.",
+        "The desktop is not blocked by a modal dialog."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "super"
+        ]
+      },
+      "action_after_effects": "The GNOME Activities overview opens and the search field becomes available.",
+      "nl_explanation": "When the terminal work is finished and the screen is clear, press the Super key to open Activities so Files can be launched through GNOME search."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Search for the Files application",
+      "action_before_state": "The GNOME Activities overview is open with search ready for typing.",
+      "action_preconditions": [
+        "The Activities overview is visible.",
+        "Keyboard input will go into GNOME search."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Files"
+      },
+      "action_after_effects": "Search results appear in the overview and include the Files application.",
+      "nl_explanation": "With Activities open and search ready, type Files so GNOME shows the file manager as a launch result."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Launch the Files application from search results",
+      "action_before_state": "The Activities search results show the Files application icon and label.",
+      "action_preconditions": [
+        "The Files application is visible in the GNOME search results."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The Files window opens in the foreground.",
+      "nl_explanation": "Once the Files app appears in the Activities search results, press Enter to open the file manager."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Navigate Files to the Desktop folder",
+      "action_before_state": "The Files window is open, showing its sidebar with common locations such as Home, Documents, and Desktop.",
+      "action_preconditions": [
+        "The Files window is active.",
+        "The Desktop location is visible in the left sidebar."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Desktop entry in the Files sidebar"
+        }
+      },
+      "action_after_effects": "Files switches to the Desktop folder and shows the Desktop contents in the main pane.",
+      "nl_explanation": "When Files is open and the sidebar is visible, click Desktop so the main pane shows the files saved on the Desktop."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Confirm that the compressed storage report archive is present on the Desktop",
+      "action_before_state": "The Desktop folder is open in Files and the main file list is visible.",
+      "action_preconditions": [
+        "Files is displaying the Desktop contents.",
+        "The archive named storage_report.tar.gz is visible in the file list."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the file named storage_report.tar.gz in the Desktop file list"
+        }
+      },
+      "action_after_effects": "The archive file is selected, confirming that the requested compressed report was created successfully on the Desktop.",
+      "nl_explanation": "After opening the Desktop in Files and locating storage_report.tar.gz, click that archive once to confirm the finished output is present and ready to share."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Create a dedicated Desktop folder to hold the storage report files.",
+      "unit_type": "CREATE_REPORT_DIRECTORY",
+      "unit_before_state": "A GNOME Terminal window is already open on the desktop with a visible shell prompt, but it has not yet been used for this task.",
+      "unit_after_state": "The Terminal shows a fresh prompt again after running mkdir, and the Desktop destination folder `storage_report` has been created for the report output.",
+      "unit_precondition": [
+        "A Terminal window with an idle shell prompt is visible on screen.",
+        "No modal dialog is blocking keyboard input to the Terminal."
+      ],
+      "unit_effect": [
+        "The command `mkdir -p ~/Desktop/storage_report` is submitted in Terminal.",
+        "Terminal returns to a new prompt without an error message, indicating the Desktop report folder was created successfully."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Generate a text report listing the ten largest files anywhere under Downloads.",
+      "unit_type": "GENERATE_SIZE_REPORT",
+      "unit_before_state": "The Terminal is active at a fresh shell prompt, and the Desktop folder `storage_report` already exists.",
+      "unit_after_state": "The Terminal returns to a prompt after executing the find/sort command, and the report file `~/Desktop/storage_report/downloads_top10.txt` has been produced.",
+      "unit_precondition": [
+        "The folder `~/Desktop/storage_report` already exists.",
+        "The Terminal is focused at a new shell prompt ready to accept a command."
+      ],
+      "unit_effect": [
+        "The full command that scans `~/Downloads`, sorts by file size, and redirects output to `downloads_top10.txt` is executed.",
+        "Terminal returns to the prompt with no visible error, indicating the top-10 report file was generated."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7
+      ],
+      "unit_intent": "Package the generated storage report into a shareable compressed archive on the Desktop.",
+      "unit_type": "CREATE_ARCHIVE",
+      "unit_before_state": "The Terminal is back at a shell prompt after the report text file was created, and the `storage_report` folder exists on the Desktop.",
+      "unit_after_state": "The Terminal shows a fresh prompt again after running tar, and the archive `~/Desktop/storage_report.tar.gz` now exists on the Desktop.",
+      "unit_precondition": [
+        "The report file `~/Desktop/storage_report/downloads_top10.txt` has already been created.",
+        "The Terminal is ready for another command at an idle shell prompt."
+      ],
+      "unit_effect": [
+        "The command `tar -czf ~/Desktop/storage_report.tar.gz -C ~/Desktop storage_report` is submitted.",
+        "Terminal returns to the prompt without an error message, indicating the tar.gz archive was created successfully."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8,
+        9,
+        10
+      ],
+      "unit_intent": "Open the Files application so the Desktop output can be inspected graphically.",
+      "unit_type": "LAUNCH_FILE_MANAGER",
+      "unit_before_state": "The Terminal window remains visible after the archive command completes, and GNOME is in the normal desktop view.",
+      "unit_after_state": "A Files window is open in the foreground after being launched from GNOME Activities search.",
+      "unit_precondition": [
+        "The archive-creation command has finished and the desktop is responsive.",
+        "GNOME Activities can be opened and keyboard input can be used for search."
+      ],
+      "unit_effect": [
+        "Pressing Super opens the Activities overview with the search field ready.",
+        "Typing `Files` shows the Files application in results, and pressing Enter launches the Files window."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        11
+      ],
+      "unit_intent": "Switch the file manager view to the Desktop folder where the requested output was saved.",
+      "unit_type": "OPEN_DESKTOP_FOLDER",
+      "unit_before_state": "The Files application is open and shows its standard sidebar with locations such as Home, Documents, and Desktop.",
+      "unit_after_state": "The Files window is displaying the Desktop folder in the main pane, showing files and folders saved on the Desktop.",
+      "unit_precondition": [
+        "The Files window is active in the foreground.",
+        "The Desktop entry is visible in the Files sidebar."
+      ],
+      "unit_effect": [
+        "The Desktop sidebar item becomes the active location.",
+        "The main pane updates to show the contents of the Desktop folder."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        12
+      ],
+      "unit_intent": "Visually confirm the finished compressed report archive is present on the Desktop.",
+      "unit_type": "VERIFY_ARCHIVE_PRESENCE",
+      "unit_before_state": "Files is already open to the Desktop folder, and the Desktop file list is visible including `storage_report.tar.gz`.",
+      "unit_after_state": "The file `storage_report.tar.gz` is selected in the Desktop file list, confirming the finished archive is present and visible.",
+      "unit_precondition": [
+        "The Files window is currently showing the Desktop folder.",
+        "The file `storage_report.tar.gz` is visible in the main file list."
+      ],
+      "unit_effect": [
+        "The archive `storage_report.tar.gz` becomes highlighted as the selected file.",
+        "The visible selection of the archive serves as on-screen confirmation that the requested compressed report was created on the Desktop."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Create a dedicated Desktop folder to hold the storage report files.",
+      "unit_type": "CREATE_REPORT_DIRECTORY",
+      "unit_before_state": "A GNOME Terminal window is already open on the desktop with a visible shell prompt, but it has not yet been used for this task.",
+      "unit_after_state": "The Terminal shows a fresh prompt again after running mkdir, and the Desktop destination folder `storage_report` has been created for the report output.",
+      "unit_precondition": [
+        "A Terminal window with an idle shell prompt is visible on screen.",
+        "No modal dialog is blocking keyboard input to the Terminal."
+      ],
+      "unit_effect": [
+        "The command `mkdir -p ~/Desktop/storage_report` is submitted in Terminal.",
+        "Terminal returns to a new prompt without an error message, indicating the Desktop report folder was created successfully."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a specified Desktop folder in Terminal to hold output files.",
+      "parameters": {
+        "target_folder_path": "~/Desktop/storage_report",
+        "target_folder_name": "storage_report",
+        "create_folder_command": "mkdir -p ~/Desktop/storage_report"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "CLICK",
+          "action_template": "When the Terminal window and shell prompt are visible, left-click inside the prompt area so the terminal is focused and the next typed command goes there. Preconditions: the Terminal window is visible on screen and the shell prompt is available and not blocked by another dialog. After this action, the Terminal window becomes active and ready to receive keyboard input."
+        },
+        {
+          "action": "TYPING",
+          "action_template": "With the terminal focused and the prompt ready, type {{create_folder_command}} to prepare the Desktop folder at {{target_folder_path}}. Preconditions: the terminal cursor is active at a shell prompt. After this action, the folder creation command appears at the shell prompt."
+        },
+        {
+          "action": "PRESS",
+          "action_template": "After {{create_folder_command}} is visible in Terminal, press Enter so the Desktop folder {{target_folder_name}} is created and the shell returns to a fresh prompt. Preconditions: the command to create the Desktop report folder has been typed completely. After this action, the shell creates the Desktop folder named {{target_folder_name}} and returns to a new prompt."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Generate a text report listing the ten largest files anywhere under Downloads.",
+      "unit_type": "GENERATE_SIZE_REPORT",
+      "unit_before_state": "The Terminal is active at a fresh shell prompt, and the Desktop folder `storage_report` already exists.",
+      "unit_after_state": "The Terminal returns to a prompt after executing the find/sort command, and the report file `~/Desktop/storage_report/downloads_top10.txt` has been produced.",
+      "unit_precondition": [
+        "The folder `~/Desktop/storage_report` already exists.",
+        "The Terminal is focused at a new shell prompt ready to accept a command."
+      ],
+      "unit_effect": [
+        "The full command that scans `~/Downloads`, sorts by file size, and redirects output to `downloads_top10.txt` is executed.",
+        "Terminal returns to the prompt with no visible error, indicating the top-10 report file was generated."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Generate a text report listing the top largest files under a specified directory and save it to a specified output file.",
+      "parameters": {
+        "source_directory": "~/Downloads",
+        "max_entries": "10",
+        "report_directory": "~/Desktop/storage_report",
+        "output_report_path": "~/Desktop/storage_report/downloads_top10.txt"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': \"find ~/Downloads -type f -printf '%s\\\\t%p\\\\n' | sort -nr | head -n 10 > ~/Desktop/storage_report/downloads_top10.txt\"}",
+          "action_template": "When a new shell prompt is visible in Terminal and {{report_directory}} already exists, type the command that scans {{source_directory}}, sorts files by size, keeps the {{max_entries}} largest entries, and saves them into {{output_report_path}}. This leaves the full find, sort, and redirect command visible at the prompt, ready to be executed."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Once the report-generation command for {{source_directory}} and {{output_report_path}} has been entered completely without being submitted yet, press Enter to run it and generate the text report listing the {{max_entries}} largest files under {{source_directory}}, then return to a shell prompt."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7
+      ],
+      "unit_intent": "Package the generated storage report into a shareable compressed archive on the Desktop.",
+      "unit_type": "CREATE_ARCHIVE",
+      "unit_before_state": "The Terminal is back at a shell prompt after the report text file was created, and the `storage_report` folder exists on the Desktop.",
+      "unit_after_state": "The Terminal shows a fresh prompt again after running tar, and the archive `~/Desktop/storage_report.tar.gz` now exists on the Desktop.",
+      "unit_precondition": [
+        "The report file `~/Desktop/storage_report/downloads_top10.txt` has already been created.",
+        "The Terminal is ready for another command at an idle shell prompt."
+      ],
+      "unit_effect": [
+        "The command `tar -czf ~/Desktop/storage_report.tar.gz -C ~/Desktop storage_report` is submitted.",
+        "Terminal returns to the prompt without an error message, indicating the tar.gz archive was created successfully."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Compress a specified report folder into a shareable tar.gz archive at a target Desktop location.",
+      "parameters": {
+        "source_folder": "storage_report",
+        "source_parent_directory": "~/Desktop",
+        "archive_path": "~/Desktop/storage_report.tar.gz"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'tar -czf ~/Desktop/storage_report.tar.gz -C ~/Desktop storage_report'}",
+          "action_template": "Type the tar command to compress the entire {{source_folder}} folder from {{source_parent_directory}} into the archive {{archive_path}} after the report file has been created and the shell prompt is ready. The command should appear in the terminal ready to run."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter after the compression command for {{source_folder}} has been typed completely so the tar.gz archive {{archive_path}} is created and the shell returns to a prompt."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8,
+        9,
+        10
+      ],
+      "unit_intent": "Open the Files application so the Desktop output can be inspected graphically.",
+      "unit_type": "LAUNCH_FILE_MANAGER",
+      "unit_before_state": "The Terminal window remains visible after the archive command completes, and GNOME is in the normal desktop view.",
+      "unit_after_state": "A Files window is open in the foreground after being launched from GNOME Activities search.",
+      "unit_precondition": [
+        "The archive-creation command has finished and the desktop is responsive.",
+        "GNOME Activities can be opened and keyboard input can be used for search."
+      ],
+      "unit_effect": [
+        "Pressing Super opens the Activities overview with the search field ready.",
+        "Typing `Files` shows the Files application in results, and pressing Enter launches the Files window."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Launch a specified file manager application from GNOME Activities search.",
+      "parameters": {
+        "target_application": "Files"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['super']}",
+          "action_template": "When the terminal work is finished and the desktop is not blocked by a modal dialog, press the Super key to open the GNOME Activities overview so the search field becomes available for launching {{target_application}}."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Files'}",
+          "action_template": "With the Activities overview visible and keyboard input going into GNOME search, type {{target_application}} so the search results include the target application."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Once {{target_application}} appears in the GNOME search results, press Enter to launch it and open its window in the foreground."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        11
+      ],
+      "unit_intent": "Switch the file manager view to the Desktop folder where the requested output was saved.",
+      "unit_type": "OPEN_DESKTOP_FOLDER",
+      "unit_before_state": "The Files application is open and shows its standard sidebar with locations such as Home, Documents, and Desktop.",
+      "unit_after_state": "The Files window is displaying the Desktop folder in the main pane, showing files and folders saved on the Desktop.",
+      "unit_precondition": [
+        "The Files window is active in the foreground.",
+        "The Desktop entry is visible in the Files sidebar."
+      ],
+      "unit_effect": [
+        "The Desktop sidebar item becomes the active location.",
+        "The main pane updates to show the contents of the Desktop folder."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a specified folder from the file manager sidebar so its contents appear in the main pane.",
+      "parameters": {
+        "target_folder": "Desktop"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Desktop entry in the Files sidebar'}}",
+          "action_template": "With the Files window active and {{target_folder}} visible in the left sidebar, click the {{target_folder}} entry in the Files sidebar so the main pane switches to the {{target_folder}} folder and shows its contents."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        12
+      ],
+      "unit_intent": "Visually confirm the finished compressed report archive is present on the Desktop.",
+      "unit_type": "VERIFY_ARCHIVE_PRESENCE",
+      "unit_before_state": "Files is already open to the Desktop folder, and the Desktop file list is visible including `storage_report.tar.gz`.",
+      "unit_after_state": "The file `storage_report.tar.gz` is selected in the Desktop file list, confirming the finished archive is present and visible.",
+      "unit_precondition": [
+        "The Files window is currently showing the Desktop folder.",
+        "The file `storage_report.tar.gz` is visible in the main file list."
+      ],
+      "unit_effect": [
+        "The archive `storage_report.tar.gz` becomes highlighted as the selected file.",
+        "The visible selection of the archive serves as on-screen confirmation that the requested compressed report was created on the Desktop."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Visually confirm that a specified archive file is present in a specified folder by selecting it in the file manager.",
+      "parameters": {
+        "target_folder": "Desktop",
+        "archive_file": "storage_report.tar.gz"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the file named storage_report.tar.gz in the Desktop file list'}}",
+          "action_template": "After opening {{target_folder}} in Files and locating {{archive_file}}, click the file once when the Files window is displaying {{target_folder}} contents and {{archive_file}} is visible in the file list, to confirm the finished archive is present and ready to share. The file becomes selected, confirming that the requested compressed report was created successfully in {{target_folder}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

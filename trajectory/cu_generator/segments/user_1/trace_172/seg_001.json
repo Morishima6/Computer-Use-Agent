@@ -1,0 +1,852 @@
+{
+  "segment_id": "seg_001",
+  "app": "libreoffice_calc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Place the cursor in the starting cell",
+      "action_before_state": "libreoffice_calc is ready for step 1 of the task.",
+      "action_preconditions": [
+        "A blank or mostly empty Calc sheet is already open",
+        "The cell grid is visible",
+        "Cell A1 is visible near the top-left corner"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell A1 at the top-left of the sheet"
+        }
+      },
+      "action_after_effects": "Cell A1 becomes the active cell and is ready for text entry.",
+      "nl_explanation": "When the empty sheet is visible and A1 can be seen, click cell A1 so the budget tracker starts from the top-left corner."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Enter the worksheet title",
+      "action_before_state": "libreoffice_calc is ready for step 2 of the task.",
+      "action_preconditions": [
+        "Cell A1 is active",
+        "The sheet is ready to accept typed text"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Weekly Grocery Budget"
+      },
+      "action_after_effects": "The title text appears in cell A1.",
+      "nl_explanation": "With A1 selected, type the title so the sheet has a clear heading."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Select the title range across the future table width",
+      "action_before_state": "libreoffice_calc is ready for step 3 of the task.",
+      "action_preconditions": [
+        "The title is visible in A1",
+        "Cells A1 through D1 are visible"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell A1 containing the title"
+        },
+        "end": {
+          "text": "cell D1 on the same row"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "The range A1:D1 is highlighted.",
+      "nl_explanation": "After the title is in A1 and the nearby cells are visible, drag from A1 to D1 to select the full title span."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Center the title across the table area",
+      "action_before_state": "libreoffice_calc is ready for step 4 of the task.",
+      "action_preconditions": [
+        "Cells A1:D1 are selected",
+        "The standard formatting toolbar is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Merge and Center button in the toolbar"
+        }
+      },
+      "action_after_effects": "The title is merged across A1:D1 and centered.",
+      "nl_explanation": "With the title cells selected, click Merge and Center so the heading is centered over the budget table."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Move to the table starting position",
+      "action_before_state": "libreoffice_calc is ready for step 5 of the task.",
+      "action_preconditions": [
+        "The merged title is visible near the top of the sheet",
+        "Row 3 is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell A3"
+        }
+      },
+      "action_after_effects": "Cell A3 becomes active.",
+      "nl_explanation": "Once the title is set, click A3 so the table starts a little below it."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Enter the weekly budget table data",
+      "action_before_state": "libreoffice_calc is ready for step 6 of the task.",
+      "action_preconditions": [
+        "Cell A3 is active",
+        "The range A3:D10 is empty"
+      ],
+      "action": {
+        "type": "CLICK",
+        "text": "Day\tPlanned Spend\tActual Spend\tDifference\nMonday\t30\t28\t\nTuesday\t25\t31\t\nWednesday\t20\t18\t\nThursday\t35\t33\t\nFriday\t40\t44\t\nSaturday\t50\t47\t\nSunday\t30\t29\t",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the relevant libreoffice_calc UI element"
+        }
+      },
+      "action_after_effects": "The headers and daily planned and actual values fill A3:D10, and the Difference column remains empty.",
+      "nl_explanation": "With A3 selected and the area empty, paste the tab-separated weekly data so the tracker table is created in one step."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Select the first Difference cell",
+      "action_before_state": "libreoffice_calc is ready for step 7 of the task.",
+      "action_preconditions": [
+        "The table is visible in A3:D10",
+        "Cell D4 is empty"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell D4 in the first data row under Difference"
+        }
+      },
+      "action_after_effects": "Cell D4 becomes active.",
+      "nl_explanation": "After the table is entered and the first Difference cell is blank, click D4 to start the formula column."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Create the daily difference formula",
+      "action_before_state": "libreoffice_calc is ready for step 8 of the task.",
+      "action_preconditions": [
+        "Cell D4 is active",
+        "Cells B4 and C4 contain numeric values"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "=B4-C4"
+      },
+      "action_after_effects": "D4 shows the calculated difference for Monday.",
+      "nl_explanation": "With D4 selected and the planned and actual amounts present in the same row, type the subtraction formula to calculate the daily difference."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Copy the difference formula down the rest of the week",
+      "action_before_state": "libreoffice_calc is ready for step 9 of the task.",
+      "action_preconditions": [
+        "Cell D4 contains a working formula",
+        "The fill handle is visible at the bottom-right corner of D4",
+        "Rows 4 through 10 are visible"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the small fill handle at the bottom-right corner of cell D4"
+        },
+        "end": {
+          "text": "the bottom-right corner of cell D10"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "The formula is filled from D4 through D10, and each day gets its own difference value.",
+      "nl_explanation": "When the first formula is correct and the fill handle is visible, drag it down to D10 so every day gets a matching difference formula."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Move to the total row starting cell",
+      "action_before_state": "libreoffice_calc is ready for step 10 of the task.",
+      "action_preconditions": [
+        "The weekly table ends at row 10",
+        "Row 11 is visible and empty"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell A11 directly below the table"
+        }
+      },
+      "action_after_effects": "Cell A11 becomes active.",
+      "nl_explanation": "Once the daily rows are complete and the next row is open, click A11 to add the summary row."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Add the total row formulas",
+      "action_before_state": "libreoffice_calc is ready for step 11 of the task.",
+      "action_preconditions": [
+        "Cell A11 is active",
+        "The daily data exists from rows 4 to 10"
+      ],
+      "action": {
+        "type": "CLICK",
+        "text": "Total\t=SUM(B4:B10)\t=SUM(C4:C10)\t=SUM(D4:D10)",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the relevant libreoffice_calc UI element"
+        }
+      },
+      "action_after_effects": "Row 11 is filled with the Total label and the summed values for Planned Spend, Actual Spend, and Difference.",
+      "nl_explanation": "With A11 selected and the daily values already entered above, paste the total row so the weekly sums are calculated immediately."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Select the money cells for currency formatting",
+      "action_before_state": "libreoffice_calc is ready for step 12 of the task.",
+      "action_preconditions": [
+        "The table and total row are visible",
+        "The numeric money values occupy B4:D11"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell B4 at the top-left of the money area"
+        },
+        "end": {
+          "text": "cell D11 at the bottom-right of the money area"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "The range B4:D11 is selected.",
+      "nl_explanation": "After the numbers are in place, drag from B4 to D11 to select all monetary values that need the same format."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Format the numeric values as currency",
+      "action_before_state": "libreoffice_calc is ready for step 13 of the task.",
+      "action_preconditions": [
+        "Range B4:D11 is selected",
+        "The formatting toolbar is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Currency button on the formatting toolbar"
+        }
+      },
+      "action_after_effects": "The selected values display using a currency format.",
+      "nl_explanation": "With the money cells selected, click the Currency button so the planned, actual, difference, and total values are easier to read."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Select the header row",
+      "action_before_state": "libreoffice_calc is ready for step 14 of the task.",
+      "action_preconditions": [
+        "The header row is visible in A3:D3",
+        "The table remains on screen"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell A3 containing Day"
+        },
+        "end": {
+          "text": "cell D3 containing Difference"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "The header row A3:D3 is selected.",
+      "nl_explanation": "When the table headers are visible, drag across A3 to D3 so the full header row can be styled together."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Make the headers stand out",
+      "action_before_state": "libreoffice_calc is ready for step 15 of the task.",
+      "action_preconditions": [
+        "The header row A3:D3 is selected",
+        "Keyboard shortcuts are available"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "b"
+        ]
+      },
+      "action_after_effects": "The header labels become bold.",
+      "nl_explanation": "With the header row selected, press Ctrl+B to make the column labels stand out visually."
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Select the source data for the chart",
+      "action_before_state": "libreoffice_calc is ready for step 16 of the task.",
+      "action_preconditions": [
+        "The weekly table is visible",
+        "The range A3:C10 contains the labels and the planned and actual values"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell A3 at the top-left of the table"
+        },
+        "end": {
+          "text": "cell C10 at the bottom-right of the planned and actual data"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "The range A3:C10 is selected for chart creation.",
+      "nl_explanation": "After the table is complete, drag from A3 to C10 to select the day labels plus the planned and actual spending columns for the comparison chart."
+    },
+    {
+      "step_id": "s17",
+      "step_goal": "Start inserting a chart",
+      "action_before_state": "libreoffice_calc is ready for step 17 of the task.",
+      "action_preconditions": [
+        "Range A3:C10 is selected",
+        "The Insert Chart control is visible in the toolbar"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Insert Chart button in the toolbar"
+        }
+      },
+      "action_after_effects": "The Chart Wizard opens with the selected range as the data source.",
+      "nl_explanation": "With the chart data selected, click the Insert Chart button so Calc opens the chart setup dialog."
+    },
+    {
+      "step_id": "s18",
+      "step_goal": "Finish creating the comparison chart",
+      "action_before_state": "libreoffice_calc is ready for step 18 of the task.",
+      "action_preconditions": [
+        "The Chart Wizard is open",
+        "The selected range is already recognized"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Finish button in the Chart Wizard"
+        }
+      },
+      "action_after_effects": "A chart comparing planned and actual grocery spending is inserted into the sheet.",
+      "nl_explanation": "When the chart wizard has loaded the selected data correctly, click Finish to place the comparison chart onto the worksheet."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Create a centered worksheet title spanning the budget table area.",
+      "unit_type": "CREATE_AND_CENTER_TITLE",
+      "unit_before_state": "LibreOffice Calc shows a blank or mostly empty sheet with cell A1 visible at the top left and no title entered yet.",
+      "unit_after_state": "Cell range A1:D1 is merged into a centered title area showing \"Weekly Grocery Budget\" across the top of the sheet.",
+      "unit_precondition": [
+        "A blank or mostly empty Calc sheet is open.",
+        "Cells A1 through D1 are visible.",
+        "The toolbar includes the Merge and Center control."
+      ],
+      "unit_effect": [
+        "The text \"Weekly Grocery Budget\" is visible at the top of the sheet.",
+        "A1:D1 becomes one merged centered title cell spanning four columns."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Populate the main weekly grocery budget table with headers and daily planned and actual values.",
+      "unit_type": "POPULATE_WEEKLY_BUDGET_TABLE",
+      "unit_before_state": "The merged title is visible in row 1, and the area starting at A3 is empty and available for the table.",
+      "unit_after_state": "Range A3:D10 contains the table headers and rows for Monday through Sunday, with planned and actual amounts filled and the Difference column left blank.",
+      "unit_precondition": [
+        "The merged title is already present above the table area.",
+        "Cell A3 is visible and available for data entry.",
+        "Range A3:D10 is empty."
+      ],
+      "unit_effect": [
+        "Row 3 shows the headers Day, Planned Spend, Actual Spend, and Difference.",
+        "Rows 4 through 10 list Monday through Sunday with values in columns B and C, while D4:D10 remains empty."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8,
+        9
+      ],
+      "unit_intent": "Compute and populate the daily difference between planned and actual spending for the whole week.",
+      "unit_type": "FILL_DIFFERENCE_COLUMN",
+      "unit_before_state": "The weekly table is visible in A3:D10, and cells D4:D10 in the Difference column are empty.",
+      "unit_after_state": "Cells D4:D10 display calculated daily differences for Monday through Sunday based on the planned and actual amounts in the same rows.",
+      "unit_precondition": [
+        "The table in A3:D10 is already populated.",
+        "Cell D4 is empty and selectable.",
+        "Cells B4:C10 contain numeric planned and actual values.",
+        "The fill handle for D4 can be used to copy the formula downward."
+      ],
+      "unit_effect": [
+        "Cell D4 shows the result of the formula using B4 and C4.",
+        "The difference column from D4 through D10 is filled with row-specific calculated values."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        10,
+        11
+      ],
+      "unit_intent": "Add a summary row that totals the weekly planned, actual, and difference amounts.",
+      "unit_type": "ADD_TOTAL_SUMMARY_ROW",
+      "unit_before_state": "The weekly table ends at row 10, and row 11 below it is empty.",
+      "unit_after_state": "Row 11 contains a Total label in A11 and summed values for Planned Spend, Actual Spend, and Difference in B11:D11.",
+      "unit_precondition": [
+        "Rows 4 through 10 already contain the daily data and difference values.",
+        "Row 11 is visible and empty.",
+        "Cell A11 can be activated for entry."
+      ],
+      "unit_effect": [
+        "A11 displays \"Total\".",
+        "Cells B11, C11, and D11 show summed weekly totals for their respective columns."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        12,
+        13
+      ],
+      "unit_intent": "Display all spending and difference numbers in a consistent currency format.",
+      "unit_type": "FORMAT_CURRENCY_VALUES",
+      "unit_before_state": "The table and total row are visible, and numeric values in B4:D11 are shown as plain numbers.",
+      "unit_after_state": "All values in B4:D11 are displayed using currency formatting.",
+      "unit_precondition": [
+        "The range B4:D11 contains the numeric spending and difference values.",
+        "The currency formatting control is available on the toolbar.",
+        "The full range B4:D11 is visible for selection."
+      ],
+      "unit_effect": [
+        "Cells B4:D11 show currency symbols and monetary number formatting.",
+        "The planned, actual, difference, and total values are visually formatted as money."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        14,
+        15
+      ],
+      "unit_intent": "Make the table headers visually stand out from the data rows.",
+      "unit_type": "BOLD_TABLE_HEADERS",
+      "unit_before_state": "The header row A3:D3 is visible with regular-weight text.",
+      "unit_after_state": "The header labels in A3:D3 are shown in bold.",
+      "unit_precondition": [
+        "The header row A3:D3 is visible.",
+        "The row can be selected as a single range.",
+        "Keyboard shortcuts are available for bold formatting."
+      ],
+      "unit_effect": [
+        "The text in A3:D3 becomes visibly heavier than the data rows.",
+        "The headers are easier to distinguish from the values below."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        16,
+        17,
+        18
+      ],
+      "unit_intent": "Insert a chart that compares planned and actual grocery spending across the week.",
+      "unit_type": "INSERT_COMPARISON_CHART",
+      "unit_before_state": "The completed table is visible on the sheet, range A3:C10 is available for selection, and no chart has been inserted yet.",
+      "unit_after_state": "A chart object is inserted on the worksheet showing planned versus actual spending by day, and the Chart Wizard is closed.",
+      "unit_precondition": [
+        "The table data in A3:C10 is complete and visible.",
+        "The Insert Chart control is available.",
+        "LibreOffice Calc can open the Chart Wizard with the selected data range."
+      ],
+      "unit_effect": [
+        "The Chart Wizard opens using A3:C10 as the source data.",
+        "After finishing, a chart appears on the sheet with day labels and separate planned and actual series."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Create a centered worksheet title spanning the budget table area.",
+      "unit_type": "CREATE_AND_CENTER_TITLE",
+      "unit_before_state": "LibreOffice Calc shows a blank or mostly empty sheet with cell A1 visible at the top left and no title entered yet.",
+      "unit_after_state": "Cell range A1:D1 is merged into a centered title area showing \"Weekly Grocery Budget\" across the top of the sheet.",
+      "unit_precondition": [
+        "A blank or mostly empty Calc sheet is open.",
+        "Cells A1 through D1 are visible.",
+        "The toolbar includes the Merge and Center control."
+      ],
+      "unit_effect": [
+        "The text \"Weekly Grocery Budget\" is visible at the top of the sheet.",
+        "A1:D1 becomes one merged centered title cell spanning four columns."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a centered worksheet title spanning a specified header range.",
+      "parameters": {
+        "start_cell": "A1",
+        "end_cell": "D1",
+        "title_range": "A1:D1",
+        "title_text": "Weekly Grocery Budget"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell A1 at the top-left of the sheet'}}",
+          "action_template": "When the sheet is visible and {{start_cell}} can be seen, click cell {{start_cell}} so it becomes the active cell and is ready for text entry."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Weekly Grocery Budget'}",
+          "action_template": "With {{start_cell}} selected and ready to accept input, type {{title_text}} so the sheet has a clear heading in the starting cell."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'cell A1 containing the title'}, 'end': {'text': 'cell D1 on the same row'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "After {{title_text}} is visible in {{start_cell}} and the header cells are visible, drag from {{start_cell}} to {{end_cell}} to select the full title span {{title_range}}."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Merge and Center button in the toolbar'}}",
+          "action_template": "With {{title_range}} selected, click the Merge and Center button in the toolbar so the title is merged across {{title_range}} and centered."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Populate the main weekly grocery budget table with headers and daily planned and actual values.",
+      "unit_type": "POPULATE_WEEKLY_BUDGET_TABLE",
+      "unit_before_state": "The merged title is visible in row 1, and the area starting at A3 is empty and available for the table.",
+      "unit_after_state": "Range A3:D10 contains the table headers and rows for Monday through Sunday, with planned and actual amounts filled and the Difference column left blank.",
+      "unit_precondition": [
+        "The merged title is already present above the table area.",
+        "Cell A3 is visible and available for data entry.",
+        "Range A3:D10 is empty."
+      ],
+      "unit_effect": [
+        "Row 3 shows the headers Day, Planned Spend, Actual Spend, and Difference.",
+        "Rows 4 through 10 list Monday through Sunday with values in columns B and C, while D4:D10 remains empty."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Populate a spreadsheet table by selecting its top-left cell and pasting a tab-separated dataset that includes headers and row values.",
+      "parameters": {
+        "start_cell": "cell A3",
+        "table_data_tsv": "Day\tPlanned Spend\tActual Spend\tDifference\nMonday\t30\t28\t\nTuesday\t25\t31\t\nWednesday\t20\t18\t\nThursday\t35\t33\t\nFriday\t40\t44\t\nSaturday\t50\t47\t\nSunday\t30\t29\t"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell A3'}}",
+          "action_template": "Click {{start_cell}} once the title is set so the table can start below it, with the title visible near the top of the sheet and the target row visible. After the click, {{start_cell}} becomes active."
+        },
+        {
+          "action": "{'type': 'CLICK', 'text': 'Day\\tPlanned Spend\\tActual Spend\\tDifference\\nMonday\\t30\\t28\\t\\nTuesday\\t25\\t31\\t\\nWednesday\\t20\\t18\\t\\nThursday\\t35\\t33\\t\\nFriday\\t40\\t44\\t\\nSaturday\\t50\\t47\\t\\nSunday\\t30\\t29\\t', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the relevant libreoffice_calc UI element'}}",
+          "action_template": "With {{start_cell}} active and the destination area empty, paste {{table_data_tsv}} so the table is created in one step. After the paste, the headers and row values fill the target table area and the final column remains empty where the dataset leaves those cells blank."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8,
+        9
+      ],
+      "unit_intent": "Compute and populate the daily difference between planned and actual spending for the whole week.",
+      "unit_type": "FILL_DIFFERENCE_COLUMN",
+      "unit_before_state": "The weekly table is visible in A3:D10, and cells D4:D10 in the Difference column are empty.",
+      "unit_after_state": "Cells D4:D10 display calculated daily differences for Monday through Sunday based on the planned and actual amounts in the same rows.",
+      "unit_precondition": [
+        "The table in A3:D10 is already populated.",
+        "Cell D4 is empty and selectable.",
+        "Cells B4:C10 contain numeric planned and actual values.",
+        "The fill handle for D4 can be used to copy the formula downward."
+      ],
+      "unit_effect": [
+        "Cell D4 shows the result of the formula using B4 and C4.",
+        "The difference column from D4 through D10 is filled with row-specific calculated values."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Compute the row-wise difference in the first cell of a target column and fill the formula down through the remaining rows in that column.",
+      "parameters": {
+        "target_start_cell": "D4",
+        "formula_expression": "=B4-C4",
+        "fill_end_cell": "D10"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell D4 in the first data row under Difference'}}",
+          "action_template": "After the table is entered and the first target cell is blank, click {{target_start_cell}} to start the formula column. Preconditions: the table is visible and {{target_start_cell}} is empty. Effect: {{target_start_cell}} becomes active."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '=B4-C4'}",
+          "action_template": "With {{target_start_cell}} selected and the required row values present, type {{formula_expression}} to calculate the row-wise difference. Preconditions: {{target_start_cell}} is active and the referenced source cells contain numeric values. Effect: {{target_start_cell}} shows the calculated difference for the first row."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the small fill handle at the bottom-right corner of cell D4'}, 'end': {'text': 'the bottom-right corner of cell D10'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "When the first formula is correct and the fill handle is visible, drag the fill handle from {{target_start_cell}} down to {{fill_end_cell}} so each row gets a matching difference formula. Preconditions: {{target_start_cell}} contains a working formula, its fill handle is visible, and the target rows are visible. Effect: the formula is filled from {{target_start_cell}} through {{fill_end_cell}} with row-specific results."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        10,
+        11
+      ],
+      "unit_intent": "Add a summary row that totals the weekly planned, actual, and difference amounts.",
+      "unit_type": "ADD_TOTAL_SUMMARY_ROW",
+      "unit_before_state": "The weekly table ends at row 10, and row 11 below it is empty.",
+      "unit_after_state": "Row 11 contains a Total label in A11 and summed values for Planned Spend, Actual Spend, and Difference in B11:D11.",
+      "unit_precondition": [
+        "Rows 4 through 10 already contain the daily data and difference values.",
+        "Row 11 is visible and empty.",
+        "Cell A11 can be activated for entry."
+      ],
+      "unit_effect": [
+        "A11 displays \"Total\".",
+        "Cells B11, C11, and D11 show summed weekly totals for their respective columns."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Insert a total summary row below a completed table and populate it with a label and column sum formulas.",
+      "parameters": {
+        "summary_row_start_cell": "A11",
+        "target_summary_row": "row 11",
+        "source_data_range": "rows 4 to 10",
+        "summary_row_content": "Total\t=SUM(B4:B10)\t=SUM(C4:C10)\t=SUM(D4:D10)"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell A11 directly below the table'}}",
+          "action_template": "Once the data table is complete and {{target_summary_row}} is open, click {{summary_row_start_cell}} to activate the starting cell for the summary row."
+        },
+        {
+          "action": "{'type': 'CLICK', 'text': 'Total\\t=SUM(B4:B10)\\t=SUM(C4:C10)\\t=SUM(D4:D10)', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the relevant libreoffice_calc UI element'}}",
+          "action_template": "With {{summary_row_start_cell}} selected and source data present in {{source_data_range}}, click the LibreOffice Calc UI element for {{summary_row_content}} to populate the summary row with the label and summed values."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        12,
+        13
+      ],
+      "unit_intent": "Display all spending and difference numbers in a consistent currency format.",
+      "unit_type": "FORMAT_CURRENCY_VALUES",
+      "unit_before_state": "The table and total row are visible, and numeric values in B4:D11 are shown as plain numbers.",
+      "unit_after_state": "All values in B4:D11 are displayed using currency formatting.",
+      "unit_precondition": [
+        "The range B4:D11 contains the numeric spending and difference values.",
+        "The currency formatting control is available on the toolbar.",
+        "The full range B4:D11 is visible for selection."
+      ],
+      "unit_effect": [
+        "Cells B4:D11 show currency symbols and monetary number formatting.",
+        "The planned, actual, difference, and total values are visually formatted as money."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Apply currency formatting to a specified range of monetary values.",
+      "parameters": {
+        "target_range": "B4:D11",
+        "start_cell": "B4",
+        "end_cell": "D11"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'cell B4 at the top-left of the money area'}, 'end': {'text': 'cell D11 at the bottom-right of the money area'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "With the table and total row visible and the numeric money values occupying {{target_range}}, drag from cell {{start_cell}} at the top-left of the money area to cell {{end_cell}} at the bottom-right to select all monetary values that need the same format. This selects the range {{target_range}}."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Currency button on the formatting toolbar'}}",
+          "action_template": "With range {{target_range}} selected and the formatting toolbar visible, click the Currency button on the formatting toolbar so the selected monetary values display using a currency format."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        14,
+        15
+      ],
+      "unit_intent": "Make the table headers visually stand out from the data rows.",
+      "unit_type": "BOLD_TABLE_HEADERS",
+      "unit_before_state": "The header row A3:D3 is visible with regular-weight text.",
+      "unit_after_state": "The header labels in A3:D3 are shown in bold.",
+      "unit_precondition": [
+        "The header row A3:D3 is visible.",
+        "The row can be selected as a single range.",
+        "Keyboard shortcuts are available for bold formatting."
+      ],
+      "unit_effect": [
+        "The text in A3:D3 becomes visibly heavier than the data rows.",
+        "The headers are easier to distinguish from the values below."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Apply bold formatting to a visible table header row so it stands out from the data rows.",
+      "parameters": {
+        "target_range": "A3:D3",
+        "range_start_cell": "cell A3 containing Day",
+        "range_end_cell": "cell D3 containing Difference"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'cell A3 containing Day'}, 'end': {'text': 'cell D3 containing Difference'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "When {{target_range}} is visible and the table remains on screen, drag from {{range_start_cell}} to {{range_end_cell}} so the full header row can be selected and styled together."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'b']}",
+          "action_template": "With {{target_range}} selected and keyboard shortcuts available, press Ctrl+B to make the column labels stand out visually so the header labels become bold."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_07",
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        16,
+        17,
+        18
+      ],
+      "unit_intent": "Insert a chart that compares planned and actual grocery spending across the week.",
+      "unit_type": "INSERT_COMPARISON_CHART",
+      "unit_before_state": "The completed table is visible on the sheet, range A3:C10 is available for selection, and no chart has been inserted yet.",
+      "unit_after_state": "A chart object is inserted on the worksheet showing planned versus actual spending by day, and the Chart Wizard is closed.",
+      "unit_precondition": [
+        "The table data in A3:C10 is complete and visible.",
+        "The Insert Chart control is available.",
+        "LibreOffice Calc can open the Chart Wizard with the selected data range."
+      ],
+      "unit_effect": [
+        "The Chart Wizard opens using A3:C10 as the source data.",
+        "After finishing, a chart appears on the sheet with day labels and separate planned and actual series."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Insert a comparison chart from a specified worksheet data range.",
+      "parameters": {
+        "selection_start_cell": "A3",
+        "selection_end_cell": "C10",
+        "chart_data_range": "A3:C10"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'cell A3 at the top-left of the table'}, 'end': {'text': 'cell C10 at the bottom-right of the planned and actual data'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "Drag from cell {{selection_start_cell}} to cell {{selection_end_cell}} to select the labels and value columns for the comparison chart. Preconditions: the table is visible, and the range {{chart_data_range}} contains the labels and comparison values. Effect: the range {{chart_data_range}} is selected for chart creation."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Insert Chart button in the toolbar'}}",
+          "action_template": "Click the Insert Chart button in the toolbar to open the Chart Wizard using {{chart_data_range}} as the data source. Preconditions: the range {{chart_data_range}} is selected, and the Insert Chart control is visible in the toolbar. Effect: the Chart Wizard opens with the selected range as the data source."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Finish button in the Chart Wizard'}}",
+          "action_template": "Click the Finish button in the Chart Wizard after the selected range is recognized to place the comparison chart onto the worksheet. Preconditions: the Chart Wizard is open, and the selected range is already recognized. Effect: a comparison chart is inserted into the sheet."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

@@ -1,0 +1,590 @@
+{
+  "segment_id": "seg_001",
+  "app": "libreoffice_calc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the column context menu where the new column should be inserted",
+      "action_before_state": "LibreOffice Calc is open with the budget sheet visible, and the header row includes Date, Store, Budget, and Spent.",
+      "action_preconditions": [
+        "The spreadsheet grid is visible.",
+        "The header row is visible.",
+        "The column immediately to the right of Spent is visible on screen."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "right",
+        "num_clicks": 1,
+        "target": {
+          "text": "the column header immediately to the right of the Spent column"
+        }
+      },
+      "action_after_effects": "A context menu for that column appears.",
+      "nl_explanation": "When the header row is visible and the column after Spent can be seen, right-click that next column header so Calc shows the column actions menu for inserting a new column in the correct place."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Insert a blank column after Spent",
+      "action_before_state": "The column context menu is open next to the header area.",
+      "action_preconditions": [
+        "The context menu from the column header is open.",
+        "An option to insert a column before the selected column is visible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Insert Columns Before option in the context menu"
+        }
+      },
+      "action_after_effects": "A new empty column is inserted between Spent and the column that was originally to its right.",
+      "nl_explanation": "With the column menu open, click Insert Columns Before so Calc creates a new blank column directly after Spent."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Select the new header cell for naming the inserted column",
+      "action_before_state": "A new blank column has been inserted after Spent, and its top header cell in row 1 is empty.",
+      "action_preconditions": [
+        "The inserted blank column is visible.",
+        "The first row of the sheet is visible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the empty header cell in row 1 of the newly inserted column"
+        }
+      },
+      "action_after_effects": "The new header cell becomes active and is ready for text entry.",
+      "nl_explanation": "After the blank column appears, click its row-1 cell so the cursor is positioned where the new column name should go."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Name the new column",
+      "action_before_state": "The inserted header cell is selected.",
+      "action_preconditions": [
+        "The new header cell is active.",
+        "No other cell is being edited."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Remaining Budget"
+      },
+      "action_after_effects": "The selected header cell now contains the text Remaining Budget.",
+      "nl_explanation": "With the new header cell selected, type Remaining Budget so the inserted column is labeled correctly."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Move to the first data cell in the new column",
+      "action_before_state": "The new column header is filled, and the first row of data is visible below it.",
+      "action_preconditions": [
+        "The header Remaining Budget is visible.",
+        "The first data row under that header is visible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the first data cell directly under Remaining Budget, on the same row as the first budget entry"
+        }
+      },
+      "action_after_effects": "The first calculation cell in the Remaining Budget column is selected.",
+      "nl_explanation": "Once the new header is in place, click the first empty data cell under it so the formula can be entered for the first row."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Enter the budget-minus-spent formula for the first row",
+      "action_before_state": "The first data cell under Remaining Budget is selected, and the same row contains Budget in column C and Spent in column D.",
+      "action_preconditions": [
+        "The selected row has numeric values in the Budget and Spent columns.",
+        "The active cell is the first empty cell in Remaining Budget."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "=C2-D2"
+      },
+      "action_after_effects": "The subtraction formula is typed into the first Remaining Budget cell.",
+      "nl_explanation": "When the first Remaining Budget cell is active and the same row has Budget and Spent values, type =C2-D2 so the sheet can compute the amount left for that row."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Commit the formula so the result appears",
+      "action_before_state": "The formula =C2-D2 has been typed into the first Remaining Budget cell.",
+      "action_preconditions": [
+        "The formula text is present in the active cell.",
+        "The cell is still in entry mode."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "Calc evaluates the formula and shows the numeric remaining-budget result in the first row.",
+      "nl_explanation": "After typing the formula, press Enter to confirm it so the calculated Remaining Budget value appears in the selected row."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Fill the same formula down the rest of the table",
+      "action_before_state": "The first Remaining Budget result is visible, and the fill handle is available at the bottom-right of that cell.",
+      "action_preconditions": [
+        "The first calculated cell in Remaining Budget is visible.",
+        "There are additional filled data rows below it."
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the small fill handle at the bottom-right corner of the first calculated Remaining Budget cell"
+        },
+        "end": {
+          "text": "the cell in the Remaining Budget column aligned with the last row that still has budget and spent data"
+        },
+        "target": {
+          "begin": {
+            "text": "the fill handle at the bottom-right corner of the first calculated cell in Remaining Budget"
+          },
+          "end": {
+            "text": "the destination cell in the Remaining Budget column on the last row that contains budget and spent data"
+          }
+        }
+      },
+      "action_after_effects": "The formula is copied down the Remaining Budget column for all filled rows.",
+      "nl_explanation": "With the first formula result visible and more data rows below, drag the fill handle down to the last populated row so Calc repeats the same Budget minus Spent formula for the entire table."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Apply currency formatting to the new calculated values",
+      "action_before_state": "The filled Remaining Budget cells have just been populated and are still selected after the drag-fill operation.",
+      "action_preconditions": [
+        "The Remaining Budget values from the first calculated row through the last data row are selected.",
+        "The formatting toolbar is visible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the currency format button on the toolbar"
+        }
+      },
+      "action_after_effects": "All selected Remaining Budget values display as currency amounts.",
+      "nl_explanation": "When the new Remaining Budget range is selected, click the currency button in the toolbar so the calculated values are shown in money format instead of plain numbers."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Move down to the first empty row below the table",
+      "action_before_state": "The sheet shows part of the table, but the full bottom of the data may not yet be visible.",
+      "action_preconditions": [
+        "The spreadsheet contains more rows than are currently visible.",
+        "The vertical scrollbar is available."
+      ],
+      "action": {
+        "type": "SCROLL",
+        "scroll_direction": "down",
+        "target": {
+          "text": "the vertical scroll area on the right side of the spreadsheet"
+        },
+        "stop_condition": "stop when the last filled row of the table and the first blank row directly underneath it are both visible",
+        "direction": "down"
+      },
+      "action_after_effects": "The bottom of the data table is visible, including an empty row for entering a total.",
+      "nl_explanation": "If the full table is not visible, scroll downward until the last populated row and the first blank row below it can both be seen, so there is room to add the summary total."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Select the empty cell where the total formula should go",
+      "action_before_state": "The bottom of the Remaining Budget column is visible, with the first blank row directly below the data.",
+      "action_preconditions": [
+        "The final filled Remaining Budget value is visible.",
+        "The first empty cell under that column is visible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the first empty cell below the last Remaining Budget value"
+        }
+      },
+      "action_after_effects": "The blank cell for the column total becomes active.",
+      "nl_explanation": "When the bottom of the Remaining Budget column is visible, click the first empty cell underneath the data so the sum formula can be entered there."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Insert the total formula for the Remaining Budget column",
+      "action_before_state": "The blank cell under the Remaining Budget values is selected, and the last filled Remaining Budget row is visible just above it.",
+      "action_preconditions": [
+        "The first empty summary cell under the Remaining Budget column is active.",
+        "The filled Remaining Budget range extends from row 2 through the visible last data row."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "=SUM(E2:E<last_data_row>)"
+      },
+      "action_after_effects": "The sum formula for the Remaining Budget column is entered into the summary cell using the actual last data row of the table.",
+      "nl_explanation": "With the empty summary cell selected below the Remaining Budget values, type a SUM formula that starts at E2 and ends at the last filled Remaining Budget cell in the row directly above the blank summary cell."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Confirm the total formula",
+      "action_before_state": "The sum formula has been typed in the summary cell.",
+      "action_preconditions": [
+        "The sum formula text is visible in the active cell.",
+        "The cell is still ready to be confirmed."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "Calc evaluates the formula and shows the total Remaining Budget below the table.",
+      "nl_explanation": "After entering the SUM formula, press Enter so Calc calculates and displays the total remaining budget in the summary row."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Save the completed spreadsheet",
+      "action_before_state": "The Remaining Budget column is filled and formatted, and the total has been added below the table.",
+      "action_preconditions": [
+        "The spreadsheet edits are complete.",
+        "LibreOffice Calc is the active window."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "s"
+        ]
+      },
+      "action_after_effects": "The spreadsheet is saved with the new column, formulas, formatting, and total.",
+      "nl_explanation": "Once the new column calculations, currency formatting, and total are all in place, press Ctrl+S to save the finished spreadsheet."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Create a dedicated Remaining Budget column immediately after Spent so the sheet has a place for the new calculation.",
+      "unit_type": "INSERT_AND_LABEL_COLUMN",
+      "unit_before_state": "LibreOffice Calc shows the weekly budget sheet with row 1 headers including Date, Store, Budget, and Spent, and the column header immediately to the right of Spent is visible.",
+      "unit_after_state": "A new blank column has been inserted directly after Spent, and its row-1 header cell now displays \"Remaining Budget\".",
+      "unit_precondition": [
+        "The spreadsheet grid and row 1 header are visible.",
+        "The column header immediately to the right of Spent is visible so it can be right-clicked.",
+        "The newly inserted header cell in row 1 can be activated for text entry."
+      ],
+      "unit_effect": [
+        "A column context menu opens from the header to the right of Spent and the Insert Columns Before command inserts a blank column after Spent.",
+        "The top cell of the new column shows the text \"Remaining Budget\"."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Compute the remaining budget for every populated row in the table.",
+      "unit_type": "POPULATE_FORMULA_DOWN_COLUMN",
+      "unit_before_state": "The new column header \"Remaining Budget\" is visible in row 1, the first data row is visible, and the first empty calculation cell under that header is available.",
+      "unit_after_state": "The first data cell under Remaining Budget shows the evaluated result of Budget minus Spent, and the same formula has been filled down the Remaining Budget column for all filled rows.",
+      "unit_precondition": [
+        "The first data cell below \"Remaining Budget\" is visible and can be selected.",
+        "The same first data row contains numeric Budget and Spent values in columns C and D.",
+        "Additional populated rows exist below the first row so the formula can be filled downward."
+      ],
+      "unit_effect": [
+        "The first Remaining Budget cell receives the formula \"=C2-D2\" and shows a numeric result after Enter is pressed.",
+        "Dragging the fill handle copies the formula down column E through the last row that still contains budget and spent data."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        9
+      ],
+      "unit_intent": "Display the calculated remaining-budget values as money amounts.",
+      "unit_type": "FORMAT_AS_CURRENCY",
+      "unit_before_state": "The filled Remaining Budget cells are still selected after the autofill operation, and the Calc formatting toolbar is visible.",
+      "unit_after_state": "The selected Remaining Budget cells display currency formatting instead of plain numeric values.",
+      "unit_precondition": [
+        "The Remaining Budget result cells from the first calculated row through the last data row are selected.",
+        "The currency formatting button is visible on the toolbar."
+      ],
+      "unit_effect": [
+        "The selected values in the Remaining Budget column switch to currency-formatted display."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        10,
+        11,
+        12,
+        13
+      ],
+      "unit_intent": "Add a summary total beneath the Remaining Budget column.",
+      "unit_type": "ADD_COLUMN_TOTAL",
+      "unit_before_state": "The Remaining Budget column has been filled and formatted, but the bottom of the table may not yet be visible on screen.",
+      "unit_after_state": "The first empty cell directly below the last filled Remaining Budget value contains an evaluated SUM result for the Remaining Budget column.",
+      "unit_precondition": [
+        "The Remaining Budget column already contains calculated values for every filled data row.",
+        "The sheet can be scrolled until the last populated row and the first blank row below it are visible together.",
+        "The first empty cell beneath the Remaining Budget values can be selected for formula entry."
+      ],
+      "unit_effect": [
+        "Scrolling exposes the last filled Remaining Budget row and the first blank summary row beneath it.",
+        "The summary cell below the table shows the evaluated total after a SUM formula spanning E2 through the last filled Remaining Budget cell is entered and confirmed."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        14
+      ],
+      "unit_intent": "Persist the completed weekly budget update to disk.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The spreadsheet now includes the Remaining Budget column with filled formulas, currency formatting, and a total shown below the table.",
+      "unit_after_state": "The Calc document remains open with the new column, calculated values, currency formatting, and total saved.",
+      "unit_precondition": [
+        "LibreOffice Calc is the active window.",
+        "The Remaining Budget column and its total have already been completed."
+      ],
+      "unit_effect": [
+        "The Ctrl+S save command is issued for the edited spreadsheet.",
+        "The spreadsheet is stored with the inserted column, formulas, formatting, and total preserved."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Create a dedicated Remaining Budget column immediately after Spent so the sheet has a place for the new calculation.",
+      "unit_type": "INSERT_AND_LABEL_COLUMN",
+      "unit_before_state": "LibreOffice Calc shows the weekly budget sheet with row 1 headers including Date, Store, Budget, and Spent, and the column header immediately to the right of Spent is visible.",
+      "unit_after_state": "A new blank column has been inserted directly after Spent, and its row-1 header cell now displays \"Remaining Budget\".",
+      "unit_precondition": [
+        "The spreadsheet grid and row 1 header are visible.",
+        "The column header immediately to the right of Spent is visible so it can be right-clicked.",
+        "The newly inserted header cell in row 1 can be activated for text entry."
+      ],
+      "unit_effect": [
+        "A column context menu opens from the header to the right of Spent and the Insert Columns Before command inserts a blank column after Spent.",
+        "The top cell of the new column shows the text \"Remaining Budget\"."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Insert a new column immediately after a reference column and label the inserted column with a specified header name.",
+      "parameters": {
+        "reference_column": "Spent",
+        "new_column_header": "Remaining Budget"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'right', 'num_clicks': 1, 'target': {'text': 'the column header immediately to the right of the Spent column'}}",
+          "action_template": "When the spreadsheet grid and header row are visible and the column immediately to the right of {{reference_column}} is visible on screen, right-click that next column header so Calc opens the column context menu for inserting a new column in the correct place."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Insert Columns Before option in the context menu'}}",
+          "action_template": "With the column context menu open and the Insert Columns Before option visible, click Insert Columns Before so Calc inserts a new empty column directly after {{reference_column}}."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the empty header cell in row 1 of the newly inserted column'}}",
+          "action_template": "After the blank column inserted after {{reference_column}} is visible and row 1 is on screen, click the empty header cell in the new column so it becomes active and ready for text entry."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Remaining Budget'}",
+          "action_template": "With the new header cell active and no other cell being edited, type {{new_column_header}} so the selected header cell is labeled correctly."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Compute the remaining budget for every populated row in the table.",
+      "unit_type": "POPULATE_FORMULA_DOWN_COLUMN",
+      "unit_before_state": "The new column header \"Remaining Budget\" is visible in row 1, the first data row is visible, and the first empty calculation cell under that header is available.",
+      "unit_after_state": "The first data cell under Remaining Budget shows the evaluated result of Budget minus Spent, and the same formula has been filled down the Remaining Budget column for all filled rows.",
+      "unit_precondition": [
+        "The first data cell below \"Remaining Budget\" is visible and can be selected.",
+        "The same first data row contains numeric Budget and Spent values in columns C and D.",
+        "Additional populated rows exist below the first row so the formula can be filled downward."
+      ],
+      "unit_effect": [
+        "The first Remaining Budget cell receives the formula \"=C2-D2\" and shows a numeric result after Enter is pressed.",
+        "Dragging the fill handle copies the formula down column E through the last row that still contains budget and spent data."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Populate a calculated column by entering a specified formula in its first data cell and filling that formula down through all populated rows.",
+      "parameters": {
+        "target_column_header": "Remaining Budget",
+        "first_data_cell": "the first data cell directly under Remaining Budget, on the same row as the first budget entry",
+        "formula_text": "=C2-D2",
+        "fill_handle": "the small fill handle at the bottom-right corner of the first calculated Remaining Budget cell",
+        "fill_destination_cell": "the cell in the Remaining Budget column aligned with the last row that still has budget and spent data"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "CLICK",
+          "action_template": "Click {{first_data_cell}} once {{target_column_header}} and its first data row are visible, so the first calculation cell in that column is selected for formula entry."
+        },
+        {
+          "action": "TYPING",
+          "action_template": "Type {{formula_text}} into the active first cell under {{target_column_header}} when that row's referenced values are available, so the calculation formula is entered into the selected cell."
+        },
+        {
+          "action": "PRESS",
+          "action_template": "Press Enter after {{formula_text}} is present in the active cell and the cell is still in entry mode, so Calc evaluates the formula and shows the numeric result in the first row under {{target_column_header}}."
+        },
+        {
+          "action": "DRAG_TO",
+          "action_template": "Drag {{fill_handle}} down to {{fill_destination_cell}} when the first calculated result under {{target_column_header}} is visible and more populated rows exist below, so the same formula is copied through all filled rows in that column."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        9
+      ],
+      "unit_intent": "Display the calculated remaining-budget values as money amounts.",
+      "unit_type": "FORMAT_AS_CURRENCY",
+      "unit_before_state": "The filled Remaining Budget cells are still selected after the autofill operation, and the Calc formatting toolbar is visible.",
+      "unit_after_state": "The selected Remaining Budget cells display currency formatting instead of plain numeric values.",
+      "unit_precondition": [
+        "The Remaining Budget result cells from the first calculated row through the last data row are selected.",
+        "The currency formatting button is visible on the toolbar."
+      ],
+      "unit_effect": [
+        "The selected values in the Remaining Budget column switch to currency-formatted display."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Display the selected calculated values as currency-formatted amounts.",
+      "parameters": {
+        "target_range": "The Remaining Budget values from the first calculated row through the last data row"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "CLICK",
+          "action_template": "When {{target_range}} is selected and the formatting toolbar is visible, click the currency format button on the toolbar so the calculated values are shown in money format instead of plain numbers and all selected values display as currency amounts."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        10,
+        11,
+        12,
+        13
+      ],
+      "unit_intent": "Add a summary total beneath the Remaining Budget column.",
+      "unit_type": "ADD_COLUMN_TOTAL",
+      "unit_before_state": "The Remaining Budget column has been filled and formatted, but the bottom of the table may not yet be visible on screen.",
+      "unit_after_state": "The first empty cell directly below the last filled Remaining Budget value contains an evaluated SUM result for the Remaining Budget column.",
+      "unit_precondition": [
+        "The Remaining Budget column already contains calculated values for every filled data row.",
+        "The sheet can be scrolled until the last populated row and the first blank row below it are visible together.",
+        "The first empty cell beneath the Remaining Budget values can be selected for formula entry."
+      ],
+      "unit_effect": [
+        "Scrolling exposes the last filled Remaining Budget row and the first blank summary row beneath it.",
+        "The summary cell below the table shows the evaluated total after a SUM formula spanning E2 through the last filled Remaining Budget cell is entered and confirmed."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Insert and confirm a SUM total in the first empty summary cell beneath a populated spreadsheet column.",
+      "parameters": {
+        "target_column_name": "Remaining Budget",
+        "target_column_start_cell": "E2",
+        "sum_formula": "=SUM(E2:E<last_data_row>)"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'SCROLL', 'scroll_direction': 'down', 'target': {'text': 'the vertical scroll area on the right side of the spreadsheet'}, 'stop_condition': 'stop when the last filled row of the table and the first blank row directly underneath it are both visible', 'direction': 'down'}",
+          "action_template": "If the full table is not visible and the spreadsheet contains more rows than are currently shown, scroll down in the vertical scroll area until the last populated row and the first blank row directly below it are both visible, so there is room to add the summary total."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the first empty cell below the last Remaining Budget value'}}",
+          "action_template": "With the final filled {{target_column_name}} value and the first empty cell under that column visible, click the first empty cell below the last {{target_column_name}} value so the blank total cell becomes active."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '=SUM(E2:E<last_data_row>)'}",
+          "action_template": "With the first empty summary cell under {{target_column_name}} active, type {{sum_formula}} to total the filled {{target_column_name}} range starting at {{target_column_start_cell}} and ending at the last filled cell in that column."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After {{sum_formula}} is visible in the active summary cell and ready to be confirmed, press Enter so Calc evaluates the formula and displays the total for {{target_column_name}} below the table."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        14
+      ],
+      "unit_intent": "Persist the completed weekly budget update to disk.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The spreadsheet now includes the Remaining Budget column with filled formulas, currency formatting, and a total shown below the table.",
+      "unit_after_state": "The Calc document remains open with the new column, calculated values, currency formatting, and total saved.",
+      "unit_precondition": [
+        "LibreOffice Calc is the active window.",
+        "The Remaining Budget column and its total have already been completed."
+      ],
+      "unit_effect": [
+        "The Ctrl+S save command is issued for the edited spreadsheet.",
+        "The spreadsheet is stored with the inserted column, formulas, formatting, and total preserved."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the completed spreadsheet so all recent edits are persisted to disk.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 's']}",
+          "action_template": "Once the spreadsheet edits are complete and LibreOffice Calc is the active window, press Ctrl+S to save the finished spreadsheet so the new column, formulas, formatting, and total are preserved."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

@@ -1,0 +1,598 @@
+{
+  "segment_id": "seg_001",
+  "app": "thunderbird",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Make sure the Local Folders section is visible in the folder pane",
+      "action_before_state": "Thunderbird is already open in the main mail view, with the folder list on the left and the message list in the middle.",
+      "action_preconditions": [
+        "The Thunderbird main window is focused",
+        "The folder pane is visible on the left",
+        "Local Folders is not currently visible without moving the folder list"
+      ],
+      "action": {
+        "type": "SCROLL",
+        "direction": "down",
+        "target": {
+          "text": "the folder pane on the left; stop when the Local Folders entry becomes visible"
+        }
+      },
+      "action_after_effects": "The folder list moves downward and the Local Folders entry is now visible, so it can be selected as the location for the saved search.",
+      "nl_explanation": "When Thunderbird is showing the normal mail layout and Local Folders is not yet visible, scroll down in the folder pane until Local Folders appears. This prepares the left pane so the saved search can be created in the correct place."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Select Local Folders as the parent location for the new saved search",
+      "action_before_state": "The Thunderbird main window is still active, and the left folder pane now shows Local Folders.",
+      "action_preconditions": [
+        "Thunderbird is focused",
+        "The standard message view is open",
+        "The Local Folders entry is visible in the folder pane"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Local Folders entry in the folder pane"
+        }
+      },
+      "action_after_effects": "Local Folders becomes the selected folder in the folder pane, setting the intended parent location for the new saved search.",
+      "nl_explanation": "Click Local Folders in the folder list so Thunderbird uses it as the folder context for the saved search you are about to create."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Show Thunderbird's classic menu bar",
+      "action_before_state": "The main Thunderbird window is still active, and Local Folders is selected in the folder pane.",
+      "action_preconditions": [
+        "Thunderbird is focused",
+        "The standard message view is open",
+        "The menu bar is hidden or not currently expanded"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "alt"
+        ]
+      },
+      "action_after_effects": "The menu bar appears at the top of the Thunderbird window, exposing items such as File and Edit.",
+      "nl_explanation": "Once the main mail window is active, press Alt to reveal Thunderbird's menu bar. This makes the File menu available so the saved search dialog can be opened."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Open the File menu",
+      "action_before_state": "The Thunderbird menu bar is visible at the top of the window.",
+      "action_preconditions": [
+        "The menu bar is visible",
+        "The File menu label can be seen at the top of the window"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the File menu on the top menu bar"
+        }
+      },
+      "action_after_effects": "The File dropdown menu opens and displays mail-related creation options.",
+      "nl_explanation": "When the menu bar is visible, click File at the top of Thunderbird. This opens the menu that contains the command for creating a saved search."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Open the New Saved Search Folder dialog",
+      "action_before_state": "The File menu is expanded and its commands are visible.",
+      "action_preconditions": [
+        "The File menu is open",
+        "The New submenu or Saved Search command is available in that menu"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Saved Search option inside File > New"
+        }
+      },
+      "action_after_effects": "A New Saved Search Folder dialog opens on top of the main Thunderbird window, with Local Folders as the selected parent location for the new folder.",
+      "nl_explanation": "With the File menu open, choose the Saved Search entry from the New section. Thunderbird opens the dialog where the saved search folder can be configured."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Name the saved search folder",
+      "action_before_state": "The New Saved Search Folder dialog is open and the name field is ready for input.",
+      "action_preconditions": [
+        "The New Saved Search Folder dialog is visible",
+        "The folder name field is focused or ready to receive text"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Unread Inbox"
+      },
+      "action_after_effects": "The folder name field now contains the text Unread Inbox.",
+      "nl_explanation": "When the saved search dialog is open and the name field is active, type Unread Inbox. This sets the label Thunderbird will use for the new saved search folder."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Choose which folders the saved search will search",
+      "action_before_state": "The saved search dialog shows the folder name and the search settings area.",
+      "action_preconditions": [
+        "The New Saved Search Folder dialog is open",
+        "The Choose button for selecting search folders is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Choose button in the Select the folders to search area"
+        }
+      },
+      "action_after_effects": "A folder selection dialog opens, allowing specific folders to be included in the saved search.",
+      "nl_explanation": "After naming the saved search, click the Choose button in the folder selection area. Thunderbird opens a folder picker so the search can be limited to the Inbox."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Select the Inbox as the folder to search",
+      "action_before_state": "The folder selection dialog is open and shows the available mail folders as a tree.",
+      "action_preconditions": [
+        "The folder picker dialog is open",
+        "The Inbox entry is visible in the folder list"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the checkbox or selectable row for Inbox in the folder picker"
+        }
+      },
+      "action_after_effects": "Inbox is selected as a search source for the saved search folder.",
+      "nl_explanation": "When the folder picker is visible and Inbox can be seen in the list, click the Inbox checkbox or row to include it. This limits the saved search to messages from the Inbox."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Confirm the folder selection",
+      "action_before_state": "Inbox is selected in the folder picker dialog.",
+      "action_preconditions": [
+        "The folder picker dialog is still open",
+        "Inbox has been selected"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the OK button in the folder picker dialog"
+        }
+      },
+      "action_after_effects": "The folder picker closes and the saved search dialog returns with Inbox set as the chosen search folder.",
+      "nl_explanation": "Once Inbox is selected in the folder picker, click OK to confirm it. Thunderbird returns to the saved search dialog with the Inbox folder attached to the search scope."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Change the search field to message status",
+      "action_before_state": "The saved search dialog is active again and shows the default search rule row.",
+      "action_preconditions": [
+        "The New Saved Search Folder dialog is visible",
+        "A default search rule row is present",
+        "The first rule's field selector is available"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the first search-rule field selector and choose Status"
+        }
+      },
+      "action_after_effects": "The rule now uses Status as the field to match instead of the original default field.",
+      "nl_explanation": "Back in the saved search dialog, change the first rule's field selector to Status. This prepares the rule so the saved search can be restricted to unread mail."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Set the status rule to unread",
+      "action_before_state": "The first rule is using Status as its field.",
+      "action_preconditions": [
+        "The rule field has already been changed to Status",
+        "The rule value selector is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the rule value selector and choose Unread"
+        }
+      },
+      "action_after_effects": "The search rule is now configured to match only unread messages.",
+      "nl_explanation": "After the rule field is set to Status, choose Unread in the value selector. This changes the saved search so it will only show unread emails from the selected folder."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Create the saved search folder",
+      "action_before_state": "The dialog now has the name Unread Inbox, Local Folders set as the parent location, the Inbox folder selected to search, and a rule that matches unread messages.",
+      "action_preconditions": [
+        "The saved search name has been entered",
+        "Local Folders is the selected parent location for the new folder",
+        "Inbox has been chosen as the search folder",
+        "The search rule is set to Status is Unread"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Create button in the New Saved Search Folder dialog"
+        }
+      },
+      "action_after_effects": "The dialog closes and a new saved search folder named Unread Inbox appears under Local Folders in Thunderbird.",
+      "nl_explanation": "When the name, parent location, folder selection, and unread rule are all configured, click Create. Thunderbird closes the dialog and adds the new Unread Inbox saved search folder under Local Folders."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Set Local Folders as the parent location where the new saved search folder will be created.",
+      "unit_type": "SELECT_PARENT_FOLDER_CONTEXT",
+      "unit_before_state": "Thunderbird is open in the main mail view with the folder pane on the left, but the Local Folders entry is not yet visible in the current scroll position.",
+      "unit_after_state": "The folder pane is scrolled so Local Folders is visible and highlighted as the selected folder in the left pane.",
+      "unit_precondition": [
+        "Thunderbird's main mail window is focused.",
+        "The left folder pane is visible and scrollable.",
+        "Local Folders exists in the folder tree but is currently outside the visible portion of the pane."
+      ],
+      "unit_effect": [
+        "Local Folders becomes visible in the folder list.",
+        "Local Folders is selected, indicating it will be used as the parent context for the next folder-creation action."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4,
+        5
+      ],
+      "unit_intent": "Open the saved search creation dialog from the main Thunderbird window.",
+      "unit_type": "OPEN_SAVED_SEARCH_DIALOG",
+      "unit_before_state": "Thunderbird is still in the main mail view with Local Folders selected in the folder pane, and the classic menu bar is not currently expanded.",
+      "unit_after_state": "A New Saved Search Folder dialog is open above the main Thunderbird window, with Local Folders shown as the parent location for the new folder.",
+      "unit_precondition": [
+        "Thunderbird is focused in the main mail view.",
+        "Local Folders is already selected in the folder pane.",
+        "The user can reveal and use the classic menu bar commands."
+      ],
+      "unit_effect": [
+        "The menu bar appears after pressing Alt.",
+        "The File menu opens and exposes the New > Saved Search command.",
+        "The New Saved Search Folder dialog appears on screen."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6
+      ],
+      "unit_intent": "Assign the desired name to the new saved search folder.",
+      "unit_type": "SET_SAVED_SEARCH_NAME",
+      "unit_before_state": "The New Saved Search Folder dialog is open, and the folder name input field is ready to receive text.",
+      "unit_after_state": "The folder name field in the dialog contains the text \"Unread Inbox\".",
+      "unit_precondition": [
+        "The New Saved Search Folder dialog is open.",
+        "The folder name text box is visible and focused or can accept typing."
+      ],
+      "unit_effect": [
+        "The name field visibly shows \"Unread Inbox\" as the folder name."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7,
+        8,
+        9
+      ],
+      "unit_intent": "Limit the saved search to messages from the Inbox folder only.",
+      "unit_type": "SELECT_SEARCH_SCOPE_FOLDER",
+      "unit_before_state": "The New Saved Search Folder dialog is open with the name entered, and the Select the folders to search area is visible with a Choose button.",
+      "unit_after_state": "The folder picker has been closed, and the saved search dialog now shows Inbox as the chosen folder to search.",
+      "unit_precondition": [
+        "The New Saved Search Folder dialog is open.",
+        "The Choose button for folder selection is visible.",
+        "The Inbox entry is available in the folder picker tree."
+      ],
+      "unit_effect": [
+        "A folder picker dialog opens from the Choose button.",
+        "Inbox is selected inside the picker.",
+        "After confirming with OK, the picker closes and the saved search dialog reflects Inbox as the selected search scope."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        10,
+        11
+      ],
+      "unit_intent": "Configure the saved search criteria so it returns only unread messages.",
+      "unit_type": "CONFIGURE_UNREAD_STATUS_RULE",
+      "unit_before_state": "The New Saved Search Folder dialog is active and shows a default search rule row that has not yet been set to filter unread mail.",
+      "unit_after_state": "The first search rule in the dialog is configured as Status = Unread.",
+      "unit_precondition": [
+        "The New Saved Search Folder dialog is visible.",
+        "A search rule row is present and editable.",
+        "The field selector and value selector for the first rule are accessible."
+      ],
+      "unit_effect": [
+        "The rule field changes to Status.",
+        "The rule value changes to Unread, visibly indicating that only unread messages will match."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        12
+      ],
+      "unit_intent": "Finish creation of the saved search folder under Local Folders with the configured scope and unread filter.",
+      "unit_type": "CREATE_SAVED_SEARCH_FOLDER",
+      "unit_before_state": "The New Saved Search Folder dialog shows the name \"Unread Inbox\", Local Folders as the parent location, Inbox as the selected folder to search, and a rule set to Status = Unread.",
+      "unit_after_state": "The dialog is closed, and Thunderbird's folder pane shows a new saved search folder named Unread Inbox under Local Folders.",
+      "unit_precondition": [
+        "The saved search name is filled in as \"Unread Inbox\".",
+        "Local Folders is set as the parent location.",
+        "Inbox is selected as the folder to search.",
+        "The search rule is configured to Status = Unread."
+      ],
+      "unit_effect": [
+        "The New Saved Search Folder dialog closes after clicking Create.",
+        "A new folder named Unread Inbox appears under Local Folders in the Thunderbird folder pane."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Set Local Folders as the parent location where the new saved search folder will be created.",
+      "unit_type": "SELECT_PARENT_FOLDER_CONTEXT",
+      "unit_before_state": "Thunderbird is open in the main mail view with the folder pane on the left, but the Local Folders entry is not yet visible in the current scroll position.",
+      "unit_after_state": "The folder pane is scrolled so Local Folders is visible and highlighted as the selected folder in the left pane.",
+      "unit_precondition": [
+        "Thunderbird's main mail window is focused.",
+        "The left folder pane is visible and scrollable.",
+        "Local Folders exists in the folder tree but is currently outside the visible portion of the pane."
+      ],
+      "unit_effect": [
+        "Local Folders becomes visible in the folder list.",
+        "Local Folders is selected, indicating it will be used as the parent context for the next folder-creation action."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Select a specified folder in the Thunderbird folder pane as the parent location for creating a new saved search folder.",
+      "parameters": {
+        "target_parent_folder": "Local Folders"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'SCROLL', 'direction': 'down', 'target': {'text': 'the folder pane on the left; stop when the Local Folders entry becomes visible'}}",
+          "action_template": "When Thunderbird is focused, the folder pane is visible, and {{target_parent_folder}} is not currently visible, scroll down in the left folder pane until {{target_parent_folder}} appears so it can be selected as the saved search parent location."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Local Folders entry in the folder pane'}}",
+          "action_template": "When Thunderbird is focused and {{target_parent_folder}} is visible in the folder pane, left-click {{target_parent_folder}} to select it as the parent location for the new saved search."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4,
+        5
+      ],
+      "unit_intent": "Open the saved search creation dialog from the main Thunderbird window.",
+      "unit_type": "OPEN_SAVED_SEARCH_DIALOG",
+      "unit_before_state": "Thunderbird is still in the main mail view with Local Folders selected in the folder pane, and the classic menu bar is not currently expanded.",
+      "unit_after_state": "A New Saved Search Folder dialog is open above the main Thunderbird window, with Local Folders shown as the parent location for the new folder.",
+      "unit_precondition": [
+        "Thunderbird is focused in the main mail view.",
+        "Local Folders is already selected in the folder pane.",
+        "The user can reveal and use the classic menu bar commands."
+      ],
+      "unit_effect": [
+        "The menu bar appears after pressing Alt.",
+        "The File menu opens and exposes the New > Saved Search command.",
+        "The New Saved Search Folder dialog appears on screen."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open the saved search folder creation dialog for the currently selected parent folder from Thunderbird's main mail view.",
+      "parameters": {
+        "parent_folder": "Local Folders"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['alt']}",
+          "action_template": "Press Alt to reveal Thunderbird's menu bar while {{parent_folder}} remains selected in the folder pane, making the File menu available so the saved search dialog can be opened."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the File menu on the top menu bar'}}",
+          "action_template": "Click the File menu on the visible Thunderbird menu bar to open the dropdown that contains the command for creating a saved search folder."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Saved Search option inside File > New'}}",
+          "action_template": "Click the Saved Search option inside File > New to open the New Saved Search Folder dialog with {{parent_folder}} as the selected parent location."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6
+      ],
+      "unit_intent": "Assign the desired name to the new saved search folder.",
+      "unit_type": "SET_SAVED_SEARCH_NAME",
+      "unit_before_state": "The New Saved Search Folder dialog is open, and the folder name input field is ready to receive text.",
+      "unit_after_state": "The folder name field in the dialog contains the text \"Unread Inbox\".",
+      "unit_precondition": [
+        "The New Saved Search Folder dialog is open.",
+        "The folder name text box is visible and focused or can accept typing."
+      ],
+      "unit_effect": [
+        "The name field visibly shows \"Unread Inbox\" as the folder name."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Enter a specified name for the new saved search folder.",
+      "parameters": {
+        "folder_name": "Unread Inbox"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "TYPING",
+          "action_template": "When the New Saved Search Folder dialog is visible and the folder name field is focused or ready to receive text, type {{folder_name}} to set the label Thunderbird will use for the new saved search folder. After typing, the folder name field contains {{folder_name}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7,
+        8,
+        9
+      ],
+      "unit_intent": "Limit the saved search to messages from the Inbox folder only.",
+      "unit_type": "SELECT_SEARCH_SCOPE_FOLDER",
+      "unit_before_state": "The New Saved Search Folder dialog is open with the name entered, and the Select the folders to search area is visible with a Choose button.",
+      "unit_after_state": "The folder picker has been closed, and the saved search dialog now shows Inbox as the chosen folder to search.",
+      "unit_precondition": [
+        "The New Saved Search Folder dialog is open.",
+        "The Choose button for folder selection is visible.",
+        "The Inbox entry is available in the folder picker tree."
+      ],
+      "unit_effect": [
+        "A folder picker dialog opens from the Choose button.",
+        "Inbox is selected inside the picker.",
+        "After confirming with OK, the picker closes and the saved search dialog reflects Inbox as the selected search scope."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Restrict the saved search scope to a specified folder.",
+      "parameters": {
+        "target_folder": "Inbox"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Choose button in the Select the folders to search area'}}",
+          "action_template": "Click the Choose button in the folder selection area to open the folder picker for selecting the folders to search."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the checkbox or selectable row for Inbox in the folder picker'}}",
+          "action_template": "When the folder picker is open and {{target_folder}} is visible in the folder list, click the checkbox or selectable row for {{target_folder}} to include it as the search source."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the OK button in the folder picker dialog'}}",
+          "action_template": "After {{target_folder}} is selected in the folder picker, click the OK button to confirm the selection and return to the saved search dialog with {{target_folder}} set as the search scope."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        10,
+        11
+      ],
+      "unit_intent": "Configure the saved search criteria so it returns only unread messages.",
+      "unit_type": "CONFIGURE_UNREAD_STATUS_RULE",
+      "unit_before_state": "The New Saved Search Folder dialog is active and shows a default search rule row that has not yet been set to filter unread mail.",
+      "unit_after_state": "The first search rule in the dialog is configured as Status = Unread.",
+      "unit_precondition": [
+        "The New Saved Search Folder dialog is visible.",
+        "A search rule row is present and editable.",
+        "The field selector and value selector for the first rule are accessible."
+      ],
+      "unit_effect": [
+        "The rule field changes to Status.",
+        "The rule value changes to Unread, visibly indicating that only unread messages will match."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Configure {{target_rule}} in the saved search dialog to filter messages by a specified message status.",
+      "parameters": {
+        "target_rule": "the first search rule",
+        "status_value": "Unread"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the first search-rule field selector and choose Status'}}",
+          "action_template": "Click the field selector for {{target_rule}} and choose Status when the New Saved Search Folder dialog is visible, a default search rule row is present, and that rule's field selector is available. This prepares the rule so the saved search can be restricted by message status and changes the rule field to Status instead of the original default field."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the rule value selector and choose Unread'}}",
+          "action_template": "Click the value selector for {{target_rule}} and choose {{status_value}} after the rule field has already been changed to Status and the rule value selector is visible. This changes the saved search so it will only show messages whose status matches {{status_value}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        12
+      ],
+      "unit_intent": "Finish creation of the saved search folder under Local Folders with the configured scope and unread filter.",
+      "unit_type": "CREATE_SAVED_SEARCH_FOLDER",
+      "unit_before_state": "The New Saved Search Folder dialog shows the name \"Unread Inbox\", Local Folders as the parent location, Inbox as the selected folder to search, and a rule set to Status = Unread.",
+      "unit_after_state": "The dialog is closed, and Thunderbird's folder pane shows a new saved search folder named Unread Inbox under Local Folders.",
+      "unit_precondition": [
+        "The saved search name is filled in as \"Unread Inbox\".",
+        "Local Folders is set as the parent location.",
+        "Inbox is selected as the folder to search.",
+        "The search rule is configured to Status = Unread."
+      ],
+      "unit_effect": [
+        "The New Saved Search Folder dialog closes after clicking Create.",
+        "A new folder named Unread Inbox appears under Local Folders in the Thunderbird folder pane."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a saved search folder named {{saved_search_name}} under {{parent_location}} using {{search_folder}} as the search scope and {{search_rule}} as the filter.",
+      "parameters": {
+        "saved_search_name": "Unread Inbox",
+        "parent_location": "Local Folders",
+        "search_folder": "Inbox",
+        "search_rule": "Status = Unread"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Create button in the New Saved Search Folder dialog'}}",
+          "action_template": "When the saved search name has been entered as {{saved_search_name}}, {{parent_location}} is the selected parent location for the new folder, {{search_folder}} has been chosen as the search folder, and the search rule is set to {{search_rule}}, click the Create button in the New Saved Search Folder dialog. Thunderbird closes the dialog and adds the new {{saved_search_name}} saved search folder under {{parent_location}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

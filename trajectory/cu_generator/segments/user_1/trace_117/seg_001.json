@@ -1,0 +1,447 @@
+{
+  "segment_id": "seg_001",
+  "app": "gimp",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Activate the crop tool",
+      "action_before_state": "GIMP is already open, and the photo to edit is visible on the main canvas with the toolbox on the left.",
+      "action_preconditions": [
+        "The image canvas is visible and active",
+        "The left toolbox is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Crop Tool icon in the left toolbox"
+        }
+      },
+      "action_after_effects": "The crop tool becomes active, and the pointer is ready to draw a crop area on the image.",
+      "nl_explanation": "When the image and toolbox are visible, click the Crop Tool icon on the left so GIMP switches into crop mode and prepares the canvas for a crop selection."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Draw a square crop area around the main subject",
+      "action_before_state": "The crop tool is active, and the photo is still fully visible on the canvas.",
+      "action_preconditions": [
+        "Crop mode is active",
+        "The main subject is visible in the image"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the upper-left area of the photo just outside the subject"
+        },
+        "end": {
+          "text": "the lower-right area so the crop box becomes a square around the subject"
+        },
+        "target": {
+          "begin": {
+            "text": "the image canvas at the upper-left corner of the intended crop area"
+          },
+          "end": {
+            "text": "the image canvas at the lower-right corner of the intended square crop area"
+          }
+        }
+      },
+      "action_after_effects": "A crop rectangle appears over the image, showing the intended square framing around the subject.",
+      "nl_explanation": "Once crop mode is active and the subject is visible, drag across the image to create a square crop box around the main subject so the future profile image has the right framing."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Apply the crop",
+      "action_before_state": "A square crop rectangle is visible on the image and positioned around the subject.",
+      "action_preconditions": [
+        "A crop selection is already drawn",
+        "The crop box is positioned correctly"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "Everything outside the crop box is removed, and the canvas now shows only the square-cropped image.",
+      "nl_explanation": "After the crop box is in the right place, press Enter to confirm it, and GIMP will trim the image down to the square selection."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Open the Colors menu",
+      "action_before_state": "The square-cropped image is shown on the canvas, and the top menu bar is visible.",
+      "action_preconditions": [
+        "The edited image is active in GIMP",
+        "The top application menu is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Colors menu in the top menu bar"
+        }
+      },
+      "action_after_effects": "The Colors dropdown menu opens, showing color-adjustment options.",
+      "nl_explanation": "With the cropped image active, click the Colors menu at the top so the list of color adjustments becomes available."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Open the Brightness-Contrast adjustment dialog",
+      "action_before_state": "The Colors dropdown menu is open over the image area.",
+      "action_preconditions": [
+        "The Colors menu is open",
+        "The Brightness-Contrast option is visible in the menu"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Brightness-Contrast menu item in the Colors dropdown"
+        }
+      },
+      "action_after_effects": "A Brightness-Contrast dialog opens with sliders and a live preview.",
+      "nl_explanation": "When the Colors menu is open, click Brightness-Contrast to open the adjustment dialog and preview changes directly on the photo."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Increase the image contrast slightly",
+      "action_before_state": "The Brightness-Contrast dialog is open, and the image preview is visible behind it.",
+      "action_preconditions": [
+        "The Brightness-Contrast dialog is open",
+        "The Contrast slider is visible"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the Contrast slider handle near its current position"
+        },
+        "end": {
+          "text": "a point a little to the right on the same slider track"
+        },
+        "target": {
+          "begin": {
+            "text": "the Contrast slider handle"
+          },
+          "end": {
+            "text": "the same slider track, slightly to the right"
+          }
+        }
+      },
+      "action_after_effects": "The image preview updates and looks a bit crisper, with slightly stronger separation between light and dark areas.",
+      "nl_explanation": "With the Brightness-Contrast dialog open, drag the Contrast slider a small amount to the right so the subject stands out more without making the image look harsh."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Confirm the contrast adjustment",
+      "action_before_state": "The Brightness-Contrast dialog is still open, and the preview already shows the updated contrast.",
+      "action_preconditions": [
+        "The desired contrast level is already previewed",
+        "The OK button is visible in the dialog"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the OK button in the Brightness-Contrast dialog"
+        }
+      },
+      "action_after_effects": "The dialog closes, and the contrast change is applied to the image on the canvas.",
+      "nl_explanation": "After the preview looks right, click OK in the adjustment dialog to apply the contrast change to the current image."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Open the export dialog",
+      "action_before_state": "The edited square image is visible on the canvas and no modal dialog is blocking input.",
+      "action_preconditions": [
+        "The image edits are complete",
+        "The GIMP window is focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "shift",
+          "ctrl",
+          "e"
+        ]
+      },
+      "action_after_effects": "The Export Image dialog opens so a filename and location can be chosen.",
+      "nl_explanation": "When the edited image is ready and GIMP is focused, press Shift+Ctrl+E to open the Export Image dialog directly."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Enter the export filename",
+      "action_before_state": "The Export Image dialog is open with the filename field active or ready to edit.",
+      "action_preconditions": [
+        "The Export Image dialog is open",
+        "A filename input field is available"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "profile_ready.png"
+      },
+      "action_after_effects": "The export name is set to profile_ready.png in the dialog.",
+      "nl_explanation": "With the Export Image dialog open, type profile_ready.png so the finished image will be saved under the requested filename."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Proceed from the export dialog",
+      "action_before_state": "The filename profile_ready.png is visible in the export dialog.",
+      "action_preconditions": [
+        "The desired filename has been entered",
+        "The Export button is visible in the dialog"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Export button in the file export dialog"
+        }
+      },
+      "action_after_effects": "GIMP moves to the PNG export options window or directly prepares the file for final export.",
+      "nl_explanation": "After the filename is set, click the Export button in the dialog so GIMP advances to the final PNG export confirmation."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Accept the default PNG export options and finish saving",
+      "action_before_state": "The PNG export options dialog is visible, or the final export confirmation is waiting for input.",
+      "action_preconditions": [
+        "The final PNG export confirmation is open",
+        "Default export settings are acceptable"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The PNG file is exported and saved as profile_ready.png, completing the task.",
+      "nl_explanation": "When the PNG export confirmation appears, press Enter to accept the default settings and finish saving the edited profile image."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Crop the photo into a square composition centered on the main subject for profile-photo use.",
+      "unit_type": "CROP_TO_SQUARE_SUBJECT",
+      "unit_before_state": "GIMP is open with the original photo visible on the main canvas, and the left toolbox is available for selecting editing tools.",
+      "unit_after_state": "The canvas shows only the square-cropped version of the photo, with everything outside the selected square removed and the main subject framed inside the new square image.",
+      "unit_precondition": [
+        "The target photo is already open and active in GIMP.",
+        "The main subject is visible on the canvas so a square crop can be positioned around it.",
+        "The left toolbox and canvas are both interactable."
+      ],
+      "unit_effect": [
+        "The Crop tool becomes active and a crop rectangle is drawn over the image.",
+        "Pressing Enter commits the crop, and the canvas updates to the square-cropped image."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Slightly increase image contrast so the subject stands out more clearly.",
+      "unit_type": "ADJUST_CONTRAST",
+      "unit_before_state": "The square-cropped image is visible on the GIMP canvas, and the top menu bar is available with no blocking modal dialog open.",
+      "unit_after_state": "The Brightness-Contrast dialog has been closed, and the square image remains on the canvas with a slightly stronger contrast than before.",
+      "unit_precondition": [
+        "The cropped image is the active image in GIMP.",
+        "The top menu bar is visible and usable.",
+        "A small contrast increase is desired before export."
+      ],
+      "unit_effect": [
+        "The Colors menu opens and the Brightness-Contrast dialog appears with a live preview.",
+        "Moving the Contrast slider updates the preview to show slightly crisper separation between light and dark areas.",
+        "Clicking OK applies the change and returns focus to the edited image on the canvas."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "unit_intent": "Export the finished edited image as a PNG file named profile_ready.png.",
+      "unit_type": "EXPORT_PNG_IMAGE",
+      "unit_before_state": "The edited square image with the applied contrast change is visible on the canvas, and GIMP is ready to accept commands.",
+      "unit_after_state": "The export flow is completed and the edited image has been saved as profile_ready.png using the PNG export process.",
+      "unit_precondition": [
+        "All intended image edits are already finished.",
+        "The GIMP window is focused.",
+        "The export dialog can accept a filename and default PNG settings are acceptable."
+      ],
+      "unit_effect": [
+        "The Export Image dialog opens after the keyboard shortcut is pressed.",
+        "The filename field shows profile_ready.png.",
+        "The export proceeds through the main export button and final PNG confirmation.",
+        "A PNG file named profile_ready.png is saved, completing the task."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Crop the photo into a square composition centered on the main subject for profile-photo use.",
+      "unit_type": "CROP_TO_SQUARE_SUBJECT",
+      "unit_before_state": "GIMP is open with the original photo visible on the main canvas, and the left toolbox is available for selecting editing tools.",
+      "unit_after_state": "The canvas shows only the square-cropped version of the photo, with everything outside the selected square removed and the main subject framed inside the new square image.",
+      "unit_precondition": [
+        "The target photo is already open and active in GIMP.",
+        "The main subject is visible on the canvas so a square crop can be positioned around it.",
+        "The left toolbox and canvas are both interactable."
+      ],
+      "unit_effect": [
+        "The Crop tool becomes active and a crop rectangle is drawn over the image.",
+        "Pressing Enter commits the crop, and the canvas updates to the square-cropped image."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Crop the active image into a square composition centered on {{target_subject}}.",
+      "parameters": {
+        "target_subject": "the main subject",
+        "crop_start_area": "the upper-left area of the photo just outside the subject",
+        "crop_end_area": "the lower-right area so the crop box becomes a square around the subject"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Crop Tool icon in the left toolbox'}}",
+          "action_template": "When the image canvas is visible and active and the left toolbox is visible, click the Crop Tool icon in the left toolbox so GIMP switches into crop mode and prepares the pointer to draw a crop area on the image."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the upper-left area of the photo just outside the subject'}, 'end': {'text': 'the lower-right area so the crop box becomes a square around the subject'}, 'target': {'begin': {'text': 'the image canvas at the upper-left corner of the intended crop area'}, 'end': {'text': 'the image canvas at the lower-right corner of the intended square crop area'}}}",
+          "action_template": "Once crop mode is active and {{target_subject}} is visible in the image, drag from {{crop_start_area}} to {{crop_end_area}} on the image canvas to create a square crop box around {{target_subject}}, and a crop rectangle appears showing the intended square framing."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After a crop selection is already drawn and the crop box is positioned correctly, press Enter to confirm the crop so everything outside the crop box is removed and the canvas shows only the square-cropped image."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Slightly increase image contrast so the subject stands out more clearly.",
+      "unit_type": "ADJUST_CONTRAST",
+      "unit_before_state": "The square-cropped image is visible on the GIMP canvas, and the top menu bar is available with no blocking modal dialog open.",
+      "unit_after_state": "The Brightness-Contrast dialog has been closed, and the square image remains on the canvas with a slightly stronger contrast than before.",
+      "unit_precondition": [
+        "The cropped image is the active image in GIMP.",
+        "The top menu bar is visible and usable.",
+        "A small contrast increase is desired before export."
+      ],
+      "unit_effect": [
+        "The Colors menu opens and the Brightness-Contrast dialog appears with a live preview.",
+        "Moving the Contrast slider updates the preview to show slightly crisper separation between light and dark areas.",
+        "Clicking OK applies the change and returns focus to the edited image on the canvas."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Increase the active image's contrast by a specified small amount using the Brightness-Contrast adjustment dialog.",
+      "parameters": {
+        "contrast_adjustment_amount": "a small amount to the right"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "CLICK",
+          "action_template": "Click the Colors menu in the top menu bar to open the list of color adjustments while the active image is visible and the top application menu is available."
+        },
+        {
+          "action": "CLICK",
+          "action_template": "Click the Brightness-Contrast menu item in the open Colors dropdown to open the adjustment dialog with a live preview."
+        },
+        {
+          "action": "DRAG_TO",
+          "action_template": "Drag the Contrast slider handle {{contrast_adjustment_amount}} on the slider track while the Brightness-Contrast dialog is open so the preview shows stronger separation between light and dark areas."
+        },
+        {
+          "action": "CLICK",
+          "action_template": "Click the OK button in the Brightness-Contrast dialog after the desired contrast level is previewed to apply the change to the image on the canvas."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "unit_intent": "Export the finished edited image as a PNG file named profile_ready.png.",
+      "unit_type": "EXPORT_PNG_IMAGE",
+      "unit_before_state": "The edited square image with the applied contrast change is visible on the canvas, and GIMP is ready to accept commands.",
+      "unit_after_state": "The export flow is completed and the edited image has been saved as profile_ready.png using the PNG export process.",
+      "unit_precondition": [
+        "All intended image edits are already finished.",
+        "The GIMP window is focused.",
+        "The export dialog can accept a filename and default PNG settings are acceptable."
+      ],
+      "unit_effect": [
+        "The Export Image dialog opens after the keyboard shortcut is pressed.",
+        "The filename field shows profile_ready.png.",
+        "The export proceeds through the main export button and final PNG confirmation.",
+        "A PNG file named profile_ready.png is saved, completing the task."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Export the finished edited image as a PNG file with a specified filename.",
+      "parameters": {
+        "file_name": "profile_ready.png"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['shift', 'ctrl', 'e']}",
+          "action_template": "Press Shift+Ctrl+E to open the Export Image dialog directly when the image edits are complete, the GIMP window is focused, and no modal dialog is blocking input."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'profile_ready.png'}",
+          "action_template": "Type {{file_name}} in the filename input field of the open Export Image dialog to set the export name."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Export button in the file export dialog'}}",
+          "action_template": "Click the Export button in the file export dialog after {{file_name}} has been entered so GIMP advances to the final PNG export confirmation."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter when the final PNG export confirmation appears and default export settings are acceptable to finish saving the PNG file as {{file_name}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

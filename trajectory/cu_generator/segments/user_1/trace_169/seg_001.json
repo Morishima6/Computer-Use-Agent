@@ -1,0 +1,919 @@
+{
+  "segment_id": "seg_001",
+  "app": "libreoffice_calc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Enter the header row for the budget table",
+      "action_before_state": "LibreOffice Calc is open on a blank spreadsheet, and the main grid is visible.",
+      "action_preconditions": [
+        "The spreadsheet is editable",
+        "Cells A1 through E1 are empty or available to overwrite",
+        "The worksheet grid is currently visible on screen"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell A1 in the top-left area of the sheet"
+        }
+      },
+      "action_after_effects": "Cell A1 becomes the active cell, ready for text entry across the first row.",
+      "nl_explanation": "When the blank sheet is visible and editable, click cell A1 so the first row can be filled with the table headers."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Fill the first row with column headers",
+      "action_before_state": "Cell A1 is active and the empty spreadsheet grid is still shown.",
+      "action_preconditions": [
+        "Cell A1 is selected",
+        "The sheet accepts keyboard input",
+        "No modal dialog is open"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Date\tItem\tQty\tUnit Price\tLine Total"
+      },
+      "action_after_effects": "Cells A1 through E1 are populated with the five headers.",
+      "nl_explanation": "With A1 selected, type the header names separated by tabs so each label lands in its own column from A1 to E1."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Enter the grocery purchase rows",
+      "action_before_state": "The header row is present, and the first few empty rows beneath it are visible.",
+      "action_preconditions": [
+        "Cells A2 through D6 are available for data entry",
+        "The data area below the header is visible",
+        "The sheet still has focus for typing"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell A2 directly under the Date header"
+        }
+      },
+      "action_after_effects": "Cell A2 becomes active for starting the purchase list.",
+      "nl_explanation": "After the header row is in place, click A2 so the purchase records can be entered starting from the second row."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Populate rows 2 to 6 with the grocery data",
+      "action_before_state": "Cell A2 is selected and the table area below the headers is empty.",
+      "action_preconditions": [
+        "Cell A2 is active",
+        "Rows 2 through 6 are empty or safe to replace",
+        "Typing with tabs and newlines will move across rows and columns"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "2026-04-01\tApples\t4\t0.80\n2026-04-01\tBread\t2\t2.50\n2026-04-02\tMilk\t1\t3.20\n2026-04-03\tEggs\t1\t4.60\n2026-04-05\tRice\t3\t1.90"
+      },
+      "action_after_effects": "Rows 2 through 6 are filled from columns A to D with five grocery purchases.",
+      "nl_explanation": "When A2 is active, type the five purchase rows with tabs between columns and newlines between rows so the data fills A2:D6."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Create the first line-total formula",
+      "action_before_state": "The purchase table is visible, and column E is still empty.",
+      "action_preconditions": [
+        "Row 2 contains quantity in C2 and unit price in D2",
+        "Cell E2 is empty and visible",
+        "The sheet can accept a formula"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell E2 in the first data row under Line Total"
+        }
+      },
+      "action_after_effects": "Cell E2 becomes active for entering the formula.",
+      "nl_explanation": "Once the source values are present in row 2, click E2 so the first line-total formula can be entered in the proper column."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Calculate the first row's total",
+      "action_before_state": "Cell E2 is active and row 2 contains quantity and unit price values.",
+      "action_preconditions": [
+        "Cell E2 is selected",
+        "Cells C2 and D2 contain numeric values",
+        "The formula entry area is ready"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "=C2*D2"
+      },
+      "action_after_effects": "Cell E2 shows the calculated total for the first grocery row.",
+      "nl_explanation": "With E2 selected and the needed numbers already in C2 and D2, type the multiplication formula so the first line total is computed."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Fill the same formula down the rest of the Line Total column",
+      "action_before_state": "Cell E2 contains a valid formula, and rows 3 to 6 still need totals.",
+      "action_preconditions": [
+        "The formula result is visible in E2",
+        "Cells E3 through E6 are empty or available",
+        "The fill handle on E2 can be dragged downward"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the small fill handle at the bottom-right corner of cell E2"
+        },
+        "end": {
+          "text": "the bottom-right corner of cell E6"
+        },
+        "target": {
+          "begin": {
+            "text": "the small fill handle at the bottom-right corner of cell E2"
+          },
+          "end": {
+            "text": "the bottom-right corner of cell E6"
+          }
+        }
+      },
+      "action_after_effects": "The formula is copied from E2 down through E6, and each purchase row now has a line total.",
+      "nl_explanation": "After confirming the first formula works, drag the fill handle from E2 down to E6 so Calc copies the same pattern to the remaining rows."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Add a grand total row below the data",
+      "action_before_state": "The purchase table now includes line totals in E2:E6, and row 7 is empty.",
+      "action_preconditions": [
+        "Row 7 is available for the summary",
+        "Cells C7 through E7 are visible",
+        "The totals above are already calculated"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell C7 below the last grocery entry"
+        }
+      },
+      "action_after_effects": "Cell C7 becomes active so the summary row can be entered.",
+      "nl_explanation": "With the item rows finished and row 7 empty, click C7 to place the grand total label and formula underneath the table."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Enter the grand total label and formula",
+      "action_before_state": "Cell C7 is selected, and the completed table is visible above it.",
+      "action_preconditions": [
+        "Cell C7 is active",
+        "Cells C7, D7, and E7 are available",
+        "Line totals already exist in E2:E6"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Grand Total\t\t=SUM(E2:E6)"
+      },
+      "action_after_effects": "Cell C7 shows the label Grand Total, D7 remains blank, and E7 shows the summed total of the table.",
+      "nl_explanation": "When C7 is selected and the line totals are ready, type the label and formula with tabs so the text lands in C7 and the sum lands in E7."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Select all money cells for currency formatting",
+      "action_before_state": "Unit prices are in D2:D6, line totals are in E2:E6, and the grand total is in E7.",
+      "action_preconditions": [
+        "The range D2:E7 is visible on screen",
+        "The money values have already been entered or calculated",
+        "No dialog is blocking the sheet"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell D2, the first Unit Price value"
+        },
+        "end": {
+          "text": "cell E7, the grand total value"
+        },
+        "target": {
+          "begin": {
+            "text": "cell D2, the first Unit Price value"
+          },
+          "end": {
+            "text": "cell E7, the grand total value"
+          }
+        }
+      },
+      "action_after_effects": "The rectangular range D2:E7 becomes selected for formatting.",
+      "nl_explanation": "After the prices and totals are in place, drag from D2 to E7 so all numeric money cells are selected together for formatting."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Apply currency formatting to the selected numeric values",
+      "action_before_state": "The range D2:E7 is highlighted in the sheet.",
+      "action_preconditions": [
+        "The money cells are selected",
+        "The standard formatting toolbar is visible",
+        "A currency format control is available in the toolbar"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the currency format button in the top formatting toolbar"
+        }
+      },
+      "action_after_effects": "The selected prices and totals display with a currency format.",
+      "nl_explanation": "With the money range highlighted, click the currency button on the toolbar so those numeric values are shown as currency amounts."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Select the header row for bold formatting",
+      "action_before_state": "The filled table is visible, including the header row in A1:E1.",
+      "action_preconditions": [
+        "The header row is visible",
+        "Cells A1 through E1 contain text labels",
+        "The sheet is ready for a new selection"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell A1, the Date header"
+        },
+        "end": {
+          "text": "cell E1, the Line Total header"
+        },
+        "target": {
+          "begin": {
+            "text": "cell A1, the Date header"
+          },
+          "end": {
+            "text": "cell E1, the Line Total header"
+          }
+        }
+      },
+      "action_after_effects": "The full header row A1:E1 is selected.",
+      "nl_explanation": "When the headers are visible, drag across A1 to E1 so the entire title row is selected before applying bold formatting."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Make the header row bold",
+      "action_before_state": "Cells A1:E1 are selected.",
+      "action_preconditions": [
+        "The header row is highlighted",
+        "The worksheet has keyboard focus",
+        "The standard bold shortcut is available"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "b"
+        ]
+      },
+      "action_after_effects": "The header row text appears in bold.",
+      "nl_explanation": "With the header row selected, press Ctrl+B to make those labels stand out from the data rows."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Select the summary row for emphasis",
+      "action_before_state": "The grand total row is visible in row 7.",
+      "action_preconditions": [
+        "Cells C7 through E7 are visible",
+        "The grand total label and value have already been entered",
+        "The sheet is not in edit mode"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell C7 containing Grand Total"
+        },
+        "end": {
+          "text": "cell E7 containing the summed amount"
+        },
+        "target": {
+          "begin": {
+            "text": "cell C7 containing Grand Total"
+          },
+          "end": {
+            "text": "cell E7 containing the summed amount"
+          }
+        }
+      },
+      "action_after_effects": "Cells C7:E7 are selected.",
+      "nl_explanation": "After the total row is created, drag from C7 to E7 so the summary row can be emphasized as a distinct result."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Make the grand total row bold",
+      "action_before_state": "Cells C7:E7 are highlighted.",
+      "action_preconditions": [
+        "The summary row is selected",
+        "The sheet still has keyboard focus",
+        "Formatting shortcuts are active"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "b"
+        ]
+      },
+      "action_after_effects": "The Grand Total row becomes bold and visually stands out from the data rows.",
+      "nl_explanation": "With the summary cells selected, press Ctrl+B so the total row is clearly emphasized."
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Open the Save As dialog",
+      "action_before_state": "The completed budget tracker is visible in the Calc window.",
+      "action_preconditions": [
+        "The spreadsheet window is active",
+        "The file is ready to be saved",
+        "No other modal dialog is open"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "s"
+        ]
+      },
+      "action_after_effects": "The Save As dialog opens on top of the spreadsheet.",
+      "nl_explanation": "Once the sheet is finished, press Ctrl+Shift+S to open Save As and choose a name and destination."
+    },
+    {
+      "step_id": "s17",
+      "step_goal": "Provide the target filename",
+      "action_before_state": "The Save As dialog is open, and the filename field is available.",
+      "action_preconditions": [
+        "The Save As window is visible",
+        "The filename input box is focused or ready to receive text",
+        "The save operation has not yet been confirmed"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "weekly_grocery_budget.ods"
+      },
+      "action_after_effects": "The filename field contains weekly_grocery_budget.ods.",
+      "nl_explanation": "When the Save As dialog appears and the filename box is ready, type the new file name so the sheet can be saved with the requested title."
+    },
+    {
+      "step_id": "s18",
+      "step_goal": "Choose the Documents folder as the save location",
+      "action_before_state": "The Save As dialog remains open with the filename already entered.",
+      "action_preconditions": [
+        "The file chooser sidebar is visible",
+        "The Documents folder is listed in the sidebar or location list",
+        "The save dialog is still active"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Documents folder in the file chooser sidebar"
+        }
+      },
+      "action_after_effects": "Documents becomes the selected save destination.",
+      "nl_explanation": "With the save dialog open and the file name filled in, click Documents in the sidebar so the spreadsheet is saved to that folder."
+    },
+    {
+      "step_id": "s19",
+      "step_goal": "Finish saving the spreadsheet",
+      "action_before_state": "The Save As dialog shows Documents as the destination and weekly_grocery_budget.ods as the filename.",
+      "action_preconditions": [
+        "A valid save location is selected",
+        "The filename field contains weekly_grocery_budget.ods",
+        "The Save button is enabled"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Save button in the Save As dialog"
+        }
+      },
+      "action_after_effects": "The file is saved as weekly_grocery_budget.ods in Documents, and focus returns to the spreadsheet.",
+      "nl_explanation": "After confirming the filename and location, click Save to write the completed grocery budget tracker to the Documents folder."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Create the column structure for the weekly grocery budget tracker.",
+      "unit_type": "CREATE_TABLE_HEADER",
+      "unit_before_state": "LibreOffice Calc is open on a blank spreadsheet with the empty grid visible and cell A1 available in the top-left corner.",
+      "unit_after_state": "The first row contains the headers Date, Item, Qty, Unit Price, and Line Total across cells A1:E1.",
+      "unit_precondition": [
+        "The spreadsheet is editable.",
+        "Cells A1:E1 are empty or can be overwritten.",
+        "No modal dialog is open and the worksheet grid is visible."
+      ],
+      "unit_effect": [
+        "Cell A1 is activated and then cells A1:E1 display the five table headers in separate columns."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4
+      ],
+      "unit_intent": "Populate the tracker with the requested grocery purchase records.",
+      "unit_type": "ENTER_TABLE_ROWS",
+      "unit_before_state": "The header row is already present in A1:E1, and the rows beneath it are empty and visible.",
+      "unit_after_state": "Rows 2 through 6 are filled with five grocery purchases in columns A:D, starting at A2 with the dates, items, quantities, and unit prices entered.",
+      "unit_precondition": [
+        "The header row A1:E1 already exists.",
+        "Cell A2:D6 is empty or safe to replace.",
+        "The sheet still has keyboard focus for tab- and newline-based entry."
+      ],
+      "unit_effect": [
+        "Cell A2 is selected for data entry.",
+        "The purchase records appear in A2:D6, one row per item."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Compute line totals for every grocery purchase row.",
+      "unit_type": "CALCULATE_AND_FILL_LINE_TOTALS",
+      "unit_before_state": "The table data is present in A2:D6, column E is empty, and row 2 contains numeric values in C2 and D2.",
+      "unit_after_state": "Cells E2:E6 contain calculated line totals for each purchase row, produced from quantity multiplied by unit price.",
+      "unit_precondition": [
+        "Purchase data already exists in A2:D6.",
+        "Cell E2:E6 is available for formulas.",
+        "The fill handle on E2 can be used to copy the formula downward."
+      ],
+      "unit_effect": [
+        "E2 shows the result of the formula =C2*D2.",
+        "Dragging the fill handle copies the formula through E6 so every data row shows a line total."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8,
+        9
+      ],
+      "unit_intent": "Add a summary row that totals all grocery spending.",
+      "unit_type": "ADD_GRAND_TOTAL_ROW",
+      "unit_before_state": "The grocery table is complete through row 6, line totals are visible in E2:E6, and row 7 is empty.",
+      "unit_after_state": "Cell C7 contains the label Grand Total, D7 is blank, and E7 contains the sum of E2:E6.",
+      "unit_precondition": [
+        "Line totals already exist in E2:E6.",
+        "Row 7 is visible and available for summary content.",
+        "Cell C7:E7 can be edited."
+      ],
+      "unit_effect": [
+        "Cell C7 is activated for summary entry.",
+        "The bottom row displays a labeled grand total with a SUM formula result in E7."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        10,
+        11
+      ],
+      "unit_intent": "Display all price and total values in a money format.",
+      "unit_type": "FORMAT_MONEY_AS_CURRENCY",
+      "unit_before_state": "Unit prices are visible in D2:D6, line totals are visible in E2:E6, and the grand total is visible in E7 as plain numeric values.",
+      "unit_after_state": "The range D2:E7 remains selected or has just been formatted, and all selected numeric values display using currency formatting.",
+      "unit_precondition": [
+        "Money-related values already exist in D2:E7.",
+        "The range D2:E7 is visible on screen.",
+        "The currency formatting control is available in the Calc toolbar."
+      ],
+      "unit_effect": [
+        "The rectangular range D2:E7 becomes selected.",
+        "The selected prices and totals visibly change from plain numbers to currency-formatted amounts."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        12,
+        13
+      ],
+      "unit_intent": "Emphasize the table header so the tracker structure is easier to read.",
+      "unit_type": "BOLD_HEADER_ROW",
+      "unit_before_state": "The completed table is visible, and the header labels in A1:E1 are present in normal weight.",
+      "unit_after_state": "Cells A1:E1 are bold, making the header row visually distinct from the data rows.",
+      "unit_precondition": [
+        "Header text already exists in A1:E1.",
+        "The worksheet has focus for selection and keyboard shortcuts.",
+        "The header row is visible and can be selected."
+      ],
+      "unit_effect": [
+        "A1:E1 becomes selected.",
+        "After Ctrl+B, the header labels visibly appear in bold text."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        14,
+        15
+      ],
+      "unit_intent": "Emphasize the summary row so the final budget total stands out.",
+      "unit_type": "BOLD_TOTAL_ROW",
+      "unit_before_state": "The grand total row is visible in row 7 with Grand Total in C7 and the summed value in E7, but the row is not yet emphasized.",
+      "unit_after_state": "Cells C7:E7 are bold, making the summary row stand out from the purchase rows above.",
+      "unit_precondition": [
+        "The grand total row already exists in C7:E7.",
+        "The sheet is not in edit mode and still accepts selection and shortcut input.",
+        "Cells C7:E7 are visible on screen."
+      ],
+      "unit_effect": [
+        "C7:E7 becomes selected.",
+        "After Ctrl+B, the total row visibly changes to bold text."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_08",
+      "step_indices": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "unit_intent": "Save the finished grocery budget tracker as a named LibreOffice Calc file in Documents.",
+      "unit_type": "SAVE_DOCUMENT_AS",
+      "unit_before_state": "The completed weekly grocery budget tracker is visible in Calc, and no modal dialog is open.",
+      "unit_after_state": "The spreadsheet is saved as weekly_grocery_budget.ods in the Documents folder, the Save As dialog is closed, and focus returns to the spreadsheet window.",
+      "unit_precondition": [
+        "The spreadsheet window is active and the file is ready to save.",
+        "The Save As command is available.",
+        "The Documents folder is accessible from the file chooser."
+      ],
+      "unit_effect": [
+        "Ctrl+Shift+S opens the Save As dialog.",
+        "The filename field shows weekly_grocery_budget.ods.",
+        "Documents is selected as the destination.",
+        "Clicking Save closes the dialog and persists the file in Documents."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Create the column structure for the weekly grocery budget tracker.",
+      "unit_type": "CREATE_TABLE_HEADER",
+      "unit_before_state": "LibreOffice Calc is open on a blank spreadsheet with the empty grid visible and cell A1 available in the top-left corner.",
+      "unit_after_state": "The first row contains the headers Date, Item, Qty, Unit Price, and Line Total across cells A1:E1.",
+      "unit_precondition": [
+        "The spreadsheet is editable.",
+        "Cells A1:E1 are empty or can be overwritten.",
+        "No modal dialog is open and the worksheet grid is visible."
+      ],
+      "unit_effect": [
+        "Cell A1 is activated and then cells A1:E1 display the five table headers in separate columns."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a spreadsheet table header row by activating a specified starting cell and entering a tab-separated set of column labels.",
+      "parameters": {
+        "start_cell": "A1",
+        "target_element": "cell A1 in the top-left area of the sheet",
+        "header_row_text": "Date\tItem\tQty\tUnit Price\tLine Total",
+        "header_range": "A1:E1"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell A1 in the top-left area of the sheet'}}",
+          "action_template": "Click {{target_element}} when the spreadsheet is editable, {{header_range}} is empty or can be overwritten, and the worksheet grid is visible so {{start_cell}} becomes the active cell ready for header entry."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Date\\tItem\\tQty\\tUnit Price\\tLine Total'}",
+          "action_template": "With {{start_cell}} selected and the sheet accepting keyboard input, type {{header_row_text}} so the column headers populate {{header_range}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4
+      ],
+      "unit_intent": "Populate the tracker with the requested grocery purchase records.",
+      "unit_type": "ENTER_TABLE_ROWS",
+      "unit_before_state": "The header row is already present in A1:E1, and the rows beneath it are empty and visible.",
+      "unit_after_state": "Rows 2 through 6 are filled with five grocery purchases in columns A:D, starting at A2 with the dates, items, quantities, and unit prices entered.",
+      "unit_precondition": [
+        "The header row A1:E1 already exists.",
+        "Cell A2:D6 is empty or safe to replace.",
+        "The sheet still has keyboard focus for tab- and newline-based entry."
+      ],
+      "unit_effect": [
+        "Cell A2 is selected for data entry.",
+        "The purchase records appear in A2:D6, one row per item."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Populate a visible tracker table with a provided set of purchase records starting from a specified first data cell.",
+      "parameters": {
+        "start_cell": "A2",
+        "data_range": "A2:D6",
+        "record_rows": "2026-04-01\tApples\t4\t0.80\n2026-04-01\tBread\t2\t2.50\n2026-04-02\tMilk\t1\t3.20\n2026-04-03\tEggs\t1\t4.60\n2026-04-05\tRice\t3\t1.90"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "CLICK",
+          "action_template": "After the header row is in place, click {{start_cell}} so the purchase records can be entered starting from the first data row. Preconditions: the data area {{data_range}} is available for entry, visible, and the sheet still has focus for typing. Effect: {{start_cell}} becomes active for starting the purchase list."
+        },
+        {
+          "action": "TYPING",
+          "action_template": "When {{start_cell}} is active, type {{record_rows}} with tabs between columns and newlines between rows so the data fills {{data_range}}. Preconditions: {{start_cell}} is active, {{data_range}} is empty or safe to replace, and typing with tabs and newlines will move across rows and columns. Effect: the target rows in {{data_range}} are filled with the provided purchase records."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Compute line totals for every grocery purchase row.",
+      "unit_type": "CALCULATE_AND_FILL_LINE_TOTALS",
+      "unit_before_state": "The table data is present in A2:D6, column E is empty, and row 2 contains numeric values in C2 and D2.",
+      "unit_after_state": "Cells E2:E6 contain calculated line totals for each purchase row, produced from quantity multiplied by unit price.",
+      "unit_precondition": [
+        "Purchase data already exists in A2:D6.",
+        "Cell E2:E6 is available for formulas.",
+        "The fill handle on E2 can be used to copy the formula downward."
+      ],
+      "unit_effect": [
+        "E2 shows the result of the formula =C2*D2.",
+        "Dragging the fill handle copies the formula through E6 so every data row shows a line total."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Enter a row-level multiplication formula in the first target cell and fill it down the target column to compute totals for all data rows.",
+      "parameters": {
+        "target_formula_cell": "cell E2 in the first data row under Line Total",
+        "first_operand_cell": "C2",
+        "second_operand_cell": "D2",
+        "formula_text": "=C2*D2",
+        "fill_handle_start": "the small fill handle at the bottom-right corner of cell E2",
+        "fill_end_target": "the bottom-right corner of cell E6"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell E2 in the first data row under Line Total'}}",
+          "action_template": "Click {{target_formula_cell}} once when {{first_operand_cell}} and {{second_operand_cell}} contain the needed numeric values and the target cell is empty, so the target cell becomes active for formula entry."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '=C2*D2'}",
+          "action_template": "Type {{formula_text}} while {{target_formula_cell}} is selected and {{first_operand_cell}} and {{second_operand_cell}} contain numeric values, so the first row total is calculated in the target cell."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the small fill handle at the bottom-right corner of cell E2'}, 'end': {'text': 'the bottom-right corner of cell E6'}, 'target': {'begin': {'text': 'the small fill handle at the bottom-right corner of cell E2'}, 'end': {'text': 'the bottom-right corner of cell E6'}}}",
+          "action_template": "Drag from {{fill_handle_start}} to {{fill_end_target}} after the formula result is visible in the first target cell, so the formula is copied down the remaining target cells and each row receives a line total."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8,
+        9
+      ],
+      "unit_intent": "Add a summary row that totals all grocery spending.",
+      "unit_type": "ADD_GRAND_TOTAL_ROW",
+      "unit_before_state": "The grocery table is complete through row 6, line totals are visible in E2:E6, and row 7 is empty.",
+      "unit_after_state": "Cell C7 contains the label Grand Total, D7 is blank, and E7 contains the sum of E2:E6.",
+      "unit_precondition": [
+        "Line totals already exist in E2:E6.",
+        "Row 7 is visible and available for summary content.",
+        "Cell C7:E7 can be edited."
+      ],
+      "unit_effect": [
+        "Cell C7 is activated for summary entry.",
+        "The bottom row displays a labeled grand total with a SUM formula result in E7."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Add a labeled grand total row below a completed table by placing a summary label and total formula in the summary row.",
+      "parameters": {
+        "summary_start_cell": "cell C7 below the last grocery entry",
+        "summary_label": "Grand Total",
+        "total_formula": "=SUM(E2:E6)"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell C7 below the last grocery entry'}}",
+          "action_template": "With the item rows finished and the summary row empty, click {{summary_start_cell}} to begin entering the grand total row beneath the table."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Grand Total\\t\\t=SUM(E2:E6)'}",
+          "action_template": "When the summary start cell is selected and the line totals are ready, type {{summary_label}}, then tab across the row and enter {{total_formula}} so the label and total populate the summary row."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        10,
+        11
+      ],
+      "unit_intent": "Display all price and total values in a money format.",
+      "unit_type": "FORMAT_MONEY_AS_CURRENCY",
+      "unit_before_state": "Unit prices are visible in D2:D6, line totals are visible in E2:E6, and the grand total is visible in E7 as plain numeric values.",
+      "unit_after_state": "The range D2:E7 remains selected or has just been formatted, and all selected numeric values display using currency formatting.",
+      "unit_precondition": [
+        "Money-related values already exist in D2:E7.",
+        "The range D2:E7 is visible on screen.",
+        "The currency formatting control is available in the Calc toolbar."
+      ],
+      "unit_effect": [
+        "The rectangular range D2:E7 becomes selected.",
+        "The selected prices and totals visibly change from plain numbers to currency-formatted amounts."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Format a visible range of money-related numeric cells so they display as currency amounts.",
+      "parameters": {
+        "range_start_cell": "cell D2, the first Unit Price value",
+        "range_end_cell": "cell E7, the grand total value"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'cell D2, the first Unit Price value'}, 'end': {'text': 'cell E7, the grand total value'}, 'target': {'begin': {'text': 'cell D2, the first Unit Price value'}, 'end': {'text': 'cell E7, the grand total value'}}}",
+          "action_template": "After the prices and totals are in place, drag from {{range_start_cell}} to {{range_end_cell}} while the range is visible and no dialog is blocking the sheet, so all numeric money cells are selected together for formatting and the rectangular range becomes selected."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the currency format button in the top formatting toolbar'}}",
+          "action_template": "With the money range highlighted, click the currency format button in the top formatting toolbar when the standard formatting toolbar is visible and the control is available, so those selected numeric values are shown as currency amounts."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        12,
+        13
+      ],
+      "unit_intent": "Emphasize the table header so the tracker structure is easier to read.",
+      "unit_type": "BOLD_HEADER_ROW",
+      "unit_before_state": "The completed table is visible, and the header labels in A1:E1 are present in normal weight.",
+      "unit_after_state": "Cells A1:E1 are bold, making the header row visually distinct from the data rows.",
+      "unit_precondition": [
+        "Header text already exists in A1:E1.",
+        "The worksheet has focus for selection and keyboard shortcuts.",
+        "The header row is visible and can be selected."
+      ],
+      "unit_effect": [
+        "A1:E1 becomes selected.",
+        "After Ctrl+B, the header labels visibly appear in bold text."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Apply bold formatting to a specified header row so it stands out from the table data.",
+      "parameters": {
+        "target_range": "A1:E1",
+        "selection_start": "cell A1, the Date header",
+        "selection_end": "cell E1, the Line Total header"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'cell A1, the Date header'}, 'end': {'text': 'cell E1, the Line Total header'}, 'target': {'begin': {'text': 'cell A1, the Date header'}, 'end': {'text': 'cell E1, the Line Total header'}}}",
+          "action_template": "When the header row is visible and the sheet is ready for a new selection, drag from {{selection_start}} to {{selection_end}} so {{target_range}} is selected before applying bold formatting."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'b']}",
+          "action_template": "With {{target_range}} highlighted and the worksheet focused, press Ctrl+B to make the header row text bold."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_07",
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        14,
+        15
+      ],
+      "unit_intent": "Emphasize the summary row so the final budget total stands out.",
+      "unit_type": "BOLD_TOTAL_ROW",
+      "unit_before_state": "The grand total row is visible in row 7 with Grand Total in C7 and the summed value in E7, but the row is not yet emphasized.",
+      "unit_after_state": "Cells C7:E7 are bold, making the summary row stand out from the purchase rows above.",
+      "unit_precondition": [
+        "The grand total row already exists in C7:E7.",
+        "The sheet is not in edit mode and still accepts selection and shortcut input.",
+        "Cells C7:E7 are visible on screen."
+      ],
+      "unit_effect": [
+        "C7:E7 becomes selected.",
+        "After Ctrl+B, the total row visibly changes to bold text."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Emphasize a summary row by selecting its cells and applying bold formatting.",
+      "parameters": {
+        "row_start_cell": "cell C7 containing Grand Total",
+        "row_end_cell": "cell E7 containing the summed amount",
+        "target_range": "C7:E7"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'cell C7 containing Grand Total'}, 'end': {'text': 'cell E7 containing the summed amount'}, 'target': {'begin': {'text': 'cell C7 containing Grand Total'}, 'end': {'text': 'cell E7 containing the summed amount'}}}",
+          "action_template": "Drag from {{row_start_cell}} to {{row_end_cell}} to select {{target_range}} so the summary row can be emphasized as a distinct result."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'b']}",
+          "action_template": "Press Ctrl+B to apply bold formatting to {{target_range}} after the summary row is selected so it visibly stands out from the data rows."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_08",
+      "unit_id": "u_seg_001_08",
+      "step_indices": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "unit_intent": "Save the finished grocery budget tracker as a named LibreOffice Calc file in Documents.",
+      "unit_type": "SAVE_DOCUMENT_AS",
+      "unit_before_state": "The completed weekly grocery budget tracker is visible in Calc, and no modal dialog is open.",
+      "unit_after_state": "The spreadsheet is saved as weekly_grocery_budget.ods in the Documents folder, the Save As dialog is closed, and focus returns to the spreadsheet window.",
+      "unit_precondition": [
+        "The spreadsheet window is active and the file is ready to save.",
+        "The Save As command is available.",
+        "The Documents folder is accessible from the file chooser."
+      ],
+      "unit_effect": [
+        "Ctrl+Shift+S opens the Save As dialog.",
+        "The filename field shows weekly_grocery_budget.ods.",
+        "Documents is selected as the destination.",
+        "Clicking Save closes the dialog and persists the file in Documents."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the current LibreOffice Calc spreadsheet with a specified filename in a specified destination folder using Save As.",
+      "parameters": {
+        "file_name": "weekly_grocery_budget.ods",
+        "destination_folder": "Documents"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 's']}",
+          "action_template": "With the spreadsheet window active, the file ready to be saved, and no other modal dialog open, press Ctrl+Shift+S to open the Save As dialog so {{file_name}} can be saved to {{destination_folder}}."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'weekly_grocery_budget.ods'}",
+          "action_template": "When the Save As window is visible and the filename input box is ready to receive text, type {{file_name}} so the file can be saved with the requested name."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Documents folder in the file chooser sidebar'}}",
+          "action_template": "With the file chooser sidebar visible and the save dialog still active, click {{destination_folder}} in the sidebar so it becomes the selected save destination."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Save button in the Save As dialog'}}",
+          "action_template": "After confirming that {{destination_folder}} is selected and the filename field contains {{file_name}}, click the Save button to save the file there and return focus to the spreadsheet."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

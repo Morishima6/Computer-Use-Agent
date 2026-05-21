@@ -1,0 +1,915 @@
+{
+  "segment_id": "seg_001",
+  "app": "gimp",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the image import dialog",
+      "action_before_state": "GIMP is already open on the GNOME desktop, showing its main window with no blocking dialog.",
+      "action_preconditions": [
+        "The GIMP window is focused",
+        "No modal dialog is currently open"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "o"
+        ]
+      },
+      "action_after_effects": "An Open Image dialog appears in front of GIMP.",
+      "nl_explanation": "When the GIMP window is active and nothing is blocking input, press Ctrl+O to open the file chooser so the source photo can be selected."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Navigate to the Pictures folder",
+      "action_before_state": "The Open Image dialog is visible with a sidebar of common folders on the left.",
+      "action_preconditions": [
+        "The Open Image dialog is open",
+        "The sidebar contains a Pictures shortcut"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Pictures folder entry in the file chooser sidebar"
+        }
+      },
+      "action_after_effects": "The dialog switches to the Pictures folder and shows its files in the main pane.",
+      "nl_explanation": "Once the file chooser is open and the sidebar is visible, click Pictures so the image list changes to the contents of the Pictures folder."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Open the source photo",
+      "action_before_state": "The file chooser is displaying the contents of the Pictures folder.",
+      "action_preconditions": [
+        "The Pictures folder is open in the file chooser",
+        "The file `coffee_notes.jpg` is visible in the file list"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 2,
+        "target": {
+          "text": "the file named `coffee_notes.jpg` in the main file list"
+        }
+      },
+      "action_after_effects": "The dialog closes and the photo opens on the GIMP canvas.",
+      "nl_explanation": "When the Pictures folder contents are shown and `coffee_notes.jpg` is visible, double-click that file to load it into GIMP."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Open the Colors menu",
+      "action_before_state": "The `coffee_notes.jpg` image is visible on the canvas in the main GIMP window.",
+      "action_preconditions": [
+        "The image has finished loading",
+        "The top menu bar is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the `Colors` menu in the top menu bar"
+        }
+      },
+      "action_after_effects": "The Colors drop-down menu opens.",
+      "nl_explanation": "After the image is open and the menu bar is visible, click Colors to access image tone adjustment commands."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Open the Brightness-Contrast adjustment dialog",
+      "action_before_state": "The Colors menu is expanded over the image window.",
+      "action_preconditions": [
+        "The Colors menu is open",
+        "The `Brightness-Contrast...` option is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the `Brightness-Contrast...` item in the Colors menu"
+        }
+      },
+      "action_after_effects": "A Brightness-Contrast dialog appears with sliders and a live preview.",
+      "nl_explanation": "With the Colors menu open and `Brightness-Contrast...` visible, click that option to open the adjustment dialog for the photo."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Increase the brightness slightly",
+      "action_before_state": "The Brightness-Contrast dialog is open with the Brightness slider near its default center position.",
+      "action_preconditions": [
+        "The Brightness-Contrast dialog is open",
+        "The Brightness slider handle is visible"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the Brightness slider handle near the middle of the dialog"
+        },
+        "end": {
+          "text": "a point a short distance to the right on the Brightness slider track"
+        },
+        "target": {
+          "begin": {
+            "text": "the Brightness slider handle"
+          },
+          "end": {
+            "text": "a position slightly to the right on the Brightness slider track"
+          }
+        }
+      },
+      "action_after_effects": "The preview becomes a little brighter while the dialog remains open.",
+      "nl_explanation": "When the Brightness-Contrast dialog is visible, drag the Brightness slider slightly to the right so the photo looks a bit lighter without overexposing it."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Apply the brightness adjustment",
+      "action_before_state": "The Brightness slider has been moved and the preview shows a slightly brighter photo.",
+      "action_preconditions": [
+        "The brightness preview looks acceptable",
+        "The `OK` button is visible in the adjustment dialog"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the `OK` button in the Brightness-Contrast dialog"
+        }
+      },
+      "action_after_effects": "The dialog closes and the brighter version of the image remains on the canvas.",
+      "nl_explanation": "After the photo preview looks slightly brighter and the dialog is still open, click OK to commit the brightness change to the image."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Activate the text tool",
+      "action_before_state": "The adjusted photo is visible on the GIMP canvas.",
+      "action_preconditions": [
+        "The image window is active",
+        "No modal dialog is blocking keyboard input"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "t"
+        ]
+      },
+      "action_after_effects": "The Text tool becomes active and its options (font, size, color) become available in the Tool Options dialog.",
+      "nl_explanation": "With the image active and no dialog blocking input, press T to switch to the Text tool for adding the title."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Make white the active text color",
+      "action_before_state": "The Text tool is active and the default foreground/background color swatches are visible in the toolbox.",
+      "action_preconditions": [
+        "The Text tool is active",
+        "The default black and white color swatches are visible in the toolbox"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "x"
+        ]
+      },
+      "action_after_effects": "The foreground color switches from black to white, so new text will be inserted in white.",
+      "nl_explanation": "When the Text tool is active and the default black and white swatches are visible, press X to swap foreground and background colors, making white the active foreground color for text creation."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Focus the font size field",
+      "action_before_state": "The Text tool options are visible, including a size field for the current font.",
+      "action_preconditions": [
+        "The Text tool options panel is visible",
+        "A numeric size field is available in the options"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the font size field in the Text tool options"
+        }
+      },
+      "action_after_effects": "The size field becomes active and ready for editing.",
+      "nl_explanation": "After activating the Text tool and locating its options, click the font size field so the current size value can be replaced."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Select the current font size value",
+      "action_before_state": "The text size field is active in the tool options.",
+      "action_preconditions": [
+        "The font size field has keyboard focus",
+        "A current size value is visible in the field"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "a"
+        ]
+      },
+      "action_after_effects": "The existing size value in the field is highlighted for replacement.",
+      "nl_explanation": "When the font size box is active and its current number is visible, press Ctrl+A to select the whole value before typing a larger size."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Set a larger font size",
+      "action_before_state": "The current font size value is selected in the active size field.",
+      "action_preconditions": [
+        "The existing font size is highlighted",
+        "The cursor remains in the size field"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "72"
+      },
+      "action_after_effects": "The size field now shows `72` as the pending text size.",
+      "nl_explanation": "With the existing size value selected in the active field, type 72 so the title will be large enough to read clearly on the image."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Confirm the new text size",
+      "action_before_state": "The size field shows `72` and is still focused.",
+      "action_preconditions": [
+        "The new size value `72` is visible",
+        "The size field remains active"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The Text tool accepts the new font size for the next text insertion.",
+      "nl_explanation": "After typing 72 into the size field, press Enter so the Text tool uses that larger size for the title."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Place a text box on the image",
+      "action_before_state": "The Text tool is active with white text and a larger font size configured.",
+      "action_preconditions": [
+        "The image canvas is visible",
+        "There is a clear lower-left area of the image where the title can be placed"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the lower-left area of the photo where the title should appear"
+        }
+      },
+      "action_after_effects": "A text box appears on the image with a blinking insertion cursor.",
+      "nl_explanation": "When the text tool settings are ready and the lower-left part of the photo is visible, click that area to create a text box for the cover title."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Enter the title text",
+      "action_before_state": "A new text box is active on the photo and the text cursor is blinking inside it.",
+      "action_preconditions": [
+        "The text box is active on the image",
+        "The insertion cursor is visible inside the text box"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Weekend Plan"
+      },
+      "action_after_effects": "The words `Weekend Plan` appear on the image in large white text.",
+      "nl_explanation": "Once the text box is active on the image, type `Weekend Plan` so the photo becomes a simple planning-note cover image."
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Open the export dialog",
+      "action_before_state": "The edited image is visible on the canvas with the new `Weekend Plan` title added.",
+      "action_preconditions": [
+        "The image edits are complete",
+        "The GIMP image window is still focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "e"
+        ]
+      },
+      "action_after_effects": "An Export Image dialog opens for choosing the output location and filename.",
+      "nl_explanation": "After the image has been brightened and titled, press Ctrl+Shift+E to open the export dialog for saving the finished result."
+    },
+    {
+      "step_id": "s17",
+      "step_goal": "Choose the Desktop as the export location",
+      "action_before_state": "The Export Image dialog is visible with common locations listed in the left sidebar.",
+      "action_preconditions": [
+        "The Export Image dialog is open",
+        "The Desktop entry is visible in the sidebar"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Desktop folder entry in the export dialog sidebar"
+        }
+      },
+      "action_after_effects": "The export dialog switches to the Desktop location.",
+      "nl_explanation": "When the export dialog is open and the sidebar is visible, click Desktop so the final image will be saved there."
+    },
+    {
+      "step_id": "s18",
+      "step_goal": "Focus the export filename field",
+      "action_before_state": "The export dialog is pointed at the Desktop and shows a filename field with the current image name.",
+      "action_preconditions": [
+        "The Desktop location is selected in the export dialog",
+        "A filename text field is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the filename field at the bottom of the export dialog"
+        }
+      },
+      "action_after_effects": "The filename field becomes active and ready for editing.",
+      "nl_explanation": "After switching the export location to Desktop, click the filename field so the current name can be replaced with the required output filename."
+    },
+    {
+      "step_id": "s19",
+      "step_goal": "Select the current filename",
+      "action_before_state": "The filename field is active and contains the current export name.",
+      "action_preconditions": [
+        "The filename field has keyboard focus",
+        "The current filename text is visible in the field"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "a"
+        ]
+      },
+      "action_after_effects": "The entire existing filename is highlighted for replacement.",
+      "nl_explanation": "When the filename field is active and its current text is visible, press Ctrl+A to highlight the full name before typing the new one."
+    },
+    {
+      "step_id": "s20",
+      "step_goal": "Enter the requested output filename",
+      "action_before_state": "The current filename in the export dialog is fully selected.",
+      "action_preconditions": [
+        "The filename field remains active",
+        "The old filename text is highlighted"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "weekend_plan_cover.jpg"
+      },
+      "action_after_effects": "The filename field now contains `weekend_plan_cover.jpg`.",
+      "nl_explanation": "With the current filename selected in the active field, type `weekend_plan_cover.jpg` so the exported file uses the requested JPEG name."
+    },
+    {
+      "step_id": "s21",
+      "step_goal": "Start the export",
+      "action_before_state": "The Export Image dialog is set to Desktop and the filename field contains `weekend_plan_cover.jpg`.",
+      "action_preconditions": [
+        "The correct filename is visible in the export dialog",
+        "The `Export` button is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the `Export` button in the Export Image dialog"
+        }
+      },
+      "action_after_effects": "A JPEG export settings dialog opens for final quality options.",
+      "nl_explanation": "Once the Desktop location and requested filename are both set, click Export to move to the final JPEG export step."
+    },
+    {
+      "step_id": "s22",
+      "step_goal": "Confirm the JPEG export settings",
+      "action_before_state": "A JPEG export options dialog is visible after starting the export.",
+      "action_preconditions": [
+        "The JPEG export settings dialog is open",
+        "A final `Export` button is visible in that dialog"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the final `Export` button in the JPEG export settings dialog"
+        }
+      },
+      "action_after_effects": "The image is written to the Desktop as `weekend_plan_cover.jpg`, completing the task.",
+      "nl_explanation": "When the JPEG options dialog appears after the first export confirmation, click the final Export button to save the finished cover image to the Desktop."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Load the source photo from the Pictures folder into GIMP for editing.",
+      "unit_type": "OPEN_IMAGE_FROM_FOLDER",
+      "unit_before_state": "GIMP is open on the desktop with its main window focused and no modal dialog blocking input.",
+      "unit_after_state": "The Open Image dialog has been dismissed, and coffee_notes.jpg is displayed on the GIMP canvas as the active image.",
+      "unit_precondition": [
+        "The GIMP main window is focused and accepts keyboard input.",
+        "The system file chooser can access the Pictures folder that contains coffee_notes.jpg."
+      ],
+      "unit_effect": [
+        "An Open Image dialog appears and switches to the Pictures folder.",
+        "Double-clicking coffee_notes.jpg closes the dialog and shows that photo on the canvas."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Brighten the opened photo slightly and commit the tone adjustment.",
+      "unit_type": "ADJUST_BRIGHTNESS",
+      "unit_before_state": "coffee_notes.jpg is open in the main GIMP window, and the image is fully visible on the canvas with the top menu bar available.",
+      "unit_after_state": "The Brightness-Contrast dialog is closed, and the canvas shows a slightly brighter version of the photo.",
+      "unit_precondition": [
+        "The image has finished loading and is the active canvas.",
+        "The Colors menu and Brightness-Contrast command are available from the menu bar."
+      ],
+      "unit_effect": [
+        "The Brightness-Contrast dialog opens with a live preview.",
+        "Dragging the Brightness slider makes the preview lighter.",
+        "Clicking OK leaves the image visibly brighter on the canvas."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        8,
+        9
+      ],
+      "unit_intent": "Prepare the text tool so the upcoming title will be inserted in white.",
+      "unit_type": "PREPARE_TEXT_TOOL_COLOR",
+      "unit_before_state": "The brightened photo is visible on the canvas, and no modal dialog is open.",
+      "unit_after_state": "The Text tool is active, its options are shown, and the foreground color is white for new text entry.",
+      "unit_precondition": [
+        "The image window is focused.",
+        "The toolbox shows the standard foreground and background color swatches."
+      ],
+      "unit_effect": [
+        "Pressing T activates the Text tool and exposes text-related tool options.",
+        "Pressing X swaps the active color so the foreground swatch becomes white."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        10,
+        11,
+        12,
+        13
+      ],
+      "unit_intent": "Set the title text size to 72 before placing the text box.",
+      "unit_type": "SET_TEXT_SIZE",
+      "unit_before_state": "The Text tool is active, and the tool options panel shows an editable font size field with its current value.",
+      "unit_after_state": "The Text tool is configured to use font size 72 for the next text insertion.",
+      "unit_precondition": [
+        "The Text tool options panel is visible.",
+        "The font size field can be focused and edited."
+      ],
+      "unit_effect": [
+        "The size field receives focus and its existing value is fully selected.",
+        "Typing 72 replaces the old value.",
+        "Pressing Enter commits 72 as the active text size."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        14,
+        15
+      ],
+      "unit_intent": "Place and enter the cover title on the image.",
+      "unit_type": "INSERT_TEXT_TITLE",
+      "unit_before_state": "The Text tool is active with white text and size 72 configured, and the lower-left area of the photo is visible on the canvas.",
+      "unit_after_state": "A text box in the lower-left area of the image contains the title Weekend Plan in large white text.",
+      "unit_precondition": [
+        "The canvas is visible and has enough open space in the lower-left area for a title.",
+        "The Text tool is already configured with the desired color and size."
+      ],
+      "unit_effect": [
+        "Clicking the image creates a text box with a blinking insertion cursor.",
+        "Typing Weekend Plan renders the title directly on the image."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        16
+      ],
+      "unit_intent": "Open the export workflow for saving the finished cover image.",
+      "unit_type": "OPEN_EXPORT_DIALOG",
+      "unit_before_state": "The edited image is visible on the GIMP canvas with the added Weekend Plan title.",
+      "unit_after_state": "An Export Image dialog is open in front of GIMP, showing location controls and a filename field.",
+      "unit_precondition": [
+        "The image edits are complete.",
+        "The GIMP image window is focused and no modal dialog is already open."
+      ],
+      "unit_effect": [
+        "Pressing Ctrl+Shift+E opens the Export Image dialog."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        17,
+        18,
+        19,
+        20
+      ],
+      "unit_intent": "Choose the Desktop and set the exact output filename for the export.",
+      "unit_type": "SET_EXPORT_PATH_AND_FILENAME",
+      "unit_before_state": "The Export Image dialog is open with its sidebar visible and the current image name shown in the filename field.",
+      "unit_after_state": "The Export Image dialog is pointed at the Desktop, and the filename field contains weekend_plan_cover.jpg.",
+      "unit_precondition": [
+        "The Export Image dialog is open.",
+        "The Desktop shortcut is visible in the sidebar and the filename field is editable."
+      ],
+      "unit_effect": [
+        "Selecting Desktop changes the export location to the Desktop folder.",
+        "The filename field becomes active, its old content is selected, and the new filename weekend_plan_cover.jpg replaces it."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_08",
+      "step_indices": [
+        21,
+        22
+      ],
+      "unit_intent": "Finalize the JPEG export and write the finished cover image to disk.",
+      "unit_type": "COMPLETE_JPEG_EXPORT",
+      "unit_before_state": "The Export Image dialog is set to export to the Desktop with the filename weekend_plan_cover.jpg.",
+      "unit_after_state": "The export dialogs are closed, GIMP returns to the edited image, and weekend_plan_cover.jpg has been saved to the Desktop as a JPEG file.",
+      "unit_precondition": [
+        "The Export Image dialog shows the correct destination and filename.",
+        "The JPEG export settings dialog can be confirmed with its visible final Export button."
+      ],
+      "unit_effect": [
+        "Clicking Export in the file dialog opens the JPEG export settings dialog.",
+        "Clicking the final Export button writes weekend_plan_cover.jpg to the Desktop."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Load the source photo from the Pictures folder into GIMP for editing.",
+      "unit_type": "OPEN_IMAGE_FROM_FOLDER",
+      "unit_before_state": "GIMP is open on the desktop with its main window focused and no modal dialog blocking input.",
+      "unit_after_state": "The Open Image dialog has been dismissed, and coffee_notes.jpg is displayed on the GIMP canvas as the active image.",
+      "unit_precondition": [
+        "The GIMP main window is focused and accepts keyboard input.",
+        "The system file chooser can access the Pictures folder that contains coffee_notes.jpg."
+      ],
+      "unit_effect": [
+        "An Open Image dialog appears and switches to the Pictures folder.",
+        "Double-clicking coffee_notes.jpg closes the dialog and shows that photo on the canvas."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a specified image file from a specified folder into GIMP for editing.",
+      "parameters": {
+        "folder_name": "Pictures",
+        "file_name": "coffee_notes.jpg"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'o']}",
+          "action_template": "When the GIMP window is focused and no modal dialog is open, press Ctrl+O to open the file chooser so {{file_name}} can be selected."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Pictures folder entry in the file chooser sidebar'}}",
+          "action_template": "When the Open Image dialog is open and the sidebar contains the {{folder_name}} shortcut, click the {{folder_name}} folder entry in the file chooser sidebar so the main pane switches to that folder."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 2, 'target': {'text': 'the file named `coffee_notes.jpg` in the main file list'}}",
+          "action_template": "When the file chooser is showing the {{folder_name}} folder and {{file_name}} is visible in the file list, double-click {{file_name}} to close the dialog and open the image on the GIMP canvas."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Brighten the opened photo slightly and commit the tone adjustment.",
+      "unit_type": "ADJUST_BRIGHTNESS",
+      "unit_before_state": "coffee_notes.jpg is open in the main GIMP window, and the image is fully visible on the canvas with the top menu bar available.",
+      "unit_after_state": "The Brightness-Contrast dialog is closed, and the canvas shows a slightly brighter version of the photo.",
+      "unit_precondition": [
+        "The image has finished loading and is the active canvas.",
+        "The Colors menu and Brightness-Contrast command are available from the menu bar."
+      ],
+      "unit_effect": [
+        "The Brightness-Contrast dialog opens with a live preview.",
+        "Dragging the Brightness slider makes the preview lighter.",
+        "Clicking OK leaves the image visibly brighter on the canvas."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Increase the brightness of the active image by {{brightness_adjustment_amount}} and apply the adjustment.",
+      "parameters": {
+        "brightness_adjustment_amount": "slightly"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the `Colors` menu in the top menu bar'}}",
+          "action_template": "After the image has finished loading and the top menu bar is visible, click the `Colors` menu in the top menu bar to access image tone adjustment commands and open the Colors drop-down menu."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the `Brightness-Contrast...` item in the Colors menu'}}",
+          "action_template": "With the Colors menu open and the `Brightness-Contrast...` option visible, click the `Brightness-Contrast...` item in the Colors menu to open the adjustment dialog so a Brightness-Contrast dialog appears with sliders and a live preview."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the Brightness slider handle near the middle of the dialog'}, 'end': {'text': 'a point a short distance to the right on the Brightness slider track'}, 'target': {'begin': {'text': 'the Brightness slider handle'}, 'end': {'text': 'a position slightly to the right on the Brightness slider track'}}}",
+          "action_template": "When the Brightness-Contrast dialog is open and the Brightness slider handle is visible, drag the Brightness slider {{brightness_adjustment_amount}} to the right so the photo looks {{brightness_adjustment_amount}} brighter without overexposing it while the dialog remains open."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the `OK` button in the Brightness-Contrast dialog'}}",
+          "action_template": "After the photo preview looks {{brightness_adjustment_amount}} brighter and the `OK` button is visible in the adjustment dialog, click the `OK` button in the Brightness-Contrast dialog to commit the brightness change so the dialog closes and the brighter version of the image remains on the canvas."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        8,
+        9
+      ],
+      "unit_intent": "Prepare the text tool so the upcoming title will be inserted in white.",
+      "unit_type": "PREPARE_TEXT_TOOL_COLOR",
+      "unit_before_state": "The brightened photo is visible on the canvas, and no modal dialog is open.",
+      "unit_after_state": "The Text tool is active, its options are shown, and the foreground color is white for new text entry.",
+      "unit_precondition": [
+        "The image window is focused.",
+        "The toolbox shows the standard foreground and background color swatches."
+      ],
+      "unit_effect": [
+        "Pressing T activates the Text tool and exposes text-related tool options.",
+        "Pressing X swaps the active color so the foreground swatch becomes white."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Prepare the Text tool so the upcoming text object will be inserted in white.",
+      "parameters": {
+        "target_text_object": "title"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['t']}",
+          "action_template": "With the image window active and no modal dialog blocking keyboard input, press T to switch to the Text tool for adding the {{target_text_object}}; the Text tool becomes active and its options (font, size, color) become available in the Tool Options dialog."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['x']}",
+          "action_template": "When the Text tool is active and the default black and white swatches are visible in the toolbox, press X to swap foreground and background colors, making white the active foreground color for new text creation."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        10,
+        11,
+        12,
+        13
+      ],
+      "unit_intent": "Set the title text size to 72 before placing the text box.",
+      "unit_type": "SET_TEXT_SIZE",
+      "unit_before_state": "The Text tool is active, and the tool options panel shows an editable font size field with its current value.",
+      "unit_after_state": "The Text tool is configured to use font size 72 for the next text insertion.",
+      "unit_precondition": [
+        "The Text tool options panel is visible.",
+        "The font size field can be focused and edited."
+      ],
+      "unit_effect": [
+        "The size field receives focus and its existing value is fully selected.",
+        "Typing 72 replaces the old value.",
+        "Pressing Enter commits 72 as the active text size."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Set the Text tool font size to a specified value before inserting text.",
+      "parameters": {
+        "target_field": "the font size field in the Text tool options",
+        "font_size_value": "72"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the font size field in the Text tool options'}}",
+          "action_template": "Click {{target_field}} when the Text tool options panel is visible and a numeric size field is available so the field becomes active and ready for editing."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'a']}",
+          "action_template": "Press Ctrl+A when {{target_field}} has keyboard focus and a current size value is visible so the existing size value is highlighted for replacement."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '72'}",
+          "action_template": "Type {{font_size_value}} when the existing font size is highlighted and the cursor remains in {{target_field}} so the field shows {{font_size_value}} as the pending text size."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter when {{font_size_value}} is visible in {{target_field}} and the field remains active so the Text tool accepts {{font_size_value}} for the next text insertion."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        14,
+        15
+      ],
+      "unit_intent": "Place and enter the cover title on the image.",
+      "unit_type": "INSERT_TEXT_TITLE",
+      "unit_before_state": "The Text tool is active with white text and size 72 configured, and the lower-left area of the photo is visible on the canvas.",
+      "unit_after_state": "A text box in the lower-left area of the image contains the title Weekend Plan in large white text.",
+      "unit_precondition": [
+        "The canvas is visible and has enough open space in the lower-left area for a title.",
+        "The Text tool is already configured with the desired color and size."
+      ],
+      "unit_effect": [
+        "Clicking the image creates a text box with a blinking insertion cursor.",
+        "Typing Weekend Plan renders the title directly on the image."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a title text box at a specified area of an image and enter the desired title text.",
+      "parameters": {
+        "target_area": "the lower-left area of the photo where the title should appear",
+        "input_text": "Weekend Plan"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the lower-left area of the photo where the title should appear'}}",
+          "action_template": "Click {{target_area}} on the visible image canvas while the Text tool is configured to create a text box with a blinking insertion cursor."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Weekend Plan'}",
+          "action_template": "Type {{input_text}} into the active text box with the visible insertion cursor so the title appears on the image in the configured style."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        16
+      ],
+      "unit_intent": "Open the export workflow for saving the finished cover image.",
+      "unit_type": "OPEN_EXPORT_DIALOG",
+      "unit_before_state": "The edited image is visible on the GIMP canvas with the added Weekend Plan title.",
+      "unit_after_state": "An Export Image dialog is open in front of GIMP, showing location controls and a filename field.",
+      "unit_precondition": [
+        "The image edits are complete.",
+        "The GIMP image window is focused and no modal dialog is already open."
+      ],
+      "unit_effect": [
+        "Pressing Ctrl+Shift+E opens the Export Image dialog."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open the export dialog to save the finished image.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'e']}",
+          "action_template": "With the image edits complete and the GIMP image window still focused, press Ctrl+Shift+E to open the Export Image dialog for choosing the output location and filename."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_07",
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        17,
+        18,
+        19,
+        20
+      ],
+      "unit_intent": "Choose the Desktop and set the exact output filename for the export.",
+      "unit_type": "SET_EXPORT_PATH_AND_FILENAME",
+      "unit_before_state": "The Export Image dialog is open with its sidebar visible and the current image name shown in the filename field.",
+      "unit_after_state": "The Export Image dialog is pointed at the Desktop, and the filename field contains weekend_plan_cover.jpg.",
+      "unit_precondition": [
+        "The Export Image dialog is open.",
+        "The Desktop shortcut is visible in the sidebar and the filename field is editable."
+      ],
+      "unit_effect": [
+        "Selecting Desktop changes the export location to the Desktop folder.",
+        "The filename field becomes active, its old content is selected, and the new filename weekend_plan_cover.jpg replaces it."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Select the desired export folder and replace the current export filename with a specified output filename.",
+      "parameters": {
+        "target_folder": "Desktop",
+        "output_filename": "weekend_plan_cover.jpg"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Desktop folder entry in the export dialog sidebar'}}",
+          "action_template": "When the Export Image dialog is open and {{target_folder}} is visible in the sidebar, click the {{target_folder}} folder entry in the export dialog sidebar so the export dialog switches to the {{target_folder}} location."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the filename field at the bottom of the export dialog'}}",
+          "action_template": "After switching the export location to {{target_folder}} and while a filename text field is visible, click the filename field at the bottom of the export dialog so it becomes active and ready for editing."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'a']}",
+          "action_template": "When the filename field has keyboard focus and the current filename text is visible, press Ctrl+A to highlight the entire existing filename for replacement."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'weekend_plan_cover.jpg'}",
+          "action_template": "With the filename field still active and the old filename highlighted, type {{output_filename}} so the filename field contains {{output_filename}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_08",
+      "unit_id": "u_seg_001_08",
+      "step_indices": [
+        21,
+        22
+      ],
+      "unit_intent": "Finalize the JPEG export and write the finished cover image to disk.",
+      "unit_type": "COMPLETE_JPEG_EXPORT",
+      "unit_before_state": "The Export Image dialog is set to export to the Desktop with the filename weekend_plan_cover.jpg.",
+      "unit_after_state": "The export dialogs are closed, GIMP returns to the edited image, and weekend_plan_cover.jpg has been saved to the Desktop as a JPEG file.",
+      "unit_precondition": [
+        "The Export Image dialog shows the correct destination and filename.",
+        "The JPEG export settings dialog can be confirmed with its visible final Export button."
+      ],
+      "unit_effect": [
+        "Clicking Export in the file dialog opens the JPEG export settings dialog.",
+        "Clicking the final Export button writes weekend_plan_cover.jpg to the Desktop."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Complete a JPEG export by confirming the export dialogs and saving the image to the chosen location with the specified filename.",
+      "parameters": {
+        "destination_folder": "Desktop",
+        "output_file_name": "weekend_plan_cover.jpg"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the `Export` button in the Export Image dialog'}}",
+          "action_template": "Click the `Export` button in the Export Image dialog once {{destination_folder}} and {{output_file_name}} are already set and visible, to move to the final JPEG export settings dialog."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the final `Export` button in the JPEG export settings dialog'}}",
+          "action_template": "Click the final `Export` button in the JPEG export settings dialog once that dialog is open and its final `Export` button is visible, to write {{output_file_name}} to {{destination_folder}} and complete the export."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

@@ -1,0 +1,588 @@
+{
+  "segment_id": "seg_001",
+  "app": "gimp",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the image chooser",
+      "action_before_state": "gimp is ready for step 1 of the task.",
+      "action_preconditions": [
+        "GIMP is already open and focused",
+        "No modal dialog is covering the main window"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "o"
+        ]
+      },
+      "action_after_effects": "The Open Image dialog appears in front of GIMP.",
+      "nl_explanation": "When GIMP is the active window and nothing else is blocking it, press Ctrl+O to open the standard GNOME file chooser. You should now see the Open Image dialog."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Focus the location entry in the file chooser",
+      "action_before_state": "gimp is ready for step 2 of the task.",
+      "action_preconditions": [
+        "The Open Image dialog is visible",
+        "Keyboard input is going to the file chooser"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "l"
+        ]
+      },
+      "action_after_effects": "The file chooser switches focus to its location/path entry field.",
+      "nl_explanation": "With the Open Image dialog on screen, press Ctrl+L so you can type the exact file path directly. The path entry should become active."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Enter the source image path",
+      "action_before_state": "gimp is ready for step 3 of the task.",
+      "action_preconditions": [
+        "The file chooser path field is active",
+        "The source image exists at /home/user/Pictures/farmers_market.jpg"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "/home/user/Pictures/farmers_market.jpg"
+      },
+      "action_after_effects": "The full image path is filled into the location field.",
+      "nl_explanation": "Once the location field is focused, type /home/user/Pictures/farmers_market.jpg. The file chooser should now show the exact source path you want to open."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Load the photo into GIMP",
+      "action_before_state": "gimp is ready for step 4 of the task.",
+      "action_preconditions": [
+        "The full file path is present in the location field",
+        "The path points to a readable image file"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The dialog closes and the farmers market photo opens on the GIMP canvas.",
+      "nl_explanation": "After the image path is entered, press Enter to open that file. GIMP should replace the dialog with the loaded photo on the canvas."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Switch to the Crop tool",
+      "action_before_state": "gimp is ready for step 5 of the task.",
+      "action_preconditions": [
+        "The image is visible on the canvas",
+        "The toolbox or keyboard shortcuts are available"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "shift",
+          "c"
+        ]
+      },
+      "action_after_effects": "GIMP activates the Crop tool and the cursor is ready to define a crop region.",
+      "nl_explanation": "With the photo open, press Shift+C to activate the Crop tool. The pointer should now be ready for drawing a new crop area."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Draw a wide banner crop around the main market area",
+      "action_before_state": "gimp is ready for step 6 of the task.",
+      "action_preconditions": [
+        "The Crop tool is active",
+        "The market stalls are clearly visible in the image"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "near the upper-left area above the first market stall you want to keep"
+        },
+        "end": {
+          "text": "near the lower-right edge of a wide banner-shaped area that still keeps the central stalls in frame"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "A crop rectangle appears, showing the portion of the image that will be kept.",
+      "nl_explanation": "After selecting the Crop tool, drag from the upper-left part of the useful scene to the lower-right so the crop becomes a wide header and keeps the stalls centered. GIMP should display the crop outline as a preview."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Apply the crop",
+      "action_before_state": "gimp is ready for step 7 of the task.",
+      "action_preconditions": [
+        "A crop rectangle is visible",
+        "The selected area looks like the desired banner framing"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The crop is applied and the image is trimmed to the selected banner-shaped area.",
+      "nl_explanation": "Once the crop rectangle is positioned correctly, press Enter to commit the crop. The canvas should immediately shrink to the chosen banner area."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Open the Colors menu",
+      "action_before_state": "gimp is ready for step 8 of the task.",
+      "action_preconditions": [
+        "The cropped image is visible",
+        "The top menu bar is accessible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Colors menu in GIMP's top menu bar"
+        }
+      },
+      "action_after_effects": "The Colors dropdown menu opens.",
+      "nl_explanation": "With the cropped banner on screen, click the Colors menu in the top bar. Its dropdown should appear so you can choose an adjustment."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Open the Brightness-Contrast adjustment",
+      "action_before_state": "gimp is ready for step 9 of the task.",
+      "action_preconditions": [
+        "The Colors menu is expanded",
+        "Brightness-Contrast is listed in the dropdown"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Brightness-Contrast option in the Colors menu"
+        }
+      },
+      "action_after_effects": "A Brightness-Contrast dialog opens over the image.",
+      "nl_explanation": "When the Colors menu is open, click Brightness-Contrast. GIMP should show a small adjustment dialog with sliders and a live preview."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Brighten the banner slightly",
+      "action_before_state": "gimp is ready for step 10 of the task.",
+      "action_preconditions": [
+        "The Brightness-Contrast dialog is open",
+        "The Brightness slider is visible"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the Brightness slider knob in the adjustment dialog"
+        },
+        "end": {
+          "text": "a point a short distance to the right of the slider's current position"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "The preview becomes slightly brighter while preserving the overall scene.",
+      "nl_explanation": "With the Brightness-Contrast dialog open, drag the Brightness slider a little to the right. The image preview should look a bit lighter and more inviting without becoming washed out."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Confirm the color adjustment",
+      "action_before_state": "gimp is ready for step 11 of the task.",
+      "action_preconditions": [
+        "The preview brightness looks acceptable",
+        "The adjustment dialog is still open"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the OK button in the Brightness-Contrast dialog"
+        }
+      },
+      "action_after_effects": "The dialog closes and the brightness change is applied to the image.",
+      "nl_explanation": "After the banner looks slightly brighter, click OK in the adjustment dialog. The dialog should close and leave the edit applied on the canvas."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Open the export dialog",
+      "action_before_state": "gimp is ready for step 12 of the task.",
+      "action_preconditions": [
+        "The final edited banner is visible",
+        "No other dialog is active"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "e"
+        ]
+      },
+      "action_after_effects": "The Export Image dialog opens.",
+      "nl_explanation": "When the edit is complete, press Ctrl+Shift+E to start exporting the image. GIMP should open the Export Image dialog."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Enter the export destination and filename",
+      "action_before_state": "gimp is ready for step 13 of the task.",
+      "action_preconditions": [
+        "The Export Image dialog is open",
+        "The filename/location input is ready for text entry"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "/home/user/Desktop/farmers_market_header.png"
+      },
+      "action_after_effects": "The export dialog now points to the Desktop PNG output path.",
+      "nl_explanation": "With the export dialog active, type /home/user/Desktop/farmers_market_header.png so the result will be saved to the Desktop with the correct name and format."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Start the PNG export",
+      "action_before_state": "gimp is ready for step 14 of the task.",
+      "action_preconditions": [
+        "The export path has been entered",
+        "The Export button is visible in the dialog"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Export button in the Export Image dialog"
+        }
+      },
+      "action_after_effects": "GIMP opens the PNG export settings dialog.",
+      "nl_explanation": "After the Desktop PNG path is entered, click the Export button. The file export should proceed to the PNG options dialog."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Accept the default PNG options and finish saving",
+      "action_before_state": "gimp is ready for step 15 of the task.",
+      "action_preconditions": [
+        "The PNG export settings dialog is visible",
+        "The default PNG settings are acceptable"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The PNG file is written to /home/user/Desktop/farmers_market_header.png and the dialog closes.",
+      "nl_explanation": "When the PNG settings dialog appears, press Enter to accept the defaults. GIMP should finish exporting and save the completed header image on the Desktop."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Load the source farmers market photo into GIMP so it can be edited.",
+      "unit_type": "OPEN_IMAGE_FROM_PATH",
+      "unit_before_state": "The main GIMP window is open and focused with no modal dialog covering it, and no image from this task is yet loaded on the canvas.",
+      "unit_after_state": "The Open Image dialog has closed, and the farmers_market.jpg photo is displayed on the GIMP canvas as the active image.",
+      "unit_precondition": [
+        "GIMP is running and focused.",
+        "No modal dialog is blocking keyboard input.",
+        "The file /home/user/Pictures/farmers_market.jpg exists and is readable."
+      ],
+      "unit_effect": [
+        "The Open Image file chooser appears.",
+        "The chooser's location field becomes active and contains /home/user/Pictures/farmers_market.jpg.",
+        "After confirming, the photo opens on the canvas as the current image."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Turn the photo into a wide header-style banner while keeping the central market stalls in frame.",
+      "unit_type": "CROP_TO_BANNER",
+      "unit_before_state": "The full farmers market photo is visible on the GIMP canvas, uncropped, with the market stalls visible in the middle of the image.",
+      "unit_after_state": "The canvas now shows only the selected wide banner-shaped crop, with the market stalls still centered in the remaining image area.",
+      "unit_precondition": [
+        "The target photo is already open on the GIMP canvas.",
+        "The Crop tool can be activated from the keyboard.",
+        "The desired market stalls are visible so a wide crop can be framed around them."
+      ],
+      "unit_effect": [
+        "The Crop tool activates and a crop rectangle is drawn over the image.",
+        "The crop preview shows a wide horizontal banner framing.",
+        "After confirmation, the canvas shrinks to the selected cropped area."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "unit_intent": "Make the cropped banner look slightly brighter and more inviting without changing the composition.",
+      "unit_type": "ADJUST_BRIGHTNESS",
+      "unit_before_state": "The cropped banner image is visible on the canvas at its current brightness, and no adjustment dialog is open.",
+      "unit_after_state": "The Brightness-Contrast dialog has been closed, and the cropped banner remains on the canvas with a slightly brighter appearance applied.",
+      "unit_precondition": [
+        "The cropped banner image is the active image in GIMP.",
+        "The top menu bar is accessible.",
+        "No other modal dialog is blocking access to the Colors menu."
+      ],
+      "unit_effect": [
+        "The Colors menu opens and the Brightness-Contrast dialog appears over the image.",
+        "Dragging the Brightness slider updates the live preview to a slightly brighter look.",
+        "Clicking OK closes the dialog and keeps the brightness change on the canvas."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "unit_intent": "Export the finished banner to the requested Desktop PNG file.",
+      "unit_type": "EXPORT_AS_PNG",
+      "unit_before_state": "The edited banner is visible on the GIMP canvas with the crop and brightness changes already applied, and no export dialog is currently open.",
+      "unit_after_state": "All export dialogs are closed, and the finished header image has been saved as /home/user/Desktop/farmers_market_header.png.",
+      "unit_precondition": [
+        "The final edited image is active in GIMP.",
+        "No modal dialog is blocking the main window before export starts.",
+        "The Desktop location is writable and PNG export defaults are acceptable."
+      ],
+      "unit_effect": [
+        "The Export Image dialog opens.",
+        "The export path field contains /home/user/Desktop/farmers_market_header.png.",
+        "Clicking Export opens the PNG export settings dialog.",
+        "Confirming the PNG settings writes the file and closes the dialog."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Load the source farmers market photo into GIMP so it can be edited.",
+      "unit_type": "OPEN_IMAGE_FROM_PATH",
+      "unit_before_state": "The main GIMP window is open and focused with no modal dialog covering it, and no image from this task is yet loaded on the canvas.",
+      "unit_after_state": "The Open Image dialog has closed, and the farmers_market.jpg photo is displayed on the GIMP canvas as the active image.",
+      "unit_precondition": [
+        "GIMP is running and focused.",
+        "No modal dialog is blocking keyboard input.",
+        "The file /home/user/Pictures/farmers_market.jpg exists and is readable."
+      ],
+      "unit_effect": [
+        "The Open Image file chooser appears.",
+        "The chooser's location field becomes active and contains /home/user/Pictures/farmers_market.jpg.",
+        "After confirming, the photo opens on the canvas as the current image."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a specified image file in GIMP by entering its full path in the Open Image dialog.",
+      "parameters": {
+        "file_path": "/home/user/Pictures/farmers_market.jpg"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'o']}",
+          "action_template": "When GIMP is open and focused with no blocking modal dialog, press Ctrl+O to open the Open Image dialog. The Open Image dialog should appear in front of GIMP."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'l']}",
+          "action_template": "With the Open Image dialog visible and receiving keyboard input, press Ctrl+L to focus the file chooser's location/path entry field. The path entry should become active."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '/home/user/Pictures/farmers_market.jpg'}",
+          "action_template": "Once the file chooser path field is active, type {{file_path}} so the exact image path is entered into the location field. The file chooser should now show {{file_path}}."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After {{file_path}} is present in the location field and points to a readable image file, press Enter to open it. The dialog should close and the image should open on the GIMP canvas."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Turn the photo into a wide header-style banner while keeping the central market stalls in frame.",
+      "unit_type": "CROP_TO_BANNER",
+      "unit_before_state": "The full farmers market photo is visible on the GIMP canvas, uncropped, with the market stalls visible in the middle of the image.",
+      "unit_after_state": "The canvas now shows only the selected wide banner-shaped crop, with the market stalls still centered in the remaining image area.",
+      "unit_precondition": [
+        "The target photo is already open on the GIMP canvas.",
+        "The Crop tool can be activated from the keyboard.",
+        "The desired market stalls are visible so a wide crop can be framed around them."
+      ],
+      "unit_effect": [
+        "The Crop tool activates and a crop rectangle is drawn over the image.",
+        "The crop preview shows a wide horizontal banner framing.",
+        "After confirmation, the canvas shrinks to the selected cropped area."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Crop the current image into a wide banner composition while keeping a specified main subject centered within the retained area.",
+      "parameters": {
+        "target_subject": "central market stalls"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['shift', 'c']}",
+          "action_template": "Press Shift+C to activate the Crop tool when the image is visible and keyboard shortcuts are available. The cursor becomes ready to define a crop region."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'near the upper-left area above the first market stall you want to keep'}, 'end': {'text': 'near the lower-right edge of a wide banner-shaped area that still keeps the central stalls in frame'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "With the Crop tool active and {{target_subject}} clearly visible, drag from the upper-left part of the area to keep to the lower-right edge of the desired wide banner framing so {{target_subject}} remain centered in frame. A crop rectangle preview appears showing the portion of the image that will be kept."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter to apply the visible crop rectangle once the selected area matches the desired banner framing. The image is trimmed to the chosen banner-shaped area."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "unit_intent": "Make the cropped banner look slightly brighter and more inviting without changing the composition.",
+      "unit_type": "ADJUST_BRIGHTNESS",
+      "unit_before_state": "The cropped banner image is visible on the canvas at its current brightness, and no adjustment dialog is open.",
+      "unit_after_state": "The Brightness-Contrast dialog has been closed, and the cropped banner remains on the canvas with a slightly brighter appearance applied.",
+      "unit_precondition": [
+        "The cropped banner image is the active image in GIMP.",
+        "The top menu bar is accessible.",
+        "No other modal dialog is blocking access to the Colors menu."
+      ],
+      "unit_effect": [
+        "The Colors menu opens and the Brightness-Contrast dialog appears over the image.",
+        "Dragging the Brightness slider updates the live preview to a slightly brighter look.",
+        "Clicking OK closes the dialog and keeps the brightness change on the canvas."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Slightly increase the brightness of the active image using the Brightness-Contrast adjustment and apply the change.",
+      "parameters": {
+        "target_image": "cropped banner image",
+        "slider_target_position": "a point a short distance to the right of the slider's current position"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': \"the Colors menu in GIMP's top menu bar\"}}",
+          "action_template": "With {{target_image}} visible and the top menu bar accessible, click the Colors menu in GIMP's top menu bar so the Colors dropdown menu opens and you can choose an adjustment."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Brightness-Contrast option in the Colors menu'}}",
+          "action_template": "When the Colors menu is expanded and Brightness-Contrast is listed in the dropdown, click the Brightness-Contrast option in the Colors menu so a Brightness-Contrast dialog opens over the image."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the Brightness slider knob in the adjustment dialog'}, 'end': {'text': \"a point a short distance to the right of the slider's current position\"}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "With the Brightness-Contrast dialog open and the Brightness slider visible, drag the Brightness slider knob in the adjustment dialog to {{slider_target_position}} so the preview becomes slightly brighter while preserving the overall scene."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the OK button in the Brightness-Contrast dialog'}}",
+          "action_template": "When the preview brightness looks acceptable and the adjustment dialog is still open, click the OK button in the Brightness-Contrast dialog so the dialog closes and the brightness change is applied to {{target_image}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "unit_intent": "Export the finished banner to the requested Desktop PNG file.",
+      "unit_type": "EXPORT_AS_PNG",
+      "unit_before_state": "The edited banner is visible on the GIMP canvas with the crop and brightness changes already applied, and no export dialog is currently open.",
+      "unit_after_state": "All export dialogs are closed, and the finished header image has been saved as /home/user/Desktop/farmers_market_header.png.",
+      "unit_precondition": [
+        "The final edited image is active in GIMP.",
+        "No modal dialog is blocking the main window before export starts.",
+        "The Desktop location is writable and PNG export defaults are acceptable."
+      ],
+      "unit_effect": [
+        "The Export Image dialog opens.",
+        "The export path field contains /home/user/Desktop/farmers_market_header.png.",
+        "Clicking Export opens the PNG export settings dialog.",
+        "Confirming the PNG settings writes the file and closes the dialog."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Export the finished image as a PNG file to a specified output path using the default PNG settings.",
+      "parameters": {
+        "export_file_path": "/home/user/Desktop/farmers_market_header.png"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'e']}",
+          "action_template": "Press Ctrl+Shift+E when the final edited image is visible and no other dialog is active to start exporting the image. The Export Image dialog opens."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '/home/user/Desktop/farmers_market_header.png'}",
+          "action_template": "Type {{export_file_path}} into the filename/location input while the Export Image dialog is open and ready for text entry so the export dialog points to the specified PNG output path."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Export button in the Export Image dialog'}}",
+          "action_template": "Click the Export button in the Export Image dialog after {{export_file_path}} has been entered and the Export button is visible. GIMP opens the PNG export settings dialog."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter when the PNG export settings dialog is visible and the default PNG settings are acceptable to write the PNG file to {{export_file_path}} and close the dialog."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

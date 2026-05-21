@@ -1,0 +1,601 @@
+{
+  "segment_id": "seg_001",
+  "app": "vlc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the file chooser so a local video can be selected",
+      "action_before_state": "VLC is already open on the GNOME desktop and its main window is focused.",
+      "action_preconditions": [
+        "The VLC window is visible on screen",
+        "Keyboard input will go to VLC"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "o"
+        ]
+      },
+      "action_after_effects": "A file chooser window opens from VLC for selecting media to play.",
+      "nl_explanation": "When VLC is focused and visible, press Ctrl+O to open the file chooser, and VLC should display a dialog for picking a local media file."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Switch the GNOME file chooser to direct path entry",
+      "action_before_state": "The VLC file chooser is open and waiting for a file selection.",
+      "action_preconditions": [
+        "The file chooser dialog is active",
+        "No text field is currently focused for entering a full path"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "l"
+        ]
+      },
+      "action_after_effects": "The location entry field appears in the file chooser and becomes ready for typing.",
+      "nl_explanation": "Once the chooser is open, press Ctrl+L to bring up the location field so the exact file path can be entered directly instead of browsing folder by folder."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Enter the full path of the lesson video",
+      "action_before_state": "The location entry field is visible inside the GNOME file chooser.",
+      "action_preconditions": [
+        "The location field is focused",
+        "The lesson file exists at the target path"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "/home/user/Videos/pronunciation_lesson.mp4"
+      },
+      "action_after_effects": "The full path to the lesson video is filled into the location field.",
+      "nl_explanation": "With the location field active, type the full path to the lesson video so the chooser knows exactly which file to open."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Load the lesson video into VLC",
+      "action_before_state": "The full video path has been typed into the location field in the chooser.",
+      "action_preconditions": [
+        "The correct file path is present in the dialog",
+        "The chooser is still active"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The chooser closes and VLC opens the selected lesson video.",
+      "nl_explanation": "After the correct path is entered, press Enter to confirm it, and VLC should close the chooser and start loading the lesson video."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Jump playback back to the very beginning",
+      "action_before_state": "The video is open in VLC and the playback timeline is visible at the bottom of the window.",
+      "action_preconditions": [
+        "A video is loaded in VLC",
+        "The playback progress bar is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the beginning of the playback progress bar (position 00:00)"
+        }
+      },
+      "action_after_effects": "The playhead moves to 00:00, so the lesson is reset to the start.",
+      "nl_explanation": "When the video timeline is visible, click the beginning of the progress bar at 00:00 to move the playhead to the start, and VLC should reset playback to the beginning of the lesson."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Open the subtitle controls",
+      "action_before_state": "The lesson video is loaded and the VLC menu bar is visible.",
+      "action_preconditions": [
+        "The VLC window is active",
+        "The top menu bar can be seen"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Subtitle menu in VLC's top menu bar"
+        }
+      },
+      "action_after_effects": "The subtitle-related menu options open.",
+      "nl_explanation": "With the VLC menu bar visible, click the Subtitle menu so the available subtitle track options can be accessed."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Enable the English subtitle track",
+      "action_before_state": "The subtitle options are open and the available subtitle tracks are visible.",
+      "action_preconditions": [
+        "A subtitle track list is open",
+        "An English subtitle track is listed"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the English subtitle track in the subtitle list"
+        }
+      },
+      "action_after_effects": "English subtitles are enabled and begin appearing over the video during playback.",
+      "nl_explanation": "When the subtitle list is open and English is available, click the English subtitle track, and VLC should begin showing English captions on the video."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Reduce the playback speed slightly for easier listening",
+      "action_before_state": "The video is still focused in VLC after subtitles were enabled.",
+      "action_preconditions": [
+        "The VLC playback window has keyboard focus",
+        "The video is loaded and ready for playback control"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "["
+        ]
+      },
+      "action_after_effects": "VLC lowers the playback speed by one step, making the lesson easier to follow.",
+      "nl_explanation": "With VLC focused, press the slower-speed shortcut once to reduce playback speed a little, and the lesson should continue at a slightly slower pace."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Increase the volume to a comfortable listening level",
+      "action_before_state": "The bottom playback controls are visible, including the volume slider near the lower-right corner.",
+      "action_preconditions": [
+        "The volume slider is visible",
+        "The current volume can be adjusted by dragging"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the volume slider knob at its current position"
+        },
+        "end": {
+          "text": "the 80% mark on the volume slider"
+        },
+        "target": {
+          "begin": {
+            "text": "the volume slider knob at its current position"
+          },
+          "end": {
+            "text": "the 80% mark on the volume slider"
+          }
+        }
+      },
+      "action_after_effects": "The volume increases to a higher level suitable for listening practice.",
+      "nl_explanation": "When the volume slider is visible, drag its knob to the right to about the 80% mark, and VLC should respond by increasing playback volume."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Turn on repeat mode so the lesson can replay automatically",
+      "action_before_state": "Playback controls are visible at the bottom of VLC, including the repeat or loop icon.",
+      "action_preconditions": [
+        "The repeat control is visible in the playback toolbar",
+        "The current media is loaded in VLC"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the repeat or loop button in the bottom playback controls"
+        }
+      },
+      "action_after_effects": "The repeat icon changes state, indicating looping is now enabled for continued practice.",
+      "nl_explanation": "When the playback toolbar is visible, click the repeat button so VLC enables looping, and the lesson will replay automatically after it finishes."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Switch the lesson into fullscreen mode",
+      "action_before_state": "The video is prepared with subtitles, slower playback, higher volume, and repeat enabled.",
+      "action_preconditions": [
+        "VLC still has keyboard focus",
+        "The video is ready to watch"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "f"
+        ]
+      },
+      "action_after_effects": "The VLC window enters fullscreen mode for distraction-free viewing.",
+      "nl_explanation": "After the lesson settings are adjusted, press F while VLC is focused, and the video should expand to fullscreen for comfortable practice."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Load the lesson video into VLC from its known file path.",
+      "unit_type": "OPEN_MEDIA_FROM_PATH",
+      "unit_before_state": "VLC is already open on the GNOME desktop with its main window focused, and no file chooser is open yet.",
+      "unit_after_state": "The file chooser has closed and the lesson video pronunciation_lesson.mp4 is loaded in the VLC playback window, with the video canvas and playback timeline visible.",
+      "unit_precondition": [
+        "VLC is running and focused so keyboard shortcuts will be sent to it.",
+        "The file /home/user/Videos/pronunciation_lesson.mp4 exists and is accessible.",
+        "The GNOME file chooser opened by VLC supports direct location entry with Ctrl+L."
+      ],
+      "unit_effect": [
+        "A VLC file chooser opens for selecting local media.",
+        "The chooser switches to a visible location-entry field ready for typing.",
+        "The full path /home/user/Videos/pronunciation_lesson.mp4 appears in the location field.",
+        "Pressing Enter closes the chooser and loads the selected lesson video into VLC."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5
+      ],
+      "unit_intent": "Reset the lesson so listening practice starts from the first second.",
+      "unit_type": "RESET_PLAYBACK_POSITION",
+      "unit_before_state": "The lesson video is open in VLC and the playback progress bar is visible at the bottom of the window.",
+      "unit_after_state": "The playhead is positioned at the far-left start of the progress bar at 00:00.",
+      "unit_precondition": [
+        "A video is loaded in VLC.",
+        "The playback timeline is visible and clickable."
+      ],
+      "unit_effect": [
+        "The playhead jumps to the beginning of the timeline.",
+        "The displayed playback position is reset to 00:00."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7
+      ],
+      "unit_intent": "Turn on English captions for the lesson.",
+      "unit_type": "ENABLE_SUBTITLE_TRACK",
+      "unit_before_state": "The lesson video is loaded in VLC with the top menu bar visible, and subtitle options are not yet open.",
+      "unit_after_state": "The subtitle menu is dismissed and the English subtitle track is enabled, so English captions appear on the video when subtitle text is present.",
+      "unit_precondition": [
+        "The VLC window is active and its top menu bar is visible.",
+        "An English subtitle track is available for the loaded video."
+      ],
+      "unit_effect": [
+        "The Subtitle menu opens and shows subtitle-track options.",
+        "The English subtitle entry becomes selected.",
+        "English captions begin appearing over the video during playback."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8
+      ],
+      "unit_intent": "Make the lesson easier to follow by slowing playback slightly.",
+      "unit_type": "DECREASE_PLAYBACK_SPEED",
+      "unit_before_state": "The lesson video remains focused in VLC after subtitles have been enabled.",
+      "unit_after_state": "The video stays loaded in VLC and now plays at one step slower than the previous speed.",
+      "unit_precondition": [
+        "VLC has keyboard focus.",
+        "The loaded video is ready to accept playback shortcuts."
+      ],
+      "unit_effect": [
+        "The slower-playback shortcut is applied once.",
+        "Playback rate decreases slightly compared with the prior state."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        9
+      ],
+      "unit_intent": "Raise the lesson audio to a comfortable listening level.",
+      "unit_type": "INCREASE_VOLUME_LEVEL",
+      "unit_before_state": "The bottom playback controls are visible, including the volume slider near the lower-right corner.",
+      "unit_after_state": "The volume slider knob is moved right to about the 80% mark, and playback audio is louder than before.",
+      "unit_precondition": [
+        "The volume slider is visible.",
+        "The current volume can be changed by dragging the slider knob."
+      ],
+      "unit_effect": [
+        "The volume slider knob ends farther to the right near the 80% position.",
+        "The video audio output becomes louder."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        10
+      ],
+      "unit_intent": "Enable automatic looping so the lesson can replay continuously.",
+      "unit_type": "ENABLE_REPEAT_MODE",
+      "unit_before_state": "Playback controls are visible at the bottom of VLC, including the repeat or loop icon, and repeat is not yet active.",
+      "unit_after_state": "The repeat or loop control is shown in its enabled state for the loaded lesson video.",
+      "unit_precondition": [
+        "The repeat control is visible in the VLC playback toolbar.",
+        "A media file is currently loaded in VLC."
+      ],
+      "unit_effect": [
+        "The repeat icon changes appearance to indicate that looping is active."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        11
+      ],
+      "unit_intent": "Switch the prepared lesson into distraction-free fullscreen viewing.",
+      "unit_type": "ENTER_FULLSCREEN_MODE",
+      "unit_before_state": "The lesson video is ready in VLC with English subtitles enabled, playback slowed, volume raised, and repeat turned on, and VLC is still in windowed mode.",
+      "unit_after_state": "VLC is in fullscreen mode, filling the screen with the lesson video and hiding normal desktop and window chrome.",
+      "unit_precondition": [
+        "VLC still has keyboard focus.",
+        "The video is loaded and ready for viewing."
+      ],
+      "unit_effect": [
+        "The VLC window expands to occupy the full screen.",
+        "Desktop elements and normal window borders are no longer visible."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Load the lesson video into VLC from its known file path.",
+      "unit_type": "OPEN_MEDIA_FROM_PATH",
+      "unit_before_state": "VLC is already open on the GNOME desktop with its main window focused, and no file chooser is open yet.",
+      "unit_after_state": "The file chooser has closed and the lesson video pronunciation_lesson.mp4 is loaded in the VLC playback window, with the video canvas and playback timeline visible.",
+      "unit_precondition": [
+        "VLC is running and focused so keyboard shortcuts will be sent to it.",
+        "The file /home/user/Videos/pronunciation_lesson.mp4 exists and is accessible.",
+        "The GNOME file chooser opened by VLC supports direct location entry with Ctrl+L."
+      ],
+      "unit_effect": [
+        "A VLC file chooser opens for selecting local media.",
+        "The chooser switches to a visible location-entry field ready for typing.",
+        "The full path /home/user/Videos/pronunciation_lesson.mp4 appears in the location field.",
+        "Pressing Enter closes the chooser and loads the selected lesson video into VLC."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Load a local media file into VLC by opening the file chooser, switching to direct path entry, entering {{media_file_path}}, and confirming the selection.",
+      "parameters": {
+        "media_file_path": "/home/user/Videos/pronunciation_lesson.mp4"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'o']}",
+          "action_template": "When VLC is focused and visible, press Ctrl+O to open the file chooser, and VLC should display a dialog for picking a local media file."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'l']}",
+          "action_template": "Once the chooser is open, press Ctrl+L to bring up the location field so the exact file path can be entered directly instead of browsing folder by folder."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '/home/user/Videos/pronunciation_lesson.mp4'}",
+          "action_template": "With the location field active, type {{media_file_path}} so the chooser knows exactly which file to open."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After the correct file path is entered, press Enter to confirm it, and VLC should close the chooser and start loading the selected media file."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5
+      ],
+      "unit_intent": "Reset the lesson so listening practice starts from the first second.",
+      "unit_type": "RESET_PLAYBACK_POSITION",
+      "unit_before_state": "The lesson video is open in VLC and the playback progress bar is visible at the bottom of the window.",
+      "unit_after_state": "The playhead is positioned at the far-left start of the progress bar at 00:00.",
+      "unit_precondition": [
+        "A video is loaded in VLC.",
+        "The playback timeline is visible and clickable."
+      ],
+      "unit_effect": [
+        "The playhead jumps to the beginning of the timeline.",
+        "The displayed playback position is reset to 00:00."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Reset the loaded media to the beginning of playback.",
+      "parameters": {
+        "target_element": "the beginning of the playback progress bar (position 00:00)"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the beginning of the playback progress bar (position 00:00)'}}",
+          "action_template": "When a video is loaded in VLC and the playback progress bar is visible, click {{target_element}} to move the playhead to the start and reset playback to the beginning."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7
+      ],
+      "unit_intent": "Turn on English captions for the lesson.",
+      "unit_type": "ENABLE_SUBTITLE_TRACK",
+      "unit_before_state": "The lesson video is loaded in VLC with the top menu bar visible, and subtitle options are not yet open.",
+      "unit_after_state": "The subtitle menu is dismissed and the English subtitle track is enabled, so English captions appear on the video when subtitle text is present.",
+      "unit_precondition": [
+        "The VLC window is active and its top menu bar is visible.",
+        "An English subtitle track is available for the loaded video."
+      ],
+      "unit_effect": [
+        "The Subtitle menu opens and shows subtitle-track options.",
+        "The English subtitle entry becomes selected.",
+        "English captions begin appearing over the video during playback."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Enable a specified subtitle track for the loaded video.",
+      "parameters": {
+        "subtitle_track_name": "English"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': \"the Subtitle menu in VLC's top menu bar\"}}",
+          "action_template": "With the VLC window active and the top menu bar visible, click the Subtitle menu so the available subtitle track options can be accessed and the subtitle-related menu options open."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the English subtitle track in the subtitle list'}}",
+          "action_template": "When a subtitle track list is open and {{subtitle_track_name}} is listed, click the {{subtitle_track_name}} subtitle track in the subtitle list to enable it so subtitles begin appearing over the video during playback."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8
+      ],
+      "unit_intent": "Make the lesson easier to follow by slowing playback slightly.",
+      "unit_type": "DECREASE_PLAYBACK_SPEED",
+      "unit_before_state": "The lesson video remains focused in VLC after subtitles have been enabled.",
+      "unit_after_state": "The video stays loaded in VLC and now plays at one step slower than the previous speed.",
+      "unit_precondition": [
+        "VLC has keyboard focus.",
+        "The loaded video is ready to accept playback shortcuts."
+      ],
+      "unit_effect": [
+        "The slower-playback shortcut is applied once.",
+        "Playback rate decreases slightly compared with the prior state."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Reduce media playback speed by one increment to make the content easier to follow.",
+      "parameters": {
+        "slowdown_shortcut": "["
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['[']}",
+          "action_template": "With the media player focused and playback ready for keyboard control, press {{slowdown_shortcut}} once to reduce the playback speed slightly so the content continues at one step slower than before."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        9
+      ],
+      "unit_intent": "Raise the lesson audio to a comfortable listening level.",
+      "unit_type": "INCREASE_VOLUME_LEVEL",
+      "unit_before_state": "The bottom playback controls are visible, including the volume slider near the lower-right corner.",
+      "unit_after_state": "The volume slider knob is moved right to about the 80% mark, and playback audio is louder than before.",
+      "unit_precondition": [
+        "The volume slider is visible.",
+        "The current volume can be changed by dragging the slider knob."
+      ],
+      "unit_effect": [
+        "The volume slider knob ends farther to the right near the 80% position.",
+        "The video audio output becomes louder."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Increase playback volume to a specified listening level using the volume slider.",
+      "parameters": {
+        "target_volume_position": "the 80% mark on the volume slider"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the volume slider knob at its current position'}, 'end': {'text': 'the 80% mark on the volume slider'}, 'target': {'begin': {'text': 'the volume slider knob at its current position'}, 'end': {'text': 'the 80% mark on the volume slider'}}}",
+          "action_template": "When the volume slider is visible and can be adjusted by dragging, drag the volume slider knob from its current position to {{target_volume_position}} so VLC increases playback volume to a higher listening level."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        10
+      ],
+      "unit_intent": "Enable automatic looping so the lesson can replay continuously.",
+      "unit_type": "ENABLE_REPEAT_MODE",
+      "unit_before_state": "Playback controls are visible at the bottom of VLC, including the repeat or loop icon, and repeat is not yet active.",
+      "unit_after_state": "The repeat or loop control is shown in its enabled state for the loaded lesson video.",
+      "unit_precondition": [
+        "The repeat control is visible in the VLC playback toolbar.",
+        "A media file is currently loaded in VLC."
+      ],
+      "unit_effect": [
+        "The repeat icon changes appearance to indicate that looping is active."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Enable repeat mode for the currently loaded media so playback continues automatically.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the repeat or loop button in the bottom playback controls'}}",
+          "action_template": "Click the repeat or loop button in the bottom playback controls when the repeat control is visible and the current media is loaded so VLC enables looping and the repeat icon changes state to indicate repeat mode is active."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_07",
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        11
+      ],
+      "unit_intent": "Switch the prepared lesson into distraction-free fullscreen viewing.",
+      "unit_type": "ENTER_FULLSCREEN_MODE",
+      "unit_before_state": "The lesson video is ready in VLC with English subtitles enabled, playback slowed, volume raised, and repeat turned on, and VLC is still in windowed mode.",
+      "unit_after_state": "VLC is in fullscreen mode, filling the screen with the lesson video and hiding normal desktop and window chrome.",
+      "unit_precondition": [
+        "VLC still has keyboard focus.",
+        "The video is loaded and ready for viewing."
+      ],
+      "unit_effect": [
+        "The VLC window expands to occupy the full screen.",
+        "Desktop elements and normal window borders are no longer visible."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Enter fullscreen mode for the prepared media in VLC for distraction-free viewing.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['f']}",
+          "action_template": "Press F while VLC has keyboard focus and the media is ready to watch to enter fullscreen mode for distraction-free viewing."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

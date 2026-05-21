@@ -1,0 +1,266 @@
+{
+  "segment_id": "seg_001",
+  "app": "thunderbird",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the Thunderbird main menu to access settings",
+      "action_before_state": "Thunderbird is open showing the main email interface with the inbox or folder pane visible",
+      "action_preconditions": [
+        "Thunderbird application is running and active",
+        "Main window is not obscured by other windows"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "hamburger menu button (three horizontal lines ≡) in the top-right corner"
+        }
+      },
+      "action_after_effects": "A dropdown menu appears showing options like Settings, Account Settings, Preferences, and other application options.",
+      "nl_explanation": "Click the hamburger menu (three horizontal lines) in the top-right corner of the Thunderbird window to open the main menu and access account configuration options."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Navigate to Account Settings",
+      "action_before_state": "The main dropdown menu is open showing various Thunderbird options",
+      "action_preconditions": [
+        "Main menu dropdown is visible",
+        "Account Settings option is accessible in the menu"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "Account Settings option in the dropdown menu"
+        }
+      },
+      "action_after_effects": "The Account Settings dialog/window opens, displaying the account configuration tree on the left (showing the email account name) and account details on the right, typically showing the Default Identity section with fields like Your Name, Email Address, etc.",
+      "nl_explanation": "From the dropdown menu, click on 'Account Settings' to open the account configuration panel where identity and reply-to settings can be modified."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Locate and focus the Reply-To Address input field",
+      "action_before_state": "Account Settings window is open showing the Default Identity section with various identity fields",
+      "action_preconditions": [
+        "Account Settings window is active",
+        "Default Identity section is visible",
+        "Reply-To Address field is visible in the form (may require scrolling)"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "Reply-To Address input field in the Default Identity section"
+        }
+      },
+      "action_after_effects": "The Reply-To Address input field becomes focused/active with a text cursor appearing inside it, ready for text input",
+      "nl_explanation": "In the Default Identity section of the Account Settings, find the 'Reply-To Address' field (scroll down if necessary) and click on it to focus the input field for entering the email address."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Enter the reply-to email address",
+      "action_before_state": "The Reply-To Address field is focused with a cursor visible inside the empty input field",
+      "action_preconditions": [
+        "Reply-To Address input field is focused",
+        "Cursor is active in the field"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "admin@company.com"
+      },
+      "action_after_effects": "The text 'admin@company.com' appears in the Reply-To Address field, replacing the cursor",
+      "nl_explanation": "Type the desired reply-to email address 'admin@company.com' into the focused Reply-To Address field."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Save the account settings and close the dialog",
+      "action_before_state": "The Reply-To Address field now contains 'admin@company.com' and the Account Settings window is still open with an OK button visible at the bottom",
+      "action_preconditions": [
+        "The reply-to address has been entered correctly",
+        "OK button is visible at the bottom of the Account Settings window"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "OK button at the bottom of the Account Settings window"
+        }
+      },
+      "action_after_effects": "The Account Settings window closes and the configuration is saved. The main Thunderbird window is now visible again, and the reply-to setting is now active for the account.",
+      "nl_explanation": "Click the 'OK' button at the bottom of the Account Settings window to save the new reply-to configuration and close the dialog."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Open the email account configuration page where identity-level reply handling can be changed.",
+      "unit_type": "OPEN_ACCOUNT_SETTINGS",
+      "unit_before_state": "Thunderbird is showing the main mail window with the message list or folder pane visible, and no settings dialog is open.",
+      "unit_after_state": "The Account Settings window is open with the account tree on the left and the selected account's Default Identity form visible on the right.",
+      "unit_precondition": [
+        "Thunderbird is running and its main window is active.",
+        "The top-right application menu button is visible and clickable."
+      ],
+      "unit_effect": [
+        "A main menu dropdown appears after the menu button is clicked.",
+        "Selecting Account Settings opens the Account Settings window and exposes the account identity fields."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4
+      ],
+      "unit_intent": "Set the account's reply destination so recipients reply to a different email address.",
+      "unit_type": "SET_REPLY_TO_ADDRESS",
+      "unit_before_state": "The Account Settings window is open on the Default Identity section, and the Reply-To Address field is visible but not yet filled with the desired address.",
+      "unit_after_state": "The Reply-To Address input field in Default Identity contains the text 'admin@company.com'.",
+      "unit_precondition": [
+        "The Account Settings window is open for the correct email account.",
+        "The Default Identity section is visible and the Reply-To Address field can be reached."
+      ],
+      "unit_effect": [
+        "The Reply-To Address field becomes focused with a text cursor.",
+        "The field visibly shows 'admin@company.com' after typing."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5
+      ],
+      "unit_intent": "Commit the new reply-to configuration so it takes effect for outgoing messages from this account.",
+      "unit_type": "SAVE_ACCOUNT_SETTINGS",
+      "unit_before_state": "The Account Settings window remains open, and the Reply-To Address field already shows 'admin@company.com' with the OK button available at the bottom.",
+      "unit_after_state": "The Account Settings window closes and Thunderbird returns to the main mail window with the reply-to address setting saved for the account.",
+      "unit_precondition": [
+        "The desired reply-to address is already entered in the Reply-To Address field.",
+        "The OK button in the Account Settings window is visible and enabled."
+      ],
+      "unit_effect": [
+        "The Account Settings dialog closes.",
+        "Thunderbird returns to the main interface, indicating the updated reply-to setting has been accepted."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Open the email account configuration page where identity-level reply handling can be changed.",
+      "unit_type": "OPEN_ACCOUNT_SETTINGS",
+      "unit_before_state": "Thunderbird is showing the main mail window with the message list or folder pane visible, and no settings dialog is open.",
+      "unit_after_state": "The Account Settings window is open with the account tree on the left and the selected account's Default Identity form visible on the right.",
+      "unit_precondition": [
+        "Thunderbird is running and its main window is active.",
+        "The top-right application menu button is visible and clickable."
+      ],
+      "unit_effect": [
+        "A main menu dropdown appears after the menu button is clicked.",
+        "Selecting Account Settings opens the Account Settings window and exposes the account identity fields."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open the account settings window where identity-level settings can be configured.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'hamburger menu button (three horizontal lines ≡) in the top-right corner'}}",
+          "action_template": "With Thunderbird running and active and the main window unobscured, click the hamburger menu button in the top-right corner to open the main menu, causing a dropdown with application and account configuration options to appear."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'Account Settings option in the dropdown menu'}}",
+          "action_template": "With the main menu dropdown visible and the Account Settings option accessible, click Account Settings to open the account settings window, displaying the account configuration tree on the left and the selected account's identity details on the right."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4
+      ],
+      "unit_intent": "Set the account's reply destination so recipients reply to a different email address.",
+      "unit_type": "SET_REPLY_TO_ADDRESS",
+      "unit_before_state": "The Account Settings window is open on the Default Identity section, and the Reply-To Address field is visible but not yet filled with the desired address.",
+      "unit_after_state": "The Reply-To Address input field in Default Identity contains the text 'admin@company.com'.",
+      "unit_precondition": [
+        "The Account Settings window is open for the correct email account.",
+        "The Default Identity section is visible and the Reply-To Address field can be reached."
+      ],
+      "unit_effect": [
+        "The Reply-To Address field becomes focused with a text cursor.",
+        "The field visibly shows 'admin@company.com' after typing."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Configure the current account identity to use a specified reply-to email address.",
+      "parameters": {
+        "target_section": "Default Identity section",
+        "target_field": "Reply-To Address input field",
+        "reply_to_address": "admin@company.com"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'Reply-To Address input field in the Default Identity section'}}",
+          "action_template": "In the {{target_section}} of the Account Settings, find the {{target_field}} (scroll down if necessary) and click on it to focus the input field for entering the email address. Preconditions: the Account Settings window is active, the {{target_section}} is visible, and the {{target_field}} is visible in the form. Afterward, the {{target_field}} becomes focused with a text cursor inside it, ready for text input."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'admin@company.com'}",
+          "action_template": "Type {{reply_to_address}} into the focused {{target_field}}. Preconditions: the {{target_field}} is focused and the cursor is active in the field. Afterward, {{reply_to_address}} appears in the {{target_field}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5
+      ],
+      "unit_intent": "Commit the new reply-to configuration so it takes effect for outgoing messages from this account.",
+      "unit_type": "SAVE_ACCOUNT_SETTINGS",
+      "unit_before_state": "The Account Settings window remains open, and the Reply-To Address field already shows 'admin@company.com' with the OK button available at the bottom.",
+      "unit_after_state": "The Account Settings window closes and Thunderbird returns to the main mail window with the reply-to address setting saved for the account.",
+      "unit_precondition": [
+        "The desired reply-to address is already entered in the Reply-To Address field.",
+        "The OK button in the Account Settings window is visible and enabled."
+      ],
+      "unit_effect": [
+        "The Account Settings dialog closes.",
+        "Thunderbird returns to the main interface, indicating the updated reply-to setting has been accepted."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the current account settings changes and close the settings dialog so the updated configuration becomes active.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'OK button at the bottom of the Account Settings window'}}",
+          "action_template": "Click the OK button at the bottom of the Account Settings window when the entered setting is correct and the button is visible, in order to save the account settings changes, close the dialog, and return to the main Thunderbird window with the updated configuration active."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

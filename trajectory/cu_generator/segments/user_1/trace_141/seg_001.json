@@ -1,0 +1,703 @@
+{
+  "segment_id": "seg_001",
+  "app": "gimp",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the image-open dialog",
+      "action_before_state": "GIMP is already open on the desktop, showing its main window and toolbox, with no blocking modal dialog in front.",
+      "action_preconditions": [
+        "The GIMP main window is focused",
+        "No other dialog is currently blocking keyboard input"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "o"
+        ]
+      },
+      "action_after_effects": "An Open Image dialog appears on top of GIMP.",
+      "nl_explanation": "When the main GIMP window is focused and no modal dialog is blocking input, press Ctrl+O to bring up the Open Image dialog."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Go to the Pictures folder in the file chooser",
+      "action_before_state": "The Open Image dialog is visible with a sidebar of common folders and a main file list area.",
+      "action_preconditions": [
+        "The Open Image dialog is open",
+        "The sidebar with places such as Home or Pictures is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Pictures entry in the left sidebar of the Open Image dialog"
+        }
+      },
+      "action_after_effects": "The dialog updates to show files inside /home/user/Pictures.",
+      "nl_explanation": "Once the file chooser is open and the sidebar is visible, click the Pictures folder so the file list switches to that location."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Select the source photo",
+      "action_before_state": "The file chooser is showing the contents of the Pictures folder.",
+      "action_preconditions": [
+        "The dialog is currently inside /home/user/Pictures",
+        "The file named selfie.jpg is visible in the file list"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the file named selfie.jpg in the file list"
+        }
+      },
+      "action_after_effects": "The selfie.jpg row becomes selected and ready to open.",
+      "nl_explanation": "After the Pictures folder is displayed and selfie.jpg is visible, click that file once to select it."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Load the selected image into GIMP",
+      "action_before_state": "The file selfie.jpg is selected in the Open Image dialog.",
+      "action_preconditions": [
+        "selfie.jpg is selected",
+        "The Open button is enabled"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Open button in the lower-right corner of the dialog"
+        }
+      },
+      "action_after_effects": "The dialog closes and the selfie image appears on the GIMP canvas.",
+      "nl_explanation": "When selfie.jpg is selected and the Open button is available, click Open to load the image into the main canvas."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Activate the crop tool",
+      "action_before_state": "The selfie is displayed on the canvas, and the toolbox is visible on the left.",
+      "action_preconditions": [
+        "The image is open on the canvas",
+        "The toolbox is visible"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "shift",
+          "c"
+        ]
+      },
+      "action_after_effects": "The Crop tool becomes active, and the pointer is ready to draw a crop area.",
+      "nl_explanation": "With the image open and the toolbox available, press Shift+C to switch directly to the Crop tool."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Draw a square crop around the face",
+      "action_before_state": "The Crop tool is active and the selfie is visible on the canvas.",
+      "action_preconditions": [
+        "The Crop tool is active",
+        "The face is visible in the image area",
+        "There is enough surrounding space to define a square crop"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the upper-left point of the square area you want to keep around the face"
+        },
+        "end": {
+          "text": "the lower-right point of the square area around the face"
+        },
+        "target": {
+          "begin": {
+            "text": "the upper-left point on the image canvas of the desired square crop region"
+          },
+          "end": {
+            "text": "the lower-right point on the image canvas of the desired square crop region"
+          }
+        }
+      },
+      "action_after_effects": "A crop rectangle appears over the image, framing the face in a square composition.",
+      "nl_explanation": "After the Crop tool is active and the face is clearly visible, drag from the top-left of the desired framing to the bottom-right so a square crop box surrounds the face."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Apply the crop",
+      "action_before_state": "A crop rectangle is visible on top of the image.",
+      "action_preconditions": [
+        "The crop rectangle is already placed correctly",
+        "The canvas still shows the editable crop boundary"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "Everything outside the crop box is removed, leaving a square portrait.",
+      "nl_explanation": "When the crop outline is positioned correctly, press Enter to commit the crop and keep only the selected square area."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Open the brightness and contrast adjustment dialog",
+      "action_before_state": "The cropped square portrait is visible on the GIMP canvas.",
+      "action_preconditions": [
+        "The image is open and active",
+        "The top menu bar is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Brightness-Contrast option under the Colors menu in the top menu bar"
+        }
+      },
+      "action_after_effects": "A Brightness-Contrast dialog opens with sliders for tonal adjustment.",
+      "nl_explanation": "Once the cropped image is active and the top menu is visible, open Colors > Brightness-Contrast to adjust the portrait lighting."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Increase the brightness slightly",
+      "action_before_state": "The Brightness-Contrast dialog is open, showing the Brightness slider.",
+      "action_preconditions": [
+        "The Brightness-Contrast dialog is open",
+        "The Brightness slider thumb is visible"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the current Brightness slider handle"
+        },
+        "end": {
+          "text": "a point a little to the right on the Brightness slider track"
+        },
+        "target": {
+          "begin": {
+            "text": "the Brightness slider handle"
+          },
+          "end": {
+            "text": "a position slightly to the right on the slider track"
+          }
+        }
+      },
+      "action_after_effects": "The preview becomes slightly brighter, making the portrait look clearer.",
+      "nl_explanation": "When the Brightness-Contrast dialog is open, drag the Brightness slider a small amount to the right so the preview brightens without looking washed out."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Confirm the brightness adjustment",
+      "action_before_state": "The preview reflects the brighter image, and the Brightness-Contrast dialog remains open.",
+      "action_preconditions": [
+        "The image preview looks acceptable",
+        "The OK button is visible in the dialog"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the OK button in the Brightness-Contrast dialog"
+        }
+      },
+      "action_after_effects": "The dialog closes and the brighter version is applied to the image.",
+      "nl_explanation": "After the brightness looks right and the dialog is still open, click OK to apply the change to the portrait."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Open the Scale Image dialog",
+      "action_before_state": "The edited square portrait is visible in the main GIMP window.",
+      "action_preconditions": [
+        "The image is active on the canvas",
+        "The top menu bar is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Scale Image option under the Image menu in the top menu bar"
+        }
+      },
+      "action_after_effects": "A Scale Image dialog opens with Width and Height fields.",
+      "nl_explanation": "With the updated image active and the menu bar available, open Image > Scale Image so the final avatar can be resized."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Set the output width to 800 pixels",
+      "action_before_state": "The Scale Image dialog is open, and the size fields are visible.",
+      "action_preconditions": [
+        "The Scale Image dialog is open",
+        "The Width field is focused or ready for input"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "800"
+      },
+      "action_after_effects": "The width changes to 800 pixels, and because the cropped image is square, the height should also read 800 pixels when proportions remain linked.",
+      "nl_explanation": "When the Scale Image dialog is open and the Width field is ready, type 800. For the already square portrait, the height should match at 800 as long as the dimensions stay linked."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Apply the new image size",
+      "action_before_state": "The Scale Image dialog shows 800 for width and 800 for height.",
+      "action_preconditions": [
+        "The dialog reflects the desired 800 x 800 dimensions",
+        "The Scale button is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Scale button in the Scale Image dialog"
+        }
+      },
+      "action_after_effects": "The dialog closes and the image is resampled to 800 by 800 pixels.",
+      "nl_explanation": "After confirming the dialog shows 800 by 800, click Scale to resize the image to the target profile-picture dimensions."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Open the export dialog",
+      "action_before_state": "The resized portrait is visible on the GIMP canvas with no blocking dialogs open.",
+      "action_preconditions": [
+        "The edited image is active",
+        "No modal dialog is blocking keyboard input"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "e"
+        ]
+      },
+      "action_after_effects": "An Export Image dialog appears for choosing the output filename and location.",
+      "nl_explanation": "When the final image is ready and the main window is focused, press Ctrl+Shift+E to open the export dialog."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Enter the export filename",
+      "action_before_state": "The Export Image dialog is open in the Pictures folder, with the filename field available.",
+      "action_preconditions": [
+        "The Export Image dialog is open",
+        "The save location is /home/user/Pictures",
+        "The name field is active or ready for typing"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "profile_pic.png"
+      },
+      "action_after_effects": "The export name is set to profile_pic.png in the Pictures folder.",
+      "nl_explanation": "Once the export dialog is open in the Pictures folder and the name field is ready, type profile_pic.png so the file will be saved with the requested name."
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Start exporting the PNG file",
+      "action_before_state": "The Export Image dialog shows the filename profile_pic.png.",
+      "action_preconditions": [
+        "The filename is set to profile_pic.png",
+        "The Export button is enabled"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Export button in the lower-right corner of the Export Image dialog"
+        }
+      },
+      "action_after_effects": "GIMP proceeds to PNG export options or immediately writes the file, depending on the current settings.",
+      "nl_explanation": "After the correct filename is entered and the Export button is available, click Export to begin saving the final PNG."
+    },
+    {
+      "step_id": "s17",
+      "step_goal": "Confirm the final PNG export options",
+      "action_before_state": "A PNG export options dialog may appear after starting the export.",
+      "action_preconditions": [
+        "The PNG export options dialog is visible",
+        "The default PNG settings are acceptable"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Export button in the PNG export options dialog"
+        }
+      },
+      "action_after_effects": "The file /home/user/Pictures/profile_pic.png is written to disk and the export dialog closes.",
+      "nl_explanation": "If a PNG options dialog appears after the first export click, press Export again to accept the default settings and finish saving the image."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Open the source selfie in GIMP so it can be edited into a profile picture.",
+      "unit_type": "OPEN_IMAGE_FILE",
+      "unit_before_state": "GIMP is open on the desktop with its main window and toolbox visible, and no modal dialog is blocking input.",
+      "unit_after_state": "The Open Image dialog has closed, and selfie.jpg from /home/user/Pictures is loaded as the active image on the GIMP canvas.",
+      "unit_precondition": [
+        "The GIMP main window is focused.",
+        "No blocking modal dialog is open.",
+        "The file /home/user/Pictures/selfie.jpg exists and is accessible from the file chooser."
+      ],
+      "unit_effect": [
+        "An Open Image dialog appears.",
+        "The file chooser switches to /home/user/Pictures.",
+        "selfie.jpg becomes selected in the dialog.",
+        "The dialog closes and the selfie image appears on the canvas."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Crop the portrait into a square composition centered around the face.",
+      "unit_type": "CROP_TO_SQUARE",
+      "unit_before_state": "The selfie image is open on the canvas, and the toolbox is visible in GIMP.",
+      "unit_after_state": "The canvas shows only the retained square portrait area, with everything outside the crop removed.",
+      "unit_precondition": [
+        "The selfie image is the active canvas image.",
+        "The face is visible and there is enough image area to define a square crop.",
+        "The Crop tool can be activated from the focused GIMP window."
+      ],
+      "unit_effect": [
+        "The Crop tool becomes active.",
+        "A square crop rectangle is drawn around the face.",
+        "Pressing Enter commits the crop and leaves a square portrait on the canvas."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        8,
+        9,
+        10
+      ],
+      "unit_intent": "Make the cropped portrait slightly brighter without changing anything else.",
+      "unit_type": "ADJUST_BRIGHTNESS",
+      "unit_before_state": "A cropped square portrait is visible on the GIMP canvas, and no adjustment dialog is open yet.",
+      "unit_after_state": "The Brightness-Contrast dialog is closed, and the portrait on the canvas is slightly brighter than before.",
+      "unit_precondition": [
+        "The cropped image is active in GIMP.",
+        "The top menu bar is visible.",
+        "The Brightness-Contrast adjustment can be opened for the active image."
+      ],
+      "unit_effect": [
+        "The Brightness-Contrast dialog opens.",
+        "Dragging the Brightness slider makes the preview visibly brighter.",
+        "Clicking OK closes the dialog and applies the brighter result to the image."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        11,
+        12,
+        13
+      ],
+      "unit_intent": "Resize the edited square portrait to the required 800 by 800 pixel output size.",
+      "unit_type": "SCALE_IMAGE",
+      "unit_before_state": "The brightened square portrait is visible in the main GIMP window at its current size.",
+      "unit_after_state": "The Scale Image dialog has closed, and the active image has been resampled to 800 by 800 pixels.",
+      "unit_precondition": [
+        "The edited square image is active on the canvas.",
+        "The top menu bar is visible.",
+        "Image proportions remain linked so setting width to 800 keeps height at 800 for the square image."
+      ],
+      "unit_effect": [
+        "The Scale Image dialog opens with width and height fields.",
+        "The width field is changed to 800 and the linked height reads 800.",
+        "Clicking Scale closes the dialog and updates the image size to 800 x 800."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        14,
+        15,
+        16,
+        17
+      ],
+      "unit_intent": "Export the finished image as profile_pic.png in the Pictures folder.",
+      "unit_type": "EXPORT_AS_PNG",
+      "unit_before_state": "The resized 800 by 800 portrait is visible on the GIMP canvas, and no modal dialog is blocking input.",
+      "unit_after_state": "The export dialogs are closed, and the final PNG file is saved as /home/user/Pictures/profile_pic.png.",
+      "unit_precondition": [
+        "The edited image is active in the main GIMP window.",
+        "The Export Image dialog can be opened from the focused GIMP window.",
+        "The export location is /home/user/Pictures and the filename field can be edited.",
+        "If a PNG export options dialog appears, its default settings are acceptable."
+      ],
+      "unit_effect": [
+        "An Export Image dialog opens.",
+        "The filename field is set to profile_pic.png in /home/user/Pictures.",
+        "Clicking Export starts the PNG save flow.",
+        "The PNG export options dialog is confirmed and the file /home/user/Pictures/profile_pic.png is written to disk."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Open the source selfie in GIMP so it can be edited into a profile picture.",
+      "unit_type": "OPEN_IMAGE_FILE",
+      "unit_before_state": "GIMP is open on the desktop with its main window and toolbox visible, and no modal dialog is blocking input.",
+      "unit_after_state": "The Open Image dialog has closed, and selfie.jpg from /home/user/Pictures is loaded as the active image on the GIMP canvas.",
+      "unit_precondition": [
+        "The GIMP main window is focused.",
+        "No blocking modal dialog is open.",
+        "The file /home/user/Pictures/selfie.jpg exists and is accessible from the file chooser."
+      ],
+      "unit_effect": [
+        "An Open Image dialog appears.",
+        "The file chooser switches to /home/user/Pictures.",
+        "selfie.jpg becomes selected in the dialog.",
+        "The dialog closes and the selfie image appears on the canvas."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a specified image file from a chosen folder in GIMP so it becomes the active image on the canvas.",
+      "parameters": {
+        "target_folder_name": "Pictures",
+        "target_folder_path": "/home/user/Pictures",
+        "file_name": "selfie.jpg"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'o']}",
+          "action_template": "When the main GIMP window is focused and no modal dialog is blocking keyboard input, press Ctrl+O to open the Open Image dialog. After this action, an Open Image dialog appears on top of GIMP."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Pictures entry in the left sidebar of the Open Image dialog'}}",
+          "action_template": "When the Open Image dialog is open and the sidebar is visible, click the {{target_folder_name}} entry in the left sidebar so the file list switches to {{target_folder_path}}. After this action, the dialog updates to show files inside {{target_folder_path}}."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the file named selfie.jpg in the file list'}}",
+          "action_template": "When the dialog is currently inside {{target_folder_path}} and the file named {{file_name}} is visible in the file list, click {{file_name}} once to select it. After this action, {{file_name}} becomes selected and ready to open."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Open button in the lower-right corner of the dialog'}}",
+          "action_template": "When {{file_name}} is selected and the Open button is enabled, click the Open button to load the image into the main canvas. After this action, the dialog closes and the image appears on the GIMP canvas."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Crop the portrait into a square composition centered around the face.",
+      "unit_type": "CROP_TO_SQUARE",
+      "unit_before_state": "The selfie image is open on the canvas, and the toolbox is visible in GIMP.",
+      "unit_after_state": "The canvas shows only the retained square portrait area, with everything outside the crop removed.",
+      "unit_precondition": [
+        "The selfie image is the active canvas image.",
+        "The face is visible and there is enough image area to define a square crop.",
+        "The Crop tool can be activated from the focused GIMP window."
+      ],
+      "unit_effect": [
+        "The Crop tool becomes active.",
+        "A square crop rectangle is drawn around the face.",
+        "Pressing Enter commits the crop and leaves a square portrait on the canvas."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Crop the active image to a specified composition shape centered around a target subject.",
+      "parameters": {
+        "target_subject": "face",
+        "crop_shape": "square"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['shift', 'c']}",
+          "action_template": "With the active image open on the canvas and the toolbox visible, press Shift+C to switch directly to the Crop tool so the pointer is ready to draw a crop area."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the upper-left point of the square area you want to keep around the face'}, 'end': {'text': 'the lower-right point of the square area around the face'}, 'target': {'begin': {'text': 'the upper-left point on the image canvas of the desired square crop region'}, 'end': {'text': 'the lower-right point on the image canvas of the desired square crop region'}}}",
+          "action_template": "After the Crop tool is active and {{target_subject}} is clearly visible, drag from the top-left of the desired framing to the bottom-right so a {{crop_shape}} crop box surrounds {{target_subject}}."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "When the {{crop_shape}} crop outline is positioned correctly, press Enter to commit the crop and keep only the selected {{crop_shape}} area around {{target_subject}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        8,
+        9,
+        10
+      ],
+      "unit_intent": "Make the cropped portrait slightly brighter without changing anything else.",
+      "unit_type": "ADJUST_BRIGHTNESS",
+      "unit_before_state": "A cropped square portrait is visible on the GIMP canvas, and no adjustment dialog is open yet.",
+      "unit_after_state": "The Brightness-Contrast dialog is closed, and the portrait on the canvas is slightly brighter than before.",
+      "unit_precondition": [
+        "The cropped image is active in GIMP.",
+        "The top menu bar is visible.",
+        "The Brightness-Contrast adjustment can be opened for the active image."
+      ],
+      "unit_effect": [
+        "The Brightness-Contrast dialog opens.",
+        "Dragging the Brightness slider makes the preview visibly brighter.",
+        "Clicking OK closes the dialog and applies the brighter result to the image."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Slightly increase the brightness of the active image using the Brightness-Contrast adjustment.",
+      "parameters": {
+        "brightness_slider_position": "a position slightly to the right on the slider track"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "CLICK",
+          "action_template": "When the active image is open and the top menu bar is visible, click the Brightness-Contrast option under the Colors menu to open the Brightness-Contrast dialog for tonal adjustment."
+        },
+        {
+          "action": "DRAG_TO",
+          "action_template": "With the Brightness-Contrast dialog open and the Brightness slider thumb visible, drag the Brightness slider handle to {{brightness_slider_position}} so the preview becomes slightly brighter without looking washed out."
+        },
+        {
+          "action": "CLICK",
+          "action_template": "When the image preview looks acceptable and the OK button is visible in the dialog, click the OK button to close the dialog and apply the brighter result to the image."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        11,
+        12,
+        13
+      ],
+      "unit_intent": "Resize the edited square portrait to the required 800 by 800 pixel output size.",
+      "unit_type": "SCALE_IMAGE",
+      "unit_before_state": "The brightened square portrait is visible in the main GIMP window at its current size.",
+      "unit_after_state": "The Scale Image dialog has closed, and the active image has been resampled to 800 by 800 pixels.",
+      "unit_precondition": [
+        "The edited square image is active on the canvas.",
+        "The top menu bar is visible.",
+        "Image proportions remain linked so setting width to 800 keeps height at 800 for the square image."
+      ],
+      "unit_effect": [
+        "The Scale Image dialog opens with width and height fields.",
+        "The width field is changed to 800 and the linked height reads 800.",
+        "Clicking Scale closes the dialog and updates the image size to 800 x 800."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Resize the active square image to a specified pixel output size using the Scale Image dialog.",
+      "parameters": {
+        "target_width_pixels": "800",
+        "target_height_pixels": "800"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Scale Image option under the Image menu in the top menu bar'}}",
+          "action_template": "With the active image on the canvas and the top menu bar visible, click the Scale Image option under the Image menu to open the Scale Image dialog with Width and Height fields."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '800'}",
+          "action_template": "When the Scale Image dialog is open and the Width field is focused or ready for input, type {{target_width_pixels}} so the width changes to {{target_width_pixels}} pixels and the linked height updates to {{target_height_pixels}} pixels for the square image."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Scale button in the Scale Image dialog'}}",
+          "action_template": "After the Scale Image dialog shows {{target_width_pixels}} by {{target_height_pixels}} and the Scale button is visible, click the Scale button to close the dialog and resample the image to {{target_width_pixels}} by {{target_height_pixels}} pixels."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        14,
+        15,
+        16,
+        17
+      ],
+      "unit_intent": "Export the finished image as profile_pic.png in the Pictures folder.",
+      "unit_type": "EXPORT_AS_PNG",
+      "unit_before_state": "The resized 800 by 800 portrait is visible on the GIMP canvas, and no modal dialog is blocking input.",
+      "unit_after_state": "The export dialogs are closed, and the final PNG file is saved as /home/user/Pictures/profile_pic.png.",
+      "unit_precondition": [
+        "The edited image is active in the main GIMP window.",
+        "The Export Image dialog can be opened from the focused GIMP window.",
+        "The export location is /home/user/Pictures and the filename field can be edited.",
+        "If a PNG export options dialog appears, its default settings are acceptable."
+      ],
+      "unit_effect": [
+        "An Export Image dialog opens.",
+        "The filename field is set to profile_pic.png in /home/user/Pictures.",
+        "Clicking Export starts the PNG save flow.",
+        "The PNG export options dialog is confirmed and the file /home/user/Pictures/profile_pic.png is written to disk."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Export the active edited image as a PNG file with a specified filename in a specified folder.",
+      "parameters": {
+        "export_folder": "/home/user/Pictures",
+        "file_name": "profile_pic.png",
+        "file_path": "/home/user/Pictures/profile_pic.png"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'e']}",
+          "action_template": "When the final image is ready, the edited image is active, and no modal dialog is blocking keyboard input, press Ctrl+Shift+E to open the Export Image dialog for choosing the output filename and location."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'profile_pic.png'}",
+          "action_template": "Once the Export Image dialog is open in {{export_folder}} and the name field is active or ready for typing, type {{file_name}} so the file will be saved with the requested name."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Export button in the lower-right corner of the Export Image dialog'}}",
+          "action_template": "After the filename is set to {{file_name}} and the Export button is enabled, click the Export button in the Export Image dialog to begin saving the final PNG."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Export button in the PNG export options dialog'}}",
+          "action_template": "If a PNG export options dialog appears and the default PNG settings are acceptable, click the Export button in that dialog to finish saving the image so {{file_path}} is written to disk and the export dialog closes."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

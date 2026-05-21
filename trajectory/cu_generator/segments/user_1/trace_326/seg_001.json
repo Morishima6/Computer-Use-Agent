@@ -1,0 +1,515 @@
+{
+  "segment_id": "seg_001",
+  "app": "multi_apps",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Save system uptime information to a text file on the Desktop using Terminal",
+      "action_before_state": "The Terminal window is open and focused, showing the command prompt at the home directory (~)",
+      "action_preconditions": [
+        "Terminal is active and ready for input",
+        "User has write permissions to Desktop directory"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "uptime > ~/Desktop/system_status.txt"
+      },
+      "action_after_effects": "The command appears typed in the Terminal at the prompt, ready to be executed",
+      "nl_explanation": "Type the uptime command to output system uptime and redirect it to a file named 'system_status.txt' on the Desktop"
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Execute the uptime command by pressing Enter",
+      "action_before_state": "The Terminal shows 'uptime > ~/Desktop/system_status.txt' typed at the prompt",
+      "action_preconditions": [
+        "Terminal is active with the uptime command typed",
+        "User has write permissions to Desktop directory"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The uptime command executes and creates the 'system_status.txt' file on the Desktop containing the system uptime information",
+      "nl_explanation": "Press Enter to execute the command and save the uptime information to the text file"
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Append memory usage information to the same text file",
+      "action_before_state": "The Terminal shows the previous command has been executed and returned to the prompt. The system_status.txt file now exists on the Desktop with uptime info.",
+      "action_preconditions": [
+        "The system_status.txt file exists on Desktop",
+        "Terminal is still active"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "free -h >> ~/Desktop/system_status.txt"
+      },
+      "action_after_effects": "The memory usage command is typed at the Terminal prompt, ready to be executed",
+      "nl_explanation": "Type the command to display memory usage in human-readable format and append it to the existing system_status.txt file"
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Execute the free command by pressing Enter",
+      "action_before_state": "The Terminal shows 'free -h >> ~/Desktop/system_status.txt' typed at the prompt",
+      "action_preconditions": [
+        "Terminal is active with the free command typed",
+        "The system_status.txt file exists on Desktop"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The memory usage information in human-readable format is appended to the system_status.txt file, which now contains both uptime and memory data",
+      "nl_explanation": "Press Enter to execute the command and append memory information to the file"
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Open the text file in the default Text Editor (gedit) to view and copy its contents",
+      "action_before_state": "The Terminal shows the command prompt ready. The system_status.txt file on Desktop now contains both uptime and memory information.",
+      "action_preconditions": [
+        "The system_status.txt file exists with content",
+        "gedit is installed on the system"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "gedit ~/Desktop/system_status.txt &"
+      },
+      "action_after_effects": "The gedit command with background flag is typed at the Terminal prompt, ready to launch the editor",
+      "nl_explanation": "Type the command to launch gedit with the system_status.txt file. The '&' runs gedit in the background so Terminal remains usable"
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Execute the gedit command by pressing Enter",
+      "action_before_state": "The Terminal shows 'gedit ~/Desktop/system_status.txt &' typed at the prompt",
+      "action_preconditions": [
+        "Terminal is active with the gedit command typed",
+        "gedit is installed"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The GNOME text editor (gedit) window opens displaying the contents of system_status.txt, while the Terminal remains available for additional commands",
+      "nl_explanation": "Press Enter to launch gedit in the background"
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Select all text in the editor to prepare for copying",
+      "action_before_state": "The gedit window is open and focused, showing the system information text (uptime and memory usage lines).",
+      "action_preconditions": [
+        "gedit window is active",
+        "Text content is visible in the editor"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "a"
+        ]
+      },
+      "action_after_effects": "All text in the gedit window becomes highlighted/selected (typically shown in blue or inverted colors), indicating it is ready to be copied",
+      "nl_explanation": "Press Ctrl+A to select all the text content currently displayed in the text editor"
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Copy the selected text to the clipboard",
+      "action_before_state": "The gedit window shows all text selected (highlighted), including the uptime and memory information lines.",
+      "action_preconditions": [
+        "Text is currently selected in gedit",
+        "Clipboard is available"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "c"
+        ]
+      },
+      "action_after_effects": "The selected text is copied to the system clipboard. The visual selection remains highlighted, but the content is now available for pasting elsewhere.",
+      "nl_explanation": "Copy the selected system information to the clipboard using Ctrl+C so it can be pasted into the email"
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Switch to or open Thunderbird email client to compose a new message",
+      "action_before_state": "The text has been copied to clipboard from gedit. Thunderbird may already be running in the background or needs to be opened.",
+      "action_preconditions": [
+        "System information is in clipboard",
+        "Thunderbird is installed"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "alt",
+          "tab"
+        ]
+      },
+      "action_after_effects": "The active window switches from gedit to the Thunderbird email client window",
+      "nl_explanation": "Switch to the Thunderbird email application using Alt+Tab"
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Create a new email message to paste the system information",
+      "action_before_state": "Thunderbird main window is active and focused, showing the mail interface with folders and message lists.",
+      "action_preconditions": [
+        "Thunderbird is focused",
+        "Clipboard contains the system info"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "target": {
+          "text": "Write"
+        },
+        "num_clicks": 1
+      },
+      "action_after_effects": "A new 'Write' (compose) window opens in Thunderbird with empty To, Subject, and Message Body fields, ready for input",
+      "nl_explanation": "Click the 'Write' or 'Compose' button in Thunderbird (may appear as an icon or localized text) to create a new email message where the system information can be pasted"
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Paste the copied system information into the email body",
+      "action_before_state": "The Thunderbird compose window is open with the cursor positioned in the message body area (or can be clicked there). The system info remains in the clipboard.",
+      "action_preconditions": [
+        "Compose window is active",
+        "Cursor is in message body",
+        "Clipboard has system info"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "v"
+        ]
+      },
+      "action_after_effects": "The system uptime and memory information previously copied from the text file appears in the message body of the email",
+      "nl_explanation": "Paste the copied system information into the email body using Ctrl+V so it can be included in the message to the colleague"
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Collect the current system uptime and memory usage into one text file on the Desktop.",
+      "unit_type": "CREATE_SYSTEM_STATUS_FILE",
+      "unit_before_state": "A Terminal window is open at the home directory prompt, and no system_status.txt content has been prepared yet for this task.",
+      "unit_after_state": "The Terminal has returned to the prompt, and Desktop/system_status.txt now exists with both the uptime output and the human-readable memory usage output appended in the same file.",
+      "unit_precondition": [
+        "Terminal is focused and accepting commands at a shell prompt.",
+        "The user can write files to the Desktop location.",
+        "The shell supports the `uptime` and `free -h` commands."
+      ],
+      "unit_effect": [
+        "A file named system_status.txt is created on the Desktop.",
+        "The file content now includes uptime information followed by memory usage information.",
+        "The Terminal shows each command executed and returns to a ready prompt after completion."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Open the saved system status file in a text editor so its contents can be reviewed and copied.",
+      "unit_type": "OPEN_TEXT_FILE",
+      "unit_before_state": "The Terminal prompt is visible, and Desktop/system_status.txt already contains the collected uptime and memory information.",
+      "unit_after_state": "A gedit window is open and focused, displaying the contents of system_status.txt, while the Terminal remains available in the background.",
+      "unit_precondition": [
+        "The file Desktop/system_status.txt already exists and contains text.",
+        "Terminal is still active so a launch command can be entered.",
+        "gedit is installed and can open text files."
+      ],
+      "unit_effect": [
+        "The gedit launch command is executed successfully.",
+        "The system_status.txt text becomes visible in a GUI editor window.",
+        "The user is now in an editing/viewing context where the file content can be selected."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Copy the saved system status text into the clipboard for reuse in another application.",
+      "unit_type": "COPY_FILE_CONTENT",
+      "unit_before_state": "gedit is active and shows the uptime and memory information from system_status.txt in the editor area.",
+      "unit_after_state": "All file text remains highlighted in gedit, and the system status content is now stored in the clipboard.",
+      "unit_precondition": [
+        "The gedit window is focused.",
+        "The file text is visible in the editor.",
+        "Clipboard operations are available on the system."
+      ],
+      "unit_effect": [
+        "All text in the editor becomes selected.",
+        "The selected uptime and memory lines are copied to the clipboard.",
+        "The content is ready to be pasted into another application."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Move from the text editor into email composition so a new message is ready to receive the copied system status.",
+      "unit_type": "OPEN_EMAIL_COMPOSE",
+      "unit_before_state": "gedit is the active window, the system status text has already been copied, and Thunderbird is available to switch to.",
+      "unit_after_state": "Thunderbird shows a new compose window with empty recipient and subject fields and an empty message body ready for input.",
+      "unit_precondition": [
+        "The system status text is already in the clipboard.",
+        "Thunderbird is installed and can be brought to the foreground.",
+        "The Thunderbird main window or app session is accessible from the current desktop."
+      ],
+      "unit_effect": [
+        "The active application changes from gedit to Thunderbird.",
+        "A new message compose window opens.",
+        "The message body is available as a paste target for the copied content."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        11
+      ],
+      "unit_intent": "Insert the collected system status into the new email draft so the message contains the machine information.",
+      "unit_type": "PASTE_EMAIL_BODY",
+      "unit_before_state": "The Thunderbird compose window is open, and the cursor is in the message body with the copied system status still in the clipboard.",
+      "unit_after_state": "The compose window's message body now contains the pasted uptime and memory usage text from system_status.txt.",
+      "unit_precondition": [
+        "The Thunderbird compose window is active.",
+        "The insertion point is in the message body.",
+        "The clipboard still contains the copied system status text."
+      ],
+      "unit_effect": [
+        "The email body visibly fills with the pasted system status lines.",
+        "The draft now contains the information needed for the system status check email."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Collect the current system uptime and memory usage into one text file on the Desktop.",
+      "unit_type": "CREATE_SYSTEM_STATUS_FILE",
+      "unit_before_state": "A Terminal window is open at the home directory prompt, and no system_status.txt content has been prepared yet for this task.",
+      "unit_after_state": "The Terminal has returned to the prompt, and Desktop/system_status.txt now exists with both the uptime output and the human-readable memory usage output appended in the same file.",
+      "unit_precondition": [
+        "Terminal is focused and accepting commands at a shell prompt.",
+        "The user can write files to the Desktop location.",
+        "The shell supports the `uptime` and `free -h` commands."
+      ],
+      "unit_effect": [
+        "A file named system_status.txt is created on the Desktop.",
+        "The file content now includes uptime information followed by memory usage information.",
+        "The Terminal shows each command executed and returns to a ready prompt after completion."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Collect specified system status outputs and save them into a single text file.",
+      "parameters": {
+        "output_file_path": "~/Desktop/system_status.txt",
+        "first_status_command": "uptime",
+        "second_status_command": "free -h"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'uptime > ~/Desktop/system_status.txt'}",
+          "action_template": "Type `{{first_status_command}} > {{output_file_path}}` in the Terminal to output the first system status information to the target file, while the Terminal is active and write permissions to the destination are available."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter to execute the typed command and create {{output_file_path}} with the first system status output."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'free -h >> ~/Desktop/system_status.txt'}",
+          "action_template": "Type `{{second_status_command}} >> {{output_file_path}}` in the Terminal to append the second system status information to the existing target file after the first command has completed."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter to execute the append command and add the second system status output to {{output_file_path}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Open the saved system status file in a text editor so its contents can be reviewed and copied.",
+      "unit_type": "OPEN_TEXT_FILE",
+      "unit_before_state": "The Terminal prompt is visible, and Desktop/system_status.txt already contains the collected uptime and memory information.",
+      "unit_after_state": "A gedit window is open and focused, displaying the contents of system_status.txt, while the Terminal remains available in the background.",
+      "unit_precondition": [
+        "The file Desktop/system_status.txt already exists and contains text.",
+        "Terminal is still active so a launch command can be entered.",
+        "gedit is installed and can open text files."
+      ],
+      "unit_effect": [
+        "The gedit launch command is executed successfully.",
+        "The system_status.txt text becomes visible in a GUI editor window.",
+        "The user is now in an editing/viewing context where the file content can be selected."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a specified text file in a GUI text editor so its contents can be reviewed and copied while keeping the Terminal available.",
+      "parameters": {
+        "text_editor": "gedit",
+        "target_file_path": "~/Desktop/system_status.txt",
+        "launch_command": "gedit ~/Desktop/system_status.txt &"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'gedit ~/Desktop/system_status.txt &'}",
+          "action_template": "Type {{launch_command}} at the Terminal prompt to launch {{text_editor}} with {{target_file_path}} in the background so the Terminal remains usable."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter to execute {{launch_command}} after it has been typed, opening {{target_file_path}} in {{text_editor}} while keeping the Terminal available."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Copy the saved system status text into the clipboard for reuse in another application.",
+      "unit_type": "COPY_FILE_CONTENT",
+      "unit_before_state": "gedit is active and shows the uptime and memory information from system_status.txt in the editor area.",
+      "unit_after_state": "All file text remains highlighted in gedit, and the system status content is now stored in the clipboard.",
+      "unit_precondition": [
+        "The gedit window is focused.",
+        "The file text is visible in the editor.",
+        "Clipboard operations are available on the system."
+      ],
+      "unit_effect": [
+        "All text in the editor becomes selected.",
+        "The selected uptime and memory lines are copied to the clipboard.",
+        "The content is ready to be pasted into another application."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Copy the currently displayed text from the active text editor into the clipboard for reuse in another application.",
+      "parameters": {
+        "source_editor": "gedit",
+        "content_description": "uptime and memory information from system_status.txt"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'a']}",
+          "action_template": "Press Ctrl+A in {{source_editor}} to select all currently displayed {{content_description}} when the editor is active and the text is visible, so the entire content becomes highlighted and ready to be copied."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'c']}",
+          "action_template": "Press Ctrl+C to copy the selected {{content_description}} from {{source_editor}} when the text is selected and the clipboard is available, so the selection remains highlighted and the content is stored in the system clipboard."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Move from the text editor into email composition so a new message is ready to receive the copied system status.",
+      "unit_type": "OPEN_EMAIL_COMPOSE",
+      "unit_before_state": "gedit is the active window, the system status text has already been copied, and Thunderbird is available to switch to.",
+      "unit_after_state": "Thunderbird shows a new compose window with empty recipient and subject fields and an empty message body ready for input.",
+      "unit_precondition": [
+        "The system status text is already in the clipboard.",
+        "Thunderbird is installed and can be brought to the foreground.",
+        "The Thunderbird main window or app session is accessible from the current desktop."
+      ],
+      "unit_effect": [
+        "The active application changes from gedit to Thunderbird.",
+        "A new message compose window opens.",
+        "The message body is available as a paste target for the copied content."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Switch to {{target_email_client}} and open a new compose window so copied content can be inserted into a fresh message.",
+      "parameters": {
+        "target_email_client": "Thunderbird",
+        "compose_control": "the 'Write' or 'Compose' button"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['alt', 'tab']}",
+          "action_template": "With the content already copied to the clipboard and {{target_email_client}} installed, press Alt+Tab to switch from the current application to the {{target_email_client}} window so it becomes the active application."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'target': {'text': 'Write'}, 'num_clicks': 1}",
+          "action_template": "With {{target_email_client}} focused and the clipboard still containing the copied content, click {{compose_control}} in {{target_email_client}} to open a new email compose window with empty To, Subject, and Message Body fields ready for input."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        11
+      ],
+      "unit_intent": "Insert the collected system status into the new email draft so the message contains the machine information.",
+      "unit_type": "PASTE_EMAIL_BODY",
+      "unit_before_state": "The Thunderbird compose window is open, and the cursor is in the message body with the copied system status still in the clipboard.",
+      "unit_after_state": "The compose window's message body now contains the pasted uptime and memory usage text from system_status.txt.",
+      "unit_precondition": [
+        "The Thunderbird compose window is active.",
+        "The insertion point is in the message body.",
+        "The clipboard still contains the copied system status text."
+      ],
+      "unit_effect": [
+        "The email body visibly fills with the pasted system status lines.",
+        "The draft now contains the information needed for the system status check email."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Paste copied content into an email draft so the {{target_field}} includes the required information.",
+      "parameters": {
+        "target_field": "message body",
+        "clipboard_content": "system status text"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'v']}",
+          "action_template": "Press Ctrl+V to paste {{clipboard_content}} into the email {{target_field}} when the compose window is active, the cursor is in {{target_field}}, and the clipboard contains {{clipboard_content}}, so the pasted information appears in the email {{target_field}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

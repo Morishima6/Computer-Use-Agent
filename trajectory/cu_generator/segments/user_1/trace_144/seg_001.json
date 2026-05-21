@@ -1,0 +1,739 @@
+{
+  "segment_id": "seg_001",
+  "app": "gimp",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Activate the Crop tool",
+      "action_before_state": "GIMP is open on GNOME, the image is visible on the canvas, and the main toolbox is available.",
+      "action_preconditions": [
+        "The GIMP window is focused.",
+        "An image is already open on the canvas.",
+        "No modal dialog is blocking the workspace."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "shift",
+          "c"
+        ]
+      },
+      "action_after_effects": "The Crop tool becomes active, and the pointer is ready to draw a crop region on the image.",
+      "nl_explanation": "When the image is visible and GIMP is focused, press Shift+C to switch to the Crop tool. The expected result is that GIMP enters crop mode so the next drag can define the area to keep."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Draw a tighter crop around the subject",
+      "action_before_state": "The Crop tool is active and the full image is still visible.",
+      "action_preconditions": [
+        "The crop cursor is active.",
+        "The main subject can be clearly seen on the canvas."
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "a point slightly above and to the left of the main subject"
+        },
+        "end": {
+          "text": "a point slightly below and to the right of the main subject"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "A crop rectangle appears over the image, showing the part that will be kept.",
+      "nl_explanation": "Once crop mode is active and the subject is visible, drag from the upper-left side of the subject to the lower-right side to frame it more tightly. The result should be a visible crop box around the important part of the photo."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Apply the crop",
+      "action_before_state": "A crop rectangle surrounds the part of the photo that should remain.",
+      "action_preconditions": [
+        "A crop rectangle is visible.",
+        "The crop rectangle includes the subject and excludes unnecessary background."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The image is cropped, and the canvas updates to show only the selected area.",
+      "nl_explanation": "After the crop box is positioned correctly, press Enter to confirm it. The expected behavior is that GIMP removes the outside area and leaves only the tighter composition."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Open the Colors menu",
+      "action_before_state": "The cropped image is displayed, and the top menu bar is visible.",
+      "action_preconditions": [
+        "The image canvas is active.",
+        "No dialog window is currently open."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Colors menu in the top menu bar"
+        }
+      },
+      "action_after_effects": "The Colors dropdown menu opens.",
+      "nl_explanation": "When the cropped image is ready and the main window is unobstructed, click the Colors menu at the top. This should open the color adjustment options needed for the next step."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Open the Brightness-Contrast dialog",
+      "action_before_state": "The Colors dropdown menu is open.",
+      "action_preconditions": [
+        "The Colors menu is expanded.",
+        "The Brightness-Contrast option is visible in the menu."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Brightness-Contrast menu item"
+        }
+      },
+      "action_after_effects": "The Brightness-Contrast dialog appears on top of the image.",
+      "nl_explanation": "With the Colors menu open, click Brightness-Contrast to bring up the adjustment dialog. The expected result is a small dialog with brightness and contrast sliders."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Increase the brightness slightly",
+      "action_before_state": "The Brightness-Contrast dialog is open, with sliders visible.",
+      "action_preconditions": [
+        "The Brightness-Contrast dialog is active.",
+        "The Brightness slider handle is visible."
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the current handle position on the Brightness slider"
+        },
+        "end": {
+          "text": "a point a little to the right on the Brightness slider"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "The preview image becomes slightly brighter while keeping the same composition.",
+      "nl_explanation": "When the Brightness-Contrast dialog is open, drag the Brightness slider a small distance to the right. The expected effect is a modest increase in brightness without drastically changing the image."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Confirm the brightness adjustment",
+      "action_before_state": "The image preview looks slightly brighter, and the Brightness-Contrast dialog is still open.",
+      "action_preconditions": [
+        "The brightness level looks acceptable.",
+        "The OK button is visible in the dialog."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the OK button in the Brightness-Contrast dialog"
+        }
+      },
+      "action_after_effects": "The dialog closes and the brightness adjustment is applied to the image.",
+      "nl_explanation": "After the preview looks right, click OK in the adjustment dialog. GIMP should close the dialog and keep the brighter version of the image on the canvas."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Open the Image menu",
+      "action_before_state": "The adjusted image is shown on the canvas and the top menu bar is available again.",
+      "action_preconditions": [
+        "No modal dialog is open.",
+        "The main GIMP window is active."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Image menu in the top menu bar"
+        }
+      },
+      "action_after_effects": "The Image dropdown menu opens.",
+      "nl_explanation": "With the brightness change applied and the main window visible, click the Image menu at the top. The expected result is that the image-related commands become available."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Open the Scale Image dialog",
+      "action_before_state": "The Image dropdown menu is open.",
+      "action_preconditions": [
+        "The Image menu is expanded.",
+        "The Scale Image option is visible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Scale Image menu item"
+        }
+      },
+      "action_after_effects": "The Scale Image dialog appears with width and height fields.",
+      "nl_explanation": "Once the Image menu is open, click Scale Image. The expected behavior is that GIMP opens a dialog where the image dimensions can be edited."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Focus the width field",
+      "action_before_state": "The Scale Image dialog is open and the dimension fields are visible.",
+      "action_preconditions": [
+        "The Scale Image dialog is active.",
+        "The Width input box is visible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Width input box in the Scale Image dialog"
+        }
+      },
+      "action_after_effects": "The cursor is placed in the Width field.",
+      "nl_explanation": "When the Scale Image dialog is open, click inside the Width field so it becomes the active text box. This prepares the existing width value to be replaced."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Select the current width value",
+      "action_before_state": "The cursor is active in the Width input box.",
+      "action_preconditions": [
+        "The Width field is focused.",
+        "A numeric width value is currently shown."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "a"
+        ]
+      },
+      "action_after_effects": "The current width number is highlighted and ready to be overwritten.",
+      "nl_explanation": "With the Width field focused, press Ctrl+A to select the current value in that box. The expected result is that the existing width is highlighted for replacement."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Set the image width to 1600 pixels",
+      "action_before_state": "The current width value is selected in the Width field.",
+      "action_preconditions": [
+        "The existing width value is highlighted.",
+        "The width field remains focused."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "1600"
+      },
+      "action_after_effects": "The width changes to 1600, and the height updates automatically to keep the aspect ratio.",
+      "nl_explanation": "When the current width is selected, type 1600 to replace it. The expected behavior is that GIMP updates the width to 1600 pixels and adjusts the height automatically if the chain remains linked."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Apply the new image size",
+      "action_before_state": "The Scale Image dialog shows 1600 in the Width field.",
+      "action_preconditions": [
+        "The width field contains 1600.",
+        "The Scale button is visible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Scale button in the Scale Image dialog"
+        }
+      },
+      "action_after_effects": "The dialog closes and the image is resized to the new dimensions.",
+      "nl_explanation": "After setting the width to 1600, click Scale to confirm the new size. GIMP should close the dialog and show the resized image on the canvas."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Open the Export dialog",
+      "action_before_state": "The resized image is visible in the main GIMP window.",
+      "action_preconditions": [
+        "The image is still open and active.",
+        "No dialog is blocking the window."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "e"
+        ]
+      },
+      "action_after_effects": "The Export Image dialog opens.",
+      "nl_explanation": "Once the resized image is ready, press Ctrl+Shift+E to open the export dialog. The expected result is a file-saving window for choosing the name and location of the exported image."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Choose the Pictures folder",
+      "action_before_state": "The Export Image dialog is open with the folder sidebar visible.",
+      "action_preconditions": [
+        "The Export Image dialog is active.",
+        "The Pictures location is visible in the sidebar."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Pictures folder in the left sidebar of the export dialog"
+        }
+      },
+      "action_after_effects": "The export destination changes to the Pictures folder.",
+      "nl_explanation": "When the export window is open and the sidebar is visible, click Pictures to make it the save destination. The expected behavior is that the dialog switches to that folder."
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Select the current file name",
+      "action_before_state": "The Export Image dialog is pointed at the Pictures folder, and the name field is available.",
+      "action_preconditions": [
+        "The file name field is focused or can receive keyboard input.",
+        "A default file name is present."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "a"
+        ]
+      },
+      "action_after_effects": "The existing file name in the name field is selected.",
+      "nl_explanation": "With the export dialog ready, press Ctrl+A in the name field to highlight the existing name. This prepares the field for the new JPEG file name."
+    },
+    {
+      "step_id": "s17",
+      "step_goal": "Enter the export file name",
+      "action_before_state": "The current file name is selected in the export dialog.",
+      "action_preconditions": [
+        "The file name text is highlighted.",
+        "The export dialog remains active."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "clean-share.jpg"
+      },
+      "action_after_effects": "The file name field now contains clean-share.jpg.",
+      "nl_explanation": "When the old name is selected, type clean-share.jpg to replace it. The expected result is that the export dialog now shows the new JPEG name."
+    },
+    {
+      "step_id": "s18",
+      "step_goal": "Start exporting the JPEG file",
+      "action_before_state": "The export destination is Pictures and the name field shows clean-share.jpg.",
+      "action_preconditions": [
+        "The file name is correct.",
+        "The Export button is visible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Export button in the Export Image dialog"
+        }
+      },
+      "action_after_effects": "GIMP opens the JPEG export options dialog.",
+      "nl_explanation": "After the destination and file name are set, click Export in the file dialog. The expected behavior is that GIMP proceeds to the JPEG-specific export options."
+    },
+    {
+      "step_id": "s19",
+      "step_goal": "Confirm the JPEG export options",
+      "action_before_state": "The JPEG export options dialog is visible on top of GIMP.",
+      "action_preconditions": [
+        "The JPEG export options dialog is open.",
+        "The final Export button in that dialog is visible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Export button in the JPEG export options dialog"
+        }
+      },
+      "action_after_effects": "The file is exported as clean-share.jpg into the Pictures folder, and the dialog closes.",
+      "nl_explanation": "When the JPEG options dialog appears, click Export again to accept the default settings. The expected result is that GIMP saves the finished image as clean-share.jpg in Pictures."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Crop the photo tighter so the main subject fills more of the frame.",
+      "unit_type": "CROP_IMAGE_TO_SUBJECT",
+      "unit_before_state": "GIMP is focused with the photo already open on the canvas, the full image is still visible, and no modal dialog is blocking the workspace.",
+      "unit_after_state": "The canvas shows a tighter cropped version of the photo, with the area outside the crop removed and the main subject framed more closely.",
+      "unit_precondition": [
+        "The main GIMP window is active and the photo is open on the canvas.",
+        "The main subject is visible enough to define a tighter crop area.",
+        "No modal dialog is open."
+      ],
+      "unit_effect": [
+        "The Crop tool becomes active and a crop rectangle is drawn around the subject.",
+        "Pressing Enter applies the crop and the canvas updates to display only the selected region."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Slightly brighten the cropped photo for cleaner sharing.",
+      "unit_type": "ADJUST_BRIGHTNESS",
+      "unit_before_state": "The cropped image is visible on the GIMP canvas, the top menu bar is available, and no adjustment dialog is open.",
+      "unit_after_state": "The Brightness-Contrast dialog has been closed and the image on the canvas is slightly brighter than before.",
+      "unit_precondition": [
+        "The cropped image is active in the main GIMP window.",
+        "The top menu bar is visible and usable.",
+        "No modal dialog is blocking access to Colors > Brightness-Contrast."
+      ],
+      "unit_effect": [
+        "The Colors menu opens and the Brightness-Contrast dialog appears with slider controls.",
+        "Dragging the Brightness slider updates the preview to a slightly brighter image.",
+        "Clicking OK closes the dialog and keeps the brighter version on the canvas."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "unit_intent": "Resize the cleaned-up photo to 1600 pixels wide while preserving its proportions.",
+      "unit_type": "RESIZE_IMAGE",
+      "unit_before_state": "The brightened image is displayed on the canvas, the main GIMP window is active, and no modal dialog is open.",
+      "unit_after_state": "The Scale Image dialog is closed and the image displayed in GIMP has been resized so its width is 1600 pixels, with height adjusted automatically to maintain aspect ratio.",
+      "unit_precondition": [
+        "The edited image is active on the canvas.",
+        "The Image menu is accessible from the top menu bar.",
+        "The Scale Image dialog exposes an editable Width field and linked aspect ratio behavior."
+      ],
+      "unit_effect": [
+        "The Image menu opens and the Scale Image dialog appears with width and height fields.",
+        "The Width field is focused, its current value is replaced with 1600, and the height updates automatically.",
+        "Clicking Scale closes the dialog and resizes the image to the new dimensions."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        14,
+        15,
+        16,
+        17,
+        18
+      ],
+      "unit_intent": "Prepare the JPEG export in the correct folder with the required file name.",
+      "unit_type": "CONFIGURE_IMAGE_EXPORT",
+      "unit_before_state": "The resized image is visible in the main GIMP window and no dialog is currently blocking the workspace.",
+      "unit_after_state": "The Export Image dialog has advanced to the JPEG export options stage after targeting the Pictures folder and setting the file name to clean-share.jpg.",
+      "unit_precondition": [
+        "The resized image remains open and active in GIMP.",
+        "The main window is focused so the export shortcut works.",
+        "The Export Image dialog allows choosing a destination folder and editing the file name."
+      ],
+      "unit_effect": [
+        "Ctrl+Shift+E opens the Export Image dialog.",
+        "The destination is changed to the Pictures folder.",
+        "The existing file name is replaced with clean-share.jpg.",
+        "Clicking Export in the file dialog opens the JPEG export options dialog."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        19
+      ],
+      "unit_intent": "Finish the JPEG export using the current export settings.",
+      "unit_type": "CONFIRM_JPEG_EXPORT",
+      "unit_before_state": "The JPEG export options dialog is open on top of GIMP, ready for final confirmation.",
+      "unit_after_state": "The JPEG export options dialog is closed and the edited image has been saved as clean-share.jpg in the Pictures folder.",
+      "unit_precondition": [
+        "The JPEG export options dialog is visible.",
+        "The final Export button in that dialog is available."
+      ],
+      "unit_effect": [
+        "Clicking Export accepts the current JPEG options.",
+        "The file clean-share.jpg is written to the Pictures folder and the dialog closes."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Crop the photo tighter so the main subject fills more of the frame.",
+      "unit_type": "CROP_IMAGE_TO_SUBJECT",
+      "unit_before_state": "GIMP is focused with the photo already open on the canvas, the full image is still visible, and no modal dialog is blocking the workspace.",
+      "unit_after_state": "The canvas shows a tighter cropped version of the photo, with the area outside the crop removed and the main subject framed more closely.",
+      "unit_precondition": [
+        "The main GIMP window is active and the photo is open on the canvas.",
+        "The main subject is visible enough to define a tighter crop area.",
+        "No modal dialog is open."
+      ],
+      "unit_effect": [
+        "The Crop tool becomes active and a crop rectangle is drawn around the subject.",
+        "Pressing Enter applies the crop and the canvas updates to display only the selected region."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Crop an open image to a tighter composition around the main subject.",
+      "parameters": {
+        "crop_start_point": "a point slightly above and to the left of the main subject",
+        "crop_end_point": "a point slightly below and to the right of the main subject"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['shift', 'c']}",
+          "action_template": "When the GIMP window is focused, an image is already open on the canvas, and no modal dialog is blocking the workspace, press Shift+C to switch to the Crop tool. The Crop tool becomes active, and the pointer is ready to draw a crop region on the image."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'a point slightly above and to the left of the main subject'}, 'end': {'text': 'a point slightly below and to the right of the main subject'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "With the crop cursor active and the main subject clearly visible on the canvas, drag from {{crop_start_point}} to {{crop_end_point}} to frame the subject more tightly. A crop rectangle appears over the image, showing the part that will be kept."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After a crop rectangle is visible and positioned to include the subject while excluding unnecessary background, press Enter to confirm it. The image is cropped, and the canvas updates to show only the selected area."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Slightly brighten the cropped photo for cleaner sharing.",
+      "unit_type": "ADJUST_BRIGHTNESS",
+      "unit_before_state": "The cropped image is visible on the GIMP canvas, the top menu bar is available, and no adjustment dialog is open.",
+      "unit_after_state": "The Brightness-Contrast dialog has been closed and the image on the canvas is slightly brighter than before.",
+      "unit_precondition": [
+        "The cropped image is active in the main GIMP window.",
+        "The top menu bar is visible and usable.",
+        "No modal dialog is blocking access to Colors > Brightness-Contrast."
+      ],
+      "unit_effect": [
+        "The Colors menu opens and the Brightness-Contrast dialog appears with slider controls.",
+        "Dragging the Brightness slider updates the preview to a slightly brighter image.",
+        "Clicking OK closes the dialog and keeps the brighter version on the canvas."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Adjust the brightness of the active image until the preview appears {{preview_result}}, then apply the change.",
+      "parameters": {
+        "brightness_slider_target_position": "a point a little to the right on the Brightness slider",
+        "preview_result": "slightly brighter"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Colors menu in the top menu bar'}}",
+          "action_template": "When the image canvas is active and no dialog window is currently open, click the Colors menu in the top menu bar to open the color adjustment options needed for the next step. The Colors dropdown menu opens."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Brightness-Contrast menu item'}}",
+          "action_template": "With the Colors menu expanded and the Brightness-Contrast option visible, click the Brightness-Contrast menu item to bring up the adjustment dialog. The Brightness-Contrast dialog appears on top of the image with brightness and contrast sliders."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the current handle position on the Brightness slider'}, 'end': {'text': 'a point a little to the right on the Brightness slider'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "When the Brightness-Contrast dialog is active and the Brightness slider handle is visible, drag the Brightness slider handle to {{brightness_slider_target_position}}. The preview image becomes {{preview_result}} without drastically changing the image."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the OK button in the Brightness-Contrast dialog'}}",
+          "action_template": "After the preview looks {{preview_result}} and the OK button is visible, click the OK button in the Brightness-Contrast dialog to close the dialog and apply the brightness adjustment to the image."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "unit_intent": "Resize the cleaned-up photo to 1600 pixels wide while preserving its proportions.",
+      "unit_type": "RESIZE_IMAGE",
+      "unit_before_state": "The brightened image is displayed on the canvas, the main GIMP window is active, and no modal dialog is open.",
+      "unit_after_state": "The Scale Image dialog is closed and the image displayed in GIMP has been resized so its width is 1600 pixels, with height adjusted automatically to maintain aspect ratio.",
+      "unit_precondition": [
+        "The edited image is active on the canvas.",
+        "The Image menu is accessible from the top menu bar.",
+        "The Scale Image dialog exposes an editable Width field and linked aspect ratio behavior."
+      ],
+      "unit_effect": [
+        "The Image menu opens and the Scale Image dialog appears with width and height fields.",
+        "The Width field is focused, its current value is replaced with 1600, and the height updates automatically.",
+        "Clicking Scale closes the dialog and resizes the image to the new dimensions."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Resize the active image to a specified width while preserving its proportions.",
+      "parameters": {
+        "target_width_px": "1600"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Image menu in the top menu bar'}}",
+          "action_template": "With no modal dialog open and the main GIMP window active, click the Image menu in the top menu bar to make image-related commands available."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Scale Image menu item'}}",
+          "action_template": "Once the Image menu is expanded and the Scale Image option is visible, click the Scale Image menu item to open the dialog where image dimensions can be edited."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Width input box in the Scale Image dialog'}}",
+          "action_template": "When the Scale Image dialog is active and the Width input box is visible, click the Width input box to place the cursor there and prepare the current width value for replacement."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'a']}",
+          "action_template": "With the Width field focused and a numeric width value shown, press Ctrl+A to highlight the current width number so it is ready to be overwritten."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '1600'}",
+          "action_template": "When the existing width value is highlighted and the Width field remains focused, type {{target_width_px}} to replace it so the width is set to {{target_width_px}} pixels and the height updates automatically to keep the aspect ratio."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Scale button in the Scale Image dialog'}}",
+          "action_template": "After the Width field contains {{target_width_px}} and the Scale button is visible, click the Scale button to close the dialog and apply the resized image dimensions."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        14,
+        15,
+        16,
+        17,
+        18
+      ],
+      "unit_intent": "Prepare the JPEG export in the correct folder with the required file name.",
+      "unit_type": "CONFIGURE_IMAGE_EXPORT",
+      "unit_before_state": "The resized image is visible in the main GIMP window and no dialog is currently blocking the workspace.",
+      "unit_after_state": "The Export Image dialog has advanced to the JPEG export options stage after targeting the Pictures folder and setting the file name to clean-share.jpg.",
+      "unit_precondition": [
+        "The resized image remains open and active in GIMP.",
+        "The main window is focused so the export shortcut works.",
+        "The Export Image dialog allows choosing a destination folder and editing the file name."
+      ],
+      "unit_effect": [
+        "Ctrl+Shift+E opens the Export Image dialog.",
+        "The destination is changed to the Pictures folder.",
+        "The existing file name is replaced with clean-share.jpg.",
+        "Clicking Export in the file dialog opens the JPEG export options dialog."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Configure an image export by choosing a destination folder, setting the output file name, and proceeding to the format-specific export options.",
+      "parameters": {
+        "destination_folder": "Pictures",
+        "output_file_name": "clean-share.jpg"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'e']}",
+          "action_template": "Press Ctrl+Shift+E to open the export dialog when the image is still open and active and no dialog is blocking the window. The expected result is that the Export Image dialog opens for choosing the save location and file name."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Pictures folder in the left sidebar of the export dialog'}}",
+          "action_template": "Click the {{destination_folder}} folder in the left sidebar of the Export Image dialog when the dialog is active and that location is visible. The expected result is that the export destination changes to {{destination_folder}}."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'a']}",
+          "action_template": "Press Ctrl+A in the file name field when the field can receive keyboard input and a default file name is present. The expected result is that the existing file name is selected for replacement."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'clean-share.jpg'}",
+          "action_template": "Type {{output_file_name}} when the current file name is highlighted and the export dialog remains active. The expected result is that the file name field contains {{output_file_name}}."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Export button in the Export Image dialog'}}",
+          "action_template": "Click the Export button in the Export Image dialog after the destination folder and file name are set correctly. The expected result is that GIMP opens the format-specific export options dialog for {{output_file_name}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        19
+      ],
+      "unit_intent": "Finish the JPEG export using the current export settings.",
+      "unit_type": "CONFIRM_JPEG_EXPORT",
+      "unit_before_state": "The JPEG export options dialog is open on top of GIMP, ready for final confirmation.",
+      "unit_after_state": "The JPEG export options dialog is closed and the edited image has been saved as clean-share.jpg in the Pictures folder.",
+      "unit_precondition": [
+        "The JPEG export options dialog is visible.",
+        "The final Export button in that dialog is available."
+      ],
+      "unit_effect": [
+        "Clicking Export accepts the current JPEG options.",
+        "The file clean-share.jpg is written to the Pictures folder and the dialog closes."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Finalize a JPEG export by confirming the current export options.",
+      "parameters": {
+        "file_name": "clean-share.jpg",
+        "destination_folder": "Pictures"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Export button in the JPEG export options dialog'}}",
+          "action_template": "When the JPEG export options dialog is open and the final Export button is visible, click Export to accept the current settings. The expected result is that GIMP exports the file as {{file_name}} into the {{destination_folder}} folder and closes the dialog."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

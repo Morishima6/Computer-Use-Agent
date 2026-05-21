@@ -1,0 +1,570 @@
+{
+  "segment_id": "seg_001",
+  "app": "libreoffice_calc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Return to the top-left area of the sheet so the header row is in view",
+      "action_before_state": "The spreadsheet is already open in LibreOffice Calc, but the active cell may be somewhere else in the sheet.",
+      "action_preconditions": [
+        "LibreOffice Calc is the focused window",
+        "The workbook containing the expense table is open"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "home"
+        ]
+      },
+      "action_after_effects": "The view jumps to the beginning of the sheet, making the top rows and left-side columns visible.",
+      "nl_explanation": "When the workbook is active, press Ctrl+Home to jump back to the start of the sheet so the header row and the nearby empty columns are easy to reach."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Select the first empty header cell to the right of Actual Cost",
+      "action_before_state": "The top of the table is visible, with headers in row 1 and Actual Cost as the last existing column.",
+      "action_preconditions": [
+        "Row 1 is visible",
+        "The columns Date, Item, Category, Budgeted Cost, and Actual Cost are visible",
+        "The next empty header cell is F1"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell F1, the empty header cell immediately to the right of Actual Cost"
+        }
+      },
+      "action_after_effects": "Cell F1 becomes the active cell, ready for new column headers.",
+      "nl_explanation": "With the header row visible and F1 empty, click F1 so the new calculated columns can be inserted in the correct place."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Create the two new column headers",
+      "action_before_state": "Cell F1 is active and row 1 is visible.",
+      "action_preconditions": [
+        "F1 is selected",
+        "G1 is empty"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Variance\tOver Budget?\n"
+      },
+      "action_after_effects": "F1 is filled with Variance, G1 is filled with Over Budget?, and the cursor moves down into the next row.",
+      "nl_explanation": "When F1 is active and both header cells are empty, type the two labels with a Tab between them and Enter at the end so both new headers are created quickly."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Select the first row where the new formulas should start",
+      "action_before_state": "The new headers exist in F1 and G1, and the first data row is row 2.",
+      "action_preconditions": [
+        "The expense data starts on row 2",
+        "Cells F2 and G2 are still empty"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell F2, the first empty Variance cell under the new header"
+        }
+      },
+      "action_after_effects": "Cell F2 becomes active and ready for the first pair of formulas.",
+      "nl_explanation": "Once the new headers are in place, click F2 so the first calculation row lines up with the first expense entry."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Enter the first variance formula and the first over-budget formula",
+      "action_before_state": "F2 is selected, and the existing numeric columns are Budgeted Cost in D and Actual Cost in E.",
+      "action_preconditions": [
+        "F2 is active",
+        "D2 contains the budgeted amount",
+        "E2 contains the actual amount",
+        "G2 is empty"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "=E2-D2\t=IF(F2>0,\"Yes\",\"No\")\n"
+      },
+      "action_after_effects": "F2 shows the variance for the first row, G2 shows whether that row is over budget, and Calc accepts both formulas.",
+      "nl_explanation": "With F2 active and the first expense row present, type the variance formula first, use Tab to move to G2, enter the over-budget check, and press Enter so both starting formulas are created."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Fill both formulas down through the remaining expense rows",
+      "action_before_state": "The first formula row has been created in F2:G2, and the expense list continues down to row 13.",
+      "action_preconditions": [
+        "F2 and G2 contain the correct formulas",
+        "The last expense row is row 13",
+        "The fill handle for the selected formula range is visible"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the fill handle at the bottom-right corner of the selected F2:G2 formula range"
+        },
+        "end": {
+          "text": "cell G13, the bottom-right cell of the last expense row"
+        },
+        "target": {
+          "begin": {
+            "text": "the fill handle at the bottom-right corner of the selected F2:G2 formula range"
+          },
+          "end": {
+            "text": "cell G13, the bottom-right cell of the last expense row"
+          }
+        }
+      },
+      "action_after_effects": "The formulas are copied down through rows 3 to 13 in both new columns.",
+      "nl_explanation": "When the first formulas are correct and the table ends at row 13, drag the fill handle down to G13 so every expense row gets both calculations."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Select the full Variance result range for formatting",
+      "action_before_state": "The Variance column now contains calculated values from row 2 to row 13.",
+      "action_preconditions": [
+        "Cells F2 through F13 contain numeric results",
+        "The Variance column is visible"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell F2, the first variance value"
+        },
+        "end": {
+          "text": "cell F13, the last variance value"
+        },
+        "target": {
+          "begin": {
+            "text": "cell F2, the first variance value"
+          },
+          "end": {
+            "text": "cell F13, the last variance value"
+          }
+        }
+      },
+      "action_after_effects": "The variance cells from F2 to F13 are highlighted as the active selection.",
+      "nl_explanation": "After the formulas are filled, drag from the first variance result to the last one so only the numeric variance values are selected for formatting."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Format the variance values as currency",
+      "action_before_state": "The range F2:F13 is selected and contains positive and negative amount differences.",
+      "action_preconditions": [
+        "F2:F13 is selected",
+        "The standard formatting toolbar is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Currency Format button on the formatting toolbar"
+        }
+      },
+      "action_after_effects": "The selected variance values are displayed using currency formatting.",
+      "nl_explanation": "With the variance range selected, click the Currency Format button so the differences display as money instead of plain numbers."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Place the active cell just below the header row to prepare for freezing it",
+      "action_before_state": "The currency formatting has been applied, and the sheet is still visible near the top.",
+      "action_preconditions": [
+        "Row 1 is visible",
+        "Cell A2 can be clicked"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell A2, the first cell directly below the header row"
+        }
+      },
+      "action_after_effects": "A2 becomes the active cell, which sets up freezing only the top row.",
+      "nl_explanation": "When the table is still near the top, click A2 so freezing rows and columns will lock the header row without freezing any extra columns."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Open the View menu",
+      "action_before_state": "Cell A2 is active and the LibreOffice Calc menu bar is visible.",
+      "action_preconditions": [
+        "A2 is selected",
+        "The top menu bar is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the View menu in the top menu bar"
+        }
+      },
+      "action_after_effects": "The View menu opens and shows display-related options.",
+      "nl_explanation": "With A2 active, open the View menu because the freeze command is located there."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Freeze the header row",
+      "action_before_state": "The View menu is open while A2 remains the intended reference cell.",
+      "action_preconditions": [
+        "The View menu dropdown is open",
+        "The Freeze Rows and Columns option is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Freeze Rows and Columns option in the View menu"
+        }
+      },
+      "action_after_effects": "The first row becomes frozen and will stay visible when the sheet is scrolled downward.",
+      "nl_explanation": "When the View menu is open and A2 is the active cell, click Freeze Rows and Columns so the header row stays pinned at the top."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Save the completed spreadsheet",
+      "action_before_state": "The new columns, formulas, currency formatting, and frozen header row are all in place.",
+      "action_preconditions": [
+        "The workbook has unsaved edits",
+        "LibreOffice Calc is still focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "s"
+        ]
+      },
+      "action_after_effects": "The workbook is saved with the new calculations and display settings preserved.",
+      "nl_explanation": "After all spreadsheet changes are complete, press Ctrl+S to save the updated expense tracker."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Add the two new calculation columns at the top of the expense table.",
+      "unit_type": "ADD_CALCULATION_COLUMN_HEADERS",
+      "unit_before_state": "LibreOffice Calc has the household expense sheet open, but the active cell may be somewhere away from the top of the table and the new columns to the right of Actual Cost are not yet labeled.",
+      "unit_after_state": "The view is positioned at the top-left of the sheet, row 1 is visible, F1 contains \"Variance\", G1 contains \"Over Budget?\", and the worksheet now shows the two new headers immediately to the right of Actual Cost.",
+      "unit_precondition": [
+        "LibreOffice Calc is the active window.",
+        "The workbook with the expense table is open.",
+        "The existing table has Actual Cost as the last current header and the next two header cells to its right are available for new labels."
+      ],
+      "unit_effect": [
+        "The sheet jumps to the top area so the header row and left-side columns are visible.",
+        "Two new header labels appear in row 1: \"Variance\" in F1 and \"Over Budget?\" in G1."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Populate both new columns with formulas for every expense row.",
+      "unit_type": "FILL_CALCULATED_COLUMNS",
+      "unit_before_state": "The new headers are present in F1 and G1, the first expense row starts on row 2, and cells F2 and G2 are empty beneath the new headers.",
+      "unit_after_state": "Rows 2 through 13 in column F contain variance formulas based on Actual Cost minus Budgeted Cost, and rows 2 through 13 in column G contain Yes/No over-budget results for the same expense rows.",
+      "unit_precondition": [
+        "F1 is labeled \"Variance\" and G1 is labeled \"Over Budget?\".",
+        "The expense data spans rows 2 through 13.",
+        "Budgeted Cost values are in column D and Actual Cost values are in column E."
+      ],
+      "unit_effect": [
+        "F2 evaluates the first row's variance and G2 evaluates whether that row is over budget.",
+        "The formulas are autofilled down so every expense row from 2 to 13 has values in both new columns."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Display all variance results as money values.",
+      "unit_type": "FORMAT_RANGE_AS_CURRENCY",
+      "unit_before_state": "The Variance column contains numeric results in F2:F13, but they are still shown as plain numbers.",
+      "unit_after_state": "The cells F2 through F13 in the Variance column are formatted as currency, so each variance value is displayed with currency formatting.",
+      "unit_precondition": [
+        "Formula results are already present in F2:F13.",
+        "The Variance column is visible on screen.",
+        "The formatting toolbar includes the Currency Format control."
+      ],
+      "unit_effect": [
+        "The range F2:F13 becomes selected.",
+        "The displayed values in F2:F13 switch from plain numeric formatting to currency formatting."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9,
+        10,
+        11
+      ],
+      "unit_intent": "Freeze the header row so the table labels remain visible during scrolling.",
+      "unit_type": "FREEZE_HEADER_ROW",
+      "unit_before_state": "The worksheet is still near the top of the table, row 1 is visible, and the header row is not yet frozen.",
+      "unit_after_state": "Cell A2 has been used as the freeze reference, the View menu action has been applied, and row 1 is frozen so the header row will stay fixed at the top while the rest of the sheet scrolls.",
+      "unit_precondition": [
+        "Row 1 is visible on screen.",
+        "Cell A2 can be selected directly below the header row.",
+        "The top menu bar is available and includes the View menu."
+      ],
+      "unit_effect": [
+        "A2 becomes the active cell before the freeze command is issued.",
+        "The View menu opens and the Freeze Rows and Columns command is executed.",
+        "The first row is now fixed in place as the sheet is scrolled."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        12
+      ],
+      "unit_intent": "Persist the completed spreadsheet changes to disk.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The sheet already includes the new Variance and Over Budget? columns, filled formulas, currency formatting in F2:F13, and a frozen header row, and these edits have not yet been saved.",
+      "unit_after_state": "The LibreOffice Calc workbook is saved with the new columns, formulas, formatting, and freeze setting preserved.",
+      "unit_precondition": [
+        "LibreOffice Calc remains the focused application.",
+        "The workbook contains unsaved edits."
+      ],
+      "unit_effect": [
+        "The save command is triggered with Ctrl+S.",
+        "The workbook's current spreadsheet changes are written to the file."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Add the two new calculation columns at the top of the expense table.",
+      "unit_type": "ADD_CALCULATION_COLUMN_HEADERS",
+      "unit_before_state": "LibreOffice Calc has the household expense sheet open, but the active cell may be somewhere away from the top of the table and the new columns to the right of Actual Cost are not yet labeled.",
+      "unit_after_state": "The view is positioned at the top-left of the sheet, row 1 is visible, F1 contains \"Variance\", G1 contains \"Over Budget?\", and the worksheet now shows the two new headers immediately to the right of Actual Cost.",
+      "unit_precondition": [
+        "LibreOffice Calc is the active window.",
+        "The workbook with the expense table is open.",
+        "The existing table has Actual Cost as the last current header and the next two header cells to its right are available for new labels."
+      ],
+      "unit_effect": [
+        "The sheet jumps to the top area so the header row and left-side columns are visible.",
+        "Two new header labels appear in row 1: \"Variance\" in F1 and \"Over Budget?\" in G1."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Add specified calculation column headers to the top row in the first available header cells immediately to the right of an existing table header.",
+      "parameters": {
+        "existing_last_header": "Actual Cost",
+        "first_target_cell": "F1",
+        "second_target_cell": "G1",
+        "first_header_label": "Variance",
+        "second_header_label": "Over Budget?"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'home']}",
+          "action_template": "When the workbook is active, press Ctrl+Home to jump to the start of the sheet so the header row and nearby empty columns are visible and easy to reach."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell F1, the empty header cell immediately to the right of Actual Cost'}}",
+          "action_template": "With row 1 visible, click {{first_target_cell}}, the empty header cell immediately to the right of {{existing_last_header}}, so it becomes the active cell for entering new column headers."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Variance\\tOver Budget?\\n'}",
+          "action_template": "When {{first_target_cell}} is selected and {{second_target_cell}} is empty, type {{first_header_label}}, press Tab, type {{second_header_label}}, and press Enter so both new headers are created and the cursor moves to the next row."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Populate both new columns with formulas for every expense row.",
+      "unit_type": "FILL_CALCULATED_COLUMNS",
+      "unit_before_state": "The new headers are present in F1 and G1, the first expense row starts on row 2, and cells F2 and G2 are empty beneath the new headers.",
+      "unit_after_state": "Rows 2 through 13 in column F contain variance formulas based on Actual Cost minus Budgeted Cost, and rows 2 through 13 in column G contain Yes/No over-budget results for the same expense rows.",
+      "unit_precondition": [
+        "F1 is labeled \"Variance\" and G1 is labeled \"Over Budget?\".",
+        "The expense data spans rows 2 through 13.",
+        "Budgeted Cost values are in column D and Actual Cost values are in column E."
+      ],
+      "unit_effect": [
+        "F2 evaluates the first row's variance and G2 evaluates whether that row is over budget.",
+        "The formulas are autofilled down so every expense row from 2 to 13 has values in both new columns."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Populate adjacent calculated columns by entering the initial row formulas and filling them down through the remaining data rows.",
+      "parameters": {
+        "first_formula_cell": "cell F2, the first empty Variance cell under the new header",
+        "second_formula_cell": "G2",
+        "first_formula_text": "=E2-D2",
+        "second_formula_text": "=IF(F2>0,\"Yes\",\"No\")",
+        "fill_destination_cell": "cell G13, the bottom-right cell of the last expense row"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell F2, the first empty Variance cell under the new header'}}",
+          "action_template": "Once the new headers are in place and the first result-row cells are still empty, click {{first_formula_cell}} so the first calculation row lines up with the first data entry and {{first_formula_cell}} becomes active for the first pair of formulas."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '=E2-D2\\t=IF(F2>0,\"Yes\",\"No\")\\n'}",
+          "action_template": "With {{first_formula_cell}} active and the first source row values present, type {{first_formula_text}}, use Tab to move to {{second_formula_cell}}, type {{second_formula_text}}, and press Enter so the starting formulas are created and Calc accepts both formulas."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the fill handle at the bottom-right corner of the selected F2:G2 formula range'}, 'end': {'text': 'cell G13, the bottom-right cell of the last expense row'}, 'target': {'begin': {'text': 'the fill handle at the bottom-right corner of the selected F2:G2 formula range'}, 'end': {'text': 'cell G13, the bottom-right cell of the last expense row'}}}",
+          "action_template": "When the formulas in {{first_formula_cell}} and {{second_formula_cell}} are correct and the fill handle is visible, drag the fill handle at the bottom-right corner of the selected starter formula range down to {{fill_destination_cell}} so the formulas are copied through the remaining data rows in both calculated columns."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Display all variance results as money values.",
+      "unit_type": "FORMAT_RANGE_AS_CURRENCY",
+      "unit_before_state": "The Variance column contains numeric results in F2:F13, but they are still shown as plain numbers.",
+      "unit_after_state": "The cells F2 through F13 in the Variance column are formatted as currency, so each variance value is displayed with currency formatting.",
+      "unit_precondition": [
+        "Formula results are already present in F2:F13.",
+        "The Variance column is visible on screen.",
+        "The formatting toolbar includes the Currency Format control."
+      ],
+      "unit_effect": [
+        "The range F2:F13 becomes selected.",
+        "The displayed values in F2:F13 switch from plain numeric formatting to currency formatting."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Apply currency formatting to a specified range of numeric results.",
+      "parameters": {
+        "target_range": "F2:F13",
+        "range_start_cell": "cell F2, the first variance value",
+        "range_end_cell": "cell F13, the last variance value",
+        "format_control": "the Currency Format button on the formatting toolbar"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'cell F2, the first variance value'}, 'end': {'text': 'cell F13, the last variance value'}, 'target': {'begin': {'text': 'cell F2, the first variance value'}, 'end': {'text': 'cell F13, the last variance value'}}}",
+          "action_template": "Drag from {{range_start_cell}} to {{range_end_cell}} after the target cells contain numeric results and are visible, so only the numeric result range {{target_range}} is selected for formatting and highlighted as the active selection."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Currency Format button on the formatting toolbar'}}",
+          "action_template": "Click {{format_control}} with {{target_range}} selected and the formatting toolbar visible so the selected values switch from plain numbers to currency formatting."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9,
+        10,
+        11
+      ],
+      "unit_intent": "Freeze the header row so the table labels remain visible during scrolling.",
+      "unit_type": "FREEZE_HEADER_ROW",
+      "unit_before_state": "The worksheet is still near the top of the table, row 1 is visible, and the header row is not yet frozen.",
+      "unit_after_state": "Cell A2 has been used as the freeze reference, the View menu action has been applied, and row 1 is frozen so the header row will stay fixed at the top while the rest of the sheet scrolls.",
+      "unit_precondition": [
+        "Row 1 is visible on screen.",
+        "Cell A2 can be selected directly below the header row.",
+        "The top menu bar is available and includes the View menu."
+      ],
+      "unit_effect": [
+        "A2 becomes the active cell before the freeze command is issued.",
+        "The View menu opens and the Freeze Rows and Columns command is executed.",
+        "The first row is now fixed in place as the sheet is scrolled."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Freeze the row above a specified reference cell so worksheet headers remain visible during scrolling.",
+      "parameters": {
+        "reference_cell": "A2",
+        "header_row": "row 1"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell A2, the first cell directly below the header row'}}",
+          "action_template": "When {{header_row}} is visible and {{reference_cell}} can be clicked, click {{reference_cell}} to place the active cell directly below the header row so freezing rows and columns will lock the header without freezing extra columns."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the View menu in the top menu bar'}}",
+          "action_template": "With {{reference_cell}} selected and the top menu bar visible, click the View menu to open the menu that contains the freeze command."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Freeze Rows and Columns option in the View menu'}}",
+          "action_template": "When the View menu is open and {{reference_cell}} is the active cell, click Freeze Rows and Columns to freeze {{header_row}} so it stays visible while the sheet is scrolled."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        12
+      ],
+      "unit_intent": "Persist the completed spreadsheet changes to disk.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The sheet already includes the new Variance and Over Budget? columns, filled formulas, currency formatting in F2:F13, and a frozen header row, and these edits have not yet been saved.",
+      "unit_after_state": "The LibreOffice Calc workbook is saved with the new columns, formulas, formatting, and freeze setting preserved.",
+      "unit_precondition": [
+        "LibreOffice Calc remains the focused application.",
+        "The workbook contains unsaved edits."
+      ],
+      "unit_effect": [
+        "The save command is triggered with Ctrl+S.",
+        "The workbook's current spreadsheet changes are written to the file."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the current spreadsheet document to preserve unsaved edits.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 's']}",
+          "action_template": "Press Ctrl+S after all spreadsheet changes are complete to save the current workbook while LibreOffice Calc is focused, preserving the unsaved edits and current calculations and display settings."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

@@ -1,0 +1,680 @@
+{
+  "segment_id": "seg_001",
+  "app": "gimp",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the file chooser so the source image can be loaded",
+      "action_before_state": "GIMP is already open on the GNOME desktop, showing its main editing workspace.",
+      "action_preconditions": [
+        "The GIMP window is focused.",
+        "No modal dialog is blocking the main window."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "o"
+        ]
+      },
+      "action_after_effects": "The Open Image dialog appears in front of the editor.",
+      "nl_explanation": "With the GIMP window active, press Ctrl+O to bring up the Open Image dialog so you can choose the photo to edit."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Switch the file chooser to direct path entry",
+      "action_before_state": "The Open Image dialog is visible, with the standard GNOME file browser interface.",
+      "action_preconditions": [
+        "The Open Image dialog is focused.",
+        "The dialog accepts keyboard shortcuts."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "l"
+        ]
+      },
+      "action_after_effects": "A location entry field appears so a full file path can be typed directly.",
+      "nl_explanation": "When the file chooser is open, press Ctrl+L to show the location bar, which lets you enter the image path directly instead of browsing manually."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Enter the source image path",
+      "action_before_state": "The location entry in the Open Image dialog is active and ready for text input.",
+      "action_preconditions": [
+        "The location field is visible.",
+        "The text cursor is inside the location field."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "/home/user/Pictures/park_walk.jpg"
+      },
+      "action_after_effects": "The full source path is filled into the dialog's location field.",
+      "nl_explanation": "Once the location field is active, type /home/user/Pictures/park_walk.jpg so GIMP knows which file to open."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Load the photo into GIMP",
+      "action_before_state": "The Open Image dialog contains the complete path to the source photo.",
+      "action_preconditions": [
+        "The path points to an existing image file.",
+        "The file chooser is still focused."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The dialog closes and the photo opens on the GIMP canvas as the active image.",
+      "nl_explanation": "After the correct path is entered, press Enter to open the image and place it on the GIMP canvas for editing."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Activate the Crop Tool",
+      "action_before_state": "The photo is visible on the GIMP canvas and ready to be edited.",
+      "action_preconditions": [
+        "An image is open in GIMP.",
+        "The main editing canvas is visible."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "shift",
+          "c"
+        ]
+      },
+      "action_after_effects": "The Crop Tool becomes active and the cursor changes to the crop cursor.",
+      "nl_explanation": "With the image loaded, press Shift+C to switch to the Crop Tool so you can define the new square framing."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Draw a square crop around the main subject",
+      "action_before_state": "The Crop Tool is active and the photo is fully visible on the canvas.",
+      "action_preconditions": [
+        "The Crop Tool is selected.",
+        "The image area where the subject appears is visible."
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the upper-left area of the desired square crop on the photo"
+        },
+        "end": {
+          "text": "the lower-right area that frames the subject and keeps the crop roughly square"
+        },
+        "target": {
+          "begin": {
+            "text": "the upper-left area of the desired square crop on the photo"
+          },
+          "end": {
+            "text": "the lower-right area that frames the subject and keeps the crop square"
+          }
+        }
+      },
+      "action_after_effects": "A crop rectangle appears over the image, highlighting the selected square region.",
+      "nl_explanation": "When the Crop Tool is active, drag from the upper-left part of the area you want to keep to the lower-right part, forming a square crop around the main subject."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Apply the crop",
+      "action_before_state": "The crop rectangle is visible over the image and encloses the intended square composition.",
+      "action_preconditions": [
+        "A crop region has already been drawn.",
+        "The crop overlay is still active."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "Everything outside the selected crop is removed, leaving only the square image area.",
+      "nl_explanation": "After the square crop box looks correct, press Enter to commit the crop and reduce the canvas to that selected area."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Switch to the Text Tool",
+      "action_before_state": "The cropped image is visible on the canvas with the toolbox shown on the left side.",
+      "action_preconditions": [
+        "The crop has already been applied.",
+        "The GIMP toolbox is visible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Text Tool icon in the left toolbox"
+        }
+      },
+      "action_after_effects": "The Text Tool is activated, ready to place a text box on the image.",
+      "nl_explanation": "With the cropped image ready, click the Text Tool icon in the toolbox so you can add a caption to the picture."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Place the text cursor near the bottom of the image",
+      "action_before_state": "The Text Tool is active and the cropped photo is visible on the canvas.",
+      "action_preconditions": [
+        "The Text Tool is selected.",
+        "There is open space near the bottom area of the image for a caption."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the lower-center area of the image canvas where the caption should appear"
+        }
+      },
+      "action_after_effects": "A text box appears on the canvas and the text cursor is placed inside it.",
+      "nl_explanation": "After selecting the Text Tool, click near the lower center of the image to create a text box where the caption will be inserted."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Enter the caption text",
+      "action_before_state": "A text box is active on the image and waiting for input.",
+      "action_preconditions": [
+        "The text insertion cursor is visible inside the text box.",
+        "The Text Tool is still active."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Morning Walk"
+      },
+      "action_after_effects": "The caption text appears inside the text box on top of the image.",
+      "nl_explanation": "When the text box is active, type Morning Walk so the image gets the requested caption."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Switch to the Move Tool for final text positioning",
+      "action_before_state": "The caption text is visible on the image, and the toolbox remains visible.",
+      "action_preconditions": [
+        "A text layer is already present on the canvas.",
+        "The toolbox is accessible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Move Tool icon in the left toolbox"
+        }
+      },
+      "action_after_effects": "The Move Tool becomes active, allowing objects on the canvas to be repositioned.",
+      "nl_explanation": "Once the caption exists, click the Move Tool icon so the text can be nudged into a cleaner position near the bottom of the image."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Adjust the caption position slightly upward for better placement",
+      "action_before_state": "The Move Tool is active and the caption text is visible near the bottom of the image.",
+      "action_preconditions": [
+        "The caption is visible on the canvas.",
+        "The Move Tool is selected."
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the caption text on the lower part of the image"
+        },
+        "end": {
+          "text": "a point slightly higher in the lower-center area of the image"
+        },
+        "target": {
+          "begin": {
+            "text": "the caption text on the lower part of the image"
+          },
+          "end": {
+            "text": "a point slightly higher in the lower-center area of the image"
+          }
+        }
+      },
+      "action_after_effects": "The caption is repositioned to a cleaner lower-center placement on the photo.",
+      "nl_explanation": "With the Move Tool active, drag the caption a little upward so it sits more neatly in the lower-center area without touching the image edge."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Open the export dialog to save the finished image",
+      "action_before_state": "The edited square image with its caption is visible and ready to be saved.",
+      "action_preconditions": [
+        "The crop and caption edits are complete.",
+        "The GIMP main window is focused."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "e"
+        ]
+      },
+      "action_after_effects": "The Export Image dialog opens in front of the editor.",
+      "nl_explanation": "After finishing the visible edits, press Ctrl+Shift+E to open the export dialog and start saving the final PNG file."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Switch the export dialog to direct path entry",
+      "action_before_state": "The Export Image dialog is open and focused.",
+      "action_preconditions": [
+        "The Export Image dialog is active.",
+        "The dialog supports GNOME file chooser shortcuts."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "l"
+        ]
+      },
+      "action_after_effects": "A location entry field appears so the full destination path can be typed.",
+      "nl_explanation": "When the export dialog is open, press Ctrl+L to show the location bar and make it easy to enter the exact output path."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Enter the output file path",
+      "action_before_state": "The export dialog's location field is active and ready for input.",
+      "action_preconditions": [
+        "The location entry is visible.",
+        "The text cursor is inside the location field."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "/home/user/Pictures/park_walk_post.png"
+      },
+      "action_after_effects": "The export destination is set to the requested PNG file path.",
+      "nl_explanation": "Type /home/user/Pictures/park_walk_post.png into the location field so the edited image will be exported with the requested name and location."
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Confirm the export destination and continue",
+      "action_before_state": "The Export Image dialog shows the full destination path for the PNG file.",
+      "action_preconditions": [
+        "The desired output path has been entered.",
+        "The Export button is visible in the dialog."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Export button in the Export Image dialog"
+        }
+      },
+      "action_after_effects": "The Export Image dialog closes and the PNG export settings dialog appears.",
+      "nl_explanation": "After the destination path is filled in, click the Export button in the dialog to proceed to GIMP's PNG export settings."
+    },
+    {
+      "step_id": "s17",
+      "step_goal": "Finish exporting the PNG file",
+      "action_before_state": "The PNG export settings dialog is open on top of GIMP.",
+      "action_preconditions": [
+        "The PNG export options dialog is visible.",
+        "The final Export button is available."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Export button in the PNG export settings dialog"
+        }
+      },
+      "action_after_effects": "The PNG file is written to /home/user/Pictures/park_walk_post.png and the dialog closes back to the editor.",
+      "nl_explanation": "When the PNG options dialog appears, click Export again to save the finished square captioned image to the requested output path."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Load the requested source photo into GIMP so editing can begin on the correct image.",
+      "unit_type": "OPEN_IMAGE_FROM_PATH",
+      "unit_before_state": "GIMP is open on its main workspace with no modal dialog shown and no image from this task loaded on the canvas.",
+      "unit_after_state": "The Open Image dialog has closed, and /home/user/Pictures/park_walk.jpg is open as the active image on the GIMP canvas.",
+      "unit_precondition": [
+        "The GIMP main window is focused.",
+        "No other modal dialog is blocking input.",
+        "The file /home/user/Pictures/park_walk.jpg exists and is readable."
+      ],
+      "unit_effect": [
+        "An Open Image dialog appears, switches to a location-entry mode, accepts the full file path, and then closes.",
+        "The photo from /home/user/Pictures/park_walk.jpg becomes visible as the active canvas image."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Convert the photo into a square composition centered around the main subject.",
+      "unit_type": "CROP_IMAGE_TO_SQUARE",
+      "unit_before_state": "The source photo is open on the GIMP canvas at full size, and no crop has been committed yet.",
+      "unit_after_state": "The canvas shows only the selected square portion of the photo, with everything outside the crop removed.",
+      "unit_precondition": [
+        "An image is already open in GIMP.",
+        "The main subject is visible on the canvas.",
+        "The Crop Tool can be activated from the current editing view."
+      ],
+      "unit_effect": [
+        "The Crop Tool becomes active and a square crop rectangle appears over the photo.",
+        "Pressing Enter commits the crop and the image bounds shrink to the selected square region."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        8,
+        9,
+        10
+      ],
+      "unit_intent": "Add the requested caption text onto the lower part of the square image.",
+      "unit_type": "ADD_TEXT_CAPTION",
+      "unit_before_state": "The cropped square photo is visible on the canvas, and no new caption text box has been placed for this task.",
+      "unit_after_state": "A text box exists near the lower-center area of the image and displays the caption \"Morning Walk\" on top of the photo.",
+      "unit_precondition": [
+        "The square crop has already been applied.",
+        "The GIMP toolbox is visible.",
+        "There is space near the bottom of the image where a caption can be inserted."
+      ],
+      "unit_effect": [
+        "The Text Tool is activated from the toolbox.",
+        "Clicking the image creates an editable text box with a visible insertion cursor.",
+        "Typing \"Morning Walk\" makes that caption appear on the image."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        11,
+        12
+      ],
+      "unit_intent": "Refine the caption placement so it sits cleanly near the bottom of the image.",
+      "unit_type": "POSITION_TEXT_LAYER",
+      "unit_before_state": "The caption \"Morning Walk\" is visible on the image, and it is still in its initial placement from text insertion.",
+      "unit_after_state": "The caption has been moved slightly upward into a cleaner lower-center position on the square photo.",
+      "unit_precondition": [
+        "A caption text layer already exists and is visible on the canvas.",
+        "The Move Tool is available in the toolbox.",
+        "The caption can be selected and dragged on the canvas."
+      ],
+      "unit_effect": [
+        "The Move Tool becomes active.",
+        "Dragging the caption changes its visible position so it no longer sits as close to the image edge."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        13,
+        14,
+        15,
+        16,
+        17
+      ],
+      "unit_intent": "Export the finished edited image to the requested PNG file path.",
+      "unit_type": "EXPORT_IMAGE_AS_PNG",
+      "unit_before_state": "The edited square image with the \"Morning Walk\" caption is visible in the GIMP editor, and no export dialog is currently open.",
+      "unit_after_state": "Both export dialogs have closed, and the finished image has been written to /home/user/Pictures/park_walk_post.png.",
+      "unit_precondition": [
+        "The crop and caption edits are already complete.",
+        "The GIMP main window is focused.",
+        "The destination directory /home/user/Pictures/ is available for writing."
+      ],
+      "unit_effect": [
+        "The Export Image dialog opens, switches to direct path entry, and accepts /home/user/Pictures/park_walk_post.png as the destination.",
+        "Clicking Export advances to the PNG export settings dialog.",
+        "Clicking the final Export button closes the dialog and creates /home/user/Pictures/park_walk_post.png."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Load the requested source photo into GIMP so editing can begin on the correct image.",
+      "unit_type": "OPEN_IMAGE_FROM_PATH",
+      "unit_before_state": "GIMP is open on its main workspace with no modal dialog shown and no image from this task loaded on the canvas.",
+      "unit_after_state": "The Open Image dialog has closed, and /home/user/Pictures/park_walk.jpg is open as the active image on the GIMP canvas.",
+      "unit_precondition": [
+        "The GIMP main window is focused.",
+        "No other modal dialog is blocking input.",
+        "The file /home/user/Pictures/park_walk.jpg exists and is readable."
+      ],
+      "unit_effect": [
+        "An Open Image dialog appears, switches to a location-entry mode, accepts the full file path, and then closes.",
+        "The photo from /home/user/Pictures/park_walk.jpg becomes visible as the active canvas image."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a specified image file in GIMP by invoking the Open Image dialog, switching to direct path entry, and submitting the file path.",
+      "parameters": {
+        "source_image_path": "/home/user/Pictures/park_walk.jpg"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'o']}",
+          "action_template": "With the GIMP window active and no modal dialog blocking the main window, press Ctrl+O to bring up the Open Image dialog so the specified image can be chosen for editing. After this action, the Open Image dialog appears in front of the editor."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'l']}",
+          "action_template": "When the Open Image dialog is focused and accepts keyboard shortcuts, press Ctrl+L to show the location bar so the file path can be entered directly instead of browsing manually. After this action, a location entry field appears."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '/home/user/Pictures/park_walk.jpg'}",
+          "action_template": "Once the location field is visible and the text cursor is inside it, type {{source_image_path}} so GIMP knows which file to open. After this action, the full source path is filled into the dialog's location field."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After {{source_image_path}} has been entered, the path points to an existing image file, and the file chooser is still focused, press Enter to open the image. After this action, the dialog closes and the image opens on the GIMP canvas as the active image."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Convert the photo into a square composition centered around the main subject.",
+      "unit_type": "CROP_IMAGE_TO_SQUARE",
+      "unit_before_state": "The source photo is open on the GIMP canvas at full size, and no crop has been committed yet.",
+      "unit_after_state": "The canvas shows only the selected square portion of the photo, with everything outside the crop removed.",
+      "unit_precondition": [
+        "An image is already open in GIMP.",
+        "The main subject is visible on the canvas.",
+        "The Crop Tool can be activated from the current editing view."
+      ],
+      "unit_effect": [
+        "The Crop Tool becomes active and a square crop rectangle appears over the photo.",
+        "Pressing Enter commits the crop and the image bounds shrink to the selected square region."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Crop an open image to a square composition around a target subject.",
+      "parameters": {
+        "target_subject": "main subject",
+        "crop_start_region": "the upper-left area of the desired square crop on the photo",
+        "crop_end_region": "the lower-right area that frames the subject and keeps the crop square"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['shift', 'c']}",
+          "action_template": "With an image open in GIMP and the main editing canvas visible, press Shift+C to switch to the Crop Tool so you can define a new square framing around {{target_subject}}; the Crop Tool becomes active and the cursor changes to the crop cursor."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the upper-left area of the desired square crop on the photo'}, 'end': {'text': 'the lower-right area that frames the subject and keeps the crop roughly square'}, 'target': {'begin': {'text': 'the upper-left area of the desired square crop on the photo'}, 'end': {'text': 'the lower-right area that frames the subject and keeps the crop square'}}}",
+          "action_template": "With the Crop Tool selected and the image area containing {{target_subject}} visible, drag from {{crop_start_region}} to {{crop_end_region}} to form a square crop around {{target_subject}}; a crop rectangle appears over the image, highlighting the selected square region."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After a square crop region has already been drawn around {{target_subject}} and the crop overlay is still active, press Enter to commit the crop; everything outside the selected crop is removed, leaving only the square image area."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        8,
+        9,
+        10
+      ],
+      "unit_intent": "Add the requested caption text onto the lower part of the square image.",
+      "unit_type": "ADD_TEXT_CAPTION",
+      "unit_before_state": "The cropped square photo is visible on the canvas, and no new caption text box has been placed for this task.",
+      "unit_after_state": "A text box exists near the lower-center area of the image and displays the caption \"Morning Walk\" on top of the photo.",
+      "unit_precondition": [
+        "The square crop has already been applied.",
+        "The GIMP toolbox is visible.",
+        "There is space near the bottom of the image where a caption can be inserted."
+      ],
+      "unit_effect": [
+        "The Text Tool is activated from the toolbox.",
+        "Clicking the image creates an editable text box with a visible insertion cursor.",
+        "Typing \"Morning Walk\" makes that caption appear on the image."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Add a specified caption text onto the image at a chosen caption placement area.",
+      "parameters": {
+        "caption_placement_area": "the lower-center area of the image canvas where the caption should appear",
+        "caption_text": "Morning Walk"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Text Tool icon in the left toolbox'}}",
+          "action_template": "With the image ready, click the Text Tool icon in the toolbox so you can add a caption to the picture. Preconditions: the crop has already been applied and the GIMP toolbox is visible. After this action, the Text Tool is activated, ready to place a text box on the image."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the lower-center area of the image canvas where the caption should appear'}}",
+          "action_template": "After selecting the Text Tool, click {{caption_placement_area}} to create a text box where the caption will be inserted. Preconditions: the Text Tool is selected and there is open space near the bottom area of the image for a caption. After this action, a text box appears on the canvas and the text cursor is placed inside it."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Morning Walk'}",
+          "action_template": "When the text box is active, type {{caption_text}} so the image gets the requested caption. Preconditions: the text insertion cursor is visible inside the text box and the Text Tool is still active. After this action, the caption text appears inside the text box on top of the image."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        11,
+        12
+      ],
+      "unit_intent": "Refine the caption placement so it sits cleanly near the bottom of the image.",
+      "unit_type": "POSITION_TEXT_LAYER",
+      "unit_before_state": "The caption \"Morning Walk\" is visible on the image, and it is still in its initial placement from text insertion.",
+      "unit_after_state": "The caption has been moved slightly upward into a cleaner lower-center position on the square photo.",
+      "unit_precondition": [
+        "A caption text layer already exists and is visible on the canvas.",
+        "The Move Tool is available in the toolbox.",
+        "The caption can be selected and dragged on the canvas."
+      ],
+      "unit_effect": [
+        "The Move Tool becomes active.",
+        "Dragging the caption changes its visible position so it no longer sits as close to the image edge."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Reposition an existing caption text layer into a cleaner specified area of the image.",
+      "parameters": {
+        "target_text_layer": "the caption text on the lower part of the image",
+        "target_position": "a point slightly higher in the lower-center area of the image",
+        "target_region": "the lower-center area of the image"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Move Tool icon in the left toolbox'}}",
+          "action_template": "Click the Move Tool icon in the left toolbox while {{target_text_layer}} is present on the canvas so it can be repositioned toward {{target_region}}. This activates the Move Tool for moving objects on the canvas."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the caption text on the lower part of the image'}, 'end': {'text': 'a point slightly higher in the lower-center area of the image'}, 'target': {'begin': {'text': 'the caption text on the lower part of the image'}, 'end': {'text': 'a point slightly higher in the lower-center area of the image'}}}",
+          "action_template": "With the Move Tool selected and {{target_text_layer}} visible, drag {{target_text_layer}} to {{target_position}} so it sits more neatly in {{target_region}} without touching the image edge. This repositions the caption into a cleaner placement on the photo."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        13,
+        14,
+        15,
+        16,
+        17
+      ],
+      "unit_intent": "Export the finished edited image to the requested PNG file path.",
+      "unit_type": "EXPORT_IMAGE_AS_PNG",
+      "unit_before_state": "The edited square image with the \"Morning Walk\" caption is visible in the GIMP editor, and no export dialog is currently open.",
+      "unit_after_state": "Both export dialogs have closed, and the finished image has been written to /home/user/Pictures/park_walk_post.png.",
+      "unit_precondition": [
+        "The crop and caption edits are already complete.",
+        "The GIMP main window is focused.",
+        "The destination directory /home/user/Pictures/ is available for writing."
+      ],
+      "unit_effect": [
+        "The Export Image dialog opens, switches to direct path entry, and accepts /home/user/Pictures/park_walk_post.png as the destination.",
+        "Clicking Export advances to the PNG export settings dialog.",
+        "Clicking the final Export button closes the dialog and creates /home/user/Pictures/park_walk_post.png."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Export the finished edited image to a specified PNG file path.",
+      "parameters": {
+        "output_file_path": "/home/user/Pictures/park_walk_post.png"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'e']}",
+          "action_template": "Press Ctrl+Shift+E to open the export dialog and start saving the finished image as a PNG file once the edits are complete and the GIMP main window is focused."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'l']}",
+          "action_template": "Press Ctrl+L in the active Export Image dialog to show the location entry field for direct path entry."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '/home/user/Pictures/park_walk_post.png'}",
+          "action_template": "Type {{output_file_path}} into the location field when the location entry is visible and focused to set the PNG export destination."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Export button in the Export Image dialog'}}",
+          "action_template": "Click the Export button in the Export Image dialog after entering the destination path to proceed to the PNG export settings dialog."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Export button in the PNG export settings dialog'}}",
+          "action_template": "Click the Export button in the PNG export settings dialog to write the PNG file to {{output_file_path}} and close the dialog."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

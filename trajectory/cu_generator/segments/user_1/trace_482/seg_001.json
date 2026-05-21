@@ -1,0 +1,286 @@
+{
+  "segment_id": "seg_001",
+  "app": "vlc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the Tools menu to access audio synchronization options",
+      "action_before_state": "VLC is playing a video with audio that appears to be out of sync. The main VLC window is visible with the menu bar at the top showing Media, Playback, Audio, Video, Subtitle, Tools, View, Help.",
+      "action_preconditions": [
+        "VLC media player is open and actively playing a video file",
+        "The menu bar is visible and accessible",
+        "The video has noticeable audio sync issues"
+      ],
+      "action": {
+        "type": "CLICK",
+        "target": {
+          "text": "Tools menu in the menu bar"
+        },
+        "button": "left",
+        "num_clicks": 1
+      },
+      "action_after_effects": "The Tools dropdown menu appears showing options including Effects and Filters, Preferences, etc.",
+      "nl_explanation": "Click on the 'Tools' menu in the top menu bar of VLC to access audio effects and synchronization options."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Open the Effects and Filters dialog",
+      "action_before_state": "The Tools menu is open showing a dropdown list of options including 'Effects and Filters', 'Media Information', 'Codec Information', etc.",
+      "action_preconditions": [
+        "The Tools menu dropdown is currently open and visible",
+        "The 'Effects and Filters' option is accessible in the menu"
+      ],
+      "action": {
+        "type": "CLICK",
+        "target": {
+          "text": "Effects and Filters option in Tools menu"
+        },
+        "button": "left",
+        "num_clicks": 1
+      },
+      "action_after_effects": "The 'Adjustments and Effects' dialog window opens, displaying tabs for 'Audio Effects', 'Video Effects', and 'Synchronization'.",
+      "nl_explanation": "Click on 'Effects and Filters' in the Tools dropdown menu to open the audio and video effects dialog."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Navigate to the Synchronization tab to access audio delay controls",
+      "action_before_state": "The 'Adjustments and Effects' dialog is open, currently showing the 'Audio Effects' tab by default. Tabs visible include 'Audio Effects', 'Video Effects', and 'Synchronization'.",
+      "action_preconditions": [
+        "The Effects and Filters dialog is open",
+        "The Synchronization tab is visible and clickable at the top of the dialog"
+      ],
+      "action": {
+        "type": "CLICK",
+        "target": {
+          "text": "Synchronization tab in Effects and Filters dialog"
+        },
+        "button": "left",
+        "num_clicks": 1
+      },
+      "action_after_effects": "The Synchronization tab becomes active, displaying options for 'Audio track synchronization' with a slider and input field showing '0.000s', along with 'Subtitles/Video' synchronization options.",
+      "nl_explanation": "Click on the 'Synchronization' tab to access the audio delay adjustment controls."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Adjust the audio track synchronization to delay the audio and fix sync issues",
+      "action_before_state": "The Synchronization tab is active showing the 'Audio track synchronization' control with a slider currently set at 0.000s. The video appears to have audio that is ahead of the video (lip movements).",
+      "action_preconditions": [
+        "The Synchronization tab is open and active",
+        "The Audio track synchronization slider is visible",
+        "The video is playing with audio sync issues"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "target": {
+          "text": "Audio track synchronization slider handle"
+        },
+        "begin": {
+          "text": "current slider position at 0.000s"
+        },
+        "end": {
+          "text": "position approximately 50 pixels to the right to set ~0.500s delay"
+        }
+      },
+      "action_after_effects": "The Audio track synchronization slider moves to approximately 0.500s (or user adjusts to desired value), and the audio playback delay is updated. The user should observe whether this corrects the lip-sync issue or if further adjustment is needed.",
+      "nl_explanation": "Drag the 'Audio track synchronization' slider to the right to add a positive delay (approximately 0.5 seconds) to the audio track, which will delay the audio to match the video timing and help correct the synchronization issue."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Close the Effects and Filters dialog to return to normal video viewing",
+      "action_before_state": "The Effects and Filters dialog is open on the Synchronization tab showing the adjusted audio delay setting (approximately 0.500s). The audio sync has been adjusted and the video is playing in the background.",
+      "action_preconditions": [
+        "The audio delay has been successfully adjusted",
+        "The Effects and Filters dialog is still open",
+        "The video is playing with adjusted audio sync"
+      ],
+      "action": {
+        "type": "CLICK",
+        "target": {
+          "text": "x button at the top-right corner of the Adjustments and Effects dialog"
+        },
+        "button": "left",
+        "num_clicks": 1
+      },
+      "action_after_effects": "The Adjustments and Effects dialog closes, returning focus to the main VLC window with the video playing fullscreen or in window mode, with the audio now properly synchronized with the video.",
+      "nl_explanation": "Click the 'x' button to dismiss the Adjustments and Effects dialog and return to watching the video with the adjusted audio synchronization."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Reach VLC's audio synchronization controls so the audio timing can be corrected.",
+      "unit_type": "OPEN_AUDIO_SYNC_CONTROLS",
+      "unit_before_state": "VLC Media Player is open and playing a video in the main window. The top menu bar is visible with items including Media, Playback, Audio, Video, Subtitle, Tools, View, and Help, and no settings dialog is open yet.",
+      "unit_after_state": "The Adjustments and Effects dialog is open on the Synchronization tab. The Audio track synchronization control is visible with its slider and value field showing 0.000s, alongside other synchronization options.",
+      "unit_precondition": [
+        "VLC is open with a video currently playing.",
+        "The top menu bar is visible and the Tools menu can be opened.",
+        "The user has identified that the video's audio timing needs adjustment."
+      ],
+      "unit_effect": [
+        "The Tools dropdown opens and Effects and Filters is available.",
+        "The Adjustments and Effects window appears.",
+        "The Synchronization tab becomes active and exposes the Audio track synchronization slider set to 0.000s."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4
+      ],
+      "unit_intent": "Delay the audio track so speech and lip movements line up better.",
+      "unit_type": "ADJUST_AUDIO_DELAY",
+      "unit_before_state": "The Synchronization tab is active in the Adjustments and Effects dialog, and the Audio track synchronization slider is visible at 0.000s while the video continues playing behind the dialog.",
+      "unit_after_state": "The Audio track synchronization slider has been moved to a positive value of about 0.500s in the Synchronization tab, so VLC is now applying an audio delay during playback.",
+      "unit_precondition": [
+        "The Adjustments and Effects dialog is open on the Synchronization tab.",
+        "The Audio track synchronization slider is visible and draggable.",
+        "The current sync issue is that the audio is heard too early relative to the video."
+      ],
+      "unit_effect": [
+        "The numeric synchronization value changes from 0.000s to an approximately positive 0.500s delay.",
+        "Playback uses the updated delay immediately, allowing the user to observe improved lip sync."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5
+      ],
+      "unit_intent": "Return to normal video viewing after applying the audio synchronization change.",
+      "unit_type": "CLOSE_SETTINGS_DIALOG",
+      "unit_before_state": "The Adjustments and Effects dialog remains open on the Synchronization tab, showing the adjusted audio delay value of about 0.500s while the video plays in the background.",
+      "unit_after_state": "The Adjustments and Effects dialog is closed, and the main VLC playback window is back in focus with the video continuing to play using the adjusted audio delay.",
+      "unit_precondition": [
+        "The audio delay has already been set to the desired value in the Synchronization tab.",
+        "The Adjustments and Effects dialog is still open and its close button is visible."
+      ],
+      "unit_effect": [
+        "The Adjustments and Effects dialog disappears from the screen.",
+        "Focus returns to the main VLC player window.",
+        "The video continues playing with the new synchronization setting in effect."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Reach VLC's audio synchronization controls so the audio timing can be corrected.",
+      "unit_type": "OPEN_AUDIO_SYNC_CONTROLS",
+      "unit_before_state": "VLC Media Player is open and playing a video in the main window. The top menu bar is visible with items including Media, Playback, Audio, Video, Subtitle, Tools, View, and Help, and no settings dialog is open yet.",
+      "unit_after_state": "The Adjustments and Effects dialog is open on the Synchronization tab. The Audio track synchronization control is visible with its slider and value field showing 0.000s, alongside other synchronization options.",
+      "unit_precondition": [
+        "VLC is open with a video currently playing.",
+        "The top menu bar is visible and the Tools menu can be opened.",
+        "The user has identified that the video's audio timing needs adjustment."
+      ],
+      "unit_effect": [
+        "The Tools dropdown opens and Effects and Filters is available.",
+        "The Adjustments and Effects window appears.",
+        "The Synchronization tab becomes active and exposes the Audio track synchronization slider set to 0.000s."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open the audio synchronization controls needed to adjust playback timing.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'target': {'text': 'Tools menu in the menu bar'}, 'button': 'left', 'num_clicks': 1}",
+          "action_template": "Click the Tools menu in the top menu bar to access audio effects and synchronization options when the media player is open, the menu bar is visible, and audio sync adjustment is needed; the Tools dropdown menu appears with options including Effects and Filters."
+        },
+        {
+          "action": "{'type': 'CLICK', 'target': {'text': 'Effects and Filters option in Tools menu'}, 'button': 'left', 'num_clicks': 1}",
+          "action_template": "Click Effects and Filters in the open Tools dropdown menu when that option is visible and accessible; the Adjustments and Effects dialog opens with tabs such as Audio Effects, Video Effects, and Synchronization."
+        },
+        {
+          "action": "{'type': 'CLICK', 'target': {'text': 'Synchronization tab in Effects and Filters dialog'}, 'button': 'left', 'num_clicks': 1}",
+          "action_template": "Click the Synchronization tab in the Adjustments and Effects dialog when the dialog is open and the tab is visible; the Synchronization tab becomes active and shows the Audio track synchronization controls, including the slider and value field."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4
+      ],
+      "unit_intent": "Delay the audio track so speech and lip movements line up better.",
+      "unit_type": "ADJUST_AUDIO_DELAY",
+      "unit_before_state": "The Synchronization tab is active in the Adjustments and Effects dialog, and the Audio track synchronization slider is visible at 0.000s while the video continues playing behind the dialog.",
+      "unit_after_state": "The Audio track synchronization slider has been moved to a positive value of about 0.500s in the Synchronization tab, so VLC is now applying an audio delay during playback.",
+      "unit_precondition": [
+        "The Adjustments and Effects dialog is open on the Synchronization tab.",
+        "The Audio track synchronization slider is visible and draggable.",
+        "The current sync issue is that the audio is heard too early relative to the video."
+      ],
+      "unit_effect": [
+        "The numeric synchronization value changes from 0.000s to an approximately positive 0.500s delay.",
+        "Playback uses the updated delay immediately, allowing the user to observe improved lip sync."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Apply a specified positive audio delay to improve audio-video synchronization during playback.",
+      "parameters": {
+        "target_slider_handle": "Audio track synchronization slider handle",
+        "delay_value": "approximately 0.500s"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'target': {'text': 'Audio track synchronization slider handle'}, 'begin': {'text': 'current slider position at 0.000s'}, 'end': {'text': 'position approximately 50 pixels to the right to set ~0.500s delay'}}",
+          "action_template": "Drag {{target_slider_handle}} from its current position to the right until the audio track synchronization reaches {{delay_value}} while the Synchronization tab is active and the slider is visible, so the updated audio delay is applied during playback and lip sync can be checked."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5
+      ],
+      "unit_intent": "Return to normal video viewing after applying the audio synchronization change.",
+      "unit_type": "CLOSE_SETTINGS_DIALOG",
+      "unit_before_state": "The Adjustments and Effects dialog remains open on the Synchronization tab, showing the adjusted audio delay value of about 0.500s while the video plays in the background.",
+      "unit_after_state": "The Adjustments and Effects dialog is closed, and the main VLC playback window is back in focus with the video continuing to play using the adjusted audio delay.",
+      "unit_precondition": [
+        "The audio delay has already been set to the desired value in the Synchronization tab.",
+        "The Adjustments and Effects dialog is still open and its close button is visible."
+      ],
+      "unit_effect": [
+        "The Adjustments and Effects dialog disappears from the screen.",
+        "Focus returns to the main VLC player window.",
+        "The video continues playing with the new synchronization setting in effect."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Close the adjustment dialog and return to normal media playback after applying the desired synchronization setting.",
+      "parameters": {
+        "settings_dialog": "Adjustments and Effects dialog",
+        "close_button": "x button at the top-right corner of the Adjustments and Effects dialog"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'target': {'text': 'x button at the top-right corner of the Adjustments and Effects dialog'}, 'button': 'left', 'num_clicks': 1}",
+          "action_template": "Click {{close_button}} when the synchronization adjustment has already been set and {{settings_dialog}} is still open, to dismiss {{settings_dialog}} and return focus to the main playback window with the updated synchronization still in effect."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

@@ -1,0 +1,570 @@
+{
+  "segment_id": "seg_001",
+  "app": "os",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open Terminal",
+      "action_before_state": "A normal GNOME desktop or another window is visible on screen.",
+      "action_preconditions": [
+        "The system is on a Linux desktop using GNOME.",
+        "Keyboard input is available."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "alt",
+          "t"
+        ]
+      },
+      "action_after_effects": "A Terminal window opens and shows a shell prompt ready for commands.",
+      "nl_explanation": "When the GNOME desktop is ready to accept keyboard input, press Ctrl+Alt+T to open Terminal. The expected result is a shell prompt where backup commands can be entered."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Prepare a backup destination folder",
+      "action_before_state": "Terminal is open and the cursor is at an empty shell prompt.",
+      "action_preconditions": [
+        "Terminal is focused.",
+        "A command prompt is visible."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "mkdir -p ~/Documents/Backups"
+      },
+      "action_after_effects": "The mkdir command text appears at the shell prompt.",
+      "nl_explanation": "With Terminal focused and the prompt visible, type the command to create `~/Documents/Backups`. This prepares the destination location for the archive."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Create the Backups folder",
+      "action_before_state": "The `mkdir -p ~/Documents/Backups` command is fully typed in Terminal.",
+      "action_preconditions": [
+        "The command line contains the folder-creation command.",
+        "The shell is waiting for execution."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The command runs, and the shell returns to a prompt without errors if the folder was created successfully.",
+      "nl_explanation": "Once the `mkdir` command is typed, press Enter to run it. The expected result is that the `Backups` folder now exists inside `Documents`."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Type the archive command for the Notes folder",
+      "action_before_state": "Terminal is still open with a fresh prompt after creating the folder.",
+      "action_preconditions": [
+        "The shell prompt is visible again.",
+        "The `Documents/Notes` folder is the content to be backed up."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "tar -czf ~/Documents/Backups/notes-backup-$(date +%F).tar.gz -C ~/Documents Notes"
+      },
+      "action_after_effects": "The full tar command is visible in Terminal and ready to be executed.",
+      "nl_explanation": "At a fresh Terminal prompt, type the tar command that creates a compressed archive named with today's date inside `~/Documents/Backups`. This sets up the actual backup action."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Create the dated backup archive",
+      "action_before_state": "The tar command is fully typed at the shell prompt.",
+      "action_preconditions": [
+        "The tar command is visible in Terminal.",
+        "The shell is waiting for execution."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "Terminal processes the archive command and returns to the prompt; a new file named like `notes-backup-YYYY-MM-DD.tar.gz` is created in `~/Documents/Backups`.",
+      "nl_explanation": "After the tar command is ready, press Enter to create the compressed backup. The expected result is a dated `.tar.gz` archive stored in the `Backups` folder."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Open the GNOME Activities overview to launch Files",
+      "action_before_state": "Terminal remains visible after the backup command finishes.",
+      "action_preconditions": [
+        "The backup command has completed.",
+        "Keyboard input is still available."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "super"
+        ]
+      },
+      "action_after_effects": "The GNOME Activities overview opens and the search field becomes ready for input.",
+      "nl_explanation": "When the backup is finished, press the Super key to open the Activities overview. The expected result is that search is ready so Files can be launched quickly."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Search for the Files application",
+      "action_before_state": "The Activities overview is open with search input ready.",
+      "action_preconditions": [
+        "The overview search field is active.",
+        "Application search is available."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Files"
+      },
+      "action_after_effects": "Search results appear and show the Files application icon.",
+      "nl_explanation": "With the Activities overview open, type `Files` so GNOME searches for the file manager. The expected result is that the Files app appears in the search results."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Launch Files",
+      "action_before_state": "The Files application appears as the active search result in Activities.",
+      "action_preconditions": [
+        "The Files icon is visible in search results.",
+        "The search result is ready to open."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The Files window opens in the foreground.",
+      "nl_explanation": "When Files appears in the Activities search results, press Enter to open it. The expected result is that the GNOME file manager becomes the active window."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Focus the location bar in Files",
+      "action_before_state": "Files is open and showing its current folder view.",
+      "action_preconditions": [
+        "The Files window is focused.",
+        "Keyboard shortcuts are accepted by Files."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "l"
+        ]
+      },
+      "action_after_effects": "The location bar becomes active and ready for a path to be typed.",
+      "nl_explanation": "With the Files window focused, press Ctrl+L to switch to the location bar. The expected result is a text field where the backup folder path can be entered directly."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Enter the backup folder path",
+      "action_before_state": "The Files location bar is active and empty or selected.",
+      "action_preconditions": [
+        "The location bar has keyboard focus.",
+        "Files is ready to navigate to a typed path."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "~/Documents/Backups"
+      },
+      "action_after_effects": "The backup folder path is shown in the location bar, ready to open.",
+      "nl_explanation": "When the location bar is active in Files, type `~/Documents/Backups`. This prepares Files to jump directly to the folder containing the new archive."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Open the Backups folder",
+      "action_before_state": "The path `~/Documents/Backups` is visible in the Files location bar.",
+      "action_preconditions": [
+        "The location bar contains the backup folder path.",
+        "Files is waiting to navigate."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "Files navigates to `~/Documents/Backups` and displays its contents, including the newly created backup archive.",
+      "nl_explanation": "After the path is entered in the Files location bar, press Enter to open that folder. The expected result is that the backup directory is shown on screen."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Visually confirm the new archive file",
+      "action_before_state": "The Backups folder is open and its file list is visible.",
+      "action_preconditions": [
+        "Files is displaying the contents of `~/Documents/Backups`.",
+        "An archive whose name starts with `notes-backup-` is visible in the file list."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the archive file whose name starts with `notes-backup-` in the Backups folder"
+        }
+      },
+      "action_after_effects": "The archive file becomes selected, confirming that the dated backup was created successfully.",
+      "nl_explanation": "When the Backups folder contents are visible and the new `notes-backup-...tar.gz` file can be seen, single-click that archive to select it. The expected result is a highlighted file entry that confirms the backup exists."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Open a command-line workspace to perform the backup operations.",
+      "unit_type": "OPEN_TERMINAL",
+      "unit_before_state": "A GNOME desktop or another application window is visible, and no terminal for running backup commands is open in the foreground.",
+      "unit_after_state": "A Terminal window is open in the foreground with a shell prompt ready for input.",
+      "unit_precondition": [
+        "The system is running a GNOME desktop session.",
+        "Keyboard input is available and global shortcuts are accepted."
+      ],
+      "unit_effect": [
+        "A new Terminal window appears.",
+        "A shell prompt is visible and ready to accept commands."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3
+      ],
+      "unit_intent": "Prepare a dedicated backup destination inside Documents before creating the archive.",
+      "unit_type": "CREATE_FOLDER",
+      "unit_before_state": "Terminal is focused at an empty shell prompt, and the Documents folder may or may not already contain a Backups subfolder.",
+      "unit_after_state": "The shell returns to a fresh prompt after running the mkdir command, and `~/Documents/Backups` exists as the backup destination folder.",
+      "unit_precondition": [
+        "Terminal is focused with a visible shell prompt.",
+        "The user has permission to create folders inside `~/Documents`."
+      ],
+      "unit_effect": [
+        "`mkdir -p ~/Documents/Backups` is executed without an error message.",
+        "A fresh shell prompt reappears, indicating the command finished and the Backups folder is available."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Create a dated compressed backup of the entire Notes folder.",
+      "unit_type": "CREATE_ARCHIVE",
+      "unit_before_state": "Terminal is open at a fresh prompt after the Backups folder has been prepared, and the `~/Documents/Notes` folder exists as the source to archive.",
+      "unit_after_state": "Terminal has finished running the tar command and returned to a prompt; a dated archive such as `notes-backup-2026-04-12.tar.gz` now exists inside `~/Documents/Backups`.",
+      "unit_precondition": [
+        "`~/Documents/Backups` already exists.",
+        "`~/Documents/Notes` exists and is readable.",
+        "Terminal is focused with a shell prompt ready for command entry."
+      ],
+      "unit_effect": [
+        "The full tar command runs and Terminal returns to the prompt without showing a failure.",
+        "A new `.tar.gz` file with the `notes-backup-2026-04-12` date stamp is created in the Backups folder."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Open the file manager so the backup folder can be checked visually.",
+      "unit_type": "LAUNCH_APP_FROM_SEARCH",
+      "unit_before_state": "Terminal remains visible after the backup command completes, and the GNOME Activities overview is not yet open.",
+      "unit_after_state": "A Files window is open in the foreground and ready for navigation.",
+      "unit_precondition": [
+        "The backup command has already finished.",
+        "Keyboard input is still available.",
+        "GNOME Activities search can be used to launch applications."
+      ],
+      "unit_effect": [
+        "The Activities overview opens and shows a search field.",
+        "Typing `Files` reveals the Files application in search results.",
+        "Pressing Enter opens the Files app in the foreground."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        9,
+        10,
+        11
+      ],
+      "unit_intent": "Navigate the file manager directly to the Backups folder that should contain the new archive.",
+      "unit_type": "NAVIGATE_TO_FOLDER",
+      "unit_before_state": "Files is open and showing its current folder view, not yet focused on the `~/Documents/Backups` location.",
+      "unit_after_state": "Files is displaying the contents of `~/Documents/Backups`, including the newly created dated archive in the file list.",
+      "unit_precondition": [
+        "The Files window is focused.",
+        "Files accepts keyboard shortcuts and path entry in the location bar.",
+        "The `~/Documents/Backups` folder exists."
+      ],
+      "unit_effect": [
+        "The location bar becomes active after `Ctrl+L`.",
+        "The path `~/Documents/Backups` is entered and accepted.",
+        "The main file pane updates to show the Backups folder contents."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        12
+      ],
+      "unit_intent": "Visually verify that the dated backup archive is present in the backup folder.",
+      "unit_type": "VERIFY_ARCHIVE_EXISTS",
+      "unit_before_state": "Files is open to `~/Documents/Backups`, and the file list shows an archive whose name starts with `notes-backup-`, such as `notes-backup-2026-04-12.tar.gz`.",
+      "unit_after_state": "The `notes-backup-2026-04-12.tar.gz` archive entry is selected in the Backups folder view.",
+      "unit_precondition": [
+        "Files is displaying `~/Documents/Backups`.",
+        "A `notes-backup-*.tar.gz` file is visible in the file list and can be clicked."
+      ],
+      "unit_effect": [
+        "The archive row becomes highlighted after the click.",
+        "The visible selected file confirms that the dated backup archive exists in the folder."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Open a command-line workspace to perform the backup operations.",
+      "unit_type": "OPEN_TERMINAL",
+      "unit_before_state": "A GNOME desktop or another application window is visible, and no terminal for running backup commands is open in the foreground.",
+      "unit_after_state": "A Terminal window is open in the foreground with a shell prompt ready for input.",
+      "unit_precondition": [
+        "The system is running a GNOME desktop session.",
+        "Keyboard input is available and global shortcuts are accepted."
+      ],
+      "unit_effect": [
+        "A new Terminal window appears.",
+        "A shell prompt is visible and ready to accept commands."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a terminal window with a shell prompt ready for command execution.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'alt', 't']}",
+          "action_template": "When the GNOME desktop is ready to accept keyboard input, press Ctrl+Alt+T to open Terminal. The expected result is that a Terminal window opens and shows a shell prompt ready for commands."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3
+      ],
+      "unit_intent": "Prepare a dedicated backup destination inside Documents before creating the archive.",
+      "unit_type": "CREATE_FOLDER",
+      "unit_before_state": "Terminal is focused at an empty shell prompt, and the Documents folder may or may not already contain a Backups subfolder.",
+      "unit_after_state": "The shell returns to a fresh prompt after running the mkdir command, and `~/Documents/Backups` exists as the backup destination folder.",
+      "unit_precondition": [
+        "Terminal is focused with a visible shell prompt.",
+        "The user has permission to create folders inside `~/Documents`."
+      ],
+      "unit_effect": [
+        "`mkdir -p ~/Documents/Backups` is executed without an error message.",
+        "A fresh shell prompt reappears, indicating the command finished and the Backups folder is available."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a specified backup destination folder inside a parent directory before storing an archive.",
+      "parameters": {
+        "parent_directory": "~/Documents",
+        "folder_name": "Backups",
+        "target_folder_path": "~/Documents/Backups",
+        "create_folder_command": "mkdir -p ~/Documents/Backups"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "TYPING",
+          "action_template": "With Terminal focused and the prompt visible, type `{{create_folder_command}}` to create `{{target_folder_path}}`. This prepares the destination location for the archive."
+        },
+        {
+          "action": "PRESS",
+          "action_template": "Once the command for `{{target_folder_path}}` is typed, press Enter to run it. The expected result is that the `{{folder_name}}` folder now exists inside `{{parent_directory}}` and the shell returns to a fresh prompt without errors."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Create a dated compressed backup of the entire Notes folder.",
+      "unit_type": "CREATE_ARCHIVE",
+      "unit_before_state": "Terminal is open at a fresh prompt after the Backups folder has been prepared, and the `~/Documents/Notes` folder exists as the source to archive.",
+      "unit_after_state": "Terminal has finished running the tar command and returned to a prompt; a dated archive such as `notes-backup-2026-04-12.tar.gz` now exists inside `~/Documents/Backups`.",
+      "unit_precondition": [
+        "`~/Documents/Backups` already exists.",
+        "`~/Documents/Notes` exists and is readable.",
+        "Terminal is focused with a shell prompt ready for command entry."
+      ],
+      "unit_effect": [
+        "The full tar command runs and Terminal returns to the prompt without showing a failure.",
+        "A new `.tar.gz` file with the `notes-backup-2026-04-12` date stamp is created in the Backups folder."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a compressed backup archive of a specified source folder using a date-stamped filename in a specified backup directory.",
+      "parameters": {
+        "backup_directory_path": "~/Documents/Backups",
+        "archive_name_prefix": "notes-backup",
+        "source_parent_directory": "~/Documents",
+        "source_folder_name": "Notes"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'tar -czf ~/Documents/Backups/notes-backup-$(date +%F).tar.gz -C ~/Documents Notes'}",
+          "action_template": "With Terminal focused and a fresh shell prompt visible, type `tar -czf {{backup_directory_path}}/{{archive_name_prefix}}-$(date +%F).tar.gz -C {{source_parent_directory}} {{source_folder_name}}` to prepare the compressed archive command for {{source_folder_name}}. The full tar command should then be visible in Terminal and ready to be executed."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After the tar command is visible and the shell is waiting for execution, press Enter to run it. Terminal should process the archive command, return to the prompt, and create a new file named like `{{archive_name_prefix}}-YYYY-MM-DD.tar.gz` in {{backup_directory_path}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Open the file manager so the backup folder can be checked visually.",
+      "unit_type": "LAUNCH_APP_FROM_SEARCH",
+      "unit_before_state": "Terminal remains visible after the backup command completes, and the GNOME Activities overview is not yet open.",
+      "unit_after_state": "A Files window is open in the foreground and ready for navigation.",
+      "unit_precondition": [
+        "The backup command has already finished.",
+        "Keyboard input is still available.",
+        "GNOME Activities search can be used to launch applications."
+      ],
+      "unit_effect": [
+        "The Activities overview opens and shows a search field.",
+        "Typing `Files` reveals the Files application in search results.",
+        "Pressing Enter opens the Files app in the foreground."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Launch the system file manager from the GNOME Activities search so it is ready for navigation.",
+      "parameters": {
+        "target_application": "Files"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['super']}",
+          "action_template": "Press the Super key after the previous command has completed and keyboard input is available to open the GNOME Activities overview; the search field becomes ready for input so {{target_application}} can be launched."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Files'}",
+          "action_template": "Type {{target_application}} while the Activities search field is active and application search is available to find the file manager; search results show the {{target_application}} application icon."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter when {{target_application}} is visible and ready to open in the search results; the {{target_application}} window opens in the foreground."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        9,
+        10,
+        11
+      ],
+      "unit_intent": "Navigate the file manager directly to the Backups folder that should contain the new archive.",
+      "unit_type": "NAVIGATE_TO_FOLDER",
+      "unit_before_state": "Files is open and showing its current folder view, not yet focused on the `~/Documents/Backups` location.",
+      "unit_after_state": "Files is displaying the contents of `~/Documents/Backups`, including the newly created dated archive in the file list.",
+      "unit_precondition": [
+        "The Files window is focused.",
+        "Files accepts keyboard shortcuts and path entry in the location bar.",
+        "The `~/Documents/Backups` folder exists."
+      ],
+      "unit_effect": [
+        "The location bar becomes active after `Ctrl+L`.",
+        "The path `~/Documents/Backups` is entered and accepted.",
+        "The main file pane updates to show the Backups folder contents."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Navigate the file manager directly to a specified folder by entering its path in the location bar.",
+      "parameters": {
+        "target_folder_path": "~/Documents/Backups"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'l']}",
+          "action_template": "With the Files window focused and keyboard shortcuts accepted, press Ctrl+L to switch to the location bar so {{target_folder_path}} can be entered directly. The expected result is that the location bar becomes active and ready for a path to be typed."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '~/Documents/Backups'}",
+          "action_template": "When the location bar has keyboard focus and Files is ready to navigate to a typed path, type {{target_folder_path}}. This prepares Files to jump directly to the target folder, and the path is shown in the location bar ready to open."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After {{target_folder_path}} is entered in the Files location bar and Files is waiting to navigate, press Enter to open that folder. The expected result is that Files navigates to {{target_folder_path}} and displays its contents."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        12
+      ],
+      "unit_intent": "Visually verify that the dated backup archive is present in the backup folder.",
+      "unit_type": "VERIFY_ARCHIVE_EXISTS",
+      "unit_before_state": "Files is open to `~/Documents/Backups`, and the file list shows an archive whose name starts with `notes-backup-`, such as `notes-backup-2026-04-12.tar.gz`.",
+      "unit_after_state": "The `notes-backup-2026-04-12.tar.gz` archive entry is selected in the Backups folder view.",
+      "unit_precondition": [
+        "Files is displaying `~/Documents/Backups`.",
+        "A `notes-backup-*.tar.gz` file is visible in the file list and can be clicked."
+      ],
+      "unit_effect": [
+        "The archive row becomes highlighted after the click.",
+        "The visible selected file confirms that the dated backup archive exists in the folder."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Visually verify that a backup archive matching a specified naming pattern exists in a target folder.",
+      "parameters": {
+        "target_folder": "~/Documents/Backups",
+        "archive_name_prefix": "notes-backup-",
+        "archive_file_pattern": "notes-backup-*.tar.gz"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the archive file whose name starts with `notes-backup-` in the Backups folder'}}",
+          "action_template": "When {{target_folder}} is open and a visible archive matching {{archive_file_pattern}} can be seen, single-click the archive whose name starts with {{archive_name_prefix}} to select it. The expected result is a highlighted file entry that confirms the backup exists."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

@@ -1,0 +1,461 @@
+{
+  "segment_id": "seg_001",
+  "app": "thunderbird",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Select the local mail area where the new folder will be created",
+      "action_before_state": "Thunderbird is open in the main Mail view, with the folder pane on the left showing items such as Inbox and Local Folders.",
+      "action_preconditions": [
+        "The Thunderbird main window is active",
+        "The folder pane is visible on the left",
+        "The entry named Local Folders is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "Local Folders in the left folder pane"
+        }
+      },
+      "action_after_effects": "Local Folders becomes highlighted, showing it is the current target for folder-related actions.",
+      "nl_explanation": "When the main mail window is visible and Local Folders can be seen in the folder list, click Local Folders once. Thunderbird should highlight it, which prepares the next step of creating a new subfolder there."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Open the context menu for Local Folders",
+      "action_before_state": "Local Folders is selected in the folder pane.",
+      "action_preconditions": [
+        "Local Folders is still visible in the left pane",
+        "The mouse can be positioned over the Local Folders entry"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "right",
+        "num_clicks": 1,
+        "target": {
+          "text": "the highlighted Local Folders entry in the left folder pane"
+        }
+      },
+      "action_after_effects": "A context menu opens next to Local Folders with options including creating a new folder.",
+      "nl_explanation": "With Local Folders selected, right-click that entry to open its context menu. The expected result is a menu appearing with folder management options, including New Folder."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Start the new-folder creation flow",
+      "action_before_state": "The context menu for Local Folders is open.",
+      "action_preconditions": [
+        "The context menu is still open",
+        "An item such as New Folder or New Subfolder is visible in the menu"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "New Folder… in the Local Folders context menu"
+        }
+      },
+      "action_after_effects": "A dialog opens for naming the new folder, and the folder name input field is ready for text entry.",
+      "nl_explanation": "Once the context menu is open and New Folder is available, click that option. Thunderbird should open a small dialog where the folder name can be entered."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Enter the name of the new folder",
+      "action_before_state": "The new-folder dialog is open, and the folder name text box is focused.",
+      "action_preconditions": [
+        "The folder creation dialog is visible",
+        "The text cursor is in the folder name field"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Online Receipts"
+      },
+      "action_after_effects": "The text Online Receipts appears in the folder name field.",
+      "nl_explanation": "When the new-folder dialog is visible and the name box is focused, type Online Receipts. The result should be that the dialog now shows the exact folder name to be created."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Confirm creation of the new folder",
+      "action_before_state": "The new-folder dialog shows Online Receipts in the name field.",
+      "action_preconditions": [
+        "The folder name field contains Online Receipts",
+        "The dialog is ready to be confirmed"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The dialog closes, and a new folder named Online Receipts appears under Local Folders in the left pane.",
+      "nl_explanation": "After the folder name has been entered, press Enter to confirm the dialog. Thunderbird should close the popup and show the new Online Receipts folder beneath Local Folders."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Go to Inbox to find a receipt-related message",
+      "action_before_state": "The new Online Receipts folder exists in the folder pane, and the main Thunderbird window is still open.",
+      "action_preconditions": [
+        "The folder pane is visible",
+        "Inbox is visible in the folder list"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "Inbox in the left folder pane"
+        }
+      },
+      "action_after_effects": "The message list refreshes to show the emails currently in Inbox.",
+      "nl_explanation": "Once the new folder has been created, click Inbox in the folder pane. Thunderbird should switch the main list to show Inbox messages so a receipt email can be selected next."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Select a message that looks like a purchase receipt or order confirmation",
+      "action_before_state": "Inbox is open and the center message list shows available emails.",
+      "action_preconditions": [
+        "The Inbox message list is visible",
+        "At least one message with a subject resembling a receipt, invoice, shipping notice, or order confirmation is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "a message row in Inbox whose subject looks like a receipt or order confirmation"
+        }
+      },
+      "action_after_effects": "That email row becomes highlighted, indicating it is the currently selected message.",
+      "nl_explanation": "When the Inbox message list is visible and a receipt-like email can be identified, click that message once. The expected result is that the row becomes selected and ready to be moved."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Move the selected receipt email into the new folder",
+      "action_before_state": "A receipt-related email is selected in Inbox, and the Online Receipts folder is visible in the folder pane.",
+      "action_preconditions": [
+        "The receipt email is selected",
+        "Online Receipts is visible under Local Folders in the left pane"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the selected receipt email row in the Inbox message list"
+        },
+        "end": {
+          "text": "the Online Receipts folder under Local Folders in the left folder pane"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "The message is moved out of Inbox and dropped into Online Receipts.",
+      "nl_explanation": "With the receipt email selected and the new folder visible, drag the message from the message list to Online Receipts in the folder pane. Thunderbird should move the email there, removing it from Inbox."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Open the new folder to verify the moved message is there",
+      "action_before_state": "The email has just been dragged away from Inbox, and Online Receipts remains visible in the left pane.",
+      "action_preconditions": [
+        "The Online Receipts folder is visible",
+        "The move operation has completed"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "Online Receipts in the left folder pane"
+        }
+      },
+      "action_after_effects": "The main message list switches to Online Receipts and shows the moved email inside that folder.",
+      "nl_explanation": "After the drag-and-drop move finishes, click Online Receipts to open it. The expected result is that the message list now shows the moved receipt email in its new location."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Star the moved email for easier follow-up later",
+      "action_before_state": "The Online Receipts folder is open, and the moved receipt email is visible in the message list.",
+      "action_preconditions": [
+        "The moved email is visible in the Online Receipts message list",
+        "A star column or star icon is available on that message row"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the empty star icon or star column for the moved receipt email"
+        }
+      },
+      "action_after_effects": "The star icon turns on for that message, marking it as starred.",
+      "nl_explanation": "When the moved receipt email is visible inside Online Receipts, click its star icon once. Thunderbird should fill or highlight the star, confirming that the message is now starred and easy to find later."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "unit_intent": "Create a new local folder named Online Receipts under Local Folders so receipt emails can be organized there.",
+      "unit_type": "CREATE_LOCAL_FOLDER",
+      "unit_before_state": "Thunderbird is in the main Mail view with the folder pane visible on the left, including Local Folders, and no new-folder dialog is open yet.",
+      "unit_after_state": "A new folder named Online Receipts is visible under Local Folders in the left folder pane, and the folder-creation dialog has closed.",
+      "unit_precondition": [
+        "The Thunderbird main window is active in Mail view.",
+        "The folder pane is visible and the Local Folders entry can be seen and interacted with.",
+        "Folder creation is allowed from the Local Folders context menu."
+      ],
+      "unit_effect": [
+        "Local Folders becomes selected and its context menu opens.",
+        "A folder-creation dialog appears with a focused name field.",
+        "After confirmation, the dialog closes and Online Receipts appears beneath Local Folders."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Move one receipt or order-confirmation email out of Inbox and into the new Online Receipts folder.",
+      "unit_type": "MOVE_MESSAGE_TO_FOLDER",
+      "unit_before_state": "The Online Receipts folder already exists under Local Folders, and Thunderbird is still in the main Mail window with the folder pane visible.",
+      "unit_after_state": "The chosen receipt-like message has been removed from Inbox and dropped into the Online Receipts folder.",
+      "unit_precondition": [
+        "The Online Receipts folder is visible in the folder pane.",
+        "Inbox is visible and can be opened from the folder list.",
+        "At least one Inbox message with a receipt, invoice, shipping, or order-confirmation subject is visible and selectable."
+      ],
+      "unit_effect": [
+        "The message list switches to Inbox.",
+        "One receipt-related email row becomes highlighted as the selected message.",
+        "After the drag-and-drop, the selected message is moved out of Inbox into Online Receipts."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        9
+      ],
+      "unit_intent": "Open the destination folder and verify that the moved receipt email is now stored there.",
+      "unit_type": "OPEN_FOLDER_AND_VERIFY_MESSAGE",
+      "unit_before_state": "The message has just been moved from Inbox, and Online Receipts is visible in the folder pane but not yet opened for verification.",
+      "unit_after_state": "The Online Receipts folder is open in the main message list, and the moved email is visible inside it.",
+      "unit_precondition": [
+        "The move operation has completed.",
+        "The Online Receipts folder is visible and selectable in the left folder pane."
+      ],
+      "unit_effect": [
+        "The folder highlight switches to Online Receipts.",
+        "The message list refreshes to show the contents of Online Receipts, including the moved receipt email."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        10
+      ],
+      "unit_intent": "Mark the moved receipt email for easy future retrieval.",
+      "unit_type": "STAR_MESSAGE",
+      "unit_before_state": "Online Receipts is open, and the moved receipt email is visible in the message list with an available star control.",
+      "unit_after_state": "The moved receipt email remains in Online Receipts and now shows an enabled star indicator.",
+      "unit_precondition": [
+        "The Online Receipts folder is open.",
+        "The moved email is visible in the message list.",
+        "The message row has an unselected star icon or star column that can be clicked."
+      ],
+      "unit_effect": [
+        "The star icon on that message turns on or fills in.",
+        "The message is visibly marked as starred for later identification."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "unit_intent": "Create a new local folder named Online Receipts under Local Folders so receipt emails can be organized there.",
+      "unit_type": "CREATE_LOCAL_FOLDER",
+      "unit_before_state": "Thunderbird is in the main Mail view with the folder pane visible on the left, including Local Folders, and no new-folder dialog is open yet.",
+      "unit_after_state": "A new folder named Online Receipts is visible under Local Folders in the left folder pane, and the folder-creation dialog has closed.",
+      "unit_precondition": [
+        "The Thunderbird main window is active in Mail view.",
+        "The folder pane is visible and the Local Folders entry can be seen and interacted with.",
+        "Folder creation is allowed from the Local Folders context menu."
+      ],
+      "unit_effect": [
+        "Local Folders becomes selected and its context menu opens.",
+        "A folder-creation dialog appears with a focused name field.",
+        "After confirmation, the dialog closes and Online Receipts appears beneath Local Folders."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a new local mail folder with a specified name under a specified parent folder from the folder pane.",
+      "parameters": {
+        "parent_folder": "Local Folders",
+        "folder_name": "Online Receipts"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'Local Folders in the left folder pane'}}",
+          "action_template": "When the Thunderbird main window is active, the folder pane is visible, and {{parent_folder}} is visible in the folder list, click {{parent_folder}} once in the left folder pane. {{parent_folder}} should become highlighted, preparing the next step of creating a new subfolder there."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'right', 'num_clicks': 1, 'target': {'text': 'the highlighted Local Folders entry in the left folder pane'}}",
+          "action_template": "With {{parent_folder}} still visible and selected in the left pane, right-click the highlighted {{parent_folder}} entry. A context menu should open next to {{parent_folder}} with folder management options including creating a new folder."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'New Folder… in the Local Folders context menu'}}",
+          "action_template": "When the context menu for {{parent_folder}} is open and the new-folder option is visible, click that option. A dialog should open for naming the new folder, with the folder name input field ready for text entry."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Online Receipts'}",
+          "action_template": "When the folder creation dialog is visible and the text cursor is in the folder name field, type {{folder_name}}. The dialog should then show {{folder_name}} in the folder name field."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After the folder name field contains {{folder_name}} and the dialog is ready to be confirmed, press Enter. The dialog should close, and a new folder named {{folder_name}} should appear under {{parent_folder}} in the left pane."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Move one receipt or order-confirmation email out of Inbox and into the new Online Receipts folder.",
+      "unit_type": "MOVE_MESSAGE_TO_FOLDER",
+      "unit_before_state": "The Online Receipts folder already exists under Local Folders, and Thunderbird is still in the main Mail window with the folder pane visible.",
+      "unit_after_state": "The chosen receipt-like message has been removed from Inbox and dropped into the Online Receipts folder.",
+      "unit_precondition": [
+        "The Online Receipts folder is visible in the folder pane.",
+        "Inbox is visible and can be opened from the folder list.",
+        "At least one Inbox message with a receipt, invoice, shipping, or order-confirmation subject is visible and selectable."
+      ],
+      "unit_effect": [
+        "The message list switches to Inbox.",
+        "One receipt-related email row becomes highlighted as the selected message.",
+        "After the drag-and-drop, the selected message is moved out of Inbox into Online Receipts."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Move {{target_message_row}} from {{source_folder}} into {{destination_folder}}.",
+      "parameters": {
+        "source_folder": "Inbox",
+        "target_message_row": "a message row in Inbox whose subject looks like a receipt or order confirmation",
+        "destination_folder": "the Online Receipts folder under Local Folders in the left folder pane"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'Inbox in the left folder pane'}}",
+          "action_template": "Click {{source_folder}} in the folder pane when the folder pane is visible to switch the main message list to {{source_folder}} so {{target_message_row}} can be selected next."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'a message row in Inbox whose subject looks like a receipt or order confirmation'}}",
+          "action_template": "Click {{target_message_row}} when the {{source_folder}} message list is visible and that message is present so the email row becomes highlighted as the selected message."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the selected receipt email row in the Inbox message list'}, 'end': {'text': 'the Online Receipts folder under Local Folders in the left folder pane'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "Drag the selected {{target_message_row}} from the {{source_folder}} message list to {{destination_folder}} when the message is selected and the destination folder is visible so the message is moved out of {{source_folder}} and into {{destination_folder}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        9
+      ],
+      "unit_intent": "Open the destination folder and verify that the moved receipt email is now stored there.",
+      "unit_type": "OPEN_FOLDER_AND_VERIFY_MESSAGE",
+      "unit_before_state": "The message has just been moved from Inbox, and Online Receipts is visible in the folder pane but not yet opened for verification.",
+      "unit_after_state": "The Online Receipts folder is open in the main message list, and the moved email is visible inside it.",
+      "unit_precondition": [
+        "The move operation has completed.",
+        "The Online Receipts folder is visible and selectable in the left folder pane."
+      ],
+      "unit_effect": [
+        "The folder highlight switches to Online Receipts.",
+        "The message list refreshes to show the contents of Online Receipts, including the moved receipt email."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open {{target_folder}} and verify that {{expected_message}} appears there after the move.",
+      "parameters": {
+        "target_folder": "Online Receipts",
+        "expected_message": "the moved receipt email"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'Online Receipts in the left folder pane'}}",
+          "action_template": "After the move operation has completed and {{target_folder}} is visible, click {{target_folder}} in the left folder pane to open it. The expected result is that the main message list switches to {{target_folder}} and shows {{expected_message}} inside that folder."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        10
+      ],
+      "unit_intent": "Mark the moved receipt email for easy future retrieval.",
+      "unit_type": "STAR_MESSAGE",
+      "unit_before_state": "Online Receipts is open, and the moved receipt email is visible in the message list with an available star control.",
+      "unit_after_state": "The moved receipt email remains in Online Receipts and now shows an enabled star indicator.",
+      "unit_precondition": [
+        "The Online Receipts folder is open.",
+        "The moved email is visible in the message list.",
+        "The message row has an unselected star icon or star column that can be clicked."
+      ],
+      "unit_effect": [
+        "The star icon on that message turns on or fills in.",
+        "The message is visibly marked as starred for later identification."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Mark a specified visible email message as starred for easier future retrieval.",
+      "parameters": {
+        "target_folder": "Online Receipts",
+        "target_message": "moved receipt email"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the empty star icon or star column for the moved receipt email'}}",
+          "action_template": "When {{target_message}} is visible inside {{target_folder}}, click its star icon once. Thunderbird should fill or highlight the star, confirming that the message is now starred and easy to find later."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

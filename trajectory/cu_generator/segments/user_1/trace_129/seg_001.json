@@ -1,0 +1,758 @@
+{
+  "segment_id": "seg_001",
+  "app": "gimp",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the image selection dialog",
+      "action_before_state": "GIMP is already open on GNOME, showing its main editing window with no file chooser on top.",
+      "action_preconditions": [
+        "The GIMP window is focused.",
+        "No modal dialog is blocking keyboard input."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "o"
+        ]
+      },
+      "action_after_effects": "A GNOME file chooser opens in front of GIMP, ready for an image to be selected.",
+      "nl_explanation": "When the GIMP window is active and nothing is blocking input, press Ctrl+O to open the standard Open Image dialog so the photo can be loaded."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Move focus to the location entry in the file chooser",
+      "action_before_state": "The Open Image file chooser is visible, with the normal file list and sidebar.",
+      "action_preconditions": [
+        "The file chooser is the frontmost window.",
+        "Keyboard shortcuts are accepted by the file chooser."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "l"
+        ]
+      },
+      "action_after_effects": "The location field becomes active so a full file path can be typed directly.",
+      "nl_explanation": "With the file chooser open, press Ctrl+L to focus the location bar, which is a quick GNOME-friendly way to jump straight to the photo path."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Enter the path of the recipe card photo",
+      "action_before_state": "The file chooser location entry is focused and ready for text input.",
+      "action_preconditions": [
+        "The text cursor is visible in the location field.",
+        "The recipe card image exists at the path being entered."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "/home/user/Pictures/recipe_card.jpg"
+      },
+      "action_after_effects": "The full image path appears in the location field, prepared to be opened.",
+      "nl_explanation": "Once the location bar is active, type the full path to the recipe card image so GIMP knows exactly which file to load."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Open the selected recipe card photo",
+      "action_before_state": "The file chooser shows the typed path in the location field.",
+      "action_preconditions": [
+        "A valid image path has been entered.",
+        "The file chooser is still focused."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The file chooser closes and the recipe card photo opens on the GIMP canvas.",
+      "nl_explanation": "After the correct path is entered, press Enter to open the image so it appears in the main editing area."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Switch to the Rotate tool",
+      "action_before_state": "The recipe card photo is visible on the canvas, likely slightly tilted from the phone capture.",
+      "action_preconditions": [
+        "An image is open on the canvas.",
+        "The canvas is not covered by another dialog."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "shift",
+          "r"
+        ]
+      },
+      "action_after_effects": "The Rotate tool becomes active, allowing the image angle to be adjusted.",
+      "nl_explanation": "With the photo open, press Shift+R to activate the Rotate tool so the skewed card can be straightened."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Straighten the recipe card visually",
+      "action_before_state": "The Rotate tool is active and the recipe card is visible on the canvas.",
+      "action_preconditions": [
+        "The Rotate tool is selected.",
+        "The card edges are visible enough to judge alignment."
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "a point near the upper edge of the tilted recipe card on the canvas"
+        },
+        "end": {
+          "text": "a point that makes the card edges appear level in the rotation preview"
+        },
+        "target": {
+          "begin": {
+            "text": "the canvas at a point on the tilted recipe card"
+          },
+          "end": {
+            "text": "the canvas position that levels the card in the preview"
+          }
+        }
+      },
+      "action_after_effects": "A rotation preview appears and the image angle changes so the recipe card looks straighter.",
+      "nl_explanation": "When the Rotate tool is active, drag on the image until the recipe card looks level in the preview, which sets up a cleaner final crop."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Apply the rotation",
+      "action_before_state": "The rotation preview is visible and the card looks properly aligned.",
+      "action_preconditions": [
+        "A Rotate dialog or transform overlay is visible.",
+        "The preview angle looks correct."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Rotate button in the rotate tool dialog"
+        }
+      },
+      "action_after_effects": "The rotation is committed to the image and the preview overlay disappears.",
+      "nl_explanation": "After the card looks level in the preview, click the Rotate button to finalize the straightening adjustment."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Switch to the Crop tool",
+      "action_before_state": "The straightened recipe card is visible on the canvas with extra desk or background around it.",
+      "action_preconditions": [
+        "The image is open and editable.",
+        "The goal is to remove unnecessary background around the card."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "shift",
+          "c"
+        ]
+      },
+      "action_after_effects": "The Crop tool becomes active and the next drag will define a crop area.",
+      "nl_explanation": "With the image now level, press Shift+C to activate the Crop tool so the surrounding background can be trimmed away."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Draw the crop box around the recipe card",
+      "action_before_state": "The Crop tool is active and the whole photo is visible.",
+      "action_preconditions": [
+        "The recipe card boundaries are clearly visible.",
+        "The Crop tool is selected."
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "just inside the top-left corner of the recipe card"
+        },
+        "end": {
+          "text": "just inside the bottom-right corner of the recipe card"
+        },
+        "target": {
+          "begin": {
+            "text": "the canvas near the card's top-left corner"
+          },
+          "end": {
+            "text": "the canvas near the card's bottom-right corner"
+          }
+        }
+      },
+      "action_after_effects": "A crop rectangle appears tightly around the recipe card, excluding most of the surrounding table.",
+      "nl_explanation": "Drag from one corner of the card to the opposite corner so the crop box frames only the useful content and removes the extra background."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Apply the crop",
+      "action_before_state": "The crop rectangle is visible and positioned around the recipe card.",
+      "action_preconditions": [
+        "A crop selection has already been drawn.",
+        "The selected area includes the important writing on the card."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The canvas is cropped down to the selected area, leaving a tighter image focused on the recipe card.",
+      "nl_explanation": "When the crop box is in the right place, press Enter to remove the outside area and keep only the recipe card itself."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Open the Colors menu",
+      "action_before_state": "The cropped recipe card is visible and ready for tonal adjustments.",
+      "action_preconditions": [
+        "The menu bar is visible at the top of GIMP.",
+        "No other modal dialog is blocking menu interaction."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Colors menu in the top menu bar"
+        }
+      },
+      "action_after_effects": "The Colors dropdown menu opens with image adjustment options.",
+      "nl_explanation": "After cropping, click the Colors menu to access brightness controls that can make the paper cleaner and the writing easier to read."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Open the Brightness-Contrast adjustment dialog",
+      "action_before_state": "The Colors menu is expanded and its adjustment options are visible.",
+      "action_preconditions": [
+        "The Colors dropdown is open.",
+        "Brightness-Contrast is available in the menu."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "Brightness-Contrast in the Colors dropdown"
+        }
+      },
+      "action_after_effects": "A Brightness-Contrast dialog opens and the image preview is ready to update live.",
+      "nl_explanation": "With the Colors menu open, click Brightness-Contrast so you can brighten the paper and improve readability without changing the original file."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Increase brightness to lighten the paper",
+      "action_before_state": "The Brightness-Contrast dialog is open with the brightness slider visible.",
+      "action_preconditions": [
+        "The Brightness-Contrast dialog is active.",
+        "The brightness slider knob is visible and draggable."
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the Brightness slider knob in the adjustment dialog"
+        },
+        "end": {
+          "text": "a point moderately to the right on the Brightness slider track"
+        },
+        "target": {
+          "begin": {
+            "text": "the Brightness slider handle"
+          },
+          "end": {
+            "text": "the right portion of the Brightness slider track"
+          }
+        }
+      },
+      "action_after_effects": "The image preview becomes brighter and the recipe card background looks cleaner.",
+      "nl_explanation": "Drag the Brightness slider to the right once the dialog is open so the paper looks whiter and the card stands out more clearly."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Increase contrast so the writing stands out more",
+      "action_before_state": "The image preview is already brighter, and the Brightness-Contrast dialog remains open.",
+      "action_preconditions": [
+        "The contrast slider is visible in the same dialog.",
+        "The writing on the card is still visible in the preview."
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the Contrast slider knob in the adjustment dialog"
+        },
+        "end": {
+          "text": "a point slightly to the right on the Contrast slider track"
+        },
+        "target": {
+          "begin": {
+            "text": "the Contrast slider handle"
+          },
+          "end": {
+            "text": "the right portion of the Contrast slider track"
+          }
+        }
+      },
+      "action_after_effects": "The preview shows darker writing against a cleaner background, improving legibility.",
+      "nl_explanation": "After brightening the paper, drag the Contrast slider a bit to the right so the handwritten text becomes easier to distinguish."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Apply the brightness and contrast changes",
+      "action_before_state": "The Brightness-Contrast dialog preview shows a clearer and more readable recipe card.",
+      "action_preconditions": [
+        "The preview settings look acceptable.",
+        "The OK button is visible in the dialog."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the OK button in the Brightness-Contrast dialog"
+        }
+      },
+      "action_after_effects": "The adjustment dialog closes and the edited image remains visible on the canvas.",
+      "nl_explanation": "Once the preview looks good, click OK to commit the tonal cleanup and return to the main editing view."
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Open the export dialog for saving a new copy",
+      "action_before_state": "The cleaned-up recipe card is visible in GIMP and the edit is complete.",
+      "action_preconditions": [
+        "The image is ready to be saved as a separate file.",
+        "No export dialog is currently open."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "e"
+        ]
+      },
+      "action_after_effects": "The Export Image dialog opens, allowing a new file name to be entered.",
+      "nl_explanation": "When the cleanup is finished, press Ctrl+Shift+E to export a new image file instead of overwriting the original photo."
+    },
+    {
+      "step_id": "s17",
+      "step_goal": "Name the cleaned image file",
+      "action_before_state": "The Export Image dialog is visible with the name field ready to be edited.",
+      "action_preconditions": [
+        "The export filename field is focused or can accept typing.",
+        "A PNG output is desired."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "recipe_card_clean.png"
+      },
+      "action_after_effects": "The export name field now contains the new filename for the cleaned image.",
+      "nl_explanation": "In the export dialog, type a new filename like recipe_card_clean.png so the edited version is saved separately from the original."
+    },
+    {
+      "step_id": "s18",
+      "step_goal": "Start exporting the cleaned PNG",
+      "action_before_state": "The Export Image dialog shows the new filename and is ready to continue.",
+      "action_preconditions": [
+        "A valid filename has been entered.",
+        "The Export button is visible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Export button in the Export Image dialog"
+        }
+      },
+      "action_after_effects": "GIMP proceeds to the PNG export options dialog or directly starts exporting, depending on its configuration.",
+      "nl_explanation": "After entering the new filename, click Export to move on to the final PNG save step."
+    },
+    {
+      "step_id": "s19",
+      "step_goal": "Confirm the PNG export settings",
+      "action_before_state": "A PNG export options dialog is visible with default settings ready to confirm.",
+      "action_preconditions": [
+        "The PNG options dialog is open.",
+        "The default export settings are acceptable."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Export button in the PNG export options dialog"
+        }
+      },
+      "action_after_effects": "GIMP exports the image and the dialog closes. The cleaned recipe card is now saved as recipe_card_clean.png.",
+      "nl_explanation": "If the PNG options dialog appears, click Export again to accept the defaults and finish saving the cleaned image."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Load the handwritten recipe card photo into GIMP so editing can begin.",
+      "unit_type": "OPEN_IMAGE_FROM_PATH",
+      "unit_before_state": "GIMP is open on its main editing window, and no file chooser dialog is visible.",
+      "unit_after_state": "The file chooser is closed and the recipe card photo at /home/user/Pictures/recipe_card.jpg is open on the GIMP canvas.",
+      "unit_precondition": [
+        "The GIMP main window is focused.",
+        "No modal dialog is blocking keyboard input.",
+        "The image file /home/user/Pictures/recipe_card.jpg exists and is accessible."
+      ],
+      "unit_effect": [
+        "An Open Image file chooser appears, then its location field is activated.",
+        "The full path /home/user/Pictures/recipe_card.jpg is visible in the location field before submission.",
+        "After pressing Enter, the recipe card image becomes visible in the main canvas."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Straighten the photographed recipe card so its edges look level.",
+      "unit_type": "STRAIGHTEN_IMAGE",
+      "unit_before_state": "The recipe card photo is open on the canvas and appears slightly tilted from the phone capture.",
+      "unit_after_state": "The rotation preview is gone and the recipe card is committed in a visibly straighter orientation on the canvas.",
+      "unit_precondition": [
+        "An image is already open and editable on the GIMP canvas.",
+        "The canvas is unobstructed and the card edges are visible well enough to judge alignment."
+      ],
+      "unit_effect": [
+        "The Rotate tool becomes active.",
+        "A rotation preview appears while dragging and shows the card leveled.",
+        "Clicking Rotate applies the transform and removes the rotate overlay."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        8,
+        9,
+        10
+      ],
+      "unit_intent": "Remove the surrounding table and keep only the recipe card area.",
+      "unit_type": "CROP_IMAGE_TO_SUBJECT",
+      "unit_before_state": "The straightened photo is visible on the canvas with extra table or background still surrounding the recipe card.",
+      "unit_after_state": "The canvas is cropped tightly around the recipe card, with most of the surrounding table removed.",
+      "unit_precondition": [
+        "The straightened image is visible on the canvas.",
+        "The recipe card boundaries are visible enough to define a crop area."
+      ],
+      "unit_effect": [
+        "The Crop tool becomes active.",
+        "A crop rectangle appears around the recipe card after the drag.",
+        "Pressing Enter removes the outside area and leaves a tighter composition focused on the card."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "unit_intent": "Improve readability by making the paper brighter and the handwriting stand out more clearly.",
+      "unit_type": "ADJUST_BRIGHTNESS_CONTRAST",
+      "unit_before_state": "The cropped recipe card is visible in GIMP, and no adjustment dialog is open.",
+      "unit_after_state": "The Brightness-Contrast dialog is closed and the canvas shows a brighter recipe card with darker-looking handwriting against a cleaner background.",
+      "unit_precondition": [
+        "The cropped image is open and active in GIMP.",
+        "The top menu bar is available and no modal dialog is blocking access to Colors adjustments."
+      ],
+      "unit_effect": [
+        "The Colors menu opens and the Brightness-Contrast dialog appears.",
+        "Dragging the Brightness slider makes the paper preview look lighter.",
+        "Dragging the Contrast slider makes the handwriting preview stand out more.",
+        "Clicking OK closes the dialog and leaves the tonal changes applied on the canvas."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "unit_intent": "Save the cleaned recipe card as a new PNG file without overwriting the original photo.",
+      "unit_type": "EXPORT_AS_NEW_PNG",
+      "unit_before_state": "The cleaned-up recipe card is visible in the main GIMP window, and no export dialog is currently open.",
+      "unit_after_state": "The export dialogs are closed and the edited image has been saved as recipe_card_clean.png as a separate PNG file.",
+      "unit_precondition": [
+        "The image edits are complete and ready to export.",
+        "The user wants a new PNG copy rather than replacing the original file.",
+        "The Export Image command is available from the active GIMP window."
+      ],
+      "unit_effect": [
+        "The Export Image dialog opens after Ctrl+Shift+E.",
+        "The filename field shows recipe_card_clean.png before export is confirmed.",
+        "Clicking Export advances to PNG export confirmation.",
+        "The PNG options dialog closes after confirmation and the new file recipe_card_clean.png is created."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Load the handwritten recipe card photo into GIMP so editing can begin.",
+      "unit_type": "OPEN_IMAGE_FROM_PATH",
+      "unit_before_state": "GIMP is open on its main editing window, and no file chooser dialog is visible.",
+      "unit_after_state": "The file chooser is closed and the recipe card photo at /home/user/Pictures/recipe_card.jpg is open on the GIMP canvas.",
+      "unit_precondition": [
+        "The GIMP main window is focused.",
+        "No modal dialog is blocking keyboard input.",
+        "The image file /home/user/Pictures/recipe_card.jpg exists and is accessible."
+      ],
+      "unit_effect": [
+        "An Open Image file chooser appears, then its location field is activated.",
+        "The full path /home/user/Pictures/recipe_card.jpg is visible in the location field before submission.",
+        "After pressing Enter, the recipe card image becomes visible in the main canvas."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a specified image file in GIMP by entering its full path in the Open Image dialog.",
+      "parameters": {
+        "image_path": "/home/user/Pictures/recipe_card.jpg"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'o']}",
+          "action_template": "When the GIMP window is focused and no modal dialog is blocking keyboard input, press Ctrl+O to open the standard Open Image dialog so the specified image can be loaded. This opens a GNOME file chooser in front of GIMP, ready for an image to be selected."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'l']}",
+          "action_template": "With the file chooser open and accepting keyboard shortcuts, press Ctrl+L to focus the location field so a full file path can be entered directly. This activates the location field for typing."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '/home/user/Pictures/recipe_card.jpg'}",
+          "action_template": "Once the text cursor is visible in the location field and {{image_path}} exists, type {{image_path}} so GIMP knows exactly which file to load. The full image path appears in the location field, prepared to be opened."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After a valid image path such as {{image_path}} has been entered and the file chooser remains focused, press Enter to open the image. The file chooser closes and the selected image opens on the GIMP canvas."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Straighten the photographed recipe card so its edges look level.",
+      "unit_type": "STRAIGHTEN_IMAGE",
+      "unit_before_state": "The recipe card photo is open on the canvas and appears slightly tilted from the phone capture.",
+      "unit_after_state": "The rotation preview is gone and the recipe card is committed in a visibly straighter orientation on the canvas.",
+      "unit_precondition": [
+        "An image is already open and editable on the GIMP canvas.",
+        "The canvas is unobstructed and the card edges are visible well enough to judge alignment."
+      ],
+      "unit_effect": [
+        "The Rotate tool becomes active.",
+        "A rotation preview appears while dragging and shows the card leveled.",
+        "Clicking Rotate applies the transform and removes the rotate overlay."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Straighten a tilted image by rotating it until {{alignment_reference}} appear level, then apply the transform.",
+      "parameters": {
+        "target_image": "the recipe card photo",
+        "target_subject": "recipe card",
+        "alignment_reference": "the card edges"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['shift', 'r']}",
+          "action_template": "With {{target_image}} open, press Shift+R to activate the Rotate tool so the tilted {{target_subject}} can be straightened. Preconditions: an image is open on the canvas, and the canvas is not covered by another dialog. After this action, the Rotate tool becomes active, allowing the image angle to be adjusted."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'a point near the upper edge of the tilted recipe card on the canvas'}, 'end': {'text': 'a point that makes the card edges appear level in the rotation preview'}, 'target': {'begin': {'text': 'the canvas at a point on the tilted recipe card'}, 'end': {'text': 'the canvas position that levels the card in the preview'}}}",
+          "action_template": "When the Rotate tool is active, drag on {{target_image}} until {{alignment_reference}} look level in the rotation preview. Preconditions: the Rotate tool is selected, and {{alignment_reference}} are visible enough to judge alignment. After this action, a rotation preview appears and the image angle changes so {{target_subject}} looks straighter."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Rotate button in the rotate tool dialog'}}",
+          "action_template": "After {{alignment_reference}} look level in the preview, click the Rotate button in the rotate tool dialog to finalize the straightening adjustment for {{target_subject}}. Preconditions: a Rotate dialog or transform overlay is visible, and the preview angle looks correct. After this action, the rotation is committed to the image and the preview overlay disappears."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        8,
+        9,
+        10
+      ],
+      "unit_intent": "Remove the surrounding table and keep only the recipe card area.",
+      "unit_type": "CROP_IMAGE_TO_SUBJECT",
+      "unit_before_state": "The straightened photo is visible on the canvas with extra table or background still surrounding the recipe card.",
+      "unit_after_state": "The canvas is cropped tightly around the recipe card, with most of the surrounding table removed.",
+      "unit_precondition": [
+        "The straightened image is visible on the canvas.",
+        "The recipe card boundaries are visible enough to define a crop area."
+      ],
+      "unit_effect": [
+        "The Crop tool becomes active.",
+        "A crop rectangle appears around the recipe card after the drag.",
+        "Pressing Enter removes the outside area and leaves a tighter composition focused on the card."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Crop the image tightly around a target subject to remove surrounding background.",
+      "parameters": {
+        "target_subject": "recipe card",
+        "crop_start_corner": "just inside the top-left corner of the recipe card",
+        "crop_end_corner": "just inside the bottom-right corner of the recipe card"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['shift', 'c']}",
+          "action_template": "Press Shift+C to activate the Crop tool when the image is open and editable and the goal is to remove unnecessary background around {{target_subject}}; this makes the next drag define a crop area."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'just inside the top-left corner of the recipe card'}, 'end': {'text': 'just inside the bottom-right corner of the recipe card'}, 'target': {'begin': {'text': \"the canvas near the card's top-left corner\"}, 'end': {'text': \"the canvas near the card's bottom-right corner\"}}}",
+          "action_template": "With the Crop tool selected and the boundaries of {{target_subject}} clearly visible, drag from {{crop_start_corner}} to {{crop_end_corner}} so the crop rectangle frames only the useful content; a crop rectangle appears tightly around {{target_subject}}, excluding most surrounding background."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After a crop selection has been drawn and the selected area includes the important content of {{target_subject}}, press Enter to apply the crop; the canvas is reduced to the selected area and stays focused on {{target_subject}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "unit_intent": "Improve readability by making the paper brighter and the handwriting stand out more clearly.",
+      "unit_type": "ADJUST_BRIGHTNESS_CONTRAST",
+      "unit_before_state": "The cropped recipe card is visible in GIMP, and no adjustment dialog is open.",
+      "unit_after_state": "The Brightness-Contrast dialog is closed and the canvas shows a brighter recipe card with darker-looking handwriting against a cleaner background.",
+      "unit_precondition": [
+        "The cropped image is open and active in GIMP.",
+        "The top menu bar is available and no modal dialog is blocking access to Colors adjustments."
+      ],
+      "unit_effect": [
+        "The Colors menu opens and the Brightness-Contrast dialog appears.",
+        "Dragging the Brightness slider makes the paper preview look lighter.",
+        "Dragging the Contrast slider makes the handwriting preview stand out more.",
+        "Clicking OK closes the dialog and leaves the tonal changes applied on the canvas."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Adjust image brightness and contrast to lighten the background and improve the legibility of foreground content.",
+      "parameters": {
+        "brightness_adjustment": "a point moderately to the right on the Brightness slider track",
+        "contrast_adjustment": "a point slightly to the right on the Contrast slider track"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Colors menu in the top menu bar'}}",
+          "action_template": "Click the Colors menu in the top menu bar when the menu bar is visible and no modal dialog is blocking menu interaction to open the Colors dropdown with image adjustment options."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'Brightness-Contrast in the Colors dropdown'}}",
+          "action_template": "Click Brightness-Contrast in the Colors dropdown when the Colors dropdown is open and the option is available to open the Brightness-Contrast dialog with a live-updating image preview."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the Brightness slider knob in the adjustment dialog'}, 'end': {'text': 'a point moderately to the right on the Brightness slider track'}, 'target': {'begin': {'text': 'the Brightness slider handle'}, 'end': {'text': 'the right portion of the Brightness slider track'}}}",
+          "action_template": "Drag the Brightness slider handle to {{brightness_adjustment}} when the Brightness-Contrast dialog is active and the brightness slider is visible so the image preview becomes brighter and the background looks cleaner."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the Contrast slider knob in the adjustment dialog'}, 'end': {'text': 'a point slightly to the right on the Contrast slider track'}, 'target': {'begin': {'text': 'the Contrast slider handle'}, 'end': {'text': 'the right portion of the Contrast slider track'}}}",
+          "action_template": "Drag the Contrast slider handle to {{contrast_adjustment}} when the contrast slider is visible and the foreground content remains visible in the preview so the preview shows stronger separation between the foreground and background."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the OK button in the Brightness-Contrast dialog'}}",
+          "action_template": "Click the OK button in the Brightness-Contrast dialog when the preview settings look acceptable to apply the brightness and contrast changes, close the dialog, and keep the edited image visible on the canvas."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "unit_intent": "Save the cleaned recipe card as a new PNG file without overwriting the original photo.",
+      "unit_type": "EXPORT_AS_NEW_PNG",
+      "unit_before_state": "The cleaned-up recipe card is visible in the main GIMP window, and no export dialog is currently open.",
+      "unit_after_state": "The export dialogs are closed and the edited image has been saved as recipe_card_clean.png as a separate PNG file.",
+      "unit_precondition": [
+        "The image edits are complete and ready to export.",
+        "The user wants a new PNG copy rather than replacing the original file.",
+        "The Export Image command is available from the active GIMP window."
+      ],
+      "unit_effect": [
+        "The Export Image dialog opens after Ctrl+Shift+E.",
+        "The filename field shows recipe_card_clean.png before export is confirmed.",
+        "Clicking Export advances to PNG export confirmation.",
+        "The PNG options dialog closes after confirmation and the new file recipe_card_clean.png is created."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Export the edited image as a new PNG file with a specified filename without overwriting the original file.",
+      "parameters": {
+        "output_file_name": "recipe_card_clean.png"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'e']}",
+          "action_template": "When the image is ready to be saved as a separate file and no export dialog is open, press Ctrl+Shift+E to open the Export Image dialog for creating a new image file."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'recipe_card_clean.png'}",
+          "action_template": "When the export filename field is focused and a PNG output is desired, type {{output_file_name}} in the Export Image dialog so the edited version is saved separately from the original."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Export button in the Export Image dialog'}}",
+          "action_template": "After a valid filename such as {{output_file_name}} has been entered and the Export button is visible, click the Export button in the Export Image dialog to continue to the final PNG export step."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Export button in the PNG export options dialog'}}",
+          "action_template": "If the PNG options dialog is open and the default export settings are acceptable, click the Export button in the PNG export options dialog to confirm the settings and save the image as {{output_file_name}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

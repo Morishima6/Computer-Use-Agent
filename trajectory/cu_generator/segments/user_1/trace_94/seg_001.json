@@ -1,0 +1,608 @@
+{
+  "segment_id": "seg_001",
+  "app": "Chrome",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open a fresh tab for the first search",
+      "action_before_state": "Chrome is already open on some webpage, and the tab bar is visible at the top.",
+      "action_preconditions": [
+        "The Chrome window is focused.",
+        "The tab strip is visible.",
+        "No modal dialog is blocking keyboard input."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "t"
+        ]
+      },
+      "action_after_effects": "A new tab opens, and the cursor is placed in the address bar.",
+      "nl_explanation": "When Chrome is active and the tab bar is visible, press Ctrl+T to open a new tab. The expected result is a blank tab with the address bar focused for searching."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Enter a search for nearby grocery stores",
+      "action_before_state": "A blank new tab is open with the address bar already focused.",
+      "action_preconditions": [
+        "The new tab is active.",
+        "The text cursor is visible in the address bar."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "grocery store near Pike Place Market Seattle"
+      },
+      "action_after_effects": "The full search query appears in the address bar.",
+      "nl_explanation": "With the new tab active and the address bar focused, type the grocery-store search query. The typed text should appear in the omnibox, ready to submit."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Run the grocery store search",
+      "action_before_state": "The grocery-store query is visible in the address bar.",
+      "action_preconditions": [
+        "The query text has been entered completely.",
+        "The address bar still has focus."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "Chrome loads a search results page for grocery stores near Pike Place Market.",
+      "nl_explanation": "Once the grocery-store query is in the address bar, press Enter to run the search. The browser should load results related to nearby grocery options."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Bring the local business results fully into view",
+      "action_before_state": "The search results page is open, with general links near the top and the local business section partly visible or just below the fold.",
+      "action_preconditions": [
+        "The search results page has finished loading enough to scroll.",
+        "The pointer is over the page content area."
+      ],
+      "action": {
+        "type": "SCROLL",
+        "direction": "down",
+        "target": {
+          "text": "the middle of the search results page until the local business cards are clearly visible"
+        }
+      },
+      "action_after_effects": "The local business results are fully visible, showing grocery options with names, ratings, or hours.",
+      "nl_explanation": "When the search results page is loaded, scroll down in the middle of the page until the local business cards can be read clearly. Stop scrolling once the grocery listings and their details are visible enough to choose one."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Open one grocery store detail page",
+      "action_before_state": "The local grocery-store results are visible on the page.",
+      "action_preconditions": [
+        "At least one grocery-store result card is visible.",
+        "A result shows enough detail to identify it as a nearby store."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "a grocery store result in the local business list near the middle of the page"
+        }
+      },
+      "action_after_effects": "A detail view opens for the selected grocery store, showing store information such as hours, address, or reviews.",
+      "nl_explanation": "After the local grocery results are visible, left-click one grocery-store entry from the business list. The expected result is a detailed business page or panel for that store."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Open another new tab for the pharmacy search",
+      "action_before_state": "The grocery store detail page is open in the current tab.",
+      "action_preconditions": [
+        "The grocery store page or panel is visible.",
+        "Chrome is still focused."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "t"
+        ]
+      },
+      "action_after_effects": "A second blank tab opens, and the address bar is focused again.",
+      "nl_explanation": "With the grocery store detail page open, press Ctrl+T to create another tab for the next errand search. The new tab should open with the cursor in the address bar."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Enter a search for nearby pharmacies",
+      "action_before_state": "A blank tab is active and ready for input.",
+      "action_preconditions": [
+        "The new tab is currently selected.",
+        "The address bar is focused."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "pharmacy near Pike Place Market Seattle"
+      },
+      "action_after_effects": "The pharmacy search query appears in the address bar.",
+      "nl_explanation": "When the new tab is active and the address bar is ready, type the pharmacy search query. The text should appear exactly in the omnibox, ready to submit."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Run the pharmacy search",
+      "action_before_state": "The pharmacy query is typed into the address bar.",
+      "action_preconditions": [
+        "The pharmacy query is fully entered.",
+        "The cursor remains in the address bar."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "Search results for pharmacies near Pike Place Market load in the active tab.",
+      "nl_explanation": "After typing the pharmacy query, press Enter to load the search results. The browser should display nearby pharmacy results."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Open one pharmacy detail page",
+      "action_before_state": "The pharmacy search results are visible, with local business results near the top of the page.",
+      "action_preconditions": [
+        "At least one pharmacy result is visible without needing another action.",
+        "The result can be identified as a pharmacy or drugstore."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "a pharmacy result in the local business section near the top half of the page"
+        }
+      },
+      "action_after_effects": "A pharmacy detail page or info panel opens, showing store details such as hours or location.",
+      "nl_explanation": "When the pharmacy results are visible, left-click one pharmacy entry from the local business section. The expected behavior is that a detailed page or panel for that pharmacy opens."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Open a third tab for the coffee shop search",
+      "action_before_state": "The pharmacy detail page is open in the current tab.",
+      "action_preconditions": [
+        "The pharmacy detail page or panel is visible.",
+        "Chrome remains the active application."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "t"
+        ]
+      },
+      "action_after_effects": "A third blank tab opens, and the cursor moves to the address bar.",
+      "nl_explanation": "With the pharmacy detail view open, press Ctrl+T to create a third tab for the final search. The result should be a blank tab with the address bar focused."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Enter a search for nearby coffee shops",
+      "action_before_state": "The third tab is blank and ready for input.",
+      "action_preconditions": [
+        "The third tab is active.",
+        "The address bar is focused and empty."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "coffee shop near Pike Place Market Seattle"
+      },
+      "action_after_effects": "The coffee-shop query is shown in the address bar.",
+      "nl_explanation": "With the new blank tab selected, type the coffee-shop search query into the address bar. The query should appear in the omnibox, ready to search."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Run the coffee shop search",
+      "action_before_state": "The coffee-shop query is already typed into the address bar.",
+      "action_preconditions": [
+        "The query is complete.",
+        "The address bar still has keyboard focus."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "Chrome loads search results for nearby coffee shops.",
+      "nl_explanation": "Once the coffee-shop query has been entered, press Enter to search. The expected result is a page of nearby coffee-shop results."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Open one coffee shop detail page",
+      "action_before_state": "The coffee-shop results page is visible, showing nearby businesses.",
+      "action_preconditions": [
+        "At least one coffee-shop result is visible.",
+        "A result is clearly identifiable as a cafe or coffee shop."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "a coffee shop result in the local business results area"
+        }
+      },
+      "action_after_effects": "A detail page or business panel opens for the selected coffee shop, leaving all three errand-related places available in separate tabs.",
+      "nl_explanation": "When the coffee-shop search results are visible, left-click one coffee-shop entry from the business results. The expected outcome is a detailed business view, completing the set of grocery, pharmacy, and coffee-shop tabs."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Load nearby grocery store search results in a dedicated tab for the errand comparison.",
+      "unit_type": "OPEN_LOCAL_SEARCH_RESULTS",
+      "unit_before_state": "Chrome is open on an existing webpage with the tab strip visible, and no new search tab has been opened yet for the grocery lookup.",
+      "unit_after_state": "A newly opened tab is active and shows search results for \"grocery store near Pike Place Market Seattle,\" with the results page loaded after submitting the query.",
+      "unit_precondition": [
+        "Chrome is the focused application.",
+        "The tab strip is visible and keyboard input is not blocked.",
+        "A new tab can be opened and the omnibox can receive text input."
+      ],
+      "unit_effect": [
+        "A new browser tab is created and focused.",
+        "The grocery search query is entered into the address bar and submitted.",
+        "The active tab displays grocery-related search results near Pike Place Market."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Open one nearby grocery store's detail view from the local results.",
+      "unit_type": "OPEN_LOCAL_BUSINESS_DETAIL",
+      "unit_before_state": "The grocery search results page is open, with general search links near the top and the local business section only partly visible or just below the fold.",
+      "unit_after_state": "The selected grocery store's detail page or business panel is open in the current tab, showing identifiable store details such as name, address, hours, rating, or reviews.",
+      "unit_precondition": [
+        "The active tab already contains the grocery-store search results.",
+        "The page has loaded enough to scroll.",
+        "At least one local grocery listing becomes visible and can be selected."
+      ],
+      "unit_effect": [
+        "The local grocery business cards are brought fully into view.",
+        "Clicking a visible grocery listing opens its detailed business view in the same tab."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Load nearby pharmacy search results in a separate tab while keeping the grocery detail tab open.",
+      "unit_type": "OPEN_LOCAL_SEARCH_RESULTS",
+      "unit_before_state": "A grocery store detail page or business panel is open in the current tab in Chrome.",
+      "unit_after_state": "Another newly opened tab is active and displays search results for \"pharmacy near Pike Place Market Seattle.\"",
+      "unit_precondition": [
+        "The grocery store detail view remains open in its tab.",
+        "Chrome is still focused and able to accept keyboard shortcuts.",
+        "A new tab can be opened and the address bar can receive the pharmacy query."
+      ],
+      "unit_effect": [
+        "A second search tab is opened and focused.",
+        "The pharmacy query is typed into the omnibox and submitted.",
+        "The active tab loads pharmacy-related search results near Pike Place Market."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9
+      ],
+      "unit_intent": "Open one nearby pharmacy's detail view for side-by-side errand planning.",
+      "unit_type": "OPEN_LOCAL_BUSINESS_DETAIL",
+      "unit_before_state": "The pharmacy search results page is visible in the active tab, with local business results near the top portion of the page.",
+      "unit_after_state": "A selected pharmacy's detail page or info panel is open in the current tab, showing business details such as location, hours, or other store information.",
+      "unit_precondition": [
+        "The active tab already shows pharmacy search results.",
+        "At least one pharmacy or drugstore result is visible without additional navigation.",
+        "The visible pharmacy listing is clickable."
+      ],
+      "unit_effect": [
+        "A pharmacy result is selected from the local business results.",
+        "Detailed pharmacy information appears in the current tab."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        10,
+        11,
+        12
+      ],
+      "unit_intent": "Load nearby coffee shop search results in a third tab while keeping the earlier errand tabs intact.",
+      "unit_type": "OPEN_LOCAL_SEARCH_RESULTS",
+      "unit_before_state": "A pharmacy detail page or business panel is open in the current Chrome tab.",
+      "unit_after_state": "A third tab is active and shows search results for \"coffee shop near Pike Place Market Seattle.\"",
+      "unit_precondition": [
+        "The pharmacy detail tab is already open.",
+        "Chrome remains focused and can open another tab.",
+        "The omnibox in the new tab can accept the coffee-shop query."
+      ],
+      "unit_effect": [
+        "A new blank tab opens and receives keyboard focus.",
+        "The coffee-shop query is entered and submitted from the address bar.",
+        "The active tab loads local coffee-shop search results near Pike Place Market."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        13
+      ],
+      "unit_intent": "Open one nearby coffee shop's detail view so all three errand categories have comparable place tabs.",
+      "unit_type": "OPEN_LOCAL_BUSINESS_DETAIL",
+      "unit_before_state": "The coffee-shop search results page is open in the active tab, showing nearby business results for cafes or coffee shops.",
+      "unit_after_state": "The selected coffee shop's detail page or business panel is open in the current tab, and separate tabs now contain detail views for a grocery store, a pharmacy, and a coffee shop.",
+      "unit_precondition": [
+        "The active tab already shows coffee-shop search results.",
+        "At least one identifiable coffee shop or cafe result is visible.",
+        "The result can be clicked to open its detail view."
+      ],
+      "unit_effect": [
+        "A coffee shop listing is opened from the local results.",
+        "Detailed coffee shop information appears in the current tab.",
+        "Three tabs now hold the chosen grocery, pharmacy, and coffee business detail views for comparison."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Load nearby grocery store search results in a dedicated tab for the errand comparison.",
+      "unit_type": "OPEN_LOCAL_SEARCH_RESULTS",
+      "unit_before_state": "Chrome is open on an existing webpage with the tab strip visible, and no new search tab has been opened yet for the grocery lookup.",
+      "unit_after_state": "A newly opened tab is active and shows search results for \"grocery store near Pike Place Market Seattle,\" with the results page loaded after submitting the query.",
+      "unit_precondition": [
+        "Chrome is the focused application.",
+        "The tab strip is visible and keyboard input is not blocked.",
+        "A new tab can be opened and the omnibox can receive text input."
+      ],
+      "unit_effect": [
+        "A new browser tab is created and focused.",
+        "The grocery search query is entered into the address bar and submitted.",
+        "The active tab displays grocery-related search results near Pike Place Market."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a new browser tab and load search results for a specified local search query.",
+      "parameters": {
+        "search_query": "grocery store near Pike Place Market Seattle"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 't']}",
+          "action_template": "Press Ctrl+T in Chrome when the tab strip is visible and keyboard input is not blocked to open a new tab. The new tab opens with the address bar focused and ready for search input."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'grocery store near Pike Place Market Seattle'}",
+          "action_template": "Type {{search_query}} into the address bar once the new tab is active and the text cursor is visible there. The full query should appear in the omnibox, ready to submit."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter after {{search_query}} has been fully entered and the address bar still has focus. Chrome then loads the corresponding local search results page in the active tab."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Open one nearby grocery store's detail view from the local results.",
+      "unit_type": "OPEN_LOCAL_BUSINESS_DETAIL",
+      "unit_before_state": "The grocery search results page is open, with general search links near the top and the local business section only partly visible or just below the fold.",
+      "unit_after_state": "The selected grocery store's detail page or business panel is open in the current tab, showing identifiable store details such as name, address, hours, rating, or reviews.",
+      "unit_precondition": [
+        "The active tab already contains the grocery-store search results.",
+        "The page has loaded enough to scroll.",
+        "At least one local grocery listing becomes visible and can be selected."
+      ],
+      "unit_effect": [
+        "The local grocery business cards are brought fully into view.",
+        "Clicking a visible grocery listing opens its detailed business view in the same tab."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a selected {{business_type}} detail view from the local search results.",
+      "parameters": {
+        "business_type": "grocery store",
+        "local_results_section": "local business cards",
+        "target_listing": "a grocery store result in the local business list near the middle of the page"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'SCROLL', 'direction': 'down', 'target': {'text': 'the middle of the search results page until the local business cards are clearly visible'}}",
+          "action_template": "Scroll down in the middle of the search results page until the {{local_results_section}} are clearly visible. Do this after the page has loaded enough to scroll and while the pointer is over the page content area. Stop once the {{business_type}} listings and their details are visible enough to choose one, so the local results are fully visible with names, ratings, or hours."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'a grocery store result in the local business list near the middle of the page'}}",
+          "action_template": "Left-click {{target_listing}} after at least one visible {{business_type}} result card can be identified. This opens the detailed business page or panel for that store, showing information such as hours, address, or reviews."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Load nearby pharmacy search results in a separate tab while keeping the grocery detail tab open.",
+      "unit_type": "OPEN_LOCAL_SEARCH_RESULTS",
+      "unit_before_state": "A grocery store detail page or business panel is open in the current tab in Chrome.",
+      "unit_after_state": "Another newly opened tab is active and displays search results for \"pharmacy near Pike Place Market Seattle.\"",
+      "unit_precondition": [
+        "The grocery store detail view remains open in its tab.",
+        "Chrome is still focused and able to accept keyboard shortcuts.",
+        "A new tab can be opened and the address bar can receive the pharmacy query."
+      ],
+      "unit_effect": [
+        "A second search tab is opened and focused.",
+        "The pharmacy query is typed into the omnibox and submitted.",
+        "The active tab loads pharmacy-related search results near Pike Place Market."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a new browser tab and run a specified local search query while keeping the current tab open.",
+      "parameters": {
+        "search_query": "pharmacy near Pike Place Market Seattle"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 't']}",
+          "action_template": "With the current page visible and Chrome focused, press Ctrl+T to create another tab for the next local search. A second blank tab opens, and the address bar is focused again."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'pharmacy near Pike Place Market Seattle'}",
+          "action_template": "When the new tab is active and the address bar is focused, type {{search_query}} so the query appears in the omnibox, ready to submit."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After {{search_query}} is fully entered and the cursor remains in the address bar, press Enter to load the search results in the active tab."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9
+      ],
+      "unit_intent": "Open one nearby pharmacy's detail view for side-by-side errand planning.",
+      "unit_type": "OPEN_LOCAL_BUSINESS_DETAIL",
+      "unit_before_state": "The pharmacy search results page is visible in the active tab, with local business results near the top portion of the page.",
+      "unit_after_state": "A selected pharmacy's detail page or info panel is open in the current tab, showing business details such as location, hours, or other store information.",
+      "unit_precondition": [
+        "The active tab already shows pharmacy search results.",
+        "At least one pharmacy or drugstore result is visible without additional navigation.",
+        "The visible pharmacy listing is clickable."
+      ],
+      "unit_effect": [
+        "A pharmacy result is selected from the local business results.",
+        "Detailed pharmacy information appears in the current tab."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open the detail view for a visible local business result from the current search results.",
+      "parameters": {
+        "target_business_result": "a pharmacy result in the local business section near the top half of the page"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'a pharmacy result in the local business section near the top half of the page'}}",
+          "action_template": "When the local business results are visible and {{target_business_result}} is identifiable and clickable, left-click {{target_business_result}} so that its detail page or info panel opens and shows store details such as hours or location."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        10,
+        11,
+        12
+      ],
+      "unit_intent": "Load nearby coffee shop search results in a third tab while keeping the earlier errand tabs intact.",
+      "unit_type": "OPEN_LOCAL_SEARCH_RESULTS",
+      "unit_before_state": "A pharmacy detail page or business panel is open in the current Chrome tab.",
+      "unit_after_state": "A third tab is active and shows search results for \"coffee shop near Pike Place Market Seattle.\"",
+      "unit_precondition": [
+        "The pharmacy detail tab is already open.",
+        "Chrome remains focused and can open another tab.",
+        "The omnibox in the new tab can accept the coffee-shop query."
+      ],
+      "unit_effect": [
+        "A new blank tab opens and receives keyboard focus.",
+        "The coffee-shop query is entered and submitted from the address bar.",
+        "The active tab loads local coffee-shop search results near Pike Place Market."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a new browser tab and load specified local search results from the address bar without replacing the current tab.",
+      "parameters": {
+        "search_query": "coffee shop near Pike Place Market Seattle"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 't']}",
+          "action_template": "With the current page visible and Chrome focused, press Ctrl+T to open a new blank tab for the search. The result should be a blank tab with the address bar focused."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'coffee shop near Pike Place Market Seattle'}",
+          "action_template": "With the new blank tab active and the address bar focused and empty, type {{search_query}} into the address bar so the query appears in the omnibox ready to search."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Once {{search_query}} is complete and the address bar still has keyboard focus, press Enter to submit the query and load the corresponding local search results."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        13
+      ],
+      "unit_intent": "Open one nearby coffee shop's detail view so all three errand categories have comparable place tabs.",
+      "unit_type": "OPEN_LOCAL_BUSINESS_DETAIL",
+      "unit_before_state": "The coffee-shop search results page is open in the active tab, showing nearby business results for cafes or coffee shops.",
+      "unit_after_state": "The selected coffee shop's detail page or business panel is open in the current tab, and separate tabs now contain detail views for a grocery store, a pharmacy, and a coffee shop.",
+      "unit_precondition": [
+        "The active tab already shows coffee-shop search results.",
+        "At least one identifiable coffee shop or cafe result is visible.",
+        "The result can be clicked to open its detail view."
+      ],
+      "unit_effect": [
+        "A coffee shop listing is opened from the local results.",
+        "Detailed coffee shop information appears in the current tab.",
+        "Three tabs now hold the chosen grocery, pharmacy, and coffee business detail views for comparison."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a selected local business's detail view from visible search results so it can be compared alongside other place-detail tabs.",
+      "parameters": {
+        "business_category": "coffee shop",
+        "target_result": "a coffee shop result in the local business results area"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'a coffee shop result in the local business results area'}}",
+          "action_template": "When the {{business_category}} search results are visible and at least one identifiable {{business_category}} result is present, left-click {{target_result}} to open its detailed business view in the current tab. Preconditions: at least one {{business_category}} result is visible, and a result is clearly identifiable as a cafe or {{business_category}}. After this action, a detail page or business panel opens for the selected {{business_category}}, leaving the comparison place tabs available."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

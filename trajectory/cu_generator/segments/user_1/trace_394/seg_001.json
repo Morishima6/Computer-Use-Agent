@@ -1,0 +1,612 @@
+{
+  "segment_id": "seg_001",
+  "app": "os",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open a terminal window",
+      "action_before_state": "A Linux GNOME desktop session is active and some window is already visible on the screen.",
+      "action_preconditions": [
+        "The keyboard is available for input",
+        "GNOME shortcuts are active"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "alt",
+          "t"
+        ]
+      },
+      "action_after_effects": "A Terminal window opens and shows a shell prompt.",
+      "nl_explanation": "When the GNOME desktop is active and keyboard input is available, press Ctrl+Alt+T to open a terminal. The expected result is a shell prompt ready for the backup commands."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Prepare a folder on the Desktop for the backup files",
+      "action_before_state": "The Terminal window is focused and the prompt is waiting for input.",
+      "action_preconditions": [
+        "Terminal is open",
+        "The user account can write to the Desktop"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "mkdir -p ~/Desktop/manual_backups"
+      },
+      "action_after_effects": "The command text appears at the shell prompt.",
+      "nl_explanation": "With Terminal focused and writable access to the Desktop, type the command to create the manual_backups folder. This prepares the destination for the archive and checksum file."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Run the folder creation command",
+      "action_before_state": "The mkdir command is visible at the shell prompt in Terminal.",
+      "action_preconditions": [
+        "The full mkdir command has been typed",
+        "The shell prompt is still active"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The command runs and returns to a fresh prompt, with the backup folder created if it did not already exist.",
+      "nl_explanation": "Once the mkdir command is fully entered, press Enter to execute it. The expected result is a new prompt and a ready backup directory on the Desktop."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Enter the command that creates a dated compressed archive of the bills folder",
+      "action_before_state": "Terminal is still focused and a fresh prompt is available.",
+      "action_preconditions": [
+        "The folder ~/Documents/bills exists",
+        "The Desktop backup folder already exists"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "tar -czf ~/Desktop/manual_backups/bills_backup_$(date +%F).tar.gz -C ~/Documents bills"
+      },
+      "action_after_effects": "The tar command is visible at the prompt and ready to run.",
+      "nl_explanation": "When the bills folder exists in Documents and the destination folder is ready, type the tar command to package bills into a dated .tar.gz archive on the Desktop."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Run the archive creation command",
+      "action_before_state": "The tar command is fully typed in Terminal.",
+      "action_preconditions": [
+        "The tar command text is complete",
+        "Terminal still has focus"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The archive is created in ~/Desktop/manual_backups, and Terminal returns to the prompt when the command finishes.",
+      "nl_explanation": "After the tar command is fully entered, press Enter to create the compressed backup. The result should be a dated archive file inside the Desktop backup folder."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Enter the command that generates a checksum file for the archive",
+      "action_before_state": "Terminal shows a fresh prompt after the archive command has completed.",
+      "action_preconditions": [
+        "The archive file was created successfully",
+        "The backup folder is still available on the Desktop"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "sha256sum ~/Desktop/manual_backups/bills_backup_$(date +%F).tar.gz > ~/Desktop/manual_backups/bills_backup_$(date +%F).sha256"
+      },
+      "action_after_effects": "The checksum command appears at the prompt and is ready to execute.",
+      "nl_explanation": "With the archive already created, type the sha256sum command that writes a checksum file next to the archive. This prepares a verification record for the backup."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Run the checksum command",
+      "action_before_state": "The sha256sum command is visible in Terminal.",
+      "action_preconditions": [
+        "The checksum command is fully typed",
+        "The archive file exists at the referenced path"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "A checksum file is created in the same Desktop backup folder, and the shell prompt returns.",
+      "nl_explanation": "Once the checksum command is ready, press Enter to execute it. The expected result is a .sha256 file stored beside the backup archive."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Open the GNOME overview to start Files",
+      "action_before_state": "Terminal is open on the screen after the backup commands have finished.",
+      "action_preconditions": [
+        "The GNOME session is responsive",
+        "Keyboard shortcuts are available"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "super"
+        ]
+      },
+      "action_after_effects": "The GNOME overview opens and the search field is ready for app search input.",
+      "nl_explanation": "When the terminal work is complete, press the Super key to open the GNOME overview. This exposes the search box so Files can be launched quickly."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Search for the Files application",
+      "action_before_state": "The GNOME overview is visible and its search field is active.",
+      "action_preconditions": [
+        "The overview search field is ready",
+        "The Files application is installed"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Files"
+      },
+      "action_after_effects": "The Files application appears as a search result in the overview.",
+      "nl_explanation": "With the GNOME overview open and the search field active, type Files so the file manager appears in the search results."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Launch the Files application",
+      "action_before_state": "The overview shows Files as the top matching application result.",
+      "action_preconditions": [
+        "The Files search result is visible",
+        "Keyboard focus remains in the overview"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The Files window opens on screen.",
+      "nl_explanation": "When Files is shown as the search result, press Enter to launch it. The expected result is an open file manager window."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Focus the location entry in Files",
+      "action_before_state": "The Files window is open and active.",
+      "action_preconditions": [
+        "Files is the focused window",
+        "A standard GNOME Files interface is visible"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "l"
+        ]
+      },
+      "action_after_effects": "The location bar becomes editable so a path can be entered directly.",
+      "nl_explanation": "With Files focused, press Ctrl+L to switch to the location entry. This allows direct navigation to the backup folder without browsing manually."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Enter the Desktop backup folder path",
+      "action_before_state": "The Files location bar is active and ready to accept a path.",
+      "action_preconditions": [
+        "The location entry is focused",
+        "The backup folder path is known"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "~/Desktop/manual_backups"
+      },
+      "action_after_effects": "The backup folder path appears in the Files location bar.",
+      "nl_explanation": "When the location bar is active, type the Desktop backup folder path so Files can jump straight to the archive location."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Navigate to the backup folder",
+      "action_before_state": "The backup folder path is fully typed into the Files location bar.",
+      "action_preconditions": [
+        "The path is correct",
+        "The folder exists"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "Files opens the manual_backups folder and shows the archive and checksum file.",
+      "nl_explanation": "After the folder path is entered correctly, press Enter to open it. The expected result is a folder view containing the dated .tar.gz archive and its .sha256 file."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Open the backup archive to confirm it is usable",
+      "action_before_state": "The manual_backups folder is visible in Files and the dated archive file is listed.",
+      "action_preconditions": [
+        "The archive file is visible in the folder listing",
+        "Files is responsive to mouse input"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 2,
+        "target": {
+          "text": "the dated bills_backup .tar.gz file in the Files list"
+        }
+      },
+      "action_after_effects": "The archive opens in Archive Manager and its contents are displayed, confirming that the backup file can be opened and read.",
+      "nl_explanation": "When the backup folder is open and the dated archive is visible, double-click the .tar.gz file to open it. The expected result is that Archive Manager loads the archive and shows its contents, which confirms the backup opens correctly."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Prepare a dedicated Desktop folder where the backup archive and checksum will be stored.",
+      "unit_type": "CREATE_BACKUP_DIRECTORY",
+      "unit_before_state": "A GNOME desktop session is active with another window already on screen, and no terminal command has been entered yet.",
+      "unit_after_state": "A Terminal window is open at a fresh shell prompt, and the Desktop folder ~/Desktop/manual_backups exists and is ready to receive backup files.",
+      "unit_precondition": [
+        "The keyboard is available for input and GNOME keyboard shortcuts are enabled.",
+        "The user account can write to the Desktop location."
+      ],
+      "unit_effect": [
+        "A Terminal window appears with a shell prompt.",
+        "After the mkdir command is executed, the prompt returns without error and the manual_backups folder is available on the Desktop."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Create a dated compressed backup archive of the bills folder in the Desktop backup location.",
+      "unit_type": "CREATE_DATED_ARCHIVE",
+      "unit_before_state": "Terminal is focused at a fresh shell prompt after the backup folder has been prepared.",
+      "unit_after_state": "Terminal returns to the prompt, and a dated archive file such as ~/Desktop/manual_backups/bills_backup_2026-04-13.tar.gz has been created from ~/Documents/bills.",
+      "unit_precondition": [
+        "The folder ~/Documents/bills exists.",
+        "The destination folder ~/Desktop/manual_backups already exists.",
+        "Terminal is focused and ready to accept a command."
+      ],
+      "unit_effect": [
+        "The tar command is submitted and completes.",
+        "A dated .tar.gz archive appears in the Desktop manual_backups folder."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7
+      ],
+      "unit_intent": "Generate a checksum file that can later be used to verify the backup archive.",
+      "unit_type": "CREATE_CHECKSUM_FILE",
+      "unit_before_state": "Terminal shows a fresh prompt after the backup archive has been created successfully.",
+      "unit_after_state": "Terminal returns to the prompt, and a checksum file such as ~/Desktop/manual_backups/bills_backup_2026-04-13.sha256 exists beside the archive.",
+      "unit_precondition": [
+        "The dated archive file already exists in ~/Desktop/manual_backups.",
+        "Terminal is still open and focused at a shell prompt."
+      ],
+      "unit_effect": [
+        "The sha256sum command runs and writes output into a .sha256 file.",
+        "The checksum file is stored in the same Desktop backup folder as the archive."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8,
+        9,
+        10
+      ],
+      "unit_intent": "Open the Files application so the backup artifacts can be inspected graphically.",
+      "unit_type": "LAUNCH_FILES_APP",
+      "unit_before_state": "The Terminal window is visible after the backup and checksum commands have finished.",
+      "unit_after_state": "A GNOME Files window is open and focused on screen.",
+      "unit_precondition": [
+        "The GNOME session is responsive to keyboard input.",
+        "The Files application is installed and searchable from the GNOME overview."
+      ],
+      "unit_effect": [
+        "The GNOME overview opens with the search field active.",
+        "Typing Files shows the Files app as a result.",
+        "Pressing Enter launches the Files window."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        11,
+        12,
+        13
+      ],
+      "unit_intent": "Navigate directly to the Desktop backup folder that contains the new archive and checksum.",
+      "unit_type": "OPEN_BACKUP_FOLDER",
+      "unit_before_state": "The Files application is open and focused, showing its standard file manager interface.",
+      "unit_after_state": "Files is displaying the folder ~/Desktop/manual_backups, and the dated bills backup archive and matching .sha256 file are visible in the file list.",
+      "unit_precondition": [
+        "Files is the active window.",
+        "The location bar can be activated with Ctrl+L.",
+        "The folder ~/Desktop/manual_backups exists."
+      ],
+      "unit_effect": [
+        "The location entry becomes editable.",
+        "The path ~/Desktop/manual_backups is entered and opened.",
+        "The file list updates to show the backup archive and checksum file."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        14
+      ],
+      "unit_intent": "Confirm that the created backup archive opens successfully and is readable.",
+      "unit_type": "VERIFY_ARCHIVE_OPENS",
+      "unit_before_state": "The manual_backups folder is open in Files, and the dated bills_backup .tar.gz archive is visible in the file list.",
+      "unit_after_state": "Archive Manager opens the selected .tar.gz file and displays the archive contents, confirming the backup can be opened.",
+      "unit_precondition": [
+        "The dated archive file is visible in the Files window.",
+        "Files is responsive to mouse input.",
+        "Archive Manager or the system archive opener is available to open .tar.gz files."
+      ],
+      "unit_effect": [
+        "Double-clicking the archive launches Archive Manager.",
+        "The archive contents are shown on screen, providing a visible verification that the backup file opens correctly."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Prepare a dedicated Desktop folder where the backup archive and checksum will be stored.",
+      "unit_type": "CREATE_BACKUP_DIRECTORY",
+      "unit_before_state": "A GNOME desktop session is active with another window already on screen, and no terminal command has been entered yet.",
+      "unit_after_state": "A Terminal window is open at a fresh shell prompt, and the Desktop folder ~/Desktop/manual_backups exists and is ready to receive backup files.",
+      "unit_precondition": [
+        "The keyboard is available for input and GNOME keyboard shortcuts are enabled.",
+        "The user account can write to the Desktop location."
+      ],
+      "unit_effect": [
+        "A Terminal window appears with a shell prompt.",
+        "After the mkdir command is executed, the prompt returns without error and the manual_backups folder is available on the Desktop."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a specified backup directory from Terminal so backup files can be stored there.",
+      "parameters": {
+        "backup_directory_path": "~/Desktop/manual_backups"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'alt', 't']}",
+          "action_template": "When the GNOME desktop is active and keyboard input is available, press Ctrl+Alt+T to open a terminal. The expected result is a shell prompt ready for the directory creation command for {{backup_directory_path}}."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'mkdir -p ~/Desktop/manual_backups'}",
+          "action_template": "With Terminal focused and write access available, type the command `mkdir -p {{backup_directory_path}}` to prepare the backup destination folder. The command text should appear at the shell prompt."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Once the full `mkdir -p {{backup_directory_path}}` command is entered and the shell prompt is still active, press Enter to execute it. The expected result is a fresh prompt and the creation of {{backup_directory_path}} if it does not already exist."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Create a dated compressed backup archive of the bills folder in the Desktop backup location.",
+      "unit_type": "CREATE_DATED_ARCHIVE",
+      "unit_before_state": "Terminal is focused at a fresh shell prompt after the backup folder has been prepared.",
+      "unit_after_state": "Terminal returns to the prompt, and a dated archive file such as ~/Desktop/manual_backups/bills_backup_2026-04-13.tar.gz has been created from ~/Documents/bills.",
+      "unit_precondition": [
+        "The folder ~/Documents/bills exists.",
+        "The destination folder ~/Desktop/manual_backups already exists.",
+        "Terminal is focused and ready to accept a command."
+      ],
+      "unit_effect": [
+        "The tar command is submitted and completes.",
+        "A dated .tar.gz archive appears in the Desktop manual_backups folder."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a dated compressed backup archive of a specified source folder in a specified backup location.",
+      "parameters": {
+        "source_parent_folder": "~/Documents",
+        "source_folder_name": "bills",
+        "destination_folder": "~/Desktop/manual_backups",
+        "archive_name_prefix": "bills_backup"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'tar -czf ~/Desktop/manual_backups/bills_backup_$(date +%F).tar.gz -C ~/Documents bills'}",
+          "action_template": "Type the tar command `tar -czf {{destination_folder}}/{{archive_name_prefix}}_$(date +%F).tar.gz -C {{source_parent_folder}} {{source_folder_name}}` to package the source folder into a dated .tar.gz archive in the backup location when the source folder exists and the destination folder is ready."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter to run the fully typed archive creation command after Terminal remains focused, so the dated archive is created in {{destination_folder}} and Terminal returns to the prompt when the command finishes."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7
+      ],
+      "unit_intent": "Generate a checksum file that can later be used to verify the backup archive.",
+      "unit_type": "CREATE_CHECKSUM_FILE",
+      "unit_before_state": "Terminal shows a fresh prompt after the backup archive has been created successfully.",
+      "unit_after_state": "Terminal returns to the prompt, and a checksum file such as ~/Desktop/manual_backups/bills_backup_2026-04-13.sha256 exists beside the archive.",
+      "unit_precondition": [
+        "The dated archive file already exists in ~/Desktop/manual_backups.",
+        "Terminal is still open and focused at a shell prompt."
+      ],
+      "unit_effect": [
+        "The sha256sum command runs and writes output into a .sha256 file.",
+        "The checksum file is stored in the same Desktop backup folder as the archive."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Generate a checksum file for an existing archive so the archive can be verified later.",
+      "parameters": {
+        "archive_file_path": "~/Desktop/manual_backups/bills_backup_$(date +%F).tar.gz",
+        "checksum_file_path": "~/Desktop/manual_backups/bills_backup_$(date +%F).sha256"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'sha256sum ~/Desktop/manual_backups/bills_backup_$(date +%F).tar.gz > ~/Desktop/manual_backups/bills_backup_$(date +%F).sha256'}",
+          "action_template": "Type `sha256sum {{archive_file_path}} > {{checksum_file_path}}` when the archive file already exists so the checksum command is prepared at the terminal prompt and ready to execute."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter to execute the checksum command after `sha256sum {{archive_file_path}} > {{checksum_file_path}}` is fully typed, creating {{checksum_file_path}} beside the archive and returning to the shell prompt."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8,
+        9,
+        10
+      ],
+      "unit_intent": "Open the Files application so the backup artifacts can be inspected graphically.",
+      "unit_type": "LAUNCH_FILES_APP",
+      "unit_before_state": "The Terminal window is visible after the backup and checksum commands have finished.",
+      "unit_after_state": "A GNOME Files window is open and focused on screen.",
+      "unit_precondition": [
+        "The GNOME session is responsive to keyboard input.",
+        "The Files application is installed and searchable from the GNOME overview."
+      ],
+      "unit_effect": [
+        "The GNOME overview opens with the search field active.",
+        "Typing Files shows the Files app as a result.",
+        "Pressing Enter launches the Files window."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Launch the system file manager from the GNOME overview so graphical file browsing is available.",
+      "parameters": {
+        "target_application": "Files"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['super']}",
+          "action_template": "Press the Super key when the GNOME session is responsive and keyboard shortcuts are available to open the GNOME overview, so the search field becomes ready for launching {{target_application}}."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Files'}",
+          "action_template": "Type {{target_application}} into the active GNOME overview search field when it is ready and the application is installed, so {{target_application}} appears as a search result in the overview."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter when {{target_application}} is visible in the overview search results and keyboard focus remains in the overview, so the {{target_application}} window opens on screen."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        11,
+        12,
+        13
+      ],
+      "unit_intent": "Navigate directly to the Desktop backup folder that contains the new archive and checksum.",
+      "unit_type": "OPEN_BACKUP_FOLDER",
+      "unit_before_state": "The Files application is open and focused, showing its standard file manager interface.",
+      "unit_after_state": "Files is displaying the folder ~/Desktop/manual_backups, and the dated bills backup archive and matching .sha256 file are visible in the file list.",
+      "unit_precondition": [
+        "Files is the active window.",
+        "The location bar can be activated with Ctrl+L.",
+        "The folder ~/Desktop/manual_backups exists."
+      ],
+      "unit_effect": [
+        "The location entry becomes editable.",
+        "The path ~/Desktop/manual_backups is entered and opened.",
+        "The file list updates to show the backup archive and checksum file."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a specified folder directly in the file manager by using the location entry.",
+      "parameters": {
+        "target_folder_path": "~/Desktop/manual_backups"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'l']}",
+          "action_template": "With Files focused and a standard GNOME Files interface visible, press Ctrl+L to switch to the location entry so {{target_folder_path}} can be entered directly. Afterward, the location bar becomes editable."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '~/Desktop/manual_backups'}",
+          "action_template": "When the location entry is focused and {{target_folder_path}} is known, type {{target_folder_path}} so Files can jump straight to the target folder. Afterward, {{target_folder_path}} appears in the Files location bar."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After {{target_folder_path}} is fully typed, press Enter to open it. Preconditions: {{target_folder_path}} is correct and the folder exists. Afterward, Files opens the folder and shows the archive and checksum file."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        14
+      ],
+      "unit_intent": "Confirm that the created backup archive opens successfully and is readable.",
+      "unit_type": "VERIFY_ARCHIVE_OPENS",
+      "unit_before_state": "The manual_backups folder is open in Files, and the dated bills_backup .tar.gz archive is visible in the file list.",
+      "unit_after_state": "Archive Manager opens the selected .tar.gz file and displays the archive contents, confirming the backup can be opened.",
+      "unit_precondition": [
+        "The dated archive file is visible in the Files window.",
+        "Files is responsive to mouse input.",
+        "Archive Manager or the system archive opener is available to open .tar.gz files."
+      ],
+      "unit_effect": [
+        "Double-clicking the archive launches Archive Manager.",
+        "The archive contents are shown on screen, providing a visible verification that the backup file opens correctly."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Verify that a specified archive file opens successfully and its contents are readable.",
+      "parameters": {
+        "archive_file": "the dated bills_backup .tar.gz file in the Files list"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 2, 'target': {'text': 'the dated bills_backup .tar.gz file in the Files list'}}",
+          "action_template": "When the archive file is visible in the folder listing and the file manager is responsive to mouse input, double-click {{archive_file}} to open it. The expected result is that the system archive opener loads the archive and shows its contents, confirming that the backup file can be opened and read."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

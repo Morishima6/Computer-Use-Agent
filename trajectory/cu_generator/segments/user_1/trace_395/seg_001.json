@@ -1,0 +1,513 @@
+{
+  "segment_id": "seg_001",
+  "app": "os",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Clear the terminal so the file-management work starts from a clean prompt",
+      "action_before_state": "A GNOME Terminal window is already open and focused, with previous command output visible above the current shell prompt.",
+      "action_preconditions": [
+        "The Terminal window is the active window",
+        "A shell prompt is visible and ready for keyboard input"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "l"
+        ]
+      },
+      "action_after_effects": "The terminal view is cleared while keeping the current shell session active at a fresh prompt.",
+      "nl_explanation": "When Terminal is focused and a shell prompt is available, press Ctrl+L to clear older output so the next commands are easier to read."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Prepare the Documents folder and the new today_admin folder",
+      "action_before_state": "The terminal shows a clean prompt with the cursor waiting on an empty command line.",
+      "action_preconditions": [
+        "The prompt is idle",
+        "No unfinished command is currently on the command line"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "cd ~/Documents && mkdir -p today_admin"
+      },
+      "action_after_effects": "The command to switch into Documents and create the destination folder is visible at the prompt.",
+      "nl_explanation": "With an empty shell prompt ready, type the command that changes into `~/Documents` and creates the `today_admin` folder so there is a destination for the downloaded files."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Run the Documents setup command",
+      "action_before_state": "The terminal contains `cd ~/Documents && mkdir -p today_admin` and is waiting for execution.",
+      "action_preconditions": [
+        "The full setup command has been typed",
+        "The terminal is still focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The shell moves into `~/Documents`, creates `today_admin` if needed, and returns to a prompt in that directory.",
+      "nl_explanation": "After the setup command is fully typed and Terminal still has focus, press Enter so the destination folder is created inside Documents."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Enter the command that moves today's CSV and TXT files from Downloads into the new folder",
+      "action_before_state": "The prompt is now in `~/Documents`, and the `today_admin` folder exists.",
+      "action_preconditions": [
+        "The current working directory is `~/Documents`",
+        "The folder `today_admin` is present",
+        "The Downloads directory may contain `.csv` or `.txt` files to organize"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "find ~/Downloads -maxdepth 1 -type f \\( -iname '*.csv' -o -iname '*.txt' \\) -exec mv -t ~/Documents/today_admin {} +"
+      },
+      "action_after_effects": "The move command is displayed at the shell prompt and is ready to run.",
+      "nl_explanation": "Once the destination folder exists, type the `find` command that locates top-level CSV and TXT files in Downloads and prepares to move them into `~/Documents/today_admin`."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Execute the file-moving command",
+      "action_before_state": "The terminal command line contains the full `find ... -exec mv ...` command.",
+      "action_preconditions": [
+        "The move command has been typed completely",
+        "The terminal remains focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "All matching CSV and TXT files from the top level of Downloads are moved into `~/Documents/today_admin`, and the prompt returns.",
+      "nl_explanation": "When the move command is ready at the prompt, press Enter to organize the downloaded text and spreadsheet files into the `today_admin` folder."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Prepare the command that writes a contents list and creates the compressed archive",
+      "action_before_state": "The terminal is idle again in `~/Documents`, and the moved files are now expected to be inside `today_admin`.",
+      "action_preconditions": [
+        "The `today_admin` folder exists in `~/Documents`",
+        "The terminal prompt is ready for another command"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "find ~/Documents/today_admin -maxdepth 1 -type f -printf '%f\\n' | sort > ~/Documents/today_admin/today_admin_contents.txt && tar -czf ~/Documents/today_admin.tar.gz -C ~/Documents today_admin"
+      },
+      "action_after_effects": "A combined command is visible that will first create `today_admin_contents.txt` and then create `today_admin.tar.gz`.",
+      "nl_explanation": "With the files already collected into `today_admin`, type a command that writes a sorted contents list into `today_admin_contents.txt` and then creates a compressed archive named `today_admin.tar.gz` in Documents."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Run the contents-list and archive command",
+      "action_before_state": "The terminal shows the combined inventory-and-archive command and is waiting for confirmation.",
+      "action_preconditions": [
+        "The combined command is fully typed",
+        "The `today_admin` folder is still present in `~/Documents`"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The terminal creates `today_admin_contents.txt` inside the folder and writes `today_admin.tar.gz` into `~/Documents`, then returns to a prompt.",
+      "nl_explanation": "After the combined command is ready, press Enter so the folder gets an itemized text list and the compressed backup archive is created in Documents."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Bring GNOME Files to the foreground for visual verification",
+      "action_before_state": "Terminal is still visible, and the GNOME dock is available on screen.",
+      "action_preconditions": [
+        "The desktop dock is visible",
+        "The Files application icon is available in the dock"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Files icon in the GNOME dock"
+        }
+      },
+      "action_after_effects": "GNOME Files opens or comes to the front as the active window.",
+      "nl_explanation": "When the terminal work is finished and the dock is visible, click the Files icon to switch to the file manager and verify the results visually."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Focus the Files location bar so the result folder can be opened directly",
+      "action_before_state": "A GNOME Files window is active, showing its sidebar and file list.",
+      "action_preconditions": [
+        "The Files window is focused",
+        "Keyboard shortcuts are available inside Files"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "l"
+        ]
+      },
+      "action_after_effects": "The Files location entry becomes active and ready for a path to be typed.",
+      "nl_explanation": "With Files focused, press Ctrl+L to activate the location bar so the destination folder can be opened directly without browsing through the sidebar."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Type the path to the organized folder",
+      "action_before_state": "The Files location bar is focused and waiting for input.",
+      "action_preconditions": [
+        "The location bar is active",
+        "The folder `~/Documents/today_admin` exists"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "~/Documents/today_admin"
+      },
+      "action_after_effects": "The full destination path appears in the Files location field and is ready to open.",
+      "nl_explanation": "When the location bar is focused, type `~/Documents/today_admin` so Files is prepared to jump straight to the folder that now contains the organized files."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Open the organized folder and confirm the final result",
+      "action_before_state": "The path `~/Documents/today_admin` is fully entered in the Files location bar.",
+      "action_preconditions": [
+        "The correct folder path has been typed",
+        "Files is still the active window"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "Files opens `~/Documents/today_admin`, where the moved CSV and TXT files and `today_admin_contents.txt` are visible; the archive `today_admin.tar.gz` exists one level up in Documents.",
+      "nl_explanation": "After the destination path is entered, press Enter to open the folder. The expected result is that the organized files and `today_admin_contents.txt` are visible in `today_admin`, confirming the task completed successfully."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Establish a clean terminal workspace in Documents and create the destination folder for today's admin files.",
+      "unit_type": "PREPARE_DESTINATION_FOLDER",
+      "unit_before_state": "A GNOME Terminal window is already focused, with older command output still visible above the shell prompt.",
+      "unit_after_state": "The terminal is back at a prompt in `~/Documents`, and a folder named `today_admin` now exists there.",
+      "unit_precondition": [
+        "GNOME Terminal is the active window.",
+        "A shell prompt is visible and idle.",
+        "The user can create folders inside `~/Documents`."
+      ],
+      "unit_effect": [
+        "The terminal display is cleared to a fresh prompt.",
+        "The command to change into `~/Documents` and create `today_admin` runs successfully.",
+        "A prompt returns in `~/Documents` with `today_admin` available as the destination folder."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Collect the downloaded CSV and TXT files into the new admin folder.",
+      "unit_type": "MOVE_MATCHING_FILES",
+      "unit_before_state": "The terminal prompt is idle in `~/Documents`, and the `today_admin` folder is present.",
+      "unit_after_state": "The terminal returns to an idle prompt after moving the top-level `.csv` and `.txt` files from `~/Downloads` into `~/Documents/today_admin`.",
+      "unit_precondition": [
+        "The current shell session is still active in `~/Documents`.",
+        "The folder `~/Documents/today_admin` already exists.",
+        "The move command can be entered at an empty prompt."
+      ],
+      "unit_effect": [
+        "The `find ... -exec mv ...` command is executed from the terminal.",
+        "Matching `.csv` and `.txt` files are relocated into `~/Documents/today_admin`.",
+        "The shell prompt returns, indicating the move operation has finished."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7
+      ],
+      "unit_intent": "Generate a visible inventory file for the folder and package the folder into a compressed archive.",
+      "unit_type": "CREATE_INVENTORY_AND_ARCHIVE",
+      "unit_before_state": "The terminal is idle in `~/Documents`, and the organized files are expected to already be inside `today_admin`.",
+      "unit_after_state": "The terminal returns to a prompt after creating `today_admin_contents.txt` inside `~/Documents/today_admin` and `today_admin.tar.gz` in `~/Documents`.",
+      "unit_precondition": [
+        "`~/Documents/today_admin` exists and is accessible.",
+        "The terminal prompt is ready for another command.",
+        "The files to be inventoried have already been moved into `today_admin`."
+      ],
+      "unit_effect": [
+        "A contents-list command and archive command are submitted together.",
+        "A file named `today_admin_contents.txt` appears inside `today_admin`.",
+        "A compressed archive named `today_admin.tar.gz` appears in `~/Documents`."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8
+      ],
+      "unit_intent": "Switch from terminal work to the file manager so the result can be checked visually.",
+      "unit_type": "SWITCH_TO_FILE_MANAGER",
+      "unit_before_state": "GNOME Terminal is still visible on screen, and the GNOME dock with the Files icon is available.",
+      "unit_after_state": "A GNOME Files window is now the active window, showing its normal sidebar and file list view.",
+      "unit_precondition": [
+        "The GNOME dock is visible on screen.",
+        "The Files application icon is present and clickable."
+      ],
+      "unit_effect": [
+        "GNOME Files opens or comes to the foreground.",
+        "The active interaction context changes from Terminal to Files."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        9,
+        10,
+        11
+      ],
+      "unit_intent": "Open the organized `today_admin` folder directly for final visual verification.",
+      "unit_type": "OPEN_RESULT_FOLDER",
+      "unit_before_state": "A GNOME Files window is focused, showing a standard browsing view with its sidebar and file area.",
+      "unit_after_state": "GNOME Files is displaying `~/Documents/today_admin`, and the folder contents are visible in the main pane, including the moved `.csv` and `.txt` files and `today_admin_contents.txt`.",
+      "unit_precondition": [
+        "GNOME Files is the active window.",
+        "Keyboard shortcuts work in the Files window.",
+        "The folder `~/Documents/today_admin` exists and can be opened."
+      ],
+      "unit_effect": [
+        "The Files location bar becomes active.",
+        "The path `~/Documents/today_admin` is entered into the location field.",
+        "Pressing Enter navigates Files to that folder, where the organized files are shown for verification."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Establish a clean terminal workspace in Documents and create the destination folder for today's admin files.",
+      "unit_type": "PREPARE_DESTINATION_FOLDER",
+      "unit_before_state": "A GNOME Terminal window is already focused, with older command output still visible above the shell prompt.",
+      "unit_after_state": "The terminal is back at a prompt in `~/Documents`, and a folder named `today_admin` now exists there.",
+      "unit_precondition": [
+        "GNOME Terminal is the active window.",
+        "A shell prompt is visible and idle.",
+        "The user can create folders inside `~/Documents`."
+      ],
+      "unit_effect": [
+        "The terminal display is cleared to a fresh prompt.",
+        "The command to change into `~/Documents` and create `today_admin` runs successfully.",
+        "A prompt returns in `~/Documents` with `today_admin` available as the destination folder."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Prepare a clean terminal workspace and create a specified destination folder inside a target directory.",
+      "parameters": {
+        "target_directory": "~/Documents",
+        "folder_name": "today_admin"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'l']}",
+          "action_template": "When Terminal is focused and a shell prompt is available, press Ctrl+L to clear older output so the next commands are easier to read."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'cd ~/Documents && mkdir -p today_admin'}",
+          "action_template": "With an empty shell prompt ready, type the command that changes into {{target_directory}} and creates the {{folder_name}} folder so there is a destination for the files."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After the setup command for {{target_directory}} and {{folder_name}} is fully typed and Terminal still has focus, press Enter so the destination folder is created inside the target directory."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Collect the downloaded CSV and TXT files into the new admin folder.",
+      "unit_type": "MOVE_MATCHING_FILES",
+      "unit_before_state": "The terminal prompt is idle in `~/Documents`, and the `today_admin` folder is present.",
+      "unit_after_state": "The terminal returns to an idle prompt after moving the top-level `.csv` and `.txt` files from `~/Downloads` into `~/Documents/today_admin`.",
+      "unit_precondition": [
+        "The current shell session is still active in `~/Documents`.",
+        "The folder `~/Documents/today_admin` already exists.",
+        "The move command can be entered at an empty prompt."
+      ],
+      "unit_effect": [
+        "The `find ... -exec mv ...` command is executed from the terminal.",
+        "Matching `.csv` and `.txt` files are relocated into `~/Documents/today_admin`.",
+        "The shell prompt returns, indicating the move operation has finished."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Relocate top-level files matching specified extensions from a source directory into a target folder.",
+      "parameters": {
+        "source_directory": "~/Downloads",
+        "destination_directory": "~/Documents/today_admin",
+        "file_extensions": [
+          ".csv",
+          ".txt"
+        ]
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': \"find ~/Downloads -maxdepth 1 -type f \\\\( -iname '*.csv' -o -iname '*.txt' \\\\) -exec mv -t ~/Documents/today_admin {} +\"}",
+          "action_template": "With the terminal ready and the destination folder already created, type the `find` command that locates top-level files in {{source_directory}} matching {{file_extensions}} and prepares to move them into {{destination_directory}}."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "When the full move command is present at the prompt and the terminal remains focused, press Enter to move the matching top-level files from {{source_directory}} into {{destination_directory}} and wait for the prompt to return."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7
+      ],
+      "unit_intent": "Generate a visible inventory file for the folder and package the folder into a compressed archive.",
+      "unit_type": "CREATE_INVENTORY_AND_ARCHIVE",
+      "unit_before_state": "The terminal is idle in `~/Documents`, and the organized files are expected to already be inside `today_admin`.",
+      "unit_after_state": "The terminal returns to a prompt after creating `today_admin_contents.txt` inside `~/Documents/today_admin` and `today_admin.tar.gz` in `~/Documents`.",
+      "unit_precondition": [
+        "`~/Documents/today_admin` exists and is accessible.",
+        "The terminal prompt is ready for another command.",
+        "The files to be inventoried have already been moved into `today_admin`."
+      ],
+      "unit_effect": [
+        "A contents-list command and archive command are submitted together.",
+        "A file named `today_admin_contents.txt` appears inside `today_admin`.",
+        "A compressed archive named `today_admin.tar.gz` appears in `~/Documents`."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Generate a visible inventory file for {{target_folder}} and package that folder into a compressed archive.",
+      "parameters": {
+        "target_parent_dir": "~/Documents",
+        "target_folder": "today_admin",
+        "inventory_file": "today_admin_contents.txt",
+        "archive_file": "today_admin.tar.gz"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': \"find ~/Documents/today_admin -maxdepth 1 -type f -printf '%f\\\\n' | sort > ~/Documents/today_admin/today_admin_contents.txt && tar -czf ~/Documents/today_admin.tar.gz -C ~/Documents today_admin\"}",
+          "action_template": "With the files already collected into {{target_folder}} under {{target_parent_dir}}, type a command that writes a sorted contents list into {{inventory_file}} inside the folder and then creates a compressed archive named {{archive_file}} in {{target_parent_dir}}. Preconditions: {{target_folder}} exists in {{target_parent_dir}} and the terminal prompt is ready. After this step, the combined command is visible and will first create {{inventory_file}} and then create {{archive_file}}."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After the combined command is fully typed, press Enter to execute it so {{target_folder}} gets an itemized text list in {{inventory_file}} and a compressed backup archive {{archive_file}} is created in {{target_parent_dir}}. Preconditions: the command is fully typed and {{target_folder}} is still present in {{target_parent_dir}}. After this step, the terminal creates {{inventory_file}} inside the folder, writes {{archive_file}} into {{target_parent_dir}}, and returns to a prompt."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8
+      ],
+      "unit_intent": "Switch from terminal work to the file manager so the result can be checked visually.",
+      "unit_type": "SWITCH_TO_FILE_MANAGER",
+      "unit_before_state": "GNOME Terminal is still visible on screen, and the GNOME dock with the Files icon is available.",
+      "unit_after_state": "A GNOME Files window is now the active window, showing its normal sidebar and file list view.",
+      "unit_precondition": [
+        "The GNOME dock is visible on screen.",
+        "The Files application icon is present and clickable."
+      ],
+      "unit_effect": [
+        "GNOME Files opens or comes to the foreground.",
+        "The active interaction context changes from Terminal to Files."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Bring the file manager to the foreground for visual verification.",
+      "parameters": {
+        "target_icon": "the Files icon in the GNOME dock",
+        "target_application": "GNOME Files"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "CLICK",
+          "action_template": "Click {{target_icon}} when the desktop dock is visible and the application icon is available to switch to the file manager; {{target_application}} opens or comes to the front as the active window for visual verification."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        9,
+        10,
+        11
+      ],
+      "unit_intent": "Open the organized `today_admin` folder directly for final visual verification.",
+      "unit_type": "OPEN_RESULT_FOLDER",
+      "unit_before_state": "A GNOME Files window is focused, showing a standard browsing view with its sidebar and file area.",
+      "unit_after_state": "GNOME Files is displaying `~/Documents/today_admin`, and the folder contents are visible in the main pane, including the moved `.csv` and `.txt` files and `today_admin_contents.txt`.",
+      "unit_precondition": [
+        "GNOME Files is the active window.",
+        "Keyboard shortcuts work in the Files window.",
+        "The folder `~/Documents/today_admin` exists and can be opened."
+      ],
+      "unit_effect": [
+        "The Files location bar becomes active.",
+        "The path `~/Documents/today_admin` is entered into the location field.",
+        "Pressing Enter navigates Files to that folder, where the organized files are shown for verification."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a specified result folder directly in the file manager for final visual verification.",
+      "parameters": {
+        "target_folder_path": "~/Documents/today_admin",
+        "expected_visible_items": "the moved `.csv` and `.txt` files and `today_admin_contents.txt`"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'l']}",
+          "action_template": "With the file manager window focused and keyboard shortcuts available, press Ctrl+L to activate the location bar so the destination folder can be opened directly without browsing; the location entry becomes active and ready for {{target_folder_path}} to be entered."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '~/Documents/today_admin'}",
+          "action_template": "When the location bar is active and {{target_folder_path}} exists, type {{target_folder_path}} so the file manager is prepared to jump straight to the target folder; the full destination path appears in the location field and is ready to open."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After {{target_folder_path}} has been entered and the file manager is still active, press Enter to open the folder; the file manager navigates to {{target_folder_path}} and shows {{expected_visible_items}} for verification."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

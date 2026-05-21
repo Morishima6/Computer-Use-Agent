@@ -1,0 +1,519 @@
+{
+  "segment_id": "seg_001",
+  "app": "thunderbird",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open a new email compose window",
+      "action_before_state": "Thunderbird is already open in the main mail view, with the folder list on the left and the message list visible.",
+      "action_preconditions": [
+        "The main Thunderbird window is focused.",
+        "The mail interface is visible rather than a settings page or modal dialog."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "n"
+        ]
+      },
+      "action_after_effects": "A new compose window or compose tab opens, and the cursor is placed in the recipient field.",
+      "nl_explanation": "When the main mail view is active, press Ctrl+N to start a new message; Thunderbird should open a compose window with the To field ready for input."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Enter the recipient address",
+      "action_before_state": "The compose window is open, and the To field is active near the top of the message form.",
+      "action_preconditions": [
+        "A blank compose form is open.",
+        "The text cursor is in the To field."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "alex.tan@example.com"
+      },
+      "action_after_effects": "The recipient address appears in the To field.",
+      "nl_explanation": "With the compose form open and the cursor in the To field, type the recipient email address so the message is addressed correctly."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Move focus to the subject field",
+      "action_before_state": "The recipient address has been entered, and the cursor remains in the address area.",
+      "action_preconditions": [
+        "The To field contains the recipient address.",
+        "The Subject field is visible below or beside the address area."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "tab"
+        ]
+      },
+      "action_after_effects": "Keyboard focus moves from the recipient field to the Subject field.",
+      "nl_explanation": "After entering the email address, press Tab once so the insertion point moves into the Subject field for the next entry."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Enter the email subject",
+      "action_before_state": "The Subject field is focused and ready for text input.",
+      "action_preconditions": [
+        "The Subject field is active.",
+        "No modal dialog is blocking the compose form."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Meeting notes follow-up."
+      },
+      "action_after_effects": "The subject line is filled in and displayed at the top of the draft.",
+      "nl_explanation": "When the Subject field is active, type the requested subject so the draft has a clear title."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Place the cursor in the message body",
+      "action_before_state": "The subject has been entered, and the large blank message body area is visible below the header fields.",
+      "action_preconditions": [
+        "The compose window is still open.",
+        "The message body area is empty and clickable."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the large blank message body area below the subject line"
+        }
+      },
+      "action_after_effects": "A text cursor appears in the message body, ready for typing the email content.",
+      "nl_explanation": "Once the subject is set, click inside the main body area so the next typed text becomes the content of the email."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Write the follow-up message",
+      "action_before_state": "The insertion point is blinking in the message body area.",
+      "action_preconditions": [
+        "The message body area is focused.",
+        "The draft is still blank below the subject."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Hi Alex,\n\nThanks for the meeting today. I appreciate your time and feedback.\nI'll send the final summary tomorrow afternoon.\n\nBest,\nSam"
+      },
+      "action_after_effects": "The full message body appears in the draft exactly where the cursor was placed.",
+      "nl_explanation": "With the body field active, type the short thank-you message so the draft includes the requested follow-up text."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Save the message as a draft",
+      "action_before_state": "The compose window now contains a recipient, subject, and body text.",
+      "action_preconditions": [
+        "The draft has content entered in the compose window.",
+        "The message has not been sent yet."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "s"
+        ]
+      },
+      "action_after_effects": "Thunderbird saves the current message to the Drafts folder as a draft.",
+      "nl_explanation": "After the email content is complete, press Ctrl+S to store it as a draft instead of sending it."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Close the compose window after saving",
+      "action_before_state": "The draft has just been saved, and the compose window remains open.",
+      "action_preconditions": [
+        "The message has already been saved as a draft.",
+        "The compose window is still the active window or tab."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "w"
+        ]
+      },
+      "action_after_effects": "The compose window closes, returning focus to Thunderbird's main mail view.",
+      "nl_explanation": "Once the draft is saved, press Ctrl+W to close the compose view and go back to the normal mailbox interface."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Open the Drafts folder",
+      "action_before_state": "The main Thunderbird window is visible again, showing the folder pane on the left.",
+      "action_preconditions": [
+        "The main mail view is active.",
+        "A Drafts folder is visible in the folder list for the current account."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Drafts folder in the left folder pane"
+        }
+      },
+      "action_after_effects": "The message list updates to show saved draft emails.",
+      "nl_explanation": "Back in the main window, click Drafts in the folder pane so Thunderbird displays the messages saved there."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Confirm the new draft is present",
+      "action_before_state": "The Drafts folder is open, and one or more draft messages are listed in the message pane.",
+      "action_preconditions": [
+        "The Drafts folder contents are visible.",
+        "A draft with the subject \"Meeting notes follow-up.\" appears in the message list."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the draft email with the subject \"Meeting notes follow-up.\" in the message list"
+        }
+      },
+      "action_after_effects": "The selected draft is highlighted, and its preview appears, confirming it was saved successfully.",
+      "nl_explanation": "When the Drafts list is visible, click the newly saved draft with the matching subject to verify that the message was stored correctly and not sent."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Start a new email draft so the follow-up message can be composed.",
+      "unit_type": "OPEN_COMPOSE_WINDOW",
+      "unit_before_state": "Thunderbird is in the main mail view with the folder pane on the left and the message list visible.",
+      "unit_after_state": "A blank message compose window or tab is open, and the insertion cursor is in the To field at the top of the form.",
+      "unit_precondition": [
+        "The main Thunderbird mail window is focused.",
+        "No settings page or modal dialog is blocking the mail interface."
+      ],
+      "unit_effect": [
+        "A compose window or compose tab appears.",
+        "The To field is active and ready for typing."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Address the draft to Alex Tan and set the requested subject line.",
+      "unit_type": "FILL_EMAIL_HEADER",
+      "unit_before_state": "The blank compose form is open with the To field active and the Subject field visible nearby.",
+      "unit_after_state": "The To field contains alex.tan@example.com, and the Subject field contains \"Meeting notes follow-up.\"",
+      "unit_precondition": [
+        "A blank compose form is open.",
+        "The To field is currently focused.",
+        "The Subject field is available in the compose header."
+      ],
+      "unit_effect": [
+        "The recipient address appears in the To field.",
+        "Keyboard focus moves into the Subject field.",
+        "The subject line is displayed as \"Meeting notes follow-up.\""
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Write the requested thank-you follow-up message in the email body.",
+      "unit_type": "COMPOSE_EMAIL_BODY",
+      "unit_before_state": "The compose window shows the filled recipient and subject, and the large blank message body area is visible below them.",
+      "unit_after_state": "The message body contains the drafted follow-up text beginning with \"Hi Alex,\" and including the promise to send the final summary tomorrow afternoon.",
+      "unit_precondition": [
+        "The compose window is still open.",
+        "The message body area is visible and editable.",
+        "The header fields have already been filled in."
+      ],
+      "unit_effect": [
+        "A text cursor appears in the message body after the click.",
+        "The full follow-up message text is visible in the body area."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7
+      ],
+      "unit_intent": "Store the completed email as a draft without sending it.",
+      "unit_type": "SAVE_DRAFT",
+      "unit_before_state": "The compose window contains a filled recipient, subject, and body text for the follow-up email.",
+      "unit_after_state": "The message remains open in the compose window, but Thunderbird has saved its current contents to the Drafts folder.",
+      "unit_precondition": [
+        "The draft already contains the intended recipient, subject, and body.",
+        "The message has not been sent yet."
+      ],
+      "unit_effect": [
+        "Thunderbird saves the current message as a draft.",
+        "The draft becomes available in the Drafts folder."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        8
+      ],
+      "unit_intent": "Exit the compose context after saving the draft.",
+      "unit_type": "CLOSE_COMPOSE_WINDOW",
+      "unit_before_state": "The saved draft is still open in the active compose window or tab.",
+      "unit_after_state": "The compose window or tab is closed, and Thunderbird returns to the main mail view.",
+      "unit_precondition": [
+        "The draft has already been saved.",
+        "The compose window or compose tab is the active context."
+      ],
+      "unit_effect": [
+        "The compose interface disappears.",
+        "Focus returns to Thunderbird's main mailbox view."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Verify that the saved follow-up email is present in Drafts and was not sent.",
+      "unit_type": "VERIFY_DRAFT_IN_DRAFTS",
+      "unit_before_state": "Thunderbird is back in the main mail view with the folder pane visible, and the Drafts folder can be selected.",
+      "unit_after_state": "The Drafts folder is open, the draft with subject \"Meeting notes follow-up.\" is selected, and its preview is shown.",
+      "unit_precondition": [
+        "The main Thunderbird mail view is active.",
+        "A Drafts folder is visible in the folder pane.",
+        "A draft with subject \"Meeting notes follow-up.\" is listed after saving."
+      ],
+      "unit_effect": [
+        "The message list switches to Drafts contents.",
+        "The draft with the matching subject is highlighted.",
+        "A preview of the selected draft appears, confirming it was saved successfully."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Start a new email draft so the follow-up message can be composed.",
+      "unit_type": "OPEN_COMPOSE_WINDOW",
+      "unit_before_state": "Thunderbird is in the main mail view with the folder pane on the left and the message list visible.",
+      "unit_after_state": "A blank message compose window or tab is open, and the insertion cursor is in the To field at the top of the form.",
+      "unit_precondition": [
+        "The main Thunderbird mail window is focused.",
+        "No settings page or modal dialog is blocking the mail interface."
+      ],
+      "unit_effect": [
+        "A compose window or compose tab appears.",
+        "The To field is active and ready for typing."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a new email compose window or tab with the recipient field focused for input.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'n']}",
+          "action_template": "Press Ctrl+N when the main Thunderbird window is focused and the mail interface is visible rather than a settings page or modal dialog to open a new compose window or tab with the recipient field ready for input."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Address the draft to Alex Tan and set the requested subject line.",
+      "unit_type": "FILL_EMAIL_HEADER",
+      "unit_before_state": "The blank compose form is open with the To field active and the Subject field visible nearby.",
+      "unit_after_state": "The To field contains alex.tan@example.com, and the Subject field contains \"Meeting notes follow-up.\"",
+      "unit_precondition": [
+        "A blank compose form is open.",
+        "The To field is currently focused.",
+        "The Subject field is available in the compose header."
+      ],
+      "unit_effect": [
+        "The recipient address appears in the To field.",
+        "Keyboard focus moves into the Subject field.",
+        "The subject line is displayed as \"Meeting notes follow-up.\""
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Address a draft email to a specified recipient and set the requested subject line.",
+      "parameters": {
+        "recipient_address": "alex.tan@example.com",
+        "subject_text": "Meeting notes follow-up."
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'alex.tan@example.com'}",
+          "action_template": "With a blank compose form open and the cursor in the To field, type {{recipient_address}} so the message is addressed correctly and the recipient address appears in the To field."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['tab']}",
+          "action_template": "After the To field contains {{recipient_address}} and the Subject field is visible below or beside the address area, press Tab once so keyboard focus moves from the recipient field to the Subject field."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Meeting notes follow-up.'}",
+          "action_template": "When the Subject field is active and no modal dialog is blocking the compose form, type {{subject_text}} so the subject line is filled in and displayed at the top of the draft."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Write the requested thank-you follow-up message in the email body.",
+      "unit_type": "COMPOSE_EMAIL_BODY",
+      "unit_before_state": "The compose window shows the filled recipient and subject, and the large blank message body area is visible below them.",
+      "unit_after_state": "The message body contains the drafted follow-up text beginning with \"Hi Alex,\" and including the promise to send the final summary tomorrow afternoon.",
+      "unit_precondition": [
+        "The compose window is still open.",
+        "The message body area is visible and editable.",
+        "The header fields have already been filled in."
+      ],
+      "unit_effect": [
+        "A text cursor appears in the message body after the click.",
+        "The full follow-up message text is visible in the body area."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Enter a specified follow-up message into the email body.",
+      "parameters": {
+        "message_body_text": "Hi Alex,\n\nThanks for the meeting today. I appreciate your time and feedback.\nI'll send the final summary tomorrow afternoon.\n\nBest,\nSam"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "CLICK",
+          "action_template": "With the compose window still open and the blank message body area visible and clickable, click inside the main message body area so the text cursor appears there and the next typed text becomes the email content."
+        },
+        {
+          "action": "TYPING",
+          "action_template": "With the message body area focused and the draft still blank below the subject, type {{message_body_text}} so the full follow-up message appears in the email body where the cursor was placed."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7
+      ],
+      "unit_intent": "Store the completed email as a draft without sending it.",
+      "unit_type": "SAVE_DRAFT",
+      "unit_before_state": "The compose window contains a filled recipient, subject, and body text for the follow-up email.",
+      "unit_after_state": "The message remains open in the compose window, but Thunderbird has saved its current contents to the Drafts folder.",
+      "unit_precondition": [
+        "The draft already contains the intended recipient, subject, and body.",
+        "The message has not been sent yet."
+      ],
+      "unit_effect": [
+        "Thunderbird saves the current message as a draft.",
+        "The draft becomes available in the Drafts folder."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the current composed email as a draft without sending it.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 's']}",
+          "action_template": "Press Ctrl+S after the draft has content entered in the compose window and the message has not been sent yet, to save the current message to the Drafts folder as a draft."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        8
+      ],
+      "unit_intent": "Exit the compose context after saving the draft.",
+      "unit_type": "CLOSE_COMPOSE_WINDOW",
+      "unit_before_state": "The saved draft is still open in the active compose window or tab.",
+      "unit_after_state": "The compose window or tab is closed, and Thunderbird returns to the main mail view.",
+      "unit_precondition": [
+        "The draft has already been saved.",
+        "The compose window or compose tab is the active context."
+      ],
+      "unit_effect": [
+        "The compose interface disappears.",
+        "Focus returns to Thunderbird's main mailbox view."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Close the active compose context after saving a draft.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'w']}",
+          "action_template": "Press Ctrl+W after the draft has been saved and the compose context is still active to close the compose view and return focus to Thunderbird's main mail view."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Verify that the saved follow-up email is present in Drafts and was not sent.",
+      "unit_type": "VERIFY_DRAFT_IN_DRAFTS",
+      "unit_before_state": "Thunderbird is back in the main mail view with the folder pane visible, and the Drafts folder can be selected.",
+      "unit_after_state": "The Drafts folder is open, the draft with subject \"Meeting notes follow-up.\" is selected, and its preview is shown.",
+      "unit_precondition": [
+        "The main Thunderbird mail view is active.",
+        "A Drafts folder is visible in the folder pane.",
+        "A draft with subject \"Meeting notes follow-up.\" is listed after saving."
+      ],
+      "unit_effect": [
+        "The message list switches to Drafts contents.",
+        "The draft with the matching subject is highlighted.",
+        "A preview of the selected draft appears, confirming it was saved successfully."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Verify that a saved draft email with a specified subject is present in Drafts and has not been sent.",
+      "parameters": {
+        "draft_subject": "Meeting notes follow-up."
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Drafts folder in the left folder pane'}}",
+          "action_template": "With the main mail view active and a Drafts folder visible in the folder list for the current account, click the Drafts folder in the left folder pane so Thunderbird displays the saved draft emails there; the message list updates to show the Drafts contents."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the draft email with the subject \"Meeting notes follow-up.\" in the message list'}}",
+          "action_template": "When the Drafts folder contents are visible and a draft with the subject {{draft_subject}} appears in the message list, click the draft email with the subject {{draft_subject}} to highlight it and show its preview, confirming the message was saved successfully and not sent."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

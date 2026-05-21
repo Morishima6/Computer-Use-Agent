@@ -1,0 +1,547 @@
+{
+  "segment_id": "seg_001",
+  "app": "vs_code",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the Extensions view in VS Code",
+      "action_before_state": "VS Code is already open on the GNOME desktop, and the main editor area is visible.",
+      "action_preconditions": [
+        "The VS Code window is focused",
+        "Keyboard input is available"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "x"
+        ]
+      },
+      "action_after_effects": "The Extensions sidebar opens, and the extension search field is focused.",
+      "nl_explanation": "When VS Code is the active window, press Ctrl+Shift+X to open the Extensions view. The expected result is that the sidebar switches to extension search so the next step can look for a Markdown helper."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Search for the Markdown helper extension",
+      "action_before_state": "The Extensions sidebar is open, with the search box ready for input.",
+      "action_preconditions": [
+        "The Extensions search field is focused",
+        "The sidebar is visible"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Markdown All in One"
+      },
+      "action_after_effects": "The extension list updates to show results related to Markdown All in One.",
+      "nl_explanation": "With the extension search box active, type Markdown All in One. VS Code should filter the results so the correct extension can be installed."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Install the Markdown extension",
+      "action_before_state": "The filtered extension results are visible in the sidebar.",
+      "action_preconditions": [
+        "A result named Markdown All in One is shown",
+        "Its Install button is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Install button next to the Markdown All in One extension result"
+        }
+      },
+      "action_after_effects": "VS Code starts installing the extension, and the button changes state after installation finishes.",
+      "nl_explanation": "Once the Markdown All in One extension appears in the results, click its Install button. The expected behavior is that the extension is added to VS Code and becomes available for Markdown editing."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Open the Command Palette",
+      "action_before_state": "The extension remains visible in the sidebar after installation or while finishing installation.",
+      "action_preconditions": [
+        "VS Code is still focused",
+        "The user can use keyboard shortcuts"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "p"
+        ]
+      },
+      "action_after_effects": "The Command Palette appears at the top of the window with a text field ready for commands.",
+      "nl_explanation": "Press Ctrl+Shift+P to open the Command Palette. This provides quick access to all VS Code commands, including creating a new terminal, which can then be used to create the folder and file structure."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Search for the command to create a new terminal",
+      "action_before_state": "The Command Palette input box is open and focused.",
+      "action_preconditions": [
+        "The Command Palette is visible",
+        "The input cursor is in the command search box"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Terminal: Create New Terminal"
+      },
+      "action_after_effects": "The command list narrows down and highlights Terminal: Create New Terminal.",
+      "nl_explanation": "Type Terminal: Create New Terminal into the Command Palette. VS Code should filter the command list so the terminal creation command is ready to run."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Run the create terminal command",
+      "action_before_state": "The matching terminal command is highlighted in the Command Palette.",
+      "action_preconditions": [
+        "Terminal: Create New Terminal is selected or highlighted",
+        "The Command Palette still has focus"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The integrated terminal opens in the bottom panel with a shell prompt ready for input.",
+      "nl_explanation": "When the Terminal: Create New Terminal command is highlighted, press Enter. The expected result is that the integrated terminal opens so a folder and file can be created from the shell."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Enter the shell command that creates the notes folder and daily log file",
+      "action_before_state": "The integrated terminal panel is visible, and the shell prompt is active.",
+      "action_preconditions": [
+        "The terminal cursor is blinking at a prompt",
+        "The terminal accepts text input"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "mkdir -p ~/Documents/daily-notes && touch ~/Documents/daily-notes/2026-04-02-daily-log.md && code ~/Documents/daily-notes/2026-04-02-daily-log.md"
+      },
+      "action_after_effects": "The full command appears at the terminal prompt, ready to execute.",
+      "nl_explanation": "With the terminal focused, type the command that creates the daily-notes folder, creates the 2026-04-02-daily-log.md file, and opens that file in VS Code. This prepares the workspace for writing the log."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Execute the terminal command",
+      "action_before_state": "The terminal shows the full mkdir, touch, and code command on the prompt line.",
+      "action_preconditions": [
+        "The command text is complete in the terminal",
+        "The terminal is still focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The folder and file are created in Documents, and the markdown file opens in a new editor tab in VS Code.",
+      "nl_explanation": "After the command is fully typed in the terminal, press Enter to run it. The expected behavior is that the daily notes folder and markdown file are created and the file opens in the editor."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Add a basic daily log template to the markdown file",
+      "action_before_state": "The editor tab for 2026-04-02-daily-log.md is open and the text cursor is inside the file.",
+      "action_preconditions": [
+        "The markdown file is the active editor tab",
+        "The text cursor is placed in the empty file"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "# Daily Work Log - 2026-04-02\n\n## Top Priorities\n- [ ] Reply to urgent messages\n- [ ] Finish the main task for today\n- [ ] Review tomorrow's calendar\n\n## Notes\n- "
+      },
+      "action_after_effects": "The markdown template appears in the editor, giving the file a title, checklist, and notes section.",
+      "nl_explanation": "When the new markdown file is active, type a short daily log template with a heading, a checklist, and a notes section. The expected result is a usable starter document for daily work tracking."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Save the daily log file",
+      "action_before_state": "The markdown file contains the new template and shows unsaved changes.",
+      "action_preconditions": [
+        "The editor tab for the markdown file is active",
+        "There are unsaved edits in the file"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "s"
+        ]
+      },
+      "action_after_effects": "The file is saved to ~/Documents/daily-notes/2026-04-02-daily-log.md, and the unsaved indicator disappears.",
+      "nl_explanation": "Press Ctrl+S while the markdown file is active to save the template into the newly created file. The expected behavior is that the file is written to disk and is ready for preview."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Open the Markdown preview for the saved log",
+      "action_before_state": "The saved markdown file is still open in the editor.",
+      "action_preconditions": [
+        "The markdown file tab is active",
+        "The document has been saved or contains valid markdown text"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "v"
+        ]
+      },
+      "action_after_effects": "VS Code opens the rendered Markdown preview for the daily log.",
+      "nl_explanation": "With the markdown file selected, press Ctrl+Shift+V to open its preview. The expected result is a rendered view of the daily work log, completing the setup task."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Install a Markdown productivity extension so the daily log can be edited with Markdown-specific support.",
+      "unit_type": "INSTALL_EXTENSION",
+      "unit_before_state": "VS Code is open on the desktop with the main editing area visible and no extension search currently in progress.",
+      "unit_after_state": "The Extensions sidebar remains open in VS Code, filtered to Markdown All in One, and that extension shows an installed state instead of an Install button.",
+      "unit_precondition": [
+        "VS Code is the focused application window.",
+        "The Extensions view can be opened and extension marketplace results can load."
+      ],
+      "unit_effect": [
+        "The Extensions sidebar opens with its search field focused.",
+        "Searching for Markdown All in One updates the results list to that extension.",
+        "The extension entry changes from Install to an installed-state control, indicating installation completed."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Open an integrated terminal so filesystem setup can be done from within VS Code.",
+      "unit_type": "OPEN_INTEGRATED_TERMINAL",
+      "unit_before_state": "VS Code is still focused after the extension installation flow, with the Extensions sidebar visible.",
+      "unit_after_state": "The bottom panel in VS Code shows a newly created integrated terminal with a shell prompt ready for input.",
+      "unit_precondition": [
+        "VS Code is focused and accepts keyboard shortcuts.",
+        "The Command Palette is available and terminal commands are enabled."
+      ],
+      "unit_effect": [
+        "The Command Palette appears at the top of the window with its input box focused.",
+        "The command list narrows to Terminal: Create New Terminal.",
+        "Pressing Enter opens the integrated terminal panel with an active prompt."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Create the daily notes folder and log file in Documents, then open the new file in the editor.",
+      "unit_type": "CREATE_FOLDER_AND_FILE_VIA_TERMINAL",
+      "unit_before_state": "The integrated terminal is open in the bottom panel, focused on a shell prompt, while no daily log file is yet open in the editor.",
+      "unit_after_state": "A new editor tab for 2026-04-02-daily-log.md is open in VS Code, and the file now exists inside ~/Documents/daily-notes.",
+      "unit_precondition": [
+        "The integrated terminal is focused and waiting at a shell prompt.",
+        "The shell can run the mkdir, touch, and code commands."
+      ],
+      "unit_effect": [
+        "The full compound shell command appears at the prompt and then executes.",
+        "The ~/Documents/daily-notes folder and 2026-04-02-daily-log.md file are created.",
+        "VS Code opens the new markdown file in an editor tab."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9
+      ],
+      "unit_intent": "Populate the new markdown file with a reusable daily work log template.",
+      "unit_type": "INSERT_TEMPLATE_CONTENT",
+      "unit_before_state": "The editor tab for 2026-04-02-daily-log.md is active, the file is empty, and the text cursor is inside the document.",
+      "unit_after_state": "The markdown file contains a title for 2026-04-02, a Top Priorities checklist, and a Notes section with a bullet ready for more text.",
+      "unit_precondition": [
+        "The 2026-04-02-daily-log.md tab is the active editor.",
+        "The text cursor is inside the file and ready to accept typing."
+      ],
+      "unit_effect": [
+        "A heading line starting with # Daily Work Log - 2026-04-02 appears in the editor.",
+        "Three unchecked checklist items appear under Top Priorities.",
+        "A Notes section ending with a bullet placeholder is visible in the document."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        10
+      ],
+      "unit_intent": "Persist the drafted daily log template to disk before previewing it.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The markdown editor shows the newly typed template and the tab indicates there are unsaved changes.",
+      "unit_after_state": "The same markdown file remains open, but its unsaved-change indicator is gone because the file has been written to disk.",
+      "unit_precondition": [
+        "The markdown file tab is active.",
+        "The document contains unsaved edits."
+      ],
+      "unit_effect": [
+        "Ctrl+S saves ~/Documents/daily-notes/2026-04-02-daily-log.md.",
+        "The unsaved indicator disappears from the editor tab."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        11
+      ],
+      "unit_intent": "Open a rendered view of the daily log so the Markdown formatting can be used immediately.",
+      "unit_type": "OPEN_MARKDOWN_PREVIEW",
+      "unit_before_state": "The saved 2026-04-02-daily-log.md file is still open as the active editor tab in VS Code.",
+      "unit_after_state": "VS Code displays a rendered Markdown preview of the daily work log, showing the heading and checklist as formatted content.",
+      "unit_precondition": [
+        "The markdown file tab is active.",
+        "The document contains valid Markdown content that can be previewed."
+      ],
+      "unit_effect": [
+        "A Markdown preview opens for 2026-04-02-daily-log.md.",
+        "The document is shown in rendered form rather than plain Markdown source."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Install a Markdown productivity extension so the daily log can be edited with Markdown-specific support.",
+      "unit_type": "INSTALL_EXTENSION",
+      "unit_before_state": "VS Code is open on the desktop with the main editing area visible and no extension search currently in progress.",
+      "unit_after_state": "The Extensions sidebar remains open in VS Code, filtered to Markdown All in One, and that extension shows an installed state instead of an Install button.",
+      "unit_precondition": [
+        "VS Code is the focused application window.",
+        "The Extensions view can be opened and extension marketplace results can load."
+      ],
+      "unit_effect": [
+        "The Extensions sidebar opens with its search field focused.",
+        "Searching for Markdown All in One updates the results list to that extension.",
+        "The extension entry changes from Install to an installed-state control, indicating installation completed."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Install a specified extension in VS Code using the Extensions view.",
+      "parameters": {
+        "extension_name": "Markdown All in One"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'x']}",
+          "action_template": "When VS Code is the active window and keyboard input is available, press Ctrl+Shift+X to open the Extensions view. The expected result is that the Extensions sidebar opens and the extension search field is focused."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Markdown All in One'}",
+          "action_template": "With the Extensions search box active and the sidebar visible, type {{extension_name}}. The expected result is that VS Code filters the extension results to show matches for {{extension_name}}."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Install button next to the Markdown All in One extension result'}}",
+          "action_template": "Once a result named {{extension_name}} is shown and its Install button is visible, click the Install button next to the {{extension_name}} extension result. The expected behavior is that VS Code starts installing the extension and the button changes to an installed-state control after installation finishes."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Open an integrated terminal so filesystem setup can be done from within VS Code.",
+      "unit_type": "OPEN_INTEGRATED_TERMINAL",
+      "unit_before_state": "VS Code is still focused after the extension installation flow, with the Extensions sidebar visible.",
+      "unit_after_state": "The bottom panel in VS Code shows a newly created integrated terminal with a shell prompt ready for input.",
+      "unit_precondition": [
+        "VS Code is focused and accepts keyboard shortcuts.",
+        "The Command Palette is available and terminal commands are enabled."
+      ],
+      "unit_effect": [
+        "The Command Palette appears at the top of the window with its input box focused.",
+        "The command list narrows to Terminal: Create New Terminal.",
+        "Pressing Enter opens the integrated terminal panel with an active prompt."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a new integrated terminal in VS Code through the Command Palette.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'p']}",
+          "action_template": "With VS Code focused and keyboard shortcuts available, press Ctrl+Shift+P to open the Command Palette so its command input field is ready for terminal-related commands."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Terminal: Create New Terminal'}",
+          "action_template": "With the Command Palette visible and its search box focused, type Terminal: Create New Terminal to narrow the command list and highlight the command for creating a new integrated terminal."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "With Terminal: Create New Terminal highlighted and the Command Palette still focused, press Enter to open the integrated terminal in the bottom panel with a shell prompt ready for input."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Create the daily notes folder and log file in Documents, then open the new file in the editor.",
+      "unit_type": "CREATE_FOLDER_AND_FILE_VIA_TERMINAL",
+      "unit_before_state": "The integrated terminal is open in the bottom panel, focused on a shell prompt, while no daily log file is yet open in the editor.",
+      "unit_after_state": "A new editor tab for 2026-04-02-daily-log.md is open in VS Code, and the file now exists inside ~/Documents/daily-notes.",
+      "unit_precondition": [
+        "The integrated terminal is focused and waiting at a shell prompt.",
+        "The shell can run the mkdir, touch, and code commands."
+      ],
+      "unit_effect": [
+        "The full compound shell command appears at the prompt and then executes.",
+        "The ~/Documents/daily-notes folder and 2026-04-02-daily-log.md file are created.",
+        "VS Code opens the new markdown file in an editor tab."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a specified folder and file from the terminal, then open the new file in the editor.",
+      "parameters": {
+        "parent_directory": "~/Documents",
+        "folder_name": "daily-notes",
+        "file_name": "2026-04-02-daily-log.md"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'mkdir -p ~/Documents/daily-notes && touch ~/Documents/daily-notes/2026-04-02-daily-log.md && code ~/Documents/daily-notes/2026-04-02-daily-log.md'}",
+          "action_template": "Type the command `mkdir -p {{parent_directory}}/{{folder_name}} && touch {{parent_directory}}/{{folder_name}}/{{file_name}} && code {{parent_directory}}/{{folder_name}}/{{file_name}}` while the terminal cursor is blinking at a prompt and the terminal accepts text input, so the full command to create the folder and file and open the file in VS Code appears at the terminal prompt, ready to execute."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter after the command for `{{parent_directory}}/{{folder_name}}/{{file_name}}` is fully typed and the terminal is still focused, so the folder and file are created and the file opens in a new editor tab in VS Code."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9
+      ],
+      "unit_intent": "Populate the new markdown file with a reusable daily work log template.",
+      "unit_type": "INSERT_TEMPLATE_CONTENT",
+      "unit_before_state": "The editor tab for 2026-04-02-daily-log.md is active, the file is empty, and the text cursor is inside the document.",
+      "unit_after_state": "The markdown file contains a title for 2026-04-02, a Top Priorities checklist, and a Notes section with a bullet ready for more text.",
+      "unit_precondition": [
+        "The 2026-04-02-daily-log.md tab is the active editor.",
+        "The text cursor is inside the file and ready to accept typing."
+      ],
+      "unit_effect": [
+        "A heading line starting with # Daily Work Log - 2026-04-02 appears in the editor.",
+        "Three unchecked checklist items appear under Top Priorities.",
+        "A Notes section ending with a bullet placeholder is visible in the document."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Insert a dated daily work log template with priority checklist items and a notes placeholder into the active markdown file.",
+      "parameters": {
+        "log_date": "2026-04-02",
+        "priority_item_1": "Reply to urgent messages",
+        "priority_item_2": "Finish the main task for today",
+        "priority_item_3": "Review tomorrow's calendar",
+        "notes_placeholder": "- "
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "TYPING",
+          "action_template": "Type a daily log template into the active markdown file while the text cursor is in the empty file, including the heading '# Daily Work Log - {{log_date}}', a '## Top Priorities' section with unchecked checklist items '{{priority_item_1}}', '{{priority_item_2}}', and '{{priority_item_3}}', and a '## Notes' section ending with '{{notes_placeholder}}', so the editor shows a reusable starter document for daily work tracking."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        10
+      ],
+      "unit_intent": "Persist the drafted daily log template to disk before previewing it.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The markdown editor shows the newly typed template and the tab indicates there are unsaved changes.",
+      "unit_after_state": "The same markdown file remains open, but its unsaved-change indicator is gone because the file has been written to disk.",
+      "unit_precondition": [
+        "The markdown file tab is active.",
+        "The document contains unsaved edits."
+      ],
+      "unit_effect": [
+        "Ctrl+S saves ~/Documents/daily-notes/2026-04-02-daily-log.md.",
+        "The unsaved indicator disappears from the editor tab."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the active edited document to disk so its pending changes are committed before the next action.",
+      "parameters": {
+        "target_file_path": "~/Documents/daily-notes/2026-04-02-daily-log.md"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 's']}",
+          "action_template": "Press Ctrl+S while the active edited document is focused and has unsaved changes to save it to {{target_file_path}}. The expected result is that the file is written to disk and the unsaved indicator disappears, leaving the document ready for the next step."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        11
+      ],
+      "unit_intent": "Open a rendered view of the daily log so the Markdown formatting can be used immediately.",
+      "unit_type": "OPEN_MARKDOWN_PREVIEW",
+      "unit_before_state": "The saved 2026-04-02-daily-log.md file is still open as the active editor tab in VS Code.",
+      "unit_after_state": "VS Code displays a rendered Markdown preview of the daily work log, showing the heading and checklist as formatted content.",
+      "unit_precondition": [
+        "The markdown file tab is active.",
+        "The document contains valid Markdown content that can be previewed."
+      ],
+      "unit_effect": [
+        "A Markdown preview opens for 2026-04-02-daily-log.md.",
+        "The document is shown in rendered form rather than plain Markdown source."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open the rendered preview of the active Markdown document so its formatting can be viewed immediately.",
+      "parameters": {
+        "target_file": "2026-04-02-daily-log.md"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'v']}",
+          "action_template": "With {{target_file}} selected as the active editor tab and containing valid Markdown content, press Ctrl+Shift+V to open its rendered Markdown preview."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

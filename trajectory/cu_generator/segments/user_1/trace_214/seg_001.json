@@ -1,0 +1,735 @@
+{
+  "segment_id": "seg_001",
+  "app": "libreoffice_calc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Place the cursor at the starting cell for the table",
+      "action_before_state": "LibreOffice Calc is open and the current sheet is visible with an empty area starting near the top-left corner.",
+      "action_preconditions": [
+        "The spreadsheet grid is visible.",
+        "Cell A1 is available for data entry."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell A1 near the top-left of the sheet"
+        }
+      },
+      "action_after_effects": "Cell A1 becomes the active cell, ready for the first row of the tracker.",
+      "nl_explanation": "When the sheet grid is visible and cell A1 is empty, click cell A1 so the weekly budget table can start from the top-left area."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Create the header row",
+      "action_before_state": "Cell A1 is active and ready for text input.",
+      "action_preconditions": [
+        "Cell A1 is selected.",
+        "The sheet is in normal editing mode."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Day\tBudget\tActual\tDifference"
+      },
+      "action_after_effects": "The headers Day, Budget, Actual, and Difference appear across cells A1 to D1.",
+      "nl_explanation": "With cell A1 selected, type the four column headers separated by tabs so the first row becomes the table header."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Move to the first data row",
+      "action_before_state": "The header row is visible in A1:D1.",
+      "action_preconditions": [
+        "Cells A1 through D1 now contain the headers.",
+        "The area below the headers is empty."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell A2 directly below the Day header"
+        }
+      },
+      "action_after_effects": "Cell A2 is active, ready for the weekday list.",
+      "nl_explanation": "After the headers are in place, click cell A2 so the weekday names can be entered under the Day column."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Fill in the days of the week",
+      "action_before_state": "Cell A2 is selected under the Day column.",
+      "action_preconditions": [
+        "Cell A2 is active.",
+        "Cells A2 through A8 are empty."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Monday\nTuesday\nWednesday\nThursday\nFriday\nSaturday\nSunday"
+      },
+      "action_after_effects": "The weekday names fill cells A2 through A8.",
+      "nl_explanation": "When cell A2 is selected and the first column is empty, type the seven weekday names on separate lines so they populate rows 2 through 8."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Select the first Budget cell",
+      "action_before_state": "The Day column is filled from Monday to Sunday.",
+      "action_preconditions": [
+        "Cells A2 through A8 contain the weekday names.",
+        "Cell B2 is empty."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell B2 under the Budget header"
+        }
+      },
+      "action_after_effects": "Cell B2 becomes active for entering the weekly budget and actual values.",
+      "nl_explanation": "Once the weekday list is in column A, click cell B2 so the numeric spending data can be entered starting with the Budget column."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Enter the budget and actual spending values",
+      "action_before_state": "Cell B2 is selected and the numeric columns are empty.",
+      "action_preconditions": [
+        "Cell B2 is active.",
+        "The range B2:C8 is empty and visible."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "15\t13\n12\t15\n18\t17\n14\t16\n16\t14\n20\t24\n22\t19"
+      },
+      "action_after_effects": "Budget values fill B2:B8 and Actual values fill C2:C8 for all seven days.",
+      "nl_explanation": "With B2 selected and the two numeric columns empty, type the budget and actual amounts as tab-separated pairs on separate lines so both columns fill down together."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Select the first Difference cell",
+      "action_before_state": "Columns B and C now contain seven rows of spending amounts.",
+      "action_preconditions": [
+        "Cells B2 through C8 contain the entered numbers.",
+        "Cell D2 is empty."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell D2 under the Difference header"
+        }
+      },
+      "action_after_effects": "Cell D2 becomes active for the difference formula.",
+      "nl_explanation": "After the budget and actual amounts are filled in, click cell D2 so the first Difference formula can be added."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Calculate the first daily difference",
+      "action_before_state": "Cell D2 is active and rows 2 values are visible.",
+      "action_preconditions": [
+        "Cell D2 is selected.",
+        "Cells B2 and C2 contain numbers."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "=C2-B2"
+      },
+      "action_after_effects": "Cell D2 shows the result of Actual minus Budget for Monday.",
+      "nl_explanation": "When D2 is selected and the Monday amounts are present, type the formula `=C2-B2` so the first daily difference is calculated."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Fill the Difference formula down for the rest of the week",
+      "action_before_state": "Cell D2 contains the calculated difference and the fill handle is available.",
+      "action_preconditions": [
+        "Cell D2 contains a formula result.",
+        "Rows 3 through 8 still need formulas in column D."
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the fill handle at the bottom-right corner of cell D2"
+        },
+        "end": {
+          "text": "the bottom-right corner of cell D8"
+        },
+        "target": {
+          "begin": {
+            "text": "the fill handle at the bottom-right corner of cell D2"
+          },
+          "end": {
+            "text": "cell D8 at the bottom of the Difference column"
+          }
+        }
+      },
+      "action_after_effects": "The Difference formula is copied from D2 down through D8.",
+      "nl_explanation": "Since D2 already has the correct formula, drag its fill handle down to D8 so each day in column D gets the matching difference calculation."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Move to the total row",
+      "action_before_state": "The weekly table is filled for rows 1 through 8.",
+      "action_preconditions": [
+        "Rows 1 through 8 are populated.",
+        "Row 9 is empty and visible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell A9 below the Sunday row"
+        }
+      },
+      "action_after_effects": "Cell A9 becomes active for the summary row.",
+      "nl_explanation": "After all seven daily rows are complete, click cell A9 so the totals row can be entered directly underneath the data."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Add the weekly totals row",
+      "action_before_state": "Cell A9 is selected and the summary row is empty.",
+      "action_preconditions": [
+        "Cell A9 is active.",
+        "Rows 2 through 8 contain the completed weekly data."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Total\t=SUM(B2:B8)\t=SUM(C2:C8)\t=SUM(D2:D8)"
+      },
+      "action_after_effects": "Row 9 now shows the Total label and the summed Budget, Actual, and Difference values.",
+      "nl_explanation": "With A9 selected and the weekly entries already present, type the Total label and the three SUM formulas separated by tabs so the summary row fills across columns A through D."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Select the data range for the comparison chart",
+      "action_before_state": "The table includes headers, weekday rows, and a totals row.",
+      "action_preconditions": [
+        "The range A1:C8 is visible.",
+        "The chart should compare weekday labels with Budget and Actual values only."
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell A1 at the top-left of the table"
+        },
+        "end": {
+          "text": "cell C8 at the end of the Actual column for Sunday"
+        },
+        "target": {
+          "begin": {
+            "text": "cell A1 at the top-left of the table"
+          },
+          "end": {
+            "text": "cell C8 at the end of the Actual column for Sunday"
+          }
+        }
+      },
+      "action_after_effects": "The range A1:C8 is highlighted for chart creation.",
+      "nl_explanation": "When the table is complete, drag from A1 to C8 to select the weekday labels together with the Budget and Actual columns for the chart."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Open chart creation for the selected range",
+      "action_before_state": "The range A1:C8 is selected on the sheet.",
+      "action_preconditions": [
+        "Cells A1 through C8 are highlighted.",
+        "A toolbar containing the Insert Chart button is visible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Insert Chart button in the toolbar"
+        }
+      },
+      "action_after_effects": "The chart wizard opens using the selected data range.",
+      "nl_explanation": "With the chart data already highlighted, click the Insert Chart button so Calc starts building a chart from the selected range."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Insert the chart with the default settings",
+      "action_before_state": "The chart wizard is open and the selected range is recognized.",
+      "action_preconditions": [
+        "The chart wizard dialog is visible.",
+        "A default chart preview is shown."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Finish button in the chart wizard"
+        }
+      },
+      "action_after_effects": "A chart is inserted into the sheet, comparing Budget and Actual spending across the week.",
+      "nl_explanation": "When the chart wizard has opened successfully and the preview looks ready, click Finish to place the comparison chart onto the sheet."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Save the completed spreadsheet",
+      "action_before_state": "The weekly tracker and chart are both visible in the spreadsheet.",
+      "action_preconditions": [
+        "The workbook has unsaved changes.",
+        "LibreOffice Calc is the active window."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "s"
+        ]
+      },
+      "action_after_effects": "The spreadsheet is saved with the new budget tracker and chart included.",
+      "nl_explanation": "After the table and chart are finished, press Ctrl+S to save the updated spreadsheet."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Initialize the weekly meal budget tracker by creating the table header row.",
+      "unit_type": "CREATE_TRACKER_HEADERS",
+      "unit_before_state": "LibreOffice Calc is open on a worksheet with an empty area at the top-left, and cells A1 through D1 do not yet contain the weekly tracker labels.",
+      "unit_after_state": "Cells A1 through D1 show Day, Budget, Actual, and Difference as the header row of the weekly meal budget tracker.",
+      "unit_precondition": [
+        "The spreadsheet grid is visible and editable.",
+        "The top-left range starting at A1 is empty or available for a new table.",
+        "No modal dialog or in-cell edit state is blocking entry into cell A1."
+      ],
+      "unit_effect": [
+        "Cell A1 becomes the active entry point.",
+        "The labels Day, Budget, Actual, and Difference appear across cells A1:D1."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4
+      ],
+      "unit_intent": "Populate the Day column with the full Monday through Sunday sequence.",
+      "unit_type": "ENTER_WEEKDAY_ROWS",
+      "unit_before_state": "The header row is visible in A1:D1, and the cells below the Day header from A2 to A8 are empty.",
+      "unit_after_state": "Cells A2 through A8 contain Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, and Sunday under the Day header.",
+      "unit_precondition": [
+        "The headers already exist in A1:D1.",
+        "Cell A2 can be selected.",
+        "Cells A2:A8 are empty and available for weekday entries."
+      ],
+      "unit_effect": [
+        "Cell A2 becomes active.",
+        "The seven weekday names fill the Day column from row 2 through row 8."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Enter the planned and actual meal spending amounts for each day of the week.",
+      "unit_type": "ENTER_BUDGET_AND_ACTUAL_VALUES",
+      "unit_before_state": "The Day column is filled from Monday to Sunday, while the Budget and Actual columns in B2:C8 are still empty.",
+      "unit_after_state": "Cells B2:B8 contain the budget values 15, 12, 18, 14, 16, 20, and 22, and cells C2:C8 contain the actual values 13, 15, 17, 16, 14, 24, and 19.",
+      "unit_precondition": [
+        "The weekday list is already present in A2:A8.",
+        "Cell B2 can be selected.",
+        "The range B2:C8 is empty and visible."
+      ],
+      "unit_effect": [
+        "Cell B2 becomes active for numeric entry.",
+        "Seven rows of paired Budget and Actual values appear in columns B and C."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7,
+        8,
+        9
+      ],
+      "unit_intent": "Compute the daily budget difference for every weekday in the tracker.",
+      "unit_type": "CALCULATE_DIFFERENCE_COLUMN",
+      "unit_before_state": "Columns A through C are filled for Monday through Sunday, and the Difference column from D2 to D8 is still empty.",
+      "unit_after_state": "Cell D2 contains the formula for Actual minus Budget, and cells D2 through D8 display the daily differences -2, 3, -1, 2, -2, 4, and -3.",
+      "unit_precondition": [
+        "Budget values are present in B2:B8 and actual values are present in C2:C8.",
+        "Cell D2 is empty and can be selected.",
+        "The fill handle can be used to copy the first formula down through D8."
+      ],
+      "unit_effect": [
+        "Cell D2 receives the formula =C2-B2.",
+        "The formula is filled down from D2 to D8.",
+        "Each row in the Difference column shows a calculated result for that day."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        10,
+        11
+      ],
+      "unit_intent": "Add a summary row that totals the weekly budget, actual spending, and difference values.",
+      "unit_type": "ADD_TOTAL_ROW",
+      "unit_before_state": "The weekly tracker is complete through row 8, and row 9 below Sunday is empty.",
+      "unit_after_state": "Row 9 shows Total in A9, the summed budget in B9, the summed actual spending in C9, and the summed difference in D9.",
+      "unit_precondition": [
+        "Rows 1 through 8 of the tracker are already populated.",
+        "Cell A9 is visible, empty, and selectable.",
+        "The weekly numeric data in B2:D8 is complete."
+      ],
+      "unit_effect": [
+        "Cell A9 becomes the active starting point for the summary row.",
+        "The label Total appears in A9.",
+        "Cells B9, C9, and D9 show the weekly totals 117, 118, and 1 from SUM formulas."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        12,
+        13,
+        14
+      ],
+      "unit_intent": "Insert a simple chart that compares budgeted versus actual meal spending across the week.",
+      "unit_type": "INSERT_COMPARISON_CHART",
+      "unit_before_state": "The worksheet shows the completed tracker table with headers in A1:C1 and daily data through row 8, the total row is present below, and no chart has been inserted yet.",
+      "unit_after_state": "A chart object is inserted into the sheet using the selected range A1:C8, showing weekday labels with Budget and Actual series for Monday through Sunday.",
+      "unit_precondition": [
+        "The table data for Day, Budget, and Actual is visible in A1:C8.",
+        "The comparison chart should use the daily rows only and exclude the total row.",
+        "The Insert Chart control is available in the Calc toolbar."
+      ],
+      "unit_effect": [
+        "The range A1:C8 becomes highlighted as the chart data source.",
+        "The Chart Wizard opens using the selected range.",
+        "After Finish is clicked, a chart appears on the worksheet comparing Budget and Actual values by day."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        15
+      ],
+      "unit_intent": "Persist the completed weekly meal budget tracker and chart to disk.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The worksheet contains the completed weekly meal budget tracker with totals and an inserted comparison chart, and the document has unsaved changes.",
+      "unit_after_state": "The same tracker and chart remain visible in LibreOffice Calc, now saved.",
+      "unit_precondition": [
+        "LibreOffice Calc is the active window.",
+        "The tracker table and chart have already been completed.",
+        "The workbook can be saved normally with Ctrl+S."
+      ],
+      "unit_effect": [
+        "The save command is triggered with Ctrl+S.",
+        "The current spreadsheet state is written to disk."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Initialize the weekly meal budget tracker by creating the table header row.",
+      "unit_type": "CREATE_TRACKER_HEADERS",
+      "unit_before_state": "LibreOffice Calc is open on a worksheet with an empty area at the top-left, and cells A1 through D1 do not yet contain the weekly tracker labels.",
+      "unit_after_state": "Cells A1 through D1 show Day, Budget, Actual, and Difference as the header row of the weekly meal budget tracker.",
+      "unit_precondition": [
+        "The spreadsheet grid is visible and editable.",
+        "The top-left range starting at A1 is empty or available for a new table.",
+        "No modal dialog or in-cell edit state is blocking entry into cell A1."
+      ],
+      "unit_effect": [
+        "Cell A1 becomes the active entry point.",
+        "The labels Day, Budget, Actual, and Difference appear across cells A1:D1."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a tracker header row by selecting a specified starting cell and entering the required column labels across the first row.",
+      "parameters": {
+        "start_cell": "cell A1 near the top-left of the sheet",
+        "header_row_text": "Day\tBudget\tActual\tDifference"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell A1 near the top-left of the sheet'}}",
+          "action_template": "When the spreadsheet grid is visible and {{start_cell}} is available for data entry, click {{start_cell}} so it becomes the active cell and the tracker can start from that position."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Day\\tBudget\\tActual\\tDifference'}",
+          "action_template": "With {{start_cell}} selected and the sheet in normal editing mode, type {{header_row_text}} so the header labels populate across the first row starting from the selected cell."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4
+      ],
+      "unit_intent": "Populate the Day column with the full Monday through Sunday sequence.",
+      "unit_type": "ENTER_WEEKDAY_ROWS",
+      "unit_before_state": "The header row is visible in A1:D1, and the cells below the Day header from A2 to A8 are empty.",
+      "unit_after_state": "Cells A2 through A8 contain Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, and Sunday under the Day header.",
+      "unit_precondition": [
+        "The headers already exist in A1:D1.",
+        "Cell A2 can be selected.",
+        "Cells A2:A8 are empty and available for weekday entries."
+      ],
+      "unit_effect": [
+        "Cell A2 becomes active.",
+        "The seven weekday names fill the Day column from row 2 through row 8."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Populate the cells under the {{target_column_header}} header with the specified weekday sequence.",
+      "parameters": {
+        "target_column_header": "Day",
+        "target_start_cell": "cell A2 directly below the Day header",
+        "target_range": "A2:A8",
+        "weekday_sequence": "Monday\nTuesday\nWednesday\nThursday\nFriday\nSaturday\nSunday"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell A2 directly below the Day header'}}",
+          "action_template": "Click {{target_start_cell}} after the headers are in place so the weekday sequence can be entered under the {{target_column_header}} column; this makes the starting cell active and ready for input."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Monday\\nTuesday\\nWednesday\\nThursday\\nFriday\\nSaturday\\nSunday'}",
+          "action_template": "Type {{weekday_sequence}} on separate lines when {{target_start_cell}} is active and {{target_range}} is empty so the values fill the target cells under the {{target_column_header}} header."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6
+      ],
+      "unit_intent": "Enter the planned and actual meal spending amounts for each day of the week.",
+      "unit_type": "ENTER_BUDGET_AND_ACTUAL_VALUES",
+      "unit_before_state": "The Day column is filled from Monday to Sunday, while the Budget and Actual columns in B2:C8 are still empty.",
+      "unit_after_state": "Cells B2:B8 contain the budget values 15, 12, 18, 14, 16, 20, and 22, and cells C2:C8 contain the actual values 13, 15, 17, 16, 14, 24, and 19.",
+      "unit_precondition": [
+        "The weekday list is already present in A2:A8.",
+        "Cell B2 can be selected.",
+        "The range B2:C8 is empty and visible."
+      ],
+      "unit_effect": [
+        "Cell B2 becomes active for numeric entry.",
+        "Seven rows of paired Budget and Actual values appear in columns B and C."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Enter paired budget and actual numeric values into two adjacent columns for an existing list of rows.",
+      "parameters": {
+        "target_cell": "cell B2 under the Budget header",
+        "paired_values": "15\t13\n12\t15\n18\t17\n14\t16\n16\t14\n20\t24\n22\t19"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell B2 under the Budget header'}}",
+          "action_template": "Once the row labels are present and {{target_cell}} is empty, click {{target_cell}} so it becomes active for entering the paired budget and actual values."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '15\\t13\\n12\\t15\\n18\\t17\\n14\\t16\\n16\\t14\\n20\\t24\\n22\\t19'}",
+          "action_template": "With {{target_cell}} selected and the two numeric columns empty, type {{paired_values}} as tab-separated budget and actual pairs on separate lines so both columns fill down together."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7,
+        8,
+        9
+      ],
+      "unit_intent": "Compute the daily budget difference for every weekday in the tracker.",
+      "unit_type": "CALCULATE_DIFFERENCE_COLUMN",
+      "unit_before_state": "Columns A through C are filled for Monday through Sunday, and the Difference column from D2 to D8 is still empty.",
+      "unit_after_state": "Cell D2 contains the formula for Actual minus Budget, and cells D2 through D8 display the daily differences -2, 3, -1, 2, -2, 4, and -3.",
+      "unit_precondition": [
+        "Budget values are present in B2:B8 and actual values are present in C2:C8.",
+        "Cell D2 is empty and can be selected.",
+        "The fill handle can be used to copy the first formula down through D8."
+      ],
+      "unit_effect": [
+        "Cell D2 receives the formula =C2-B2.",
+        "The formula is filled down from D2 to D8.",
+        "Each row in the Difference column shows a calculated result for that day."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Populate a difference column by entering the subtraction formula in the first output cell and filling it down the remaining rows.",
+      "parameters": {
+        "first_output_cell": "cell D2 under the Difference header",
+        "formula_expression": "=C2-B2",
+        "fill_handle_start": "the fill handle at the bottom-right corner of cell D2",
+        "fill_destination_cell": "cell D8 at the bottom of the Difference column"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "CLICK",
+          "action_template": "Click {{first_output_cell}} after the source value columns are filled so the first difference formula can be added and the output cell becomes active."
+        },
+        {
+          "action": "TYPING",
+          "action_template": "Type {{formula_expression}} when the first output cell is selected and the referenced source cells contain numbers so the initial difference result is calculated."
+        },
+        {
+          "action": "DRAG_TO",
+          "action_template": "Drag from {{fill_handle_start}} to {{fill_destination_cell}} after the first output cell contains the correct formula so the difference formula is copied down the rest of the column."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        10,
+        11
+      ],
+      "unit_intent": "Add a summary row that totals the weekly budget, actual spending, and difference values.",
+      "unit_type": "ADD_TOTAL_ROW",
+      "unit_before_state": "The weekly tracker is complete through row 8, and row 9 below Sunday is empty.",
+      "unit_after_state": "Row 9 shows Total in A9, the summed budget in B9, the summed actual spending in C9, and the summed difference in D9.",
+      "unit_precondition": [
+        "Rows 1 through 8 of the tracker are already populated.",
+        "Cell A9 is visible, empty, and selectable.",
+        "The weekly numeric data in B2:D8 is complete."
+      ],
+      "unit_effect": [
+        "Cell A9 becomes the active starting point for the summary row.",
+        "The label Total appears in A9.",
+        "Cells B9, C9, and D9 show the weekly totals 117, 118, and 1 from SUM formulas."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Add a totals summary row beneath a completed table by labeling the row and entering aggregate formulas across adjacent columns.",
+      "parameters": {
+        "summary_start_cell": "cell A9 below the Sunday row",
+        "summary_label": "Total",
+        "budget_total_formula": "=SUM(B2:B8)",
+        "actual_total_formula": "=SUM(C2:C8)",
+        "difference_total_formula": "=SUM(D2:D8)"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell A9 below the Sunday row'}}",
+          "action_template": "Click {{summary_start_cell}} after the data rows are populated and the empty summary row is visible so that cell becomes active for entering the totals row."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Total\\t=SUM(B2:B8)\\t=SUM(C2:C8)\\t=SUM(D2:D8)'}",
+          "action_template": "With the summary start cell active and the data already present, type {{summary_label}}, then {{budget_total_formula}}, {{actual_total_formula}}, and {{difference_total_formula}} separated by tabs so the summary row fills across the adjacent columns."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        12,
+        13,
+        14
+      ],
+      "unit_intent": "Insert a simple chart that compares budgeted versus actual meal spending across the week.",
+      "unit_type": "INSERT_COMPARISON_CHART",
+      "unit_before_state": "The worksheet shows the completed tracker table with headers in A1:C1 and daily data through row 8, the total row is present below, and no chart has been inserted yet.",
+      "unit_after_state": "A chart object is inserted into the sheet using the selected range A1:C8, showing weekday labels with Budget and Actual series for Monday through Sunday.",
+      "unit_precondition": [
+        "The table data for Day, Budget, and Actual is visible in A1:C8.",
+        "The comparison chart should use the daily rows only and exclude the total row.",
+        "The Insert Chart control is available in the Calc toolbar."
+      ],
+      "unit_effect": [
+        "The range A1:C8 becomes highlighted as the chart data source.",
+        "The Chart Wizard opens using the selected range.",
+        "After Finish is clicked, a chart appears on the worksheet comparing Budget and Actual values by day."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Insert a simple comparison chart from a selected table range using category labels and two numeric series.",
+      "parameters": {
+        "selection_start_cell": "A1",
+        "selection_end_cell": "C8",
+        "selected_range": "A1:C8",
+        "category_labels": "weekday labels",
+        "first_series_name": "Budget",
+        "second_series_name": "Actual"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'cell A1 at the top-left of the table'}, 'end': {'text': 'cell C8 at the end of the Actual column for Sunday'}, 'target': {'begin': {'text': 'cell A1 at the top-left of the table'}, 'end': {'text': 'cell C8 at the end of the Actual column for Sunday'}}}",
+          "action_template": "When {{selected_range}} is visible and the chart should compare only {{category_labels}} with the {{first_series_name}} and {{second_series_name}} values, drag from {{selection_start_cell}} to {{selection_end_cell}} to select the chart data range; {{selected_range}} is then highlighted for chart creation."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Insert Chart button in the toolbar'}}",
+          "action_template": "With {{selected_range}} highlighted and the toolbar visible, click the Insert Chart button to open the chart wizard using the selected data range."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Finish button in the chart wizard'}}",
+          "action_template": "When the chart wizard is visible with a default preview for {{selected_range}}, click Finish to insert a chart comparing {{first_series_name}} and {{second_series_name}} across {{category_labels}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_07",
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        15
+      ],
+      "unit_intent": "Persist the completed weekly meal budget tracker and chart to disk.",
+      "unit_type": "SAVE_DOCUMENT",
+      "unit_before_state": "The worksheet contains the completed weekly meal budget tracker with totals and an inserted comparison chart, and the document has unsaved changes.",
+      "unit_after_state": "The same tracker and chart remain visible in LibreOffice Calc, now saved.",
+      "unit_precondition": [
+        "LibreOffice Calc is the active window.",
+        "The tracker table and chart have already been completed.",
+        "The workbook can be saved normally with Ctrl+S."
+      ],
+      "unit_effect": [
+        "The save command is triggered with Ctrl+S.",
+        "The current spreadsheet state is written to disk."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the current spreadsheet and persist its latest changes to disk.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 's']}",
+          "action_template": "Press Ctrl+S to save the updated spreadsheet after the work is complete, while the workbook has unsaved changes and LibreOffice Calc is active, so the current spreadsheet state is written to disk."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

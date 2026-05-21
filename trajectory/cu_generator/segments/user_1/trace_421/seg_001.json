@@ -1,0 +1,586 @@
+{
+  "segment_id": "seg_001",
+  "app": "thunderbird",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the folder context menu so a new folder can be created",
+      "action_before_state": "Thunderbird is open in the main mail view, with the folder pane visible on the left and Local Folders listed there.",
+      "action_preconditions": [
+        "The Thunderbird main window is active",
+        "The folder pane is visible",
+        "Local Folders is visible in the left sidebar",
+        "No modal dialog is currently open"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "right",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Local Folders entry in the folder pane on the left"
+        }
+      },
+      "action_after_effects": "A context menu opens for Local Folders, showing folder-management options.",
+      "nl_explanation": "When the left folder list is visible and Local Folders can be seen, right-click Local Folders to open its context menu. The expected result is a menu that includes the option to create a new folder."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Start creating a new folder under Local Folders",
+      "action_before_state": "The Local Folders context menu is open next to the left sidebar.",
+      "action_preconditions": [
+        "The context menu for Local Folders is open",
+        "A New Folder option is visible in that menu"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the New Folder option in the Local Folders context menu"
+        }
+      },
+      "action_after_effects": "A small folder-creation dialog appears with the folder name field ready for input.",
+      "nl_explanation": "With the Local Folders context menu open, click New Folder. Thunderbird should open a dialog where the new folder name can be entered."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Enter the name of the new folder",
+      "action_before_state": "The New Folder dialog is open and the name input field is focused.",
+      "action_preconditions": [
+        "The New Folder dialog is open",
+        "The folder name text box is visible and ready for text input"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Follow Up"
+      },
+      "action_after_effects": "The folder name field now contains Follow Up.",
+      "nl_explanation": "When the folder creation dialog is open and the name box is active, type Follow Up. The expected result is that the new folder name is filled in correctly."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Confirm the new folder creation",
+      "action_before_state": "The New Folder dialog shows Follow Up in the name field.",
+      "action_preconditions": [
+        "The New Folder dialog is still open",
+        "The name field contains Follow Up"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The dialog closes and a new folder named Follow Up appears under Local Folders.",
+      "nl_explanation": "Once the folder name has been entered, press Enter to confirm. The expected result is that the Follow Up folder is added to the folder list under Local Folders."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Return to Inbox to find the message that needs organizing",
+      "action_before_state": "The folder pane now includes the new Follow Up folder, and Thunderbird is still in the main mail view.",
+      "action_preconditions": [
+        "The main Thunderbird window is visible",
+        "Inbox is visible in the folder pane"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Inbox folder in the left sidebar"
+        }
+      },
+      "action_after_effects": "The message list refreshes to show emails from Inbox.",
+      "nl_explanation": "With the new folder created, click Inbox in the left sidebar to return to the main message list. Thunderbird should switch the center pane to show Inbox messages."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Bring the target email into view in the message list",
+      "action_before_state": "Inbox is open, but the email titled A Test E-mail is not yet visible in the currently shown portion of the message list.",
+      "action_preconditions": [
+        "Inbox is selected",
+        "The message list can be scrolled",
+        "The target email is not currently visible"
+      ],
+      "action": {
+        "type": "SCROLL",
+        "scroll_direction": "down",
+        "target": {
+          "text": "the message list in the center pane until the row titled A Test E-mail is visible"
+        },
+        "direction": "down"
+      },
+      "action_after_effects": "The message row with subject A Test E-mail becomes visible in the message list.",
+      "nl_explanation": "If the target message is not yet visible after opening Inbox, scroll down in the message list. Stop once A Test E-mail can be seen, so it can be moved in the next step."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Move the target email into the new Follow Up folder",
+      "action_before_state": "The Inbox message list shows the email titled A Test E-mail, and the Follow Up folder is visible in the left folder pane.",
+      "action_preconditions": [
+        "A Test E-mail is visible in the message list",
+        "The Follow Up folder is visible in the sidebar",
+        "No drag-blocking menu or dialog is open"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the message row titled A Test E-mail in the Inbox message list"
+        },
+        "end": {
+          "text": "the Follow Up folder under Local Folders in the left sidebar"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "The email is removed from Inbox and dropped into the Follow Up folder.",
+      "nl_explanation": "When both the target email and the Follow Up folder are visible, drag the A Test E-mail row onto Follow Up. The expected result is that the message is moved into that folder."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Open the Follow Up folder to verify the moved message",
+      "action_before_state": "The message has been moved, and the Follow Up folder is still visible in the left sidebar.",
+      "action_preconditions": [
+        "The Follow Up folder exists in the folder pane",
+        "The move action has completed"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Follow Up folder in the left sidebar"
+        }
+      },
+      "action_after_effects": "The message list switches to the Follow Up folder and shows the moved email there.",
+      "nl_explanation": "Click the Follow Up folder after moving the message so the folder contents are displayed. Thunderbird should now show A Test E-mail inside that folder."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Mark the moved email with a star for follow-up",
+      "action_before_state": "The Follow Up folder is open and the message titled A Test E-mail is visible in its message list.",
+      "action_preconditions": [
+        "The Follow Up folder is selected",
+        "The row for A Test E-mail is visible",
+        "The star column is visible for that row"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the star icon on the A Test E-mail row"
+        }
+      },
+      "action_after_effects": "A star appears on the message row, marking it as flagged.",
+      "nl_explanation": "When the moved email is visible in Follow Up, click its star indicator in the message list. The expected result is that the message becomes starred for easier follow-up."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Open the starred email so a reply can be drafted",
+      "action_before_state": "The starred A Test E-mail row is visible in the Follow Up folder.",
+      "action_preconditions": [
+        "A Test E-mail is visible in the current folder",
+        "The message row is selectable"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 2,
+        "target": {
+          "text": "the message row titled A Test E-mail"
+        }
+      },
+      "action_after_effects": "The email opens in its own tab or message view, showing the message header and available reply controls.",
+      "nl_explanation": "Double-click the A Test E-mail row once it is visible in the Follow Up folder. Thunderbird should open the message so reply actions are available."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Start a reply to the opened email",
+      "action_before_state": "The selected message is open and the message header toolbar is visible.",
+      "action_preconditions": [
+        "The email is open in Thunderbird",
+        "A Reply button is visible in the message header or toolbar"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Reply button for the opened email"
+        }
+      },
+      "action_after_effects": "A reply compose window or tab opens with the recipient and subject already filled in.",
+      "nl_explanation": "When the message is open and the reply controls are visible, click Reply. Thunderbird should open a reply draft with the sender and subject pre-populated."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Enter the reply message body",
+      "action_before_state": "The reply compose window is open and the text cursor is in the message body area.",
+      "action_preconditions": [
+        "The reply compose view is open",
+        "The message body editor is active or ready for text input"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Thanks, I received your message and will review it today."
+      },
+      "action_after_effects": "The reply text appears in the body of the draft.",
+      "nl_explanation": "With the reply composer open and the text cursor in the body area, type the requested message. The expected result is that the draft now contains the follow-up reply text."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Save the reply without sending it",
+      "action_before_state": "The reply draft is open and contains the typed message body.",
+      "action_preconditions": [
+        "The reply compose window is active",
+        "The draft contains the typed reply text",
+        "No send confirmation dialog is open"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "s"
+        ]
+      },
+      "action_after_effects": "Thunderbird saves the message to Drafts, and the reply remains unsent.",
+      "nl_explanation": "After typing the reply, press Ctrl+S to save it as a draft. The expected behavior is that Thunderbird stores the reply in Drafts instead of sending it."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Create a dedicated local folder for messages that need follow-up.",
+      "unit_type": "CREATE_FOLDER",
+      "unit_before_state": "Thunderbird is in the main mail view with the folder pane visible on the left, and Local Folders is listed there but no Follow Up folder exists yet.",
+      "unit_after_state": "The folder-creation dialog is closed and a new folder named Follow Up is visible under Local Folders in the folder pane.",
+      "unit_precondition": [
+        "The Thunderbird main window is active.",
+        "The folder pane is visible and Local Folders can be accessed.",
+        "No modal dialog is already open."
+      ],
+      "unit_effect": [
+        "A context menu opens for Local Folders and the New Folder command is available.",
+        "The New Folder dialog accepts the name Follow Up.",
+        "After confirmation, Follow Up appears under Local Folders in the sidebar."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Relocate the target email from Inbox into the new Follow Up folder and show it there.",
+      "unit_type": "MOVE_MESSAGE_TO_FOLDER",
+      "unit_before_state": "The new Follow Up folder exists in the folder pane, Thunderbird is still in the main mail view, and the target message is not yet shown inside that folder.",
+      "unit_after_state": "The Follow Up folder is selected in the sidebar and the message list shows A Test E-mail inside that folder.",
+      "unit_precondition": [
+        "The Follow Up folder has already been created under Local Folders.",
+        "Inbox is available in the folder pane.",
+        "A Test E-mail exists in Inbox and can be brought into view.",
+        "The Follow Up folder is visible as a drag destination."
+      ],
+      "unit_effect": [
+        "The center pane switches to Inbox and the row titled A Test E-mail becomes visible.",
+        "Dragging the message onto Follow Up removes it from Inbox.",
+        "Opening Follow Up shows A Test E-mail in that folder's message list."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        9
+      ],
+      "unit_intent": "Flag the moved email so it stands out for later review.",
+      "unit_type": "STAR_MESSAGE",
+      "unit_before_state": "The Follow Up folder is open and A Test E-mail is visible in the message list without a star applied yet.",
+      "unit_after_state": "A Test E-mail remains visible in the Follow Up folder and now shows a star on its message row.",
+      "unit_precondition": [
+        "The Follow Up folder is selected.",
+        "The row for A Test E-mail is visible.",
+        "The star control for that row can be clicked."
+      ],
+      "unit_effect": [
+        "A visible star appears on the A Test E-mail row, indicating the message is flagged."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        10,
+        11,
+        12
+      ],
+      "unit_intent": "Open the organized email and compose the requested reply text.",
+      "unit_type": "COMPOSE_REPLY",
+      "unit_before_state": "The starred A Test E-mail row is visible in the Follow Up folder's message list, but no reply draft is open yet.",
+      "unit_after_state": "A reply compose tab or window is open for A Test E-mail, with the recipient and subject prefilled and the body containing: Thanks, I received your message and will review it today.",
+      "unit_precondition": [
+        "A Test E-mail is visible and can be opened from the Follow Up folder.",
+        "The opened message exposes a Reply control.",
+        "The reply composer can accept text input in the message body area."
+      ],
+      "unit_effect": [
+        "Double-clicking the message opens it in message view or a tab.",
+        "Clicking Reply opens a reply draft with addressing fields already filled.",
+        "The requested sentence appears in the body editor."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        13
+      ],
+      "unit_intent": "Store the completed reply as an unsent draft for later follow-up.",
+      "unit_type": "SAVE_DRAFT",
+      "unit_before_state": "The reply compose window is active and contains the typed response in the message body.",
+      "unit_after_state": "The reply remains open or saved in Thunderbird as an unsent draft, with the content stored in Drafts rather than sent.",
+      "unit_precondition": [
+        "The reply compose window is active.",
+        "The draft already contains the intended reply text.",
+        "No send dialog or blocking modal is open."
+      ],
+      "unit_effect": [
+        "Thunderbird performs a save action for the current reply.",
+        "The message is saved to Drafts and remains unsent."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Create a dedicated local folder for messages that need follow-up.",
+      "unit_type": "CREATE_FOLDER",
+      "unit_before_state": "Thunderbird is in the main mail view with the folder pane visible on the left, and Local Folders is listed there but no Follow Up folder exists yet.",
+      "unit_after_state": "The folder-creation dialog is closed and a new folder named Follow Up is visible under Local Folders in the folder pane.",
+      "unit_precondition": [
+        "The Thunderbird main window is active.",
+        "The folder pane is visible and Local Folders can be accessed.",
+        "No modal dialog is already open."
+      ],
+      "unit_effect": [
+        "A context menu opens for Local Folders and the New Folder command is available.",
+        "The New Folder dialog accepts the name Follow Up.",
+        "After confirmation, Follow Up appears under Local Folders in the sidebar."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a new mail folder with a specified name under {{parent_folder_name}}.",
+      "parameters": {
+        "parent_folder_name": "Local Folders",
+        "new_folder_name": "Follow Up"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'right', 'num_clicks': 1, 'target': {'text': 'the Local Folders entry in the folder pane on the left'}}",
+          "action_template": "When the Thunderbird main window is active, the folder pane is visible, {{parent_folder_name}} is visible in the left sidebar, and no modal dialog is open, right-click the {{parent_folder_name}} entry in the folder pane to open its context menu. The expected result is a context menu for {{parent_folder_name}} showing folder-management options, including the option to create a new folder."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the New Folder option in the Local Folders context menu'}}",
+          "action_template": "With the context menu for {{parent_folder_name}} open and the New Folder option visible, click New Folder to start creating a folder under {{parent_folder_name}}. Thunderbird should open a folder-creation dialog with the folder name field ready for input."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Follow Up'}",
+          "action_template": "When the New Folder dialog is open and the folder name text box is visible and ready for input, type {{new_folder_name}} into the focused name field. The expected result is that the folder name field contains {{new_folder_name}}."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Once the New Folder dialog is still open and the name field contains {{new_folder_name}}, press Enter to confirm the new folder creation. The expected result is that the dialog closes and a new folder named {{new_folder_name}} appears under {{parent_folder_name}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Relocate the target email from Inbox into the new Follow Up folder and show it there.",
+      "unit_type": "MOVE_MESSAGE_TO_FOLDER",
+      "unit_before_state": "The new Follow Up folder exists in the folder pane, Thunderbird is still in the main mail view, and the target message is not yet shown inside that folder.",
+      "unit_after_state": "The Follow Up folder is selected in the sidebar and the message list shows A Test E-mail inside that folder.",
+      "unit_precondition": [
+        "The Follow Up folder has already been created under Local Folders.",
+        "Inbox is available in the folder pane.",
+        "A Test E-mail exists in Inbox and can be brought into view.",
+        "The Follow Up folder is visible as a drag destination."
+      ],
+      "unit_effect": [
+        "The center pane switches to Inbox and the row titled A Test E-mail becomes visible.",
+        "Dragging the message onto Follow Up removes it from Inbox.",
+        "Opening Follow Up shows A Test E-mail in that folder's message list."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Move a specified email from one folder to another and display it in the destination folder.",
+      "parameters": {
+        "source_folder": "Inbox",
+        "destination_folder": "Follow Up",
+        "message_subject": "A Test E-mail"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Inbox folder in the left sidebar'}}",
+          "action_template": "Click {{source_folder}} in the left sidebar to return to that folder's message list. This requires the main Thunderbird window to be visible and {{source_folder}} to be visible in the folder pane, and the expected effect is that the message list refreshes to show emails from {{source_folder}}."
+        },
+        {
+          "action": "{'type': 'SCROLL', 'scroll_direction': 'down', 'target': {'text': 'the message list in the center pane until the row titled A Test E-mail is visible'}, 'direction': 'down'}",
+          "action_template": "Scroll down in the message list until the row titled {{message_subject}} is visible. This requires {{source_folder}} to be selected, the message list to be scrollable, and {{message_subject}} not currently visible, and the expected effect is that the message row with subject {{message_subject}} becomes visible in the message list."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the message row titled A Test E-mail in the Inbox message list'}, 'end': {'text': 'the Follow Up folder under Local Folders in the left sidebar'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "Drag the message row titled {{message_subject}} from the {{source_folder}} message list onto {{destination_folder}} in the left sidebar to move it. This requires {{message_subject}} to be visible in the message list, {{destination_folder}} to be visible in the sidebar, and no drag-blocking menu or dialog to be open, and the expected effect is that the email is removed from {{source_folder}} and dropped into {{destination_folder}}."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Follow Up folder in the left sidebar'}}",
+          "action_template": "Click {{destination_folder}} in the left sidebar after moving the message so that folder's contents are displayed. This requires {{destination_folder}} to exist in the folder pane and the move action to have completed, and the expected effect is that the message list switches to {{destination_folder}} and shows {{message_subject}} there."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        9
+      ],
+      "unit_intent": "Flag the moved email so it stands out for later review.",
+      "unit_type": "STAR_MESSAGE",
+      "unit_before_state": "The Follow Up folder is open and A Test E-mail is visible in the message list without a star applied yet.",
+      "unit_after_state": "A Test E-mail remains visible in the Follow Up folder and now shows a star on its message row.",
+      "unit_precondition": [
+        "The Follow Up folder is selected.",
+        "The row for A Test E-mail is visible.",
+        "The star control for that row can be clicked."
+      ],
+      "unit_effect": [
+        "A visible star appears on the A Test E-mail row, indicating the message is flagged."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Apply a star to a specified email message in a selected folder so it is marked for later review.",
+      "parameters": {
+        "target_folder": "Follow Up",
+        "target_message": "A Test E-mail"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the star icon on the A Test E-mail row'}}",
+          "action_template": "When {{target_folder}} is selected and the row for {{target_message}} is visible with its star column shown, click the star icon on the {{target_message}} row in the message list to mark the message as starred for easier follow-up. The expected result is that a star appears on the message row, marking it as flagged."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        10,
+        11,
+        12
+      ],
+      "unit_intent": "Open the organized email and compose the requested reply text.",
+      "unit_type": "COMPOSE_REPLY",
+      "unit_before_state": "The starred A Test E-mail row is visible in the Follow Up folder's message list, but no reply draft is open yet.",
+      "unit_after_state": "A reply compose tab or window is open for A Test E-mail, with the recipient and subject prefilled and the body containing: Thanks, I received your message and will review it today.",
+      "unit_precondition": [
+        "A Test E-mail is visible and can be opened from the Follow Up folder.",
+        "The opened message exposes a Reply control.",
+        "The reply composer can accept text input in the message body area."
+      ],
+      "unit_effect": [
+        "Double-clicking the message opens it in message view or a tab.",
+        "Clicking Reply opens a reply draft with addressing fields already filled.",
+        "The requested sentence appears in the body editor."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a specified email from a target folder and draft a reply containing the provided message text.",
+      "parameters": {
+        "target_email_subject": "A Test E-mail",
+        "target_folder": "Follow Up",
+        "reply_text": "Thanks, I received your message and will review it today."
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 2, 'target': {'text': 'the message row titled A Test E-mail'}}",
+          "action_template": "Double-click the message row titled {{target_email_subject}} once it is visible in the {{target_folder}} folder. Preconditions: {{target_email_subject}} is visible in the current folder and the message row is selectable. Result: the email opens in its own tab or message view, showing the message header and available reply controls."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Reply button for the opened email'}}",
+          "action_template": "Click the Reply button for the opened email when the message is open and reply controls are visible. Preconditions: the email is open in Thunderbird and a Reply button is visible in the message header or toolbar. Result: a reply compose window or tab opens with the recipient and subject already filled in."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Thanks, I received your message and will review it today.'}",
+          "action_template": "Type {{reply_text}} with the reply composer open and the text cursor in the message body area. Preconditions: the reply compose view is open and the message body editor is active or ready for text input. Result: the reply text appears in the body of the draft."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        13
+      ],
+      "unit_intent": "Store the completed reply as an unsent draft for later follow-up.",
+      "unit_type": "SAVE_DRAFT",
+      "unit_before_state": "The reply compose window is active and contains the typed response in the message body.",
+      "unit_after_state": "The reply remains open or saved in Thunderbird as an unsent draft, with the content stored in Drafts rather than sent.",
+      "unit_precondition": [
+        "The reply compose window is active.",
+        "The draft already contains the intended reply text.",
+        "No send dialog or blocking modal is open."
+      ],
+      "unit_effect": [
+        "Thunderbird performs a save action for the current reply.",
+        "The message is saved to Drafts and remains unsent."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the current composed email as an unsent draft for later follow-up.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 's']}",
+          "action_template": "Press Ctrl+S while the reply compose window is active, the draft contains the typed reply text, and no send confirmation dialog is open, to save the current composed email as a draft. Thunderbird saves the message to Drafts and the reply remains unsent."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

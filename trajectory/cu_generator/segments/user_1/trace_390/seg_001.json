@@ -1,0 +1,578 @@
+{
+  "segment_id": "seg_001",
+  "app": "os",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the Terminal so you can create the working folder from the command line",
+      "action_before_state": "os is ready for step 1 of the task.",
+      "action_preconditions": [
+        "The GNOME desktop is active and visible",
+        "No modal dialog is blocking keyboard input"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "alt",
+          "t"
+        ]
+      },
+      "action_after_effects": "A Terminal window opens in the foreground and is ready to accept commands.",
+      "nl_explanation": "When the GNOME desktop is active and nothing is blocking input, press Ctrl+Alt+T to open Terminal. The expected result is that a shell window appears so the folder can be created quickly."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Create the Desktop folder and the initial note file inside it",
+      "action_before_state": "os is ready for step 2 of the task.",
+      "action_preconditions": [
+        "The Terminal window is focused",
+        "A shell prompt is visible"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "mkdir -p ~/Desktop/Today-Notes && printf 'Buy printer paper\\nConfirm 3 PM meeting\\n' > ~/Desktop/Today-Notes/notes.txt\n"
+      },
+      "action_after_effects": "A new folder named Today-Notes is created on the Desktop, and a file named notes.txt appears inside it with two reminder lines.",
+      "nl_explanation": "With Terminal focused at a shell prompt, type the command that creates the Desktop folder and writes a small text note into notes.txt, then run it. The result should be a new Today-Notes folder containing the initial file."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Open the Desktop directory in Files",
+      "action_before_state": "os is ready for step 3 of the task.",
+      "action_preconditions": [
+        "The Terminal window is still focused",
+        "The command in the previous step has completed"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "nautilus ~/Desktop\n"
+      },
+      "action_after_effects": "A Files window opens to the Desktop directory, where the Today-Notes folder is visible.",
+      "nl_explanation": "After the folder has been created, run a command that opens the Desktop directory in GNOME Files. The expected result is that Files shows the Desktop contents so the folder can be managed visually."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Open the Today-Notes folder",
+      "action_before_state": "os is ready for step 4 of the task.",
+      "action_preconditions": [
+        "The Files window is visible",
+        "The Desktop directory is open in Files"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 2,
+        "target": {
+          "text": "the Today-Notes folder in the Desktop directory view"
+        }
+      },
+      "action_after_effects": "Files enters the Today-Notes folder and shows the notes.txt file inside it.",
+      "nl_explanation": "When Files is open to the Desktop directory and the Today-Notes folder is visible, double-click that folder. The expected result is that the folder opens and its contents become visible."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Open the context menu for the note file",
+      "action_before_state": "os is ready for step 5 of the task.",
+      "action_preconditions": [
+        "The Today-Notes folder is open in Files",
+        "The file notes.txt is visible in the file list"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "right",
+        "num_clicks": 1,
+        "target": {
+          "text": "the file named notes.txt in the Today-Notes folder"
+        }
+      },
+      "action_after_effects": "A context menu opens for the selected file, providing file management options including Rename.",
+      "nl_explanation": "With the Today-Notes folder open and notes.txt visible, right-click the file to open its context menu. This exposes the rename option needed for the next step."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Select Rename from the context menu",
+      "action_before_state": "os is ready for step 6 of the task.",
+      "action_preconditions": [
+        "The context menu for notes.txt is open",
+        "A Rename option is visible in the menu"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Rename option in the context menu"
+        }
+      },
+      "action_after_effects": "The rename text field becomes active with the current filename selected.",
+      "nl_explanation": "Click the Rename option from the context menu. This activates the inline rename field so the filename can be edited."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Enter the new filename for the note",
+      "action_before_state": "os is ready for step 7 of the task.",
+      "action_preconditions": [
+        "The rename text field is active with notes.txt selected"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "meeting-notes.txt"
+      },
+      "action_after_effects": "The rename text field now contains meeting-notes.txt, replacing the old filename.",
+      "nl_explanation": "With the rename field active and the old filename selected, type the new filename. The expected result is that notes.txt is replaced with meeting-notes.txt in the text field."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Confirm the rename operation",
+      "action_before_state": "os is ready for step 8 of the task.",
+      "action_preconditions": [
+        "The rename text field contains meeting-notes.txt",
+        "The rename field is still active"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The file is renamed from notes.txt to meeting-notes.txt and the updated name appears in the Files window.",
+      "nl_explanation": "When the rename field contains meeting-notes.txt, press Enter to confirm. The visible result should be that the file now shows its new name."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Go back to the Desktop directory so the folder itself can be archived",
+      "action_before_state": "os is ready for step 9 of the task.",
+      "action_preconditions": [
+        "Files is open inside the Today-Notes folder",
+        "The Back button is available"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Back button in the Files title bar"
+        }
+      },
+      "action_after_effects": "Files returns to the Desktop directory view, where the Today-Notes folder is visible again.",
+      "nl_explanation": "With Files currently inside Today-Notes, click the Back button once to return to the parent directory. This exposes the folder itself so it can be compressed."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Open the folder context menu to start compression",
+      "action_before_state": "os is ready for step 10 of the task.",
+      "action_preconditions": [
+        "The Today-Notes folder is visible in Files",
+        "No rename field or modal dialog is active"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "right",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Today-Notes folder in the Desktop directory view"
+        }
+      },
+      "action_after_effects": "A context menu opens for the folder, showing actions such as Compress.",
+      "nl_explanation": "When the Today-Notes folder is visible and selectable, right-click it to open its context menu. This exposes the archive option needed for the final part of the task."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Open the archive creation dialog",
+      "action_before_state": "os is ready for step 11 of the task.",
+      "action_preconditions": [
+        "The Today-Notes folder context menu is open",
+        "A Compress option is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Compress option in the context menu"
+        }
+      },
+      "action_after_effects": "The Create Archive dialog opens with Today-Notes as the proposed archive name in the Desktop directory.",
+      "nl_explanation": "Click the Compress option from the folder context menu. This opens the archive creation dialog for the selected folder."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Choose ZIP as the archive format",
+      "action_before_state": "os is ready for step 12 of the task.",
+      "action_preconditions": [
+        "The Create Archive dialog is open",
+        "The archive format control can be interacted with"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the .zip archive format option in the Create Archive dialog"
+        }
+      },
+      "action_after_effects": "The archive format is set to ZIP for the new archive.",
+      "nl_explanation": "In the Create Archive dialog, select the .zip format option. This ensures the folder will be compressed as a ZIP archive instead of another archive type."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Create the ZIP archive on the Desktop",
+      "action_before_state": "os is ready for step 13 of the task.",
+      "action_preconditions": [
+        "The Create Archive dialog is open",
+        "The archive format is set to ZIP",
+        "The archive will be created in the Desktop directory"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Create button in the Create Archive dialog"
+        }
+      },
+      "action_after_effects": "A ZIP archive named Today-Notes.zip is created on the Desktop alongside the original folder.",
+      "nl_explanation": "With the Create Archive dialog open and ZIP selected, click Create to confirm. The expected outcome is a new Today-Notes.zip file on the Desktop, completing the task."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Set up a dedicated Desktop notes folder with an initial reminder file.",
+      "unit_type": "CREATE_FOLDER_AND_INITIAL_NOTE",
+      "unit_before_state": "The GNOME desktop is visible, and no modal dialog is blocking keyboard input. No Terminal window is open in the foreground yet.",
+      "unit_after_state": "A Terminal window is open in the foreground with the shell prompt returned. On the Desktop, a folder named Today-Notes now exists and contains a text file named notes.txt with two reminder lines.",
+      "unit_precondition": [
+        "The GNOME desktop is the active workspace.",
+        "Keyboard input can be sent without any blocking dialog.",
+        "The user has permission to create files on the Desktop."
+      ],
+      "unit_effect": [
+        "A Terminal window appears and becomes focused.",
+        "The shell command completes and returns to a prompt without an interruption.",
+        "The Today-Notes folder and its notes.txt file are created under the Desktop location."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3
+      ],
+      "unit_intent": "Open the Desktop in the file manager so the new folder can be managed visually.",
+      "unit_type": "OPEN_DESKTOP_IN_FILES",
+      "unit_before_state": "The Terminal window is focused after the creation command has finished, and the Today-Notes folder already exists on the Desktop but is not yet being viewed in Files.",
+      "unit_after_state": "A GNOME Files window is open to the Desktop directory, and the Today-Notes folder is visible in the file list.",
+      "unit_precondition": [
+        "The Terminal window is focused.",
+        "A shell prompt is visible, indicating the previous command has completed.",
+        "The Desktop path is accessible from the current user account."
+      ],
+      "unit_effect": [
+        "GNOME Files opens in the foreground.",
+        "The Desktop directory contents are shown.",
+        "The Today-Notes folder is visible and available for selection."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Rename the note file inside the Today-Notes folder to its final meeting-notes name.",
+      "unit_type": "OPEN_FOLDER_AND_RENAME_FILE",
+      "unit_before_state": "GNOME Files is showing the Desktop directory, where the Today-Notes folder is visible but not yet opened.",
+      "unit_after_state": "GNOME Files is inside the Today-Notes folder, and the file now appears as meeting-notes.txt instead of notes.txt.",
+      "unit_precondition": [
+        "The Files window is open to the Desktop directory.",
+        "The Today-Notes folder is visible and can be opened.",
+        "The file notes.txt exists inside the folder and can be renamed."
+      ],
+      "unit_effect": [
+        "The Today-Notes folder opens and shows its contents.",
+        "A context menu for notes.txt appears with a Rename option.",
+        "An inline rename field becomes active with the old filename selected.",
+        "After Enter is pressed, the displayed filename changes to meeting-notes.txt."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9
+      ],
+      "unit_intent": "Return to the Desktop directory so the folder itself can be archived.",
+      "unit_type": "RETURN_TO_PARENT_DIRECTORY",
+      "unit_before_state": "GNOME Files is currently open inside the Today-Notes folder, showing the renamed file meeting-notes.txt.",
+      "unit_after_state": "GNOME Files returns to the Desktop directory view, where the Today-Notes folder is visible again as a folder item.",
+      "unit_precondition": [
+        "The Files window is inside the Today-Notes folder.",
+        "The Back button in the Files title bar is available and clickable."
+      ],
+      "unit_effect": [
+        "The visible location changes from the folder contents back to the Desktop directory.",
+        "The Today-Notes folder becomes selectable from its parent directory view."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        10,
+        11,
+        12,
+        13
+      ],
+      "unit_intent": "Create a ZIP archive of the Today-Notes folder on the Desktop.",
+      "unit_type": "CREATE_ZIP_ARCHIVE",
+      "unit_before_state": "GNOME Files is showing the Desktop directory, and the Today-Notes folder is visible as a regular folder item that has not yet been archived.",
+      "unit_after_state": "The Create Archive dialog has been completed and closed, and a new file named Today-Notes.zip appears on the Desktop alongside the original Today-Notes folder.",
+      "unit_precondition": [
+        "The Files window is open to the Desktop directory.",
+        "The Today-Notes folder is visible and not in rename mode.",
+        "The folder context menu includes a Compress option.",
+        "The Create Archive dialog allows selecting the .zip format."
+      ],
+      "unit_effect": [
+        "A context menu opens for the Today-Notes folder.",
+        "The Create Archive dialog appears with Today-Notes as the proposed archive name.",
+        "The archive format is switched to .zip.",
+        "After Create is clicked, a Today-Notes.zip file becomes visible on the Desktop."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Set up a dedicated Desktop notes folder with an initial reminder file.",
+      "unit_type": "CREATE_FOLDER_AND_INITIAL_NOTE",
+      "unit_before_state": "The GNOME desktop is visible, and no modal dialog is blocking keyboard input. No Terminal window is open in the foreground yet.",
+      "unit_after_state": "A Terminal window is open in the foreground with the shell prompt returned. On the Desktop, a folder named Today-Notes now exists and contains a text file named notes.txt with two reminder lines.",
+      "unit_precondition": [
+        "The GNOME desktop is the active workspace.",
+        "Keyboard input can be sent without any blocking dialog.",
+        "The user has permission to create files on the Desktop."
+      ],
+      "unit_effect": [
+        "A Terminal window appears and becomes focused.",
+        "The shell command completes and returns to a prompt without an interruption.",
+        "The Today-Notes folder and its notes.txt file are created under the Desktop location."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a named notes folder on the Desktop and initialize a note file with specified reminder text.",
+      "parameters": {
+        "folder_name": "Today-Notes",
+        "file_name": "notes.txt",
+        "initial_note_text": "Buy printer paper\nConfirm 3 PM meeting\n"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'alt', 't']}",
+          "action_template": "When the GNOME desktop is active and no modal dialog is blocking keyboard input, press Ctrl+Alt+T to open Terminal. The expected result is that a shell window appears in the foreground and is ready to accept commands for creating the Desktop notes folder."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': \"mkdir -p ~/Desktop/Today-Notes && printf 'Buy printer paper\\\\nConfirm 3 PM meeting\\\\n' > ~/Desktop/Today-Notes/notes.txt\\n\"}",
+          "action_template": "With Terminal focused at a shell prompt, type and run the shell command that creates the Desktop folder {{folder_name}} and writes {{initial_note_text}} into {{file_name}}. The result should be a new {{folder_name}} folder on the Desktop containing the initial note file."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3
+      ],
+      "unit_intent": "Open the Desktop in the file manager so the new folder can be managed visually.",
+      "unit_type": "OPEN_DESKTOP_IN_FILES",
+      "unit_before_state": "The Terminal window is focused after the creation command has finished, and the Today-Notes folder already exists on the Desktop but is not yet being viewed in Files.",
+      "unit_after_state": "A GNOME Files window is open to the Desktop directory, and the Today-Notes folder is visible in the file list.",
+      "unit_precondition": [
+        "The Terminal window is focused.",
+        "A shell prompt is visible, indicating the previous command has completed.",
+        "The Desktop path is accessible from the current user account."
+      ],
+      "unit_effect": [
+        "GNOME Files opens in the foreground.",
+        "The Desktop directory contents are shown.",
+        "The Today-Notes folder is visible and available for selection."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open {{target_directory}} in the file manager so its contents can be managed visually.",
+      "parameters": {
+        "target_directory": "~/Desktop",
+        "target_item": "Today-Notes folder",
+        "open_command": "nautilus ~/Desktop\n"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "TYPING",
+          "action_template": "With the Terminal window focused and the previous command completed, type {{open_command}} to open {{target_directory}} in GNOME Files so its contents can be managed visually. After execution, a Files window opens to {{target_directory}}, where {{target_item}} is visible."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Rename the note file inside the Today-Notes folder to its final meeting-notes name.",
+      "unit_type": "OPEN_FOLDER_AND_RENAME_FILE",
+      "unit_before_state": "GNOME Files is showing the Desktop directory, where the Today-Notes folder is visible but not yet opened.",
+      "unit_after_state": "GNOME Files is inside the Today-Notes folder, and the file now appears as meeting-notes.txt instead of notes.txt.",
+      "unit_precondition": [
+        "The Files window is open to the Desktop directory.",
+        "The Today-Notes folder is visible and can be opened.",
+        "The file notes.txt exists inside the folder and can be renamed."
+      ],
+      "unit_effect": [
+        "The Today-Notes folder opens and shows its contents.",
+        "A context menu for notes.txt appears with a Rename option.",
+        "An inline rename field becomes active with the old filename selected.",
+        "After Enter is pressed, the displayed filename changes to meeting-notes.txt."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a specified folder in the file manager and rename a file inside it to a specified new filename.",
+      "parameters": {
+        "folder_name": "Today-Notes",
+        "original_file_name": "notes.txt",
+        "new_file_name": "meeting-notes.txt"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 2, 'target': {'text': 'the Today-Notes folder in the Desktop directory view'}}",
+          "action_template": "When the file manager is open to the current directory and the {{folder_name}} folder is visible, double-click the {{folder_name}} folder to open it and show its contents."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'right', 'num_clicks': 1, 'target': {'text': 'the file named notes.txt in the Today-Notes folder'}}",
+          "action_template": "With the {{folder_name}} folder open and {{original_file_name}} visible, right-click {{original_file_name}} to open its context menu and expose file management options including Rename."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Rename option in the context menu'}}",
+          "action_template": "Click the Rename option in the context menu for {{original_file_name}} to activate the inline rename field with the current filename selected."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'meeting-notes.txt'}",
+          "action_template": "With the rename field active and {{original_file_name}} selected, type {{new_file_name}} to replace the old filename in the text field."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "When the rename field contains {{new_file_name}}, press Enter to confirm the rename so the file appears with its updated name."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9
+      ],
+      "unit_intent": "Return to the Desktop directory so the folder itself can be archived.",
+      "unit_type": "RETURN_TO_PARENT_DIRECTORY",
+      "unit_before_state": "GNOME Files is currently open inside the Today-Notes folder, showing the renamed file meeting-notes.txt.",
+      "unit_after_state": "GNOME Files returns to the Desktop directory view, where the Today-Notes folder is visible again as a folder item.",
+      "unit_precondition": [
+        "The Files window is inside the Today-Notes folder.",
+        "The Back button in the Files title bar is available and clickable."
+      ],
+      "unit_effect": [
+        "The visible location changes from the folder contents back to the Desktop directory.",
+        "The Today-Notes folder becomes selectable from its parent directory view."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Return from an opened folder to its parent directory so the folder itself becomes selectable from the parent view.",
+      "parameters": {
+        "current_folder": "Today-Notes",
+        "parent_directory": "Desktop"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Back button in the Files title bar'}}",
+          "action_template": "With Files currently inside {{current_folder}}, click the Back button once to return to {{parent_directory}}. This exposes {{current_folder}} itself in the parent directory view so it can be selected there."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        10,
+        11,
+        12,
+        13
+      ],
+      "unit_intent": "Create a ZIP archive of the Today-Notes folder on the Desktop.",
+      "unit_type": "CREATE_ZIP_ARCHIVE",
+      "unit_before_state": "GNOME Files is showing the Desktop directory, and the Today-Notes folder is visible as a regular folder item that has not yet been archived.",
+      "unit_after_state": "The Create Archive dialog has been completed and closed, and a new file named Today-Notes.zip appears on the Desktop alongside the original Today-Notes folder.",
+      "unit_precondition": [
+        "The Files window is open to the Desktop directory.",
+        "The Today-Notes folder is visible and not in rename mode.",
+        "The folder context menu includes a Compress option.",
+        "The Create Archive dialog allows selecting the .zip format."
+      ],
+      "unit_effect": [
+        "A context menu opens for the Today-Notes folder.",
+        "The Create Archive dialog appears with Today-Notes as the proposed archive name.",
+        "The archive format is switched to .zip.",
+        "After Create is clicked, a Today-Notes.zip file becomes visible on the Desktop."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a ZIP archive for a specified folder in a specified directory.",
+      "parameters": {
+        "target_folder": "Today-Notes",
+        "target_directory": "Desktop",
+        "archive_file_name": "Today-Notes.zip"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'right', 'num_clicks': 1, 'target': {'text': 'the Today-Notes folder in the Desktop directory view'}}",
+          "action_template": "When the {{target_folder}} folder is visible in the {{target_directory}} directory and no rename field or modal dialog is active, right-click the {{target_folder}} folder to open its context menu. This exposes actions such as Compress needed to create the archive."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Compress option in the context menu'}}",
+          "action_template": "With the {{target_folder}} folder context menu open and the Compress option visible, click Compress to open the Create Archive dialog for the selected folder. The dialog opens with {{target_folder}} as the proposed archive name in the {{target_directory}} directory."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the .zip archive format option in the Create Archive dialog'}}",
+          "action_template": "When the Create Archive dialog is open and the archive format control is available, click the .zip archive format option to set the new archive to ZIP format."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Create button in the Create Archive dialog'}}",
+          "action_template": "With the Create Archive dialog open, ZIP selected, and the archive set to be created in the {{target_directory}} directory, click Create to confirm. A ZIP archive named {{archive_file_name}} is created alongside the original {{target_folder}} folder."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

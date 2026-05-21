@@ -1,0 +1,487 @@
+{
+  "segment_id": "seg_001",
+  "app": "libreoffice_calc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Enter the grocery budget table into the blank sheet",
+      "action_before_state": "LibreOffice Calc is open to a blank spreadsheet, and the cell grid is visible with the first sheet active.",
+      "action_preconditions": [
+        "A blank worksheet is open on the screen",
+        "The insertion point is in or can accept input starting from cell A1",
+        "There is enough visible space to enter a small table"
+      ],
+      "action": {
+        "type": "CLICK",
+        "text": "Category\tPlanned\tActual\tVariance\nProduce\t35\t42\t\nDairy\t18\t16\t\nPantry\t25\t31\t\nFrozen\t15\t12\t\nSnacks\t20\t27\t\nHousehold\t22\t19\t",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the relevant libreoffice_calc UI element"
+        }
+      },
+      "action_after_effects": "The sheet now contains headers in row 1 and six grocery categories in rows 2 through 7, with the Variance column still empty.",
+      "nl_explanation": "When the blank spreadsheet is ready for input, paste the tab-separated table starting at A1. This fills the category, planned, and actual values into the sheet and leaves the Variance column ready for formulas."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Select the first empty variance cell",
+      "action_before_state": "The data table is visible in columns A through D, and cell D2 is the first empty cell under the Variance header.",
+      "action_preconditions": [
+        "The table from A1 to D7 is visible",
+        "Cell D2 is empty",
+        "No chart wizard or dialog is blocking the grid"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell D2 under the Variance header"
+        }
+      },
+      "action_after_effects": "Cell D2 becomes the active cell and is ready for formula input.",
+      "nl_explanation": "With the budget table visible and the first variance cell empty, click cell D2 so the next input goes into the correct place for the first row's variance formula."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Type the variance formula for the first grocery category",
+      "action_before_state": "Cell D2 is active, and the Produce row shows Planned in B2 and Actual in C2.",
+      "action_preconditions": [
+        "Cell D2 is selected",
+        "Cells B2 and C2 already contain numeric values",
+        "The formula bar or cell input accepts typed formulas"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "=C2-B2"
+      },
+      "action_after_effects": "The formula text appears in D2 but is not yet confirmed into the cell until the entry is submitted.",
+      "nl_explanation": "Once D2 is selected and the Produce row has both spending values, type the formula `=C2-B2` to calculate actual minus planned spending for that row."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Confirm the formula entry",
+      "action_before_state": "The formula `=C2-B2` is visible in the active cell editor for D2.",
+      "action_preconditions": [
+        "Cell D2 is still active",
+        "The formula has been typed but not yet committed",
+        "Keyboard input is focused on the spreadsheet"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "Calc evaluates the formula and displays the numeric variance for Produce in D2.",
+      "nl_explanation": "After typing the variance formula into D2, press Enter to commit it. The spreadsheet then calculates and shows the first variance value."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Fill the variance formula down for the remaining categories",
+      "action_before_state": "Cell D2 contains the completed variance formula, and cells D3 through D7 are still empty.",
+      "action_preconditions": [
+        "D2 contains a valid formula",
+        "Rows 3 through 7 contain category data in columns B and C",
+        "The small autofill handle on the bottom-right of D2 is visible"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the small fill handle at the bottom-right corner of cell D2"
+        },
+        "end": {
+          "text": "the bottom-right corner of cell D7"
+        },
+        "target": {
+          "begin": {
+            "text": "cell D2"
+          },
+          "end": {
+            "text": "cell D7"
+          }
+        }
+      },
+      "action_after_effects": "The variance formula is copied into D3 through D7, and each grocery row now shows its own variance.",
+      "nl_explanation": "When D2 already contains the correct formula and the rows below have matching data, drag the fill handle from D2 down to D7 so Calc copies the formula for every remaining category."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Move to the row below the data for totals",
+      "action_before_state": "The completed table fills rows 1 through 7, and row 8 is empty.",
+      "action_preconditions": [
+        "Rows 1 through 7 are populated",
+        "Row 8 is blank",
+        "Cell A8 is visible on the screen"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cell A8 directly below the last grocery category"
+        }
+      },
+      "action_after_effects": "Cell A8 becomes active and is ready for the total row input.",
+      "nl_explanation": "Once the category rows are finished and the next row is empty, click A8 so the totals can be entered immediately below the existing table."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Add a total row with SUM formulas",
+      "action_before_state": "Cell A8 is active, and the grocery table above spans A1 through D7.",
+      "action_preconditions": [
+        "A8 is selected",
+        "The data block above is complete",
+        "Columns B, C, and D contain numeric values that can be summed"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Total\t=SUM(B2:B7)\t=SUM(C2:C7)\t=SUM(D2:D7)"
+      },
+      "action_after_effects": "Row 8 is populated with the Total label and formulas for planned, actual, and variance totals.",
+      "nl_explanation": "With A8 selected and the data table complete, type the total row as tab-separated content. Calc places the label in A8 and the SUM formulas across B8 through D8."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Select the category and spending data for chart creation",
+      "action_before_state": "The worksheet contains the finished table, including the total row in row 8.",
+      "action_preconditions": [
+        "Headers are present in row 1",
+        "Category names are in A2 through A7",
+        "Planned and Actual values are in columns B and C"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "cell A1 at the top-left corner of the table"
+        },
+        "end": {
+          "text": "cell C7 so the selection includes Category, Planned, and Actual but not the Total row"
+        },
+        "target": {
+          "begin": {
+            "text": "cell A1"
+          },
+          "end": {
+            "text": "cell C7"
+          }
+        }
+      },
+      "action_after_effects": "The range A1:C7 is highlighted and ready to be used as the chart data source.",
+      "nl_explanation": "After the table is complete, drag from A1 to C7 to select the category labels and the two spending columns while leaving out the total row, which keeps the chart focused on the six grocery categories."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Open the chart creation dialog",
+      "action_before_state": "The data range A1:C7 is highlighted, and the Calc toolbar is visible above the sheet.",
+      "action_preconditions": [
+        "The range A1:C7 is selected",
+        "The standard or insert toolbar is visible",
+        "No other modal dialog is open"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Insert Chart option in the Insert menu or toolbar"
+        }
+      },
+      "action_after_effects": "The Chart Wizard opens with a preview based on the selected table data.",
+      "nl_explanation": "When the data block is highlighted and the chart insertion control is available, click the Insert Chart option so Calc starts a chart using the selected grocery budget data."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Finish inserting the comparison chart",
+      "action_before_state": "The Chart Wizard is open and shows a preview chart generated from the selected data.",
+      "action_preconditions": [
+        "The Chart Wizard dialog is visible",
+        "A valid chart preview is displayed",
+        "The Finish button is available"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Finish button in the Chart Wizard"
+        }
+      },
+      "action_after_effects": "An embedded chart appears on the sheet, showing planned versus actual grocery spending by category.",
+      "nl_explanation": "After the Chart Wizard displays a valid preview, click Finish to place the chart into the sheet. The spreadsheet now includes both the completed budget summary and a visual comparison chart."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Create the base weekly grocery budget table so the sheet has category, planned, and actual spending data ready for calculations.",
+      "unit_type": "POPULATE_INITIAL_TABLE",
+      "unit_before_state": "LibreOffice Calc is showing a blank worksheet with the first sheet active and the cell grid visible, with no grocery budget data entered yet.",
+      "unit_after_state": "Cells A1 through D7 contain the budget table: row 1 has the headers Category, Planned, Actual, and Variance; rows 2 through 7 list Produce, Dairy, Pantry, Frozen, Snacks, and Household with planned and actual amounts; the Variance cells D2 through D7 are still empty.",
+      "unit_precondition": [
+        "A blank worksheet is open and visible.",
+        "Input can be entered starting at cell A1.",
+        "No modal dialog is blocking the spreadsheet."
+      ],
+      "unit_effect": [
+        "The pasted table appears in the grid starting at A1.",
+        "Headers and six grocery rows are visible on the sheet.",
+        "The Variance column is present but unfilled for rows 2 through 7."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "unit_intent": "Calculate variance for every grocery category by using one formula and filling it down the column.",
+      "unit_type": "POPULATE_VARIANCE_COLUMN",
+      "unit_before_state": "The grocery budget table is visible in A1:D7, with planned values in column B and actual values in column C, while variance cells D2 through D7 are empty.",
+      "unit_after_state": "Column D is filled for rows 2 through 7 with calculated variances for each category, so every grocery row now shows a numeric difference between Actual and Planned spending.",
+      "unit_precondition": [
+        "The table from A1 to D7 is already entered.",
+        "Cells B2 through C7 contain numeric planned and actual values.",
+        "Cell D2 is visible and editable, and the fill handle can be used after the first formula is committed."
+      ],
+      "unit_effect": [
+        "D2 displays the evaluated result of the formula entered for Produce.",
+        "Dragging the fill handle copies the formula from D2 through D7.",
+        "All variance cells D2:D7 show numeric results instead of blanks."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7
+      ],
+      "unit_intent": "Add a totals row that summarizes the planned, actual, and variance columns beneath the category rows.",
+      "unit_type": "ADD_TOTAL_ROW",
+      "unit_before_state": "Rows 1 through 7 contain the completed grocery table with variance values filled in, and row 8 is blank with cell A8 available below the last category.",
+      "unit_after_state": "Row 8 contains a summary line: A8 shows Total, B8 contains a SUM formula for planned spending, C8 contains a SUM formula for actual spending, and D8 contains a SUM formula for total variance.",
+      "unit_precondition": [
+        "The category rows in A1:D7 are complete.",
+        "Row 8 is empty and visible.",
+        "Cell A8 can be activated for direct entry."
+      ],
+      "unit_effect": [
+        "A total row appears directly below the data table.",
+        "SUM formulas are inserted across B8:D8.",
+        "The worksheet now shows both per-category values and overall totals."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8,
+        9,
+        10
+      ],
+      "unit_intent": "Create an embedded chart that compares planned versus actual grocery spending across the six categories.",
+      "unit_type": "INSERT_COMPARISON_CHART",
+      "unit_before_state": "The worksheet shows the finished grocery budget table with a total row in row 8, and no chart is yet embedded on the sheet.",
+      "unit_after_state": "A chart is inserted into the worksheet showing planned and actual spending by grocery category, based on the selected data range A1:C7 and excluding the total row.",
+      "unit_precondition": [
+        "The table is complete, including category names in A2:A7 and planned and actual values in B2:C7.",
+        "The spreadsheet grid is visible and no modal dialog is open before chart insertion starts.",
+        "The chart insertion control is available in the toolbar or Insert menu."
+      ],
+      "unit_effect": [
+        "The range A1:C7 becomes highlighted as the chart data source.",
+        "The Chart Wizard opens with a preview generated from the selected data.",
+        "After finishing the wizard, an embedded comparison chart appears on the sheet."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Create the base weekly grocery budget table so the sheet has category, planned, and actual spending data ready for calculations.",
+      "unit_type": "POPULATE_INITIAL_TABLE",
+      "unit_before_state": "LibreOffice Calc is showing a blank worksheet with the first sheet active and the cell grid visible, with no grocery budget data entered yet.",
+      "unit_after_state": "Cells A1 through D7 contain the budget table: row 1 has the headers Category, Planned, Actual, and Variance; rows 2 through 7 list Produce, Dairy, Pantry, Frozen, Snacks, and Household with planned and actual amounts; the Variance cells D2 through D7 are still empty.",
+      "unit_precondition": [
+        "A blank worksheet is open and visible.",
+        "Input can be entered starting at cell A1.",
+        "No modal dialog is blocking the spreadsheet."
+      ],
+      "unit_effect": [
+        "The pasted table appears in the grid starting at A1.",
+        "Headers and six grocery rows are visible on the sheet.",
+        "The Variance column is present but unfilled for rows 2 through 7."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Populate a blank worksheet with a specified initial table of headers and row data so the sheet is ready for later calculations.",
+      "parameters": {
+        "start_cell": "A1",
+        "table_data": "Category\tPlanned\tActual\tVariance\nProduce\t35\t42\t\nDairy\t18\t16\t\nPantry\t25\t31\t\nFrozen\t15\t12\t\nSnacks\t20\t27\t\nHousehold\t22\t19\t"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'text': 'Category\\tPlanned\\tActual\\tVariance\\nProduce\\t35\\t42\\t\\nDairy\\t18\\t16\\t\\nPantry\\t25\\t31\\t\\nFrozen\\t15\\t12\\t\\nSnacks\\t20\\t27\\t\\nHousehold\\t22\\t19\\t', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the relevant libreoffice_calc UI element'}}",
+          "action_template": "When a blank worksheet is open and able to accept input starting from {{start_cell}}, left-click the worksheet and paste {{table_data}} starting at {{start_cell}}. This fills the headers and row values into the sheet and leaves any empty cells included in the pasted table ready for later formulas."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "unit_intent": "Calculate variance for every grocery category by using one formula and filling it down the column.",
+      "unit_type": "POPULATE_VARIANCE_COLUMN",
+      "unit_before_state": "The grocery budget table is visible in A1:D7, with planned values in column B and actual values in column C, while variance cells D2 through D7 are empty.",
+      "unit_after_state": "Column D is filled for rows 2 through 7 with calculated variances for each category, so every grocery row now shows a numeric difference between Actual and Planned spending.",
+      "unit_precondition": [
+        "The table from A1 to D7 is already entered.",
+        "Cells B2 through C7 contain numeric planned and actual values.",
+        "Cell D2 is visible and editable, and the fill handle can be used after the first formula is committed."
+      ],
+      "unit_effect": [
+        "D2 displays the evaluated result of the formula entered for Produce.",
+        "Dragging the fill handle copies the formula from D2 through D7.",
+        "All variance cells D2:D7 show numeric results instead of blanks."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Calculate a variance column by entering the first row formula and filling it down through the remaining data rows.",
+      "parameters": {
+        "first_result_cell": "cell D2 under the Variance header",
+        "formula_text": "=C2-B2",
+        "fill_end_cell": "cell D7"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell D2 under the Variance header'}}",
+          "action_template": "Click {{first_result_cell}} when the table is visible and the first result cell is empty so it becomes the active cell for formula input."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '=C2-B2'}",
+          "action_template": "Type {{formula_text}} into the selected result cell once the row's source value cells are populated, leaving the formula ready to be committed."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter after {{formula_text}} has been typed into {{first_result_cell}} so the spreadsheet evaluates it and displays the first variance value."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the small fill handle at the bottom-right corner of cell D2'}, 'end': {'text': 'the bottom-right corner of cell D7'}, 'target': {'begin': {'text': 'cell D2'}, 'end': {'text': 'cell D7'}}}",
+          "action_template": "Drag the fill handle from {{first_result_cell}} to {{fill_end_cell}} after the first formula is valid so the variance formula is copied through the remaining rows."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7
+      ],
+      "unit_intent": "Add a totals row that summarizes the planned, actual, and variance columns beneath the category rows.",
+      "unit_type": "ADD_TOTAL_ROW",
+      "unit_before_state": "Rows 1 through 7 contain the completed grocery table with variance values filled in, and row 8 is blank with cell A8 available below the last category.",
+      "unit_after_state": "Row 8 contains a summary line: A8 shows Total, B8 contains a SUM formula for planned spending, C8 contains a SUM formula for actual spending, and D8 contains a SUM formula for total variance.",
+      "unit_precondition": [
+        "The category rows in A1:D7 are complete.",
+        "Row 8 is empty and visible.",
+        "Cell A8 can be activated for direct entry."
+      ],
+      "unit_effect": [
+        "A total row appears directly below the data table.",
+        "SUM formulas are inserted across B8:D8.",
+        "The worksheet now shows both per-category values and overall totals."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Insert a totals row below a completed table by selecting the first empty row and entering a summary label with column total formulas.",
+      "parameters": {
+        "target_cell": "A8",
+        "summary_label": "Total",
+        "summary_formula_1": "=SUM(B2:B7)",
+        "summary_formula_2": "=SUM(C2:C7)",
+        "summary_formula_3": "=SUM(D2:D7)"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cell A8 directly below the last grocery category'}}",
+          "action_template": "Once the category rows are finished, the next row is empty, and cell {{target_cell}} is visible, click cell {{target_cell}} so the totals can be entered immediately below the existing table and the cell becomes active."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Total\\t=SUM(B2:B7)\\t=SUM(C2:C7)\\t=SUM(D2:D7)'}",
+          "action_template": "With cell {{target_cell}} selected, the data block above complete, and the numeric columns ready to be summed, type {{summary_label}}, {{summary_formula_1}}, {{summary_formula_2}}, and {{summary_formula_3}} as tab-separated content so Calc fills the summary row with the label and formulas across the row."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8,
+        9,
+        10
+      ],
+      "unit_intent": "Create an embedded chart that compares planned versus actual grocery spending across the six categories.",
+      "unit_type": "INSERT_COMPARISON_CHART",
+      "unit_before_state": "The worksheet shows the finished grocery budget table with a total row in row 8, and no chart is yet embedded on the sheet.",
+      "unit_after_state": "A chart is inserted into the worksheet showing planned and actual spending by grocery category, based on the selected data range A1:C7 and excluding the total row.",
+      "unit_precondition": [
+        "The table is complete, including category names in A2:A7 and planned and actual values in B2:C7.",
+        "The spreadsheet grid is visible and no modal dialog is open before chart insertion starts.",
+        "The chart insertion control is available in the toolbar or Insert menu."
+      ],
+      "unit_effect": [
+        "The range A1:C7 becomes highlighted as the chart data source.",
+        "The Chart Wizard opens with a preview generated from the selected data.",
+        "After finishing the wizard, an embedded comparison chart appears on the sheet."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create an embedded comparison chart from a specified worksheet data range.",
+      "parameters": {
+        "selection_start_cell": "A1",
+        "selection_end_cell": "C7",
+        "data_range": "A1:C7"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "DRAG_TO",
+          "action_template": "After the source table is complete and the headers and value columns are present, drag from {{selection_start_cell}} to {{selection_end_cell}} to select the labeled categories and comparison values in {{data_range}} while excluding any summary row, so the range is highlighted as the chart data source."
+        },
+        {
+          "action": "CLICK",
+          "action_template": "When {{data_range}} is selected and the chart insertion control is available with no other modal dialog open, click the Insert Chart option to open the Chart Wizard with a preview based on the selected data."
+        },
+        {
+          "action": "CLICK",
+          "action_template": "After the Chart Wizard shows a valid preview for {{data_range}}, click the Finish button to insert the embedded comparison chart into the worksheet."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

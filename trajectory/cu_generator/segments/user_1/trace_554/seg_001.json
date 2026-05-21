@@ -1,0 +1,797 @@
+{
+  "segment_id": "seg_001",
+  "app": "vs_code",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the integrated terminal in VS Code",
+      "action_before_state": "VS Code is already open on the screen, showing its main editor area and sidebar.",
+      "action_preconditions": [
+        "The VS Code window is focused",
+        "The editor is responsive and keyboard shortcuts can be used"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "`"
+        ]
+      },
+      "action_after_effects": "The integrated terminal panel opens at the bottom of the VS Code window with a shell prompt ready.",
+      "nl_explanation": "When the VS Code window is active, press Ctrl+` to open the built-in terminal, and the result should be a shell prompt at the bottom of the screen."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Prepare the folder for daily notes",
+      "action_before_state": "The integrated terminal is visible and the cursor is active at a shell prompt.",
+      "action_preconditions": [
+        "The terminal prompt is ready for input",
+        "No modal dialog is blocking the terminal"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "mkdir -p ~/Documents/daily-notes"
+      },
+      "action_after_effects": "The command text appears in the terminal, ready to be executed.",
+      "nl_explanation": "With the terminal focused and ready, type the command to create the `daily-notes` folder under Documents so the workspace can be opened next."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Run the folder creation command",
+      "action_before_state": "The terminal contains the `mkdir -p ~/Documents/daily-notes` command.",
+      "action_preconditions": [
+        "The command is fully typed in the terminal",
+        "The terminal input cursor is still active"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The shell executes the command and returns to a fresh prompt, with the folder now available in Documents.",
+      "nl_explanation": "Once the folder-creation command is entered, press Enter to execute it, and the expected result is that the folder exists and the prompt returns."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Open the command palette",
+      "action_before_state": "VS Code is still open, and the terminal remains available at the bottom.",
+      "action_preconditions": [
+        "The VS Code window is focused",
+        "Keyboard shortcuts are available"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "p"
+        ]
+      },
+      "action_after_effects": "The command palette opens at the top of the window with the quick input box focused.",
+      "nl_explanation": "After the folder has been created, press Ctrl+Shift+P to bring up the command palette so the folder can be opened in the current window."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Search for the Open Folder command",
+      "action_before_state": "The command palette input box is visible and focused.",
+      "action_preconditions": [
+        "The quick input box is active",
+        "VS Code is waiting for a command search"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "File: Open Folder..."
+      },
+      "action_after_effects": "The command palette filters its results and shows the `File: Open Folder...` command.",
+      "nl_explanation": "With the command palette open, type `File: Open Folder...` so the matching command appears and can be selected."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Launch the folder picker",
+      "action_before_state": "The `File: Open Folder...` command is highlighted in the command palette.",
+      "action_preconditions": [
+        "The correct command is visible in the result list",
+        "The command palette still has focus"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "A GNOME file chooser opens for selecting a folder to open in VS Code.",
+      "nl_explanation": "When the Open Folder command is highlighted, press Enter to open the folder selection dialog."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Focus the location entry in the GNOME file chooser",
+      "action_before_state": "The folder picker dialog is open and showing the current filesystem location.",
+      "action_preconditions": [
+        "The file chooser is focused",
+        "The dialog accepts keyboard shortcuts"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "l"
+        ]
+      },
+      "action_after_effects": "The location field becomes active so a path can be typed directly.",
+      "nl_explanation": "Once the GNOME file chooser is open, press Ctrl+L to focus the path bar, which allows direct navigation to the notes folder."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Enter the path of the notes folder",
+      "action_before_state": "The location field in the file chooser is active and ready for text input.",
+      "action_preconditions": [
+        "The path bar is focused",
+        "The `daily-notes` folder has already been created"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "~/Documents/daily-notes"
+      },
+      "action_after_effects": "The folder path appears in the location field.",
+      "nl_explanation": "With the location bar active, type `~/Documents/daily-notes` so the chooser points to the folder created in the earlier terminal step."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Open the notes folder in the current VS Code window",
+      "action_before_state": "The file chooser shows the path for `~/Documents/daily-notes` and the dialog controls are visible.",
+      "action_preconditions": [
+        "The file chooser is still open",
+        "The Open button is available in the dialog"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Open button in the bottom-right area of the file chooser"
+        }
+      },
+      "action_after_effects": "VS Code begins switching to the `daily-notes` folder in the current window. If the folder is not already trusted, a workspace trust dialog may appear before the Explorer updates to show that folder.",
+      "nl_explanation": "After the notes folder path has been entered, click the Open button in the file chooser. VS Code should load that folder in the current window, though a trust prompt may need confirmation first."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Confirm the workspace trust dialog if it appears",
+      "action_before_state": "A workspace trust dialog may be visible after opening the `daily-notes` folder.",
+      "action_preconditions": [
+        "The trust dialog is displayed",
+        "A button to trust the folder is available"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Yes, I trust the authors button in the workspace trust dialog"
+        }
+      },
+      "action_after_effects": "The trust dialog closes and VS Code finishes loading the `daily-notes` folder in the current window.",
+      "nl_explanation": "If VS Code asks whether to trust the authors of the files in this folder, click the trust button so the folder opens normally."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Start creating a new Markdown note",
+      "action_before_state": "The workspace trust dialog has been dismissed if it appeared, and the Explorer sidebar shows the `daily-notes` folder with no files in it yet.",
+      "action_preconditions": [
+        "The Explorer view is visible",
+        "The folder is open in VS Code"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the New File icon near the top of the Explorer panel"
+        }
+      },
+      "action_after_effects": "A filename input field appears in the Explorer, ready for the new file name.",
+      "nl_explanation": "When the folder is open in the Explorer, click the New File icon so VS Code prompts for the name of the new note."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Name the standup note for today",
+      "action_before_state": "The Explorer is showing an inline filename field for the new file.",
+      "action_preconditions": [
+        "The new filename input is active",
+        "The folder is selected in the Explorer"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "2026-04-02-standup.md"
+      },
+      "action_after_effects": "The proposed file name appears in the inline input box.",
+      "nl_explanation": "With the new file input active, type `2026-04-02-standup.md` so the note is clearly dated and saved as a Markdown file."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Create the Markdown file",
+      "action_before_state": "The file name `2026-04-02-standup.md` is entered in the Explorer input field.",
+      "action_preconditions": [
+        "The filename is fully typed",
+        "The inline input still has focus"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The new Markdown file is created and opened in the editor.",
+      "nl_explanation": "After entering the file name, press Enter to create the file, and the expected result is that the note opens in the editor."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Add a simple standup template to the note",
+      "action_before_state": "The newly created Markdown file is open in the editor with the text cursor inside it.",
+      "action_preconditions": [
+        "The markdown editor is focused",
+        "The file is empty or ready for note content"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "# Standup - 2026-04-02\n\n## Yesterday\n- \n\n## Today\n- \n\n## Blockers\n- "
+      },
+      "action_after_effects": "The file now contains a structured standup template with sections for yesterday, today, and blockers.",
+      "nl_explanation": "When the Markdown file is open and focused, type the standup template so the note is immediately ready for daily updates."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Enable word wrap for easier note editing",
+      "action_before_state": "The Markdown note is visible in the editor and the cursor remains in the file.",
+      "action_preconditions": [
+        "The text editor is focused",
+        "The current tab is the standup Markdown file"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "alt",
+          "z"
+        ]
+      },
+      "action_after_effects": "Word wrap is toggled on, so long lines will wrap within the visible editor width instead of scrolling horizontally.",
+      "nl_explanation": "With the note open in the editor, press Alt+Z to turn on word wrap, making the document easier to read and edit."
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Open the command palette again to enable Auto Save",
+      "action_before_state": "The standup note is still open in the editor after word wrap was enabled.",
+      "action_preconditions": [
+        "VS Code is focused",
+        "The editor is not blocked by another dialog"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "p"
+        ]
+      },
+      "action_after_effects": "The command palette opens again with the quick input box focused.",
+      "nl_explanation": "After adjusting word wrap, press Ctrl+Shift+P again so the Auto Save command can be searched and run."
+    },
+    {
+      "step_id": "s17",
+      "step_goal": "Search for the Auto Save toggle command",
+      "action_before_state": "The command palette is open and ready for text input.",
+      "action_preconditions": [
+        "The quick input field is focused",
+        "VS Code is awaiting a command search"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "File: Toggle Auto Save"
+      },
+      "action_after_effects": "The `File: Toggle Auto Save` command appears in the command palette results.",
+      "nl_explanation": "With the command palette active, type `File: Toggle Auto Save` so the matching command becomes available."
+    },
+    {
+      "step_id": "s18",
+      "step_goal": "Enable Auto Save",
+      "action_before_state": "The `File: Toggle Auto Save` command is highlighted in the palette.",
+      "action_preconditions": [
+        "The correct command is selected",
+        "The command palette still has focus"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "Auto Save is turned on, so future edits to the note will be saved automatically without manual saving.",
+      "nl_explanation": "When the Auto Save command is selected in the palette, press Enter to enable it and let VS Code save changes automatically."
+    },
+    {
+      "step_id": "s19",
+      "step_goal": "Open the Markdown preview beside the editor",
+      "action_before_state": "The Markdown file is active in the editor, and the editor toolbar for the file is visible.",
+      "action_preconditions": [
+        "The current tab is the Markdown note",
+        "The editor toolbar shows the Markdown preview control"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Open Preview to the Side button in the upper-right of the editor group, adjacent to the active Markdown tab"
+        }
+      },
+      "action_after_effects": "A Markdown preview pane opens beside the editor, showing the formatted standup note while the source remains editable.",
+      "nl_explanation": "Once the Markdown note is active, click the preview-to-the-side button in the editor toolbar, and the expected result is a split view with the rendered note on one side and the source on the other."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Create the notes workspace folder in Documents so it can be opened in VS Code.",
+      "unit_type": "CREATE_FOLDER_VIA_TERMINAL",
+      "unit_before_state": "VS Code is open with its main editor area and sidebar visible, and the integrated terminal is not yet open.",
+      "unit_after_state": "The integrated terminal is open at the bottom of VS Code, the mkdir command has been executed, and a fresh shell prompt is visible with the daily-notes folder now existing under Documents.",
+      "unit_precondition": [
+        "VS Code is the focused window.",
+        "Keyboard shortcuts work in the editor.",
+        "The integrated terminal can accept shell input."
+      ],
+      "unit_effect": [
+        "A terminal panel with a shell prompt appears at the bottom of the window.",
+        "The command mkdir -p ~/Documents/daily-notes runs and the prompt returns without leaving the terminal busy.",
+        "The daily-notes folder is available under Documents for later selection."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Open the folder selection dialog for switching the current VS Code window to a folder workspace.",
+      "unit_type": "OPEN_FOLDER_PICKER",
+      "unit_before_state": "VS Code remains open after the folder creation command, with the terminal still visible at the bottom and no dialog covering the main window.",
+      "unit_after_state": "The Command Palette has been used to run File: Open Folder..., and a GNOME folder chooser dialog is now open in front of VS Code.",
+      "unit_precondition": [
+        "VS Code is still focused and responsive.",
+        "No modal dialog is already blocking keyboard input.",
+        "The Command Palette can be opened from the current window."
+      ],
+      "unit_effect": [
+        "The quick input box appears at the top of VS Code.",
+        "The File: Open Folder... command becomes the selected palette result.",
+        "A folder chooser dialog opens for selecting a workspace folder."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8,
+        9,
+        10
+      ],
+      "unit_intent": "Load the newly created daily-notes folder as the active workspace in the current VS Code window.",
+      "unit_type": "OPEN_WORKSPACE_FOLDER",
+      "unit_before_state": "A GNOME folder chooser is open for folder selection, showing a filesystem location and dialog controls such as the Open button.",
+      "unit_after_state": "The folder chooser is closed, any workspace trust prompt has been dismissed, and the Explorer in VS Code shows the daily-notes folder as the active workspace in the current window.",
+      "unit_precondition": [
+        "The folder chooser dialog is focused.",
+        "The daily-notes folder already exists in Documents.",
+        "The location field and Open button in the dialog are available.",
+        "If a workspace trust prompt appears, its trust confirmation button is clickable."
+      ],
+      "unit_effect": [
+        "The chooser's location entry receives the path ~/Documents/daily-notes.",
+        "Clicking Open starts switching VS Code to that folder.",
+        "If the workspace trust dialog appears, clicking the trust button closes it.",
+        "The Explorer updates to show daily-notes as the opened folder."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        11,
+        12,
+        13,
+        14
+      ],
+      "unit_intent": "Create a dated Markdown standup note and populate it with the required section template.",
+      "unit_type": "CREATE_AND_INITIALIZE_NOTE",
+      "unit_before_state": "The Explorer sidebar shows the daily-notes folder with no note open yet, and the New File control is available near the top of the Explorer.",
+      "unit_after_state": "A file named 2026-04-02-standup.md exists in the daily-notes folder, is open in the editor, and contains a standup template with a title plus Yesterday, Today, and Blockers sections.",
+      "unit_precondition": [
+        "The daily-notes folder is open in the Explorer.",
+        "The Explorer view is visible and interactive.",
+        "The editor can open a newly created file for typing."
+      ],
+      "unit_effect": [
+        "An inline filename field appears in the Explorer after clicking New File.",
+        "The filename 2026-04-02-standup.md is accepted and the new file opens in the editor.",
+        "The editor content shows the inserted Markdown heading and the three requested section headers with bullet placeholders."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        15
+      ],
+      "unit_intent": "Make the note easier to read and edit by enabling wrapped lines in the editor.",
+      "unit_type": "TOGGLE_WORD_WRAP",
+      "unit_before_state": "The Markdown note is open in the editor with the text cursor in the file, and the source is shown in a single editor pane.",
+      "unit_after_state": "Word wrap is enabled for the active editor, so long lines in the Markdown note wrap within the visible editor width.",
+      "unit_precondition": [
+        "The Markdown editor tab is active.",
+        "The text editor has keyboard focus.",
+        "The Alt+Z shortcut is available in the current VS Code context."
+      ],
+      "unit_effect": [
+        "The editor remains on the same Markdown file.",
+        "Long lines no longer require horizontal scrolling and instead wrap inside the editor pane."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        16,
+        17,
+        18
+      ],
+      "unit_intent": "Turn on automatic saving so further note edits persist without manual save commands.",
+      "unit_type": "ENABLE_AUTO_SAVE",
+      "unit_before_state": "The standup Markdown note remains open after word wrap was enabled, and no modal dialog is blocking the editor.",
+      "unit_after_state": "The Command Palette has been used to run File: Toggle Auto Save, and Auto Save is now enabled for the VS Code window.",
+      "unit_precondition": [
+        "VS Code is focused.",
+        "The current window accepts Command Palette input.",
+        "The File: Toggle Auto Save command is available in this VS Code session."
+      ],
+      "unit_effect": [
+        "The Command Palette opens with the quick input box focused.",
+        "The File: Toggle Auto Save command appears as the matching result.",
+        "Executing the command enables Auto Save so future edits save automatically."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        19
+      ],
+      "unit_intent": "Open a live rendered view of the Markdown note beside the source editor.",
+      "unit_type": "OPEN_MARKDOWN_PREVIEW_TO_SIDE",
+      "unit_before_state": "The 2026-04-02-standup.md tab is active in the editor, and the editor toolbar shows the Markdown preview control.",
+      "unit_after_state": "VS Code displays a split editor layout with the Markdown source in one pane and the rendered Markdown preview in a side pane.",
+      "unit_precondition": [
+        "The Markdown note tab is the active editor tab.",
+        "The Open Preview to the Side control is visible in the editor toolbar.",
+        "There is enough editor space to open a side-by-side pane."
+      ],
+      "unit_effect": [
+        "A second editor pane opens beside the source editor.",
+        "The new pane renders the standup note as formatted Markdown while leaving the source note editable in the original pane."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Create the notes workspace folder in Documents so it can be opened in VS Code.",
+      "unit_type": "CREATE_FOLDER_VIA_TERMINAL",
+      "unit_before_state": "VS Code is open with its main editor area and sidebar visible, and the integrated terminal is not yet open.",
+      "unit_after_state": "The integrated terminal is open at the bottom of VS Code, the mkdir command has been executed, and a fresh shell prompt is visible with the daily-notes folder now existing under Documents.",
+      "unit_precondition": [
+        "VS Code is the focused window.",
+        "Keyboard shortcuts work in the editor.",
+        "The integrated terminal can accept shell input."
+      ],
+      "unit_effect": [
+        "A terminal panel with a shell prompt appears at the bottom of the window.",
+        "The command mkdir -p ~/Documents/daily-notes runs and the prompt returns without leaving the terminal busy.",
+        "The daily-notes folder is available under Documents for later selection."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a specified workspace folder at a target path using VS Code's integrated terminal.",
+      "parameters": {
+        "target_folder_path": "~/Documents/daily-notes"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', '`']}",
+          "action_template": "When the VS Code window is focused and keyboard shortcuts are available, press Ctrl+` to open the built-in terminal so a shell prompt is ready at the bottom of the window."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'mkdir -p ~/Documents/daily-notes'}",
+          "action_template": "With the terminal prompt ready for input and no modal dialog blocking it, type `mkdir -p {{target_folder_path}}` to create the specified workspace folder."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After `mkdir -p {{target_folder_path}}` is fully typed and the terminal input cursor is still active, press Enter to execute the command so the folder is created and the shell returns to a fresh prompt."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Open the folder selection dialog for switching the current VS Code window to a folder workspace.",
+      "unit_type": "OPEN_FOLDER_PICKER",
+      "unit_before_state": "VS Code remains open after the folder creation command, with the terminal still visible at the bottom and no dialog covering the main window.",
+      "unit_after_state": "The Command Palette has been used to run File: Open Folder..., and a GNOME folder chooser dialog is now open in front of VS Code.",
+      "unit_precondition": [
+        "VS Code is still focused and responsive.",
+        "No modal dialog is already blocking keyboard input.",
+        "The Command Palette can be opened from the current window."
+      ],
+      "unit_effect": [
+        "The quick input box appears at the top of VS Code.",
+        "The File: Open Folder... command becomes the selected palette result.",
+        "A folder chooser dialog opens for selecting a workspace folder."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open the folder selection dialog in VS Code by invoking the appropriate command from the Command Palette.",
+      "parameters": {
+        "open_folder_command": "File: Open Folder..."
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'p']}",
+          "action_template": "Press Ctrl+Shift+P while the VS Code window is focused and keyboard shortcuts are available to open the Command Palette, with the quick input box focused for command search."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'File: Open Folder...'}",
+          "action_template": "Type {{open_folder_command}} into the active quick input box while VS Code is waiting for a command search so the Command Palette filters its results to the matching command."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter while the Command Palette still has focus and {{open_folder_command}} is visible in the result list to launch the folder selection dialog."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8,
+        9,
+        10
+      ],
+      "unit_intent": "Load the newly created daily-notes folder as the active workspace in the current VS Code window.",
+      "unit_type": "OPEN_WORKSPACE_FOLDER",
+      "unit_before_state": "A GNOME folder chooser is open for folder selection, showing a filesystem location and dialog controls such as the Open button.",
+      "unit_after_state": "The folder chooser is closed, any workspace trust prompt has been dismissed, and the Explorer in VS Code shows the daily-notes folder as the active workspace in the current window.",
+      "unit_precondition": [
+        "The folder chooser dialog is focused.",
+        "The daily-notes folder already exists in Documents.",
+        "The location field and Open button in the dialog are available.",
+        "If a workspace trust prompt appears, its trust confirmation button is clickable."
+      ],
+      "unit_effect": [
+        "The chooser's location entry receives the path ~/Documents/daily-notes.",
+        "Clicking Open starts switching VS Code to that folder.",
+        "If the workspace trust dialog appears, clicking the trust button closes it.",
+        "The Explorer updates to show daily-notes as the opened folder."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a specified existing folder as the active workspace in the current VS Code window, confirming workspace trust if prompted.",
+      "parameters": {
+        "target_folder_path": "~/Documents/daily-notes",
+        "target_folder_name": "daily-notes"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'l']}",
+          "action_template": "Press Ctrl+L to focus the path bar in the GNOME file chooser when the chooser is focused and accepts keyboard shortcuts, so a folder path can be entered directly."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '~/Documents/daily-notes'}",
+          "action_template": "Type {{target_folder_path}} into the active location field after the path bar is focused and the target folder already exists, so the chooser points to {{target_folder_name}}."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Open button in the bottom-right area of the file chooser'}}",
+          "action_template": "Click the Open button in the file chooser after {{target_folder_path}} is shown and the dialog remains open, so VS Code starts opening {{target_folder_name}} in the current window."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Yes, I trust the authors button in the workspace trust dialog'}}",
+          "action_template": "If a workspace trust dialog appears, click the trust confirmation button when the dialog is displayed and the button is available, so VS Code finishes loading {{target_folder_name}} in the current window."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        11,
+        12,
+        13,
+        14
+      ],
+      "unit_intent": "Create a dated Markdown standup note and populate it with the required section template.",
+      "unit_type": "CREATE_AND_INITIALIZE_NOTE",
+      "unit_before_state": "The Explorer sidebar shows the daily-notes folder with no note open yet, and the New File control is available near the top of the Explorer.",
+      "unit_after_state": "A file named 2026-04-02-standup.md exists in the daily-notes folder, is open in the editor, and contains a standup template with a title plus Yesterday, Today, and Blockers sections.",
+      "unit_precondition": [
+        "The daily-notes folder is open in the Explorer.",
+        "The Explorer view is visible and interactive.",
+        "The editor can open a newly created file for typing."
+      ],
+      "unit_effect": [
+        "An inline filename field appears in the Explorer after clicking New File.",
+        "The filename 2026-04-02-standup.md is accepted and the new file opens in the editor.",
+        "The editor content shows the inserted Markdown heading and the three requested section headers with bullet placeholders."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a new Markdown standup note in the target notes folder and populate it with the specified standup template.",
+      "parameters": {
+        "folder_name": "daily-notes",
+        "file_name": "2026-04-02-standup.md",
+        "note_template": "# Standup - 2026-04-02\n\n## Yesterday\n- \n\n## Today\n- \n\n## Blockers\n- "
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the New File icon near the top of the Explorer panel'}}",
+          "action_template": "When the Explorer view is visible and {{folder_name}} is open in VS Code, click the New File icon near the top of the Explorer panel so VS Code prompts for the name of the new note and a filename input field appears in the Explorer."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '2026-04-02-standup.md'}",
+          "action_template": "With the new filename input active and {{folder_name}} selected in the Explorer, type {{file_name}} so the note is clearly named and saved as a Markdown file, and the proposed file name appears in the inline input box."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After {{file_name}} is fully typed and the inline input still has focus, press Enter to create the file so the new Markdown file is created and opened in the editor."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '# Standup - 2026-04-02\\n\\n## Yesterday\\n- \\n\\n## Today\\n- \\n\\n## Blockers\\n- '}",
+          "action_template": "When the markdown editor is focused and the new file is empty or ready for content, type {{note_template}} so the file contains the standup template and is immediately ready for daily updates."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        15
+      ],
+      "unit_intent": "Make the note easier to read and edit by enabling wrapped lines in the editor.",
+      "unit_type": "TOGGLE_WORD_WRAP",
+      "unit_before_state": "The Markdown note is open in the editor with the text cursor in the file, and the source is shown in a single editor pane.",
+      "unit_after_state": "Word wrap is enabled for the active editor, so long lines in the Markdown note wrap within the visible editor width.",
+      "unit_precondition": [
+        "The Markdown editor tab is active.",
+        "The text editor has keyboard focus.",
+        "The Alt+Z shortcut is available in the current VS Code context."
+      ],
+      "unit_effect": [
+        "The editor remains on the same Markdown file.",
+        "Long lines no longer require horizontal scrolling and instead wrap inside the editor pane."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Enable word wrap for the active editor so the current document is easier to read and edit.",
+      "parameters": {
+        "target_document": "the standup Markdown file"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['alt', 'z']}",
+          "action_template": "With {{target_document}} open in the focused text editor, press Alt+Z to turn on word wrap so long lines wrap within the visible editor width instead of scrolling horizontally."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        16,
+        17,
+        18
+      ],
+      "unit_intent": "Turn on automatic saving so further note edits persist without manual save commands.",
+      "unit_type": "ENABLE_AUTO_SAVE",
+      "unit_before_state": "The standup Markdown note remains open after word wrap was enabled, and no modal dialog is blocking the editor.",
+      "unit_after_state": "The Command Palette has been used to run File: Toggle Auto Save, and Auto Save is now enabled for the VS Code window.",
+      "unit_precondition": [
+        "VS Code is focused.",
+        "The current window accepts Command Palette input.",
+        "The File: Toggle Auto Save command is available in this VS Code session."
+      ],
+      "unit_effect": [
+        "The Command Palette opens with the quick input box focused.",
+        "The File: Toggle Auto Save command appears as the matching result.",
+        "Executing the command enables Auto Save so future edits save automatically."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Enable Auto Save in VS Code by running the appropriate Command Palette command so future edits are saved automatically.",
+      "parameters": {
+        "command_name": "File: Toggle Auto Save"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'p']}",
+          "action_template": "When VS Code is focused and the editor is not blocked by another dialog, press Ctrl+Shift+P to open the Command Palette with the quick input box focused so the Auto Save command can be searched and run."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'File: Toggle Auto Save'}",
+          "action_template": "With the quick input field focused and VS Code awaiting a command search, type {{command_name}} so the matching command appears in the Command Palette results."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "When {{command_name}} is selected and the Command Palette still has focus, press Enter to execute it and enable Auto Save so future edits are saved automatically without manual saving."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_07",
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        19
+      ],
+      "unit_intent": "Open a live rendered view of the Markdown note beside the source editor.",
+      "unit_type": "OPEN_MARKDOWN_PREVIEW_TO_SIDE",
+      "unit_before_state": "The 2026-04-02-standup.md tab is active in the editor, and the editor toolbar shows the Markdown preview control.",
+      "unit_after_state": "VS Code displays a split editor layout with the Markdown source in one pane and the rendered Markdown preview in a side pane.",
+      "unit_precondition": [
+        "The Markdown note tab is the active editor tab.",
+        "The Open Preview to the Side control is visible in the editor toolbar.",
+        "There is enough editor space to open a side-by-side pane."
+      ],
+      "unit_effect": [
+        "A second editor pane opens beside the source editor.",
+        "The new pane renders the standup note as formatted Markdown while leaving the source note editable in the original pane."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a rendered preview of the active Markdown document in a side-by-side editor pane.",
+      "parameters": {
+        "active_markdown_file": "2026-04-02-standup.md"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Open Preview to the Side button in the upper-right of the editor group, adjacent to the active Markdown tab'}}",
+          "action_template": "With {{active_markdown_file}} as the active Markdown tab and the Markdown preview control visible in the editor toolbar, click the Open Preview to the Side button to open a rendered preview in a side pane while keeping the source editable."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

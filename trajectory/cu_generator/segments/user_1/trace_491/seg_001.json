@@ -1,0 +1,243 @@
+{
+  "segment_id": "seg_001",
+  "app": "vlc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Capture the current video frame using VLC's snapshot feature",
+      "action_before_state": "VLC media player is open and focused with a video paused or playing at the desired frame. The video frame is clearly visible in the VLC window.",
+      "action_preconditions": [
+        "VLC media player is open and focused with a video paused or playing at the desired frame",
+        "The video frame is clearly visible in the VLC window"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "shift+s"
+        ]
+      },
+      "action_after_effects": "VLC captures the current frame and saves it to the default Pictures folder (typically ~/Pictures/vlcsnap-[timestamp].png). A brief notification may appear in the top-right corner indicating the snapshot has been saved.",
+      "nl_explanation": "When the desired video frame is displayed, press Shift+S to trigger VLC's Take Snapshot function, which will save the current frame as a PNG image to the Pictures directory."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Open the file manager to locate the saved snapshot",
+      "action_before_state": "VLC has saved the snapshot and remains open. The terminal is not yet open.",
+      "action_preconditions": [
+        "The snapshot has been successfully saved to the Pictures folder",
+        "The VLC window is still visible or can be accessed"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl+alt+t"
+        ]
+      },
+      "action_after_effects": "A terminal window opens on the screen, ready for command input.",
+      "nl_explanation": "Open a terminal using the Ctrl+Alt+T keyboard shortcut to prepare for executing file operations to move and rename the snapshot file."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Move and rename the snapshot file to the Desktop",
+      "action_before_state": "The terminal is open and focused, ready to execute file operation commands.",
+      "action_preconditions": [
+        "The terminal is open and focused",
+        "The snapshot file exists in ~/Pictures with a name pattern matching vlcsnap-*.png",
+        "Only one vlcsnap-*.png file exists in ~/Pictures to avoid ambiguity"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "mv ~/Pictures/vlcsnap-*.png ~/Desktop/movie_poster.png"
+      },
+      "action_after_effects": "The command moves the most recent VLC snapshot from the Pictures folder to the Desktop and renames it to 'movie_poster.png'. The terminal displays a new prompt indicating the command has executed.",
+      "nl_explanation": "Type the mv command in the terminal to locate the VLC snapshot in the Pictures directory, move it to the Desktop, and rename it to 'movie_poster.png' as requested."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Verify the file has been successfully moved to the Desktop",
+      "action_before_state": "The terminal is open with the mv command successfully executed, ready for verification.",
+      "action_preconditions": [
+        "The move command has been executed without errors",
+        "The terminal is still open"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "ls -la ~/Desktop/movie_poster.png"
+      },
+      "action_after_effects": "The terminal displays the file details for movie_poster.png on the Desktop, confirming its existence, file size, and creation timestamp.",
+      "nl_explanation": "List the details of the movie_poster.png file on the Desktop to verify it was successfully created and moved from the Pictures folder."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Capture the currently displayed movie frame as an image file so it can be reused outside VLC.",
+      "unit_type": "CAPTURE_VIDEO_SNAPSHOT",
+      "unit_before_state": "VLC media player is the active window and the desired movie frame is visible in the video area.",
+      "unit_after_state": "The same frame remains visible in VLC, and a new snapshot image has been saved to the default Pictures location as a vlcsnap PNG file. A brief VLC snapshot notification may appear.",
+      "unit_precondition": [
+        "VLC is open and focused.",
+        "The target video frame is currently displayed in the VLC window."
+      ],
+      "unit_effect": [
+        "A new PNG snapshot file is created in the Pictures folder with a name matching the vlcsnap pattern.",
+        "VLC may show a short on-screen confirmation that the snapshot was saved."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3
+      ],
+      "unit_intent": "Relocate the saved VLC snapshot to the Desktop and give it the requested filename.",
+      "unit_type": "MOVE_AND_RENAME_FILE",
+      "unit_before_state": "VLC has already saved the snapshot, and no terminal window is open yet for file operations.",
+      "unit_after_state": "A terminal window is open, and the snapshot file has been moved from the Pictures folder to the Desktop with the name movie_poster.png.",
+      "unit_precondition": [
+        "A VLC snapshot file already exists in the Pictures folder.",
+        "The system can open a terminal window.",
+        "The snapshot can be identified unambiguously by the vlcsnap-*.png pattern."
+      ],
+      "unit_effect": [
+        "A terminal window appears and accepts the file command.",
+        "The Desktop now contains a file named movie_poster.png.",
+        "The original vlcsnap PNG is no longer left in the Pictures folder under its old name if the move succeeds."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        4
+      ],
+      "unit_intent": "Confirm that the renamed snapshot is present on the Desktop.",
+      "unit_type": "VERIFY_FILE_ON_DESKTOP",
+      "unit_before_state": "The terminal remains open after the move command, and the file should already have been placed on the Desktop as movie_poster.png.",
+      "unit_after_state": "The terminal shows the listing output for ~/Desktop/movie_poster.png, including file metadata for the renamed image.",
+      "unit_precondition": [
+        "The terminal window is still open and focused.",
+        "The move-and-rename command has completed without error."
+      ],
+      "unit_effect": [
+        "The terminal prints a line for ~/Desktop/movie_poster.png.",
+        "The displayed listing confirms the file exists on the Desktop and exposes its size and timestamp."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Capture the currently displayed movie frame as an image file so it can be reused outside VLC.",
+      "unit_type": "CAPTURE_VIDEO_SNAPSHOT",
+      "unit_before_state": "VLC media player is the active window and the desired movie frame is visible in the video area.",
+      "unit_after_state": "The same frame remains visible in VLC, and a new snapshot image has been saved to the default Pictures location as a vlcsnap PNG file. A brief VLC snapshot notification may appear.",
+      "unit_precondition": [
+        "VLC is open and focused.",
+        "The target video frame is currently displayed in the VLC window."
+      ],
+      "unit_effect": [
+        "A new PNG snapshot file is created in the Pictures folder with a name matching the vlcsnap pattern.",
+        "VLC may show a short on-screen confirmation that the snapshot was saved."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Capture the currently displayed video frame as a snapshot image using the application's snapshot feature.",
+      "parameters": {
+        "snapshot_shortcut": "Shift+S",
+        "save_location": "the default Pictures folder"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['shift+s']}",
+          "action_template": "With the media player open and focused and the desired video frame visible, press {{snapshot_shortcut}} to trigger the snapshot function, which saves the current frame as a PNG image to {{save_location}} and may show a brief confirmation notification."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3
+      ],
+      "unit_intent": "Relocate the saved VLC snapshot to the Desktop and give it the requested filename.",
+      "unit_type": "MOVE_AND_RENAME_FILE",
+      "unit_before_state": "VLC has already saved the snapshot, and no terminal window is open yet for file operations.",
+      "unit_after_state": "A terminal window is open, and the snapshot file has been moved from the Pictures folder to the Desktop with the name movie_poster.png.",
+      "unit_precondition": [
+        "A VLC snapshot file already exists in the Pictures folder.",
+        "The system can open a terminal window.",
+        "The snapshot can be identified unambiguously by the vlcsnap-*.png pattern."
+      ],
+      "unit_effect": [
+        "A terminal window appears and accepts the file command.",
+        "The Desktop now contains a file named movie_poster.png.",
+        "The original vlcsnap PNG is no longer left in the Pictures folder under its old name if the move succeeds."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Move a saved snapshot file matching {{source_pattern}} from {{source_folder}} to {{destination_folder}} and rename it to {{destination_filename}} using the terminal.",
+      "parameters": {
+        "source_folder": "~/Pictures",
+        "source_pattern": "vlcsnap-*.png",
+        "destination_folder": "~/Desktop",
+        "destination_filename": "movie_poster.png"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl+alt+t']}",
+          "action_template": "Press Ctrl+Alt+T to open a terminal and prepare for file operations after the snapshot has been saved in {{source_folder}}."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'mv ~/Pictures/vlcsnap-*.png ~/Desktop/movie_poster.png'}",
+          "action_template": "Type the mv command in the terminal to move the file matching {{source_pattern}} from {{source_folder}} to {{destination_folder}} and rename it to {{destination_filename}}. After the command executes, a new terminal prompt appears and the renamed file is available in the destination."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        4
+      ],
+      "unit_intent": "Confirm that the renamed snapshot is present on the Desktop.",
+      "unit_type": "VERIFY_FILE_ON_DESKTOP",
+      "unit_before_state": "The terminal remains open after the move command, and the file should already have been placed on the Desktop as movie_poster.png.",
+      "unit_after_state": "The terminal shows the listing output for ~/Desktop/movie_poster.png, including file metadata for the renamed image.",
+      "unit_precondition": [
+        "The terminal window is still open and focused.",
+        "The move-and-rename command has completed without error."
+      ],
+      "unit_effect": [
+        "The terminal prints a line for ~/Desktop/movie_poster.png.",
+        "The displayed listing confirms the file exists on the Desktop and exposes its size and timestamp."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Verify that a specified file exists at a target location by listing its details in the terminal.",
+      "parameters": {
+        "target_file_path": "~/Desktop/movie_poster.png"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'ls -la ~/Desktop/movie_poster.png'}",
+          "action_template": "Type `ls -la {{target_file_path}}` in the terminal to list the file details and verify the specified file exists at the target location after the move operation. Preconditions: the move command has been executed without errors and the terminal is still open. Afterward, the terminal displays the file details for {{target_file_path}}, confirming its existence, file size, and creation timestamp."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

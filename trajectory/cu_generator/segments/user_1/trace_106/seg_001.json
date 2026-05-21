@@ -1,0 +1,666 @@
+{
+  "segment_id": "seg_001",
+  "app": "gimp",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the file chooser to load the source photo",
+      "action_before_state": "GIMP is already open on GNOME, showing the main editing window with the top menu bar and the toolbox.",
+      "action_preconditions": [
+        "The GIMP window is focused",
+        "No modal dialog is blocking keyboard input"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "o"
+        ]
+      },
+      "action_after_effects": "An Open Image dialog appears in front of GIMP.",
+      "nl_explanation": "With GIMP focused and ready for input, press Ctrl+O to open the standard image selection dialog so a photo can be loaded."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Open the bicycle photo",
+      "action_before_state": "The Open Image dialog is visible and the file list includes the source photo.",
+      "action_preconditions": [
+        "The Open Image dialog is open",
+        "The file bike_photo.jpg is visible in the current folder"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 2,
+        "target": {
+          "text": "the file named bike_photo.jpg in the file list"
+        }
+      },
+      "action_after_effects": "The file chooser closes and the bicycle photo opens on the GIMP canvas.",
+      "nl_explanation": "When the image file is visible in the open dialog, double-click bike_photo.jpg to load it directly into the editor."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Activate the crop tool",
+      "action_before_state": "The bicycle photo is displayed on the canvas and the toolbox is visible on the left side.",
+      "action_preconditions": [
+        "An image is open in GIMP",
+        "The toolbox is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Crop Tool icon in the left toolbox"
+        }
+      },
+      "action_after_effects": "GIMP switches into crop mode and the cursor is ready to draw a crop area.",
+      "nl_explanation": "Once the photo is open and the toolbox is available, click the Crop Tool so the next drag will define the new framing."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Draw a crop area so the bike fills more of the frame",
+      "action_before_state": "Crop mode is active and the bicycle photo is visible on the canvas.",
+      "action_preconditions": [
+        "The Crop Tool is selected",
+        "The bike is clearly visible in the photo"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "slightly above and left of the bike handlebars"
+        },
+        "end": {
+          "text": "slightly below and right of the back wheel, leaving most empty background outside the selection"
+        },
+        "target": {
+          "begin": {
+            "text": "the canvas area slightly above and left of the bike handlebars"
+          },
+          "end": {
+            "text": "the canvas area slightly below and right of the back wheel"
+          }
+        }
+      },
+      "action_after_effects": "A crop rectangle surrounds the bike, excluding most of the extra background.",
+      "nl_explanation": "With the Crop Tool active, drag from the upper-left area around the bicycle to the lower-right area around it so the extra background is marked for removal and the bike becomes the main focus."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Apply the crop",
+      "action_before_state": "A crop rectangle is visible around the bike on the canvas.",
+      "action_preconditions": [
+        "The crop rectangle has already been drawn",
+        "The Crop Tool is still active"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The image is trimmed to the selected area, leaving the bike larger in the frame.",
+      "nl_explanation": "After positioning the crop rectangle, press Enter to apply the crop and remove the extra background."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Open the brightness adjustment dialog",
+      "action_before_state": "The cropped image is shown in the main canvas and the menu bar is available.",
+      "action_preconditions": [
+        "The image is still active in the main GIMP window",
+        "No other dialog is open"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Brightness-Contrast... item in the Colors menu"
+        }
+      },
+      "action_after_effects": "A Brightness-Contrast dialog opens with slider controls and a live preview.",
+      "nl_explanation": "After cropping is finished, open Colors > Brightness-Contrast so the image can be made a bit brighter before exporting."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Increase the brightness slightly",
+      "action_before_state": "The Brightness-Contrast dialog is open and the Brightness slider is visible.",
+      "action_preconditions": [
+        "The Brightness-Contrast dialog is active",
+        "The Brightness slider handle is visible"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the current Brightness slider handle position"
+        },
+        "end": {
+          "text": "a point a little to the right on the Brightness slider track"
+        },
+        "target": {
+          "begin": {
+            "text": "the Brightness slider handle in the dialog"
+          },
+          "end": {
+            "text": "a point a little to the right on the slider track"
+          }
+        }
+      },
+      "action_after_effects": "The preview image becomes slightly brighter while keeping the adjustment subtle.",
+      "nl_explanation": "With the brightness controls open, drag the Brightness slider a small distance to the right so the photo looks clearer without being overexposed."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Apply the brightness change",
+      "action_before_state": "The preview shows the brighter version of the cropped bicycle image.",
+      "action_preconditions": [
+        "The Brightness-Contrast dialog is still open",
+        "The preview already reflects the desired brightness"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the OK button in the Brightness-Contrast dialog"
+        }
+      },
+      "action_after_effects": "The dialog closes and the brightness adjustment is applied to the image.",
+      "nl_explanation": "When the preview looks right, click OK to commit the brighter appearance to the current image."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Activate the text tool",
+      "action_before_state": "The adjusted image is back in the main GIMP window with the toolbox visible.",
+      "action_preconditions": [
+        "The main canvas is visible",
+        "The toolbox is available"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Text Tool icon in the left toolbox"
+        }
+      },
+      "action_after_effects": "The cursor changes to text placement mode.",
+      "nl_explanation": "After finishing the color adjustment, click the Text Tool so a label can be placed on the image."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Place a text box in the top-left area",
+      "action_before_state": "Text mode is active and the bike photo is visible with some open space near the top-left corner.",
+      "action_preconditions": [
+        "The Text Tool is selected",
+        "There is visible empty space near the top-left area of the photo"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "an empty area near the top-left corner of the image canvas"
+        }
+      },
+      "action_after_effects": "A text box appears on the image and a text cursor becomes active.",
+      "nl_explanation": "With the Text Tool ready, click in the top-left open area of the image to create a text box where the listing label will go."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Enter the sale label text",
+      "action_before_state": "A text box is active on the image and the text cursor is blinking inside it.",
+      "action_preconditions": [
+        "The text box is active",
+        "Keyboard input will go into the text box"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Used Bike - $120"
+      },
+      "action_after_effects": "The text label appears inside the image near the top-left corner as a text layer.",
+      "nl_explanation": "Once the text box is active, type the exact sale label so it becomes part of the edited image."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Open the export dialog",
+      "action_before_state": "The image now shows the crop, brightness edit, and text label, and the top menu bar is visible.",
+      "action_preconditions": [
+        "The main GIMP window is active",
+        "The image is ready to be saved as a new file"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Export As... item in the File menu"
+        }
+      },
+      "action_after_effects": "An Export Image dialog opens.",
+      "nl_explanation": "After the edits are complete, open File > Export As so the finished image can be saved as a separate output file."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Show and focus the location entry in the export dialog",
+      "action_before_state": "The Export Image dialog is open in front of the editor.",
+      "action_preconditions": [
+        "The Export Image dialog is focused",
+        "Keyboard shortcuts are accepted by the dialog"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "l"
+        ]
+      },
+      "action_after_effects": "The location entry bar is visible and focused so a full save path can be typed.",
+      "nl_explanation": "With the export dialog open on GNOME, press Ctrl+L to ensure the location bar is visible and ready for path entry."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Enter the Desktop export path and filename",
+      "action_before_state": "The location field in the Export Image dialog is active and ready for text input.",
+      "action_preconditions": [
+        "The location field is focused",
+        "The Desktop path exists at /home/user/Desktop"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "/home/user/Desktop/bike_listing.png"
+      },
+      "action_after_effects": "The export dialog now points to the Desktop destination with the desired PNG filename.",
+      "nl_explanation": "When the location entry is active, type the full Desktop path and output name so the file will be exported as bike_listing.png in the right place."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Confirm the export destination and move to the final export options",
+      "action_before_state": "The full Desktop path and filename are visible in the export dialog.",
+      "action_preconditions": [
+        "The full path /home/user/Desktop/bike_listing.png has been entered",
+        "The export dialog is still focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "GIMP advances to the final PNG export options dialog.",
+      "nl_explanation": "After the Desktop path is entered, press Enter to accept that destination and proceed to the final export confirmation window."
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Finish exporting the edited image",
+      "action_before_state": "The PNG export options dialog is visible with an Export button.",
+      "action_preconditions": [
+        "The final export options dialog is open",
+        "The Export button is visible and enabled"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Export button in the final export options dialog"
+        }
+      },
+      "action_after_effects": "The dialog closes and the finished image is saved to /home/user/Desktop/bike_listing.png.",
+      "nl_explanation": "With the PNG export dialog open and the destination already set, click Export to write the completed listing image to the Desktop."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Load the source bicycle photo into GIMP so the editing task can begin.",
+      "unit_type": "OPEN_SOURCE_IMAGE",
+      "unit_before_state": "GIMP is open on GNOME in its main editing window with the menu bar and toolbox visible, and no file chooser dialog is open yet.",
+      "unit_after_state": "The Open Image dialog has closed and bike_photo.jpg is displayed on the GIMP canvas as the active image.",
+      "unit_precondition": [
+        "GIMP is focused and ready to receive keyboard input.",
+        "No modal dialog is blocking the main window.",
+        "The source file bike_photo.jpg is available in a folder that can be reached from the Open Image dialog."
+      ],
+      "unit_effect": [
+        "Pressing Ctrl+O opens the Open Image dialog in front of GIMP.",
+        "The file list shows bike_photo.jpg and double-clicking it starts the load action.",
+        "The dialog closes and the bicycle photo becomes visible on the canvas."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4,
+        5
+      ],
+      "unit_intent": "Tighten the composition so the bicycle fills more of the frame and most extra background is removed.",
+      "unit_type": "CROP_IMAGE_TO_SUBJECT",
+      "unit_before_state": "The full bicycle photo is open on the canvas, with the toolbox visible and no crop region drawn yet.",
+      "unit_after_state": "The image has been cropped down around the bicycle, the bike appears larger in the frame, and no crop overlay remains on the canvas.",
+      "unit_precondition": [
+        "The bicycle photo is already open in GIMP.",
+        "The toolbox is visible and the Crop tool can be selected.",
+        "The bike is clearly visible on the canvas with enough surrounding area to define the desired crop."
+      ],
+      "unit_effect": [
+        "Selecting the Crop tool puts GIMP into crop mode.",
+        "Dragging on the canvas creates a crop rectangle around the bike and previews the retained area.",
+        "Pressing Enter applies the crop and updates the canvas to the tighter framing."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Brighten the cropped bicycle photo slightly so it looks clearer for the listing.",
+      "unit_type": "ADJUST_IMAGE_BRIGHTNESS",
+      "unit_before_state": "The cropped bicycle image is visible in the main GIMP window, and no adjustment dialog is open.",
+      "unit_after_state": "The Brightness-Contrast dialog is closed and the cropped image remains on the canvas with a slightly brighter appearance.",
+      "unit_precondition": [
+        "The cropped image is active in the main GIMP window.",
+        "The Colors adjustment command is available from the menu bar.",
+        "No other modal dialog is open."
+      ],
+      "unit_effect": [
+        "The Brightness-Contrast dialog opens with a live preview and slider controls.",
+        "Dragging the Brightness slider slightly to the right makes the preview visibly brighter.",
+        "Clicking OK closes the dialog and keeps the brightness change on the image."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9,
+        10,
+        11
+      ],
+      "unit_intent": "Place the listing price label in the top-left corner of the edited bike photo.",
+      "unit_type": "ADD_TEXT_OVERLAY",
+      "unit_before_state": "The cropped and brightened bicycle image is visible on the canvas, the toolbox is available, and there is open space near the top-left area of the photo.",
+      "unit_after_state": "A text layer reading \"Used Bike - $120\" appears near the top-left corner of the image.",
+      "unit_precondition": [
+        "The edited image is visible in the main GIMP window.",
+        "The Text tool is available in the toolbox.",
+        "A clickable area exists near the top-left of the image where the label can be placed."
+      ],
+      "unit_effect": [
+        "Clicking the Text tool switches the pointer into text placement mode.",
+        "Clicking the top-left area creates a text box and places a text cursor there.",
+        "Typing \"Used Bike - $120\" makes the label appear on the image as a text layer."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "unit_intent": "Save the finished edited bike image as a new PNG file on the Desktop.",
+      "unit_type": "EXPORT_PNG_TO_DESKTOP",
+      "unit_before_state": "The completed image with the crop, brightness adjustment, and top-left text label is visible on the GIMP canvas, and no export dialog is open yet.",
+      "unit_after_state": "All export dialogs are closed and the finished image has been saved as /home/user/Desktop/bike_listing.png.",
+      "unit_precondition": [
+        "The final edited image is ready to be saved as a separate file.",
+        "The Export As command is available from the File menu.",
+        "The Desktop path /home/user/Desktop exists and the export dialog accepts keyboard input for location entry."
+      ],
+      "unit_effect": [
+        "The Export Image dialog opens from the main GIMP window.",
+        "Ctrl+L reveals and focuses the location entry so the full path can be typed.",
+        "The path /home/user/Desktop/bike_listing.png is entered, Enter advances to the PNG export options, and the final Export button saves the file."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2
+      ],
+      "unit_intent": "Load the source bicycle photo into GIMP so the editing task can begin.",
+      "unit_type": "OPEN_SOURCE_IMAGE",
+      "unit_before_state": "GIMP is open on GNOME in its main editing window with the menu bar and toolbox visible, and no file chooser dialog is open yet.",
+      "unit_after_state": "The Open Image dialog has closed and bike_photo.jpg is displayed on the GIMP canvas as the active image.",
+      "unit_precondition": [
+        "GIMP is focused and ready to receive keyboard input.",
+        "No modal dialog is blocking the main window.",
+        "The source file bike_photo.jpg is available in a folder that can be reached from the Open Image dialog."
+      ],
+      "unit_effect": [
+        "Pressing Ctrl+O opens the Open Image dialog in front of GIMP.",
+        "The file list shows bike_photo.jpg and double-clicking it starts the load action.",
+        "The dialog closes and the bicycle photo becomes visible on the canvas."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Load a specified source image into GIMP so the editing task can begin.",
+      "parameters": {
+        "source_file_name": "bike_photo.jpg"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'o']}",
+          "action_template": "With GIMP focused and no modal dialog blocking keyboard input, press Ctrl+O to open the Open Image dialog so the source image can be selected."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 2, 'target': {'text': 'the file named bike_photo.jpg in the file list'}}",
+          "action_template": "When the Open Image dialog is open and {{source_file_name}} is visible in the current folder, double-click {{source_file_name}} in the file list to load it directly into GIMP; the dialog closes and the image opens on the canvas."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        3,
+        4,
+        5
+      ],
+      "unit_intent": "Tighten the composition so the bicycle fills more of the frame and most extra background is removed.",
+      "unit_type": "CROP_IMAGE_TO_SUBJECT",
+      "unit_before_state": "The full bicycle photo is open on the canvas, with the toolbox visible and no crop region drawn yet.",
+      "unit_after_state": "The image has been cropped down around the bicycle, the bike appears larger in the frame, and no crop overlay remains on the canvas.",
+      "unit_precondition": [
+        "The bicycle photo is already open in GIMP.",
+        "The toolbox is visible and the Crop tool can be selected.",
+        "The bike is clearly visible on the canvas with enough surrounding area to define the desired crop."
+      ],
+      "unit_effect": [
+        "Selecting the Crop tool puts GIMP into crop mode.",
+        "Dragging on the canvas creates a crop rectangle around the bike and previews the retained area.",
+        "Pressing Enter applies the crop and updates the canvas to the tighter framing."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Crop an open image tightly around {{target_subject}} so it fills more of the frame and most extra background is removed.",
+      "parameters": {
+        "target_subject": "the bicycle",
+        "crop_start_region": "the canvas area slightly above and left of the bike handlebars",
+        "crop_end_region": "the canvas area slightly below and right of the back wheel"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Crop Tool icon in the left toolbox'}}",
+          "action_template": "When an image is open in GIMP and the toolbox is visible, click the Crop Tool icon in the left toolbox to activate crop mode so the next drag will define the new framing. After this action, GIMP switches into crop mode and the cursor is ready to draw a crop area."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'slightly above and left of the bike handlebars'}, 'end': {'text': 'slightly below and right of the back wheel, leaving most empty background outside the selection'}, 'target': {'begin': {'text': 'the canvas area slightly above and left of the bike handlebars'}, 'end': {'text': 'the canvas area slightly below and right of the back wheel'}}}",
+          "action_template": "With the Crop Tool selected and {{target_subject}} clearly visible in the photo, drag from {{crop_start_region}} to {{crop_end_region}} so the extra background is marked for removal and {{target_subject}} becomes the main focus. After this action, a crop rectangle surrounds {{target_subject}}, excluding most of the extra background."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After the crop rectangle has been drawn and the Crop Tool is still active, press Enter to apply the crop and remove the extra background. After this action, the image is trimmed to the selected area, leaving {{target_subject}} larger in the frame."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Brighten the cropped bicycle photo slightly so it looks clearer for the listing.",
+      "unit_type": "ADJUST_IMAGE_BRIGHTNESS",
+      "unit_before_state": "The cropped bicycle image is visible in the main GIMP window, and no adjustment dialog is open.",
+      "unit_after_state": "The Brightness-Contrast dialog is closed and the cropped image remains on the canvas with a slightly brighter appearance.",
+      "unit_precondition": [
+        "The cropped image is active in the main GIMP window.",
+        "The Colors adjustment command is available from the menu bar.",
+        "No other modal dialog is open."
+      ],
+      "unit_effect": [
+        "The Brightness-Contrast dialog opens with a live preview and slider controls.",
+        "Dragging the Brightness slider slightly to the right makes the preview visibly brighter.",
+        "Clicking OK closes the dialog and keeps the brightness change on the image."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Slightly brighten the current image using the Brightness-Contrast dialog so it appears clearer without overexposure.",
+      "parameters": {
+        "brightness_adjustment_amount": "a small distance to the right",
+        "desired_preview_result": "clearer without being overexposed"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Brightness-Contrast... item in the Colors menu'}}",
+          "action_template": "With the current image active in the main GIMP window and no other dialog open, click the Brightness-Contrast item in the Colors menu to open the brightness controls for the image. Afterward, a Brightness-Contrast dialog opens with slider controls and a live preview."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the current Brightness slider handle position'}, 'end': {'text': 'a point a little to the right on the Brightness slider track'}, 'target': {'begin': {'text': 'the Brightness slider handle in the dialog'}, 'end': {'text': 'a point a little to the right on the slider track'}}}",
+          "action_template": "With the Brightness-Contrast dialog active and the Brightness slider handle visible, drag the Brightness slider {{brightness_adjustment_amount}} so the photo appears {{desired_preview_result}}. Afterward, the preview image becomes slightly brighter while keeping the adjustment subtle."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the OK button in the Brightness-Contrast dialog'}}",
+          "action_template": "When the Brightness-Contrast dialog is still open and the preview already reflects the desired brightness, click the OK button in the Brightness-Contrast dialog to commit the brighter appearance to the current image. Afterward, the dialog closes and the brightness adjustment is applied to the image."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9,
+        10,
+        11
+      ],
+      "unit_intent": "Place the listing price label in the top-left corner of the edited bike photo.",
+      "unit_type": "ADD_TEXT_OVERLAY",
+      "unit_before_state": "The cropped and brightened bicycle image is visible on the canvas, the toolbox is available, and there is open space near the top-left area of the photo.",
+      "unit_after_state": "A text layer reading \"Used Bike - $120\" appears near the top-left corner of the image.",
+      "unit_precondition": [
+        "The edited image is visible in the main GIMP window.",
+        "The Text tool is available in the toolbox.",
+        "A clickable area exists near the top-left of the image where the label can be placed."
+      ],
+      "unit_effect": [
+        "Clicking the Text tool switches the pointer into text placement mode.",
+        "Clicking the top-left area creates a text box and places a text cursor there.",
+        "Typing \"Used Bike - $120\" makes the label appear on the image as a text layer."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Add a specified text overlay to a designated area of the edited image.",
+      "parameters": {
+        "target_area": "the top-left open area of the image",
+        "label_text": "Used Bike - $120"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Text Tool icon in the left toolbox'}}",
+          "action_template": "When the main canvas is visible and the toolbox is available, click the Text Tool icon in the left toolbox so a label can be placed on the image and the cursor changes to text placement mode."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'an empty area near the top-left corner of the image canvas'}}",
+          "action_template": "With the Text Tool selected and visible empty space available in {{target_area}}, click {{target_area}} to create a text box there and activate the text cursor."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Used Bike - $120'}",
+          "action_template": "Once the text box is active and keyboard input will go into the text box, type {{label_text}} so the text label appears on the image as a text layer."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "unit_intent": "Save the finished edited bike image as a new PNG file on the Desktop.",
+      "unit_type": "EXPORT_PNG_TO_DESKTOP",
+      "unit_before_state": "The completed image with the crop, brightness adjustment, and top-left text label is visible on the GIMP canvas, and no export dialog is open yet.",
+      "unit_after_state": "All export dialogs are closed and the finished image has been saved as /home/user/Desktop/bike_listing.png.",
+      "unit_precondition": [
+        "The final edited image is ready to be saved as a separate file.",
+        "The Export As command is available from the File menu.",
+        "The Desktop path /home/user/Desktop exists and the export dialog accepts keyboard input for location entry."
+      ],
+      "unit_effect": [
+        "The Export Image dialog opens from the main GIMP window.",
+        "Ctrl+L reveals and focuses the location entry so the full path can be typed.",
+        "The path /home/user/Desktop/bike_listing.png is entered, Enter advances to the PNG export options, and the final Export button saves the file."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Export the completed edited image as a PNG file to a specified output path.",
+      "parameters": {
+        "output_file_path": "/home/user/Desktop/bike_listing.png"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Export As... item in the File menu'}}",
+          "action_template": "Click the Export As... item in the File menu to open the Export Image dialog after the image is ready to be saved as a separate file."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'l']}",
+          "action_template": "Press Ctrl+L in the focused Export Image dialog to reveal and focus the location entry so {{output_file_path}} can be typed."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '/home/user/Desktop/bike_listing.png'}",
+          "action_template": "Type {{output_file_path}} into the focused location field to set the export destination and PNG filename."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter to confirm {{output_file_path}} and proceed to the final PNG export options dialog."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Export button in the final export options dialog'}}",
+          "action_template": "Click the Export button in the final export options dialog to save the finished image to {{output_file_path}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

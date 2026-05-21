@@ -1,0 +1,381 @@
+{
+  "segment_id": "seg_001",
+  "app": "vlc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the VLC preferences window",
+      "action_before_state": "VLC media player is open and visible on screen, showing the main interface with the menu bar (Media, Playback, Audio, Video, Subtitle, Tools, View, Help) at the top",
+      "action_preconditions": [
+        "VLC media player is running and visible",
+        "The menu bar is accessible"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "p"
+        ]
+      },
+      "action_after_effects": "The Preferences window opens, displaying the 'Interface Settings' section in Simple mode by default",
+      "nl_explanation": "Press Ctrl+P to open the VLC Preferences window where we can configure advanced settings including the system tray option."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Switch from Simple to All (Advanced) preferences mode",
+      "action_before_state": "The Preferences window is open showing the Simple preferences view with basic categories like Interface, Audio, Video on the left, and basic settings on the right. At the bottom left, there are two radio buttons: 'Simple' (currently selected) and 'All'",
+      "action_preconditions": [
+        "Preferences window is open",
+        "Currently in Simple mode",
+        "The 'All' radio button is visible at bottom left"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "target": {
+          "text": "All radio button at bottom left of preferences window"
+        },
+        "num_clicks": 1
+      },
+      "action_after_effects": "The preferences view switches to Advanced mode (All), showing a detailed tree menu on the left with expandable categories like Advanced, Audio, Input & Codecs, Interface, etc.",
+      "nl_explanation": "Click on the 'All' radio button at the bottom left to switch from Simple to Advanced preferences mode, revealing all configuration options."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Expand the Interface category in the left tree",
+      "action_before_state": "The Preferences window is in Advanced (All) mode with a tree menu on the left showing categories. 'Interface' is visible in the tree with a disclosure triangle/arrow next to it, indicating it can be expanded",
+      "action_preconditions": [
+        "Preferences is in Advanced (All) mode",
+        "Left sidebar tree menu is visible",
+        "Interface category is visible and collapsed"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "target": {
+          "text": "Interface category in the left tree to expand it"
+        },
+        "num_clicks": 1
+      },
+      "action_after_effects": "The Interface section expands, revealing subcategories including 'Main interfaces', 'Shortcuts', 'Hotkeys', etc.",
+      "nl_explanation": "Click on 'Interface' in the left tree to expand its subcategories."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Expand the Main interfaces subcategory",
+      "action_before_state": "The Interface category is expanded showing sub-items. 'Main interfaces' is visible with a disclosure triangle indicating it can be expanded further",
+      "action_preconditions": [
+        "Interface category is expanded",
+        "Main interfaces is visible in the tree"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "target": {
+          "text": "Main interfaces in the left tree to expand it"
+        },
+        "num_clicks": 1
+      },
+      "action_after_effects": "Main interfaces expands showing 'Qt' and possibly other interface options like 'RC', 'Telnet', etc.",
+      "nl_explanation": "Click on 'Main interfaces' to expand it and reveal the Qt interface settings."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Select the Qt interface settings",
+      "action_before_state": "Main interfaces is expanded showing 'Qt' as a sub-item. The right panel may still be showing Main interfaces settings or blank",
+      "action_preconditions": [
+        "Main interfaces is expanded",
+        "Qt is visible in the tree under Main interfaces"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "target": {
+          "text": "Qt in the left tree under Main interfaces"
+        },
+        "num_clicks": 1
+      },
+      "action_after_effects": "The right panel updates to show Qt interface settings including options like 'Show system tray icon', 'Resize interface to video size', 'Continue playback?', etc.",
+      "nl_explanation": "Click on 'Qt' in the left tree to display the Qt interface configuration options in the right panel."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Enable the Show system tray icon checkbox",
+      "action_before_state": "The Qt settings are displayed in the right panel. Among the options, there is a checkbox labeled 'Show system tray icon' which is currently unchecked",
+      "action_preconditions": [
+        "Qt settings are displayed in the right panel",
+        "Show system tray icon checkbox is visible and currently unchecked"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "target": {
+          "text": "Show system tray icon checkbox"
+        },
+        "num_clicks": 1
+      },
+      "action_after_effects": "The checkbox becomes checked/enabled, indicating that VLC will display an icon in the system tray when running and will minimize to tray when the window is closed",
+      "nl_explanation": "Click on the 'Show system tray icon' checkbox to enable VLC to display an icon in the system tray and minimize to tray instead of closing."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Save the configuration changes",
+      "action_before_state": "The 'Show system tray icon' checkbox is now checked. At the bottom right of the preferences window, there is a 'Save' button to apply the changes",
+      "action_preconditions": [
+        "The system tray option has been enabled",
+        "Save button is visible at the bottom right of the preferences window"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "target": {
+          "text": "Save button at bottom right of preferences window"
+        },
+        "num_clicks": 1
+      },
+      "action_after_effects": "The preferences window closes, the configuration is saved to the VLC configuration file (vlcrc), and VLC is now configured to show a system tray icon and minimize to tray when the window is closed",
+      "nl_explanation": "Click the 'Save' button at the bottom right to save the configuration changes, close the preferences window, and apply the system tray icon setting."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Open VLC's settings so the background-running behavior can be changed.",
+      "unit_type": "OPEN_PREFERENCES_WINDOW",
+      "unit_before_state": "VLC media player is open on its main window with the standard top menu bar visible.",
+      "unit_after_state": "The Preferences dialog is open in Simple mode, showing the default Interface Settings view.",
+      "unit_precondition": [
+        "VLC media player is already running.",
+        "The main VLC window is focused and able to receive keyboard shortcuts."
+      ],
+      "unit_effect": [
+        "A Preferences window appears on top of VLC.",
+        "The dialog shows Simple mode controls rather than the full advanced settings tree."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "unit_intent": "Reach the specific Qt interface settings page that contains the tray icon option.",
+      "unit_type": "NAVIGATE_TO_QT_INTERFACE_SETTINGS",
+      "unit_before_state": "The Preferences dialog is open in Simple mode with the 'All' radio button visible at the lower left.",
+      "unit_after_state": "The Preferences dialog is in Advanced mode with the left settings tree expanded through Interface > Main interfaces, and the Qt settings page is displayed in the right panel.",
+      "unit_precondition": [
+        "The Preferences dialog is open.",
+        "The 'All' mode selector is visible and selectable.",
+        "The settings tree contains the Interface and Main interfaces entries."
+      ],
+      "unit_effect": [
+        "The view switches from Simple mode to the full Advanced settings tree.",
+        "The left tree expands to show Interface, Main interfaces, and Qt.",
+        "The right panel updates to show Qt-specific options including 'Show system tray icon'."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6
+      ],
+      "unit_intent": "Enable VLC's tray-based background behavior by turning on its system tray icon option.",
+      "unit_type": "ENABLE_SYSTEM_TRAY_ICON",
+      "unit_before_state": "The Qt settings page is visible in the Preferences dialog, and the 'Show system tray icon' checkbox is present and unchecked.",
+      "unit_after_state": "The 'Show system tray icon' checkbox is checked on the Qt settings page.",
+      "unit_precondition": [
+        "The Qt interface settings page is open in the Preferences dialog.",
+        "The 'Show system tray icon' checkbox is visible and currently unchecked."
+      ],
+      "unit_effect": [
+        "The checkbox changes from unchecked to checked.",
+        "The setting is visibly marked for application when the preferences are saved."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7
+      ],
+      "unit_intent": "Commit the updated VLC interface setting so closing the main window will minimize VLC to the system tray.",
+      "unit_type": "SAVE_PREFERENCES",
+      "unit_before_state": "The Preferences dialog remains open with the 'Show system tray icon' checkbox checked and the Save button visible at the bottom right.",
+      "unit_after_state": "The Preferences dialog closes and VLC returns to its main window with the updated tray icon behavior saved.",
+      "unit_precondition": [
+        "The desired preference change has already been made.",
+        "The Save button is visible and clickable in the Preferences dialog."
+      ],
+      "unit_effect": [
+        "The Preferences dialog disappears after clicking Save.",
+        "The changed tray icon preference is stored and will control VLC's close/minimize behavior."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Open VLC's settings so the background-running behavior can be changed.",
+      "unit_type": "OPEN_PREFERENCES_WINDOW",
+      "unit_before_state": "VLC media player is open on its main window with the standard top menu bar visible.",
+      "unit_after_state": "The Preferences dialog is open in Simple mode, showing the default Interface Settings view.",
+      "unit_precondition": [
+        "VLC media player is already running.",
+        "The main VLC window is focused and able to receive keyboard shortcuts."
+      ],
+      "unit_effect": [
+        "A Preferences window appears on top of VLC.",
+        "The dialog shows Simple mode controls rather than the full advanced settings tree."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open the application's preferences window to access configurable settings.",
+      "parameters": {
+        "app_name": "VLC media player",
+        "open_preferences_shortcut": "Ctrl+P",
+        "settings_window": "Preferences window",
+        "settings_mode": "Simple mode",
+        "default_settings_view": "Interface Settings"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'p']}",
+          "action_template": "With {{app_name}} running and visible and its menu bar accessible, press {{open_preferences_shortcut}} to open the {{settings_window}}, which displays {{default_settings_view}} in {{settings_mode}} by default."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "unit_intent": "Reach the specific Qt interface settings page that contains the tray icon option.",
+      "unit_type": "NAVIGATE_TO_QT_INTERFACE_SETTINGS",
+      "unit_before_state": "The Preferences dialog is open in Simple mode with the 'All' radio button visible at the lower left.",
+      "unit_after_state": "The Preferences dialog is in Advanced mode with the left settings tree expanded through Interface > Main interfaces, and the Qt settings page is displayed in the right panel.",
+      "unit_precondition": [
+        "The Preferences dialog is open.",
+        "The 'All' mode selector is visible and selectable.",
+        "The settings tree contains the Interface and Main interfaces entries."
+      ],
+      "unit_effect": [
+        "The view switches from Simple mode to the full Advanced settings tree.",
+        "The left tree expands to show Interface, Main interfaces, and Qt.",
+        "The right panel updates to show Qt-specific options including 'Show system tray icon'."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a specified settings page in the advanced preferences tree by switching modes and expanding the required navigation path.",
+      "parameters": {
+        "advanced_mode_selector": "All",
+        "top_level_category": "Interface",
+        "intermediate_category": "Main interfaces",
+        "target_settings_page": "Qt"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'target': {'text': 'All radio button at bottom left of preferences window'}, 'num_clicks': 1}",
+          "action_template": "When the Preferences window is open in Simple mode and the {{advanced_mode_selector}} radio button is visible, click {{advanced_mode_selector}} at the bottom left to switch to Advanced preferences mode and reveal the detailed settings tree."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'target': {'text': 'Interface category in the left tree to expand it'}, 'num_clicks': 1}",
+          "action_template": "When Advanced preferences mode is active and the left tree is visible with {{top_level_category}} collapsed, click {{top_level_category}} to expand it and reveal its subcategories."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'target': {'text': 'Main interfaces in the left tree to expand it'}, 'num_clicks': 1}",
+          "action_template": "When {{top_level_category}} is expanded and {{intermediate_category}} is visible in the tree, click {{intermediate_category}} to expand it and reveal its child interface pages."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'target': {'text': 'Qt in the left tree under Main interfaces'}, 'num_clicks': 1}",
+          "action_template": "When {{intermediate_category}} is expanded and {{target_settings_page}} is visible underneath it, click {{target_settings_page}} to display that settings page and its configuration options in the right panel."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        6
+      ],
+      "unit_intent": "Enable VLC's tray-based background behavior by turning on its system tray icon option.",
+      "unit_type": "ENABLE_SYSTEM_TRAY_ICON",
+      "unit_before_state": "The Qt settings page is visible in the Preferences dialog, and the 'Show system tray icon' checkbox is present and unchecked.",
+      "unit_after_state": "The 'Show system tray icon' checkbox is checked on the Qt settings page.",
+      "unit_precondition": [
+        "The Qt interface settings page is open in the Preferences dialog.",
+        "The 'Show system tray icon' checkbox is visible and currently unchecked."
+      ],
+      "unit_effect": [
+        "The checkbox changes from unchecked to checked.",
+        "The setting is visibly marked for application when the preferences are saved."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Enable the system tray icon preference so the application can remain accessible from the system tray during background use.",
+      "parameters": {
+        "settings_page": "Qt settings",
+        "target_checkbox": "Show system tray icon"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'target': {'text': 'Show system tray icon checkbox'}, 'num_clicks': 1}",
+          "action_template": "Click the '{{target_checkbox}}' checkbox when {{settings_page}} are displayed in the right panel and the checkbox is visible and currently unchecked, so the checkbox becomes checked and the application is set to display a system tray icon and minimize to tray when closed."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        7
+      ],
+      "unit_intent": "Commit the updated VLC interface setting so closing the main window will minimize VLC to the system tray.",
+      "unit_type": "SAVE_PREFERENCES",
+      "unit_before_state": "The Preferences dialog remains open with the 'Show system tray icon' checkbox checked and the Save button visible at the bottom right.",
+      "unit_after_state": "The Preferences dialog closes and VLC returns to its main window with the updated tray icon behavior saved.",
+      "unit_precondition": [
+        "The desired preference change has already been made.",
+        "The Save button is visible and clickable in the Preferences dialog."
+      ],
+      "unit_effect": [
+        "The Preferences dialog disappears after clicking Save.",
+        "The changed tray icon preference is stored and will control VLC's close/minimize behavior."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the modified application preferences so the updated interface behavior setting is applied and persisted.",
+      "parameters": {
+        "changed_setting": "Show system tray icon",
+        "confirm_button": "Save button at bottom right of preferences window",
+        "resulting_behavior": "show a system tray icon and minimize to tray when the window is closed"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'target': {'text': 'Save button at bottom right of preferences window'}, 'num_clicks': 1}",
+          "action_template": "With {{changed_setting}} already enabled and {{confirm_button}} visible at the bottom right of the preferences window, click {{confirm_button}} to save the configuration changes, close the preferences window, and apply the {{changed_setting}} setting so the preferences window closes and VLC is configured to {{resulting_behavior}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

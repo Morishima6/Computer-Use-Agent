@@ -1,0 +1,872 @@
+{
+  "segment_id": "seg_001",
+  "app": "multi_apps",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Take a screenshot of the current screen",
+      "action_before_state": "The desktop is visible with the default GNOME wallpaper and no applications in the foreground.",
+      "action_preconditions": [
+        "The Print Screen key is available",
+        "GNOME screenshot utility is installed"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "print"
+        ]
+      },
+      "action_after_effects": "A screenshot is saved to ~/Pictures/Screenshots/ (or ~/Pictures/ in older GNOME versions) with a filename like 'Screenshot from YYYY-MM-DD HH-MM-SS.png', and a save notification may briefly appear in the top-right corner.",
+      "nl_explanation": "Press the Print Screen key to capture the current screen. In GNOME, this automatically saves the screenshot to the Pictures/Screenshots folder."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Open the terminal to launch GIMP with the screenshot",
+      "action_before_state": "The desktop is visible with the screenshot saved in the Pictures folder.",
+      "action_preconditions": [
+        "GNOME desktop environment is active",
+        "Terminal is installed"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "alt",
+          "t"
+        ]
+      },
+      "action_after_effects": "A terminal window opens on the desktop with a command prompt ready for input.",
+      "nl_explanation": "Press Ctrl+Alt+T to open a terminal window, which will be used to launch GIMP with the screenshot file."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Type the command to open the screenshot in GIMP",
+      "action_before_state": "The terminal window is open and focused with a blinking cursor at the command prompt.",
+      "action_preconditions": [
+        "Terminal is focused",
+        "GIMP is installed",
+        "Screenshot exists in ~/Pictures/"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "gimp ~/Pictures/Screenshot*.png &"
+      },
+      "action_after_effects": "The text 'gimp ~/Pictures/Screenshot*.png &' appears typed in the terminal after the prompt.",
+      "nl_explanation": "Type the command to open the most recent screenshot file in GIMP using a wildcard pattern, with the ampersand to run it in the background."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Execute the command to launch GIMP with the screenshot",
+      "action_before_state": "The command 'gimp ~/Pictures/Screenshot*.png &' is typed in the terminal.",
+      "action_preconditions": [
+        "Command is correctly typed in terminal"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "return"
+        ]
+      },
+      "action_after_effects": "GIMP begins to load, showing its splash screen, and the terminal prompt returns immediately due to the background process. GIMP then opens with the screenshot loaded in the main canvas.",
+      "nl_explanation": "Press Enter to execute the command, which launches GIMP and automatically opens the screenshot file for editing."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Select the crop tool from the toolbox",
+      "action_before_state": "GIMP is fully loaded with the screenshot displayed on the canvas, and the toolbox is visible on the left.",
+      "action_preconditions": [
+        "GIMP is active with image loaded",
+        "Toolbox is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "Crop tool in the GIMP toolbox on the left side"
+        }
+      },
+      "action_after_effects": "The crop tool becomes active (highlighted in the toolbox), the cursor changes to a crosshair, and tool options for cropping appear below the toolbox.",
+      "nl_explanation": "Click on the Crop Tool in the left toolbox to activate it for cropping the center portion of the image."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Define the crop area by dragging on the image",
+      "action_before_state": "The crop tool is active with a crosshair cursor, and the screenshot is displayed on the canvas.",
+      "action_preconditions": [
+        "Crop tool is selected",
+        "Image is visible on canvas"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "center-left area of the image canvas"
+        },
+        "end": {
+          "text": "center-right area of the image canvas"
+        },
+        "target": {
+          "begin": {
+            "text": "center-left area of the image"
+          },
+          "end": {
+            "text": "center-right area of the image"
+          }
+        }
+      },
+      "action_after_effects": "A rectangular selection marquee appears on the image indicating the crop area, with handles at corners and sides, showing the center portion selected.",
+      "nl_explanation": "Drag from the upper-left area of the center portion to the lower-right area to define a rectangular crop region covering the middle of the image."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Apply the crop to the image",
+      "action_before_state": "A rectangular crop selection is visible on the image with the crop tool still active.",
+      "action_preconditions": [
+        "Crop area is defined on the image"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "return"
+        ]
+      },
+      "action_after_effects": "The image is cropped to the selected area, removing the portions outside the selection. The canvas updates to show only the cropped center portion of the original screenshot.",
+      "nl_explanation": "Press Enter to apply the crop operation and keep only the selected center portion of the image."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Open the Export Image dialog to save the cropped image",
+      "action_before_state": "The image is now cropped and displayed on the GIMP canvas, showing only the center portion.",
+      "action_preconditions": [
+        "Image has been cropped",
+        "Desktop path is accessible"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "e"
+        ]
+      },
+      "action_after_effects": "The 'Export Image' dialog window opens, with fields for filename, location, and format options.",
+      "nl_explanation": "Press Ctrl+Shift+E to open the Export Image dialog to save the cropped image with a specific filename and location."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Navigate to Desktop in the export dialog",
+      "action_before_state": "The Export Image dialog is open, likely showing the home directory or the location of the original screenshot.",
+      "action_preconditions": [
+        "Export dialog is active"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "Desktop folder in the left sidebar of the Export Image dialog"
+        }
+      },
+      "action_after_effects": "The file location changes to Desktop, the path bar updates to show Desktop, and the file list shows Desktop contents (if any).",
+      "nl_explanation": "Click on the Desktop folder in the left sidebar to set the save location to the Desktop."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Set the filename to 'cropped.png'",
+      "action_before_state": "The Desktop location is selected in the export dialog, and the filename field likely shows the original screenshot name or 'Untitled'.",
+      "action_preconditions": [
+        "Desktop is selected as destination"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "cropped.png"
+      },
+      "action_after_effects": "The filename field now displays 'cropped.png', and the file type dropdown likely automatically selects PNG format.",
+      "nl_explanation": "Type 'cropped.png' into the filename field to name the exported file appropriately."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Confirm the export operation",
+      "action_before_state": "The filename is set to 'cropped.png', the location is Desktop, and the format is PNG.",
+      "action_preconditions": [
+        "Filename is correctly set",
+        "Location is Desktop"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "Export button in the bottom right of the Export Image dialog"
+        }
+      },
+      "action_after_effects": "The dialog closes and the file 'cropped.png' is created on the Desktop.",
+      "nl_explanation": "Click the Export button to save the cropped image as 'cropped.png' on the Desktop."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Open LibreOffice Writer",
+      "action_before_state": "GIMP is still open with the cropped image, and the Desktop now has the cropped.png file.",
+      "action_preconditions": [
+        "cropped.png exists on Desktop",
+        "LibreOffice Writer is installed"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "alt",
+          "f2"
+        ]
+      },
+      "action_after_effects": "The Run Command dialog appears at the top of the screen with an input field.",
+      "nl_explanation": "Press Alt+F2 to open the Run Command dialog to quickly launch LibreOffice Writer."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Type the command to launch LibreOffice Writer",
+      "action_before_state": "The Run Command dialog is open with an empty input field focused.",
+      "action_preconditions": [
+        "Run Command dialog is active"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "libreoffice --writer"
+      },
+      "action_after_effects": "The text 'libreoffice --writer' appears in the input field of the Run Command dialog.",
+      "nl_explanation": "Type the command to launch LibreOffice Writer in the Run Command dialog."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Execute the launch command",
+      "action_before_state": "The command 'libreoffice --writer' is typed in the Run Command dialog.",
+      "action_preconditions": [
+        "Command is correctly typed"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "return"
+        ]
+      },
+      "action_after_effects": "The dialog closes and LibreOffice Writer begins to load, showing its splash screen and then opening a blank document titled 'Untitled 1 - LibreOffice Writer'.",
+      "nl_explanation": "Press Enter to execute the command and launch LibreOffice Writer."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Open the Insert Image dialog",
+      "action_before_state": "LibreOffice Writer is open with a blank document ready for editing.",
+      "action_preconditions": [
+        "LibreOffice Writer is active",
+        "cropped.png exists on Desktop"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "alt",
+          "i",
+          "i"
+        ]
+      },
+      "action_after_effects": "The Insert Image dialog window opens, showing the file system with locations in the left sidebar and files in the main area.",
+      "nl_explanation": "Press Alt+I, I to open the Insert menu and select Image, which opens the Insert Image dialog to insert the cropped screenshot into the document."
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Navigate to Desktop in the Insert Image dialog",
+      "action_before_state": "The Insert Image dialog is open, likely showing the home directory or recent files.",
+      "action_preconditions": [
+        "Insert Image dialog is active"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "Desktop folder in the left sidebar of the Insert Image dialog"
+        }
+      },
+      "action_after_effects": "The file list updates to show the contents of the Desktop, including the cropped.png file that was previously exported.",
+      "nl_explanation": "Click on the Desktop folder in the left sidebar to navigate to where the cropped.png file is located."
+    },
+    {
+      "step_id": "s17",
+      "step_goal": "Select the cropped.png file",
+      "action_before_state": "The Desktop folder contents are displayed in the Insert Image dialog, showing cropped.png among the files.",
+      "action_preconditions": [
+        "cropped.png is visible in the file list"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "cropped.png file in the file list"
+        }
+      },
+      "action_after_effects": "The cropped.png file becomes highlighted/selected in the file list, and its name appears in the filename field at the bottom of the dialog.",
+      "nl_explanation": "Click on the cropped.png file in the file list to select it for insertion into the document."
+    },
+    {
+      "step_id": "s18",
+      "step_goal": "Insert the selected image into the document",
+      "action_before_state": "The cropped.png file is selected in the Insert Image dialog, with the filename populated in the input field.",
+      "action_preconditions": [
+        "cropped.png is selected"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "Open button in the bottom right of the Insert Image dialog"
+        }
+      },
+      "action_after_effects": "The dialog closes and the cropped.png image appears inserted into the LibreOffice Writer document at the cursor position, typically centered on the page.",
+      "nl_explanation": "Click the Open button to insert the selected cropped.png image into the LibreOffice Writer document."
+    },
+    {
+      "step_id": "s19",
+      "step_goal": "Open the Save As dialog to save the document",
+      "action_before_state": "The image is now visible in the LibreOffice Writer document, and the document is unsaved (titled 'Untitled 1').",
+      "action_preconditions": [
+        "Document contains the inserted image",
+        "Desktop is accessible"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "s"
+        ]
+      },
+      "action_after_effects": "The 'Save As' dialog window opens, with fields for filename, location navigation, and file type selection.",
+      "nl_explanation": "Press Ctrl+Shift+S to open the Save As dialog to save the document with a specific name and location."
+    },
+    {
+      "step_id": "s20",
+      "step_goal": "Navigate to Desktop in Save As dialog",
+      "action_before_state": "The Save As dialog is open, likely showing the Documents folder or home directory.",
+      "action_preconditions": [
+        "Save As dialog is active"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "Desktop folder in the left sidebar of the Save As dialog"
+        }
+      },
+      "action_after_effects": "The location changes to Desktop, the path bar updates to show Desktop, and the file list shows existing Desktop files (including cropped.png).",
+      "nl_explanation": "Click on the Desktop folder in the left sidebar to set the save location to the Desktop."
+    },
+    {
+      "step_id": "s21",
+      "step_goal": "Set the filename to 'Report.docx'",
+      "action_before_state": "The Desktop location is selected in the Save As dialog, and the filename field shows 'Untitled 1' or is empty.",
+      "action_preconditions": [
+        "Desktop is selected as destination"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Report.docx"
+      },
+      "action_after_effects": "The filename field now displays 'Report.docx', and the file type dropdown automatically selects 'Word 2007-365 (*.docx)' format.",
+      "nl_explanation": "Type 'Report.docx' into the filename field to name the document and automatically set the format to Word document."
+    },
+    {
+      "step_id": "s22",
+      "step_goal": "Confirm saving the document",
+      "action_before_state": "The filename is set to 'Report.docx', the location is Desktop, and the format is set to .docx.",
+      "action_preconditions": [
+        "Filename is correctly set",
+        "Location is Desktop"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "Save button in the bottom right of the Save As dialog"
+        }
+      },
+      "action_after_effects": "The dialog closes, the document is saved to the Desktop as 'Report.docx', and the LibreOffice Writer title bar updates to 'Report.docx - LibreOffice Writer'.",
+      "nl_explanation": "Click the Save button to save the document as Report.docx on the Desktop, completing the task."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Capture the current desktop as an image file that can be edited and reused in the report workflow.",
+      "unit_type": "CAPTURE_SCREENSHOT",
+      "unit_before_state": "The GNOME desktop is visible with only the wallpaper shown and no application window covering the screen.",
+      "unit_after_state": "The desktop remains visible, and a new screenshot image has been saved in the Pictures or Pictures/Screenshots folder; a brief screenshot notification may appear in the top-right corner.",
+      "unit_precondition": [
+        "The desktop screen to be captured is currently visible.",
+        "The Print Screen key and GNOME screenshot function are available."
+      ],
+      "unit_effect": [
+        "A new screenshot file with a timestamped name is created in the user's Pictures area.",
+        "A screenshot save notification may briefly confirm the capture."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Open the captured screenshot in GIMP so it can be cropped.",
+      "unit_type": "LAUNCH_GIMP_WITH_SCREENSHOT",
+      "unit_before_state": "The desktop is visible after the screenshot was taken, and no editor is open yet.",
+      "unit_after_state": "GIMP is open in the foreground with the screenshot loaded on the main canvas, and the terminal used to launch it is no longer the active workspace element.",
+      "unit_precondition": [
+        "A screenshot file already exists in the Pictures location.",
+        "Terminal can be opened from the desktop.",
+        "GIMP is installed and callable from the shell."
+      ],
+      "unit_effect": [
+        "A terminal window appears, receives the GIMP launch command, and then returns to the prompt after execution.",
+        "GIMP loads and displays the screenshot image ready for editing."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Crop the screenshot down to its center portion.",
+      "unit_type": "CROP_IMAGE_CENTER",
+      "unit_before_state": "GIMP is active with the full screenshot visible on the canvas and the toolbox shown on the left.",
+      "unit_after_state": "The screenshot on the GIMP canvas has been reduced to only the selected center region, with the outer areas removed.",
+      "unit_precondition": [
+        "The screenshot is already open in GIMP.",
+        "The Crop tool is available in the GIMP toolbox.",
+        "The image canvas is visible and editable."
+      ],
+      "unit_effect": [
+        "The Crop tool becomes active and a crop rectangle is drawn over the center of the image.",
+        "After confirming the crop, the canvas updates to show only the center portion of the original screenshot."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "unit_intent": "Export the cropped screenshot as a reusable PNG file on the Desktop.",
+      "unit_type": "EXPORT_CROPPED_IMAGE",
+      "unit_before_state": "GIMP shows the already-cropped image on the canvas, and no file save dialog is open yet.",
+      "unit_after_state": "The Export Image dialog has closed, and the cropped image has been saved to the Desktop as cropped.png.",
+      "unit_precondition": [
+        "The image has already been cropped to the desired center area.",
+        "The Desktop location is accessible from GIMP's Export Image dialog."
+      ],
+      "unit_effect": [
+        "The Export Image dialog opens and switches to the Desktop location.",
+        "The filename field shows cropped.png.",
+        "After export, a file named cropped.png exists on the Desktop."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        12,
+        13,
+        14
+      ],
+      "unit_intent": "Open a new blank LibreOffice Writer document to assemble the report.",
+      "unit_type": "LAUNCH_WRITER_DOCUMENT",
+      "unit_before_state": "GIMP remains open with the cropped image, and cropped.png already exists on the Desktop.",
+      "unit_after_state": "LibreOffice Writer is open with a new blank document titled 'Untitled 1 - LibreOffice Writer'.",
+      "unit_precondition": [
+        "The desktop session accepts the Alt+F2 run command shortcut.",
+        "LibreOffice Writer is installed and can be launched from the command runner.",
+        "The cropped image file has already been created for later insertion."
+      ],
+      "unit_effect": [
+        "The Run Command dialog appears and receives the Writer launch command.",
+        "The dialog closes and Writer opens a blank new document."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        15,
+        16,
+        17,
+        18
+      ],
+      "unit_intent": "Insert the cropped screenshot into the new Writer document.",
+      "unit_type": "INSERT_IMAGE_IN_DOCUMENT",
+      "unit_before_state": "LibreOffice Writer is active with a blank document open and the text cursor ready in the page area.",
+      "unit_after_state": "The Insert Image dialog is closed, and the cropped.png image is placed into the Writer document at the insertion point.",
+      "unit_precondition": [
+        "LibreOffice Writer is already open with a blank editable document.",
+        "The file cropped.png exists on the Desktop.",
+        "The Insert Image dialog can be opened from Writer."
+      ],
+      "unit_effect": [
+        "The Insert Image dialog opens and navigates to the Desktop.",
+        "The file cropped.png becomes selected in the file list.",
+        "After confirmation, the image appears inside the document page."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        19,
+        20,
+        21,
+        22
+      ],
+      "unit_intent": "Save the report document to the Desktop as a Word-compatible file.",
+      "unit_type": "SAVE_DOCUMENT_AS_DOCX",
+      "unit_before_state": "The Writer document contains the inserted cropped image and is still unsaved under the default untitled name.",
+      "unit_after_state": "The Save As dialog closes, and the document is saved on the Desktop as Report.docx; the Writer title bar reflects the new filename.",
+      "unit_precondition": [
+        "The Writer document already contains the inserted image.",
+        "The Save As dialog can access the Desktop location.",
+        "The document can be saved in .docx format."
+      ],
+      "unit_effect": [
+        "The Save As dialog opens and switches to the Desktop folder.",
+        "The filename field shows Report.docx and the format resolves to a Word .docx type.",
+        "After saving, a file named Report.docx exists on the Desktop and the Writer window title updates accordingly."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Capture the current desktop as an image file that can be edited and reused in the report workflow.",
+      "unit_type": "CAPTURE_SCREENSHOT",
+      "unit_before_state": "The GNOME desktop is visible with only the wallpaper shown and no application window covering the screen.",
+      "unit_after_state": "The desktop remains visible, and a new screenshot image has been saved in the Pictures or Pictures/Screenshots folder; a brief screenshot notification may appear in the top-right corner.",
+      "unit_precondition": [
+        "The desktop screen to be captured is currently visible.",
+        "The Print Screen key and GNOME screenshot function are available."
+      ],
+      "unit_effect": [
+        "A new screenshot file with a timestamped name is created in the user's Pictures area.",
+        "A screenshot save notification may briefly confirm the capture."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Capture the currently visible screen as a saved image file for later editing or reuse.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['print']}",
+          "action_template": "When the target screen is visible, the Print Screen key is available, and the GNOME screenshot utility is installed, press the Print Screen key to capture the current screen. After the action, a screenshot is automatically saved to the default Pictures screenshot folder with a timestamped filename, and a save notification may briefly appear."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Open the captured screenshot in GIMP so it can be cropped.",
+      "unit_type": "LAUNCH_GIMP_WITH_SCREENSHOT",
+      "unit_before_state": "The desktop is visible after the screenshot was taken, and no editor is open yet.",
+      "unit_after_state": "GIMP is open in the foreground with the screenshot loaded on the main canvas, and the terminal used to launch it is no longer the active workspace element.",
+      "unit_precondition": [
+        "A screenshot file already exists in the Pictures location.",
+        "Terminal can be opened from the desktop.",
+        "GIMP is installed and callable from the shell."
+      ],
+      "unit_effect": [
+        "A terminal window appears, receives the GIMP launch command, and then returns to the prompt after execution.",
+        "GIMP loads and displays the screenshot image ready for editing."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Launch an image editor from the terminal with a specified screenshot file so the image is ready for editing.",
+      "parameters": {
+        "terminal_shortcut": "Ctrl+Alt+T",
+        "editor_command": "gimp",
+        "screenshot_file_pattern": "~/Pictures/Screenshot*.png"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'alt', 't']}",
+          "action_template": "Press {{terminal_shortcut}} to open a terminal window for launching {{editor_command}} with {{screenshot_file_pattern}}. This requires the GNOME desktop environment to be active and Terminal to be installed, and results in a terminal window opening with a command prompt ready for input."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'gimp ~/Pictures/Screenshot*.png &'}",
+          "action_template": "Type the command {{editor_command}} {{screenshot_file_pattern}} & in the focused terminal to open the screenshot file in the editor and run the process in the background. This requires Terminal to be focused, {{editor_command}} to be installed, and the screenshot to exist at {{screenshot_file_pattern}}, and results in the full command appearing at the prompt."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['return']}",
+          "action_template": "Press Enter to execute the typed {{editor_command}} command so {{screenshot_file_pattern}} opens for editing. This requires the command to be correctly typed in Terminal, and results in the editor loading the screenshot on the main canvas while the terminal prompt returns immediately."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Crop the screenshot down to its center portion.",
+      "unit_type": "CROP_IMAGE_CENTER",
+      "unit_before_state": "GIMP is active with the full screenshot visible on the canvas and the toolbox shown on the left.",
+      "unit_after_state": "The screenshot on the GIMP canvas has been reduced to only the selected center region, with the outer areas removed.",
+      "unit_precondition": [
+        "The screenshot is already open in GIMP.",
+        "The Crop tool is available in the GIMP toolbox.",
+        "The image canvas is visible and editable."
+      ],
+      "unit_effect": [
+        "The Crop tool becomes active and a crop rectangle is drawn over the center of the image.",
+        "After confirming the crop, the canvas updates to show only the center portion of the original screenshot."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Crop an open image to retain only {{target_region}}.",
+      "parameters": {
+        "target_region": "center portion of the image"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'Crop tool in the GIMP toolbox on the left side'}}",
+          "action_template": "With GIMP active, an image loaded, and the toolbox visible, click the Crop Tool in the left toolbox to activate it for cropping {{target_region}}, so the crop tool becomes active, the cursor changes to a crosshair, and crop options appear below the toolbox."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'center-left area of the image canvas'}, 'end': {'text': 'center-right area of the image canvas'}, 'target': {'begin': {'text': 'center-left area of the image'}, 'end': {'text': 'center-right area of the image'}}}",
+          "action_template": "With the Crop tool selected and the image visible on the canvas, drag across {{target_region}} on the image canvas to define a rectangular crop region, so a selection marquee with handles appears over the selected area."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['return']}",
+          "action_template": "When a crop area is defined on the image, press Enter to apply the crop operation and keep only {{target_region}}, so the portions outside the selection are removed and the canvas updates to the cropped image."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "unit_intent": "Export the cropped screenshot as a reusable PNG file on the Desktop.",
+      "unit_type": "EXPORT_CROPPED_IMAGE",
+      "unit_before_state": "GIMP shows the already-cropped image on the canvas, and no file save dialog is open yet.",
+      "unit_after_state": "The Export Image dialog has closed, and the cropped image has been saved to the Desktop as cropped.png.",
+      "unit_precondition": [
+        "The image has already been cropped to the desired center area.",
+        "The Desktop location is accessible from GIMP's Export Image dialog."
+      ],
+      "unit_effect": [
+        "The Export Image dialog opens and switches to the Desktop location.",
+        "The filename field shows cropped.png.",
+        "After export, a file named cropped.png exists on the Desktop."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Export the cropped image as a PNG file to {{destination_folder}} with a specified filename.",
+      "parameters": {
+        "destination_folder": "Desktop",
+        "output_file_name": "cropped.png"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'e']}",
+          "action_template": "Press Ctrl+Shift+E to open the Export Image dialog for saving the cropped image. The dialog opens with filename, location, and format options."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'Desktop folder in the left sidebar of the Export Image dialog'}}",
+          "action_template": "Click the {{destination_folder}} folder in the left sidebar of the Export Image dialog to set the save location there. The file location changes to {{destination_folder}}, the path bar updates, and the file list shows that folder's contents."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'cropped.png'}",
+          "action_template": "Type {{output_file_name}} into the filename field after {{destination_folder}} is selected as the destination. The filename field displays {{output_file_name}}, and the file type is set to PNG."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'Export button in the bottom right of the Export Image dialog'}}",
+          "action_template": "Click the Export button to save the cropped image as {{output_file_name}} in {{destination_folder}} after the filename and location are correctly set. The dialog closes and the file is created in {{destination_folder}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        12,
+        13,
+        14
+      ],
+      "unit_intent": "Open a new blank LibreOffice Writer document to assemble the report.",
+      "unit_type": "LAUNCH_WRITER_DOCUMENT",
+      "unit_before_state": "GIMP remains open with the cropped image, and cropped.png already exists on the Desktop.",
+      "unit_after_state": "LibreOffice Writer is open with a new blank document titled 'Untitled 1 - LibreOffice Writer'.",
+      "unit_precondition": [
+        "The desktop session accepts the Alt+F2 run command shortcut.",
+        "LibreOffice Writer is installed and can be launched from the command runner.",
+        "The cropped image file has already been created for later insertion."
+      ],
+      "unit_effect": [
+        "The Run Command dialog appears and receives the Writer launch command.",
+        "The dialog closes and Writer opens a blank new document."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Launch a new blank document in {{application_name}} from the system command runner.",
+      "parameters": {
+        "application_name": "LibreOffice Writer",
+        "launch_command": "libreoffice --writer",
+        "blank_document_title": "Untitled 1 - LibreOffice Writer"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['alt', 'f2']}",
+          "action_template": "Press Alt+F2 while {{application_name}} is installed to open the Run Command dialog with a focused input field for entering the launch command."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'libreoffice --writer'}",
+          "action_template": "Type {{launch_command}} into the active Run Command dialog so the input field contains the command to launch {{application_name}}."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['return']}",
+          "action_template": "Press Enter after {{launch_command}} has been entered to execute it, close the Run Command dialog, and open a new blank document window titled {{blank_document_title}} in {{application_name}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        15,
+        16,
+        17,
+        18
+      ],
+      "unit_intent": "Insert the cropped screenshot into the new Writer document.",
+      "unit_type": "INSERT_IMAGE_IN_DOCUMENT",
+      "unit_before_state": "LibreOffice Writer is active with a blank document open and the text cursor ready in the page area.",
+      "unit_after_state": "The Insert Image dialog is closed, and the cropped.png image is placed into the Writer document at the insertion point.",
+      "unit_precondition": [
+        "LibreOffice Writer is already open with a blank editable document.",
+        "The file cropped.png exists on the Desktop.",
+        "The Insert Image dialog can be opened from Writer."
+      ],
+      "unit_effect": [
+        "The Insert Image dialog opens and navigates to the Desktop.",
+        "The file cropped.png becomes selected in the file list.",
+        "After confirmation, the image appears inside the document page."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Insert a specified image file from a chosen folder into the current document at the insertion point.",
+      "parameters": {
+        "source_folder": "Desktop",
+        "image_file": "cropped.png"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['alt', 'i', 'i']}",
+          "action_template": "Press Alt+I, I while LibreOffice Writer is active to open the Insert Image dialog so {{image_file}} can be inserted into the document; after this, the dialog opens with file locations in the sidebar and files in the main area."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'Desktop folder in the left sidebar of the Insert Image dialog'}}",
+          "action_template": "With the Insert Image dialog active, click {{source_folder}} in the left sidebar to navigate to that folder; after this, the file list updates to show its contents, including {{image_file}}."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'cropped.png file in the file list'}}",
+          "action_template": "When {{image_file}} is visible in the file list, click it to select it for insertion; after this, the file becomes highlighted and its name appears in the filename field."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'Open button in the bottom right of the Insert Image dialog'}}",
+          "action_template": "With {{image_file}} selected, click the Open button to confirm the insertion; after this, the dialog closes and the image appears in the document at the cursor position."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_07",
+      "unit_id": "u_seg_001_07",
+      "step_indices": [
+        19,
+        20,
+        21,
+        22
+      ],
+      "unit_intent": "Save the report document to the Desktop as a Word-compatible file.",
+      "unit_type": "SAVE_DOCUMENT_AS_DOCX",
+      "unit_before_state": "The Writer document contains the inserted cropped image and is still unsaved under the default untitled name.",
+      "unit_after_state": "The Save As dialog closes, and the document is saved on the Desktop as Report.docx; the Writer title bar reflects the new filename.",
+      "unit_precondition": [
+        "The Writer document already contains the inserted image.",
+        "The Save As dialog can access the Desktop location.",
+        "The document can be saved in .docx format."
+      ],
+      "unit_effect": [
+        "The Save As dialog opens and switches to the Desktop folder.",
+        "The filename field shows Report.docx and the format resolves to a Word .docx type.",
+        "After saving, a file named Report.docx exists on the Desktop and the Writer window title updates accordingly."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Save the current document to {{target_location}} as a specified Word-compatible filename.",
+      "parameters": {
+        "target_location": "Desktop",
+        "file_name": "Report.docx"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 's']}",
+          "action_template": "Press Ctrl+Shift+S to open the Save As dialog so the document can be saved with a specific name and location."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'Desktop folder in the left sidebar of the Save As dialog'}}",
+          "action_template": "Click the {{target_location}} folder in the left sidebar of the Save As dialog after the dialog is active to set the save location to {{target_location}}."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Report.docx'}",
+          "action_template": "Type {{file_name}} into the filename field after {{target_location}} is selected so the document is named accordingly and the Word .docx format is selected."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'Save button in the bottom right of the Save As dialog'}}",
+          "action_template": "Click the Save button after the filename and location are set to save the document as {{file_name}} in {{target_location}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

@@ -1,0 +1,673 @@
+{
+  "segment_id": "seg_001",
+  "app": "gimp",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Activate the Crop tool",
+      "action_before_state": "The photo is already open on the GIMP canvas, with the toolbox and top menu visible.",
+      "action_preconditions": [
+        "GIMP is the active window",
+        "An image is already open and visible",
+        "The main editing workspace is not blocked by another dialog"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "shift",
+          "c"
+        ]
+      },
+      "action_after_effects": "The Crop tool becomes active, and the pointer is ready to define a crop area on the image.",
+      "nl_explanation": "When the photo is visible in the main GIMP workspace, press Shift+C to switch to the Crop tool so the next action can define a new square framing."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Draw a centered square crop area",
+      "action_before_state": "The Crop tool is active and the image is fully visible on the canvas.",
+      "action_preconditions": [
+        "The Crop tool is active",
+        "The main subject of the photo is visible",
+        "There is enough canvas area to drag a square selection"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the upper-left corner of the intended square crop area on the image"
+        },
+        "end": {
+          "text": "the lower-right corner to create a centered square framing around the main subject"
+        },
+        "target": {
+          "begin": {
+            "text": "the image canvas at the upper-left of the desired crop region"
+          },
+          "end": {
+            "text": "the image canvas at the lower-right of the desired crop region"
+          }
+        }
+      },
+      "action_after_effects": "A square crop box appears over the image, showing the new framing that will be kept.",
+      "nl_explanation": "With the Crop tool active, drag from the upper-left of the intended composition to the lower-right until a centered square crop box covers the subject you want to keep."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Apply the crop",
+      "action_before_state": "A square crop box is visible over the image and the crop has not been committed yet.",
+      "action_preconditions": [
+        "A crop box is already drawn on the canvas",
+        "The crop preview looks correct"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The image is cropped to the selected square area.",
+      "nl_explanation": "Once the square crop frame looks correct, press Enter to commit it and reduce the canvas to that new square composition."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Open the Colors menu",
+      "action_before_state": "The cropped square image is shown on the canvas and the top menu bar is visible.",
+      "action_preconditions": [
+        "The crop has already been applied",
+        "The GIMP menu bar is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the 'Colors' menu in the top menu bar"
+        }
+      },
+      "action_after_effects": "The Colors menu opens and shows image adjustment options.",
+      "nl_explanation": "After the crop is finished, click the Colors menu at the top so brightness adjustment options become available."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Open the Brightness-Contrast adjustment",
+      "action_before_state": "The Colors menu is expanded over the editing area.",
+      "action_preconditions": [
+        "The Colors menu is open",
+        "The image remains selected in the main canvas"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the 'Brightness-Contrast...' option in the Colors menu"
+        }
+      },
+      "action_after_effects": "The Brightness-Contrast dialog opens.",
+      "nl_explanation": "While the Colors menu is open, click Brightness-Contrast so a dialog appears for adjusting the overall lightness of the image."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Increase brightness slightly",
+      "action_before_state": "The Brightness-Contrast dialog is open with the brightness slider visible.",
+      "action_preconditions": [
+        "The Brightness-Contrast dialog is open",
+        "The brightness slider handle is visible and draggable"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the current handle on the Brightness slider"
+        },
+        "end": {
+          "text": "slightly to the right of its starting position"
+        },
+        "target": {
+          "begin": {
+            "text": "the Brightness slider handle in the Brightness-Contrast dialog"
+          },
+          "end": {
+            "text": "a point a little to the right on the same Brightness slider track"
+          }
+        }
+      },
+      "action_after_effects": "The preview becomes slightly brighter while keeping the adjustment dialog open.",
+      "nl_explanation": "With the Brightness-Contrast window open, drag the Brightness slider a small amount to the right so the square image looks a bit lighter without overexposing it."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Confirm the brightness change",
+      "action_before_state": "The Brightness-Contrast preview shows the brighter version of the image.",
+      "action_preconditions": [
+        "The brightness adjustment already looks acceptable",
+        "The Brightness-Contrast dialog is still open"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the 'OK' button in the Brightness-Contrast dialog"
+        }
+      },
+      "action_after_effects": "The adjustment is applied to the image and the dialog closes.",
+      "nl_explanation": "When the preview looks slightly brighter than before, click OK to apply the change and return to the normal editing view."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Switch to the Text tool",
+      "action_before_state": "The adjusted square image is visible and no dialog is blocking the canvas.",
+      "action_preconditions": [
+        "The brightness dialog has been closed",
+        "The toolbox or keyboard shortcuts are available"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "t"
+        ]
+      },
+      "action_after_effects": "The Text tool becomes active, allowing text settings and a text box to be created on the image.",
+      "nl_explanation": "After finishing the image adjustments, press T to activate the Text tool so a title can be added to the picture."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Select the current text size value",
+      "action_before_state": "The Text tool is active and its Tool Options panel is visible.",
+      "action_preconditions": [
+        "The Text tool is active",
+        "The Tool Options panel shows a Size field"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 2,
+        "target": {
+          "text": "the numeric value in the Text tool's Size field"
+        }
+      },
+      "action_after_effects": "The existing font size value is selected and ready to be replaced.",
+      "nl_explanation": "With the Text tool selected, double-click the current number in the Size field so the old font size is highlighted for replacement."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Set a larger font size",
+      "action_before_state": "The text size value is highlighted in the Tool Options panel.",
+      "action_preconditions": [
+        "The Size field is active",
+        "Its current value is selected"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "96"
+      },
+      "action_after_effects": "The Text tool is configured to create much larger text.",
+      "nl_explanation": "When the size field is selected, type 96 to make the upcoming title large enough to function as a poster-style heading."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Create a text box near the bottom of the image",
+      "action_before_state": "The Text tool is active with a large font size configured, and the image is visible on the canvas.",
+      "action_preconditions": [
+        "The Text tool is active",
+        "A font size has already been set",
+        "There is visible space near the lower part of the image for the title"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the lower-left area of the image where the title should start"
+        },
+        "end": {
+          "text": "across the lower-middle portion of the image to create a wide text box"
+        },
+        "target": {
+          "begin": {
+            "text": "the image canvas near the lower-left part of the visible image"
+          },
+          "end": {
+            "text": "the image canvas across the lower-middle portion of the visible image"
+          }
+        }
+      },
+      "action_after_effects": "A text box appears on the lower portion of the image with a text cursor inside it.",
+      "nl_explanation": "With the Text tool ready, drag across the lower part of the image to create a wide text box where the title will sit."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Enter the title text",
+      "action_before_state": "A text box is active on the image and the insertion cursor is visible inside it.",
+      "action_preconditions": [
+        "The text box has already been created",
+        "The text cursor is active inside the box"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "WEEKEND MARKET"
+      },
+      "action_after_effects": "The title text appears inside the text box on the image.",
+      "nl_explanation": "Once the text box is active, type WEEKEND MARKET so the image gains the requested headline near the bottom."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Open the export dialog",
+      "action_before_state": "The edited square image with the new title is visible in GIMP.",
+      "action_preconditions": [
+        "The title text has already been added",
+        "No blocking dialog is currently open"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "e"
+        ]
+      },
+      "action_after_effects": "The Export Image dialog opens with the filename field available.",
+      "nl_explanation": "After the image looks finished, press Ctrl+Shift+E to open GIMP's export dialog and prepare a PNG output file."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Set the export filename",
+      "action_before_state": "The Export Image dialog is open and the filename field is active.",
+      "action_preconditions": [
+        "The Export Image dialog is open",
+        "The filename field can receive text input"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "weekend-market.png"
+      },
+      "action_after_effects": "The export filename is updated to `weekend-market.png`.",
+      "nl_explanation": "When the export dialog is open and ready for input, type weekend-market.png so the edited image will be saved with the requested PNG name."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Start exporting the PNG file",
+      "action_before_state": "The Export Image dialog shows the new filename and the Export button is visible.",
+      "action_preconditions": [
+        "A valid PNG filename has already been entered",
+        "The Export button is visible in the dialog"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the 'Export' button in the Export Image dialog"
+        }
+      },
+      "action_after_effects": "GIMP advances to the PNG export options dialog.",
+      "nl_explanation": "After the filename is set, click Export in the main export dialog so GIMP can proceed to the PNG-specific options screen."
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Finish the PNG export",
+      "action_before_state": "The PNG export options dialog is open on top of GIMP.",
+      "action_preconditions": [
+        "The PNG export options dialog is open",
+        "The final Export button is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the final 'Export' button in the PNG options dialog"
+        }
+      },
+      "action_after_effects": "The image is exported as `weekend-market.png`, and the dialog closes back to the editor.",
+      "nl_explanation": "When the PNG options dialog appears, click the final Export button to write the finished social-media image to disk as weekend-market.png."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Reframe the open photo into a centered square composition for social-media use.",
+      "unit_type": "CROP_TO_SQUARE",
+      "unit_before_state": "GIMP shows the original photo on the main canvas with the toolbox and menu bar visible, and no modal dialog is open.",
+      "unit_after_state": "The canvas now displays only the selected centered square portion of the photo, with the crop committed and the image reduced to a square format.",
+      "unit_precondition": [
+        "GIMP is the active window.",
+        "A photo is already open and fully visible on the canvas.",
+        "The editing workspace is not blocked by another dialog."
+      ],
+      "unit_effect": [
+        "A square crop overlay is drawn and then committed.",
+        "The visible image area changes to a square canvas showing the chosen centered framing."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Make the cropped image slightly brighter while preserving the new square composition.",
+      "unit_type": "ADJUST_BRIGHTNESS",
+      "unit_before_state": "The cropped square image is visible on the GIMP canvas, and the top menu bar is available.",
+      "unit_after_state": "The Brightness-Contrast dialog is closed, and the square image remains on the canvas with a slightly brighter appearance applied.",
+      "unit_precondition": [
+        "The square crop has already been applied.",
+        "The GIMP menu bar is visible.",
+        "No other dialog is blocking access to the Colors menu."
+      ],
+      "unit_effect": [
+        "The Colors menu opens and the Brightness-Contrast dialog appears.",
+        "Dragging the brightness slider updates the live preview to a slightly lighter image.",
+        "Clicking OK closes the dialog and leaves the brighter result visible on the canvas."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        8,
+        9,
+        10
+      ],
+      "unit_intent": "Prepare the text tool to create a prominent large headline.",
+      "unit_type": "CONFIGURE_TEXT_TOOL",
+      "unit_before_state": "The brighter square image is visible in the normal editing view, and no dialog is open over the canvas.",
+      "unit_after_state": "The Text tool is active and its Size field shows 96, so newly created text will appear large.",
+      "unit_precondition": [
+        "The brightness adjustment has already been confirmed and the dialog is closed.",
+        "The Text tool can be activated from the keyboard or toolbox.",
+        "The Tool Options panel for the Text tool is visible after activation."
+      ],
+      "unit_effect": [
+        "The Text tool becomes the active tool.",
+        "The existing size value in Tool Options is selected.",
+        "The Size field is replaced with 96, indicating large headline-sized text."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        11,
+        12
+      ],
+      "unit_intent": "Place the requested market title near the bottom of the image.",
+      "unit_type": "ADD_TITLE_TEXT",
+      "unit_before_state": "The Text tool is active with font size 96 configured, and the square image is visible with open space near the bottom.",
+      "unit_after_state": "A text box sits near the bottom of the image containing the title \"WEEKEND MARKET\" in large text.",
+      "unit_precondition": [
+        "The Text tool is active.",
+        "The text size has already been set to a large value.",
+        "There is visible room near the lower part of the image to place the title."
+      ],
+      "unit_effect": [
+        "Dragging on the lower part of the image creates a text box with an insertion cursor inside it.",
+        "Typing inserts the visible title text \"WEEKEND MARKET\" into that text box on the canvas."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        13,
+        14,
+        15,
+        16
+      ],
+      "unit_intent": "Export the finished social-media graphic as the requested PNG file.",
+      "unit_type": "EXPORT_PNG",
+      "unit_before_state": "The edited square image with the large bottom title is visible in GIMP, and no blocking dialog is open.",
+      "unit_after_state": "The export dialogs are closed, and the finished image has been written to disk as weekend-market.png.",
+      "unit_precondition": [
+        "The crop, brightness adjustment, and title text have already been completed.",
+        "No modal dialog is open before starting export.",
+        "The export filename field can accept text input."
+      ],
+      "unit_effect": [
+        "Ctrl+Shift+E opens the Export Image dialog.",
+        "The filename field shows weekend-market.png.",
+        "After clicking Export in both dialogs, GIMP completes PNG export and returns to the editor."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Reframe the open photo into a centered square composition for social-media use.",
+      "unit_type": "CROP_TO_SQUARE",
+      "unit_before_state": "GIMP shows the original photo on the main canvas with the toolbox and menu bar visible, and no modal dialog is open.",
+      "unit_after_state": "The canvas now displays only the selected centered square portion of the photo, with the crop committed and the image reduced to a square format.",
+      "unit_precondition": [
+        "GIMP is the active window.",
+        "A photo is already open and fully visible on the canvas.",
+        "The editing workspace is not blocked by another dialog."
+      ],
+      "unit_effect": [
+        "A square crop overlay is drawn and then committed.",
+        "The visible image area changes to a square canvas showing the chosen centered framing."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Crop the open image into a centered square composition around the main subject.",
+      "parameters": {
+        "crop_region_start": "the image canvas at the upper-left of the desired crop region",
+        "crop_region_end": "the image canvas at the lower-right of the desired crop region"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['shift', 'c']}",
+          "action_template": "When the image is visible in the main GIMP workspace, press Shift+C to activate the Crop tool so the next action can define a new square framing."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the upper-left corner of the intended square crop area on the image'}, 'end': {'text': 'the lower-right corner to create a centered square framing around the main subject'}, 'target': {'begin': {'text': 'the image canvas at the upper-left of the desired crop region'}, 'end': {'text': 'the image canvas at the lower-right of the desired crop region'}}}",
+          "action_template": "With the Crop tool active, drag from {{crop_region_start}} to {{crop_region_end}} until a centered square crop box covers the main subject you want to keep."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Once the square crop frame looks correct, press Enter to commit it and reduce the canvas to the new square composition."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "unit_intent": "Make the cropped image slightly brighter while preserving the new square composition.",
+      "unit_type": "ADJUST_BRIGHTNESS",
+      "unit_before_state": "The cropped square image is visible on the GIMP canvas, and the top menu bar is available.",
+      "unit_after_state": "The Brightness-Contrast dialog is closed, and the square image remains on the canvas with a slightly brighter appearance applied.",
+      "unit_precondition": [
+        "The square crop has already been applied.",
+        "The GIMP menu bar is visible.",
+        "No other dialog is blocking access to the Colors menu."
+      ],
+      "unit_effect": [
+        "The Colors menu opens and the Brightness-Contrast dialog appears.",
+        "Dragging the brightness slider updates the live preview to a slightly lighter image.",
+        "Clicking OK closes the dialog and leaves the brighter result visible on the canvas."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Apply a slight brightness increase to the current image using the Brightness-Contrast adjustment dialog.",
+      "parameters": {
+        "brightness_adjustment_amount": "a small amount to the right",
+        "target_preview_result": "slightly brighter than before"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': \"the 'Colors' menu in the top menu bar\"}}",
+          "action_template": "With the crop already applied and the GIMP menu bar visible, click the Colors menu at the top so image adjustment options become available."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': \"the 'Brightness-Contrast...' option in the Colors menu\"}}",
+          "action_template": "With the Colors menu open and the image still selected in the main canvas, click Brightness-Contrast so the Brightness-Contrast dialog opens for adjusting the overall lightness of the image."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the current handle on the Brightness slider'}, 'end': {'text': 'slightly to the right of its starting position'}, 'target': {'begin': {'text': 'the Brightness slider handle in the Brightness-Contrast dialog'}, 'end': {'text': 'a point a little to the right on the same Brightness slider track'}}}",
+          "action_template": "With the Brightness-Contrast dialog open and the brightness slider handle visible and draggable, drag the Brightness slider handle {{brightness_adjustment_amount}} so the preview becomes {{target_preview_result}} while keeping the adjustment dialog open."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': \"the 'OK' button in the Brightness-Contrast dialog\"}}",
+          "action_template": "When the preview looks {{target_preview_result}} and the Brightness-Contrast dialog is still open, click OK to apply the change and return to the normal editing view."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        8,
+        9,
+        10
+      ],
+      "unit_intent": "Prepare the text tool to create a prominent large headline.",
+      "unit_type": "CONFIGURE_TEXT_TOOL",
+      "unit_before_state": "The brighter square image is visible in the normal editing view, and no dialog is open over the canvas.",
+      "unit_after_state": "The Text tool is active and its Size field shows 96, so newly created text will appear large.",
+      "unit_precondition": [
+        "The brightness adjustment has already been confirmed and the dialog is closed.",
+        "The Text tool can be activated from the keyboard or toolbox.",
+        "The Tool Options panel for the Text tool is visible after activation."
+      ],
+      "unit_effect": [
+        "The Text tool becomes the active tool.",
+        "The existing size value in Tool Options is selected.",
+        "The Size field is replaced with 96, indicating large headline-sized text."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Configure the Text tool with a specified large font size for creating headline text.",
+      "parameters": {
+        "font_size_value": "96"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['t']}",
+          "action_template": "Press T after the image adjustment dialog has been closed to activate the Text tool so text settings and a text box can be created on the image."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 2, 'target': {'text': \"the numeric value in the Text tool's Size field\"}}",
+          "action_template": "Double-click the numeric value in the Text tool's Size field while the Text tool is active so the existing font size is selected and ready to be replaced."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '96'}",
+          "action_template": "Type {{font_size_value}} into the selected Size field to replace the old font size and configure the Text tool to create larger headline text."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        11,
+        12
+      ],
+      "unit_intent": "Place the requested market title near the bottom of the image.",
+      "unit_type": "ADD_TITLE_TEXT",
+      "unit_before_state": "The Text tool is active with font size 96 configured, and the square image is visible with open space near the bottom.",
+      "unit_after_state": "A text box sits near the bottom of the image containing the title \"WEEKEND MARKET\" in large text.",
+      "unit_precondition": [
+        "The Text tool is active.",
+        "The text size has already been set to a large value.",
+        "There is visible room near the lower part of the image to place the title."
+      ],
+      "unit_effect": [
+        "Dragging on the lower part of the image creates a text box with an insertion cursor inside it.",
+        "Typing inserts the visible title text \"WEEKEND MARKET\" into that text box on the canvas."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a wide text box in a specified region of the image and enter the specified title text.",
+      "parameters": {
+        "target_region": "near the bottom of the image",
+        "drag_start_area": "the lower-left area of the image where the title should start",
+        "drag_end_area": "across the lower-middle portion of the image to create a wide text box",
+        "title_text": "WEEKEND MARKET"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the lower-left area of the image where the title should start'}, 'end': {'text': 'across the lower-middle portion of the image to create a wide text box'}, 'target': {'begin': {'text': 'the image canvas near the lower-left part of the visible image'}, 'end': {'text': 'the image canvas across the lower-middle portion of the visible image'}}}",
+          "action_template": "With the Text tool active, a font size already set, and visible space in {{target_region}}, drag from {{drag_start_area}} to {{drag_end_area}} to create a wide text box; a text box appears there with the text cursor inside it."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'WEEKEND MARKET'}",
+          "action_template": "Once the text box has been created and the text cursor is active inside it, type {{title_text}} so the title appears inside the text box on the image."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        13,
+        14,
+        15,
+        16
+      ],
+      "unit_intent": "Export the finished social-media graphic as the requested PNG file.",
+      "unit_type": "EXPORT_PNG",
+      "unit_before_state": "The edited square image with the large bottom title is visible in GIMP, and no blocking dialog is open.",
+      "unit_after_state": "The export dialogs are closed, and the finished image has been written to disk as weekend-market.png.",
+      "unit_precondition": [
+        "The crop, brightness adjustment, and title text have already been completed.",
+        "No modal dialog is open before starting export.",
+        "The export filename field can accept text input."
+      ],
+      "unit_effect": [
+        "Ctrl+Shift+E opens the Export Image dialog.",
+        "The filename field shows weekend-market.png.",
+        "After clicking Export in both dialogs, GIMP completes PNG export and returns to the editor."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Export the finished image to disk as a specified PNG file.",
+      "parameters": {
+        "file_name": "weekend-market.png"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'e']}",
+          "action_template": "Press Ctrl+Shift+E when the image is finished and no blocking dialog is open to open GIMP's Export Image dialog with the filename field available for PNG export."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'weekend-market.png'}",
+          "action_template": "Type {{file_name}} when the Export Image dialog is open and the filename field can receive text input to set the export filename to {{file_name}}."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': \"the 'Export' button in the Export Image dialog\"}}",
+          "action_template": "Click the 'Export' button in the Export Image dialog after a valid PNG filename has been entered and the button is visible to proceed to the PNG export options dialog."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': \"the final 'Export' button in the PNG options dialog\"}}",
+          "action_template": "Click the final 'Export' button in the PNG options dialog when that dialog is open and the button is visible to export the image as {{file_name}} and return to the editor."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

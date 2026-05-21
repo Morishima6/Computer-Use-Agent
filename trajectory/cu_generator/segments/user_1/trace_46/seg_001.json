@@ -1,0 +1,430 @@
+{
+  "segment_id": "seg_001",
+  "app": "Chrome",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Focus the browser address bar so a new website can be entered",
+      "action_before_state": "A Chrome window is already open on the screen in GNOME, and the top toolbar with the address bar is visible.",
+      "action_preconditions": [
+        "Chrome is the active window",
+        "The browser toolbar is visible",
+        "No system modal dialog is blocking input"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "l"
+        ]
+      },
+      "action_after_effects": "The address bar becomes focused and its current contents are highlighted, ready to be replaced.",
+      "nl_explanation": "When Chrome is active and the toolbar is visible, press Ctrl+L to focus the address bar. The current URL is selected so the next step can enter a new website directly."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Enter a search engine URL",
+      "action_before_state": "The address bar is focused with its existing text highlighted.",
+      "action_preconditions": [
+        "The address bar caret is active",
+        "Typed text will replace the selected address"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "https://www.google.com"
+      },
+      "action_after_effects": "The typed URL appears in the address bar and is ready to be opened.",
+      "nl_explanation": "With the address bar already selected, type the Google homepage URL. This prepares the browser to load a search engine in the next step."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Open the search engine homepage",
+      "action_before_state": "The full Google URL is visible in the address bar.",
+      "action_preconditions": [
+        "A valid URL has been typed in the address bar",
+        "Chrome is ready to navigate"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "Chrome navigates to Google and the search homepage loads.",
+      "nl_explanation": "After the URL is typed, press Enter to open Google. The browser should finish on a search homepage where a search query can be entered."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Place the cursor in the search field",
+      "action_before_state": "The Google homepage is visible, with a central search box on the page.",
+      "action_preconditions": [
+        "The homepage has finished loading",
+        "The search box is visible in the page content area"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the large Google search box in the middle of the page"
+        }
+      },
+      "action_after_effects": "The text cursor appears inside the search field, ready for a query.",
+      "nl_explanation": "Once the Google homepage is loaded and the search field is visible, click inside the main search box. This activates the field so the recipe query can be typed."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Type a recipe search query",
+      "action_before_state": "The Google search box is active and empty.",
+      "action_preconditions": [
+        "The insertion cursor is visible in the search box",
+        "No suggestion menu is blocking text entry"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "quick vegetarian traybake recipe print"
+      },
+      "action_after_effects": "The full recipe query appears in the search field.",
+      "nl_explanation": "With the search field focused, type a query for a quick vegetarian traybake recipe and mention print so printable results are more likely to appear."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Run the web search",
+      "action_before_state": "The typed query is visible inside the Google search box.",
+      "action_preconditions": [
+        "The full search phrase has been entered",
+        "The search field is still focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "A Google results page loads with recipe links related to the typed query.",
+      "nl_explanation": "After the query is fully entered, press Enter to submit it. Chrome should open a results page with several recipe candidates."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Move through the results until a suitable recipe link is visible",
+      "action_before_state": "The Google search results page is open and recipe results are listed vertically.",
+      "action_preconditions": [
+        "The results page has loaded",
+        "At least some search results are visible on screen"
+      ],
+      "action": {
+        "type": "SCROLL",
+        "direction": "down",
+        "target": {
+          "text": "the center of the search results page"
+        }
+      },
+      "action_after_effects": "The page scrolls down and stops when a result from a recipe site with wording such as vegetarian traybake, sheet pan, or print is clearly visible.",
+      "nl_explanation": "On the results page, scroll downward through the list until a recipe result that clearly matches a quick vegetarian traybake or sheet-pan dinner is visible enough to select."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Open a relevant recipe result",
+      "action_before_state": "A promising recipe result is visible in the search results, with a title and short snippet.",
+      "action_preconditions": [
+        "The desired result is visible on screen",
+        "The link title is readable and clickable"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the first visible recipe result title from a recipe site that contains terms like 'vegetarian traybake' or 'sheet pan'"
+        }
+      },
+      "action_after_effects": "The selected recipe website opens in the current tab.",
+      "nl_explanation": "When a matching recipe result is visible, click its title to open the full recipe page. The browser should navigate away from the search results to that recipe."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Reveal the key recipe details and locate a print option",
+      "action_before_state": "The recipe page is open, usually showing a large title, image, and some content above the ingredients or instructions.",
+      "action_preconditions": [
+        "The recipe page has loaded",
+        "The main article area is visible and scrollable"
+      ],
+      "action": {
+        "type": "SCROLL",
+        "direction": "down",
+        "target": {
+          "text": "the main recipe content area below the title image"
+        }
+      },
+      "action_after_effects": "The page moves down until useful details such as total time, ingredients, or a visible Print button are on screen.",
+      "nl_explanation": "After opening the recipe, scroll down through the article until the practical cooking details are visible and a print control, if present, can be accessed."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Open the recipe's printable view or print preview",
+      "action_before_state": "The recipe details are visible, and a Print button, printer icon, or similar control is on screen.",
+      "action_preconditions": [
+        "A print-related control is visible on the recipe page",
+        "The page is not covered by cookie banners or popups"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the visible Print button or printer icon near the ingredients or instructions"
+        }
+      },
+      "action_after_effects": "The site opens a dedicated printable recipe page or triggers Chrome's print preview, leaving a printable version or print interface open.",
+      "nl_explanation": "When the recipe's Print button or printer icon is visible, click it. Recipe sites commonly open either a dedicated printable page or Chrome's print preview, and the printable view or print interface should remain open to satisfy the task."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Open a search engine homepage so the recipe search can be started from a clean entry point.",
+      "unit_type": "OPEN_SEARCH_ENGINE_HOME",
+      "unit_before_state": "Chrome is already open in GNOME with the browser toolbar visible, and the current page can be replaced by typing a new address.",
+      "unit_after_state": "The Google homepage is loaded in the current tab, showing the large central search box ready for interaction.",
+      "unit_precondition": [
+        "Chrome is the active window.",
+        "The address bar is available and no modal dialog is blocking keyboard input."
+      ],
+      "unit_effect": [
+        "The address bar becomes focused and its previous contents are replaced with https://www.google.com.",
+        "After Enter is pressed, Chrome finishes navigating to the Google homepage."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Submit a targeted web search for a quick vegetarian traybake or sheet-pan recipe with printable options.",
+      "unit_type": "SEARCH_RECIPE_QUERY",
+      "unit_before_state": "The Google homepage is visible, with the large search field in the middle of the page.",
+      "unit_after_state": "A Google results page is open, listing recipe-related search results for the entered vegetarian traybake query.",
+      "unit_precondition": [
+        "The Google homepage has finished loading.",
+        "The central search box is visible and can accept text input."
+      ],
+      "unit_effect": [
+        "The search field receives focus and shows the query quick vegetarian traybake recipe print.",
+        "After Enter is pressed, a Google results page with recipe links appears."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Open a promising recipe page that matches the quick vegetarian traybake dinner need.",
+      "unit_type": "OPEN_RECIPE_RESULT",
+      "unit_before_state": "Google search results are visible in a vertical list, but the desired recipe link may require scrolling to come into view.",
+      "unit_after_state": "The selected recipe website is open in the current Chrome tab, showing the full recipe page rather than the Google results list.",
+      "unit_precondition": [
+        "The Google results page has loaded successfully.",
+        "At least one recipe result can be reached by scrolling and clicked when visible."
+      ],
+      "unit_effect": [
+        "The results page scrolls until a relevant vegetarian traybake or sheet-pan recipe listing is visible.",
+        "Clicking the result title navigates away from Google and opens the recipe page."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Leave the chosen recipe on a printable version or print interface for immediate printing.",
+      "unit_type": "OPEN_PRINTABLE_RECIPE_VIEW",
+      "unit_before_state": "A full recipe page is open, typically showing the title and hero image near the top, while the print control may be lower in the article.",
+      "unit_after_state": "A printer-friendly recipe page or Chrome print preview is open and left on screen as the final state.",
+      "unit_precondition": [
+        "The recipe page has loaded and the main article area is scrollable.",
+        "A visible Print button or printer icon can be reached and is not blocked by overlays."
+      ],
+      "unit_effect": [
+        "Scrolling reveals practical recipe details such as ingredients, timing, or a print-related control.",
+        "Clicking the Print control opens either a dedicated printable recipe view or Chrome's print preview."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Open a search engine homepage so the recipe search can be started from a clean entry point.",
+      "unit_type": "OPEN_SEARCH_ENGINE_HOME",
+      "unit_before_state": "Chrome is already open in GNOME with the browser toolbar visible, and the current page can be replaced by typing a new address.",
+      "unit_after_state": "The Google homepage is loaded in the current tab, showing the large central search box ready for interaction.",
+      "unit_precondition": [
+        "Chrome is the active window.",
+        "The address bar is available and no modal dialog is blocking keyboard input."
+      ],
+      "unit_effect": [
+        "The address bar becomes focused and its previous contents are replaced with https://www.google.com.",
+        "After Enter is pressed, Chrome finishes navigating to the Google homepage."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a specified search engine homepage in the current browser tab so search can begin from a clean entry point.",
+      "parameters": {
+        "homepage_url": "https://www.google.com"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'l']}",
+          "action_template": "When Chrome is active, press Ctrl+L to focus the address bar. The current URL becomes selected so the next step can replace it directly."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'https://www.google.com'}",
+          "action_template": "With the address bar focused and its existing text selected, type {{homepage_url}} so the browser is ready to open the specified search engine homepage."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After {{homepage_url}} has been entered in the address bar, press Enter to navigate to that search engine homepage and load it for search input."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Submit a targeted web search for a quick vegetarian traybake or sheet-pan recipe with printable options.",
+      "unit_type": "SEARCH_RECIPE_QUERY",
+      "unit_before_state": "The Google homepage is visible, with the large search field in the middle of the page.",
+      "unit_after_state": "A Google results page is open, listing recipe-related search results for the entered vegetarian traybake query.",
+      "unit_precondition": [
+        "The Google homepage has finished loading.",
+        "The central search box is visible and can accept text input."
+      ],
+      "unit_effect": [
+        "The search field receives focus and shows the query quick vegetarian traybake recipe print.",
+        "After Enter is pressed, a Google results page with recipe links appears."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Submit a targeted recipe-related web search query with a specified result preference.",
+      "parameters": {
+        "search_field": "the large Google search box in the middle of the page",
+        "query_text": "quick vegetarian traybake recipe print"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the large Google search box in the middle of the page'}}",
+          "action_template": "Once the homepage has finished loading and {{search_field}} is visible, click inside {{search_field}} to activate the field for typing the query."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'quick vegetarian traybake recipe print'}",
+          "action_template": "With the search field focused and no suggestion menu blocking text entry, type {{query_text}} so the full search query appears in the search field."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After {{query_text}} has been fully entered and the search field is still focused, press Enter to submit it and open a results page with recipe links related to the typed query."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8
+      ],
+      "unit_intent": "Open a promising recipe page that matches the quick vegetarian traybake dinner need.",
+      "unit_type": "OPEN_RECIPE_RESULT",
+      "unit_before_state": "Google search results are visible in a vertical list, but the desired recipe link may require scrolling to come into view.",
+      "unit_after_state": "The selected recipe website is open in the current Chrome tab, showing the full recipe page rather than the Google results list.",
+      "unit_precondition": [
+        "The Google results page has loaded successfully.",
+        "At least one recipe result can be reached by scrolling and clicked when visible."
+      ],
+      "unit_effect": [
+        "The results page scrolls until a relevant vegetarian traybake or sheet-pan recipe listing is visible.",
+        "Clicking the result title navigates away from Google and opens the recipe page."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a search result that matches the desired recipe criteria.",
+      "parameters": {
+        "desired_recipe_criteria": "a quick vegetarian traybake or sheet-pan dinner",
+        "target_result_title": "the first visible recipe result title from a recipe site that contains terms like 'vegetarian traybake' or 'sheet pan'"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'SCROLL', 'direction': 'down', 'target': {'text': 'the center of the search results page'}}",
+          "action_template": "Scroll down in the center of the search results page after the results page has loaded and some results are visible, until a recipe result matching {{desired_recipe_criteria}} is clearly visible enough to select; the page stops with that matching result visible on screen."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': \"the first visible recipe result title from a recipe site that contains terms like 'vegetarian traybake' or 'sheet pan'\"}}",
+          "action_template": "Click {{target_result_title}} when the desired result is visible, readable, and clickable to open the full recipe page in the current tab."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        9,
+        10
+      ],
+      "unit_intent": "Leave the chosen recipe on a printable version or print interface for immediate printing.",
+      "unit_type": "OPEN_PRINTABLE_RECIPE_VIEW",
+      "unit_before_state": "A full recipe page is open, typically showing the title and hero image near the top, while the print control may be lower in the article.",
+      "unit_after_state": "A printer-friendly recipe page or Chrome print preview is open and left on screen as the final state.",
+      "unit_precondition": [
+        "The recipe page has loaded and the main article area is scrollable.",
+        "A visible Print button or printer icon can be reached and is not blocked by overlays."
+      ],
+      "unit_effect": [
+        "Scrolling reveals practical recipe details such as ingredients, timing, or a print-related control.",
+        "Clicking the Print control opens either a dedicated printable recipe view or Chrome's print preview."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a printable version of the current recipe and leave the print interface on screen for immediate printing.",
+      "parameters": {
+        "scroll_target": "the main recipe content area below the title image",
+        "print_control": "the visible Print button or printer icon near the ingredients or instructions"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'SCROLL', 'direction': 'down', 'target': {'text': 'the main recipe content area below the title image'}}",
+          "action_template": "After the recipe page has loaded and while the main article area is scrollable, scroll down through {{scroll_target}} until practical cooking details and {{print_control}} are visible and accessible."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the visible Print button or printer icon near the ingredients or instructions'}}",
+          "action_template": "When {{print_control}} is visible and the page is not covered by cookie banners or popups, click it to open either a dedicated printable recipe page or Chrome's print preview, leaving the printable interface open on screen."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

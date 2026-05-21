@@ -1,0 +1,338 @@
+{
+  "segment_id": "seg_001",
+  "app": "vs_code",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Create a new blank note",
+      "action_before_state": "VS Code is already open on the screen, and there is no modal dialog blocking the editor window.",
+      "action_preconditions": [
+        "The VS Code window is focused",
+        "Keyboard input can be sent to VS Code"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "n"
+        ]
+      },
+      "action_after_effects": "A new untitled editor tab opens, giving a blank file ready for editing.",
+      "nl_explanation": "When VS Code is focused and no dialog is blocking it, press Ctrl+N to open a new untitled file. The expected result is a blank editor tab where the note can be created."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Open the language mode selector",
+      "action_before_state": "An untitled blank file is visible in the editor, and the status bar is shown at the bottom of VS Code.",
+      "action_preconditions": [
+        "The untitled editor tab is active",
+        "The bottom-right status bar language label is visible, usually showing Plain Text"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the language mode label in the bottom-right status bar, such as Plain Text"
+        }
+      },
+      "action_after_effects": "A quick picker opens for choosing the file language mode.",
+      "nl_explanation": "Once the new blank file is active and the language label is visible in the status bar, click that label. VS Code should open the language mode picker for the current file."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Filter the language options to Markdown",
+      "action_before_state": "The language mode quick picker is open in the center or top area of VS Code with a text input field ready.",
+      "action_preconditions": [
+        "The quick picker input field is focused",
+        "Typing will filter the list of language modes"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "markdown"
+      },
+      "action_after_effects": "The quick picker narrows the results and shows Markdown as a selectable option.",
+      "nl_explanation": "When the language picker is open and its input box is focused, type 'markdown'. The list should filter so that Markdown appears clearly as the target language."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Apply Markdown language mode to the note",
+      "action_before_state": "The quick picker is filtered and Markdown is visible as the relevant choice.",
+      "action_preconditions": [
+        "Markdown is listed in the filtered quick picker results",
+        "The quick picker still has keyboard focus"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The picker closes, and the untitled file is now treated as a Markdown document. The editor regains focus with the cursor active.",
+      "nl_explanation": "After Markdown appears in the filtered language list, press Enter to select it. The file should switch to Markdown mode so headings and lists behave correctly. The quick picker closes and focus returns to the editor automatically."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Enter the standup note template",
+      "action_before_state": "The untitled Markdown file is open in the editor, the quick picker has closed, and the text cursor is active in the blank document.",
+      "action_preconditions": [
+        "The editor caret is visible",
+        "Keyboard input will be inserted into the document"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "# Daily Standup\n\n## Yesterday\n- \n\n## Today\n- \n\n## Blockers\n- None\n\n## Checklist\n- [ ] Review priorities\n- [ ] Update teammates\n- [ ] Close completed tasks"
+      },
+      "action_after_effects": "The Markdown note content appears in the editor with headings, bullet points, and checklist items.",
+      "nl_explanation": "With the cursor active in the blank Markdown file, type the standup template content. The result should be a structured daily note containing the required sections and checklist."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Open the rendered Markdown preview",
+      "action_before_state": "The completed Markdown note is visible in the editor, and the file is still active.",
+      "action_preconditions": [
+        "The current file is in Markdown mode",
+        "The editor remains focused so the preview shortcut will apply to the current document"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "v"
+        ]
+      },
+      "action_after_effects": "VS Code opens the Markdown preview, usually beside the editor, showing the rendered headings and checklist.",
+      "nl_explanation": "Once the Markdown content is present and the editor is focused, press Ctrl+Shift+V. The expected behavior is that a rendered Markdown preview opens for visual review."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Start a new note in a fresh editor tab so the standup draft can be created from scratch.",
+      "unit_type": "CREATE_NEW_NOTE",
+      "unit_before_state": "VS Code is open and focused, with no modal dialog blocking the main window. No new untitled note has been opened yet for this draft.",
+      "unit_after_state": "A new untitled blank editor tab is open in VS Code, and the text cursor is ready inside an empty file.",
+      "unit_precondition": [
+        "VS Code is the active window.",
+        "No modal dialog or menu is blocking keyboard input.",
+        "The user can send the Ctrl+N shortcut to VS Code."
+      ],
+      "unit_effect": [
+        "An untitled editor tab appears.",
+        "The editor shows a blank document with an active caret."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Convert the new untitled file into a Markdown document so the note uses Markdown behavior and preview support.",
+      "unit_type": "SET_LANGUAGE_MODE_MARKDOWN",
+      "unit_before_state": "The untitled blank file is open in the editor, and the status bar language indicator is visible at the bottom right, typically showing Plain Text.",
+      "unit_after_state": "The language picker is closed, the untitled file is now in Markdown mode, and focus has returned to the editor with the caret active in the empty document.",
+      "unit_precondition": [
+        "The untitled editor tab is active.",
+        "The bottom-right language mode label is visible and clickable.",
+        "The quick picker accepts typing and keyboard selection once opened."
+      ],
+      "unit_effect": [
+        "A language mode quick picker opens from the status bar.",
+        "Typing filters the list so Markdown is shown as the target option.",
+        "After confirmation, the file is switched to Markdown mode and the editor regains focus."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5
+      ],
+      "unit_intent": "Draft the standup note content with the required Markdown sections and checklist structure.",
+      "unit_type": "ENTER_MARKDOWN_TEMPLATE",
+      "unit_before_state": "The untitled Markdown file is open in the editor with the cursor in an empty document and no quick picker visible.",
+      "unit_after_state": "The editor contains a Markdown standup note with a top-level Daily Standup heading, sections for Yesterday, Today, Blockers, and Checklist, plus checklist items and placeholder bullets.",
+      "unit_precondition": [
+        "The current file is open in the editor and set to Markdown mode.",
+        "The editor caret is visible in the document.",
+        "Keyboard input will be inserted into the active file."
+      ],
+      "unit_effect": [
+        "The typed Markdown text appears in the editor.",
+        "The required standup sections and checklist items are visible in document form."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        6
+      ],
+      "unit_intent": "Open the rendered preview to visually review the drafted standup note.",
+      "unit_type": "OPEN_MARKDOWN_PREVIEW",
+      "unit_before_state": "The completed Markdown standup note is visible in the active editor tab, and the file remains focused in VS Code.",
+      "unit_after_state": "VS Code shows a rendered Markdown preview for the current untitled note, typically in a side-by-side pane next to the editor.",
+      "unit_precondition": [
+        "The current file is an active Markdown document.",
+        "The editor focus is on the drafted note so the preview shortcut applies to it.",
+        "The note content already exists in the editor."
+      ],
+      "unit_effect": [
+        "A Markdown preview pane opens.",
+        "The preview renders the heading hierarchy, bullet sections, and checklist for visual inspection."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Start a new note in a fresh editor tab so the standup draft can be created from scratch.",
+      "unit_type": "CREATE_NEW_NOTE",
+      "unit_before_state": "VS Code is open and focused, with no modal dialog blocking the main window. No new untitled note has been opened yet for this draft.",
+      "unit_after_state": "A new untitled blank editor tab is open in VS Code, and the text cursor is ready inside an empty file.",
+      "unit_precondition": [
+        "VS Code is the active window.",
+        "No modal dialog or menu is blocking keyboard input.",
+        "The user can send the Ctrl+N shortcut to VS Code."
+      ],
+      "unit_effect": [
+        "An untitled editor tab appears.",
+        "The editor shows a blank document with an active caret."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a new blank untitled file in the editor so new content can be created from scratch.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'n']}",
+          "action_template": "When VS Code is focused and keyboard input can be sent without any blocking dialog, press Ctrl+N to open a new untitled file. The expected result is a blank editor tab with an active caret ready for editing."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3,
+        4
+      ],
+      "unit_intent": "Convert the new untitled file into a Markdown document so the note uses Markdown behavior and preview support.",
+      "unit_type": "SET_LANGUAGE_MODE_MARKDOWN",
+      "unit_before_state": "The untitled blank file is open in the editor, and the status bar language indicator is visible at the bottom right, typically showing Plain Text.",
+      "unit_after_state": "The language picker is closed, the untitled file is now in Markdown mode, and focus has returned to the editor with the caret active in the empty document.",
+      "unit_precondition": [
+        "The untitled editor tab is active.",
+        "The bottom-right language mode label is visible and clickable.",
+        "The quick picker accepts typing and keyboard selection once opened."
+      ],
+      "unit_effect": [
+        "A language mode quick picker opens from the status bar.",
+        "Typing filters the list so Markdown is shown as the target option.",
+        "After confirmation, the file is switched to Markdown mode and the editor regains focus."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Switch the active file to a specified language mode using the editor's language picker.",
+      "parameters": {
+        "language_label": "the language mode label in the bottom-right status bar, such as Plain Text",
+        "language_query": "markdown",
+        "target_language": "Markdown"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the language mode label in the bottom-right status bar, such as Plain Text'}}",
+          "action_template": "Once the active file is open and {{language_label}} is visible in the status bar, click {{language_label}} to open the language mode picker for the current file."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'markdown'}",
+          "action_template": "When the language picker input field is focused, type {{language_query}} to filter the list of language modes so {{target_language}} appears as the target option."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After {{target_language}} is listed in the filtered quick picker results and the picker still has keyboard focus, press Enter to select it. The picker closes, the active file switches to {{target_language}} mode, and focus returns to the editor."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        5
+      ],
+      "unit_intent": "Draft the standup note content with the required Markdown sections and checklist structure.",
+      "unit_type": "ENTER_MARKDOWN_TEMPLATE",
+      "unit_before_state": "The untitled Markdown file is open in the editor with the cursor in an empty document and no quick picker visible.",
+      "unit_after_state": "The editor contains a Markdown standup note with a top-level Daily Standup heading, sections for Yesterday, Today, Blockers, and Checklist, plus checklist items and placeholder bullets.",
+      "unit_precondition": [
+        "The current file is open in the editor and set to Markdown mode.",
+        "The editor caret is visible in the document.",
+        "Keyboard input will be inserted into the active file."
+      ],
+      "unit_effect": [
+        "The typed Markdown text appears in the editor.",
+        "The required standup sections and checklist items are visible in document form."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Enter a Markdown standup note template with configurable section headings, placeholder bullets, and checklist items.",
+      "parameters": {
+        "markdown_template": "# Daily Standup\n\n## Yesterday\n- \n\n## Today\n- \n\n## Blockers\n- None\n\n## Checklist\n- [ ] Review priorities\n- [ ] Update teammates\n- [ ] Close completed tasks"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "TYPING",
+          "action_template": "With the cursor active in the blank Markdown file, type {{markdown_template}} to create the structured standup note with the required sections and checklist."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        6
+      ],
+      "unit_intent": "Open the rendered preview to visually review the drafted standup note.",
+      "unit_type": "OPEN_MARKDOWN_PREVIEW",
+      "unit_before_state": "The completed Markdown standup note is visible in the active editor tab, and the file remains focused in VS Code.",
+      "unit_after_state": "VS Code shows a rendered Markdown preview for the current untitled note, typically in a side-by-side pane next to the editor.",
+      "unit_precondition": [
+        "The current file is an active Markdown document.",
+        "The editor focus is on the drafted note so the preview shortcut applies to it.",
+        "The note content already exists in the editor."
+      ],
+      "unit_effect": [
+        "A Markdown preview pane opens.",
+        "The preview renders the heading hierarchy, bullet sections, and checklist for visual inspection."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open the rendered preview for the active Markdown document to visually review its formatted content.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'v']}",
+          "action_template": "Once the Markdown content is present and the editor is focused, press Ctrl+Shift+V to open the rendered Markdown preview for the current document. The expected behavior is that a rendered Markdown preview opens for visual review, usually beside the editor, showing the rendered headings and checklist."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

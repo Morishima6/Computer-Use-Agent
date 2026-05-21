@@ -1,0 +1,756 @@
+{
+  "segment_id": "seg_001",
+  "app": "gimp",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the file chooser so the source photo can be loaded",
+      "action_before_state": "The GIMP main window is already open in GNOME, with the menu bar and toolbox visible and no modal dialog blocking the interface.",
+      "action_preconditions": [
+        "GIMP is the focused window",
+        "No file chooser or settings dialog is already open"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "o"
+        ]
+      },
+      "action_after_effects": "An Open Image file chooser appears in front of GIMP.",
+      "nl_explanation": "When GIMP is focused and no other dialog is in the way, press Ctrl+O to bring up the Open Image window so the photo can be selected."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Navigate the file chooser to the Desktop folder",
+      "action_before_state": "The Open Image dialog is visible, with a sidebar showing common locations such as Home, Desktop, and Documents.",
+      "action_preconditions": [
+        "The Open Image dialog is open",
+        "The Desktop location is visible in the left sidebar"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Desktop folder in the file chooser sidebar"
+        }
+      },
+      "action_after_effects": "The main file list updates to show files stored on the Desktop.",
+      "nl_explanation": "Once the file chooser is open and the Desktop entry is visible in the sidebar, click Desktop so the chooser shows the files stored there."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Open the source photo in GIMP",
+      "action_before_state": "The file chooser is displaying the Desktop folder contents, including the image file `yard_sale.jpg`.",
+      "action_preconditions": [
+        "The Desktop folder contents are visible",
+        "The file `yard_sale.jpg` is listed in the main pane"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 2,
+        "target": {
+          "text": "the `yard_sale.jpg` image file in the Desktop file list"
+        }
+      },
+      "action_after_effects": "The file chooser closes and the photo opens on the GIMP canvas.",
+      "nl_explanation": "When the Desktop files are shown and `yard_sale.jpg` is visible, double-click that file to load it into the current GIMP window."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Activate the crop tool",
+      "action_before_state": "The photo is visible on the canvas, and the toolbox is shown along the side of the GIMP window.",
+      "action_preconditions": [
+        "An image is open on the canvas",
+        "The toolbox with tool icons is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Crop Tool icon in the toolbox"
+        }
+      },
+      "action_after_effects": "The crop tool becomes active and the pointer is ready to draw a crop region on the image.",
+      "nl_explanation": "With the photo open and the toolbox available, click the Crop Tool so the next drag will define the part of the image to keep."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Draw a square crop around the main yard sale table area",
+      "action_before_state": "The crop tool is active and the full photo is visible on the canvas.",
+      "action_preconditions": [
+        "The crop tool is selected",
+        "The main subject area of the photo is clearly visible"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the upper-left area of the table and sign that should remain in the final image"
+        },
+        "end": {
+          "text": "a lower-right point that makes the crop roughly square while still keeping the table and sign inside"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "A crop rectangle appears over the photo, showing the square area that will be kept.",
+      "nl_explanation": "When the crop tool is active and the subject is visible, drag from the upper-left of the important content to a lower-right point so the crop box becomes a square centered on the sale setup."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Apply the crop selection",
+      "action_before_state": "A square crop rectangle is visible on top of the image and the crop has not yet been committed.",
+      "action_preconditions": [
+        "A crop rectangle is already drawn",
+        "The selected crop area looks correct"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The image is trimmed to the selected square composition.",
+      "nl_explanation": "After the crop box is in the right place, press Enter to commit it so only the selected square portion stays on the canvas."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Open the Colors menu to start adjusting brightness",
+      "action_before_state": "The cropped image is shown on the canvas, and the top menu bar is visible.",
+      "action_preconditions": [
+        "The crop has already been applied",
+        "No dialog is blocking access to the top menu bar"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Colors menu in the top menu bar"
+        }
+      },
+      "action_after_effects": "A dropdown menu opens with image color adjustment options.",
+      "nl_explanation": "When the cropped image is active and the menu bar is accessible, click Colors to reveal the color adjustment options."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Open the Brightness-Contrast adjustment dialog",
+      "action_before_state": "The Colors dropdown menu is open and lists options including Brightness-Contrast.",
+      "action_preconditions": [
+        "The Colors menu is expanded",
+        "The Brightness-Contrast option is visible in the dropdown"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the `Brightness-Contrast...` option in the Colors menu"
+        }
+      },
+      "action_after_effects": "A Brightness-Contrast dialog opens with slider controls and a live preview.",
+      "nl_explanation": "Once the Colors dropdown is open and the adjustment entry is visible, click Brightness-Contrast to open the dialog for a quick tonal correction."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Increase brightness a little so the photo looks clearer",
+      "action_before_state": "The Brightness-Contrast dialog is open, and the Brightness slider is visible near the middle position.",
+      "action_preconditions": [
+        "The Brightness-Contrast dialog is open",
+        "The Brightness slider handle is visible and draggable"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the Brightness slider handle near the middle of the Brightness-Contrast dialog"
+        },
+        "end": {
+          "text": "a point slightly to the right for a modest positive brightness adjustment"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "The previewed image becomes a bit brighter while the dialog remains open for confirmation.",
+      "nl_explanation": "With the brightness dialog open, drag the Brightness slider a short distance to the right so the photo is slightly brighter without looking overexposed."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Confirm the brightness change",
+      "action_before_state": "The Brightness-Contrast dialog is still open and the preview shows the brighter version of the image.",
+      "action_preconditions": [
+        "The brightness adjustment looks acceptable",
+        "The OK button is visible in the dialog"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the `OK` button in the Brightness-Contrast dialog"
+        }
+      },
+      "action_after_effects": "The dialog closes and the brightness change is applied to the canvas.",
+      "nl_explanation": "After confirming the preview looks better, click OK so the slight brightness increase becomes part of the edited image."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Activate the text tool for adding the flyer caption",
+      "action_before_state": "The edited image is visible on the canvas and the toolbox remains available.",
+      "action_preconditions": [
+        "The image is still active on the canvas",
+        "The toolbox is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Text Tool icon in the toolbox"
+        }
+      },
+      "action_after_effects": "The text tool becomes active and the pointer is ready to create a text area on the image.",
+      "nl_explanation": "When the adjusted image is shown and the toolbox is available, click the Text Tool so you can place a caption directly on the picture."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Create a text box near the bottom of the image",
+      "action_before_state": "The text tool is active and the lower part of the square image is visible on the canvas.",
+      "action_preconditions": [
+        "The text tool is selected",
+        "There is open space near the bottom of the image for the caption"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the lower-left area of the image where the caption should start"
+        },
+        "end": {
+          "text": "the lower-right area of the image so the text box spans most of the bottom width"
+        },
+        "target": {
+          "begin": {
+            "text": "the source page element"
+          },
+          "end": {
+            "text": "the destination position"
+          }
+        }
+      },
+      "action_after_effects": "A text box appears on the image and a text cursor is placed inside it.",
+      "nl_explanation": "With the text tool active, drag across the bottom portion of the image to create a wide text box where the sale caption will be typed."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Enter the caption text",
+      "action_before_state": "A text box is active on the image and the text cursor is blinking inside it.",
+      "action_preconditions": [
+        "The text box is active",
+        "The keyboard focus is inside the text box"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Saturday Yard Sale"
+      },
+      "action_after_effects": "The caption appears inside the text box as a new text layer on the image.",
+      "nl_explanation": "Once the text box is active and ready for input, type `Saturday Yard Sale` so the flyer message appears near the bottom of the photo."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Open the export dialog to save the finished image",
+      "action_before_state": "The edited photo with the new caption is visible on the canvas and no modal dialog is open.",
+      "action_preconditions": [
+        "The image edits are complete",
+        "GIMP is focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "shift",
+          "e"
+        ]
+      },
+      "action_after_effects": "The Export Image dialog opens so a new output file can be named and saved.",
+      "nl_explanation": "After finishing the crop, brightness adjustment, and caption, press Ctrl+Shift+E to open the export window for saving the result as a new image file."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Place the cursor in the export filename field",
+      "action_before_state": "The Export Image dialog is open and shows a filename input area near the top or center of the dialog.",
+      "action_preconditions": [
+        "The Export Image dialog is visible",
+        "The filename text field can be clicked"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the filename text field in the Export Image dialog"
+        }
+      },
+      "action_after_effects": "The filename field becomes active and ready for editing.",
+      "nl_explanation": "When the export dialog is open, click inside the filename field so the new output name can be entered directly."
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Name the exported file",
+      "action_before_state": "The filename text field in the Export Image dialog is active and ready for input.",
+      "action_preconditions": [
+        "The filename field is focused",
+        "The export destination is the Desktop or another visible save location"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "yard_sale_post.png"
+      },
+      "action_after_effects": "The export filename is changed to `yard_sale_post.png`.",
+      "nl_explanation": "With the filename field active, type `yard_sale_post.png` so the final edited image is saved under the requested name."
+    },
+    {
+      "step_id": "s17",
+      "step_goal": "Start exporting the image file",
+      "action_before_state": "The Export Image dialog shows the new filename and the export controls are visible.",
+      "action_preconditions": [
+        "The filename is set to `yard_sale_post.png`",
+        "The Export button is visible in the dialog"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the `Export` button in the Export Image dialog"
+        }
+      },
+      "action_after_effects": "A PNG export options dialog appears, or GIMP proceeds directly to final export if no extra options are needed.",
+      "nl_explanation": "After setting the output name, click Export to continue saving the finished image as a PNG file."
+    },
+    {
+      "step_id": "s18",
+      "step_goal": "Confirm the PNG export settings and finish the task",
+      "action_before_state": "A PNG export options dialog is visible with another Export button for final confirmation.",
+      "action_preconditions": [
+        "The PNG export options dialog is open",
+        "The final Export button is visible"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the final `Export` button in the PNG export options dialog"
+        }
+      },
+      "action_after_effects": "The dialog closes and the finished image is saved to the Desktop as `yard_sale_post.png`.",
+      "nl_explanation": "When the PNG options dialog appears, click the final Export button to accept the default settings and complete the save process."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Load the source yard sale photo from the Desktop into GIMP so editing can begin.",
+      "unit_type": "OPEN_SOURCE_IMAGE",
+      "unit_before_state": "The GIMP main window is open with the menu bar and toolbox visible, and no modal dialog is blocking the workspace.",
+      "unit_after_state": "The Open Image dialog has closed and `yard_sale.jpg` is displayed on the GIMP canvas as the active image.",
+      "unit_precondition": [
+        "GIMP is the focused window.",
+        "No other modal dialog is open, and the Desktop location plus `yard_sale.jpg` are available in the file chooser once it opens."
+      ],
+      "unit_effect": [
+        "An Open Image file chooser appears after `Ctrl+O`.",
+        "The Desktop file list is shown and double-clicking `yard_sale.jpg` loads the photo onto the canvas."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Reframe the photo into a square composition centered on the yard sale table.",
+      "unit_type": "CROP_IMAGE_TO_SQUARE",
+      "unit_before_state": "`yard_sale.jpg` is open on the canvas at full size, and the toolbox is visible beside the image.",
+      "unit_after_state": "The canvas shows only the committed square crop, with the table-centered composition retained and no pending crop rectangle visible.",
+      "unit_precondition": [
+        "An image is open and fully visible on the canvas.",
+        "The Crop Tool is available in the toolbox and the table area to keep is visible."
+      ],
+      "unit_effect": [
+        "The Crop Tool becomes active and a square crop rectangle is drawn over the image.",
+        "Pressing `Enter` removes the outside area and the canvas updates to the trimmed square image."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8,
+        9,
+        10
+      ],
+      "unit_intent": "Brighten the cropped photo slightly so the post image looks clearer.",
+      "unit_type": "ADJUST_BRIGHTNESS",
+      "unit_before_state": "The cropped square photo is visible on the GIMP canvas, and the top menu bar is accessible with no dialog open.",
+      "unit_after_state": "The Brightness-Contrast dialog has closed, and the square image on the canvas is visibly a little brighter than before.",
+      "unit_precondition": [
+        "The crop has already been applied.",
+        "The Colors menu and the Brightness-Contrast command are available from the menu bar."
+      ],
+      "unit_effect": [
+        "The Colors menu opens and the Brightness-Contrast dialog appears with a live preview.",
+        "Dragging the Brightness slider updates the preview, and clicking `OK` commits the brighter result to the canvas."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        11,
+        12,
+        13
+      ],
+      "unit_intent": "Add the promotional caption near the bottom of the image.",
+      "unit_type": "ADD_TEXT_CAPTION",
+      "unit_before_state": "The brightened square photo is active on the canvas, and the toolbox is still visible for selecting another tool.",
+      "unit_after_state": "A text layer reading `Saturday Yard Sale` is visible near the bottom of the image inside the newly created text box.",
+      "unit_precondition": [
+        "The edited image remains active on the canvas.",
+        "The Text Tool is available and there is visible space near the bottom of the image for a caption."
+      ],
+      "unit_effect": [
+        "The Text Tool is activated and dragging on the lower part of the image creates a text box with an insertion cursor.",
+        "Typing `Saturday Yard Sale` makes the caption appear on the image as a new text layer."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        14,
+        15,
+        16
+      ],
+      "unit_intent": "Prepare the export with the requested output filename for the finished post image.",
+      "unit_type": "SET_EXPORT_FILENAME",
+      "unit_before_state": "The finished canvas shows the square, brightened yard sale photo with `Saturday Yard Sale` near the bottom, and no modal dialog is open.",
+      "unit_after_state": "The Export Image dialog remains open with the filename field filled with `yard_sale_post.png` and the export controls ready.",
+      "unit_precondition": [
+        "The image edits are complete and GIMP is focused.",
+        "The Export Image dialog opens to the intended save location, or the desired location is already selected there."
+      ],
+      "unit_effect": [
+        "`Ctrl+Shift+E` opens the Export Image dialog.",
+        "The filename text field becomes active and visibly shows `yard_sale_post.png` after typing."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        17,
+        18
+      ],
+      "unit_intent": "Finalize the PNG export so the completed yard sale post image is saved.",
+      "unit_type": "CONFIRM_PNG_EXPORT",
+      "unit_before_state": "The Export Image dialog is open with `yard_sale_post.png` entered as the output filename and the `Export` button visible.",
+      "unit_after_state": "The export dialogs are closed and the finished image has been saved as `yard_sale_post.png` on the Desktop.",
+      "unit_precondition": [
+        "The Export Image dialog is open with the correct filename already entered.",
+        "The PNG export options dialog will appear and its final `Export` button is available."
+      ],
+      "unit_effect": [
+        "Clicking the first `Export` opens the PNG export options dialog.",
+        "Clicking the final `Export` closes the dialog and writes the PNG file `yard_sale_post.png` to the Desktop."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Load the source yard sale photo from the Desktop into GIMP so editing can begin.",
+      "unit_type": "OPEN_SOURCE_IMAGE",
+      "unit_before_state": "The GIMP main window is open with the menu bar and toolbox visible, and no modal dialog is blocking the workspace.",
+      "unit_after_state": "The Open Image dialog has closed and `yard_sale.jpg` is displayed on the GIMP canvas as the active image.",
+      "unit_precondition": [
+        "GIMP is the focused window.",
+        "No other modal dialog is open, and the Desktop location plus `yard_sale.jpg` are available in the file chooser once it opens."
+      ],
+      "unit_effect": [
+        "An Open Image file chooser appears after `Ctrl+O`.",
+        "The Desktop file list is shown and double-clicking `yard_sale.jpg` loads the photo onto the canvas."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a specified image file from a specified folder into GIMP so it becomes the active image on the canvas.",
+      "parameters": {
+        "source_folder": "Desktop",
+        "image_file_name": "yard_sale.jpg"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'o']}",
+          "action_template": "When GIMP is focused and no file chooser or settings dialog is already open, press Ctrl+O to bring up the Open Image file chooser."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Desktop folder in the file chooser sidebar'}}",
+          "action_template": "When the Open Image dialog is open and {{source_folder}} is visible in the left sidebar, click the {{source_folder}} folder entry so the main file list updates to show files stored there."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 2, 'target': {'text': 'the `yard_sale.jpg` image file in the Desktop file list'}}",
+          "action_template": "When the contents of {{source_folder}} are visible and {{image_file_name}} is listed in the main pane, double-click {{image_file_name}} to close the file chooser and open the image on the GIMP canvas."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6
+      ],
+      "unit_intent": "Reframe the photo into a square composition centered on the yard sale table.",
+      "unit_type": "CROP_IMAGE_TO_SQUARE",
+      "unit_before_state": "`yard_sale.jpg` is open on the canvas at full size, and the toolbox is visible beside the image.",
+      "unit_after_state": "The canvas shows only the committed square crop, with the table-centered composition retained and no pending crop rectangle visible.",
+      "unit_precondition": [
+        "An image is open and fully visible on the canvas.",
+        "The Crop Tool is available in the toolbox and the table area to keep is visible."
+      ],
+      "unit_effect": [
+        "The Crop Tool becomes active and a square crop rectangle is drawn over the image.",
+        "Pressing `Enter` removes the outside area and the canvas updates to the trimmed square image."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Crop the open image into a square composition centered on a specified subject area.",
+      "parameters": {
+        "focus_subject": "the yard sale table",
+        "retained_content": "the table and sign that should remain in the final image"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "CLICK",
+          "action_template": "When an image is open on the canvas and the toolbox with tool icons is visible, click the Crop Tool icon in the toolbox to activate the crop tool so the pointer is ready to draw a crop region on the image."
+        },
+        {
+          "action": "DRAG_TO",
+          "action_template": "With the crop tool selected and the main subject area clearly visible, drag from the upper-left area of {{retained_content}} to a lower-right point that keeps {{retained_content}} inside and makes the crop roughly square, so a crop rectangle appears over the photo showing the kept area centered on {{focus_subject}}."
+        },
+        {
+          "action": "PRESS",
+          "action_template": "When a crop rectangle is already drawn and the selected crop area looks correct, press Enter to commit it so the image is trimmed to the selected square composition."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        7,
+        8,
+        9,
+        10
+      ],
+      "unit_intent": "Brighten the cropped photo slightly so the post image looks clearer.",
+      "unit_type": "ADJUST_BRIGHTNESS",
+      "unit_before_state": "The cropped square photo is visible on the GIMP canvas, and the top menu bar is accessible with no dialog open.",
+      "unit_after_state": "The Brightness-Contrast dialog has closed, and the square image on the canvas is visibly a little brighter than before.",
+      "unit_precondition": [
+        "The crop has already been applied.",
+        "The Colors menu and the Brightness-Contrast command are available from the menu bar."
+      ],
+      "unit_effect": [
+        "The Colors menu opens and the Brightness-Contrast dialog appears with a live preview.",
+        "Dragging the Brightness slider updates the preview, and clicking `OK` commits the brighter result to the canvas."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Apply a specified slight positive brightness adjustment to the active image and confirm the change.",
+      "parameters": {
+        "slider_drag_direction": "slightly to the right",
+        "brightness_adjustment_amount": "a modest positive brightness adjustment"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Colors menu in the top menu bar'}}",
+          "action_template": "When the current image is active and no dialog is blocking access to the top menu bar, click Colors to reveal the color adjustment options and open a dropdown with image color adjustment commands."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the `Brightness-Contrast...` option in the Colors menu'}}",
+          "action_template": "Once the Colors menu is expanded and the Brightness-Contrast option is visible, click `Brightness-Contrast...` to open the adjustment dialog with slider controls and a live preview."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the Brightness slider handle near the middle of the Brightness-Contrast dialog'}, 'end': {'text': 'a point slightly to the right for a modest positive brightness adjustment'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "With the Brightness-Contrast dialog open and the Brightness slider handle visible, drag the Brightness slider {{slider_drag_direction}} to apply {{brightness_adjustment_amount}}, so the previewed image becomes a bit brighter while the dialog remains open for confirmation."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the `OK` button in the Brightness-Contrast dialog'}}",
+          "action_template": "After the brightness adjustment looks acceptable and the OK button is visible, click `OK` to close the dialog and apply the brightness change to the canvas."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        11,
+        12,
+        13
+      ],
+      "unit_intent": "Add the promotional caption near the bottom of the image.",
+      "unit_type": "ADD_TEXT_CAPTION",
+      "unit_before_state": "The brightened square photo is active on the canvas, and the toolbox is still visible for selecting another tool.",
+      "unit_after_state": "A text layer reading `Saturday Yard Sale` is visible near the bottom of the image inside the newly created text box.",
+      "unit_precondition": [
+        "The edited image remains active on the canvas.",
+        "The Text Tool is available and there is visible space near the bottom of the image for a caption."
+      ],
+      "unit_effect": [
+        "The Text Tool is activated and dragging on the lower part of the image creates a text box with an insertion cursor.",
+        "Typing `Saturday Yard Sale` makes the caption appear on the image as a new text layer."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Insert a specified text caption into a newly created text box at a designated area of the image.",
+      "parameters": {
+        "caption_start_area": "the lower-left area of the image where the caption should start",
+        "caption_end_area": "the lower-right area of the image so the text box spans most of the bottom width",
+        "caption_text": "Saturday Yard Sale"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Text Tool icon in the toolbox'}}",
+          "action_template": "When the image is active on the canvas and the toolbox is visible, click the Text Tool icon in the toolbox to activate text entry so a caption can be placed directly on the image."
+        },
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the lower-left area of the image where the caption should start'}, 'end': {'text': 'the lower-right area of the image so the text box spans most of the bottom width'}, 'target': {'begin': {'text': 'the source page element'}, 'end': {'text': 'the destination position'}}}",
+          "action_template": "With the text tool selected and open space available for the caption, drag from {{caption_start_area}} to {{caption_end_area}} to create a text box in the designated image area and place the text cursor inside it."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Saturday Yard Sale'}",
+          "action_template": "Once the text box is active and keyboard focus is inside it, type {{caption_text}} so the caption appears inside the text box as a new text layer on the image."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        14,
+        15,
+        16
+      ],
+      "unit_intent": "Prepare the export with the requested output filename for the finished post image.",
+      "unit_type": "SET_EXPORT_FILENAME",
+      "unit_before_state": "The finished canvas shows the square, brightened yard sale photo with `Saturday Yard Sale` near the bottom, and no modal dialog is open.",
+      "unit_after_state": "The Export Image dialog remains open with the filename field filled with `yard_sale_post.png` and the export controls ready.",
+      "unit_precondition": [
+        "The image edits are complete and GIMP is focused.",
+        "The Export Image dialog opens to the intended save location, or the desired location is already selected there."
+      ],
+      "unit_effect": [
+        "`Ctrl+Shift+E` opens the Export Image dialog.",
+        "The filename text field becomes active and visibly shows `yard_sale_post.png` after typing."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open the export dialog and enter a specified output filename for the finished image.",
+      "parameters": {
+        "output_filename": "yard_sale_post.png"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'shift', 'e']}",
+          "action_template": "Press Ctrl+Shift+E to open the Export Image dialog for saving the finished image as a new output file when the image edits are complete and GIMP is focused; the Export Image dialog opens so a new output file can be named and saved."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the filename text field in the Export Image dialog'}}",
+          "action_template": "Click the filename text field in the Export Image dialog when the dialog is visible and the field can be clicked so the field becomes active and ready for editing."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'yard_sale_post.png'}",
+          "action_template": "Type {{output_filename}} into the focused filename field so the export filename is changed to {{output_filename}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_06",
+      "unit_id": "u_seg_001_06",
+      "step_indices": [
+        17,
+        18
+      ],
+      "unit_intent": "Finalize the PNG export so the completed yard sale post image is saved.",
+      "unit_type": "CONFIRM_PNG_EXPORT",
+      "unit_before_state": "The Export Image dialog is open with `yard_sale_post.png` entered as the output filename and the `Export` button visible.",
+      "unit_after_state": "The export dialogs are closed and the finished image has been saved as `yard_sale_post.png` on the Desktop.",
+      "unit_precondition": [
+        "The Export Image dialog is open with the correct filename already entered.",
+        "The PNG export options dialog will appear and its final `Export` button is available."
+      ],
+      "unit_effect": [
+        "Clicking the first `Export` opens the PNG export options dialog.",
+        "Clicking the final `Export` closes the dialog and writes the PNG file `yard_sale_post.png` to the Desktop."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Complete the PNG export workflow to save the current image to a specified filename and location.",
+      "parameters": {
+        "output_file_name": "yard_sale_post.png",
+        "save_location": "Desktop"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the `Export` button in the Export Image dialog'}}",
+          "action_template": "When the filename is already set to {{output_file_name}} and the Export button is visible in the Export Image dialog, click the Export button to continue saving the finished image as a PNG file. Afterward, a PNG export options dialog appears, or GIMP proceeds directly to final export if no extra options are needed."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the final `Export` button in the PNG export options dialog'}}",
+          "action_template": "When the PNG export options dialog is open and the final Export button is visible, click the final Export button to accept the default settings and complete the save process. Afterward, the dialog closes and the finished image is saved to {{save_location}} as {{output_file_name}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

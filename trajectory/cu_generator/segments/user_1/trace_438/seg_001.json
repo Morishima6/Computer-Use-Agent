@@ -1,0 +1,548 @@
+{
+  "segment_id": "seg_001",
+  "app": "thunderbird",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Make sure the Local Folders area is visible in the folder pane",
+      "action_before_state": "Thunderbird is already open. The folder pane is on the left, but the Local Folders section may not be fully visible yet.",
+      "action_preconditions": [
+        "Thunderbird main window is active",
+        "The left folder pane is visible",
+        "There is enough content in the folder list that scrolling may be needed"
+      ],
+      "action": {
+        "type": "SCROLL",
+        "scroll": "down",
+        "target": {
+          "text": "the folder list on the left until Local Folders is clearly visible"
+        },
+        "direction": "down"
+      },
+      "action_after_effects": "The folder pane moves downward and the Local Folders entry becomes visible, so it can be used as the parent location for a new folder.",
+      "nl_explanation": "When the folder list is visible but Local Folders is not fully in view, scroll down inside the left folder pane until Local Folders appears. Stop once that section is clearly visible and ready to be clicked."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Open the folder context menu for creating a new folder",
+      "action_before_state": "The Local Folders entry is visible in the left pane.",
+      "action_preconditions": [
+        "Local Folders is visible in the folder pane",
+        "No modal dialog is blocking the Thunderbird window"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "right",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Local Folders entry in the folder pane"
+        }
+      },
+      "action_after_effects": "A context menu opens for Local Folders, showing folder management options such as creating a new folder.",
+      "nl_explanation": "With Local Folders visible, right-click that entry in the folder pane to open its context menu. The expected result is a menu with actions related to that folder tree."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Choose the option to create a new folder",
+      "action_before_state": "The Local Folders context menu is open.",
+      "action_preconditions": [
+        "The context menu from Local Folders is open",
+        "A New Folder option is listed in that menu"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the New Folder option in the Local Folders context menu"
+        }
+      },
+      "action_after_effects": "A folder creation dialog or inline naming field opens, allowing a name to be entered for the new folder.",
+      "nl_explanation": "Once the Local Folders context menu is open, click the New Folder option. Thunderbird should then open a prompt where the new folder name can be entered."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Enter the name for the new follow-up folder",
+      "action_before_state": "The new folder naming input is active and ready for text entry.",
+      "action_preconditions": [
+        "A new-folder input field or dialog is focused",
+        "Text can be typed into the folder name field"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "Vendor Follow-up"
+      },
+      "action_after_effects": "The folder name field now contains Vendor Follow-up.",
+      "nl_explanation": "When the folder creation field is focused, type Vendor Follow-up as the new folder name. This prepares Thunderbird to create the destination folder with the correct label."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Confirm creation of the new folder",
+      "action_before_state": "The folder name Vendor Follow-up has been entered and the create dialog is still active.",
+      "action_preconditions": [
+        "The folder name field contains Vendor Follow-up",
+        "The confirmation control is available through the keyboard"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The dialog closes and a new folder named Vendor Follow-up appears under Local Folders.",
+      "nl_explanation": "After entering the folder name, press Enter to confirm it. Thunderbird should create the folder and show Vendor Follow-up in the folder pane."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Return to Inbox to locate the invoice email",
+      "action_before_state": "The new Vendor Follow-up folder exists in the left pane, and Thunderbird is still showing the mail interface.",
+      "action_preconditions": [
+        "The folder pane is visible",
+        "Inbox is available in the account's folder list"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Inbox folder in the folder pane"
+        }
+      },
+      "action_after_effects": "The message list switches to Inbox contents, showing emails that can be reviewed and organized.",
+      "nl_explanation": "Click Inbox in the folder pane so the main message list shows inbox emails again. This is needed before locating the invoice email to organize."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Bring the target invoice email into view in the message list",
+      "action_before_state": "Inbox is open and the center pane shows a list of messages, but the target email may not yet be visible.",
+      "action_preconditions": [
+        "Inbox is selected",
+        "The message list is scrollable",
+        "The target email from billing@northwind.example exists somewhere in the inbox list"
+      ],
+      "action": {
+        "type": "SCROLL",
+        "scroll": "down",
+        "target": {
+          "text": "the message list until the email from billing@northwind.example with April invoice in the subject is visible"
+        },
+        "direction": "down"
+      },
+      "action_after_effects": "The message list moves and the target invoice email becomes visible, making it available for selection.",
+      "nl_explanation": "While viewing Inbox, scroll through the message list until you can see the email from billing@northwind.example about the April invoice. Stop scrolling once that exact email is visible on screen."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Select the invoice email that needs follow-up",
+      "action_before_state": "The target email is visible in the message list.",
+      "action_preconditions": [
+        "The target email is visible in the inbox list",
+        "No other action is blocking message selection"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the email from billing@northwind.example with April invoice in the subject"
+        }
+      },
+      "action_after_effects": "The invoice email becomes selected, and its contents appear in the preview pane if previews are enabled.",
+      "nl_explanation": "Once the April invoice email is visible, click it in the message list to select it. Thunderbird should highlight the message and make it ready for tagging or moving."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Add a star so the email stands out for later action",
+      "action_before_state": "The invoice email is selected in the message list and its star column or star icon is visible.",
+      "action_preconditions": [
+        "The correct email is selected",
+        "The message row shows a star marker or star area that can be clicked"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the star marker for the selected invoice email"
+        }
+      },
+      "action_after_effects": "The email is marked with a star, making it visually stand out in the list.",
+      "nl_explanation": "After selecting the invoice email, click its star marker so it is starred for attention. The expected result is that the message row shows the star as enabled."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Open the context menu for tagging the email",
+      "action_before_state": "The selected invoice email is still highlighted in the message list.",
+      "action_preconditions": [
+        "The correct email remains selected",
+        "The message row is visible and can be right-clicked"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "right",
+        "num_clicks": 1,
+        "target": {
+          "text": "the selected invoice email in the message list"
+        }
+      },
+      "action_after_effects": "A context menu opens for the message, exposing actions such as tagging and moving.",
+      "nl_explanation": "With the invoice email selected, right-click that message row to open the message context menu. This should expose the commands needed to mark it as Important."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Apply the Important tag to the email",
+      "action_before_state": "The message context menu is open for the selected invoice email.",
+      "action_preconditions": [
+        "The message context menu is open",
+        "An Important tagging option is available directly or through the tag submenu"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Important tag option in the message context menu"
+        }
+      },
+      "action_after_effects": "The email receives the Important tag and shows the tag indicator in the message list or preview area.",
+      "nl_explanation": "From the open message context menu, click the Important tag option. Thunderbird should apply that tag to the selected email so it is clearly marked for follow-up."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Move the tagged invoice email into the new follow-up folder",
+      "action_before_state": "The invoice email is selected and already marked with a star and Important tag. The Vendor Follow-up folder is visible in the folder pane.",
+      "action_preconditions": [
+        "The target email is selected",
+        "Vendor Follow-up is visible in the folder pane",
+        "The message can be dragged from the list to the destination folder"
+      ],
+      "action": {
+        "type": "DRAG_TO",
+        "button": "left",
+        "begin": {
+          "text": "the selected April invoice email in the message list"
+        },
+        "end": {
+          "text": "the Vendor Follow-up folder in the folder pane"
+        },
+        "target": {
+          "begin": {
+            "text": "the selected April invoice email in the message list"
+          },
+          "end": {
+            "text": "the Vendor Follow-up folder in the folder pane"
+          }
+        }
+      },
+      "action_after_effects": "The email is moved out of Inbox and dropped into Vendor Follow-up.",
+      "nl_explanation": "Drag the selected invoice email from the message list and drop it onto the Vendor Follow-up folder in the left pane. The expected result is that the message is moved into that folder."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Open the new folder and verify the email is there",
+      "action_before_state": "The message has just been moved, and the Vendor Follow-up folder remains visible in the folder pane.",
+      "action_preconditions": [
+        "Vendor Follow-up exists in the folder pane",
+        "The moved email should now be stored there"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Vendor Follow-up folder in the folder pane"
+        }
+      },
+      "action_after_effects": "Thunderbird opens Vendor Follow-up and the moved invoice email appears there with its star and Important tag still applied.",
+      "nl_explanation": "Click the Vendor Follow-up folder to open it and confirm the invoice email was moved successfully. The expected result is that the message is present in the folder and still visibly marked for follow-up."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "unit_intent": "Create a dedicated follow-up folder under Local Folders for storing the invoice email.",
+      "unit_type": "CREATE_FOLDER",
+      "unit_before_state": "Thunderbird is open in the main mail view. The folder pane is visible on the left, but the Local Folders section is not necessarily in view yet.",
+      "unit_after_state": "A new folder named Vendor Follow-up is visible under Local Folders in the left folder pane, and the folder-creation prompt has closed.",
+      "unit_precondition": [
+        "Thunderbird's main window is active and no modal dialog is blocking input.",
+        "The left folder pane is visible and can be scrolled.",
+        "Local Folders exists in the folder tree and supports creating child folders."
+      ],
+      "unit_effect": [
+        "Local Folders is brought into view in the folder pane.",
+        "A context menu for Local Folders opens and exposes the New Folder command.",
+        "The folder name field shows Vendor Follow-up before confirmation.",
+        "After confirmation, Vendor Follow-up appears as a new folder under Local Folders."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Return to the inbox and select the specific April invoice email from billing@northwind.example.",
+      "unit_type": "LOCATE_AND_SELECT_EMAIL",
+      "unit_before_state": "The Vendor Follow-up folder already exists in the folder pane, and Thunderbird is still in the mail interface but not yet focused on the target inbox message.",
+      "unit_after_state": "Inbox is open, the email from billing@northwind.example about the April invoice is visible in the message list, and that email is selected.",
+      "unit_precondition": [
+        "The folder pane is visible and Inbox can be selected.",
+        "The inbox contains the target email from billing@northwind.example with April invoice in the subject.",
+        "The message list can be scrolled and individual messages can be selected."
+      ],
+      "unit_effect": [
+        "The center pane switches to Inbox contents.",
+        "The target invoice email is brought into view in the message list.",
+        "The target email row becomes highlighted as the current selection."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        9,
+        10,
+        11
+      ],
+      "unit_intent": "Mark the selected invoice email as high-priority follow-up by starring it and applying the Important tag.",
+      "unit_type": "APPLY_EMAIL_FOLLOWUP_MARKERS",
+      "unit_before_state": "The April invoice email from billing@northwind.example is selected in the Inbox message list, and its star column and message context menu actions are available.",
+      "unit_after_state": "The selected invoice email remains highlighted in Inbox and now shows both an enabled star and the Important tag indicator.",
+      "unit_precondition": [
+        "The correct invoice email is selected in the message list.",
+        "The star control for that message is visible and clickable.",
+        "Right-clicking the message opens a context menu that includes an Important tagging option."
+      ],
+      "unit_effect": [
+        "The message row shows a filled or enabled star.",
+        "A message context menu opens for the selected email.",
+        "After choosing Important, the message displays an Important tag indicator in the list or preview area."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        12,
+        13
+      ],
+      "unit_intent": "File the marked invoice email into the new Vendor Follow-up folder and verify the move succeeded.",
+      "unit_type": "MOVE_EMAIL_TO_FOLDER",
+      "unit_before_state": "The April invoice email is selected in Inbox and already shows a star and Important tag. The Vendor Follow-up folder is visible in the left folder pane.",
+      "unit_after_state": "The Vendor Follow-up folder is open, and the moved invoice email is visible inside it with its star and Important tag still present.",
+      "unit_precondition": [
+        "The target invoice email is selected and can be dragged from the message list.",
+        "Vendor Follow-up exists and is visible in the folder pane as a valid drop target.",
+        "The email has already been marked with the desired follow-up indicators."
+      ],
+      "unit_effect": [
+        "Dragging and dropping moves the email from Inbox into Vendor Follow-up.",
+        "Opening Vendor Follow-up shows the same invoice email in that folder.",
+        "The email still displays its star and Important tag after the move."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "unit_intent": "Create a dedicated follow-up folder under Local Folders for storing the invoice email.",
+      "unit_type": "CREATE_FOLDER",
+      "unit_before_state": "Thunderbird is open in the main mail view. The folder pane is visible on the left, but the Local Folders section is not necessarily in view yet.",
+      "unit_after_state": "A new folder named Vendor Follow-up is visible under Local Folders in the left folder pane, and the folder-creation prompt has closed.",
+      "unit_precondition": [
+        "Thunderbird's main window is active and no modal dialog is blocking input.",
+        "The left folder pane is visible and can be scrolled.",
+        "Local Folders exists in the folder tree and supports creating child folders."
+      ],
+      "unit_effect": [
+        "Local Folders is brought into view in the folder pane.",
+        "A context menu for Local Folders opens and exposes the New Folder command.",
+        "The folder name field shows Vendor Follow-up before confirmation.",
+        "After confirmation, Vendor Follow-up appears as a new folder under Local Folders."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Create a new child folder with a specified name under a specified parent folder in the mail folder tree.",
+      "parameters": {
+        "parent_folder": "Local Folders",
+        "folder_name": "Vendor Follow-up"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'SCROLL', 'scroll': 'down', 'target': {'text': 'the folder list on the left until Local Folders is clearly visible'}, 'direction': 'down'}",
+          "action_template": "Scroll down in the left folder pane until {{parent_folder}} is clearly visible. This requires Thunderbird's main window and folder pane to be active, and results in {{parent_folder}} becoming available as the parent location for the new folder."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'right', 'num_clicks': 1, 'target': {'text': 'the Local Folders entry in the folder pane'}}",
+          "action_template": "Right-click the {{parent_folder}} entry in the folder pane once it is visible and no modal dialog is blocking Thunderbird. This opens the context menu for {{parent_folder}} with folder-management options."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the New Folder option in the Local Folders context menu'}}",
+          "action_template": "Click the New Folder option in the open {{parent_folder}} context menu when that option is listed. This opens a folder-creation prompt or inline naming field for the new child folder."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': 'Vendor Follow-up'}",
+          "action_template": "Type {{folder_name}} into the focused new-folder name field when the folder-creation input is active. This fills the folder name field with the desired new folder label."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press Enter after the folder name field contains {{folder_name}} and keyboard confirmation is available. This confirms creation, closes the prompt, and adds {{folder_name}} under {{parent_folder}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Return to the inbox and select the specific April invoice email from billing@northwind.example.",
+      "unit_type": "LOCATE_AND_SELECT_EMAIL",
+      "unit_before_state": "The Vendor Follow-up folder already exists in the folder pane, and Thunderbird is still in the mail interface but not yet focused on the target inbox message.",
+      "unit_after_state": "Inbox is open, the email from billing@northwind.example about the April invoice is visible in the message list, and that email is selected.",
+      "unit_precondition": [
+        "The folder pane is visible and Inbox can be selected.",
+        "The inbox contains the target email from billing@northwind.example with April invoice in the subject.",
+        "The message list can be scrolled and individual messages can be selected."
+      ],
+      "unit_effect": [
+        "The center pane switches to Inbox contents.",
+        "The target invoice email is brought into view in the message list.",
+        "The target email row becomes highlighted as the current selection."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open {{mail_folder}}, locate a target email by {{sender_identifier}} and {{subject_keyword}}, and select it.",
+      "parameters": {
+        "mail_folder": "Inbox",
+        "sender_identifier": "billing@northwind.example",
+        "subject_keyword": "April invoice"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Inbox folder in the folder pane'}}",
+          "action_template": "With the folder pane visible and {{mail_folder}} available in the folder list, click {{mail_folder}} in the folder pane so the main message list switches to {{mail_folder}} contents and shows emails that can be reviewed and organized."
+        },
+        {
+          "action": "{'type': 'SCROLL', 'scroll': 'down', 'target': {'text': 'the message list until the email from billing@northwind.example with April invoice in the subject is visible'}, 'direction': 'down'}",
+          "action_template": "With {{mail_folder}} selected, the message list scrollable, and the target email present in the list, scroll down through the message list until the email from {{sender_identifier}} with {{subject_keyword}} in the subject is visible, making it available for selection."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the email from billing@northwind.example with April invoice in the subject'}}",
+          "action_template": "Once the target email from {{sender_identifier}} with {{subject_keyword}} in the subject is visible and message selection is not blocked, click it in the message list so it becomes selected and ready for follow-up."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        9,
+        10,
+        11
+      ],
+      "unit_intent": "Mark the selected invoice email as high-priority follow-up by starring it and applying the Important tag.",
+      "unit_type": "APPLY_EMAIL_FOLLOWUP_MARKERS",
+      "unit_before_state": "The April invoice email from billing@northwind.example is selected in the Inbox message list, and its star column and message context menu actions are available.",
+      "unit_after_state": "The selected invoice email remains highlighted in Inbox and now shows both an enabled star and the Important tag indicator.",
+      "unit_precondition": [
+        "The correct invoice email is selected in the message list.",
+        "The star control for that message is visible and clickable.",
+        "Right-clicking the message opens a context menu that includes an Important tagging option."
+      ],
+      "unit_effect": [
+        "The message row shows a filled or enabled star.",
+        "A message context menu opens for the selected email.",
+        "After choosing Important, the message displays an Important tag indicator in the list or preview area."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Mark a selected email for follow-up by starring it and applying a specified message tag.",
+      "parameters": {
+        "target_email": "the April invoice email from billing@northwind.example",
+        "tag_name": "Important"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the star marker for the selected invoice email'}}",
+          "action_template": "Click the star marker for {{target_email}} after confirming the correct email is selected and its star area is clickable, so the message becomes starred and stands out in the list."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'right', 'num_clicks': 1, 'target': {'text': 'the selected invoice email in the message list'}}",
+          "action_template": "Right-click {{target_email}} in the message list while it remains selected and visible to open the message context menu with tagging actions."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Important tag option in the message context menu'}}",
+          "action_template": "Click the {{tag_name}} tag option in the open message context menu when that tagging option is available, so {{target_email}} receives the {{tag_name}} tag indicator."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        12,
+        13
+      ],
+      "unit_intent": "File the marked invoice email into the new Vendor Follow-up folder and verify the move succeeded.",
+      "unit_type": "MOVE_EMAIL_TO_FOLDER",
+      "unit_before_state": "The April invoice email is selected in Inbox and already shows a star and Important tag. The Vendor Follow-up folder is visible in the left folder pane.",
+      "unit_after_state": "The Vendor Follow-up folder is open, and the moved invoice email is visible inside it with its star and Important tag still present.",
+      "unit_precondition": [
+        "The target invoice email is selected and can be dragged from the message list.",
+        "Vendor Follow-up exists and is visible in the folder pane as a valid drop target.",
+        "The email has already been marked with the desired follow-up indicators."
+      ],
+      "unit_effect": [
+        "Dragging and dropping moves the email from Inbox into Vendor Follow-up.",
+        "Opening Vendor Follow-up shows the same invoice email in that folder.",
+        "The email still displays its star and Important tag after the move."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Move a marked email into {{destination_folder}} and verify it appears there with {{follow_up_indicators}} preserved.",
+      "parameters": {
+        "target_email": "the selected April invoice email in the message list",
+        "destination_folder": "Vendor Follow-up folder",
+        "source_folder": "Inbox",
+        "follow_up_indicators": "star and Important tag"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'DRAG_TO', 'button': 'left', 'begin': {'text': 'the selected April invoice email in the message list'}, 'end': {'text': 'the Vendor Follow-up folder in the folder pane'}, 'target': {'begin': {'text': 'the selected April invoice email in the message list'}, 'end': {'text': 'the Vendor Follow-up folder in the folder pane'}}}",
+          "action_template": "Drag {{target_email}} from the message list and drop it onto {{destination_folder}} in the folder pane after confirming the message is selected, {{destination_folder}} is visible, and the message can be dragged. The expected result is that the email is moved out of {{source_folder}} and into {{destination_folder}}."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Vendor Follow-up folder in the folder pane'}}",
+          "action_template": "Click {{destination_folder}} in the folder pane to open it and confirm {{target_email}} is now stored there with its {{follow_up_indicators}} still applied."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

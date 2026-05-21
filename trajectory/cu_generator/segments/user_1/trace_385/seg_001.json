@@ -1,0 +1,346 @@
+{
+  "segment_id": "seg_001",
+  "app": "os",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open Terminal from the current GNOME session",
+      "action_before_state": "The screen shows the current GNOME desktop session or another open window, and no terminal window is focused yet.",
+      "action_preconditions": [
+        "The system is running Linux with GNOME",
+        "Keyboard input is available",
+        "The user is at a normal desktop session"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "alt",
+          "t"
+        ]
+      },
+      "action_after_effects": "A Terminal window opens, is focused, and the shell prompt is ready to receive keyboard input.",
+      "nl_explanation": "When the GNOME desktop session is active and no terminal is open in front, press Ctrl+Alt+T to launch Terminal. The expected result is a new Terminal window that is focused and ready for commands."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Enter a command that creates the desktop folder and writes the system report",
+      "action_before_state": "A Terminal window is visible with a blinking cursor at the shell prompt.",
+      "action_preconditions": [
+        "Terminal is open and focused",
+        "The shell prompt is ready to receive text input"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "mkdir -p ~/Desktop/daily_system_check && { echo \"Daily system check - $(date '+%Y-%m-%d %H:%M')\"; echo; echo \"Disk usage:\"; df -h / | tail -n 1; echo; echo \"Memory usage:\"; free -h | awk 'NR==2 {print $3 \" used / \" $2 \" total\"}'; echo; echo \"Kernel:\"; uname -r; } > ~/Desktop/daily_system_check/system_report.txt"
+      },
+      "action_after_effects": "The full command appears at the terminal prompt, ready to be executed.",
+      "nl_explanation": "Once the terminal cursor is active, type the full shell command that creates the daily_system_check folder on the desktop and saves a report containing the current timestamp, disk usage, memory usage, and kernel version."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Run the folder-and-report creation command",
+      "action_before_state": "The terminal contains the full command for creating the folder and writing system_report.txt.",
+      "action_preconditions": [
+        "The command text is completely entered in Terminal",
+        "The cursor is still at the end of the command line"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The shell executes the command, creates ~/Desktop/daily_system_check if needed, and writes system_report.txt into that folder.",
+      "nl_explanation": "After the report-generation command is fully typed, press Enter to execute it. The expected result is that the desktop folder and text report are created successfully."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Prepare a command to open the new folder in GNOME Files",
+      "action_before_state": "Terminal is still open after the previous command has finished, and the shell prompt has returned.",
+      "action_preconditions": [
+        "The previous command completed",
+        "A new shell prompt is visible in Terminal"
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "xdg-open ~/Desktop/daily_system_check"
+      },
+      "action_after_effects": "The command to open the folder is entered at the prompt and is waiting to be run.",
+      "nl_explanation": "When the shell prompt returns after the report is created, type a command to open the new desktop folder in the default GNOME file manager, GNOME Files."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Open the daily_system_check folder in Files",
+      "action_before_state": "The terminal shows the xdg-open command and is waiting for confirmation.",
+      "action_preconditions": [
+        "The xdg-open command is fully typed",
+        "Terminal is still focused"
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "GNOME Files opens and displays the contents of the daily_system_check folder, including system_report.txt.",
+      "nl_explanation": "With the folder-open command ready in Terminal, press Enter. The expected behavior is that GNOME Files opens directly to the new desktop folder."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Open the generated report file to verify it",
+      "action_before_state": "The Files window is open to the daily_system_check folder, and the file system_report.txt is visible in the file list.",
+      "action_preconditions": [
+        "Files is open to ~/Desktop/daily_system_check",
+        "The file named system_report.txt is visible on screen"
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 2,
+        "target": {
+          "text": "the file named system_report.txt in the ~/Desktop/daily_system_check folder"
+        }
+      },
+      "action_after_effects": "The report opens in the default text editor, showing the timestamp, disk usage, memory usage, and kernel version collected from the system.",
+      "nl_explanation": "When the folder is visible in Files and system_report.txt can be seen, double-click that file to open it. The expected result is that the text editor displays the generated daily system report for verification."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Open a shell workspace to start creating the daily system check artifacts.",
+      "unit_type": "OPEN_TERMINAL",
+      "unit_before_state": "The GNOME desktop session or another regular window is visible, and no Terminal window is currently focused for command entry.",
+      "unit_after_state": "A Terminal window is open in front, focused, and showing a shell prompt with a blinking cursor ready for input.",
+      "unit_precondition": [
+        "The user is in a normal GNOME desktop session.",
+        "Keyboard input is available.",
+        "The Terminal application can be launched with the standard shortcut."
+      ],
+      "unit_effect": [
+        "A new Terminal window appears on screen.",
+        "The shell prompt is visible and ready to accept commands."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3
+      ],
+      "unit_intent": "Generate the daily system check report file and place it in a dedicated desktop folder.",
+      "unit_type": "CREATE_REPORT_FILE",
+      "unit_before_state": "The Terminal window is focused with an empty shell prompt ready for a command.",
+      "unit_after_state": "The shell command has run, the folder ~/Desktop/daily_system_check exists, and the file system_report.txt has been written inside it before the prompt returns.",
+      "unit_precondition": [
+        "Terminal is open and focused.",
+        "The shell prompt is ready for typing.",
+        "The user has permission to create files on the desktop."
+      ],
+      "unit_effect": [
+        "The full report-generation command is executed in Terminal.",
+        "The folder daily_system_check is created on the desktop if it did not already exist.",
+        "The file system_report.txt is created in that folder with the current date and time, root disk usage, memory usage, and kernel version."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Open the generated report folder in the file manager so its contents can be inspected.",
+      "unit_type": "OPEN_FOLDER_IN_FILE_MANAGER",
+      "unit_before_state": "Terminal remains open after the report command completes, and a fresh shell prompt is visible.",
+      "unit_after_state": "GNOME Files is open to ~/Desktop/daily_system_check, showing the folder contents including system_report.txt.",
+      "unit_precondition": [
+        "The report creation command has finished and the shell prompt has returned.",
+        "The folder ~/Desktop/daily_system_check exists.",
+        "Terminal is still focused so a new command can be entered."
+      ],
+      "unit_effect": [
+        "The xdg-open command is run from Terminal.",
+        "A Files window opens directly to the daily_system_check folder.",
+        "system_report.txt is visible in the folder view."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        6
+      ],
+      "unit_intent": "Open the generated report to verify the collected system information.",
+      "unit_type": "OPEN_REPORT_FILE",
+      "unit_before_state": "GNOME Files is displaying the daily_system_check folder, and system_report.txt is visible in the file list.",
+      "unit_after_state": "The default text editor is open in front with system_report.txt loaded and its contents visible for review.",
+      "unit_precondition": [
+        "Files is already open to ~/Desktop/daily_system_check.",
+        "The file system_report.txt is visible and selectable.",
+        "A default application is available for opening .txt files."
+      ],
+      "unit_effect": [
+        "The text file opens in the default editor.",
+        "The report content is displayed, including the timestamp, disk usage, memory usage, and kernel version."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1
+      ],
+      "unit_intent": "Open a shell workspace to start creating the daily system check artifacts.",
+      "unit_type": "OPEN_TERMINAL",
+      "unit_before_state": "The GNOME desktop session or another regular window is visible, and no Terminal window is currently focused for command entry.",
+      "unit_after_state": "A Terminal window is open in front, focused, and showing a shell prompt with a blinking cursor ready for input.",
+      "unit_precondition": [
+        "The user is in a normal GNOME desktop session.",
+        "Keyboard input is available.",
+        "The Terminal application can be launched with the standard shortcut."
+      ],
+      "unit_effect": [
+        "A new Terminal window appears on screen.",
+        "The shell prompt is visible and ready to accept commands."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Launch the terminal application so a shell prompt is ready for command entry.",
+      "parameters": {
+        "launch_shortcut": "Ctrl+Alt+T"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'alt', 't']}",
+          "action_template": "When the desktop session is active and no terminal is open in front, press {{launch_shortcut}} to launch Terminal. The expected result is a new Terminal window that is focused and ready for commands."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        2,
+        3
+      ],
+      "unit_intent": "Generate the daily system check report file and place it in a dedicated desktop folder.",
+      "unit_type": "CREATE_REPORT_FILE",
+      "unit_before_state": "The Terminal window is focused with an empty shell prompt ready for a command.",
+      "unit_after_state": "The shell command has run, the folder ~/Desktop/daily_system_check exists, and the file system_report.txt has been written inside it before the prompt returns.",
+      "unit_precondition": [
+        "Terminal is open and focused.",
+        "The shell prompt is ready for typing.",
+        "The user has permission to create files on the desktop."
+      ],
+      "unit_effect": [
+        "The full report-generation command is executed in Terminal.",
+        "The folder daily_system_check is created on the desktop if it did not already exist.",
+        "The file system_report.txt is created in that folder with the current date and time, root disk usage, memory usage, and kernel version."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Generate a system check report with standard diagnostics and save it as a text file in a specified folder path.",
+      "parameters": {
+        "target_folder_path": "~/Desktop/daily_system_check",
+        "output_file_name": "system_report.txt",
+        "report_title": "Daily system check"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'mkdir -p ~/Desktop/daily_system_check && { echo \"Daily system check - $(date \\'%Y-%m-%d %H:%M\\')\"; echo; echo \"Disk usage:\"; df -h / | tail -n 1; echo; echo \"Memory usage:\"; free -h | awk \\'NR==2 {print $3 \" used / \" $2 \" total\"}\\'; echo; echo \"Kernel:\"; uname -r; } > ~/Desktop/daily_system_check/system_report.txt'}",
+          "action_template": "Once the terminal cursor is active, type the full shell command that creates {{target_folder_path}} and saves a report titled {{report_title}} containing the current timestamp, disk usage, memory usage, and kernel version to {{target_folder_path}}/{{output_file_name}}. Preconditions: Terminal is open and focused, and the shell prompt is ready to receive text input. Afterward, the full command appears at the terminal prompt, ready to be executed."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "After the report-generation command for {{target_folder_path}}/{{output_file_name}} is fully typed, press Enter to execute it. Preconditions: the command text is completely entered in Terminal, and the cursor is still at the end of the command line. Afterward, the shell executes the command, creates {{target_folder_path}} if needed, and writes {{output_file_name}} into that folder."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        4,
+        5
+      ],
+      "unit_intent": "Open the generated report folder in the file manager so its contents can be inspected.",
+      "unit_type": "OPEN_FOLDER_IN_FILE_MANAGER",
+      "unit_before_state": "Terminal remains open after the report command completes, and a fresh shell prompt is visible.",
+      "unit_after_state": "GNOME Files is open to ~/Desktop/daily_system_check, showing the folder contents including system_report.txt.",
+      "unit_precondition": [
+        "The report creation command has finished and the shell prompt has returned.",
+        "The folder ~/Desktop/daily_system_check exists.",
+        "Terminal is still focused so a new command can be entered."
+      ],
+      "unit_effect": [
+        "The xdg-open command is run from Terminal.",
+        "A Files window opens directly to the daily_system_check folder.",
+        "system_report.txt is visible in the folder view."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open {{target_folder_path}} in the file manager so its contents can be inspected.",
+      "parameters": {
+        "target_folder_path": "~/Desktop/daily_system_check",
+        "expected_visible_item": "system_report.txt"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'TYPING', 'text': 'xdg-open ~/Desktop/daily_system_check'}",
+          "action_template": "When the previous command has completed and a new shell prompt is visible in Terminal, type `xdg-open {{target_folder_path}}` to prepare opening the target folder in the default file manager. After typing, the command is entered at the prompt and is waiting to be run."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "With `xdg-open {{target_folder_path}}` fully typed and Terminal still focused, press Enter to run the folder-open command. After confirmation, the file manager opens directly to {{target_folder_path}} and displays its contents, including {{expected_visible_item}}."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        6
+      ],
+      "unit_intent": "Open the generated report to verify the collected system information.",
+      "unit_type": "OPEN_REPORT_FILE",
+      "unit_before_state": "GNOME Files is displaying the daily_system_check folder, and system_report.txt is visible in the file list.",
+      "unit_after_state": "The default text editor is open in front with system_report.txt loaded and its contents visible for review.",
+      "unit_precondition": [
+        "Files is already open to ~/Desktop/daily_system_check.",
+        "The file system_report.txt is visible and selectable.",
+        "A default application is available for opening .txt files."
+      ],
+      "unit_effect": [
+        "The text file opens in the default editor.",
+        "The report content is displayed, including the timestamp, disk usage, memory usage, and kernel version."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a generated report file from the current folder in its default editor for review.",
+      "parameters": {
+        "target_file": "system_report.txt",
+        "target_folder": "~/Desktop/daily_system_check"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 2, 'target': {'text': 'the file named system_report.txt in the ~/Desktop/daily_system_check folder'}}",
+          "action_template": "When Files is open to {{target_folder}} and {{target_file}} is visible on screen, double-click {{target_file}} to open it. The expected result is that the report opens in the default text editor for verification."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}

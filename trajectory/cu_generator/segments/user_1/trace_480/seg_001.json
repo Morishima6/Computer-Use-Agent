@@ -1,0 +1,636 @@
+{
+  "segment_id": "seg_001",
+  "app": "vlc",
+  "env": {},
+  "steps": [
+    {
+      "step_id": "s1",
+      "step_goal": "Open the local file picker for a video",
+      "action_before_state": "VLC is already open on its main window, showing either the playlist area or an idle black playback area, and no dialog is on top of it.",
+      "action_preconditions": [
+        "The VLC main window is focused.",
+        "No modal dialog is currently blocking the VLC window."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "o"
+        ]
+      },
+      "action_after_effects": "A file chooser opens above VLC so a local media file can be selected.",
+      "nl_explanation": "When VLC is focused and no other dialog is open, press `Ctrl+O` to open the file chooser. The expected result is that VLC shows an Open File window for selecting a local video."
+    },
+    {
+      "step_id": "s2",
+      "step_goal": "Go to the Videos folder in the file chooser",
+      "action_before_state": "The file chooser is visible, with a left sidebar containing common locations such as Home, Desktop, Downloads, and Videos.",
+      "action_preconditions": [
+        "The Open File dialog is open.",
+        "The Videos shortcut is visible in the file chooser sidebar."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Videos folder in the file chooser sidebar"
+        }
+      },
+      "action_after_effects": "The main file list updates to show the contents of the Videos directory.",
+      "nl_explanation": "Once the file chooser is open and the Videos shortcut is available, click the Videos entry in the sidebar. The file list should refresh to show the video files stored there."
+    },
+    {
+      "step_id": "s3",
+      "step_goal": "Open the downloaded cooking video",
+      "action_before_state": "The file chooser is showing the contents of the Videos folder, including the file `gnocchi_class.mp4`.",
+      "action_preconditions": [
+        "The Videos folder contents are visible.",
+        "The file `gnocchi_class.mp4` appears in the file list."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 2,
+        "target": {
+          "text": "the file named `gnocchi_class.mp4` in the file list"
+        }
+      },
+      "action_after_effects": "The file chooser closes, VLC returns to the foreground, and the selected video starts playing.",
+      "nl_explanation": "When the Videos folder is open and the target file is visible, double-click `gnocchi_class.mp4`. VLC should close the chooser and begin playing the video."
+    },
+    {
+      "step_id": "s4",
+      "step_goal": "Open the Subtitle menu",
+      "action_before_state": "The video is playing in VLC, and the top menu bar contains items such as Media, Playback, Audio, Video, Subtitle, and Tools.",
+      "action_preconditions": [
+        "The video is already loaded in VLC.",
+        "The VLC menu bar is visible and interactive."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Subtitle menu item in the menu bar"
+        }
+      },
+      "action_after_effects": "The Subtitle dropdown menu opens, showing options including `Add Subtitle File...`.",
+      "nl_explanation": "With the video already playing and the menu bar available, click the `Subtitle` menu item to open its dropdown."
+    },
+    {
+      "step_id": "s5",
+      "step_goal": "Open the subtitle file selection dialog",
+      "action_before_state": "The Subtitle dropdown menu is open with `Add Subtitle File...` visible.",
+      "action_preconditions": [
+        "The Subtitle menu dropdown is open.",
+        "`Add Subtitle File...` is visible in the dropdown."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the `Add Subtitle File...` option in the Subtitle dropdown"
+        }
+      },
+      "action_after_effects": "A subtitle file chooser opens so an external `.srt` file can be selected.",
+      "nl_explanation": "With the Subtitle menu open, click `Add Subtitle File...`. VLC should open another file chooser specifically for picking a subtitle file."
+    },
+    {
+      "step_id": "s6",
+      "step_goal": "Activate the location entry in the subtitle chooser",
+      "action_before_state": "The subtitle file chooser is open on top of VLC and is waiting for a subtitle file to be selected.",
+      "action_preconditions": [
+        "The Add Subtitle File dialog is open.",
+        "The dialog window is focused."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "l"
+        ]
+      },
+      "action_after_effects": "The chooser switches focus to a location/path input field so a file path can be typed directly.",
+      "nl_explanation": "When the subtitle chooser is focused, press `Ctrl+L` to bring up the path entry field. This prepares the dialog for direct path input instead of browsing manually."
+    },
+    {
+      "step_id": "s7",
+      "step_goal": "Enter the full path to the subtitle file",
+      "action_before_state": "The subtitle chooser's location entry is active and ready for keyboard input.",
+      "action_preconditions": [
+        "The path input field is focused.",
+        "The subtitle file path is known."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "/home/user/Downloads/gnocchi_class_en.srt"
+      },
+      "action_after_effects": "The full subtitle path appears in the location field, ready to be confirmed.",
+      "nl_explanation": "After the location field becomes active, type `/home/user/Downloads/gnocchi_class_en.srt`. The dialog should now show the exact subtitle file path that will be opened next."
+    },
+    {
+      "step_id": "s8",
+      "step_goal": "Load the subtitle file into the video",
+      "action_before_state": "The subtitle chooser contains the full path to `/home/user/Downloads/gnocchi_class_en.srt` in its location field.",
+      "action_preconditions": [
+        "The correct subtitle file path has been typed.",
+        "The Add Subtitle File dialog is still focused."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The subtitle chooser closes and VLC loads the external subtitle track for the current video.",
+      "nl_explanation": "Once the full subtitle path is entered, press `Enter` to confirm it. The expected result is that the dialog closes and the subtitles become available on the playing video."
+    },
+    {
+      "step_id": "s9",
+      "step_goal": "Open the jump-to-time dialog",
+      "action_before_state": "The video is playing in the main VLC window with the subtitle track loaded.",
+      "action_preconditions": [
+        "VLC is the active window.",
+        "The main video player is focused."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "ctrl",
+          "t"
+        ]
+      },
+      "action_after_effects": "A Go to Time or Jump to Time dialog opens with a field for entering a playback timestamp.",
+      "nl_explanation": "With the video focused, press `Ctrl+T` to open VLC's jump-to-time control. This is a more precise way to reach the requested point than dragging the timeline."
+    },
+    {
+      "step_id": "s10",
+      "step_goal": "Enter the 12-minute timestamp",
+      "action_before_state": "The jump-to-time dialog is open and its time entry field is ready for input.",
+      "action_preconditions": [
+        "The Go to Time dialog is visible.",
+        "The time input field is focused."
+      ],
+      "action": {
+        "type": "TYPING",
+        "text": "00:12:00"
+      },
+      "action_after_effects": "The time field shows `00:12:00`, ready to be confirmed.",
+      "nl_explanation": "Type `00:12:00` into the jump-to-time field so VLC will move to about 12 minutes into the lesson."
+    },
+    {
+      "step_id": "s11",
+      "step_goal": "Seek playback to about 12 minutes",
+      "action_before_state": "The jump-to-time dialog contains `00:12:00` in its input field.",
+      "action_preconditions": [
+        "The desired timestamp has been entered.",
+        "The jump-to-time dialog is still focused."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "enter"
+        ]
+      },
+      "action_after_effects": "The dialog closes and playback jumps to roughly the 12-minute mark.",
+      "nl_explanation": "Press `Enter` to confirm the requested timestamp. VLC should close the dialog and continue playback from around 12:00."
+    },
+    {
+      "step_id": "s12",
+      "step_goal": "Check that the captions are aligned at the 12-minute point",
+      "action_before_state": "The video is playing around 12 minutes in, with subtitles enabled.",
+      "action_preconditions": [
+        "Playback has reached about 12:00.",
+        "The subtitle track is active."
+      ],
+      "action": {
+        "type": "CLICK",
+        "description": "Briefly watch the video and confirm the displayed captions match the spoken dialogue timing at the current point.",
+        "expected_state": "Subtitles are visible and appear synchronized with the audio around the 12-minute mark.",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the relevant vlc UI element"
+        }
+      },
+      "action_after_effects": "The subtitle timing has been checked before leaving the lesson ready to play.",
+      "nl_explanation": "At the requested position, briefly observe the lesson to make sure the captions appear on screen and line up with the speech."
+    },
+    {
+      "step_id": "s13",
+      "step_goal": "Open the Playback menu",
+      "action_before_state": "The video is still playing around the 12-minute mark in the normal VLC window.",
+      "action_preconditions": [
+        "The VLC menu bar is visible.",
+        "Playback is active in the main window."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the Playback menu item in the menu bar"
+        }
+      },
+      "action_after_effects": "The Playback dropdown menu opens.",
+      "nl_explanation": "Click the `Playback` menu item to open playback-related controls."
+    },
+    {
+      "step_id": "s14",
+      "step_goal": "Open the Speed submenu",
+      "action_before_state": "The Playback dropdown menu is open and shows an item labeled `Speed`.",
+      "action_preconditions": [
+        "The Playback menu is open.",
+        "The `Speed` submenu entry is visible."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the `Speed` submenu entry in the Playback dropdown"
+        }
+      },
+      "action_after_effects": "The Speed submenu opens with options such as `Faster` and `Slower`.",
+      "nl_explanation": "With the Playback menu open, click the `Speed` entry to reveal the available playback-speed controls."
+    },
+    {
+      "step_id": "s15",
+      "step_goal": "Increase playback speed slightly",
+      "action_before_state": "The Speed submenu is open and its playback-speed options are visible.",
+      "action_preconditions": [
+        "The Speed submenu is open.",
+        "The `Faster` option is visible and clickable."
+      ],
+      "action": {
+        "type": "CLICK",
+        "button": "left",
+        "num_clicks": 1,
+        "target": {
+          "text": "the `Faster` option in the Speed submenu"
+        }
+      },
+      "action_after_effects": "The menus close and the video continues playing a little faster than normal.",
+      "nl_explanation": "Click `Faster` once to raise the playback speed slightly while keeping the lesson playing."
+    },
+    {
+      "step_id": "s16",
+      "step_goal": "Switch the video into full-screen mode",
+      "action_before_state": "The video is playing with subtitles loaded, alignment checked, and playback speed set slightly above normal, still in the standard VLC window.",
+      "action_preconditions": [
+        "VLC is the active window.",
+        "The video is already playing in the main player view."
+      ],
+      "action": {
+        "type": "PRESS",
+        "press_list": [
+          "f"
+        ]
+      },
+      "action_after_effects": "VLC enters full-screen playback, leaving the cooking lesson ready to watch.",
+      "nl_explanation": "When VLC is active and the video is already configured, press `F` to toggle full screen. The expected result is that the video fills the screen and remains playing with subtitles and the adjusted speed."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Open the downloaded cooking lesson video in VLC so it is ready for subtitle setup.",
+      "unit_type": "OPEN_MEDIA_FILE",
+      "unit_before_state": "VLC is open on its main window with no modal dialog visible, showing its normal idle player area or playlist view.",
+      "unit_after_state": "The file chooser is closed and `gnocchi_class.mp4` is loaded in VLC, with the video playing in the main player window.",
+      "unit_precondition": [
+        "The VLC main window is focused and no modal dialog is blocking it.",
+        "The Open File dialog can be opened from VLC.",
+        "The file chooser contains a visible `Videos` shortcut and the file `gnocchi_class.mp4` exists in that folder."
+      ],
+      "unit_effect": [
+        "An Open File chooser appears from VLC.",
+        "The file list switches to the Videos directory.",
+        "Double-clicking `gnocchi_class.mp4` closes the chooser and starts playback in VLC."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Attach the downloaded English subtitle file to the currently playing cooking lesson.",
+      "unit_type": "LOAD_EXTERNAL_SUBTITLE",
+      "unit_before_state": "The cooking lesson video is playing in VLC without the external subtitle file loaded yet, and the top menu bar is available.",
+      "unit_after_state": "The subtitle chooser is closed and VLC continues playing the video with the external subtitle track from `gnocchi_class_en.srt` loaded.",
+      "unit_precondition": [
+        "The video is already open in VLC and playback is active.",
+        "The VLC menu bar is visible and the `Subtitle` menu contains `Add Subtitle File...`.",
+        "The file `/home/user/Downloads/gnocchi_class_en.srt` exists and can be opened from the subtitle chooser."
+      ],
+      "unit_effect": [
+        "The `Subtitle` dropdown opens and exposes `Add Subtitle File...`.",
+        "A subtitle file chooser opens and its location entry can be focused with `Ctrl+L`.",
+        "The full subtitle path appears in the chooser, and pressing Enter closes the chooser and enables the subtitle track."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "unit_intent": "Jump to the 12-minute point and verify that the subtitles are synchronized with the lesson audio there.",
+      "unit_type": "SEEK_AND_VERIFY_SUBTITLE_ALIGNMENT",
+      "unit_before_state": "VLC is playing `gnocchi_class.mp4` in its normal window with the external English subtitles already loaded.",
+      "unit_after_state": "Playback is positioned around 12:00 in the lesson, and the subtitles have been checked on screen against the spoken dialogue at that point.",
+      "unit_precondition": [
+        "VLC is the active window and the main player view is focused.",
+        "The subtitle track is active on the current video.",
+        "The Jump to Time dialog can be opened and accept a typed timestamp."
+      ],
+      "unit_effect": [
+        "A Jump to Time dialog opens and shows an editable time field.",
+        "The field is filled with `00:12:00` and confirming it closes the dialog.",
+        "Playback resumes near the 12-minute mark, where visible captions can be compared with the audio for sync."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        13,
+        14,
+        15
+      ],
+      "unit_intent": "Increase playback speed slightly while keeping the lesson playing.",
+      "unit_type": "ADJUST_PLAYBACK_SPEED",
+      "unit_before_state": "The video is playing around the 12-minute mark in the standard VLC window with subtitles enabled.",
+      "unit_after_state": "The playback menus are closed and the video continues playing a little faster than normal in the main VLC window.",
+      "unit_precondition": [
+        "Playback is active in VLC.",
+        "The menu bar is visible and the `Playback` menu contains a `Speed` submenu with a `Faster` option."
+      ],
+      "unit_effect": [
+        "The `Playback` dropdown opens.",
+        "The `Speed` submenu opens and shows rate controls.",
+        "Selecting `Faster` closes the menus and increases the playback rate slightly."
+      ],
+      "phase1_status": "done"
+    },
+    {
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        16
+      ],
+      "unit_intent": "Leave the configured lesson playing in full-screen mode for viewing.",
+      "unit_type": "ENTER_FULLSCREEN_PLAYBACK",
+      "unit_before_state": "The cooking lesson is playing in the normal VLC window with subtitles active and playback speed already set slightly above normal.",
+      "unit_after_state": "VLC is in full-screen playback, with the video filling the screen while continuing to play with subtitles and the increased speed.",
+      "unit_precondition": [
+        "VLC is the active window.",
+        "The configured video is already playing in the main player view."
+      ],
+      "unit_effect": [
+        "Pressing `F` toggles VLC into full-screen mode.",
+        "The standard window frame and menus disappear and the video fills the screen while playback continues."
+      ],
+      "phase1_status": "done"
+    }
+  ],
+  "parameterized units": [
+    {
+      "param_unit_id": "pu_seg_001_01",
+      "unit_id": "u_seg_001_01",
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "unit_intent": "Open the downloaded cooking lesson video in VLC so it is ready for subtitle setup.",
+      "unit_type": "OPEN_MEDIA_FILE",
+      "unit_before_state": "VLC is open on its main window with no modal dialog visible, showing its normal idle player area or playlist view.",
+      "unit_after_state": "The file chooser is closed and `gnocchi_class.mp4` is loaded in VLC, with the video playing in the main player window.",
+      "unit_precondition": [
+        "The VLC main window is focused and no modal dialog is blocking it.",
+        "The Open File dialog can be opened from VLC.",
+        "The file chooser contains a visible `Videos` shortcut and the file `gnocchi_class.mp4` exists in that folder."
+      ],
+      "unit_effect": [
+        "An Open File chooser appears from VLC.",
+        "The file list switches to the Videos directory.",
+        "Double-clicking `gnocchi_class.mp4` closes the chooser and starts playback in VLC."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Open a specified local media file from a designated folder in VLC so it is loaded and ready for playback-related tasks.",
+      "parameters": {
+        "folder_name": "Videos",
+        "file_name": "gnocchi_class.mp4"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'o']}",
+          "action_template": "When VLC is focused and no other dialog is open, press `Ctrl+O` to open the file chooser. The expected result is that VLC shows an Open File window for selecting a local video."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Videos folder in the file chooser sidebar'}}",
+          "action_template": "Once the file chooser is open and the {{folder_name}} shortcut is available, click the {{folder_name}} entry in the sidebar. The file list should refresh to show the files stored there."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 2, 'target': {'text': 'the file named `gnocchi_class.mp4` in the file list'}}",
+          "action_template": "When the {{folder_name}} folder is open and the target file is visible, double-click {{file_name}}. VLC should close the chooser and begin playing the video."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_02",
+      "unit_id": "u_seg_001_02",
+      "step_indices": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "unit_intent": "Attach the downloaded English subtitle file to the currently playing cooking lesson.",
+      "unit_type": "LOAD_EXTERNAL_SUBTITLE",
+      "unit_before_state": "The cooking lesson video is playing in VLC without the external subtitle file loaded yet, and the top menu bar is available.",
+      "unit_after_state": "The subtitle chooser is closed and VLC continues playing the video with the external subtitle track from `gnocchi_class_en.srt` loaded.",
+      "unit_precondition": [
+        "The video is already open in VLC and playback is active.",
+        "The VLC menu bar is visible and the `Subtitle` menu contains `Add Subtitle File...`.",
+        "The file `/home/user/Downloads/gnocchi_class_en.srt` exists and can be opened from the subtitle chooser."
+      ],
+      "unit_effect": [
+        "The `Subtitle` dropdown opens and exposes `Add Subtitle File...`.",
+        "A subtitle file chooser opens and its location entry can be focused with `Ctrl+L`.",
+        "The full subtitle path appears in the chooser, and pressing Enter closes the chooser and enables the subtitle track."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Attach a specified external subtitle file to the currently playing video.",
+      "parameters": {
+        "subtitle_file_path": "/home/user/Downloads/gnocchi_class_en.srt"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Subtitle menu item in the menu bar'}}",
+          "action_template": "Click the `Subtitle` menu item in the VLC menu bar while the video is already loaded to open the Subtitle dropdown and reveal `Add Subtitle File...`."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the `Add Subtitle File...` option in the Subtitle dropdown'}}",
+          "action_template": "Click `Add Subtitle File...` in the open Subtitle dropdown to open the subtitle file chooser for selecting an external subtitle file."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 'l']}",
+          "action_template": "Press `Ctrl+L` while the focused Add Subtitle File dialog is open to activate the location/path input field for direct path entry."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '/home/user/Downloads/gnocchi_class_en.srt'}",
+          "action_template": "Type {{subtitle_file_path}} into the active location field so the chooser shows the exact subtitle file path to be opened."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "Press `Enter` after {{subtitle_file_path}} has been entered to confirm the path, close the chooser, and load the subtitle track into the current video."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_03",
+      "unit_id": "u_seg_001_03",
+      "step_indices": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "unit_intent": "Jump to the 12-minute point and verify that the subtitles are synchronized with the lesson audio there.",
+      "unit_type": "SEEK_AND_VERIFY_SUBTITLE_ALIGNMENT",
+      "unit_before_state": "VLC is playing `gnocchi_class.mp4` in its normal window with the external English subtitles already loaded.",
+      "unit_after_state": "Playback is positioned around 12:00 in the lesson, and the subtitles have been checked on screen against the spoken dialogue at that point.",
+      "unit_precondition": [
+        "VLC is the active window and the main player view is focused.",
+        "The subtitle track is active on the current video.",
+        "The Jump to Time dialog can be opened and accept a typed timestamp."
+      ],
+      "unit_effect": [
+        "A Jump to Time dialog opens and shows an editable time field.",
+        "The field is filled with `00:12:00` and confirming it closes the dialog.",
+        "Playback resumes near the 12-minute mark, where visible captions can be compared with the audio for sync."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Jump to a specified playback timestamp and verify that the subtitles are synchronized with the audio at that point.",
+      "parameters": {
+        "target_timestamp": "00:12:00"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['ctrl', 't']}",
+          "action_template": "With VLC active and the main video player focused, press Ctrl+T to open VLC's jump-to-time dialog so a playback timestamp can be entered."
+        },
+        {
+          "action": "{'type': 'TYPING', 'text': '00:12:00'}",
+          "action_template": "With the jump-to-time dialog visible and the time input field focused, type {{target_timestamp}} into the field so VLC will move to that playback position. The field then shows {{target_timestamp}}, ready to be confirmed."
+        },
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['enter']}",
+          "action_template": "With {{target_timestamp}} already entered and the jump-to-time dialog still focused, press Enter to confirm the timestamp. The dialog closes and playback jumps to roughly {{target_timestamp}}."
+        },
+        {
+          "action": "{'type': 'CLICK', 'description': 'Briefly watch the video and confirm the displayed captions match the spoken dialogue timing at the current point.', 'expected_state': 'Subtitles are visible and appear synchronized with the audio around the 12-minute mark.', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the relevant vlc UI element'}}",
+          "action_template": "Once playback has reached about {{target_timestamp}} and the subtitle track is active, briefly observe the video to confirm the displayed captions line up with the spoken dialogue timing at that point."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_04",
+      "unit_id": "u_seg_001_04",
+      "step_indices": [
+        13,
+        14,
+        15
+      ],
+      "unit_intent": "Increase playback speed slightly while keeping the lesson playing.",
+      "unit_type": "ADJUST_PLAYBACK_SPEED",
+      "unit_before_state": "The video is playing around the 12-minute mark in the standard VLC window with subtitles enabled.",
+      "unit_after_state": "The playback menus are closed and the video continues playing a little faster than normal in the main VLC window.",
+      "unit_precondition": [
+        "Playback is active in VLC.",
+        "The menu bar is visible and the `Playback` menu contains a `Speed` submenu with a `Faster` option."
+      ],
+      "unit_effect": [
+        "The `Playback` dropdown opens.",
+        "The `Speed` submenu opens and shows rate controls.",
+        "Selecting `Faster` closes the menus and increases the playback rate slightly."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Adjust playback speed from the playback speed menu while keeping the media playing.",
+      "parameters": {
+        "playback_menu_item": "Playback",
+        "speed_submenu_item": "Speed",
+        "speed_option": "Faster"
+      },
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the Playback menu item in the menu bar'}}",
+          "action_template": "Click the {{playback_menu_item}} menu item to open playback-related controls when the VLC menu bar is visible and playback is active, causing the {{playback_menu_item}} dropdown menu to open."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the `Speed` submenu entry in the Playback dropdown'}}",
+          "action_template": "With the {{playback_menu_item}} menu open and the {{speed_submenu_item}} entry visible, click {{speed_submenu_item}} to reveal the available playback-speed controls, causing the {{speed_submenu_item}} submenu to open."
+        },
+        {
+          "action": "{'type': 'CLICK', 'button': 'left', 'num_clicks': 1, 'target': {'text': 'the `Faster` option in the Speed submenu'}}",
+          "action_template": "With the {{speed_submenu_item}} submenu open and the {{speed_option}} option visible and clickable, click {{speed_option}} once to adjust playback speed while keeping the media playing, after which the menus close."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    },
+    {
+      "param_unit_id": "pu_seg_001_05",
+      "unit_id": "u_seg_001_05",
+      "step_indices": [
+        16
+      ],
+      "unit_intent": "Leave the configured lesson playing in full-screen mode for viewing.",
+      "unit_type": "ENTER_FULLSCREEN_PLAYBACK",
+      "unit_before_state": "The cooking lesson is playing in the normal VLC window with subtitles active and playback speed already set slightly above normal.",
+      "unit_after_state": "VLC is in full-screen playback, with the video filling the screen while continuing to play with subtitles and the increased speed.",
+      "unit_precondition": [
+        "VLC is the active window.",
+        "The configured video is already playing in the main player view."
+      ],
+      "unit_effect": [
+        "Pressing `F` toggles VLC into full-screen mode.",
+        "The standard window frame and menus disappear and the video fills the screen while playback continues."
+      ],
+      "phase1_status": "done",
+      "abstract_intent": "Enter full-screen playback for the currently playing video in VLC.",
+      "parameters": {},
+      "parameterized_action_sequence": [
+        {
+          "action": "{'type': 'PRESS', 'press_list': ['f']}",
+          "action_template": "When VLC is the active window and the video is already playing in the main player view, press `F` to toggle full screen so VLC enters full-screen playback and the video fills the screen while continuing to play."
+        }
+      ],
+      "phase2_status": "done",
+      "phase2_error": ""
+    }
+  ]
+}
