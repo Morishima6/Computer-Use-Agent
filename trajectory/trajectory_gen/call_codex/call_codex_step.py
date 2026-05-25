@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import time
 from concurrent.futures import ProcessPoolExecutor, as_completed
 from pathlib import Path
@@ -44,6 +45,24 @@ MOUSE_ACTION_TYPES = {
     "move",
     "scroll",
 }
+
+APP_TITLE_KEYWORDS: Tuple[Tuple[str, str], ...] = (
+    ("libreoffice", "libreoffice"),
+    ("soffice", "libreoffice"),
+    ("gimp", "gimp"),
+    ("microsoft word", "word"),
+    ("winword", "word"),
+    ("word", "word"),
+    ("microsoft excel", "excel"),
+    ("excel", "excel"),
+    ("powerpoint", "powerpoint"),
+    ("chrome", "chrome"),
+    ("chromium", "chrome"),
+    ("firefox", "firefox"),
+    ("edge", "edge"),
+    ("terminal", "terminal"),
+    ("gnome-terminal", "terminal"),
+)
 
 
 def parse_args() -> argparse.Namespace:
@@ -305,6 +324,99 @@ def collect_step_screenshot_paths(
     return screenshots
 
 
+def normalize_existing_apps(value: Any) -> List[str]:
+    if isinstance(value, str):
+        stripped = value.strip()
+        return [stripped.lower()] if stripped else []
+    if isinstance(value, list):
+        apps: List[str] = []
+        seen: set[str] = set()
+        for item in value:
+            if not isinstance(item, str):
+                continue
+            app = item.strip().lower()
+            if app and app not in seen:
+                seen.add(app)
+                apps.append(app)
+        return apps
+    return []
+
+
+def infer_app_from_title(title: Any) -> Optional[str]:
+    if not isinstance(title, str):
+        return None
+    lowered = title.strip().lower()
+    if not lowered:
+        return None
+
+    title_tokens = set(re.findall(r"[a-z0-9]+", lowered))
+    for keyword, app in APP_TITLE_KEYWORDS:
+        if " " in keyword or "-" in keyword:
+            matched = keyword in lowered
+        else:
+            matched = keyword in title_tokens
+        if matched:
+            return app
+    return None
+
+
+def collect_trajectory_apps(report: Dict[str, Any]) -> List[str]:
+    apps: List[str] = []
+    seen: set[str] = set()
+
+    def add_app(app: Optional[str]) -> None:
+        if not app:
+            return
+        normalized = app.strip().lower()
+        if normalized and normalized not in seen:
+            seen.add(normalized)
+            apps.append(normalized)
+
+    steps = report.get("steps")
+    if isinstance(steps, list):
+        for step in steps:
+            if not isinstance(step, dict):
+                continue
+            for app in normalize_existing_apps(step.get("app")):
+                add_app(app)
+            now_state = step.get("now_state")
+            if not isinstance(now_state, dict):
+                continue
+            add_app(infer_app_from_title(now_state.get("app_title_before")))
+            add_app(infer_app_from_title(now_state.get("app_title_after")))
+
+    if apps:
+        return apps
+
+    for app in normalize_existing_apps(report.get("app")):
+        add_app(app)
+
+    env = report.get("env")
+    if isinstance(env, dict):
+        for app in normalize_existing_apps(env.get("app")):
+            add_app(app)
+
+    return apps
+
+
+def format_trajectory_app(apps: Sequence[str]) -> Any:
+    normalized = [app.strip().lower() for app in apps if isinstance(app, str) and app.strip()]
+    if len(normalized) == 1:
+        return normalized[0]
+    return normalized
+
+
+def should_set_report_app_from_trajectory(current_value: Any, apps: Sequence[str], *, overwrite: bool) -> bool:
+    if not apps:
+        return False
+    desired = format_trajectory_app(apps)
+    if overwrite or is_empty_value(current_value):
+        return True
+    if len(apps) > 1 and current_value != desired:
+        return True
+    return False
+
+
 def build_step_payload(
     *,
     report: Dict[str, Any],
@@ -321,6 +433,7 @@ def build_step_payload(
             "task_title": report.get("task_title"),
             "instruction": report.get("instruction"),
             "trajectory_app": report.get("app"),
+            "trajectory_apps": collect_trajectory_apps(report),
             "env": report.get("env") or {},
             "source_json_file": report_path.name,
         },
@@ -370,7 +483,7 @@ For the current step, inspect these screenshot roles when available:
 
 Produce exactly one annotation object with these fields:
 - step_goal: short phrase for the immediate goal of this step, not the whole task.
-- app: application used in this step.
+- app: application(s) used in the whole trajectory. Use a string for a single-app trajectory, or an array of all trajectory apps in first-seen order for a multi-app trajectory, such as ["gimp", "libreoffice"].
 - action_preconditions: concrete conditions that must already be true before the action.
 - nl_position: actual targeted UI element or location. Use null for keyboard-only actions with no real on-screen target.
 - action_before_state: concrete UI state before the action.
@@ -414,7 +527,7 @@ Return only this JSON shape:
   "annotations": [
     {{
       "step_goal": "...",
-      "app": "...",
+      "app": "..." or ["...", "..."],
       "action_preconditions": ["..."],
       "nl_position": "..." or null,
       "action_before_state": "...",
@@ -456,6 +569,7 @@ def apply_annotation_to_step(
     annotation: Dict[str, Any],
     *,
     overwrite: bool,
+    preserve_report_app: bool = False,
 ) -> None:
     if should_set_field(step.get("step_goal"), overwrite=overwrite) and annotation.get("step_goal"):
         step["step_goal"] = annotation["step_goal"]
@@ -463,7 +577,7 @@ def apply_annotation_to_step(
     if annotation.get("app"):
         if "app" in step and should_set_field(step.get("app"), overwrite=overwrite):
             step["app"] = annotation["app"]
-        elif should_set_field(report.get("app"), overwrite=overwrite):
+        elif not preserve_report_app and should_set_field(report.get("app"), overwrite=overwrite):
             report["app"] = annotation["app"]
 
     preconditions = normalize_text_list(annotation.get("action_preconditions"))
@@ -504,6 +618,10 @@ def process_conversation(conversation_path: str, args: argparse.Namespace) -> Di
     steps = report.get("steps")
     if not isinstance(steps, list):
         raise RuntimeError(f"Expected {report_path.name}.steps to be a list.")
+
+    trajectory_apps = collect_trajectory_apps(report)
+    if should_set_report_app_from_trajectory(report.get("app"), trajectory_apps, overwrite=args.overwrite):
+        report["app"] = format_trajectory_app(trajectory_apps)
 
     diagnostics = build_step_diagnostics(report_path, report)
     primary_app = infer_primary_app(report)
@@ -563,7 +681,13 @@ def process_conversation(conversation_path: str, args: argparse.Namespace) -> Di
 
         annotation = parse_step_annotation(raw_text)
         annotation["step_id"] = step_id
-        apply_annotation_to_step(report, step, annotation, overwrite=args.overwrite)
+        apply_annotation_to_step(
+            report,
+            step,
+            annotation,
+            overwrite=args.overwrite,
+            preserve_report_app=bool(trajectory_apps),
+        )
         save_report(output_path, report)
 
         status["done_steps"][str(step_id)] = {

@@ -56,7 +56,12 @@ CODEX_OUTPUT_SCHEMA: Dict[str, Any] = {
                 "type": "object",
                 "properties": {
                     "step_goal": {"type": "string"},
-                    "app": {"type": "string"},
+                    "app": {
+                        "anyOf": [
+                            {"type": "string"},
+                            {"type": "array", "items": {"type": "string"}},
+                        ]
+                    },
                     "action_preconditions": {
                         "anyOf": [
                             {"type": "string"},
@@ -537,9 +542,13 @@ def normalize_action_type(step: Dict[str, Any]) -> str:
 
 
 def infer_primary_app(report: Dict[str, Any]) -> str:
-    app = str(report.get("app") or "").strip()
-    if app:
-        return app
+    app = report.get("app")
+    if isinstance(app, list):
+        apps = [str(item).strip() for item in app if str(item).strip()]
+        if apps:
+            return ", ".join(apps)
+    if isinstance(app, str) and app.strip():
+        return app.strip()
     env = report.get("env")
     if isinstance(env, dict):
         env_app = str(env.get("app") or "").strip()
